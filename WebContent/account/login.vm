@@ -1,0 +1,36 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+#parse('/tcom/template.rap.vm')
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Login        </title>
+		#includeRapStatic
+	</head>
+	<body>
+	    #bodyStart
+		<div id="login">
+			<form name="formMain" action="$accountUrl.doLogin" method="post">
+				<div class="table-container">
+					<div class="item">
+						<div class="title">登&nbsp;&nbsp;&nbsp;&nbsp;录</div>
+					</div>
+					<div class="item">
+						<div class="left">用户名:</div><div class="right"><input name="account" type="text" value="$!account" width="120px" /></div>
+						<div class="clear"></div>
+					</div>
+					<div class="item">
+						<div class="left">密&nbsp;&nbsp;&nbsp;&nbsp;码:</div><div class="right"><input name="password" type="password" value="" width="120px" /></div>
+						<div class="clear"></div>
+					</div>
+					<div class="item">
+						<div class="control"><input type="submit" value="登录" /></div>
+					</div>
+					<div class="item">
+						<div class="error">$!errMsg</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		#bodyEnd
+	</body>
+</html>

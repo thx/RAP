@@ -1,0 +1,22 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+#parse('/tcom/template.rap.vm')
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>RAP Home        </title>
+		#includeRapStatic
+	</head>
+	<body>
+	    #bodyStart
+			<div id="home">
+			<p>hi! 欢迎使用RAP, RAP(Rigel Automation Platform)是一个基于接口文档的数据共享平台，它能够帮你管理接口等项目具体数据的版本并通过这些数据自动化的生成所需的其它文件。</p>
+			<p>如果你遇到麻烦，请随时联系霍雍， 可拨打分机: 72641, 他会时刻准备着以光的速度飞到你的面前为你解决问题。</p>
+			<p>如果在使用过程中遇到任何易用性的问题，或者哪怕是哪里用着不太舒服，欢迎你随时将问题反馈到<a href="mailto:huoyong.msb@taobao.com">huoyong.msb@taobao.com</a>，我们仍然会以光的速度对你的反馈进行回复并提交修改方案和计划。</p>
+			<p>非常感谢你的支持！谢谢！</p>
+			<div id="img1"></div>
+			<div id="img2"></div>
+			<div id="img3"></div>
+			</div>
+		#bodyEnd
+	</body>
+</html>

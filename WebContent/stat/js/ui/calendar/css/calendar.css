@@ -1,0 +1,95 @@
+/* ------------------------------------------- 
+ * 直销日历样式 
+ * -------------------------------------------*/
+
+/*  整体控制 */
+.ec-calendar {margin:1px auto 0;width:187px;text-align:center;}
+
+
+/* 单日历 */
+.ec-single-calendar {height:172px;width:187px;border:1px solid #95AAC9;background:#FFF}
+.date-content-sel {height:25px;padding:0;}
+.date-content-sel table {background:#EBF9E9 url(img/calendar.gif) repeat-x scroll left bottom;margin:2px auto 0; width:183px;border-collapse:collapse}
+.date-content-sel table td {padding:0 0 2px;height:19px;line-height:19px;}
+
+/* 双日历 */
+.calendar-double-content{background:#FFF;padding:5px;border:1px #dcdcdc solid;width:395px;height:234px;padding-left:10px;*height:250px;z-index:32769}
+.time-begin,.time-end{width:195px;display:inline-block;*display:inline;*zoom:1;}
+.time-end{*margin-left:5px}
+.time-reset{cursor:pointer;width:14px;height:14px;background:url(img/calendar.gif) no-repeat -88px -4px;margin:0 0 0px 5px;}
+.calendar-error{color:red;display:none;}
+.ec-range-calendar-begin-error .begin{display:inline;}
+.ec-range-calendar-end-error .end{display:inline;}
+
+
+.ec-range-calendar .ec-edit{border:1px solid #CCC;}
+.ec-single-calendar .text-label,.ec-range-calendar .text-label{display:block;position:relative;top:2px;left:-2px}
+.ec-range-calendar button{margin:5px 5px 0 0}
+/* 星期子网格 */
+.ec-calendar-name{height:20px;border-right:1px #E2F6E0 solid;}
+.ec-calendar-name-item{color:#000;font-weight:bold;border-left:1px #E2F6E0 solid;border-top:1px #E2F6E0 solid;background:#E2F6E0;padding-top:3px;}
+
+/*  日期子网格  */
+.ec-calendar-date{height:120px;border:0px;border-right:1px #FFF solid;border-bottom:1px #FFF solid;}
+.ec-calendar-date-item {font-size:12px;cursor:pointer;padding-top:3px; color:#000; border-left:1px #FFF solid;border-top:1px #FFF solid;background:#FFF}
+.ec-calendar-date-item-over{background:#E2F6E0;}
+.ec-calendar-date-item-disabled {color:#CCC;}
+.ec-calendar-date-item-selected {background:#7DBA7A;color:#FFF}
+
+
+/* 日历输入框 */
+.ec-calendar-edit-single, .ec-calendar-edit-range{margin-bottom:-5px;*margin-bottom:0;border:0 none;width:115px;height:15px;padding:2px 0;border:1px solid #7F9DB9;background:#FFF url("img/calendar.gif") no-repeat scroll right -22px}
+.ec-calendar-edit-range {width:205px}
+.ec-calendar-edit-single input, .ec-calendar-edit-range input{background:transparent;margin:0}
+
+
+
+/* 双日历子输入框 */
+.ec-edit {border:1px solid black;width:106px;height:18px}
+
+/*  年月下拉 */
+.ec-select {margin-bottom:-3px;}
+.ec-text, .ec-select {width:40px;height:17px;border:1px solid #CCC;background:#FFF;}
+.ec-select-options {border:1px solid #CCC;border:1px solid #CCC;}
+.ec-select-options-layout {background:#FFF}
+.ec-select-button {background:url(img/select.jpg) 0px 0px no-repeat}
+.ec-select-over .ec-select-button {background:url(img/select.jpg) -17px 0px no-repeat}
+.ec-select-press .ec-select-button {background:url(img/select.jpg) -34px 0px no-repeat}
+.ec-select-item {height:15px;cursor:default;line-height:15px;line-height:16px;}
+.ec-select-text {cursor:default;height:15px;line-height:15px;padding-left:2px;_padding-top:1px;line-height:16px;}
+.ec-select-item-over {background:#7D9FFF;color:#FFF;}
+.year-select{width:50px;}
+.month-select{width:35px;}
+
+
+/* 前后月导航 */
+.prev, .next{cursor:hand;padding:0;cursor:pointer;width:21px;height:18px;background:url("img/calendar.gif") no-repeat -21px -2px;margin-bottom:-4px;}
+.next{background-position:-42px -2px;float:right}
+.prev-disabled{background-position:-1px -2px;}
+.next-disabled{background-position:-63px -2px;}
+
+
+
+/* 以下为滚动条样式 */
+.ec-vscroll {background:#F0F0F0;width:15px;padding:15px 0px 15px 0px;font-size:1px}
+.ec-hscroll {background:#F0F0F0;height:15px;padding:0px 15px 0px 15px;font-size:1px}
+.ec-hscroll-block {background:url(img/hscroll.jpg) -2px -30px repeat-x}
+.ec-vscroll-block {background:url(img/scroll.jpg) 0px 0px repeat-y}
+.ec-hscroll-block-over {background:url(img/hscroll.jpg) -0px -45px repeat-x}
+.ec-hscroll-block-press {background:url(img/hscroll.jpg) -0px -60px repeat-x}
+.ec-vscroll-block-over {background:url(img/scroll.jpg) -15px 0px repeat-y}
+.ec-vscroll-block-press {background:url(img/scroll.jpg) -30px 0px repeat-y}
+.ec-vscroll-prev {background:url(img/scroll.jpg) -45px -40px no-repeat;}
+.ec-vscroll-prev-over {background:url(img/scroll.jpg) -75px -40px no-repeat;}
+.ec-vscroll-prev-press {background:url(img/scroll.jpg) -60px -40px no-repeat;}
+.ec-vscroll-next {background:url(img/scroll.jpg) -45px -55px no-repeat;}
+.ec-vscroll-next-over {background:url(img/scroll.jpg) -75px -55px no-repeat;}
+.ec-vscroll-next-press {background:url(img/scroll.jpg) -60px -55px no-repeat;}
+.ec-hscroll-prev {background:url(img/scroll.jpg) -45px -85px no-repeat;}
+.ec-hscroll-prev-over {background:url(img/scroll.jpg) -75px -85px no-repeat;}
+.ec-hscroll-prev-press {background:url(img/scroll.jpg) -60px -85px no-repeat;}
+.ec-hscroll-next {background:url(img/scroll.jpg) -45px -70px no-repeat;}
+.ec-hscroll-next-over {background:url(img/scroll.jpg) -75px -70px no-repeat;}
+.ec-hscroll-next-press {background:url(img/scroll.jpg) -60px -70px no-repeat;}
+.vsblockdtr-bottom {background:transparent url(img/scroll.jpg) no-repeat scroll -45px -18px;}
+.vsblockdtr {padding:2px 0;}

@@ -1,0 +1,81 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+#parse('/tcom/template.rap.vm')
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>RAP Status        </title>
+		#includeRapStatic
+		<style type="text/css">
+			.done {
+				color: Green;
+			}
+			.media {
+				color: Orange;
+			}
+			.high {
+				color: Red;
+			}
+			.low {
+				color: Green;
+			}
+			.item {
+				margin:12px;
+				width: 700px;
+			}
+		</style>
+	</head>
+	<body>
+	    #bodyStart
+			<div id="home" style="padding-bottom:50px; font-size:14px;">
+				<h2>level-1 TODO</h2>									
+				<div class="item high">* page level parallel lock & share</div>
+				<div class="item high">* last update history show</div>
+				<div class="item high">* User authentication & authorization</div>				
+				<div class="item high">* Project data validation for input(basic) and automation(for specific automation func)</div>
+				<h2>level-2 TODO</h2>
+				<div class="item media">* action references action</div>
+				<div class="item media">* Email informing functionality</div>
+				<div class="item media">* project flow control with project stage and email informing</div>
+				<div class="item media">* Ordinary & Velocity automatically generation</div>
+				<div class="item media">* project stage management</div>
+				<div class="item media">* SVN mode</div>
+				<div class="item media">* page separate</div>
+				<div class="item media">* object order management</div>					
+				<h2>level-3 TODO</h2>
+				<div class="item">* full screen mode</div>
+				<div class="item">* account&role management</div>
+				<div class="item">* feedback module</div>
+				<div class="item">* announcement on index page</div>
+				<div class="item">* project data editing suggestions</div>
+				<h2>bugs</h2>				
+				<div class="item">* version switch should cause check in automatically</div>
+				<div class="item">* make sure the order of objects updated consistent</div>
+				<h2>history</h2>
+				<div class="item low">* cache project data, optimize my project list and my project page [done] 9.15</div>
+				<div class="item low">* [bug] multi-mode share has a problem cause workspace & project level division [fixed] 9.15</div>
+				<div class="item low">* create accounts for FEs & RDs [done] 9.15</div>
+				<div class="item low">* auto complete on parameter input [done] 9.14</div>
+				<div class="item low">* pangu interface import(more than 3000 parameters, 80+ pages) [done] 9.14</div>
+				<div class="item low">* backup database [done] 9.13</div>
+				<div class="item low">* first real module-"customer info" imported [done] 9.13</div>
+				<div class="item low">* [bug] switch to added action after doAddEdit invoked [fixed] 9.13</div>
+				<div class="item low">* save the module tree state after page binding [done] 9.13</div>
+				<div class="item low">* autocomplete ui control [done] 9.9</div>
+				<div class="item low">* project member management [done] 9.9</div>
+				<div class="item low">* shortcut & view state compability of IE/Firefox [done] 9.9</div>
+				<div class="item low">* user input validation [done] 9.8</div>
+				<div class="item low">* tree parameters expand and shrink [done] 9.8</div>	
+				<div class="item low">* json escape [done] 9.8 </div>
+				<div class="item low">* version manage(VSS) [done] 9.7</div>
+				<div class="item low">* version observation & switch (VSS) [done] 9.7</div>
+				<div class="item low">* account manage [done] 9.6</div>
+				<div class="item low">* about rap page [done] 9.6</div>
+				<div class="item low">* login bug [done] 9.5</div>
+				<div class="item low">* [bug]tab shortcut will be make content lost[parameter-remark] [fixed] 9.9</div>
+				<div class="item low">* [bug]create first new module, than save, no module selected [fixed] 9.9</div>
+				<div class="item low">* SessionDestoryed Exception thrown [fixed] 9.6</div>
+				<div class="item low">* timer for session timeout delay[done] 9.6</div>
+			</div>
+		#bodyEnd
+	</body>
+</html>

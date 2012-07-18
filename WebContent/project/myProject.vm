@@ -1,0 +1,274 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+#parse('/tcom/template.rap.vm')
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>My Project         </title>
+		#includeRapStatic
+		<style type="text/css">
+			h2 {
+				border-bottom: 1px solid;
+			}
+			#return {
+				position: absolute;
+				left: 0;
+				top: -30px;
+			}
+			#content-container {
+				position: relative;
+				height: 400px;	
+			}
+
+			#project-block {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 350px;
+				height: 250px;
+				overflow-y: hidden;
+			}
+
+			#manage-block {
+				position: absolute;
+				left: 0;
+				top: 250px;
+				width: 350px;
+				height: 150px;
+			}
+
+			#status-block {
+				position: absolute;
+				left: 400px;
+				top: 0;
+				width: 500px;
+				height: 250px;
+			}
+
+			#automation-block {
+				position: absolute;
+				left: 400px;
+				top: 250px;
+				width: 500px;
+				height: 150px;
+			}
+
+			.block-content {
+				margin: 12px;
+			}
+
+			.block-content .item {
+				margin: 8px;
+			}
+
+			.automation-step {
+				width: 490px;
+				margin: 12px 12px 40px 12px;
+				padding: 8px;
+			}
+
+			.div-automation-floater-control {
+				position: absolute;
+				top: 430px;
+				right: 33px;
+				width: 600px;
+				text-align: right
+			}
+			.myfloater {
+				padding: 12px;
+				width: 600px;
+				height: 400px;
+			}
+			.automation-step .item {
+				margin: 12px;
+			}
+
+			#div-designing, #div-developing, #div-debuging {
+				float: left;
+				width: 120px;
+				height: 50px;
+				border: #E6E6E6 1px dashed;
+				text-align: center;
+				font-size: 18px;
+				color: White;
+				padding-top: 30px;
+			}
+
+			#div-designing {
+				background-color: Gray;
+			}
+
+			#div-developing {
+				background-color: Blue;
+			}
+
+			#div-debuging {
+				background-color: Orange;
+			}
+
+			#div-flag {
+				background: url($staticRoot/img/arrow.gif) no-repeat center top;
+				height: 30px;
+				width: 30px;
+				position: absolute;
+				top: 123px;
+				left: 180px;
+			}
+		</style>
+	</head>
+	<body>
+	    #bodyStart
+		<div id="content-container">
+			<div id="return"><a href="$projectUrl.myProjectList">返回</a></div>
+			<div id="project-block">
+				<h2>PROJECT</h2>
+				<div class="block-content">
+					<div class="item"><b>项目编号:</b>&nbsp; $project.id</div>
+					<div class="item"><b>项目名称:</b>&nbsp; $project.name</div>
+					<div class="item"><b>创建时间:</b>&nbsp;$project.createDate</div>
+					<div class="item"><b>创建人:</b>&nbsp;$project.user.name</div>
+					<div class="item"><b>项目成员:</b>&nbsp;$project.userListStr</div>
+					<div class="item"><b>项目介绍:</b>&nbsp; $project.introduction</div>
+				</div>
+			</div>
+
+			<div id="manage-block">
+				<h2>MANAGE</h2>
+				<div class="block-content">
+					<div class="item"><a href="$workspaceUrl.myWorkspace?projectId=$project.id">进入接口文档工作区</a></div>
+					<div class="item"><a href="$projectUrl.myProjectList?=">查看其它项目</a></div>
+				</div>
+			</div>
+
+			<div id="status-block">
+				<h2>STATUS</h2>
+				<div class="block-content">
+					<div id="div-designing">DESIGN</div>
+					<div id="div-developing">DEVELOP</div>
+					<div id="div-debuging">DEBUG</div>
+					<div id="div-flag"></div>
+				</div>
+			</div>
+
+			<div id="automation-block">
+				<h2>AUTOMATION</h2>
+				<div class="block-content">
+					<div class="item"><a href="#" onclick="generate(); return false;">Velocity模板导出</a>&nbsp;&nbsp;<font color="red">(new)</font></div>
+					<div class="item"><a href="#" onclick="return false;">Ordinary数据文件导出</a>&nbsp;&nbsp;<font color="gray">(to be continued)</font></div>
+				</div>
+			</div>
+		</div>
+		#bodyEnd
+		#startFloater("automationFloater" "" 600 400)
+			<form name="formAutomation" method="post" action="autoGenerate.action">
+				<input type="hidden" name="pageId" id="hiddenPageId" />
+				<div class="myfloater">
+					<div class="automation-step" id="step1" style="display:none">
+						<h2>STEP 1   CHOOSE MODULE</h2>
+						<div class="item">
+							<select id="selectModule" onchange="selectModuleOnChange();">
+							</select>
+						</div>
+					</div>
+
+					<div class="automation-step" id="step2" style="display:none">
+						<h2>STEP 2   CHOOSE PAGE</h2>
+						<div class="item">
+							<select id="selectPage" onchange="selectPageOnChange();">
+							</select>
+						</div>
+					</div>
+
+					<div class="automation-step" id="step3" style="display:none">
+						<h2>STEP 3   GENERATE AUTOMATICALLY</h2>
+						<div class="item">
+							<input id="buttonExport" type="submit" class="button" value="Export" />
+						</div>
+					</div>
+
+					<div class="div-automation-floater-control">
+						<input type="button" class="button" value="Cancel" onclick="ecui.get('automationFloater').hide();" />
+					</div>
+				</div>
+			</form>
+		#endFloater
+		
+	</body>
+	<script type="text/javascript">
+		var	p = rap.project,
+			b = baidu,
+			selectModule = b.g("selectModule"),
+			selectPage = b.g("selectPage"),
+			btn = b.g("buttonExport");
+		
+
+		function generate() {
+			ecFloater.show("automationFloater");
+			ecui.get("automationFloater").setTitle("Automation Navigator");
+		}
+
+		function cancelGenerate() {
+			ecui.get("automationFloater").hide();
+		}
+
+		function initSelectPage() {
+			selectPage.options.length = 0;
+			selectPage.options.add(new Option("choose", "-1"));
+			selectPage.disabled = true;
+		}
+
+		function initSelectModule() {
+			moduleList = p.getModuleList(),
+			moduleListLength = (moduleList != null && moduleList.length > 0) ? moduleList.length : 0;
+			selectModule.options.length = 0;
+			selectModule.options.add(new Option("choose", "-1"));
+			for (var i = 0; i < moduleListLength; i++) {
+				var m = moduleList[i];
+				selectModule.options.add(new Option(m.name, m.id));
+			}
+			selectModule.disabled = false;
+		}
+
+		function selectModuleOnChange() {
+			initSelectPage();
+			b.hide("step3");
+			
+			var id = selectModule.value - 0;
+			if (id != -1) {
+				var pageList = p.getPageList(id);
+				if(!pageList) return;
+				var pageListLength = pageList.length;	
+				for (var i = 0; i < pageListLength; i++) {
+					var page = pageList[i];
+					selectPage.options.add(new Option(page.name, page.id));
+				}
+				b.show("step2");
+				selectPage.disabled = false;
+			} else {
+				b.hide("step2");
+			}
+		}
+
+		function selectPageOnChange() {
+			var pageId = selectPage.value - 0;
+			if (pageId == -1) {
+				b.hide("step3");
+			} else {
+				b.show("step3");
+				b.g("hiddenPageId").value = pageId;
+			}
+		}
+		
+
+		function doGenerate() {
+
+		}
+
+		p.init($json);
+		
+		b.dom.ready(function() {
+			initSelectModule();
+			initSelectPage();	
+			b.show("step1");
+		});
+	</script>
+</html>

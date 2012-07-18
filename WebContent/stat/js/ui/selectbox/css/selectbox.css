@@ -1,0 +1,16 @@
+.ec-panel{z-index:9000;height:100px;width:137px;background:#fff}
+.ec-panel-corner {background:#F0F0F0;font-size:1px;}
+.ec-panel-layout {border:1px solid #CCC;line-height:20px;padding:3px;}
+.select-box .ec-panel-layout{text-align:left;margin-top:1px;background:#fff;}
+.select-box .ec-vscroll{border-right:1px #ccc solid;cursor:pointer;cursor:hand;}
+.select-box button {margin:5px 0;}
+.select-box .ec-edit{padding-right:15px;height:15px;background:#fff url("img/scroll_bg.gif") no-repeat right -15px;border:1px #ccc solid;cursor:pointer;cursor:hand;}
+
+
+
+.ec-panel-corner {background:#F0F0F0;font-size:1px;}
+.ec-panel-layout {background:#fff; border:1px solid #CCC;line-height:20px;padding:3px;}
+.select-box .ec-panel-layout{text-align:left;margin-top:1px;background:#fff;}
+.select-box .ec-vscroll{border-right:1px #ccc solid;cursor:pointer;cursor:hand;}
+.select-box button {margin:5px 0;}
+.sel-edit{z-index:9000;padding-right:13px;background:#fff url("img/scroll_bg.gif") no-repeat right -14px;border:1px #ccc solid;cursor:pointer;cursor:hand;}

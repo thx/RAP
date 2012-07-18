@@ -1,0 +1,280 @@
+package com.baidu.rigel.rap.project.dao.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.ObjectNotFoundException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import com.baidu.rigel.rap.account.bo.User;
+import com.baidu.rigel.rap.project.bo.Action;
+import com.baidu.rigel.rap.project.bo.Module;
+import com.baidu.rigel.rap.project.bo.ObjectItem;
+import com.baidu.rigel.rap.project.bo.Page;
+import com.baidu.rigel.rap.project.bo.Parameter;
+import com.baidu.rigel.rap.project.bo.Project;
+import com.baidu.rigel.rap.project.dao.ProjectDao;
+import com.google.gson.Gson;
+
+public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Project> getProjectList(User user, int curPageNum, int pageSize) {	
+		curPageNum = curPageNum <= 0 ? 1 : curPageNum;
+		String hql = "from Project as p order by p.id desc";
+		String hqlByUser = "from Project as p left join fetch p.userList as u where p.user.id = :userId or u.id = :userId order by p.id desc";
+		Query query = user == null ? getSession().createQuery(hql) :
+			getSession().createQuery(hqlByUser).setLong("userId",user.getId());
+		query = query.setFirstResult(pageSize * (curPageNum - 1));
+		query.setMaxResults(pageSize);
+		return query.list();
+	}
+	
+	@Override
+	public int addProject(Project project) {
+		Session session = getSession();
+		project.getUser().addCreatedProject(project);
+		project.setVersion("0.0.0.1"); // default version
+		int modeInt = project.getWorkspaceModeInt();
+		if (modeInt <= 0 || modeInt >= 3) {
+			project.setWorkspaceModeInt(1);
+		}
+		session.save(project);
+		project = (Project) session.load(Project.class, project.getId());
+		project.setProjectData(project.toString(Project.toStringType.TO_PARAMETER));
+		return 0;
+	}
+	
+	@Override
+	public int removeProject(int id) {
+		Session session = getSession();
+		Object project = session.get(Project.class, id);
+		if (project != null) {
+			session.delete((Project)project);
+			return 0;
+		} else {
+			return -1;
+		}
+		
+	}
+	
+	@Override
+	public int updateProject(Project project) {
+		Session session = getSession();
+		session.update(project);
+		return 0;
+	}
+	
+	@Override
+	public Project getProject(int id) {
+		Project p = null;
+		try {		
+			Session session = getSession();
+			p = (Project) session.load(Project.class, id);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return p;
+	}
+	
+	@Override
+	public Module getModule(int id) {
+		Module m = null;
+		try {	
+			Session session = getSession();
+			m = (Module)session.get(Module.class, id);
+		} catch (ObjectNotFoundException ex) {
+			ex.printStackTrace();
+		}
+		  catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return m;
+	}
+	
+	@Override
+	public Page getPage(int id) {
+		return (Page)getSession().get(Page.class, id);
+	}
+	
+	@Override
+	public int saveProject(Project project) {
+		Session session = getSession();
+		session.saveOrUpdate(project);
+		return 0;
+	}
+	
+	@Override
+	public String updateProject(int id, String projectData, String deletedObjectListData) {
+		Session session = getSession();
+		//StringBuilder log = new StringBuilder();
+		Gson gson = new Gson();
+		
+		Project projectClient = gson.fromJson(projectData,	Project.class);	
+		
+		ObjectItem[] deletedObjectList = gson.fromJson(deletedObjectListData, ObjectItem[].class);
+		
+		Project projectServer = (Project) session.load(Project.class, id);
+		
+		// performing deleting
+		for (ObjectItem item : deletedObjectList) {
+			if (item.getClassName().equals("Module")) {
+				projectServer.removeModule(item.getId(), session);
+			} else if (item.getClassName().equals("Page")) {
+				projectServer.removePage(item.getId(), session);
+			} else if (item.getClassName().equals("Action")) {
+				projectServer.removeAction(item.getId(), session);
+			} else if (item.getClassName().equals("Parameter")) {
+				projectServer.removeParameter(item.getId(), session);
+			}
+		}
+		
+		// performing adding & updating
+		for (Module module : projectClient.getModuleList()) {
+			Module moduleServer = projectServer.findModule(module.getId());
+			if (moduleServer == null) {
+				addModule(session, projectServer, module);				
+				continue;
+			} 
+			moduleServer.update(module);
+			for (Page page : module.getPageList()) {
+				Page pageServer = projectServer.findPage(page.getId());
+				if (pageServer == null) {
+					addPage(session, module, page);
+					continue;
+				}
+				pageServer.update(page);
+				for (Action action : page.getActionList()) {
+					Action actionServer = projectServer.findAction(action.getId());
+					if (actionServer == null) {
+						addAction(session, page, action);
+						continue;
+					}
+					actionServer.update(action);
+					for (Parameter parameter : action.getRequestParameterList()) {
+						Parameter parameterServer = projectServer.findParameter(parameter.getId(), true);
+						if (parameterServer == null) {
+							addParameter(session, action, parameter, true);
+							continue;
+						}
+						parameterServer.update(parameter);
+						for (Parameter childParameter : parameter.getParameterList()) {
+							processParameterRecursively(session, projectServer, parameter, childParameter);
+						}
+					}
+					
+					for (Parameter parameter : action.getResponseParameterList()) {
+						Parameter parameterServer = projectServer.findParameter(parameter.getId(), false);
+						if (parameterServer == null) {
+							addParameter(session, action, parameter, false);
+							continue;
+						}
+						parameterServer.update(parameter);
+						for (Parameter childParameter : parameter.getParameterList()) {
+							processParameterRecursively(session, projectServer, parameter, childParameter);
+						}					
+					}
+				}
+			}
+		}
+		return "";
+	}
+	
+	private void processParameterRecursively(Session session, Project projectServer, Parameter parameter, Parameter childParameter){
+		Parameter childParameterServer = projectServer.findChildParameter(childParameter.getId());
+		if (childParameterServer == null) {
+			addParameterRecursively(session, parameter, childParameter);
+		} else {
+			childParameterServer.update(childParameter);
+		}
+		for (Parameter childOfChildParameter : childParameter.getParameterList()) {
+			processParameterRecursively(session, projectServer, childParameter, childOfChildParameter);
+		}
+	}
+	
+	private void addModule(Session session, Project project, Module module){
+		project.addModule(module);		
+		session.save(module);
+		for (Page page : module.getPageList()){
+			addPage(session, module, page);
+		}
+	}
+	
+	private void addPage(Session session, Module module, Page page) {
+		module = (Module) session.load(Module.class, module.getId());
+		module.addPage(page);
+		session.save(page);
+		for (Action action : page.getActionList()) {
+			addAction(session, page, action);
+		}
+	}
+	
+	private void addAction(Session session, Page page, Action action) {
+		page = (Page) session.load(Page.class, page.getId());
+		page.addAction(action);
+		session.save(action);
+		for (Parameter parameter : action.getRequestParameterList()) {
+			addParameter(session, action, parameter, true);
+		}
+		for (Parameter parameter : action.getResponseParameterList()) {
+			addParameter(session, action, parameter, false);
+		}
+	}
+	
+	private void addParameter(Session session, Action action, Parameter parameter, boolean isRequest) {
+		action = (Action) session.load(Action.class, action.getId());
+		action.addParameter(parameter, isRequest);
+		session.save(parameter);
+		for (Parameter childParameter : parameter.getParameterList()) {
+			addParameterRecursively(session, parameter, childParameter);
+		}
+	}
+	
+	/**
+	 * add parameter recursively
+	 * @param session session object
+	 * @param parameter parent parameter
+	 * @param childParameter child parameter
+	 */
+	private void addParameterRecursively(Session session, Parameter parameter, Parameter childParameter) {
+		parameter = (Parameter) session.load(Parameter.class, parameter.getId());
+		parameter.addChild(childParameter);
+		session.save(childParameter);
+		for (Parameter childOfChildParameter : childParameter.getParameterList()) {
+			addParameterRecursively(session, childParameter, childOfChildParameter);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public long getProjectListNum(User user) {	
+		String hql = "select count(p) from Project as p order by p.id desc";
+		String hqlByUser = "select count(p) from Project as p left join p.userList as u where p.user.id = :userId or u.id = :userId order by p.id desc";
+		Query query = user == null ? getSession().createQuery(hql) :
+			getSession().createQuery(hqlByUser).setLong("userId", user.getId());
+		List<Long> list = query.list();
+		return list.get(0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Action> getMatchedActionList(int projectId, String pattern) {
+		String sql = "SELECT a.id FROM tb_action a JOIN tb_action_and_page ap ON ap.action_id = a.id JOIN tb_page p ON p.id = ap.page_id JOIN tb_module m ON m.id = p.module_id WHERE a.request_url = :pattern AND m.project_id = :projectId ";
+		Query query = getSession().createSQLQuery(sql);
+		query.setString("pattern", pattern);
+		query.setInteger("projectId", projectId);
+		List<Integer> list = query.list();
+		List<Action> actionList = new ArrayList<Action>();
+		for (int id : list) {
+			actionList.add(getAction(id));
+		}
+		return actionList;
+	}
+	
+	private Action getAction(int id) {
+		return (Action)getSession().get(Action.class, id);
+	}
+}

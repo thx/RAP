@@ -1,0 +1,60 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+#parse('/tcom/template.rap.vm')
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>RAP About        </title>
+		#includeRapStatic
+		<style type="text/css">
+			.item {
+				margin: 12px;
+			}
+			p {
+				margin: 12px;
+			}
+		</style>
+	</head>
+	<body>
+	    #bodyStart
+			<div id="about">
+				<h2>SUMMARY</h2>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAP(Rigel Automation Platform)是一个提供团队协作平台并通过平台数据的转换实现从设计、开发到测试阶段部分工作自动化的系统。</p>
+				<h2>About Rigel</h2>
+				<p>RAP的诞生来自于Rigel小组的工作总结，在日常的工作中我们发现一些繁杂或冗余的工作环节，如制定接口、编写测试文件、起草各种报告等。RAP的想法来自于对日常生活中所遇到的问题的总结。</p>
+				<h2>About Platform</h2>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAP在平台的概念上类似于iCafe，只是它针对于具体特性（使用哪种后端架构？使用那种模板引擎等）提供更细致、强大的功能。在iCafe中我们输入项目的信息（名称、负责人、版本号等），它会帮我们自动控制评审、上线等流程，而RAP需要我们输入更多的信息，如项目有几个模块？每个模块有多少页面？每个页面有多少请求和参数等（比如像编写接口文档那样将数据写入RAP），RAP提供这些信息的共享、编辑和版本控制的平台。 </p>
+				<h2>About Automation</h2>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAP的基础是“平台”，有了这个平台，将会得到很多有用的数据，这些数据可以帮助我们实现从设计、开发到测试阶段的许多工作的自动化。举一个例子，某个页面需要传输一个参数userId(int)，它可能写在接口文档中、Java的Action中、前端模板中、前端测试文件中、QA的测试脚本中等等。RAP的工作就是通过一次性的输入这些具体的项目信息，使得这些容易控制的信息通过系统的转换导出其它所有所需的文档、脚本和源代码设计阶段自动化</p>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在设计阶段，RAP需要工程师提供详细的项目信息，如：</p>
+				<p>
+					<div class="item">* 项目具体的模块、页面、请求与参数、验证规则等（类似接口文档，可以像写接口文档一样来输入这些有用信息，平台会进行有效的格式验证）</div>
+					<div class="item">* 填写不同模块或页面的开发时间、难易度</div>
+					<div class="item">* 填写项目使用的技术，如使用了SSH + MySQL + Velocity（也可以使用预设好的模板，如“Rigel-增值”，它将自动选择相关技术）</div>
+					<div class="item">* 该阶段更多的是收集信息，为后面的自动化做好数据的收集工作，同时平台会提供一个功能强大、操作简单、版本可控的共享平台，节省项目各方面达成一致所需的成本，减少后续出现的问题。</div>
+				</p>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;在开发&测试阶段，自动化主要针对于一下几点：</p>
+				<p>
+					<div class="item">* 通过在设计阶段得到的信息，可以轻松实现部分代码的生成，如对于Struts的项目，可以自动生成Action代码，包括页面所需的所有变量的getter、setter方法等内容。</div>
+					<div class="item">* 对于使用Velocity模板引擎的系统，可以自动生成后端测试模板（该模板将在页面以直观的表格形式打出所有变量的值，同时自动生成输入框和请求链接帮助后端在开发阶段进行调试。</div>
+					<div class="item">* 可自动生成Java的测试类(Tester)测试方法的正确性（可选根据数据类型及验证规则随机生成，或手动输入，如真实的数据库对象id）。</div>
+					<div class="item">* 对于使用Velocity模板引擎的系统，可以自动生成前端测试数据文件</div>
+					<div class="item">* 自动生成QA的测试脚本（在设计阶段输入的参数、数据类型、验证等内容都可以用于生成部分页面的自动化测试脚本或用例）</div>
+					<div class="item">* 通过设计阶段输入的模块和页面信息、所需时间等内容，自动生成工作计划，自己可以进行调整并填写联调时间，这些计划在制定或发生更改后都会自动发送邮件给需要关注的人，相关进度有需要可以选择自动提示并发送日报模板给自己的邮箱提示今日和明日按照计划应完成的内容。（默认不发送，发送也只发送给本人，坚决不泄露个人隐私 = 。=）</div>
+					<div class="item">* 自动生成项目工作进度日报，需要工程师在页面开发完成、联调完成时简单的勾选模块旁边的标志，根据这些标志与其它信息，只需要一次制作精美的模板便可无限次重复使用，减轻工程师的负担也增加报告的质量。</div>
+					<div class="item">* 针对于不同的技术都可能有实现自动化的地方，不同于写在接口文档、日报或代码中的字符串，在RAP中是以具有关系的数据存储在数据库中，通过数据关系、意义，可以帮助我们实现许多工作内容的自动化，就像将代码写到库中一样，我们通过RAP可以将项目开发的某个可自动化的环节一次写到系统，一劳永逸。</div>
+				</p>
+				<h2>ARCHITECTURE</h2>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAP提供了具体功能的同时也带来了一些负面效果，比如如何使系统更易扩展（不同组之间的所用技术、流程千差万别），其实这也是我们一直思考的问题，当然，最后有了答案。RAP的灵魂不是平台，也不是自动化（平台和自动化更像是身体），而是它能够像百度百科编辑新词条那样扩展平台的自动化功能的设计。对于RAP，<font color="red">每个用户都是它的作者，每个作者都是它的用户。</font></p>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于RAP针对于具体的技术（如使用Java还是PHP，使用Velocity还是Smarty），所以不可能一次性开发使平台能够为所有项目提供所有功能，RAP将以Rigel常用的Java SSH + Velocity + MySQL为例按照一定的接口编写一套自动化套件，其他人如果在RAP中找不到所需的功能，或希望添加一些功能，只需要继承一个接口或调用一些服务，即可方便的通过RAP平台收集的数据及它的数据接口实现自己的自动化导出功能，一劳永逸的同时所有与你使用相同技术的小组或个人都将从中受益。如果你认为系统中的数据不足以生成想要的东西，我们可以为你扩展数据录入的范围（比如你想生成项目计划，我们会在项目定义工作区中添加相关的录入信息）。如果你认为系统中没有提供你所需的功能，可以联系平台维护人员根据你的需求编写相关的生成方法，或者通过查阅RAP文档，自己调用API来实现自动化功能并将该功能发布到RAP中与其他人共享。</p>
+				<h2>开发计划及进度</h2>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAP第一个版本将在<font color="Red">2010年9月30日</font>完成开发，该版本提供VSS/SVN双模式数据共享平台并提供Rigel自动化套件，以实现Rigel中常用文档、代码、报告的自动化导出。项目数据将包括接口文档、项目进度与计划等内容。</p>
+				<div id="about-img-1"></div>
+				<div id="about-img-2"></div>
+				<div id="about-img-3"></div>
+				<div id="about-img-4"></div>
+				<div id="about-img-5"></div>
+				<div id="about-img-6"></div>
+			</div>
+		#bodyEnd
+	</body>
+</html>

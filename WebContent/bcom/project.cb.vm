@@ -1,0 +1,1 @@
+{"id":"$project.id", "name":"$project.name", "introduction":"$project.introduction", "userList":"$project.userListStr", "memberAccountListStr":"$project.memberAccountListStr"}

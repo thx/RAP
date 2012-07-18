@@ -1,0 +1,249 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+#parse('/tcom/template.rap.vm')
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Project Manage        </title>
+		#includeRapStatic
+		<link type="text/css" rel="stylesheet" href="${staticRoot}/css/defcontrol.css" />
+		<link type="text/css" rel="stylesheet" href="${staticRoot}/css/myWorkspace.css" />
+	</head>
+	<body>
+	    #bodyStart
+		<div id="div-w">
+			<div id="div-return">
+				<a href="$projectUrl.myProject?id=$projectId">返回</a>
+			</div>
+			<div id="div-w-message">
+			</div>
+			<div id="div-debug">
+			</div>
+			<div id="div-control-panel">
+				<div class="button"><input id="btnExitVersion" type="button" value="退出版本" onclick="ws.exitVersion(); return false;" style="display: none;" /></div>
+				<div class="button"><input id="btnVersion" type="button" value="版本管理" onclick="ws.version(); return false;" /></div>
+				<div class="button"><input id="btnEdit" type="button" value="启用编辑" onclick="ws.switchToEditMode(); return false;" /></div>
+				<div class="button"><input id="btnCancel" type="button" value="取消" onclick="ws.switchToViewMode(false); return false;"  style="display: none" /></div>
+				<div class="button"><input id="btnSave" type="button" value="保存" onclick="ws.switchToViewMode(true); return false;"  style="display: none" /></div>
+			</div>
+			<div id="div-empty-hint" style="display: none">no module found, please insert new one.</div>
+			<div id="div-add-p" style="display: none"><a href="#" class="add-link" onclick="ws.addP(); return false;">新增页面</a></div>
+			<div id="div-m-list"> </div>
+			<div id="div-mt-list"> </div>
+			<div id="div-w-status"></div>
+		</div>
+		#bodyEnd
+
+
+		## [todo] mode case
+		#if (1 == 1) 
+			#startFloater("saveVSSFloater" "" 475 354)
+			<form name="formSaveVSSFloater">
+				<div id="div-saveVSS-floater-message">
+				</div>
+				<div id="div-saveVSS-floater-content">
+					<div class="table-container">
+						<div class="item">
+							<div class="left">推进版本位</div>
+							<div class="right">
+								<input type="radio" name="radioVersion"  value="1" onchange="ws.radioVersionChanged(1);" />1
+								<input type="radio" name="radioVersion"  value="2" onchange="ws.radioVersionChanged(2);" />2
+								<input type="radio" name="radioVersion"  value="3" onchange="ws.radioVersionChanged(3);" />3
+								<input type="radio" name="radioVersion"  value="4" onchange="ws.radioVersionChanged(4);" />4
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div class="item">
+							<div class="left">版本:</div>
+							<div class="right" id="divVersion"></div>
+							<div class="clear"></div>
+						</div>
+						<div class="item">
+							<div class="left">Tag:</div>
+							<div class="right"><input id="txtTag" style="width: 250px" /></div>
+							<div class="clear"></div>
+						</div>
+						<div class="item">
+							<div class="left">描述:</div>
+							<div class="right"><textarea id="txtDescription" minLen="5" message="为了方便您以后查阅，提交描述为必填项，长度请勿小于5." style="width:250px; height: 120px"></textarea></div>
+							<div class="clear"></div>
+						</div>
+						<div class="control" style="position:absolute;top:273px;width:429px;">
+							<input type="button" value="提交" onclick="ws.doSaveVSS(); return false;" />&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" value="取消" onclick="ws.cancelSaveVSS(); return false;" />
+						</div>
+					</div>
+				</div>
+			</form>
+			#endFloater	
+		#elseif ($workspace.modeInt == 2)
+			#startFloater("checkinFloater" "Check In" 600 400)
+			<div class="myfloater">
+				<div id="div-checkin-floater-message">
+				</div>
+				<div id="div-checkin-floater-content">
+				</div>
+				<div class="div-floater-control">
+					<input type="button" value="Close"  onclick="ws.closeCheckInPanel();" />
+				</div>
+			</div>
+			#endFloater
+
+			#startFloater("checkoutFloater" "Check Out" 600 400)
+			<div class="myfloater">
+				<div id="div-checkout-floater-message">
+				</div>
+				<div id="div-checkout-floater-content">
+				</div>
+				<div class="div-floater-control">
+					<input type="button" value="Close"  onclick="ws.closeCheckOutPanel();" />
+				</div>
+			</div>
+			#endFloater 
+			#startFloater("validateFloater" "Validating" 600 400)
+			<div class="myfloater">
+				<div class="warn">推广分析[Module]->网民分析[Page]->行业ID[Parameter] has no length validator.</div>
+			</div>
+			#endFloater
+
+			#startFloater("saveFloater" "Save/Load Workspace" 600 400)
+			<div class="myfloater">
+				<div id="div-save-floater-message">
+				</div>
+				<div id="div-save-floater-content">
+				</div>
+				<div class="div-floater-control">
+					<input type="button" value="Load"  onclick="ws.querySave();"/>&nbsp;&nbsp;&nbsp;
+					<input type="button" value="Save"  onclick="ws.updateSave();"/>&nbsp;&nbsp;&nbsp;
+					<input type="button" value="Delete"  onclick="ws.removeSave();"/>&nbsp;&nbsp;&nbsp;
+					<input type="button" value="Cancel"  onclick="ws.closeSavePanel();"/>
+				</div>
+			</div>
+			#endFloater
+		#end
+		
+		#startFloater("versionFloater" "" 600 400)
+		<div class="myfloater">
+			<div id="div-version-floater-message">
+			</div>
+			<div id="div-version-floater-content">
+			</div>
+			<div class="div-floater-control">
+				<input id="btnObserveVersion" type="button" value="查看所选版本" onclick="ws.readProjectOfVersion();" />&nbsp;&nbsp;&nbsp;
+				<input id="btnSwitchVersion" type="button" value="切换至所选版本" onclick="ws.switchVersion();" />&nbsp;&nbsp;&nbsp;
+				<input type="button" value="取消" onclick="ws.closeVersionPanel();" />
+			</div>
+		</div>
+		#endFloater
+
+		#startFloater("editAFloater" "Manage Action" 600 400)
+		<form name="formEditAFloater">
+		<div class="myfloater">
+			<input type="hidden" id="editAFloater-id" />
+			<input type="hidden" id="editAFloater-pageId" />
+			<table>
+				<tr>
+					<td>名称</td>
+					<td>
+						<input type="text" id="editAFloater-name" minLen="1" message="请求名称不能为空" maxlength="50" style="width: 250px;" />
+					</td>
+				</tr>
+				<tr>
+					<td>请求类型</td> <td>
+						<input type="radio" name="editAFloater-type"  value="1" />GET&nbsp;&nbsp;
+						<input type="radio" name="editAFloater-type"  value="2"/>POST&nbsp;&nbsp;
+						<input type="radio" name="editAFloater-type"  value="3"/>AJAX GET&nbsp;&nbsp;
+						<input type="radio" name="editAFloater-type"  value="4"/>AJAX POST&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td>请求链接</td>
+					<td>
+						<input type="text" id="editAFloater-requestUrl" style="width: 380px"/>
+					</td>
+				</tr>
+				<tr>
+					<td>回跳模板</td>
+					<td>
+						<input type="text" id="editAFloater-responseTemplate" style="width: 380px"/>
+					</td>
+				</tr>
+				<tr>
+					<td>说明</td>
+					<td>
+						<textarea id="editAFloater-description" style="width: 450px; height: 200px; font-size: 12px; line-height: 1.5;" cols="20" rows="20"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+					
+					</td>
+				</tr>
+			</table>
+			<div class="div-floater-control">
+				<input type="button" onclick="ws.doAddOrEditA();"  value="提交" />&nbsp;&nbsp;&nbsp;
+				<input type="button" onclick="ws.cancelEditA();"  value="取消"/>
+			</div>
+		</div>
+		</form>
+		#endFloater
+		#startFloater("editPFloater" "Manage Page" 600 400)
+		<form name="formEditPFloater">
+			<div class="myfloater">
+				<input type="hidden" id="editPFloater-id" />
+				<input type="hidden" id="editPFloater-moduleId" />
+				<table>
+					<tr>
+						<td>名称</td>
+						<td>
+							<input type="text" id="editPFloater-name" minLen="1" message="页面名称不能为空" maxlength="50" style="width: 250px;" />
+						</td>
+					</tr>
+					<tr>
+						<td>说明</td>
+						<td>
+							<textarea id="editPFloater-introduction" style="width: 450px; height: 200px; font-size: 12px; line-height: 1.5;" cols="20" rows="20"></textarea>
+						</td>
+					</tr>
+							
+				</table>
+				<div class="div-floater-control">
+					<input type="button" onclick="ws.doAddOrEditP();"  value="提交" />&nbsp;&nbsp;&nbsp;
+					<input type="button" onclick="ws.cancelEditP();"  value="取消"/>
+				</div>
+			</div>
+		</form>
+		#endFloater
+	</body>
+	<script type="text/javascript">
+		var urlObj = {
+				"getModuleHtmlAjax" : "$workspaceUrl.getModuleHtmlAjax",
+				"updateSave" : "$workspaceUrl.updateSave",
+				"updateCurrentSave" : "$workspaceUrl.updateCurrentSave",
+				"querySave" : "$workspaceUrl.querySave",
+				"removeSave" : "$workspaceUrl.removeSave",
+				"checkIn" : "$workspaceUrl.checkIn",
+				"checkOut" : "$workspaceUrl.checkOut",
+				"imageRoot" : "$staticRoot/img/",
+				"lock" : "$workspaceUrl.lock",
+				"unlock" : "$workspaceUrl.unlock",
+				"ping" : "$workspaceUrl.ping",
+				"queryVersion" : "$workspaceUrl.queryVersion",
+				"switchVersion" : "$workspaceUrl.switchVersion"
+			},
+			ws = rap.workspace,
+			util = rap.util;
+		ws.init($workspaceJsonString, urlObj);
+
+		/**
+		 * loading hint
+		 */
+		util.hint.init();
+		util.hint.bind("btnEdit", "进入编辑模式后您才可以修改项目数据，您正在使用的是VSS模式，这意味着当你进入编辑模式时其他人不能够进入编辑，反之亦然。");
+		util.hint.bind("btnSave", "点击该按钮将提交您所有的更改至服务器，同时退出编辑模式，其他用户可以进入编辑模式。");
+		util.hint.bind("btnCancel", "点击该按钮将放弃您所有的更改，同时退出编辑模式，其他用户可以进入编辑模式。");
+		util.hint.bind("btnVersion", "点击进入版本管理，在这里您可以查看任何版本或将当前项目强行切换至某个特定版本");
+		util.hint.bind("btnObserveVersion", "点击后将以只读的方式查看某一版本");
+		util.hint.bind("btnSwitchVersion", "点击后将切换至该版本");
+		util.hint.bind("btnExitVersion", "点击后将切换回首次进入工作区的默认模式");
+	</script>
+</html>

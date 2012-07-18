@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<bean id="workspaceMgr" class="com.baidu.rigel.rap.workspace.service.impl.WorkspaceMgrImpl">
+		<property name="workspaceDao" ref="workspaceDao" />
+		<property name="projectDao" ref="projectDao" />
+	</bean>
+	<bean id="workspaceDao" class="com.baidu.rigel.rap.workspace.dao.impl.WorkspaceDaoImpl" parent="baseDao">
+		<property name="accountDao" ref="accountDao" />	
+		<property name="projectDao" ref="projectDao" />
+	</bean>
+	<bean id="accountDao" class="com.baidu.rigel.rap.account.dao.impl.AccountDaoImpl" parent="baseDao" />
+	<bean id="projectDao" class="com.baidu.rigel.rap.project.dao.impl.ProjectDaoImpl" parent="baseDao" />
+</beans>

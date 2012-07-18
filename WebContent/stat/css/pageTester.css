@@ -1,0 +1,113 @@
+.div-a .head {
+	background-color: Silver;
+	text-align: center;
+}
+
+.div-a .dataType {
+	text-align: center;
+}
+
+.tr-p {
+	height: 25px;
+}
+
+h1,h2,h3 {
+	color: #8CB70E;
+	font-weight: normal;
+	margin: 0;
+	text-transform: uppercase;
+}
+
+.td-p {
+	border: Gray 1px solid;
+	border-collapse: collapse;
+	padding: 5px;
+}
+
+.table-a {
+	border: Gray 1px solid;
+	border-collapse: collapse;
+	margin: 12px 8px 8px 8px;
+}
+
+.div-a {
+	margin: 12px;
+}
+
+.div-a .head {
+	background-color: Silver;
+	text-align: center;
+}
+
+.div-a .head-name {
+	width: 120px
+}
+
+.div-a .head-validator {
+	width: 80px;
+}
+
+.div-a .head-type {
+	width: 60px;
+}
+
+.div-a .head-remark {
+	width: 200px;
+}
+
+.div-a .head-identifier {
+	width: 140px;
+}
+
+.div-a .name {
+	
+}
+
+.tester-form, .block {
+	margin: 12px 0;
+	padding: 8px;
+	border: 1px gray dashed;
+}
+
+.item {
+	padding: 8px;
+}
+
+.identifier {
+	color: Red;
+}
+
+.url {
+	color: Silver;
+}
+
+.div-a .validator {
+	color: Red;
+	text-align: center;
+}
+
+.div-a .real {
+	color: Red;
+	text-align: center;
+}
+
+.div-a .remark {
+	color: Blue;
+}
+
+.div-a .identifier {
+	color: Red;
+}
+
+input,textarea {
+	border: 1px solid #CCCCCC;
+}
+.bottom {height:20px;}
+#header, #footer {display:none;}
+#divResBoard {height:300px; overflow:hidden;}
+#divResBoardJson {float:left;width:660px;height:300px; overflow-y:auto;word-wrap: break-word;
+word-break: break-all;}
+#divResBoardLog {float:left;width:260px;height:300px; overflow-y:auto;word-wrap: break-word;
+word-break: break-all;}
+#divActionList{height:250px; overflow-y:auto;}
+#page {padding:12px 20px 0}
