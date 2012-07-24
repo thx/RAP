@@ -2350,7 +2350,7 @@ var rap = rap || {};
 	 * if user is using rubbish IE, return true
 	 * otherwise return false
 	 */
-	function isRubishIE() {
+	function isRubbishIE() {
 		return -[1,] ? false : true;
 	}
 	
@@ -2468,6 +2468,11 @@ var rap = rap || {};
 		} else if (code == 27) {
 			cancelEdit();
 		} else if (code == 9) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            } else {
+                e.returnValue = null;
+            }
 			switch (_editContext.key) {
 				case "param-name":
 					ws.edit(_editContext.id, "param-identifier");
@@ -3244,7 +3249,7 @@ var rap = rap || {};
 		function getSavePanelItemHtml(save) {
 			var str = "",
 				isNew = (save == null);
-			str += "<div class='item'><input name='radio-save' type='radio' value='' group='save-panel' " 
+                str += "<div class='item'><input name='radio-save' type='radio' value='' group='save-panel' " 
 				+ (isNew ? "" : "id='" + PREFIX.SAVE + save.id + "'") + "/>" + (isNew ? "新增存档" : "存档:" 
 				+ save.id + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更新时间: " + save.updateDate) + "</div>";
 			return str;
