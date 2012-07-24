@@ -17,12 +17,13 @@
 #set($switchList = [{"text":"是", "value":"1"}, {"text":"否", "value":"0"}])
 
 
-## rap static root
-#set($staticRoot = 'http://localhost:8080/stat')
-##set($staticRoot = 'http://10.235.160.141:8806/stat')
-
 ##----------------------页面请求action地址-------------------------------
-#set($projectContext = "" )
+## 配置工程的上下文路径
+#set($projectContext = "$!link.getContextPath()")
+
+## 配置静态资源请求的路径
+#set($staticRoot = "$!projectContext/stat")
+
 #set($accountUrl = {
 	"login":"$projectContext/account/login.action",
 	"doLogin":"$projectContext/account/doLogin.action",

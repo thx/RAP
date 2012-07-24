@@ -4,7 +4,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>RAP - Page Tester        </title>
-        <link rel="stylesheet" href="http://10.235.160.141:8806/stat/css/rap.template.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="${staticRoot}/css/rap.template.css" type="text/css" media="screen">
 		<link type="text/css" rel="stylesheet" href="${staticRoot}/css/pageTester.css" />
         <script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
         <script src="${staticRoot}/js/util/jsformat.js"></script>
@@ -24,6 +24,7 @@
             <h2>Action: $action.name</h2>
             <div class="tester-form">
                 <form name="form$!velocityCount" class="form" method="post" path="$!action.requestUrl" onsubmit="return false;">
+                    <input type="hidden" name="paramIdList" class="paramIdList" value="$!action.remarks" />
                     <div class="item">请求地址：/report/queryUserData</div>
                     #foreach($para in $action.requestParameterList)
                     <div class="item">
@@ -47,10 +48,12 @@
                 var source = Y.one("#resBoard-template"),
                     TResBoard = Y.Handlebars.compile(source),
                     divLog = document.getElementById("divResBoardLog"),
+                    ERROR = -1, WARN = -2,                                // log type
+                    LIGHT_GRAY = '#999', RED = 'red', ORANGE = 'orange',  // colors
                     logLine = 1;
+
                 log('tester initializing...');
                 Y.timeLog = {};
-
                 Y.all('.form').each(function(form) {
                     form.one('.button').on('click', function(e) {
                         Y.one('#divResBoardJson').setHTML('加载中，请稍后...');
@@ -70,7 +73,7 @@
                             baseUrl = "http://" + baseUrl;
                         }
                         url = baseUrl + '?' + qArr.join('&');
-                        log('request starting<span style="color:#999">, url=' + url + '</span>');
+                        log('request starting, url=' + color(url, LIGHT_GRAY));
                         Y.timeLog['time'] = new Date().getTime();
                         try {
 
@@ -78,14 +81,14 @@
                             on : {
                                 success : testResHandler,
                                 timeout : function() {
-                                    log('<span style="color:red;">timeout</span>... so long time to response!');
+                                    log(color('timeout', RED) + '... so long time to response!');
                                 },
                                 failure : function(e) {
-                                    window._arg = arguments;
-                                    log('<span style="color:red;">error occurred!</span><span style="color:#999;">, detail:' + e.errors[0].error + '</span>');
+                                    log(color('error occurred!', RED) + color(', detail:' + e.errors[0].error, LIGHT_GRAY));
                                 }
                             },
-                            timeout : 10000
+                            timeout : 10000,
+                            args : [form]
                         });                        
                         } catch(e) {
                         alert(e);
@@ -94,18 +97,41 @@
                     });
                 });
 
-                function testResHandler(response) {
+                function testResHandler(response, form) {
+                    var jsonString = Y.JSON.stringify(response); 
                     var beginTime = Y.timeLog['time'];
                     if (!beginTime) return;
                     var endTime = new Date().getTime();
-                    log('request end in:<span style="color:Red;">' + (endTime - beginTime) + '</span>ms.');
+                    log('request end in:' + color(endTime - beginTime, RED) + 'ms.');
+                    Y.one('#divResBoardJson').setHTML(jsonString.formatJS());
 
-                    Y.one('#divResBoardJson').setHTML(Y.JSON.stringify(response).formatJS());
-                    
+
+                    // JSON format validating ...
+                    var paramIdList = form.one('.paramIdList').get('value').split(','),
+                        i, key,
+                        n = paramIdList.length;
+                    for (i = 0; i < n; i++) {
+                        key = paramIdList[i];
+                        if (!~jsonString.indexOf(key)) {
+                            log('parameter [' + color(key, RED) + '] lost!', ERROR);
+                        }
+                    }
                 }
 
-                function log(msg) {
-                    divLog.innerHTML = '<span style="color:orange;">' + (logLine++) + '</span>:&nbsp&nbsp;' + msg + "<br />" + divLog.innerHTML;
+                function log(msg, type) {
+                    var arr = [],
+                        i = 0;
+                    arr[i++] = color(logLine++, ORANGE);
+                    if (type === ERROR) {
+                        arr[i++] = color('&nbsp;&nbsp;ERR!', RED)
+                    }
+                    arr[i++] = '&nbsp&nbsp;' + msg + "<br />";
+                    arr[i++] = divLog.innerHTML;;
+                    divLog.innerHTML = arr.join('');
+                }
+
+                function color(t, c) {
+                    return '<span style="color:' + c + ';">' + t + '</span>';
                 }
 
                 log('tester ready.');
