@@ -27,8 +27,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/dozer-5.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ehcache-1.6.0-beta4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/freemarker-2.3.8.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-1.5-sources.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-1.5.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/hessian-3.2.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/hibernate-tools.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/hibernate3.jar"/>
@@ -59,8 +57,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/struts2-sitemesh-plugin-2.0.14.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/struts2-spring-plugin-2.0.14.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/urlrewritefilter-4.0.3.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-1.6.1-dep.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-1.6.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-tools-1.4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-tools-generic-1.4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-tools-view-1.4.jar"/>
@@ -86,5 +82,17 @@
 	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/tomcat-i18n-fr.jar"/>
 	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/tomcat-i18n-ja.jar"/>
 	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/core-renderer.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/easyimage.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-1.7.1-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-1.7.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/iText-2.0.8.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/iTextAsian.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javaee.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jmagick.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mailContacts.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xml-apis-xerces-2.9.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-1.7-dep.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-1.7.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

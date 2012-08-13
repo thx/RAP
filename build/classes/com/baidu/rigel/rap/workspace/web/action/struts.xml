@@ -49,6 +49,9 @@
         <action name="checkIn" class="com.baidu.rigel.rap.workspace.web.action.WorkspaceAction" method="checkIn">
         	<result name="success" type="velocity">/bcom/json.cb.vm</result>
         </action>
+         <action name="export" class="com.baidu.rigel.rap.workspace.web.action.WorkspaceAction" method="export">
+        	<result name="success" type="velocity">/workspace/export.vm</result>
+        </action>
     </package>
 
 </struts>

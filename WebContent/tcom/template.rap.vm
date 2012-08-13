@@ -27,7 +27,7 @@
 			<div id="login-control">
 			#if ($curUser) 
 			<a href="$accountUrl.myAccount">$curAccount</a>&nbsp;&nbsp;<a href="$accountUrl.doLogout">注销</a>
-			<input type="checkbox" #if($curUser.isHintEnabled)checked="true"#end id="checkboxHintEnabled" onchange="checkboxHintChanged(this);" /><font color="white">开启提示</font>
+            <input type="checkbox" #if($curUser.isHintEnabled)checked="true"#end id="checkboxHintEnabled" onchange="checkboxHintChanged(this);" /><label for="checkboxHintEnabled" style="color:white">开启提示</label>
 			#else <a href="$accountUrl.login">登录</a>
 			#end
 			</div>

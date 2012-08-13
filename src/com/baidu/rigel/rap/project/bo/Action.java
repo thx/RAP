@@ -179,7 +179,7 @@ public class Action implements java.io.Serializable {
 		stringBuilder.append("]}");
 		return stringBuilder.toString();
 	}
-	
+
 	private String remarks;
 
 	public String getRemarks() {
@@ -189,4 +189,64 @@ public class Action implements java.io.Serializable {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
+
+	/**
+	 * get request parameter list HTML for file exporting reason: velocity
+	 * doesn't support macro recursion.
+	 * 
+	 * @return
+	 */
+	public String getRequestParameterListHTML() {
+		return getParameterListHTML(requestParameterList);
+	}
+
+	public String getResponseParameterListHTML() {
+		return getParameterListHTML(responseParameterList);
+	}
+
+	private String getParameterListHTML(Set<Parameter> list) {
+		StringBuilder html = new StringBuilder();
+		html
+		.append("<table class=\"param-table\">")
+		.append("<thead>")
+        .append("<th class=\"th-name\">Name</th>")
+        .append("<th class=\"th-identifier\">Identifier</th>")
+        .append("<th class=\"th-type\">Type</th>")
+        .append("<th class=\"th-remark\">Remark</th>")
+        .append("</thead>");
+		getParameterListHTMLSub(html, list, (short)1);
+		html.append("</table>");
+		return html.toString();
+	}
+	
+	private void getParameterListHTMLSub(StringBuilder html, Set<Parameter> list, short level) {
+		for(Parameter p : list) {
+			html
+			.append("<tr class=\"tr-level-" + level + "\">")
+			.append("<td class=\"td-name\">" + levelMark(level) + StringUtils.escapeInH(p.getName()) + "</td>")
+			.append("<td class=\"td-identifier\">" + StringUtils.escapeInH(p.getIdentifier()) + "</td>")
+			.append("<td class=\"td-type\">" + StringUtils.escapeInH(p.getDataType()) + "</td>")
+			.append("<td class=\"td-remark\">" + StringUtils.escapeInH(p.getRemark()) + "</td>")
+			.append("</tr>");
+			if (p.getParameterList() != null || p.getParameterList().size() > 0) {
+				getParameterListHTMLSub(html, p.getParameterList(), (short)(level + 1));
+			}
+		}
+		
+	}
+	
+	/**
+	 * level 1: level 2:--- level 3:------ ...
+	 * 
+	 * @param level started from 1
+	 * @return
+	 */
+	private String levelMark(short level) {
+		StringBuilder sb = new StringBuilder();
+		for (short i = 1; i < level; i++) {
+			sb.append("---");
+		}
+		return sb.toString();
+	}
+
 }

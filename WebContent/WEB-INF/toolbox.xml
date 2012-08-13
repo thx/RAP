@@ -1,38 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <toolbox>
-  <tool>
-     <key>link</key>
-     <scope>request</scope>
-     <class>org.apache.velocity.tools.struts.StrutsLinkTool</class>
-  </tool>
-  <tool>
-     <key>msg</key>
-     <scope>request</scope>
-     <class>org.apache.velocity.tools.struts.MessageTool</class>
-  </tool>
-  <tool>
-     <key>errors</key>
-     <scope>request</scope>
-     <class>org.apache.velocity.tools.struts.ErrorsTool</class>
-  </tool>
-  <tool>
-     <key>form</key>
-     <scope>request</scope>
-     <class>org.apache.velocity.tools.struts.FormTool</class>
-  </tool>
-  <tool>
-     <key>tiles</key>
-     <scope>request</scope>
-     <class>org.apache.velocity.tools.struts.TilesTool</class>
-  </tool>
-  <tool>
-     <key>validator</key>
-     <scope>request</scope>
-     <class>org.apache.velocity.tools.struts.ValidatorTool</class>
-  </tool>
+  <data type="string">
+     <key>version</key>
+     <value>1.3</value>
+  </data>
   <tool>
   	<key>utils</key>
   	<scope>application</scope>
-  	<class>com.baidu.rigel.rap.common.StringUtils</class>
+  	<class> com.baidu.rigel.rap.common.StringUtils</class>
+  </tool>
+  <tool>
+  	<key>dateUtils</key>
+  	<scope>application</scope>
+  	<class> com.baidu.rigel.rap.common.DateUtils</class>
   </tool>
 </toolbox>
