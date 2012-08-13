@@ -16,7 +16,7 @@
             .param-table .td-identifier {}
             .param-table .td-type {color:#990000;}
             .param-table .td-remark {color:#666;}
-            .param-table .tr-level-1 {}
+            .param-table .tr-level-1 {background:#E6E6E6;}
             .param-table .tr-level-2 {background:silver;}
             .param-table .tr-level-3 {background:gray;}
             .param-table .tr-level-4 {background:silver;}
@@ -35,22 +35,21 @@
         <div id="container">
         #foreach($module in $project.moduleList)
             <div class="module">
-            $!utils.escapeInH($module.name)<br />
-            #foreach($page in $module.pageList)
-                <div class="page">
-                $!utils.escapeInH($page.name)<br />
-                #foreach($action in $page.actionList)
-                    <div class="action">
-                    <h3>Action Info</h3>
-                    <div class="name">$!utils.escapeInH($action.name)</div>
-                    <h3>Request Param List</h3>
-                    $action.requestParameterListHTML
-                    <h3>Response Param List</h3>
-                    $action.responseParameterListHTML
+                <h1>$!utils.escapeInH($module.name)</h1>
+                #foreach($page in $module.pageList)
+                    <div class="page">
+                        <h2>页面:&nbsp;$!utils.escapeInH($page.name)</h2>
+                        #foreach($action in $page.actionList)
+                            <div class="action">
+                            <h3>请求:$!utils.escapeInH($action.name)</h3>
+                            <h3>Request Param List</h3>
+                            $action.requestParameterListHTML
+                            <h3>Response Param List</h3>
+                            $action.responseParameterListHTML
+                            </div>
+                        #end
                     </div>
                 #end
-                </div>
-            #end
             </div>
         #end
         </div>
