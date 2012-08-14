@@ -34,14 +34,17 @@
     <body>
         <div id="container">
         #foreach($module in $project.moduleList)
+            #set($moduleNo = $velocityCount)
             <div class="module">
-                <h1>$!utils.escapeInH($module.name)</h1>
+                <h1>$moduleNo&nbsp;$module.name</h1>
                 #foreach($page in $module.pageList)
+                    #set($pageNo = $velocityCount)
                     <div class="page">
-                        <h2>页面:&nbsp;$!utils.escapeInH($page.name)</h2>
+                        <h2>$moduleNo.$pageNo&nbsp;$page.name</h2>
                         #foreach($action in $page.actionList)
+                            #set($actionNo = $velocityCount)
                             <div class="action">
-                            <h3>请求:$!utils.escapeInH($action.name)</h3>
+                            <h3>$moduleNo.$pageNo.$actionNo&nbsp;$action.name</h3>
                             <h3>Request Param List</h3>
                             $action.requestParameterListHTML
                             <h3>Response Param List</h3>

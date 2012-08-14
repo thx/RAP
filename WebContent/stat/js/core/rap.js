@@ -2252,6 +2252,7 @@ var rap = rap || {};
 	function setButtonsViewState(state) {
 		if (state == CONST.EDIT) {
 			// to edit view
+            b.hide("btnExport");
 			b.hide("btnEdit");
 			b.hide("btnVersion");
 			b.show("btnSave");
@@ -2260,6 +2261,7 @@ var rap = rap || {};
 			b.hide("btnExitVersion");
 		} else if (state == CONST.NORMAL) {
 			// to normal view
+            b.show("btnExport");
 			b.show("btnEdit");
 			b.show("btnVersion");
 			b.hide("btnSave");
@@ -2268,6 +2270,7 @@ var rap = rap || {};
 			b.hide("btnExitVersion");
 		} else if (state == CONST.VERSION) {
 			// to version view
+            b.hide("btnExport");
 			b.hide("btnEdit");
 			b.show("btnVersion");
 			b.hide("btnSave");

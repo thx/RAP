@@ -19,10 +19,10 @@
 			<div id="div-debug">
 			</div>
 			<div id="div-control-panel">
+                <div class="button"><input id="btnExport" type="button" value="导出文档" onclick="window.open('$!workspaceUrl.export?projectId=$!projectId')"/></div>
 				<div class="button"><input id="btnExitVersion" type="button" value="退出版本" onclick="ws.exitVersion(); return false;" style="display: none;" /></div>
 				<div class="button"><input id="btnVersion" type="button" value="版本管理" onclick="ws.version(); return false;" /></div>
 				<div class="button"><input id="btnEdit" type="button" value="启用编辑" onclick="ws.switchToEditMode(); return false;" /></div>
-                <div class="button"><a href="$!workspaceUrl.export?projectId=$!projectId" target="_blank">导出文档</a></div>
 				<div class="button"><input id="btnCancel" type="button" value="取消" onclick="ws.switchToViewMode(false); return false;"  style="display: none" /></div>
 				<div class="button"><input id="btnSave" type="button" value="保存" onclick="ws.switchToViewMode(true); return false;"  style="display: none" /></div>
 			</div>

@@ -1,9 +1,21 @@
 package com.baidu.rigel.rap.workspace.web.action;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.exception.MethodInvocationException;
+import org.apache.velocity.exception.ParseErrorException;
+import org.apache.velocity.exception.ResourceNotFoundException;
 
 import com.baidu.rigel.rap.account.bo.User;
 import com.baidu.rigel.rap.common.ActionBase;
@@ -59,6 +71,16 @@ public class WorkspaceAction extends ActionBase {
 
 	public void setModule(Module module) {
 		this.module = module;
+	}
+	
+	private VelocityEngine velocityEngine;
+
+	public VelocityEngine getVelocityEngine() {
+		return velocityEngine;
+	}
+
+	public void setVelocityEngine(VelocityEngine velocityEngine) {
+		this.velocityEngine = velocityEngine;
 	}
 
 	private int projectId;
@@ -205,6 +227,8 @@ public class WorkspaceAction extends ActionBase {
 		return SUCCESS;
 	}
 
+	private InputStream fileInputStream;
+
 	/**
 	 * save workspace if this.saveId == -1(default), it's a new save and needs
 	 * projectId and id(workspaceId). else, just need saveId only to cover the
@@ -254,6 +278,10 @@ public class WorkspaceAction extends ActionBase {
 	 * setJson(workspaceMgr.getSave(getSaveId()).getProjectData()); return
 	 * SUCCESS; }
 	 */
+
+	public InputStream getFileInputStream() {
+		return fileInputStream;
+	}
 
 	/**
 	 * ` save the current workspace
@@ -417,10 +445,30 @@ public class WorkspaceAction extends ActionBase {
 
 	/**
 	 * caution: no authentication so far
+	 * 
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
-	public String export() {
+	public String export() throws UnsupportedEncodingException {
 		project = projectMgr.getProject(projectId);
+		velocityEngine.init();
+		VelocityContext context = new VelocityContext();
+		context.put("project", project);
+		Template template = null;
+		try {
+			template = velocityEngine.getTemplate("resource/export.vm", "UTF8");
+		} catch (ResourceNotFoundException rnfe) {
+			rnfe.printStackTrace();
+		} catch (ParseErrorException pee) {
+			pee.printStackTrace();
+		} catch (MethodInvocationException mie) {
+			mie.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		StringWriter sw = new StringWriter();
+		template.merge(context, sw);
+		fileInputStream = new ByteArrayInputStream(sw.toString().getBytes("UTF8"));
 		return SUCCESS;
 	}
 
