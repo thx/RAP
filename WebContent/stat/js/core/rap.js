@@ -2252,6 +2252,7 @@ var rap = rap || {};
 	function setButtonsViewState(state) {
 		if (state == CONST.EDIT) {
 			// to edit view
+            b.hide("btnExport");
 			b.hide("btnEdit");
 			b.hide("btnVersion");
 			b.show("btnSave");
@@ -2260,6 +2261,7 @@ var rap = rap || {};
 			b.hide("btnExitVersion");
 		} else if (state == CONST.NORMAL) {
 			// to normal view
+            b.show("btnExport");
 			b.show("btnEdit");
 			b.show("btnVersion");
 			b.hide("btnSave");
@@ -2268,6 +2270,7 @@ var rap = rap || {};
 			b.hide("btnExitVersion");
 		} else if (state == CONST.VERSION) {
 			// to version view
+            b.hide("btnExport");
 			b.hide("btnEdit");
 			b.show("btnVersion");
 			b.hide("btnSave");
@@ -2350,7 +2353,7 @@ var rap = rap || {};
 	 * if user is using rubbish IE, return true
 	 * otherwise return false
 	 */
-	function isRubishIE() {
+	function isRubbishIE() {
 		return -[1,] ? false : true;
 	}
 	
@@ -2468,6 +2471,11 @@ var rap = rap || {};
 		} else if (code == 27) {
 			cancelEdit();
 		} else if (code == 9) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            } else {
+                e.returnValue = null;
+            }
 			switch (_editContext.key) {
 				case "param-name":
 					ws.edit(_editContext.id, "param-identifier");
@@ -2975,7 +2983,7 @@ var rap = rap || {};
 						+ page.id + "); return false;\">&nbsp;</a><a href=\"#\" class=\"del-link\" onclick=\"ws.removeP(" 
 						+ page.id + "); return false;\">&nbsp;</a></span>";
 				}
-				str += "&nbsp;&nbsp;" + (page.isIdGenerated ? '' : '<a class="test-link" href="/tester/pageTester.action?id=' + page.id + '" target="_blank">&nbsp;</a>');
+				str += "&nbsp;&nbsp;" + (page.isIdGenerated ? '' : '<a class="test-link" href="' + URL.pageTester + '?id=' + page.id + '" target="_blank">&nbsp;</a>');
                 str += "</label>"
 				for (var j = 0; j < actionListNum; j++) {
 					var action = actionList[j];
@@ -3244,7 +3252,7 @@ var rap = rap || {};
 		function getSavePanelItemHtml(save) {
 			var str = "",
 				isNew = (save == null);
-			str += "<div class='item'><input name='radio-save' type='radio' value='' group='save-panel' " 
+                str += "<div class='item'><input name='radio-save' type='radio' value='' group='save-panel' " 
 				+ (isNew ? "" : "id='" + PREFIX.SAVE + save.id + "'") + "/>" + (isNew ? "新增存档" : "存档:" 
 				+ save.id + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更新时间: " + save.updateDate) + "</div>";
 			return str;

@@ -6,7 +6,7 @@
 	<div id="wrapper-bgtop">
 		<div id="header">
 			<div id="logo">
-				<h1><a href="#">RAP v1.1</a></h1>
+				<h1><a href="#">RAP v1.2</a></h1>
 				<p><em> welcome to <a href="http://rap.baidu.com/">Rigel Automation Platform!</a></em></p>
 			</div>
 			<hr />
@@ -16,7 +16,7 @@
 					<li><a href="$platformUrl.home" class="first">Home</a></li>
 					#if($isLogined)
 					<li><a href="$accountUrl.myAccount">Account</a></li>
-					<li><a href="$projectUrl.myProjectList">Project</a></li>
+                    <!--<li><a href="$projectUrl.myProjectList">Project</a></li>-->
 					#end
 
 					<li><a href="$platformUrl.status">Status</a></li>
@@ -27,7 +27,7 @@
 			<div id="login-control">
 			#if ($curUser) 
 			<a href="$accountUrl.myAccount">$curAccount</a>&nbsp;&nbsp;<a href="$accountUrl.doLogout">注销</a>
-			<input type="checkbox" #if($curUser.isHintEnabled)checked="true"#end id="checkboxHintEnabled" onchange="checkboxHintChanged(this);" /><font color="white">开启提示</font>
+            <input type="checkbox" #if($curUser.isHintEnabled)checked="true"#end id="checkboxHintEnabled" onchange="checkboxHintChanged(this);" /><label for="checkboxHintEnabled" style="color:white">开启提示</label>
 			#else <a href="$accountUrl.login">登录</a>
 			#end
 			</div>

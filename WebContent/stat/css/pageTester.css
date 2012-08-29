@@ -63,10 +63,10 @@ h1,h2,h3 {
 	
 }
 
-.tester-form, .block {
+.tester-form,.block {
 	margin: 12px 0;
 	padding: 8px;
-	border: 1px gray dashed;
+	border: 1px dashed #DFDFDF;
 }
 
 .item {
@@ -102,12 +102,45 @@ h1,h2,h3 {
 input,textarea {
 	border: 1px solid #CCCCCC;
 }
-.bottom {height:20px;}
-#header, #footer {display:none;}
-#divResBoard {height:300px; overflow:hidden;}
-#divResBoardJson {float:left;width:660px;height:300px; overflow-y:auto;word-wrap: break-word;
-word-break: break-all;}
-#divResBoardLog {float:left;width:260px;height:300px; overflow-y:auto;word-wrap: break-word;
-word-break: break-all;}
-#divActionList{height:250px; overflow-y:auto;}
-#page {padding:12px 20px 0}
+
+.bottom {
+	height: 20px;
+}
+
+#header,#footer {
+	display: none;
+}
+
+#divResBoard {
+	height: 300px;
+	overflow: hidden;
+}
+
+#divResBoardJson {
+	float: left;
+	width: 650px;
+	margin-right:10px;
+	border-right:1px dashed #DFDFDF;
+	height: 300px;
+	overflow-y: auto;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+#divResBoardLog {
+	float: left;
+	width: 260px;
+	height: 300px;
+	overflow-y: auto;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+#divActionList {
+	height: 250px;
+	overflow-y: auto;
+}
+
+#page {
+	padding: 12px 20px 0
+}

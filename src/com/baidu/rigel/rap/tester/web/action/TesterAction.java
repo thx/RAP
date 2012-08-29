@@ -38,6 +38,7 @@ public class TesterAction extends ActionSupport {
 
 	public String pageTester() {
 		page = projectMgr.getPage(id);
+		projectMgr.loadParamIdListForPage(page);
 		projectId = page.getModule().getProject().getId();
 		return SUCCESS;
 	}

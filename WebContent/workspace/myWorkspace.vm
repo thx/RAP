@@ -19,6 +19,7 @@
 			<div id="div-debug">
 			</div>
 			<div id="div-control-panel">
+                <div class="button"><input id="btnExport" type="button" value="导出文档" onclick="window.open('$!workspaceUrl.export?projectId=$!projectId')"/></div>
 				<div class="button"><input id="btnExitVersion" type="button" value="退出版本" onclick="ws.exitVersion(); return false;" style="display: none;" /></div>
 				<div class="button"><input id="btnVersion" type="button" value="版本管理" onclick="ws.version(); return false;" /></div>
 				<div class="button"><input id="btnEdit" type="button" value="启用编辑" onclick="ws.switchToEditMode(); return false;" /></div>
@@ -228,7 +229,8 @@
 				"unlock" : "$workspaceUrl.unlock",
 				"ping" : "$workspaceUrl.ping",
 				"queryVersion" : "$workspaceUrl.queryVersion",
-				"switchVersion" : "$workspaceUrl.switchVersion"
+                "switchVersion" : "$workspaceUrl.switchVersion",
+                "pageTester" : "$testerUrl.pageTester"
 			},
 			ws = rap.workspace,
 			util = rap.util;

@@ -1,9 +1,21 @@
 package com.baidu.rigel.rap.workspace.web.action;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.exception.MethodInvocationException;
+import org.apache.velocity.exception.ParseErrorException;
+import org.apache.velocity.exception.ResourceNotFoundException;
 
 import com.baidu.rigel.rap.account.bo.User;
 import com.baidu.rigel.rap.common.ActionBase;
@@ -60,8 +72,28 @@ public class WorkspaceAction extends ActionBase {
 	public void setModule(Module module) {
 		this.module = module;
 	}
+	
+	private VelocityEngine velocityEngine;
+
+	public VelocityEngine getVelocityEngine() {
+		return velocityEngine;
+	}
+
+	public void setVelocityEngine(VelocityEngine velocityEngine) {
+		this.velocityEngine = velocityEngine;
+	}
 
 	private int projectId;
+
+	private Project project;
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
 
 	public int getProjectId() {
 		return this.projectId;
@@ -190,10 +222,12 @@ public class WorkspaceAction extends ActionBase {
 			return ERROR;
 		}
 		Workspace workspace = new Workspace();
-		workspace.setProject(projectMgr.getProject(getProjectId()));		
+		workspace.setProject(projectMgr.getProject(getProjectId()));
 		setWorkspaceJsonString(workspace.toString());
 		return SUCCESS;
 	}
+
+	private InputStream fileInputStream;
 
 	/**
 	 * save workspace if this.saveId == -1(default), it's a new save and needs
@@ -202,71 +236,64 @@ public class WorkspaceAction extends ActionBase {
 	 * 
 	 * @return
 	 */
-	/*public String updateSave() {
-		int id = getSaveId();
-		Save save = null;
-		if (id == -1) {
-			save = new Save();
-			save.setProjectId(getProjectId());
-			save.setWorkspaceId(getId());
-		} else {
-			save = workspaceMgr.getSave(getSaveId());
-		}
-		save.setProjectData(getProjectData());
-		id = workspaceMgr.updateSave(save);
+	/*
+	 * public String updateSave() { int id = getSaveId(); Save save = null; if
+	 * (id == -1) { save = new Save(); save.setProjectId(getProjectId());
+	 * save.setWorkspaceId(getId()); } else { save =
+	 * workspaceMgr.getSave(getSaveId()); }
+	 * save.setProjectData(getProjectData()); id =
+	 * workspaceMgr.updateSave(save);
+	 * 
+	 * // after update the save, return saveList json string
+	 * setupSaveListJson(); return SUCCESS; }
+	 */
 
-		// after update the save, return saveList json string
-		setupSaveListJson();
-		return SUCCESS;
-	}*/
-
-	/*private void setupSaveListJson() {
-		Set<Save> saveList = workspaceMgr.getSaveList(getId());
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("[");
-		Iterator<Save> iterator = saveList.iterator();
-		while (iterator.hasNext()) {
-			stringBuilder.append(iterator.next());
-			if (iterator.hasNext()) {
-				stringBuilder.append(",");
-			}
-		}
-		stringBuilder.append("]");
-		setSaveListJson(stringBuilder.toString());
-	}*/
+	/*
+	 * private void setupSaveListJson() { Set<Save> saveList =
+	 * workspaceMgr.getSaveList(getId()); StringBuilder stringBuilder = new
+	 * StringBuilder(); stringBuilder.append("["); Iterator<Save> iterator =
+	 * saveList.iterator(); while (iterator.hasNext()) {
+	 * stringBuilder.append(iterator.next()); if (iterator.hasNext()) {
+	 * stringBuilder.append(","); } } stringBuilder.append("]");
+	 * setSaveListJson(stringBuilder.toString()); }
+	 */
 
 	/**
 	 * delete save
 	 * 
 	 * @return
 	 */
-	/*public String removeSave() {
-		workspaceMgr.removeSave(getSaveId());
-		setupSaveListJson();
-		return SUCCESS;
-	}*/
+	/*
+	 * public String removeSave() { workspaceMgr.removeSave(getSaveId());
+	 * setupSaveListJson(); return SUCCESS; }
+	 */
 
 	/**
 	 * load save, saveId must be significant, or operation failed
 	 * 
 	 * @return the save object loaded
 	 */
-	/*public String querySave() {
-		setJson(workspaceMgr.getSave(getSaveId()).getProjectData());
-		return SUCCESS;
-	}*/
+	/*
+	 * public String querySave() {
+	 * setJson(workspaceMgr.getSave(getSaveId()).getProjectData()); return
+	 * SUCCESS; }
+	 */
+
+	public InputStream getFileInputStream() {
+		return fileInputStream;
+	}
 
 	/**
 	 * ` save the current workspace
 	 * 
 	 * @return
 	 */
-	/*public String updateCurrentSave() {
-		Workspace workspace = workspaceMgr.getWorkspace(getId());
-		workspace.setProjectData(getProjectData());
-		workspaceMgr.updateWorkspace(workspace);
-		return SUCCESS;
-	}*/
+	/*
+	 * public String updateCurrentSave() { Workspace workspace =
+	 * workspaceMgr.getWorkspace(getId());
+	 * workspace.setProjectData(getProjectData());
+	 * workspaceMgr.updateWorkspace(workspace); return SUCCESS; }
+	 */
 
 	private WorkspaceMgr workspaceMgr;
 
@@ -305,7 +332,8 @@ public class WorkspaceAction extends ActionBase {
 		projectMgr.updateProject(check.getProject().getId(),
 				check.getProjectData(), "[]");
 		Project project = projectMgr.getProject(check.getProject().getId());
-		String projectData = project.toString(Project.toStringType.TO_PARAMETER);
+		String projectData = project
+				.toString(Project.toStringType.TO_PARAMETER);
 		setJson("{\"projectData\":" + projectData + ", \"isOk\":true}");
 		project.setProjectData(projectData);
 		projectMgr.updateProject(project);
@@ -317,18 +345,19 @@ public class WorkspaceAction extends ActionBase {
 		projectMgr.updateProject(getId(), getProjectData(),
 				getDeletedObjectListData());
 		Project project = projectMgr.getProject(getId());
-		
+
 		// generate one check-in of VSS mode submit
 		CheckIn checkIn = new CheckIn();
 		checkIn.setCreateDate(new Date());
 		checkIn.setDescription(getDescription());
 		checkIn.setProject(project);
-		checkIn.setProjectData(project.toString(Project.toStringType.TO_PARAMETER));
+		checkIn.setProjectData(project
+				.toString(Project.toStringType.TO_PARAMETER));
 		checkIn.setTag(getTag());
 		checkIn.setUser(getCurUser());
 		checkIn.setVersion(project.getVersion());
 		checkIn.versionUpgrade(getVersionPosition());
-		
+
 		// after version upgrade, set back to project
 		project.setVersion(checkIn.getVersion());
 		checkIn.setWorkspaceMode(Workspace.ModeType.VSS);
@@ -348,11 +377,11 @@ public class WorkspaceAction extends ActionBase {
 		}
 		stringBuilder.append("],\"isOk\":true}");
 		setJson(stringBuilder.toString());
-		
+
 		// update project data
 		project.setProjectData(checkIn.getProjectData());
 		projectMgr.updateProject(project);
-		
+
 		// unlock the workspace
 		unlock();
 
@@ -391,9 +420,8 @@ public class WorkspaceAction extends ActionBase {
 			isOk = true;
 		}
 		if (isOk) {
-			setJson("{\"isOk\":true, \"projectData\":" 
-					+ projectMgr.getProject(getId()).getProjectData()
-					+ "}");
+			setJson("{\"isOk\":true, \"projectData\":"
+					+ projectMgr.getProject(getId()).getProjectData() + "}");
 		}
 		return SUCCESS;
 	}
@@ -412,6 +440,35 @@ public class WorkspaceAction extends ActionBase {
 			System.out.println("user[" + userId + "] unlock project["
 					+ projectId + "]");
 		}
+		return SUCCESS;
+	}
+
+	/**
+	 * caution: no authentication so far
+	 * 
+	 * @return
+	 * @throws Exception 
+	 */
+	public String export() throws Exception {
+		project = projectMgr.getProject(projectId);
+		velocityEngine.init();
+		VelocityContext context = new VelocityContext();
+		context.put("project", project);
+		Template template = null;
+		try {
+			template = velocityEngine.getTemplate("resource/export.vm", "UTF8");
+		} catch (ResourceNotFoundException rnfe) {
+			rnfe.printStackTrace();
+		} catch (ParseErrorException pee) {
+			pee.printStackTrace();
+		} catch (MethodInvocationException mie) {
+			mie.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		StringWriter sw = new StringWriter();
+		template.merge(context, sw);
+		fileInputStream = new ByteArrayInputStream(sw.toString().getBytes("UTF8"));
 		return SUCCESS;
 	}
 
@@ -437,4 +494,5 @@ public class WorkspaceAction extends ActionBase {
 		}
 		return null;
 	}
+
 }

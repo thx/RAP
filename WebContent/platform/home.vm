@@ -5,6 +5,11 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>RAP Home        </title>
 		#includeRapStatic
+        #if($isLogined)
+        <script>
+            window.location.href= "$!projectUrl.myProjectList";
+        </script>
+        #end
 	</head>
 	<body>
 	    #bodyStart

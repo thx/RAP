@@ -4,22 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/annotations-api.jar"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/catalina.jar"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/catalina-ant.jar"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/catalina-ha.jar"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/catalina-tribes.jar"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/el-api.jar"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/jasper.jar"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/jasper-el.jar"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/jasper-jdt.jar"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/jsp-api.jar"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/servlet-api.jar"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/tomcat-coyote.jar"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/tomcat-dbcp.jar"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/tomcat-i18n-es.jar"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/tomcat-i18n-fr.jar"/>
-	<classpathentry kind="lib" path="D:/Servers/apache-tomcat-6.0.28/lib/tomcat-i18n-ja.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/activation.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/antlr-2.7.6.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/axis.jar"/>
@@ -43,8 +27,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/dozer-5.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ehcache-1.6.0-beta4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/freemarker-2.3.8.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-1.5-sources.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-1.5.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/hessian-3.2.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/hibernate-tools.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/hibernate3.jar"/>
@@ -75,8 +57,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/struts2-sitemesh-plugin-2.0.14.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/struts2-spring-plugin-2.0.14.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/urlrewritefilter-4.0.3.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-1.6.1-dep.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-1.6.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-tools-1.4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-tools-generic-1.4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-tools-view-1.4.jar"/>
@@ -85,5 +65,24 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xercesImpl-2.6.2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xwork-2.0.7.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/annotations-api.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/catalina.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/catalina-ant.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/catalina-ha.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/catalina-tribes.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/el-api.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/jasper.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/jasper-el.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/jasper-jdt.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/tomcat-coyote.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/tomcat-dbcp.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/tomcat-i18n-es.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/tomcat-i18n-fr.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/tomcat-i18n-ja.jar"/>
+	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-1.6.1-dep.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-1.6.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

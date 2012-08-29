@@ -22,7 +22,7 @@
 
 
 		#set( $lstTitleList = [
-			{"chn":"名称", "eval":'<a href="$projectUrl.myProject?id=$item.id">$item.name</a>', "width":"300px"},
+			{"chn":"名称", "eval":'<a href="$workspaceUrl.myWorkspace?projectId=$item.id">$item.name</a>', "width":"300px"},
 			{"chn":"创建日期", "eval":'<center>$item.createDateStr</center>', "width":"80px"},
 			{"chn":"创建人", "eval":'<center>$item.user.name</center>', "width":"120px"},
 			{"chn":"参与人", "eval":'$item.userListStrShort', "width":"310px"},
