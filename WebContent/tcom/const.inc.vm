@@ -69,3 +69,8 @@
 	"about":"$projectContext/platform/about.action",
 	"status":"$projectContext/platform/status.action"
 })
+
+
+#set($testerUrl = {
+    "pageTester":"$projectContext/tester/pageTester.action"
+})

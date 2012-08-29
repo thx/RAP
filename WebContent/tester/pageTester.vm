@@ -12,7 +12,7 @@
 	<body>
 	    #bodyStart
         <h2>PAGE INFO</h2>
-        跟路径：<input id="txtRootPath" type="text" style="width:500px;" value="10.235.160.141:8806/mock/$!projectId"></input> 
+        跟路径：<input id="txtRootPath" type="text" style="width:500px;" value="10.235.160.141:8806$!projectContext/mock/$!projectId"></input> 
         <h2>RESPONSE BOARD</h2>
         <div class="block" id="divResBoard">
             <div id="divResBoardJson">ready</div>

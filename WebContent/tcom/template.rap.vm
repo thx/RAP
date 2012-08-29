@@ -16,7 +16,7 @@
 					<li><a href="$platformUrl.home" class="first">Home</a></li>
 					#if($isLogined)
 					<li><a href="$accountUrl.myAccount">Account</a></li>
-					<li><a href="$projectUrl.myProjectList">Project</a></li>
+                    <!--<li><a href="$projectUrl.myProjectList">Project</a></li>-->
 					#end
 
 					<li><a href="$platformUrl.status">Status</a></li>

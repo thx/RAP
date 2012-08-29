@@ -229,7 +229,8 @@
 				"unlock" : "$workspaceUrl.unlock",
 				"ping" : "$workspaceUrl.ping",
 				"queryVersion" : "$workspaceUrl.queryVersion",
-				"switchVersion" : "$workspaceUrl.switchVersion"
+                "switchVersion" : "$workspaceUrl.switchVersion",
+                "pageTester" : "$testerUrl.pageTester"
 			},
 			ws = rap.workspace,
 			util = rap.util;

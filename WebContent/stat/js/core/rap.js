@@ -2983,7 +2983,7 @@ var rap = rap || {};
 						+ page.id + "); return false;\">&nbsp;</a><a href=\"#\" class=\"del-link\" onclick=\"ws.removeP(" 
 						+ page.id + "); return false;\">&nbsp;</a></span>";
 				}
-				str += "&nbsp;&nbsp;" + (page.isIdGenerated ? '' : '<a class="test-link" href="/tester/pageTester.action?id=' + page.id + '" target="_blank">&nbsp;</a>');
+				str += "&nbsp;&nbsp;" + (page.isIdGenerated ? '' : '<a class="test-link" href="' + URL.pageTester + '?id=' + page.id + '" target="_blank">&nbsp;</a>');
                 str += "</label>"
 				for (var j = 0; j < actionListNum; j++) {
 					var action = actionList[j];
