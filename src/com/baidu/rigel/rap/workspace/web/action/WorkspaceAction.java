@@ -447,9 +447,9 @@ public class WorkspaceAction extends ActionBase {
 	 * caution: no authentication so far
 	 * 
 	 * @return
-	 * @throws UnsupportedEncodingException 
+	 * @throws Exception 
 	 */
-	public String export() throws UnsupportedEncodingException {
+	public String export() throws Exception {
 		project = projectMgr.getProject(projectId);
 		velocityEngine.init();
 		VelocityContext context = new VelocityContext();
