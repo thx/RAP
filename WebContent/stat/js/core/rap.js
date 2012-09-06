@@ -3182,6 +3182,7 @@ var rap = rap || {};
 		function getDataTypeEditSelectHtml(id, type) {
 			var str = "",
 				typeList = [
+                    '',
                     'number',
                     'string',
                     'object',
