@@ -170,7 +170,7 @@ CREATE TABLE tb_action
 	id int(10) AUTO_INCREMENT NOT NULL
 		PRIMARY KEY,
 	name varchar(128) NOT NULL,
-	description varchar(256) NULL,
+	description text NULL,
 
     /* request block */
 	request_type int NOT NULL

@@ -1284,6 +1284,7 @@ var rap = rap || {};
 		var action = p.getAction(actionId);
 		if (action == null) return;
 		getDiv(_curModuleId, "a").innerHTML = getAHtml(action);
+        renderA();
 		_curActionId = actionId;
 	};
 
@@ -2502,6 +2503,31 @@ var rap = rap || {};
 		}
 	}
 
+    /**
+     * render action
+     */
+    function renderA() {
+        var list = b.q('js-code-area'),
+            length = list.length,
+            i = 0;
+
+        for (; i < length; i++) {
+            var item = list[i]; 
+            item.innerHTML = item.innerHTML.formatJS();
+        }
+
+        list = b.q('div-a-desc-expander');
+        length = list.length;
+        i = 0;
+
+        for(; i < length; i++) {
+            b.on(list[i], "click", function(e) {
+                window._log = e;
+                e.stopPropagation();
+            });
+        }
+    }
+
 	/**
 	 * jump to the first action of the current module
 	 */
@@ -3089,13 +3115,46 @@ var rap = rap || {};
 				body += "<div class='item'><b>Response Template</b>: <font color='red'>" + a.responseTemplate + "</font></div>";
 			}
 			if (a.description) {
-				body += "<div class='item'><b>Description</b>: <font color='gray'>" + a.description + "</font></div>";
+				body += "<div class='item'><b>Description</b>: " + processTextarea(a.description) + "</div>";
 			}
 			if (!body) {
 				body += "no info";
 			}
 			return head + body + foot;
 		}
+
+        /**
+         * process text area, using @code @end commands
+         * to make text area more colorful and readable
+         * @param {string} text string to be formatted
+         * @return {string} formatted string
+         */
+        function processTextarea(txt) {
+            var arr = [],
+                hasCode = txt.indexOf('@code') > -1;
+                i = 0;
+            if (txt.length > 100) {
+                var t1 = hasCode ? txt.replace(/(@code|@end)/gmi, '') : txt;
+                var reg = /@code([\s\S]*?)@end/gm;
+
+                arr[i++] = '<a class="div-a-desc-expander" href="#" onclick="this.innerHTML = this.innerHTML == \'展开\' ? \'收缩\' : \'展开\';baidu.each(baidu.dom.query(\'.description-area\'), function(ele){baidu.dom.toggle(ele);});baidu.each(baidu.dom.query(\'.description-area-partial\'), function(ele){baidu.dom.toggle(ele)}); return false;">展开</a>';
+                arr[i++] = '<div class="description-area-partial">';
+                arr[i++] = t1.substring(0, 100);
+                arr[i++] = '...</div>';
+                /**
+                 * process code area
+                 */
+                arr[i++] = '<div class="description-area" style="display:none;">';
+                arr[i++] = txt.replace(reg, '<div class="js-code-area">$1</div>');
+                arr[i++] = '</div>';
+                arr[i++] = '</div>';
+            } else {
+                arr[i++] = txt;
+
+            }
+            
+            return arr.join('');
+        }
 
 		/**
 		 * get request type string

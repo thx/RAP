@@ -7,6 +7,7 @@
 		#includeRapStatic
 		<link type="text/css" rel="stylesheet" href="${staticRoot}/css/defcontrol.css" />
 		<link type="text/css" rel="stylesheet" href="${staticRoot}/css/myWorkspace.css" />
+        <script src="${staticRoot}/js/util/jsformat.js"></script>
 	</head>
 	<body>
 	    #bodyStart

@@ -37,7 +37,7 @@ h2 {border-bottom: 1px solid;}
 	left: -10px;
 	top: 0px;
 	width: 960px;
-	height: 400px;
+	height: 500px;
 	background-color: #E6E6E6;
 	border: 1px gray dashed;
 }
@@ -73,8 +73,9 @@ h2 {border-bottom: 1px solid;}
 	left: 250px;
 	top: 0px;
 	width: 707px;
-	height: 392px;
-	overflow: auto;
+	height: 500px;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .div-a h2 {
@@ -153,6 +154,16 @@ h2 {border-bottom: 1px solid;}
 	border-top: 1px white solid;
 }
 
+.div-a .js-code-area {
+	width: 638px;
+	max-height:200px;
+	overflow-y:auto;
+	background:#FFF;
+	padding:8px;
+	margin:8px 0;
+	border: 1px dashed #DFDFDF;
+}
+
 .div-a-add {
 }
 
@@ -164,7 +175,7 @@ h2 {border-bottom: 1px solid;}
 #div-mt-list {
 	position: absolute;
 	left: 1px;
-	top: 400px;
+	top: 500px;
 	height: 20px;
 	width: 900px;
 	text-align: right;
@@ -213,7 +224,7 @@ h2 {border-bottom: 1px solid;}
 #div-w {
 	position: relative;
 	width: 900px;
-	height: 500px;
+	height: 550px;
 }
 
 #div-w-message {

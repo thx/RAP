@@ -7,7 +7,7 @@
 			mock service
         </note>
 		<from>^/mock/(\d*?)/(.*)$</from>
-		<to type="redirect">/mock/createData.action?id=$1&amp;pattern=/$2</to>
+		<to type="redirect">/rap/mock/createData.action?id=$1&amp;pattern=/$2</to>
 	</rule>
 </urlrewrite>
 
