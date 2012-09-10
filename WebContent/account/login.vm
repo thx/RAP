@@ -10,6 +10,7 @@
 	    #bodyStart
 		<div id="login">
 			<form name="formMain" action="$accountUrl.doLogin" method="post">
+                <input type="hidden" name="returnUrl" value="#if($returnUrlFirstSet)$!utils.escapeInU($returnUrl)#else$!returnUrl#end" />
 				<div class="table-container">
 					<div class="item">
 						<div class="title">登&nbsp;&nbsp;&nbsp;&nbsp;录</div>

@@ -36,9 +36,10 @@
 		<default-interceptor-ref name="baseStack" />
 		<!-- 全局result -->
 		<global-results>
-			<result name="login" type="redirect">/account/login.vm</result>
+			<result name="login" type="velocity">/account/login.vm</result>
 			<result name="error" type="velocity">/error.vm</result>
 			<result name="input" type="velocity">/error.vm</result>
+			<result name="redirect" type="velocity">/common/redirect.vm</result>
 		</global-results>
 		<!-- 
 		<global-exception-mappings>

@@ -9,9 +9,21 @@ import com.opensymphony.xwork2.ActionSupport;
 public class ActionBase extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	private boolean isReturnUrlFirstSet;
+
+	private String returnUrl;
+
+	public String getReturnUrl() {
+		return returnUrl;
+	}
+
+	public void setReturnUrl(String returnUrl) {
+		this.returnUrl = returnUrl;
+	}
+
 	private Pager pager;
-	
+
 	public Pager getPager() {
 		return pager;
 	}
@@ -19,41 +31,42 @@ public class ActionBase extends ActionSupport {
 	public void setPager(Pager pager) {
 		this.pager = pager;
 	}
-	
+
 	protected void initPager() {
-		if (getPager() == null){
+		if (getPager() == null) {
 			setPager(new Pager());
 		}
-		if (getPager().getCurPagerNum() == 0){
+		if (getPager().getCurPagerNum() == 0) {
 			getPager().setCurPagerNum(SystemConstant.FIRST_PAGE_NUM);
 		}
-		if (getPager().getPagerSize() == 0){
+		if (getPager().getPagerSize() == 0) {
 			getPager().setPagerSize(SystemConstant.DEFAULT_PAGE_NUM);
 		}
 	}
-	
+
 	private AccountMgr accountMgr;
-	
+
 	public AccountMgr getAccountMgr() {
 		return accountMgr;
 	}
-	
+
 	public void setAccountMgr(AccountMgr accountMgr) {
 		this.accountMgr = accountMgr;
 	}
-	
+
 	public String getCurAccount() {
-		return isUserLogined() ? ContextManager.getSession().get(ContextManager.KEY_ACCOUNT).toString() : null;
+		return isUserLogined() ? ContextManager.getSession()
+				.get(ContextManager.KEY_ACCOUNT).toString() : null;
 	}
-	
+
 	public boolean getIsLogined() {
 		return isUserLogined();
 	}
-	
+
 	protected boolean isUserLogined() {
-		return  ContextManager.getSession().get(ContextManager.KEY_ACCOUNT) != null;
+		return ContextManager.getSession().get(ContextManager.KEY_ACCOUNT) != null;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public int getCountOfOnlineUserList() {
 		Map app = ContextManager.getApplication();
@@ -64,15 +77,18 @@ public class ActionBase extends ActionSupport {
 			return (Integer) app.get(key);
 		}
 	}
-	
+
 	protected long getCurUserId() {
-		Object account = ContextManager.getSession().get(ContextManager.KEY_ACCOUNT);
-		if (account == null) return -1;
+		Object account = ContextManager.getSession().get(
+				ContextManager.KEY_ACCOUNT);
+		if (account == null)
+			return -1;
 		String accountStr = account.toString().trim();
-		if (accountStr == "") return -1;
+		if (accountStr == "")
+			return -1;
 		return accountMgr.getUserId(accountStr);
 	}
-	
+
 	public User getCurUser() {
 		if (isUserLogined()) {
 			return accountMgr.getUser(getCurUserId());
@@ -80,34 +96,47 @@ public class ActionBase extends ActionSupport {
 			return null;
 		}
 	}
-	
+
 	private boolean isOk = true;
-	
+
 	public boolean getIsOk() {
 		return isOk;
 	}
-	
+
 	public void setIsOk(boolean isOk) {
 		this.isOk = isOk;
 	}
-	
+
+	public boolean isReturnUrlFirstSet() {
+		return isReturnUrlFirstSet;
+	}
+
+	public void setRelativeReturnUrl(String returnUrl) {
+		this.returnUrl = SystemSettings.projectContext + returnUrl;
+		this.isReturnUrlFirstSet = true;
+	}
+
 	private String json;
-	
+
 	public String getJson() {
 		return json;
 	}
-	
+
 	public void setJson(String json) {
 		this.json = json;
 	}
-	
+
 	private String errMsg;
-	
+
 	public String getErrMsg() {
 		return errMsg;
 	}
-	
+
 	public void setErrMsg(String errMsg) {
 		this.errMsg = errMsg;
+	}
+
+	public void plsLogin() {
+		setErrMsg("请先登录");
 	}
 }

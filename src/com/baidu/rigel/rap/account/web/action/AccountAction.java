@@ -122,6 +122,9 @@ public class AccountAction extends ActionBase {
 			long userId = super.getAccountMgr().getUserId(account);
 			session.put(ContextManager.KEY_ACCOUNT, account);
 			session.put(ContextManager.KEY_USER_ID, userId);
+			if (getReturnUrl() != null && !getReturnUrl().trim().equals("")) {
+				return "redirect";
+			}
 			return SUCCESS;
 		} else {
 			setErrMsg("用户不存在或密码错误");
@@ -157,8 +160,9 @@ public class AccountAction extends ActionBase {
 	
 	public String myAccount() {
 		if (!isUserLogined()) {
-			setErrMsg("请先登录");
-			return ERROR;
+			plsLogin();
+			setRelativeReturnUrl("/account/myAccount.action");
+			return LOGIN;
 		}
 		return SUCCESS;
 	}

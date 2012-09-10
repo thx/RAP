@@ -216,8 +216,9 @@ public class WorkspaceAction extends ActionBase {
 
 	public String myWorkspace() {
 		if (!isUserLogined()) {
-			setErrMsg("请先登录");
-			return ERROR;
+			plsLogin();
+			setRelativeReturnUrl("/workspace/myWorkspace.action?projectId=" + projectId);
+			return LOGIN;
 		}
 		Workspace workspace = new Workspace();
 		workspace.setProject(projectMgr.getProject(getProjectId()));
