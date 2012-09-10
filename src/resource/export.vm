@@ -33,20 +33,20 @@
     </head>
     <body>
         <div id="container">
-        #foreach($module in $project.moduleList)
+        #foreach($module in $project.moduleListOrdered)
             #set($moduleNo = $velocityCount)
             <div class="module">
                 <h1>$moduleNo&nbsp;$module.name</h1>
-                #foreach($page in $module.pageList)
+                #foreach($page in $module.pageListOrdered)
                     #set($pageNo = $velocityCount)
                     <div class="page">
                         <h2>$moduleNo.$pageNo&nbsp;$page.name</h2>
-                        #foreach($action in $page.actionList)
+                        #foreach($action in $page.actionListOrdered)
                             #set($actionNo = $velocityCount)
                             <div class="action">
                             <h3>$moduleNo.$pageNo.$actionNo&nbsp;$action.name</h3>
-                            <h3>Descriptiontest</h3>
-                            <div>$action.descriptionEncodeFixed</div>
+                            <h3>Description</h3>
+                            <div>$action.description</div>
                             <h3>Request Param List</h3>
                             $action.requestParameterListHTML
                             <h3>Response Param List</h3>

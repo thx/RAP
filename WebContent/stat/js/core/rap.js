@@ -2098,6 +2098,7 @@ var rap = rap || {};
 	 * switch version
 	 */
 	ws.switchVersion = function() {
+        if (!confirm('确定要恢复到另一版本吗？')) return;
 		var versionId = getSelectedValue("radioCheckIn");
 		if (!versionId) {
 			showMessage(CONST.WARN, ELEMENT_ID.VERSION_PANEL_MESSAGE, MESSAGE.CHOOSE_AT_FIRST);

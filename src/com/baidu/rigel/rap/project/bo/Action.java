@@ -40,15 +40,6 @@ public class Action implements java.io.Serializable {
 		return description;
 	}
 	
-	public String getDescriptionEncodeFixed() {
-		try {
-			return new String(description.getBytes("utf8"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return description;
-	}
-
 	public void setDescription(String description) {
 		this.description = description == null ? "" : description;
 	}
