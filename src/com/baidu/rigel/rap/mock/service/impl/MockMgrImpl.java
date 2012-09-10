@@ -17,6 +17,7 @@ import com.baidu.rigel.rap.project.dao.ProjectDao;
 
 public class MockMgrImpl implements MockMgr {
 	private ProjectDao projectDao;
+	private int _num = 1;
 	private String[] NAME_LIB = {"圣香", "定球", "征宇", "灵兮", "永盛", "小婉", "紫丞", "少侠", "木谦", "周亮", "宝山", "张中", "晓哲老师", "夜沨大湿"};
 	private String[] LOCATION_LIB = {"北京 朝阳区", "北京 海淀区", "北京 昌平区", "吉林 长春 绿园区", "吉林 吉林 丰满区"};
 	private String[] PHONE_LIB = {"15813243928", "13884928343", "18611683243", "18623432532"};
@@ -30,6 +31,7 @@ public class MockMgrImpl implements MockMgr {
 
 	@Override
 	public String generateData(int projectId, String pattern) {
+		_num = 1;
 		if (pattern.contains("?")) {
 			pattern = pattern.substring(0, pattern.indexOf("?"));
 		}
@@ -95,7 +97,7 @@ public class MockMgrImpl implements MockMgr {
 		int ARRAY_LENGTH = isArrayObject ? 5 : 1;
 		String[] tags = para.getRemark().split(";");
 		Map<String, String> tagMap = new HashMap<String, String>();
-		parseTags(tags, tagMap);
+		parseTags(tags, tagMap, false);
 		String length = tagMap.get("length");
 		if (length != null && !length.isEmpty()) {
 			ARRAY_LENGTH = Integer.parseInt(length);
@@ -137,7 +139,7 @@ public class MockMgrImpl implements MockMgr {
 		String dataType = para.getDataType();
 		String[] tags = para.getRemark().split(";");
 		Map<String, String> tagMap = new HashMap<String, String>();
-		parseTags(tags, tagMap);
+		parseTags(tags, tagMap, true);
 		
 		if (dataType.equals("number")) {
 			String value = tagMap.get("value");
@@ -183,12 +185,18 @@ public class MockMgrImpl implements MockMgr {
 		return "0";
 	}
 
-	private void parseTags(String[] tags, Map<String, String> tagMap) {
+	private void parseTags(String[] tags, Map<String, String> tagMap, boolean isMocking) {
 		for(String tag : tags) {
 			// tag format validation
 			if (tag.startsWith("@") && tag.contains("=")) {
 				if (tag.startsWith("@value=")) {
-					tagMap.put("value", tag.split("=")[1]);
+					String val = tag.split("=")[1];
+					if (val.contains("[xx]") && isMocking) {
+						Integer n = _num++ % 30;
+						val = val.replace("[xx]", n >= 10 ? n.toString() : "0" + n);
+					}
+					tagMap.put("value", val);
+					
 				} else if (tag.startsWith("@format=")) {
 					tagMap.put("format", tag.split("=")[1]);
 				} else if (tag.startsWith("@length=")) {

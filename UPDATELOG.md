@@ -1,6 +1,6 @@
 ======================rap v1.3 =================================================
   * update mock service, add @type=array, @type=array_map, @length=\d+ for
-action description
+action description, add new _c callback
   * add @code @end support for action description area for code formatting
   * increase size of working area
   * fix bugs (data type choose, word file export encoding, etc.)
