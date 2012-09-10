@@ -1,7 +1,10 @@
 ======================rap v1.3 =================================================
+  * update mock service, add @type=array, @type=array_map, @length=\d+ for
+action description
   * add @code @end support for action description area for code formatting
   * increase size of working area
   * fix bugs (data type choose, word file export encoding, etc.)
+  
 ======================rap v1.2 =================================================
   * simplify operation flow √ 08/29/2012
   * fix shortcuts compatibilities in different browsers (1.1 only support Firefox)  √ 07/24/2012

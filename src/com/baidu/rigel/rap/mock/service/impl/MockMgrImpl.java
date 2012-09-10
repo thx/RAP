@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.baidu.rigel.rap.common.ArrayUtils;
 import com.baidu.rigel.rap.common.NumberUtils;
@@ -36,22 +38,53 @@ public class MockMgrImpl implements MockMgr {
 		if (aList.size() == 0)
 			return "{\"isOk\":false, \"errMsg\":\"no matched action\"}";
 		Action action = aList.get(0);
+		String desc = action.getDescription();
 		Set<Parameter> pList = action.getResponseParameterList();
 		StringBuilder json = new StringBuilder();
 		String left = "{", right = "}";
-		if (action.getDescription().contains("[array]")) {
+		
+		// match both @type=array && @type=array_map
+		if (desc.contains("@type=array")) {
 			left = "[";
 			right = "]";
+		}   
+		
+		// for array_map.length
+		String key = "@length=";
+		String numStr = null;
+		if (desc.contains(key)) {
+			Pattern p = Pattern.compile("@length=(\\d+)");
+			Matcher matcher = p.matcher(desc);
+			if (matcher.find()) {
+				numStr = matcher.group(1);
+			}
 		}
+		int num = numStr == null ? 1 : Integer.parseInt(numStr);
 		json.append(left);
 		boolean first = true;
-		for (Parameter p : pList) {
-			if (first) {
-				first = false;
-			} else {
+		
+		boolean isArrayMap = desc.contains("@type=array_map");
+		
+		for (int i = 0; i < num; i++) {
+			first = true;
+			if (i > 0) {
 				json.append(",");
 			}
-			buildJson(json, p);
+			if (isArrayMap) {
+				json.append("{");
+			}
+			for (Parameter p : pList) {
+				if (first) {
+					first = false;
+				} else {
+					json.append(",");
+				}
+				buildJson(json, p);
+			}
+
+			if (isArrayMap) {
+				json.append("}");
+			}
 		}
 		json.append(right);
 		return json.toString();

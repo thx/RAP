@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf8">
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF8">
         <title></title>
         <style type="text/css">
             #container {margin:8px;}
@@ -45,6 +45,8 @@
                             #set($actionNo = $velocityCount)
                             <div class="action">
                             <h3>$moduleNo.$pageNo.$actionNo&nbsp;$action.name</h3>
+                            <h3>Descriptiontest</h3>
+                            <div>$action.descriptionEncodeFixed</div>
                             <h3>Request Param List</h3>
                             $action.requestParameterListHTML
                             <h3>Response Param List</h3>

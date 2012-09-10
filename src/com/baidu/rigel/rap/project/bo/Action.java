@@ -1,5 +1,6 @@
 package com.baidu.rigel.rap.project.bo;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -36,6 +37,15 @@ public class Action implements java.io.Serializable {
 	private String description;
 
 	public String getDescription() {
+		return description;
+	}
+	
+	public String getDescriptionEncodeFixed() {
+		try {
+			return new String(description.getBytes("utf8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return description;
 	}
 
