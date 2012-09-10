@@ -1,6 +1,6 @@
 ======================rap v1.3 =================================================
-  * update mock service, add @type=array, @type=array_map, @length=\d+ for
-action description, add new _c callback
+  * add new mock data tag:@value=[xx], for mocking from 01 to 30, eg->@value=2012-09-[xx], output: 2012-09-01, 2012-09-02, 2012-09-03...
+  * update mock service, add @type=array, @type=array_map, @length=\d+ for action description, add new _c callback
   * add @code @end support for action description area for code formatting
   * increase size of working area
   * fix bugs (data type choose, word file export encoding, etc.)
