@@ -10,6 +10,15 @@ public class MockAction extends ActionBase {
 	private String pattern;
 	private String content;
 	private String callback;
+	private String _c;
+
+	public String get_c() {
+		return _c;
+	}
+
+	public void set_c(String _c) {
+		this._c = _c;
+	}
 
 	public String getCallback() {
 		return callback;
@@ -56,6 +65,8 @@ public class MockAction extends ActionBase {
 	public String createData() {
 		if (callback != null && !callback.isEmpty()) {
 			setContent(callback + "(" + mockMgr.generateData(id, pattern) + ")");
+		} else if (_c != null && !_c.isEmpty()) {
+			setContent(_c + "(" + mockMgr.generateData(id, pattern) + ")");
 		} else {
 			setContent(mockMgr.generateData(id, pattern));
 		}
