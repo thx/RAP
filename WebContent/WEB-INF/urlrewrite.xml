@@ -10,4 +10,3 @@
 		<to type="redirect">/rap/mock/createData.action?id=$1&amp;pattern=/$2</to>
 	</rule>
 </urlrewrite>
-

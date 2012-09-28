@@ -6,8 +6,8 @@
 	<div id="wrapper-bgtop">
 		<div id="header">
 			<div id="logo">
-				<h1><a href="#">RAP v1.3</a></h1>
-				<p><em> welcome to <a href="http://rap.baidu.com/">Rigel Automation Platform!</a></em></p>
+				<h1><a href="http://fe.lzdp.us">RAP v1.3</a></h1>
+				<p><em> welcome to <a href="http://fe.lzdp.us">Rigel Automation Platform!</a></em></p>
 			</div>
 			<hr />
 			<!-- end #logo -->
@@ -47,7 +47,7 @@
 </div>
 <div id="footer-bgcontent">
 	<div id="footer">
-		<p>Copyright (c) 2010 taobao.com All rights reserved. Design by <a href="mailto:huoyong.msb@taobao.com">Bosn</a>.</p>
+		<p>Copyright (c) 2010 taobao.com All rights reserved. Design by <a href="mailto:huoyong.msb@taobao.com">EtaoDataWebTeam</a>.</p>
 		<div id="app-status">
 		在线用户:$!countOfOnlineUserList
 		</div>
