@@ -11,6 +11,16 @@ public class ActionBase extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
 	private boolean isReturnUrlFirstSet;
+	
+	private boolean isLoginCtlHidden;
+
+	public boolean isLoginCtlHidden() {
+		return isLoginCtlHidden;
+	}
+
+	public void setLoginCtlHidden(boolean isLoginCtlHidden) {
+		this.isLoginCtlHidden = isLoginCtlHidden;
+	}
 
 	private String returnUrl;
 
@@ -133,6 +143,7 @@ public class ActionBase extends ActionSupport {
 	}
 
 	public void setErrMsg(String errMsg) {
+		this.isLoginCtlHidden = true;
 		this.errMsg = errMsg;
 	}
 

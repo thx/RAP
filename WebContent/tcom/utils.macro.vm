@@ -525,11 +525,12 @@ baidu.dom.ready(function (){
  *#
 #macro (includeRapStatic)
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+<link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap.css" type="text/css" media="screen">
+<link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap-responsive.css" type="text/css" media="screen">
 <link rel="stylesheet" href="${staticRoot}/css/rap.template.css" type="text/css" media="screen">
 <link rel="stylesheet" href="${staticRoot}/js/ui/table/css/table.css" type="text/css">
 <link rel="stylesheet" href="${staticRoot}/js/ui/floater/css/floater.css" type="text/css">
 <link rel="stylesheet" href="${staticRoot}/js/ui/calendar/css/calendar.css" type="text/css"/>
-<link rel="stylesheet" href="${staticRoot}/css/navbar.css" type="text/css">
 <script type="text/javascript" src="${staticRoot}/js/core/tangram-1.2.1.js"></script>
 <script type="text/javascript" src="${staticRoot}/js/core/tangram-fix.js"></script>
 <script type="text/javascript" src="${staticRoot}/js/core/ecui-1.1.0-all.js"></script>

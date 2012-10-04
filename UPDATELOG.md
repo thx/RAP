@@ -1,3 +1,7 @@
+======================rap v0.4 =================================================
+  * change version back to 0.4
+  * 
+  
 ======================rap v1.3 =================================================
   * UE: login automatically redirect 09/10/2012
   * add new mock data tag:@value=[xx], for mocking from 01 to 30, eg->@value=2012-09-[xx], output: 2012-09-01, 2012-09-02, 2012-09-03...  09/10/2012

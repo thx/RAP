@@ -13,7 +13,7 @@
 	    #bodyStart
 		<div id="div-w">
 			<div id="div-return">
-				<a href="$projectUrl.myProject?id=$projectId">返回</a>
+				<a href="$projectUrl.myProjectList">返回</a>
 			</div>
 			<div id="div-w-message">
 			</div>

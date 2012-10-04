@@ -3,25 +3,38 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>RAP Home        </title>
+		<title>欢迎使用RAP        </title>
 		#includeRapStatic
-        #if($isLogined)
-        <script>
-            window.location.href= "$!projectUrl.myProjectList";
-        </script>
-        #end
 	</head>
 	<body>
 	    #bodyStart
-			<div id="home">
-			<p>hi! 欢迎使用RAP, RAP(Rigel Automation Platform)是一个基于接口文档的数据共享平台，它能够帮你管理接口等项目具体数据的版本并通过这些数据自动化的生成所需的其它文件。</p>
-			<p>如果你遇到麻烦，请随时联系霍雍， 可拨打分机: 72641, 他会时刻准备着以光的速度飞到你的面前为你解决问题。</p>
-			<p>如果在使用过程中遇到任何易用性的问题，或者哪怕是哪里用着不太舒服，欢迎你随时将问题反馈到<a href="mailto:huoyong.msb@taobao.com">huoyong.msb@taobao.com</a>，我们仍然会以光的速度对你的反馈进行回复并提交修改方案和计划。</p>
-			<p>非常感谢你的支持！谢谢！</p>
-			<div id="img1"></div>
-			<div id="img2"></div>
-			<div id="img3"></div>
-			</div>
+            <!-- Main hero unit for a primary marketing message or call to action -->
+            <div class="hero-unit">
+                <h1>欢迎使用RAP!</h1>
+                <p>RAP(Rigel Automation Platform)是一个基于接口文档的数据共享平台，它能够帮你管理接口等项目具体数据的版本并通过这些数据自动化的生成所需的其它文件。</p>
+                <!--
+                <p>
+                    <a class="btn btn-primary btn-large">了解更多 &raquo;</a>
+                </p>
+                -->
+            </div>
+            <div class="row-fluid">
+                <div class="span4">
+                    <img src="http://twitter.github.com/bootstrap/assets/img/bs-docs-twitter-github.png">
+                    <h2>接口版本管理</h2>
+                    <p>RAP提供了接口数据共享平台，每一次提交都有版本跟踪，可随时切换、查看任何一次提交，方便团队协作。</p>
+                </div>
+                <div class="span4">
+                    <img src="http://twitter.github.com/bootstrap/assets/img/bs-docs-responsive-illustrations.png">
+                    <h2>自动数据接口</h2>
+                    <p>只要填写好接口，RAP会自动生成用于数据伪造的接口，这些接口会根据文档中的信息自动化的生成随机伪造数据。通过一些<span class="label">标签</span>，还可控制数据伪造的形式和范围。</p>
+                </div>
+                <div class="span4">
+                    <img src="http://twitter.github.com/bootstrap/assets/img/bs-docs-bootstrap-features.png">
+                    <h2>后端工具包</h2>
+                    <p>只要填写好接口数据，平台还提供了后端工具包，用于检验所开发接口是否满足文档要求，对请求和响应的格式、参数拼写等进行验证。对接口进行简单测试等等。</p>
+                </div>
+            </div>
 		#bodyEnd
 	</body>
 </html>

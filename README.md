@@ -1,10 +1,10 @@
 Rigel Automation Platform
 ===
 
-    @version v1.3 - (latest version, in master branch)
-    @author  Bosn
+    @version v0.4 - (latest version, in master branch)
+    @author  Bosn Ma
     @weibo   http://weibo.com/bosn
-    @mail    bosnma@live.com
+    @mail    bosn@outlook.com
 
 `RAP` is a data automation platform based on shared interface data system. Based on this structured "interface data", we can automatically export some other useful data, for instance: generating mock testing data.
 

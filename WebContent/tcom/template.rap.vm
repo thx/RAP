@@ -2,68 +2,49 @@
 
 ## master page start
 #macro (bodyStart)
-<div id="wrapper">
-	<div id="wrapper-bgtop">
-		<div id="header">
-			<div id="logo">
-				<h1><a href="http://fe.lzdp.us">RAP v1.3</a></h1>
-				<p><em> welcome to <a href="http://fe.lzdp.us">Rigel Automation Platform!</a></em></p>
-			</div>
-			<hr />
-			<!-- end #logo -->
-			<div id="menu">
-				<ul>
-					<li><a href="$platformUrl.home" class="first">Home</a></li>
-					#if($isLogined)
-					<li><a href="$accountUrl.myAccount">Account</a></li>
-                    <!--<li><a href="$projectUrl.myProjectList">Project</a></li>-->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse"
+                data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+                class="icon-bar"></span> <span class="icon-bar"></span>
+            </a> <a class="brand" href="http://fe.lzdp.us">RAP v0.4</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li><a href="$platformUrl.home">首页</a></li>
+                    #if($isLogined)
+                    <li><a href="$projectUrl.myProjectList">我的项目</a></li>
+					<li><a href="$accountUrl.myAccount">我的账户</a></li>
 					#end
-
-					<li><a href="$platformUrl.status">Status</a></li>
-					<!--<li><a href="$platformUrl.document">Doc</a></li>-->
-					<li><a href="$platformUrl.about">About</a></li>
-				</ul>
-			</div>
-			<div id="login-control">
-			#if ($curUser) 
-			<a href="$accountUrl.myAccount">$curAccount</a>&nbsp;&nbsp;<a href="$accountUrl.doLogout">注销</a>
-            <input type="checkbox" #if($curUser.isHintEnabled)checked="true"#end id="checkboxHintEnabled" onchange="checkboxHintChanged(this);" /><label for="checkboxHintEnabled" style="color:white">开启提示</label>
-			#else <a href="$accountUrl.login">登录</a>
-			#end
-			</div>
-		</div>
-		<!-- end #header -->
-		<!-- end #header-wrapper -->
-		<div id="page">
-			<div id="content">
+                    <li><a href="$platformUrl.about">关于</a></li>
+                </ul>
+                #if ($curUser) 
+                <div class="navbar-form pull-right">
+                    <ul class="nav">
+                        <li><a href="$accountUrl.myAccount">$curUser.name</a></li>
+                        <li><a href="$accountUrl.doLogout">注销登录</a> </li>
+                    </ul>
+                </div>
+                #elseif(!$loginCtlHidden)
+                <form name="formMain" class="navbar-form pull-right" action="$accountUrl.doLogin" method="post">
+                    <input class="span2" type="text" placeholder="用户名" name="account"> 
+                    <input class="span2" type="password" placeholder="密码" name="password">
+                    <button type="submit" class="btn">登录</button>
+                </form>
+                #end
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container">
 #end
+
 ## master page end
 #macro (bodyEnd)
-			</div>
-			<!-- end #content -->
-		</div>
-		<!-- end #page -->
-	</div>
+    <hr>
+    <footer>
+        <p>&copy; <a href="mailto:huoyong.msb@taobao.com">一淘数据部Web小组.</a>原创出品&nbsp;在线用户:$!countOfOnlineUserList</p>
+    </footer>
 </div>
-<div id="footer-bgcontent">
-	<div id="footer">
-		<p>Copyright (c) 2010 taobao.com All rights reserved. Design by <a href="mailto:huoyong.msb@taobao.com">EtaoDataWebTeam</a>.</p>
-		<div id="app-status">
-		在线用户:$!countOfOnlineUserList
-		</div>
-	</div>
-</div>
-<script type="text/javascript">
-	function checkboxHintChanged(ele) {
-		if (rap && rap.util && rap.util.hint) {
-			ele.checked ? rap.util.hint.enable() : rap.util.hint.disable(); 
-			baidu.ajax.get("$accountUrl.doChangeProfile?profileProperty=isHintEnabled&profileValue=" + ele.checked, 
-				function(xhr, response) {
-					// do nothing
-				}
-			);
-		}
-	}
-</script>
-<!-- end #footer -->
 #end
