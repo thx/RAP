@@ -145,7 +145,7 @@ public class User implements java.io.Serializable {
 	}
 	
 	public String getCreateDateStr() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		return dateFormat.format(getCreateDate());
 	}
 	
@@ -162,7 +162,7 @@ public class User implements java.io.Serializable {
 	}
 	
 	public String getLastLoginDateStr() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		return dateFormat.format(getLastLoginDate());
 	}
 	

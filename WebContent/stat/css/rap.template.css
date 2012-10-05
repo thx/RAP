@@ -3,6 +3,9 @@ body {
 	padding-bottom: 40px;
 }
 
+.left {float:left;}
+.right {float:right;}
+
 .es-prev,.es-next {
 	border: 0;
 	cursor: pointer;

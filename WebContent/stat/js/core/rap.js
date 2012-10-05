@@ -1135,7 +1135,7 @@ var rap = rap || {};
 			"SAVE_PANEL_BEGIN"                   : "<div id=\"div-save-panel\">",
 			"SAVE_PANEL_END"                     : "</div>",
 
-			"VERSION_PANEL_BEGIN"                : "<h2>VERSION MANAGE</h2><div id=\"div-version-panel\"><table class='table-version'><tr class='head'><td class='version-op'>OP</td><td class='version'>版本</td><td class='operator'>操作人</td><td class='operation-time'>操作时间</td><td class='version-desc'>描述</td></tr>",
+			"VERSION_PANEL_BEGIN"                : "<div id=\"div-version-panel\"><table class='table-version'><tr class='head'><td class='version-op'>OP</td><td class='version'>版本</td><td class='operator'>操作人</td><td class='operation-time'>操作时间</td><td class='version-desc'>描述</td></tr>",
 			"VERSION_PANEL_END"                  : "</table></div>",
 
 			"MODULE_ADD_BUTTON"                  : "<div id=\"div-add-m\"><a href=\"#\" class=\"add-link\" onclick=\"ws.addM(); return false;\">&nbsp;</a></div>",

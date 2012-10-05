@@ -6,12 +6,8 @@
 		<title>RAP About        </title>
 		#includeRapStatic
 		<style type="text/css">
-			.item {
-				margin: 12px;
-			}
-			p {
-				margin: 12px;
-			}
+			.item { margin: 12px; }
+			p { margin: 12px; }
 		</style>
 	</head>
 	<body>
@@ -20,7 +16,7 @@
 				<h2>SUMMARY</h2>
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAP(Rigel Automation Platform)是一个提供团队协作平台并通过平台数据的转换实现从设计、开发到测试阶段部分工作自动化的系统。</p>
 				<h2>About Rigel</h2>
-				<p>RAP的诞生来自于Rigel小组的工作总结，在日常的工作中我们发现一些繁杂或冗余的工作环节，如制定接口、编写测试文件、起草各种报告等。RAP的想法来自于对日常生活中所遇到的问题的总结。</p>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAP的诞生来自于Rigel小组的工作总结，在日常的工作中我们发现一些繁杂或冗余的工作环节，如制定接口、编写测试文件、起草各种报告等。RAP的想法来自于对日常生活中所遇到的问题的总结。</p>
 				<h2>About Platform</h2>
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAP在平台的概念上类似于iCafe，只是它针对于具体特性（使用哪种后端架构？使用那种模板引擎等）提供更细致、强大的功能。在iCafe中我们输入项目的信息（名称、负责人、版本号等），它会帮我们自动控制评审、上线等流程，而RAP需要我们输入更多的信息，如项目有几个模块？每个模块有多少页面？每个页面有多少请求和参数等（比如像编写接口文档那样将数据写入RAP），RAP提供这些信息的共享、编辑和版本控制的平台。 </p>
 				<h2>About Automation</h2>
@@ -46,14 +42,6 @@
 				<h2>ARCHITECTURE</h2>
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAP提供了具体功能的同时也带来了一些负面效果，比如如何使系统更易扩展（不同组之间的所用技术、流程千差万别），其实这也是我们一直思考的问题，当然，最后有了答案。RAP的灵魂不是平台，也不是自动化（平台和自动化更像是身体），而是它能够像百度百科编辑新词条那样扩展平台的自动化功能的设计。对于RAP，<font color="red">每个用户都是它的作者，每个作者都是它的用户。</font></p>
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于RAP针对于具体的技术（如使用Java还是PHP，使用Velocity还是Smarty），所以不可能一次性开发使平台能够为所有项目提供所有功能，RAP将以Rigel常用的Java SSH + Velocity + MySQL为例按照一定的接口编写一套自动化套件，其他人如果在RAP中找不到所需的功能，或希望添加一些功能，只需要继承一个接口或调用一些服务，即可方便的通过RAP平台收集的数据及它的数据接口实现自己的自动化导出功能，一劳永逸的同时所有与你使用相同技术的小组或个人都将从中受益。如果你认为系统中的数据不足以生成想要的东西，我们可以为你扩展数据录入的范围（比如你想生成项目计划，我们会在项目定义工作区中添加相关的录入信息）。如果你认为系统中没有提供你所需的功能，可以联系平台维护人员根据你的需求编写相关的生成方法，或者通过查阅RAP文档，自己调用API来实现自动化功能并将该功能发布到RAP中与其他人共享。</p>
-				<h2>开发计划及进度</h2>
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAP第一个版本将在<font color="Red">2010年9月30日</font>完成开发，该版本提供VSS/SVN双模式数据共享平台并提供Rigel自动化套件，以实现Rigel中常用文档、代码、报告的自动化导出。项目数据将包括接口文档、项目进度与计划等内容。</p>
-				<div id="about-img-1"></div>
-				<div id="about-img-2"></div>
-				<div id="about-img-3"></div>
-				<div id="about-img-4"></div>
-				<div id="about-img-5"></div>
-				<div id="about-img-6"></div>
 			</div>
 		#bodyEnd
 	</body>

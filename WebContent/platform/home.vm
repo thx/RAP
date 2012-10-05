@@ -56,23 +56,23 @@
                 <div class="row-fluid">
                     <ul class="thumbnails example-sites">
                         <li class="span3">
-                            <a class="thumbnail" href="http://soundready.fm/" target="_blank">
-                                <img src="http://twitter.github.com/bootstrap/assets/img/example-sites/soundready.png" alt="SoundReady.fm">
+                            <a class="thumbnail" href="http://lz.taobao.com/" target="_blank">
+                                <img src="$staticRoot/img/home_img_11.png" alt="SoundReady.fm">
                             </a>
                         </li>
                         <li class="span3">
-                            <a class="thumbnail" href="http://kippt.com/" target="_blank">
-                                <img src="http://twitter.github.com/bootstrap/assets/img/example-sites/kippt.png" alt="Kippt">
+                            <a class="thumbnail" href="http://data.linezing.com/sign/signin" target="_blank">
+                                <img src="$staticRoot/img/home_img_12.png" alt="Kippt">
                             </a>
                         </li>
                         <li class="span3">
-                            <a class="thumbnail" href="http://www.fleetio.com/" target="_blank">
-                                <img src="http://twitter.github.com/bootstrap/assets/img/example-sites/fleetio.png" alt="Fleetio">
+                            <a class="thumbnail" href="http://zhidao.linezing.com/" target="_blank">
+                                <img src="$staticRoot/img/home_img_13.png" alt="Fleetio">
                             </a>
                         </li>
                         <li class="span3">
-                            <a class="thumbnail" href="http://www.jshint.com/" target="_blank">
-                                <img src="http://twitter.github.com/bootstrap/assets/img/example-sites/jshint.png" alt="JS Hint">
+                            <a class="thumbnail" href="http://etao.com/" target="_blank">
+                                <img src="$staticRoot/img/home_img_14.png" alt="JS Hint">
                             </a>
                         </li>
                     </ul>
