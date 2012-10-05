@@ -1,42 +1,167 @@
-body {margin-top:25px;}
-.air {margin-top:5px}
+body {
+	margin-top: 25px;
+}
 
-.ec-tab-button {float:left;height:20px;line-height:20px;font-weight:bold;width:100px;cursor:pointer}
-.ec-tab-button-selected {text-decoration:underline}
-.ec-tab-buttons {height:20px;margin-bottom:10px;line-height:20px}
+.air {
+	margin-top: 5px
+}
 
-.fcborder {position:absolute;border:1px dashed #F00}
-.button {}
-.btn {width:auto}
+.ec-tab-button {
+	float: left;
+	height: 20px;
+	line-height: 20px;
+	font-weight: bold;
+	width: 100px;
+	cursor: pointer
+}
 
-#eventPanel {position:relative}
-#eventTitle {height:25px;line-height:25px;margin-bottom:5px}
-#eventList {position:absolute;right:3px;top:0px;line-height:20px;height:25px}
-#eventList .ec-select {margin-right:30px}
-#eventArea textarea {height:100px;width:99%;font-size:12px}
+.ec-tab-button-selected {
+	text-decoration: underline
+}
 
-.eventSlab {position:absolute;left:50%;top:50%;padding-top:0px;margin-left:-150px;margin-top:-200px;width:400px;height:300px;background:#FFF;border:1px solid #000;text-align:center}
-.eventSlab ul {list-style-type:none;margin:0px;padding:0px;width:400px}
-.eventSlab li {float:left;line-height:20px;color:#aaa;width:100px;height:20px;text-align:center}
-.eventSlab-main-vscroll {display:none}
-.eventSlab-main-hscroll {display:none}
-.eventSlab-close {position:absolute;height:10px;width:10px;right:3px;top:3px;background:#F00}
-.eventSlab-title {height:30px;line-height:30px;top:0px;left:0px;width:400px}
-.eventSlab-main {margin-top:30px}
+.ec-tab-buttons {
+	height: 20px;
+	margin-bottom: 10px;
+	line-height: 20px
+}
 
-#cssArea .tool {float:right;margin-right:10px}
-#cssData .title {margin-top:10px;margin-bottom:3px}
-#cssData .input {width:500px}
+.fcborder {
+	position: absolute;
+	border: 1px dashed #F00
+}
 
-.stateTable {margin:0;line-height:15px;border:1px solid #99BBE8;width:98%}
-.stateTable th {border-bottom:1px solid #99BBE8;text-align:left;color:#365F91}
-.stateTable .cr {background:#FAFBFC}
+.button {
+	
+}
+
+.btn {
+	width: auto
+}
+
+#eventPanel {
+	position: relative
+}
+
+#eventTitle {
+	height: 25px;
+	line-height: 25px;
+	margin-bottom: 5px
+}
+
+#eventList {
+	position: absolute;
+	right: 3px;
+	top: 0px;
+	line-height: 20px;
+	height: 25px
+}
+
+#eventList .ec-select {
+	margin-right: 30px
+}
+
+#eventArea textarea {
+	height: 100px;
+	width: 99%;
+	font-size: 12px
+}
+
+.eventSlab {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	padding-top: 0px;
+	margin-left: -150px;
+	margin-top: -200px;
+	width: 400px;
+	height: 300px;
+	background: #FFF;
+	border: 1px solid #000;
+	text-align: center
+}
+
+.eventSlab ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	width: 400px
+}
+
+.eventSlab li {
+	float: left;
+	line-height: 20px;
+	color: #aaa;
+	width: 100px;
+	height: 20px;
+	text-align: center
+}
+
+.eventSlab-main-vscroll {
+	display: none
+}
+
+.eventSlab-main-hscroll {
+	display: none
+}
+
+.eventSlab-close {
+	position: absolute;
+	height: 10px;
+	width: 10px;
+	right: 3px;
+	top: 3px;
+	background: #F00
+}
+
+.eventSlab-title {
+	height: 30px;
+	line-height: 30px;
+	top: 0px;
+	left: 0px;
+	width: 400px
+}
+
+.eventSlab-main {
+	margin-top: 30px
+}
+
+#cssArea .tool {
+	float: right;
+	margin-right: 10px
+}
+
+#cssData .title {
+	margin-top: 10px;
+	margin-bottom: 3px
+}
+
+#cssData .input {
+	width: 500px
+}
+
+.stateTable {
+	margin: 0;
+	line-height: 15px;
+	border: 1px solid #99BBE8;
+	width: 98%
+}
+
+.stateTable th {
+	border-bottom: 1px solid #99BBE8;
+	text-align: left;
+	color: #365F91
+}
+
+.stateTable .cr {
+	background: #FAFBFC
+}
+
 .m {
 	position: absolute;
 	display: none;
 	left: -10px;
 	top: 0px;
-	width: 960px;
+	width: 1156px;
 	height: 500px;
 	background-color: #E6E6E6;
 	border: 1px gray dashed;
@@ -45,7 +170,7 @@ body {margin-top:25px;}
 .tree-m {
 	position: absolute;
 	left: 5px;
-	top:10px;
+	top: 10px;
 	width: 240px;
 	height: 390px;
 	overflow-y: auto;
@@ -72,7 +197,7 @@ body {margin-top:25px;}
 	position: absolute;
 	left: 250px;
 	top: 0px;
-	width: 707px;
+	width: 895px;
 	height: 500px;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -85,7 +210,7 @@ body {margin-top:25px;}
 
 .div-a .head {
 	background-color: Gray;
-	text-align:center;
+	text-align: center;
 	color: white;
 	font-weight: bold;
 	font-size: 14px;
@@ -100,6 +225,7 @@ body {margin-top:25px;}
 }
 
 .div-a .head-validator {
+	
 }
 
 .div-a .head-type {
@@ -107,6 +233,7 @@ body {margin-top:25px;}
 }
 
 .div-a .head-remark {
+	
 }
 
 .div-a .head-identifier {
@@ -125,12 +252,12 @@ body {margin-top:25px;}
 
 .div-a .name {
 	border-left: none;
-	width: 140px;
+	width: 25px;
 }
 
 .div-a .validator {
 	color: Red;
-	text-align:center;
+	text-align: center;
 }
 
 .div-a .remark {
@@ -139,11 +266,11 @@ body {margin-top:25px;}
 
 .div-a .identifier {
 	color: Red;
-	width: 140px;
+	width: 25px;
 }
 
 .div-a .dataType {
-	text-align:center;
+	text-align: center;
 	width: 100px;
 	font-weight: bold;
 }
@@ -156,15 +283,16 @@ body {margin-top:25px;}
 
 .div-a .js-code-area {
 	width: 638px;
-	max-height:200px;
-	overflow-y:auto;
-	background:#FFF;
-	padding:8px;
-	margin:8px 0;
+	max-height: 200px;
+	overflow-y: auto;
+	background: #FFF;
+	padding: 8px;
+	margin: 8px 0;
 	border: 1px dashed #DFDFDF;
 }
 
 .div-a-add {
+	
 }
 
 .span-p-control {
@@ -174,13 +302,13 @@ body {margin-top:25px;}
 
 #div-mt-list {
 	position: absolute;
-	left: 1px;
-	top: 500px;
+	left: 248px;
+	top: 502px;
 	height: 20px;
 	width: 900px;
 	text-align: right;
 }
-	
+
 #div-mt-list .tab {
 	height: 20px;
 	padding: 8px 8px 2px 8px;
@@ -194,8 +322,8 @@ body {margin-top:25px;}
 
 #div-mt-list .cur {
 	background-color: #E6E6E6;
-	height: 21px;
-	margin-top: -1px;
+	height: 22px;
+	margin-top: 1px;
 }
 
 #div-mt-list .first {
@@ -231,11 +359,7 @@ body {margin-top:25px;}
 	position: absolute;
 	left: 60px;
 	font-size: 14px;
-	padding-top: 5px;
-	padding-left: 30px;
-	height: 50px;
-	width: 400px;
-	top: -30px;
+	top: -31px;
 }
 
 #div-debug {
@@ -251,13 +375,13 @@ body {margin-top:25px;}
 }
 
 #div-empty-hint {
-
+	
 }
 
 #div-control-panel {
 	position: absolute;
-	top: -30px;
-	width: 900px;
+	top: -36px;
+	width: 1148px;
 }
 
 #div-control-panel .button {
@@ -267,30 +391,28 @@ body {margin-top:25px;}
 
 #div-return {
 	position: absolute;
-	top: -25px;
+	top: -36px;
 	z-index: 5;
+	left: -9px;
 }
 
 #div-save-panel {
+	
 }
 
 #div-save-panel .item {
 	margin: 8px;
 }
 
-
 #div-save-floater-content {
+	
 }
 
-#div-save-floater-message, #div-checkin-floater-message, #div-checkout-floater-message, #div-version-floater-message , #div-saveVSS-floater-message {
+#div-save-floater-message,#div-checkin-floater-message,#div-checkout-floater-message,#div-version-floater-message,#div-saveVSS-floater-message
+	{
 	position: absolute;
-	font-size: 14px;
 	top: 40px;
-	padding-top: 5px;
-	padding-left: 30px;
-	left: 20px;
-	height: 30px;
-	width: 400px;
+	left: 28px;
 	z-index: 99999;
 }
 
@@ -302,7 +424,7 @@ body {margin-top:25px;}
 	text-align: right;
 }
 
-#div-checkin-floater-content, #div-checkout-floater-content {
+#div-checkin-floater-content,#div-checkout-floater-content {
 	margin: 8px;
 	border: Gray 1px dashed;
 	width: 550px;
@@ -311,6 +433,7 @@ body {margin-top:25px;}
 }
 
 #div-saveVSS-floater-message {
+	
 }
 
 #div-saveVSS-floater-content {
@@ -333,7 +456,7 @@ body {margin-top:25px;}
 	border: white 1px solid;
 	border-collapse: collapse;
 	margin: 12px 8px 8px 18px;
-	width: 650px;
+	width: 100%;
 }
 
 .div-add-p-link {
@@ -345,6 +468,7 @@ body {margin-top:25px;}
 }
 
 .param-level-0 {
+	
 }
 
 .param-level-1 {
@@ -382,7 +506,6 @@ body {margin-top:25px;}
 	font-size: 12px;
 }
 
-
 .select-dataType {
 	background-color: #E6E6E6;
 	border: none;
@@ -419,6 +542,7 @@ body {margin-top:25px;}
 }
 
 .head .version-desc {
+	
 }
 
 .row {
@@ -431,6 +555,7 @@ body {margin-top:25px;}
 	padding: 4px;
 	margin: 0;
 }
+
 .row .version-desc {
 	text-align: left;
 }
@@ -446,6 +571,7 @@ body {margin-top:25px;}
 	overflow-x: none;
 	margin-bottom: 12px;
 }
+
 .table-version {
 	margin-top: 8px;
 	width: 520px;
@@ -458,15 +584,22 @@ body {margin-top:25px;}
 }
 
 #div-version-floater-message {
+	
 }
 
 .div-op-container {
 	position: absolute;
-	margin-top: -8px;
-	#margin-top: 0; /* for IE */
+	margin-top: -8px; #
+	margin-top: 0; /* for IE */
 }
-
 
 .div-add-param-link {
 	margin-left: 12px;
+}
+
+/*
+	rewrite bootstrap
+*/
+.container .label {
+	line-height: 20px;
 }

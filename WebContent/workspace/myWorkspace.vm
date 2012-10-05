@@ -13,19 +13,19 @@
 	    #bodyStart
 		<div id="div-w">
 			<div id="div-return">
-				<a href="$projectUrl.myProjectList">返回</a>
+				<a href="$projectUrl.myProjectList" class="btn">返回</a>
 			</div>
-			<div id="div-w-message">
+			<div id="div-w-message" class="label" style="display:none;">
 			</div>
 			<div id="div-debug">
 			</div>
 			<div id="div-control-panel">
-                <div class="button"><input id="btnExport" type="button" value="导出文档" onclick="window.open('$!workspaceUrl.export?projectId=$!projectId')"/></div>
-				<div class="button"><input id="btnExitVersion" type="button" value="退出版本" onclick="ws.exitVersion(); return false;" style="display: none;" /></div>
-				<div class="button"><input id="btnVersion" type="button" value="版本管理" onclick="ws.version(); return false;" /></div>
-				<div class="button"><input id="btnEdit" type="button" value="启用编辑" onclick="ws.switchToEditMode(); return false;" /></div>
-				<div class="button"><input id="btnCancel" type="button" value="取消" onclick="ws.switchToViewMode(false); return false;"  style="display: none" /></div>
-				<div class="button"><input id="btnSave" type="button" value="保存" onclick="ws.switchToViewMode(true); return false;"  style="display: none" /></div>
+                <div class="button"><input id="btnExport" type="button" class="btn" value="导出文档" onclick="window.open('$!workspaceUrl.export?projectId=$!projectId')"/></div>
+				<div class="button"><input id="btnExitVersion" type="button" class="btn" value="退出版本" onclick="ws.exitVersion(); return false;" style="display: none;" /></div>
+				<div class="button"><input id="btnVersion" type="button" class="btn" value="版本管理" onclick="ws.version(); return false;" /></div>
+				<div class="button"><input id="btnEdit" type="button" class="btn btn-primary" value="启用编辑" onclick="ws.switchToEditMode(); return false;" /></div>
+				<div class="button"><input id="btnCancel" type="button" class="btn" value="取消" onclick="ws.switchToViewMode(false); return false;"  style="display: none" /></div>
+				<div class="button"><input id="btnSave" type="button" class="btn" value="保存" onclick="ws.switchToViewMode(true); return false;"  style="display: none" /></div>
 			</div>
 			<div id="div-empty-hint" style="display: none">no module found, please insert new one.</div>
 			<div id="div-add-p" style="display: none"><a href="#" class="add-link" onclick="ws.addP(); return false;">新增页面</a></div>
@@ -40,7 +40,7 @@
 		#if (1 == 1) 
 			#startFloater("saveVSSFloater" "" 475 354)
 			<form name="formSaveVSSFloater">
-				<div id="div-saveVSS-floater-message">
+				<div id="div-saveVSS-floater-message" style="display:none;">
 				</div>
 				<div id="div-saveVSS-floater-content">
 					<div class="table-container">
@@ -80,7 +80,7 @@
 		#elseif ($workspace.modeInt == 2)
 			#startFloater("checkinFloater" "Check In" 600 400)
 			<div class="myfloater">
-				<div id="div-checkin-floater-message">
+				<div id="div-checkin-floater-message" style="display:none;">
 				</div>
 				<div id="div-checkin-floater-content">
 				</div>
@@ -92,7 +92,7 @@
 
 			#startFloater("checkoutFloater" "Check Out" 600 400)
 			<div class="myfloater">
-				<div id="div-checkout-floater-message">
+				<div id="div-checkout-floater-message" style="display:none;">
 				</div>
 				<div id="div-checkout-floater-content">
 				</div>
@@ -109,7 +109,7 @@
 
 			#startFloater("saveFloater" "Save/Load Workspace" 600 400)
 			<div class="myfloater">
-				<div id="div-save-floater-message">
+				<div id="div-save-floater-message" style="display:none;">
 				</div>
 				<div id="div-save-floater-content">
 				</div>
@@ -125,7 +125,7 @@
 		
 		#startFloater("versionFloater" "" 600 400)
 		<div class="myfloater">
-			<div id="div-version-floater-message">
+			<div id="div-version-floater-message" class="label" style="display:none;">
 			</div>
 			<div id="div-version-floater-content">
 			</div>

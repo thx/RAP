@@ -10,7 +10,8 @@ var rap = rap || {};
 /**
  * Util Module
  */
-(function() {
+(function(window, undefined) {
+    'use strict';
 
 	rap.util = rap.util || {};
 	
@@ -2722,9 +2723,8 @@ var rap = rap || {};
 	function clearMessage() {
 		var ele = b.g(_messageContainerId);
 		if (ele == null) return;
+        b.hide(ele);
 		ele.innerHTML = "";
-		ele.style.background = "";
-		ele.style.color = "";
 		_messageTimer = null;
 		_messageContainerId = "";
 	}
@@ -2782,31 +2782,36 @@ var rap = rap || {};
 	 * show message and hide it automatically
 	 */
 	function showMessage(type, containerId, message) {
-
 		// if old message exists, remove it
 		if (_messageTimer != null) {
 			clearMessage();
 		}
 		var ele = b.g(containerId);
 		if (ele == null) return;
+
+        // clear styles
+        var arr = ['label-success', 'label-warning', 'label-important', 'label-info', 'label-inverse'],
+            n = arr.length,
+            i = 0;
+        for (; i < n; i++) {
+            b.dom.hasClass(ele, arr[i]) && b.dom.removeClass(ele, arr[i]);
+        }
+
 		switch (type) {
 			case CONST.WARN:
-				ele.style.color = "Red";
-				ele.style.background = getBackgroundStyle("incorrect.gif");
+                b.dom.addClass(ele, 'label-important');
 				break;
 			case CONST.LOADING:
-				ele.style.color = "Gray";
-				ele.style.background = getBackgroundStyle("loading.gif");
+                b.dom.addClass(ele, 'label-info');
 				break;
 			case CONST.LOAD:
-				ele.style.color = "Green";
-				ele.style.background = getBackgroundStyle("correct.gif");
+                b.dom.addClass(ele, 'label-success');
 				break;
 			default:
-				ele.style.color = "";
 				break;
 		}
 		ele.innerHTML = message;
+        b.show(ele);
 
 		_messageContainerId = containerId;
 		_messageTimer = setTimeout(clearMessage, CONFIG.MESSAGE_TIMEOUT);
@@ -3347,7 +3352,7 @@ var rap = rap || {};
 	 *                                                      *
 	 ********************************************************/
 
- })();
+ })(window);
 
 
 /*                                                      *

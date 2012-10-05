@@ -17,7 +17,7 @@
 	</head>
 	<body>
 	    #bodyStart
-		<a href="#" onclick="createProject();return false;">创建新项目</a><br />
+		<a href="#" onclick="createProject();return false;" class="btn btn-primary">创建新项目</a><br />
 		<br />
 
 
