@@ -5,36 +5,81 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>欢迎使用RAP        </title>
 		#includeRapStatic
+        <style type="text/css">
+            .img-circle {border:5px dashed #DFDFDF;}
+            .marketing { text-align: center; color: #5a5a5a; }
+            .marketing h1 { margin: 60px 0 10px; font-size: 40px; font-weight: 200; line-height: 1; letter-spacing: -1px; }
+            .marketing h2 { font-weight: 200; margin-bottom: 5px; }
+            .marketing p { font-size: 16px; line-height: 1.5; }
+            .marketing .marketing-byline { margin-bottom: 40px; font-size: 20px; font-weight: 300; line-height: 25px; color: #999; }
+        </style>
 	</head>
 	<body>
 	    #bodyStart
-            <!-- Main hero unit for a primary marketing message or call to action -->
+            <!-- title block begin -->
             <div class="hero-unit">
-                <h1>欢迎使用RAP!</h1>
-                <p>RAP(Rigel Automation Platform)是一个基于接口文档的数据共享平台，它能够帮你管理接口等项目具体数据的版本并通过这些数据自动化的生成所需的其它文件。</p>
+                <h1>Rigel Automation Platform</h1>
+                <p>在开发WEB应用时前后端会约定请求接口，包含请求链接、参数等细节。RAP提供了接口数据的共享平台，功能强大使用方便。同时利用这些数据自动化的生成伪造数据、提供后端开发工具包等，减少重复劳动并提升开发效率。一淘数据部原创出品。</p>
                 <!--
                 <p>
                     <a class="btn btn-primary btn-large">了解更多 &raquo;</a>
                 </p>
                 -->
             </div>
+            <!-- title block end -->
+
+            <!-- feature block begin -->
             <div class="row-fluid">
                 <div class="span4">
-                    <img src="http://twitter.github.com/bootstrap/assets/img/bs-docs-twitter-github.png">
+                    <img src="${staticRoot}/img/home_img_1.png" class="img-circle">
                     <h2>接口版本管理</h2>
-                    <p>RAP提供了接口数据共享平台，每一次提交都有版本跟踪，可随时切换、查看任何一次提交，方便团队协作。</p>
+                    <p>RAP提供了接口数据共享平台，每次提交都有&nbsp;<span class="label">版本跟踪</span>&nbsp;，可随时切换查看任何一个版本方便团队协作。也可随时导出Word文档离线查看。权限控制保证文档准确性、可操作性。</p>
                 </div>
                 <div class="span4">
-                    <img src="http://twitter.github.com/bootstrap/assets/img/bs-docs-responsive-illustrations.png">
+                    <img src="${staticRoot}/img/home_img_3.png" class="img-circle">
                     <h2>自动数据接口</h2>
-                    <p>只要填写好接口，RAP会自动生成用于数据伪造的接口，这些接口会根据文档中的信息自动化的生成随机伪造数据。通过一些<span class="label">标签</span>，还可控制数据伪造的形式和范围。</p>
+                    <p>只要填写好接口，RAP会自动生成用于数据伪造的接口，这些接口会根据文档中的信息自动化的生成随机伪造数据。通过一些&nbsp;<span class="label">标签</span>&nbsp;，还可控制数据伪造的形式和范围。</p>
                 </div>
                 <div class="span4">
-                    <img src="http://twitter.github.com/bootstrap/assets/img/bs-docs-bootstrap-features.png">
+                    <img src="${staticRoot}/img/home_img_2.png" class="img-circle">
                     <h2>后端工具包</h2>
-                    <p>只要填写好接口数据，平台还提供了后端工具包，用于检验所开发接口是否满足文档要求，对请求和响应的格式、参数拼写等进行验证。对接口进行简单测试等等。</p>
+                    <p>只要填写好接口数据平台还提供了&nbsp;<span class="label">后端工具包</span>&nbsp;，用于检验所开发接口是否满足文档要求，对请求和响应的格式、参数拼写等进行验证。对接口进行简单测试等等。</p>
                 </div>
             </div>
+            <!-- feature block end -->
+
+            <!-- case block begin -->
+            <hr class="soften">
+            <div class="marketing">
+                <h1>使用RAP的产品</h1>
+                <p class="marketing-byline">想晚上回家吃饭？想避免重复劳动？RAP，您值得拥有！</p>
+                <div class="row-fluid">
+                    <ul class="thumbnails example-sites">
+                        <li class="span3">
+                            <a class="thumbnail" href="http://soundready.fm/" target="_blank">
+                                <img src="http://twitter.github.com/bootstrap/assets/img/example-sites/soundready.png" alt="SoundReady.fm">
+                            </a>
+                        </li>
+                        <li class="span3">
+                            <a class="thumbnail" href="http://kippt.com/" target="_blank">
+                                <img src="http://twitter.github.com/bootstrap/assets/img/example-sites/kippt.png" alt="Kippt">
+                            </a>
+                        </li>
+                        <li class="span3">
+                            <a class="thumbnail" href="http://www.fleetio.com/" target="_blank">
+                                <img src="http://twitter.github.com/bootstrap/assets/img/example-sites/fleetio.png" alt="Fleetio">
+                            </a>
+                        </li>
+                        <li class="span3">
+                            <a class="thumbnail" href="http://www.jshint.com/" target="_blank">
+                                <img src="http://twitter.github.com/bootstrap/assets/img/example-sites/jshint.png" alt="JS Hint">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- case block end -->
+
 		#bodyEnd
 	</body>
 </html>

@@ -44,7 +44,7 @@
 #macro (bodyEnd)
     <hr>
     <footer>
-        <p>&copy; <a href="mailto:huoyong.msb@taobao.com">一淘数据部Web小组.</a>原创出品&nbsp;在线用户:$!countOfOnlineUserList</p>
+        <p>&copy;&nbsp;<a href="mailto:huoyong.msb@taobao.com">一淘数据部</a>&nbsp;原创出品&nbsp;在线用户:$!countOfOnlineUserList</p>
     </footer>
 </div>
 #end
