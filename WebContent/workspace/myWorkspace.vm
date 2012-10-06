@@ -130,9 +130,9 @@
 			<div id="div-version-floater-content">
 			</div>
 			<div class="div-floater-control">
-				<input id="btnObserveVersion" type="button" value="查看所选版本" onclick="ws.readProjectOfVersion();" />&nbsp;&nbsp;&nbsp;
-				<input id="btnSwitchVersion" type="button" value="切换至所选版本" onclick="ws.switchVersion();" />&nbsp;&nbsp;&nbsp;
-				<input type="button" value="取消" onclick="ws.closeVersionPanel();" />
+				<input id="btnObserveVersion" type="button" class="btn btn-primary" value="查看版本" onclick="ws.readProjectOfVersion();" />&nbsp;&nbsp;&nbsp;
+				<input id="btnSwitchVersion" type="button" class="btn btn-danger" value="切换版本" onclick="ws.switchVersion();" />&nbsp;&nbsp;&nbsp;
+				<input type="button" value="取消" class="btn" onclick="ws.closeVersionPanel();" />
 			</div>
 		</div>
 		#endFloater

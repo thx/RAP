@@ -310,7 +310,7 @@ body {
 }
 
 #div-mt-list .tab {
-	height: 20px;
+	height: 23px;
 	padding: 8px 8px 2px 8px;
 	font-size: 14px;
 	border-width: 0 0 1px 1px;
@@ -318,6 +318,7 @@ body {
 	border-color: gray;
 	float: right;
 	text-align: center;
+	cursor:pointer;
 }
 
 #div-mt-list .cur {
@@ -351,7 +352,6 @@ body {
 
 #div-w {
 	position: relative;
-	width: 900px;
 	height: 550px;
 }
 
@@ -545,22 +545,22 @@ body {
 	
 }
 
-.row {
+.table-row {
 	text-align: center;
 }
 
-.row td {
+.table-row td {
 	border: 1px dashed silver;
 	border-collapse: collapse;
 	padding: 4px;
 	margin: 0;
 }
 
-.row .version-desc {
+.table-row .version-desc {
 	text-align: left;
 }
 
-.row .version {
+.table-row .version {
 	color: Orange;
 }
 
@@ -603,3 +603,5 @@ body {
 .container .label {
 	line-height: 20px;
 }
+
+.container {width:1170px;}

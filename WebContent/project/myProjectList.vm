@@ -7,12 +7,7 @@
 		#includeRapStatic
 		<link rel="stylesheet" href="${staticRoot}/js/ui/wick/css/wick.css" type="text/css">
 		<style type="text/css">
-
-			.wickFloater {
-				left:537px;
-				top:65px;
-			}
-		
+			.wickFloater { left:537px; top:65px; }
 		</style>
 	</head>
 	<body>
@@ -65,9 +60,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2">
-						<input type="submit" id="btnSubmit" value="保存" class="button"/>
-						<input type="button" id="btnCancel" value="取消" onclick="btnCancelOnClick();" class="button"/>
+                    <td></td>
+					<td>
+						<input type="submit" id="btnSubmit" value="保存" class="btn btn-primary"/>
+						<input type="button" id="btnCancel" value="取消" onclick="btnCancelOnClick();" class="btn"/>
 					</td>
 				</tr>
 		</form>

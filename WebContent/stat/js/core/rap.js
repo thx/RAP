@@ -3329,7 +3329,7 @@ var rap = rap || {};
 		 */
 		function getVersionPanelItemHtml(check) {
 			var str = "";
-			str += "<tr class='row'>";
+			str += "<tr class='table-row'>";
 			str += "<td><input name='radioCheckIn' type='radio' group='radioCheckInGroup' value='" + check.id + "' /></td>";
 			str += "<td class='version'>" + check.version + "</td>";
 			str += "<td class='operator'>" + util.escaper.escapeInH(check.userName) + "</td>";
