@@ -156,31 +156,36 @@ body {
 	background: #FAFBFC
 }
 
+
+#div-fixed-panel {
+	position: fixed;
+	top: 40px;
+	width: 1170px;
+	margin: 0 auto;
+	background: #FFF;
+	z-index: 1;
+	padding-top: 10px;
+}
+
 .m {
-	position: absolute;
 	display: none;
-	left: -10px;
-	top: 0px;
 	width: 1156px;
-	height: 500px;
 	background-color: #E6E6E6;
 	border: 1px gray dashed;
 }
 
 .tree-m {
-	position: absolute;
-	left: 5px;
-	top: 10px;
 	width: 240px;
 	height: 390px;
 	overflow-y: auto;
 	overflow-x: auto;
+	float: left;
 }
 
 .seperator {
-	position: absolute;
 	height: 400px;
-	left: 250px
+	left: 250px;
+	float: left;
 }
 
 .myfloater {
@@ -194,13 +199,9 @@ body {
 }
 
 .div-a {
-	position: absolute;
-	left: 250px;
-	top: 0px;
 	width: 895px;
-	height: 500px;
-	overflow-y: auto;
 	overflow-x: hidden;
+	float: left;
 }
 
 .div-a h2 {
@@ -301,30 +302,29 @@ body {
 }
 
 #div-mt-list {
-	position: absolute;
-	left: 248px;
-	top: 502px;
-	height: 20px;
-	width: 900px;
-	text-align: right;
+	height: 47px;
+	border-bottom: 1px dashed gray;
+	width: 1157px;
+	text-align: left;
 }
 
 #div-mt-list .tab {
 	height: 23px;
 	padding: 8px 8px 2px 8px;
 	font-size: 14px;
-	border-width: 0 0 1px 1px;
+	border-width: 1px 0 0 1px;
 	border-style: dashed;
 	border-color: gray;
 	float: right;
 	text-align: center;
-	cursor:pointer;
+	cursor: pointer;
 }
 
 #div-mt-list .cur {
 	background-color: #E6E6E6;
 	height: 22px;
-	margin-top: 1px;
+	margin-top: 13px;
+	border-bottom: 1px solid #E6E6E6;
 }
 
 #div-mt-list .first {
@@ -352,26 +352,16 @@ body {
 
 #div-w {
 	position: relative;
-	height: 550px;
+	margin-top: 41px;
 }
 
 #div-w-message {
-	position: absolute;
-	left: 60px;
 	font-size: 14px;
-	top: -31px;
+	float: left;
 }
 
 #div-debug {
-	position: absolute;
-	left: 350px;
-	font-size: 14px;
-	padding-top: 5px;
-	padding-left: 30px;
-	height: 50px;
-	width: 400px;
-	top: -33px;
-	color: silver;
+	display: none;
 }
 
 #div-empty-hint {
@@ -379,9 +369,7 @@ body {
 }
 
 #div-control-panel {
-	position: absolute;
-	top: -36px;
-	width: 1148px;
+	float: right;
 }
 
 #div-control-panel .button {
@@ -390,10 +378,8 @@ body {
 }
 
 #div-return {
-	position: absolute;
-	top: -36px;
 	z-index: 5;
-	left: -9px;
+	float: left;
 }
 
 #div-save-panel {
@@ -440,6 +426,11 @@ body {
 	position: absolute;
 	left: -15px;
 	top: 61px;
+}
+
+#div-saveVSS-floater-content .table {
+	width: 562px;
+	margin: 25px;
 }
 
 .tr-param {
@@ -603,5 +594,3 @@ body {
 .container .label {
 	line-height: 20px;
 }
-
-.container {width:1170px;}

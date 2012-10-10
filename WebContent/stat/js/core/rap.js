@@ -1087,6 +1087,7 @@ var rap = rap || {};
 		_deletedObjectList,                     // deleted object list
 		_viewState,                             // view state, used for recover view state after page binding
 		_debugCounter,                          // debug message counter
+        _isLocalStorageEnabled,                 // is local storage enabled, need HTML5 supports
 		URL          = null,                    // url object, contains all url required
 		MESSAGE = {
 			"CONFIRM_COVER"                    : "是否确定覆盖旧的内容?",
@@ -1193,6 +1194,7 @@ var rap = rap || {};
 	 * initialize run when dom ready
 	 */
 	ws.init = function(workspaceObj, urlObj) {
+        _isLocalStorageEnabled = typeof(localStorage) != 'undefined'; 
 		URL = urlObj;
 		try {
 
@@ -1225,7 +1227,11 @@ var rap = rap || {};
 
 			window.onbeforeunload = function() {
 				if (_isEditMode) {
-					return "您未保存编辑的内容，您确认真的想关闭工作区，而不是手抖按错了？ T.T";
+                    if (!_isLocalStorageEnabled) {
+                        return "您的浏览器不支持本地存储，现在退出所有修改都将丢失，确认退出？";
+                    } else {
+                        localStorage.setItem('_data', b.json.stringify(_data));
+                    }
 				}
 			}
 
@@ -2011,7 +2017,7 @@ var rap = rap || {};
 		if (!validate("formSaveVSSFloater")) return;
 		var q = "id=" + p.getId() + "&projectData=" + util.escaper.escapeInU(getProjectDataJson()) 
 			+ "&deletedObjectListData=" + util.escaper.escapeInU(b.json.stringify(_deletedObjectList))
-			+ "&tag=" + b.g("txtTag").value + "&versionPosition=" + getSelectedValue("radioVersion") + "&description=" + b.g("txtDescription").value;
+			+ "&versionPosition=" + getSelectedValue("radioVersion") + "&description=" + b.g("txtDescription").value;
 			showMessage(CONST.LOADING, ELEMENT_ID.VSS_PANEL_MESSAGE, MESSAGE.SAVING);
 			if (!processing(ELEMENT_ID.VSS_PANEL_MESSAGE)) return;
 			b.ajax.post(URL.checkIn, q, function(xhr, response) {
@@ -2841,7 +2847,7 @@ var rap = rap || {};
 	 *init save floater of VSS mode
 	 */
 	function initSaveVSSFloater() {
-		b.g("txtTag").value = "";
+		//b.g("txtTag").value = "";
 		b.g("txtDescription").value = "";
 		b.g("divVersion").innerHTML = p.getVersion() + " -> " + versionUpgrade(p.getVersion(), 4);
 		e.get("saveVSSFloater").setTitle("提交您的修改");		
@@ -2974,7 +2980,7 @@ var rap = rap || {};
 		function getMHtml(m) {
 			var str = "";
 
-			str += "<div class=\"m\" id=\"div-m-" + m.id + "\">";
+			str += "<div class=\"m clearfix\" id=\"div-m-" + m.id + "\">";
 
 			// loading module tree
 			str += getMTreeHtml(m);
