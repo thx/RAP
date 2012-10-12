@@ -1,3 +1,8 @@
+body {
+	padding: 0;
+	margin: 8px;
+}
+
 .div-a .head {
 	background-color: Silver;
 	text-align: center;
@@ -9,13 +14,6 @@
 
 .tr-p {
 	height: 25px;
-}
-
-h1,h2,h3 {
-	color: #8CB70E;
-	font-weight: normal;
-	margin: 0;
-	text-transform: uppercase;
 }
 
 .td-p {
@@ -118,7 +116,7 @@ input,textarea {
 
 #divResBoardJson {
 	float: left;
-	width: 650px;
+	width: 810px;
 	margin-right:10px;
 	border-right:1px dashed #DFDFDF;
 	height: 300px;
@@ -129,7 +127,7 @@ input,textarea {
 
 #divResBoardLog {
 	float: left;
-	width: 260px;
+	width: 360px;
 	height: 300px;
 	overflow-y: auto;
 	word-wrap: break-word;
@@ -137,10 +135,11 @@ input,textarea {
 }
 
 #divActionList {
-	height: 250px;
-	overflow-y: auto;
 }
 
 #page {
 	padding: 12px 20px 0
+}
+
+#divRootSetting {
 }

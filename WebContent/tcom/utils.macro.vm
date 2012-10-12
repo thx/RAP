@@ -524,7 +524,6 @@ baidu.dom.ready(function (){
  * @desc : includeRapStatic 统一引入静态资源 
  *#
 #macro (includeRapStatic)
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
 <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap.css" type="text/css" media="screen">
 <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap-responsive.css" type="text/css" media="screen">
 <link rel="stylesheet" href="${staticRoot}/css/rap.template.css" type="text/css" media="screen">
