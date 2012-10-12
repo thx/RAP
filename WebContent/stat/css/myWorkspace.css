@@ -191,7 +191,6 @@ body {
 .myfloater {
 	padding: 12px;
 	width: 600px;
-	height: 400px;
 }
 
 .warn {
@@ -222,7 +221,7 @@ body {
 }
 
 .div-a .head-name {
-	width: 140px
+	width: 180px
 }
 
 .div-a .head-validator {
@@ -230,7 +229,7 @@ body {
 }
 
 .div-a .head-type {
-	width: 100px;
+	width: 110px;
 }
 
 .div-a .head-remark {
@@ -238,7 +237,7 @@ body {
 }
 
 .div-a .head-identifier {
-	width: 140px;
+	width: 180px;
 }
 
 .div-a .head-expander {
@@ -253,7 +252,6 @@ body {
 
 .div-a .name {
 	border-left: none;
-	width: 25px;
 }
 
 .div-a .validator {
@@ -267,12 +265,10 @@ body {
 
 .div-a .identifier {
 	color: Red;
-	width: 25px;
 }
 
 .div-a .dataType {
 	text-align: center;
-	width: 100px;
 	font-weight: bold;
 }
 
@@ -318,6 +314,7 @@ body {
 	float: right;
 	text-align: center;
 	cursor: pointer;
+	margin-top: 13px;
 }
 
 #div-mt-list .cur {
@@ -333,7 +330,7 @@ body {
 
 #div-add-m {
 	float: right;
-	margin-top: 10px;
+	margin-top: 18px;
 }
 
 #div-remove-m {
@@ -345,8 +342,8 @@ body {
 
 #div-add-p {
 	position: absolute;
-	top: 10px;
-	left: 150px;
+	top: 60px;
+	left: 0px;
 	z-index: 10;
 }
 
@@ -358,6 +355,8 @@ body {
 #div-w-message {
 	font-size: 14px;
 	float: left;
+	margin-left: 12px;
+	margin-top: 5px;
 }
 
 #div-debug {
@@ -418,6 +417,29 @@ body {
 	overflow-y: scroll;
 }
 
+#floaterEditAFloater {
+	
+}
+
+#floaterEditAFloater .title {
+	width: 80px;
+	font-weight: bold;
+}
+
+#floaterEditAFloater .radio-list label{
+	float: left;
+	margin:0 10px 0 4px;
+	cursor: pointer;
+}
+
+#floaterEditAFloater .radio-list input{
+	float: left;	
+}
+
+#floaterEditAFloater .input input {
+	width: 450px;
+}
+
 #div-saveVSS-floater-message {
 	
 }
@@ -428,9 +450,24 @@ body {
 	top: 61px;
 }
 
+#div-saveVSS-floater-content .title {
+	width: 80px;
+	font-weight: bold;
+}
+
+#div-saveVSS-floater-content .radio-list label{
+	float: left;
+	margin:0 10px 0 4px;
+	cursor: pointer;
+}
+
+#div-saveVSS-floater-content .radio-list input{
+	float: left;	
+}
+
 #div-saveVSS-floater-content .table {
 	width: 562px;
-	margin: 25px;
+	margin: 5px 25px;
 }
 
 .tr-param {

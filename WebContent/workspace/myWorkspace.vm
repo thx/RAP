@@ -19,12 +19,12 @@
                 <div id="div-w-message" class="label" style="display:none;">
                 </div>
                 <div id="div-control-panel">
-                    <input id="btnExport" type="button" class="btn" value="导出文档" onclick="window.open('$!workspaceUrl.export?projectId=$!projectId')"/>
-                    <input id="btnExitVersion" type="button" class="btn" value="退出版本" onclick="ws.exitVersion(); return false;" style="display: none;" />
-                    <input id="btnVersion" type="button" class="btn" value="版本管理" onclick="ws.version(); return false;" />
-                    <input id="btnEdit" type="button" class="btn btn-primary" value="启用编辑" onclick="ws.switchToEditMode(); return false;" />
+                    <input id="btnSave" type="button" class="btn btn-primary" value="保存" onclick="ws.switchToViewMode(true); return false;"  style="display: none" />
                     <input id="btnCancel" type="button" class="btn" value="取消" onclick="ws.switchToViewMode(false); return false;"  style="display: none" />
-                    <input id="btnSave" type="button" class="btn" value="保存" onclick="ws.switchToViewMode(true); return false;"  style="display: none" />
+                    <input id="btnEdit" type="button" class="btn btn-primary" value="启用编辑" onclick="ws.switchToEditMode(); return false;" />
+                    <input id="btnVersion" type="button" class="btn" value="版本管理" onclick="ws.version(); return false;" />
+                    <input id="btnExitVersion" type="button" class="btn" value="退出版本" onclick="ws.exitVersion(); return false;" style="display: none;" />
+                    <input id="btnExport" type="button" class="btn" value="导出文档" onclick="window.open('$!workspaceUrl.export?projectId=$!projectId')"/>
                 </div>
             </div>
             <div id="div-debug"></div>
@@ -48,23 +48,28 @@
 				<div id="div-saveVSS-floater-content">
                     <table class="table">
                         <tr>
-                            <td>推进版本位</td>
-                            <td>
-								<input type="radio" name="radioVersion"  value="1" onchange="ws.radioVersionChanged(1);" />1
-								<input type="radio" name="radioVersion"  value="2" onchange="ws.radioVersionChanged(2);" />2
-								<input type="radio" name="radioVersion"  value="3" onchange="ws.radioVersionChanged(3);" />3
-								<input type="radio" name="radioVersion"  value="4" onchange="ws.radioVersionChanged(4);" />4
+                            <td class="title">推进版本</td>
+                            <td class="radio-list clearfix">
+								<input type="radio" id="radioVersion1" name="radioVersion"  value="1" onchange="ws.radioVersionChanged(1);" />
+                                <label for="radioVersion1">1</label>
+								<input type="radio" id="radioVersion2" name="radioVersion"  value="2" onchange="ws.radioVersionChanged(2);" />
+                                <label for="radioVersion2">2</label>
+								<input type="radio" id="radioVersion3" name="radioVersion"  value="3" onchange="ws.radioVersionChanged(3);" />
+                                <label for="radioVersion3">3</label>
+								<input type="radio" id="radioVersion4" name="radioVersion"  value="4" onchange="ws.radioVersionChanged(4);" />
+                                <label for="radioVersion4">4</label>
 							</td>
                         </tr>
                         <tr>
-                            <td>版本:</td>
+                            <td class="title">变化预览:</td>
                             <td><div id="divVersion"></div></td>
                         </tr>
                         <tr>
-                            <td>描述:</td>
-                            <td><textarea id="txtDescription" minLen="5" message="为了方便您以后查阅，提交描述为必填项，长度请勿小于5." style="width:250px; height: 120px"></textarea></td>
+                            <td class="title">提交描述:</td>
+                            <td><textarea id="txtDescription" minLen="5" message="为了方便您以后查阅，提交描述为必填项，长度请勿小于5." style="width:320px; height: 150px"></textarea></td>
                         </tr>
                         <tr>
+                            <td></td>
                             <td>
                                 <input type="button" class="btn btn-primary" value="提交" onclick="ws.doSaveVSS(); return false;" />
                                 <input type="button" class="btn" value="取消" onclick="ws.cancelSaveVSS(); return false;" />
@@ -134,42 +139,47 @@
 		</div>
 		#endFloater
 
-		#startFloater("editAFloater" "Manage Action" 600 400)
+		#startFloater("editAFloater" "Manage Action" 600 300)
 		<form name="formEditAFloater">
-		<div class="myfloater">
+		<div id="floaterEditAFloater" class="myfloater">
 			<input type="hidden" id="editAFloater-id" />
 			<input type="hidden" id="editAFloater-pageId" />
 			<table>
 				<tr>
-					<td>名称</td>
-					<td>
-						<input type="text" id="editAFloater-name" minLen="1" message="请求名称不能为空" maxlength="50" style="width: 250px;" />
+					<td class="title">名称</td>
+					<td class="input">
+						<input type="text" id="editAFloater-name" minLen="1" message="请求名称不能为空" maxlength="50" />
 					</td>
 				</tr>
 				<tr>
-					<td>请求类型</td> <td>
-						<input type="radio" name="editAFloater-type"  value="1" />GET&nbsp;&nbsp;
-						<input type="radio" name="editAFloater-type"  value="2"/>POST&nbsp;&nbsp;
-						<input type="radio" name="editAFloater-type"  value="3"/>AJAX GET&nbsp;&nbsp;
-						<input type="radio" name="editAFloater-type"  value="4"/>AJAX POST&nbsp;&nbsp;
+                    <td class="title">请求类型</td>
+                    <td class="radio-list clearfix">
+                        <input type="radio" id="editAFloater-type-1" name="editAFloater-type"  value="1"/>
+                        <label for="editAFloater-type-1">GET</label>
+						<input type="radio" id="editAFloater-type-2" name="editAFloater-type"  value="2"/>
+                        <label for="editAFloater-type-2">POST</label>
+						<input type="radio" id="editAFloater-type-3" name="editAFloater-type"  value="3"/>
+                        <label for="editAFloater-type-3">AJAX GET</label>
+						<input type="radio" id="editAFloater-type-4" name="editAFloater-type"  value="4"/>
+                        <label for="editAFloater-type-4">AJAX POST</label>
 					</td>
 				</tr>
 				<tr>
-					<td>请求链接</td>
-					<td>
-						<input type="text" id="editAFloater-requestUrl" style="width: 380px"/>
+					<td class="title">请求链接</td>
+					<td class="input">
+						<input type="text" id="editAFloater-requestUrl" />
+					</td>
+				</tr>
+				<tr style="display:none;">
+					<td class="title">回跳模板</td>
+					<td class="input">
+						<input type="text" id="editAFloater-responseTemplate" />
 					</td>
 				</tr>
 				<tr>
-					<td>回跳模板</td>
+					<td class="title">说明</td>
 					<td>
-						<input type="text" id="editAFloater-responseTemplate" style="width: 380px"/>
-					</td>
-				</tr>
-				<tr>
-					<td>说明</td>
-					<td>
-						<textarea id="editAFloater-description" style="width: 450px; height: 200px; font-size: 12px; line-height: 1.5;" cols="20" rows="20"></textarea>
+						<textarea id="editAFloater-description" style="width: 450px; height: 150px; font-size: 12px; line-height: 1.5;" cols="20" rows="20"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -179,8 +189,8 @@
 				</tr>
 			</table>
 			<div class="div-floater-control">
-				<input type="button" onclick="ws.doAddOrEditA();"  value="提交" />&nbsp;&nbsp;&nbsp;
-				<input type="button" onclick="ws.cancelEditA();"  value="取消"/>
+				<input type="button" class="btn btn-primary" onclick="ws.doAddOrEditA();"  value="提交" />
+				<input type="button" class="btn" onclick="ws.cancelEditA();"  value="取消"/>
 			</div>
 		</div>
 		</form>
@@ -190,7 +200,7 @@
 			<div class="myfloater">
 				<input type="hidden" id="editPFloater-id" />
 				<input type="hidden" id="editPFloater-moduleId" />
-				<table>
+				<table class="table">
 					<tr>
 						<td>名称</td>
 						<td>
@@ -206,8 +216,8 @@
 							
 				</table>
 				<div class="div-floater-control">
-					<input type="button" onclick="ws.doAddOrEditP();"  value="提交" />&nbsp;&nbsp;&nbsp;
-					<input type="button" onclick="ws.cancelEditP();"  value="取消"/>
+					<input type="button" class="btn btn-primary" onclick="ws.doAddOrEditP();"  value="提交" />
+					<input type="button" class="btn" onclick="ws.cancelEditP();"  value="取消"/>
 				</div>
 			</div>
 		</form>

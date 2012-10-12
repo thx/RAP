@@ -1151,10 +1151,10 @@ var rap = rap || {};
 			"REMARK_MAX_LENGTH"         : 9999,
 			"DEFAULT_INPUT_WIDTH"       : 100,
 			"MODULE_NAME_WIDTH"         : 100,
-			"PARAMETER_NAME_WIDTH"      : 140,
-			"PARAMETER_IDENTIFIER_WIDTH": 140,
-			"PARAMETER_TYPE_WIDTH"      : 100,
-			"PARAMETER_REMARK_WIDTH"    : 200,
+			"PARAMETER_NAME_WIDTH"      : 160,
+			"PARAMETER_IDENTIFIER_WIDTH": 160,
+			"PARAMETER_TYPE_WIDTH"      : 110,
+			"PARAMETER_REMARK_WIDTH"    : 300,
 			"MESSAGE_TIMEOUT"           : 5000,
 			"SESSION_DELAY_TIMESPAN"    : 300000,
 			"KEYPRESS_EVENT_NAME"       : (baidu.browser.firefox ? "keypress" : "keydown")
@@ -2530,7 +2530,6 @@ var rap = rap || {};
 
         for(; i < length; i++) {
             b.on(list[i], "click", function(e) {
-                window._log = e;
                 e.stopPropagation();
             });
         }
@@ -2947,7 +2946,7 @@ var rap = rap || {};
 		if (module == null) return;
 		storeViewState();
 		b.dom.remove(b.g("div-tree-" + _curModuleId));
-		b.g("div-m-" + _curModuleId).innerHTML += getMTreeHtml(module);
+		b.g("div-m-" + _curModuleId).innerHTML = getMTreeHtml(module) + b.g("div-m-" + _curModuleId).innerHTML;
 		e.init(b.g("div-m-" + _curModuleId));
 		switchToCurA();
 		recoverViewState();
