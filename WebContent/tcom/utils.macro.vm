@@ -524,17 +524,17 @@ baidu.dom.ready(function (){
  * @desc : includeRapStatic 统一引入静态资源 
  *#
 #macro (includeRapStatic)
-<link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap.css" type="text/css" media="screen">
-<link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap-responsive.css" type="text/css" media="screen">
-<link rel="stylesheet" href="${staticRoot}/css/rap.template.css" type="text/css" media="screen">
-<link rel="stylesheet" href="${staticRoot}/js/ui/table/css/table.css" type="text/css">
-<link rel="stylesheet" href="${staticRoot}/js/ui/floater/css/floater.css" type="text/css">
-<link rel="stylesheet" href="${staticRoot}/js/ui/calendar/css/calendar.css" type="text/css"/>
-<script type="text/javascript" src="${staticRoot}/js/core/tangram-1.2.1.js"></script>
-<script type="text/javascript" src="${staticRoot}/js/core/tangram-fix.js"></script>
-<script type="text/javascript" src="${staticRoot}/js/core/ecui-1.1.0-all.js"></script>
-<script type="text/javascript" src="${staticRoot}/js/ui/table/js/ecomui.table.js"></script>
-<script type="text/javascript" src="${staticRoot}/js/ui/floater/js/floater.js"></script>
-<script type="text/javascript" src="${staticRoot}/js/ui/calendar/js/ecomui.calendar.js"></script>
-<script type="text/javascript" src="${staticRoot}/js/core/rap.js"></script>
+<link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap.css?_r=$!timeStamp" type="text/css" media="screen">
+<link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap-responsive.css?_r=$!timeStamp" type="text/css" media="screen">
+<link rel="stylesheet" href="${staticRoot}/css/rap.template.css?_r=$!timeStamp" type="text/css" media="screen">
+<link rel="stylesheet" href="${staticRoot}/js/ui/table/css/table.css?_r=$!timeStamp" type="text/css">
+<link rel="stylesheet" href="${staticRoot}/js/ui/floater/css/floater.css?_r=$!timeStamp" type="text/css">
+<link rel="stylesheet" href="${staticRoot}/js/ui/calendar/css/calendar.css?_r=$!timeStamp" type="text/css"/>
+<script type="text/javascript" src="${staticRoot}/js/core/tangram-1.2.1.js?_r=$!timeStamp"></script>
+<script type="text/javascript" src="${staticRoot}/js/core/tangram-fix.js?_r=$!timeStamp"></script>
+<script type="text/javascript" src="${staticRoot}/js/core/ecui-1.1.0-all.js?_r=$!timeStamp"></script>
+<script type="text/javascript" src="${staticRoot}/js/ui/table/js/ecomui.table.js?_r=$!timeStamp"></script>
+<script type="text/javascript" src="${staticRoot}/js/ui/floater/js/floater.js?_r=$!timeStamp"></script>
+<script type="text/javascript" src="${staticRoot}/js/ui/calendar/js/ecomui.calendar.js?_r=$!timeStamp"></script>
+<script type="text/javascript" src="${staticRoot}/js/core/rap.js?_r=$!timeStamp"></script>
 #end

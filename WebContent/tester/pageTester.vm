@@ -4,11 +4,11 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>RAP - $!utils.escapeInH($page.name)控制台</title>
-        <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap.css" type="text/css" media="screen">
-        <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap-responsive.css" type="text/css" media="screen">
-        <link rel="stylesheet" href="${staticRoot}/css/rap.template.css" type="text/css" media="screen">
-		<link type="text/css" rel="stylesheet" href="${staticRoot}/css/pageTester.css" />
-        <script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
+        <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap.css?_r=$!timeStamp" type="text/css" media="screen">
+        <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap-responsive.css?_r=$!timeStamp" type="text/css" media="screen">
+        <link rel="stylesheet" href="${staticRoot}/css/rap.template.css?_r=$!timeStamp" type="text/css" media="screen">
+		<link type="text/css" rel="stylesheet" href="${staticRoot}/css/pageTester.css?_r=$!timeStamp" />
+        <script src="http://a.tbcdn.cn/??s/yui/3.6.0/build/yui/yui-min.js"></script>
         <script src="${staticRoot}/js/util/jsformat.js"></script>
 	</head>
 	<body>
@@ -32,7 +32,7 @@
             <div class="tester-form tab">
                 <form name="form$!velocityCount" class="form" method="post" path="$!action.requestUrl" onsubmit="return false;">
                     <input type="hidden" name="paramIdList" class="paramIdList" value="$!action.remarks" />
-                    <div class="item">请求地址：/report/queryUserData</div>
+                    <div class="item">请求地址：$!utils.escapeInH($action.requestUrl)</div>
                     #foreach($para in $action.requestParameterList)
                     <div class="item">
                         <input type="text" width="200px" class="field" name="$!para.identifier" />&nbsp; &nbsp;变量名:

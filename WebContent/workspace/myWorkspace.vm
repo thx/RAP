@@ -5,8 +5,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>Project Manage        </title>
 		#includeRapStatic
-		<link type="text/css" rel="stylesheet" href="${staticRoot}/css/defcontrol.css" />
-		<link type="text/css" rel="stylesheet" href="${staticRoot}/css/myWorkspace.css" />
+		<link type="text/css" rel="stylesheet" href="${staticRoot}/css/defcontrol.css?_r=$!timeStamp" />
+		<link type="text/css" rel="stylesheet" href="${staticRoot}/css/myWorkspace.css?_r=$!timeStamp" />
         <script src="${staticRoot}/js/util/jsformat.js"></script>
 	</head>
 	<body>

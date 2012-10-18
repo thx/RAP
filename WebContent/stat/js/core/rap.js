@@ -1194,7 +1194,7 @@ var rap = rap || {};
 	 * initialize run when dom ready
 	 */
 	ws.init = function(workspaceObj, urlObj) {
-        _isLocalStorageEnabled = typeof(localStorage) != 'undefined'; 
+        //_isLocalStorageEnabled = typeof(localStorage) != 'undefined'; 
 		URL = urlObj;
 		try {
 
@@ -1508,6 +1508,14 @@ var rap = rap || {};
 		}
 		processed();
 	};
+
+
+    /**
+     * used when something bad happend :(
+     */
+    ws._processed = function() {
+        processed();
+    };
 
 	/**
 	 * do save
@@ -3256,6 +3264,7 @@ var rap = rap || {};
                     'number',
                     'string',
                     'object',
+                    'boolean',
                     'array<number>',
                     'array<string>',
                     'array<object>'

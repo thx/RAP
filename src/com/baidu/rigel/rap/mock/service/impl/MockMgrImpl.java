@@ -17,6 +17,10 @@ import com.baidu.rigel.rap.project.dao.ProjectDao;
 
 public class MockMgrImpl implements MockMgr {
 	private ProjectDao projectDao;
+	
+	/**
+	 * random seed
+	 */
 	private int _num = 1;
 	private String[] NAME_LIB = {"圣香", "定球", "征宇", "灵兮", "永盛", "小婉", "紫丞", "少侠", "木谦", "周亮", "宝山", "张中", "晓哲老师", "夜沨大湿"};
 	private String[] LOCATION_LIB = {"北京 朝阳区", "北京 海淀区", "北京 昌平区", "吉林 长春 绿园区", "吉林 吉林 丰满区"};
@@ -165,6 +169,12 @@ public class MockMgrImpl implements MockMgr {
 				}
 			}
 			return "\"测试内容\"";
+		} else if (dataType.equals("boolean")) {
+			String value = tagMap.get("value");
+			if (value != null && !value.isEmpty()) {
+					return value;
+			}
+			return "true";
 		} else if (dataType.equals("array<number>")) {
 			String value = tagMap.get("value");
 			if (value != null && !value.isEmpty()) {
