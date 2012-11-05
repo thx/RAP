@@ -8,10 +8,25 @@ public class MockAction extends ActionBase {
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String pattern;
+	private String mockData;
+	private int actionId;
+	private int projectId;
 	private String content;
 	private String callback;
 	private String _c;
 
+	public void setMockData(String mockData) {
+		this.mockData = mockData;
+	}
+
+	public void setActionId(int actionId) {
+		this.actionId = actionId;
+	}
+
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
+	}
+	
 	public String get_c() {
 		return _c;
 	}
@@ -70,6 +85,16 @@ public class MockAction extends ActionBase {
 		} else {
 			setContent(mockMgr.generateData(id, pattern));
 		}
+		return SUCCESS;
+	}
+	
+	public String modify() {
+		mockMgr.modify(actionId, mockData);
+		return SUCCESS;
+	}
+	
+	public String reset() {
+		setNum(mockMgr.reset(projectId));
 		return SUCCESS;
 	}
 }

@@ -3,8 +3,7 @@ package com.baidu.rigel.rap.common;
 import java.util.List;
 
 public class ArrayUtils {
-	@SuppressWarnings("unchecked")
-	public static String join(List arr, String seperator) {
+	public static String join(List<?> arr, String seperator) {
 		StringBuilder str = new StringBuilder();
 		boolean isFirst = true;
 		for (Object item : arr) {

@@ -27,7 +27,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" value="登录" /></td>
+                    <td><input type="submit" class="btn btn-primary" value="登录" /></td>
                 </tr>
                 #if ($errMsg && $errMsg != "")
                 <tr>

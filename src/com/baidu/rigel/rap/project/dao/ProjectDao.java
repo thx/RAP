@@ -93,4 +93,11 @@ public interface ProjectDao {
 	 * @return
 	 */
 	List<Action> getMatchedActionList(int projectId, String pattern);
+	
+	/**
+	 * clear all mock data of objects in specified project
+	 * @param projectId project id
+	 * @return affected rows num
+	 */
+	public int resetMockData(int projectId);
 }

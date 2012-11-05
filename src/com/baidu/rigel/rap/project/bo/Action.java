@@ -1,6 +1,6 @@
+
 package com.baidu.rigel.rap.project.bo;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;

@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.baidu.rigel.rap.account.bo.User;
+import com.baidu.rigel.rap.common.ArrayUtils;
 import com.baidu.rigel.rap.project.bo.Action;
 import com.baidu.rigel.rap.project.bo.Module;
 import com.baidu.rigel.rap.project.bo.ObjectItem;
@@ -260,7 +261,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Override
+	@Override 
 	public List<Action> getMatchedActionList(int projectId, String pattern) {
 		String sql = "SELECT a.id FROM tb_action a JOIN tb_action_and_page ap ON ap.action_id = a.id JOIN tb_page p ON p.id = ap.page_id JOIN tb_module m ON m.id = p.module_id WHERE a.request_url = :pattern AND m.project_id = :projectId ";
 		Query query = getSession().createSQLQuery(sql);
@@ -272,6 +273,44 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 			actionList.add(getAction(id));
 		}
 		return actionList;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<Integer> getParameterIdList(int projectId) {
+		StringBuilder sql = new StringBuilder();
+		sql
+		.append(" SELECT DISTINCT p.id")
+		.append(" FROM tb_parameter p")
+		.append(" JOIN tb_response_parameter_list_mapping rplm ON p.id = rplm.parameter_id")
+		.append(" JOIN tb_action_and_page ap ON ap.action_id = rplm.action_id")
+		.append(" JOIN tb_page p2 ON p2.id = ap.page_id")
+		.append(" JOIN tb_module m ON m.id = p2.module_id")
+		.append(" WHERE m.project_id = :projectId");
+		Query query = getSession().createSQLQuery(sql.toString());
+		query.setInteger("projectId", projectId);
+		List<Integer> list = query.list();
+		
+		StringBuilder sql2 = new StringBuilder();
+		sql2
+		.append(" SELECT DISTINCT p.id")
+		.append(" FROM tb_parameter p")
+		.append(" JOIN tb_request_parameter_list_mapping rplm ON p.id = rplm.parameter_id")
+		.append(" JOIN tb_action_and_page ap ON ap.action_id = rplm.action_id")
+		.append(" JOIN tb_page p2 ON p2.id = ap.page_id")
+		.append(" JOIN tb_module m ON m.id = p2.module_id")
+		.append(" WHERE m.project_id = :projectId");
+		Query query2 = getSession().createSQLQuery(sql2.toString());
+		query2.setInteger("projectId", projectId);
+		list.addAll(query2.list());
+		
+		return list;
+	}
+	
+	public int resetMockData(int projectId) {
+		List<Integer> pIdList = getParameterIdList(projectId);
+		String sql = "UPDATE tb_parameter SET mock_data = NULL where id in (" + ArrayUtils.join(pIdList, ",") + ")";
+		Query query = getSession().createSQLQuery(sql);
+		return query.executeUpdate();
 	}
 	
 	private Action getAction(int id) {

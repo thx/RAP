@@ -20,6 +20,9 @@
 	  <property name="dataType">
 		  <column name="data_Type" />
 	  </property>
+	  <property name="mockData">
+	  	<column name="mock_data" />
+	  </property>
 	  <set name="parameterList" inverse="true" table="tb_complex_parameter_list_mapping" cascade="delete">
       	<key column="complex_parameter_id" not-null="true" />
       	<many-to-many column="parameter_id" class="com.baidu.rigel.rap.project.bo.Parameter" />

@@ -215,5 +215,16 @@ public class MockMgrImpl implements MockMgr {
 			}
 		}
 	}
+
+	@Override
+	public void modify(int actionId, String mockData) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int reset(int projectId) {
+		return projectDao.resetMockData(projectId);
+	}
 	
 }

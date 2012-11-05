@@ -7,12 +7,23 @@
 
 	<package name="mock" extends="rap-default" namespace="/mock">
 
-		<action name="createData"
-			class="com.baidu.rigel.rap.mock.web.action.MockAction"
-			method="createData">
+		<action name="modify" class="com.baidu.rigel.rap.mock.web.action.MockAction"
+			method="modify">
 			<result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
 			</result>
 			<result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+			</result>
+		</action>
+
+		<action name="reset" class="com.baidu.rigel.rap.mock.web.action.MockAction"
+			method="reset">
+			<result name="success" type="velocity">/bcom/isOkWithNum.cb.vm
+			</result>
+		</action>
+
+		<action name="createData" class="com.baidu.rigel.rap.mock.web.action.MockAction"
+			method="createData">
+			<result name="success" type="velocity">/bcom/isOkWithNum.cb.vm
 			</result>
 		</action>
 

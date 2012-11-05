@@ -80,7 +80,8 @@ CREATE TABLE tb_parameter
 	identifier varchar(32) NULL,
 	data_type varchar(32) NULL,
 	remark varchar(512) NULL,
-	expression varchar(128) NULL
+	expression varchar(128) NULL,
+	mock_data text NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /** 

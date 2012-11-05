@@ -23,6 +23,16 @@ public class Parameter implements java.io.Serializable {
 		this.id = id;
 	}
 	
+	private String mockData;
+	
+	public String getMockData() {
+		return mockData;
+	}
+	
+	public void setMockData(String mockData) {
+		this.mockData = mockData;
+	}
+	
 	private String name;
 	
 	public String getName() {

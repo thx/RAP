@@ -13,6 +13,15 @@ public class ActionBase extends ActionSupport {
 	private boolean isReturnUrlFirstSet;
 	
 	private boolean isLoginCtlHidden;
+	private int num;
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
 
 	public boolean isLoginCtlHidden() {
 		return isLoginCtlHidden;
