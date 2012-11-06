@@ -84,5 +84,9 @@
 	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/tomcat-i18n-fr.jar"/>
 	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/tomcat-i18n-ja.jar"/>
 	<classpathentry kind="lib" path="D:/Development/Servers/apache-tomcat-6.0.28/lib/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xeger-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/automaton.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-1.5-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-1.5.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

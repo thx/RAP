@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import nl.flotsam.xeger.Xeger;
+
 import com.baidu.rigel.rap.common.ArrayUtils;
 import com.baidu.rigel.rap.common.NumberUtils;
 import com.baidu.rigel.rap.mock.service.MockMgr;
@@ -171,6 +173,24 @@ public class MockMgrImpl implements MockMgr {
 		String returnValue = "0";
 		
 		if (dataType.equals("number")) {
+			String regex = tagMap.get("regex_index");
+			if (regex != null && !regex.isEmpty()) {
+				// value should be like "$trueValue_INDEX_5"
+				String[] arr = regex.split("_INDEX_");
+				int tagIndex = Integer.parseInt(arr[1]);
+				if (tagIndex == index) {
+					regex = arr[0];
+					Xeger generator = new Xeger(regex);
+					return "\"" + generator.generate() + "\"";
+				}
+			}
+			
+			regex = tagMap.get("regex");
+			if (regex != null && !regex.isEmpty()) {
+				Xeger generator = new Xeger(regex);
+				return "\"" + generator.generate() + "\"";
+			}
+			
 			String value = tagMap.get("value_index");
 			if (value != null && !value.isEmpty()) {
 				// value should be like "$trueValue_INDEX_5"
@@ -318,6 +338,12 @@ public class MockMgrImpl implements MockMgr {
 						tagMap.put("length_index", tag.split("=")[1] + "_INDEX_" + tag.substring(tag.indexOf("[") + 1, tag.indexOf("]")));
 					} else {
 						tagMap.put("length", tag.split("=")[1]);
+					}
+				} else if (tag.startsWith("@regex")) {
+					if (tag.contains("regex[")) {
+						tagMap.put("regex_index", tag.split("=")[1] + "_INDEX_" + tag.substring(tag.indexOf("[") + 1, tag.indexOf("]")));
+					} else {
+						tagMap.put("regex", tag.split("=")[1]);
 					}
 				}
 			}
