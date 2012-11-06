@@ -1,7 +1,7 @@
 Rigel Automation Platform
 ===
 
-    @version v0.5 - (latest version, in master branch)
+    @version v0.4 - (latest version, in master branch)
     @author  Bosn Ma
     @weibo   http://weibo.com/bosn
     @mail    bosn@outlook.com
