@@ -3122,7 +3122,7 @@ var rap = rap || {};
 				foot = "</div>";
 		
 			if (a.name) {
-				body += "<div class='item'><b>Action Name</b>: " + a.name + "</div>";
+				body += "<div class='item'><b>Action Name</b>: " + a.name + "(id:" + a.id + ")</div>";
 			}
 			if (a.requestType) {
 				body += "<div class='item'><b>Request Type</b>: <font color='orange'>" + getRequestTypeStr(a.requestType) + "</font></div>";
