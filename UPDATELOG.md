@@ -1,6 +1,7 @@
 ======================rap v0.4 =================================================
   * change version back to 0.4
-  * 
+  * add automation testing module, allow user use "modify" and "reset" interfaces to change mock rules dynamically by HTTP requests
+  * add timestamp mechanism to prevent from cache errors
   
 ======================rap v1.3 =================================================
   * UE: login automatically redirect 09/10/2012

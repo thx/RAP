@@ -46,6 +46,10 @@ public class MockMgrImpl implements MockMgr {
 		Action action = aList.get(0);
 		String desc = action.getDescription();
 		Set<Parameter> pList = action.getResponseParameterList();
+		// load mock data by QA
+		for (Parameter p : pList) {
+			recursivelyLoadMockData(p);
+		}
 		StringBuilder json = new StringBuilder();
 		String left = "{", right = "}";
 		
@@ -96,10 +100,22 @@ public class MockMgrImpl implements MockMgr {
 		return json.toString();
 	}
 
+	private void recursivelyLoadMockData(Parameter p) {
+		if (p.getMockData() != null && !p.getMockData().equals("")) {
+			p.setMockDataTEMP(p.getMockData());
+		} else {
+			p.setMockDataTEMP(p.getRemark());
+		}
+		if (p.getParameterList() == null) return;
+		for (Parameter subP : p.getParameterList()) {
+			recursivelyLoadMockData(subP);
+		}
+	}
+
 	private void buildJson(StringBuilder json, Parameter para) {
 		boolean isArrayObject = para.getDataType().equals("array<object>");
 		int ARRAY_LENGTH = isArrayObject ? 5 : 1;
-		String[] tags = para.getRemark().split(";");
+		String[] tags = para.getMockDataTEMP().split(";");
 		Map<String, String> tagMap = new HashMap<String, String>();
 		parseTags(tags, tagMap, false);
 		String length = tagMap.get("length");
@@ -141,7 +157,7 @@ public class MockMgrImpl implements MockMgr {
 
 	private String mockValue(Parameter para) {
 		String dataType = para.getDataType();
-		String[] tags = para.getRemark().split(";");
+		String[] tags = para.getMockDataTEMP().split(";");
 		Map<String, String> tagMap = new HashMap<String, String>();
 		parseTags(tags, tagMap, true);
 		
@@ -217,9 +233,41 @@ public class MockMgrImpl implements MockMgr {
 	}
 
 	@Override
-	public void modify(int actionId, String mockData) {
-		// TODO Auto-generated method stub
-		
+	public int modify(int actionId, String mockData) {
+		Action action = projectDao.getAction(actionId);
+		int num = 0;
+		// parse mock data
+		String[] mockDataSnips = mockData.split("_AND_");
+		for (String snip : mockDataSnips) {
+			Set<Parameter> pList = snip.startsWith("request.") ?
+					action.getRequestParameterList() : action.getResponseParameterList();
+			Parameter p = locateParam(pList, snip.substring(snip.indexOf(".") + 1));
+			if (p == null) continue;
+			String paramMockData = snip.substring(snip.indexOf("=") + 1);
+			p.setMockData(paramMockData);
+			num++;
+		}
+		return num;		
+	}
+	
+	/**
+	 * recursively locating parameter specified in the mock data
+	 * @param pList
+	 * @param snip request.a.b.c=@xxxx   =>    a.b.c==@xxxx (namely request. or response. removed)
+	 * @return
+	 */
+	private Parameter locateParam(Set<Parameter> pList, String snip) {
+		boolean hasSubParam = snip.indexOf(".") > 0
+				&& snip.indexOf(".") < snip.indexOf("=");
+		String identifier = hasSubParam ? snip.substring(0, snip.indexOf("."))
+				: snip.substring(0, snip.indexOf("="));
+		for (Parameter p : pList) {
+			if (p.getIdentifier().equals(identifier)) {
+				return hasSubParam ? locateParam(p.getParameterList(),
+						snip.substring(snip.indexOf(".") + 1)) : p;
+			}
+		}
+		return null;
 	}
 
 	@Override

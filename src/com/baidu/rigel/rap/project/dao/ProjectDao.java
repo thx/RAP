@@ -70,6 +70,14 @@ public interface ProjectDao {
 	 * @return
 	 */
 	Page getPage(int id);
+	
+	
+	/**
+	 * get action
+	 * @param id
+	 * @return
+	 */
+	Action getAction(int id);
 
 	/**
 	 * save project

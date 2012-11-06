@@ -8,7 +8,7 @@
             <a class="btn btn-navbar" data-toggle="collapse"
                 data-target=".nav-collapse"> <span class="icon-bar"></span> <span
                 class="icon-bar"></span> <span class="icon-bar"></span>
-            </a> <a class="brand" href="http://fe.lzdp.us">RAP v0.5</a>
+            </a> <a class="brand" href="http://fe.lzdp.us">RAP v0.4</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li><a href="$platformUrl.home">首页</a></li>

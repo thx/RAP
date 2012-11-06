@@ -9,9 +9,7 @@
 
 		<action name="modify" class="com.baidu.rigel.rap.mock.web.action.MockAction"
 			method="modify">
-			<result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
-			</result>
-			<result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+			<result name="success" type="velocity">/bcom/isOkWithNum.cb.vm
 			</result>
 		</action>
 
@@ -23,8 +21,11 @@
 
 		<action name="createData" class="com.baidu.rigel.rap.mock.web.action.MockAction"
 			method="createData">
-			<result name="success" type="velocity">/bcom/isOkWithNum.cb.vm
+			<result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
 			</result>
+			<result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+			</result>
+
 		</action>
 
 	</package>

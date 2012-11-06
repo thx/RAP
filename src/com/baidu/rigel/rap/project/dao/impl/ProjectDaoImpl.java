@@ -102,6 +102,15 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 	}
 	
 	@Override
+	public Action getAction(int id) {
+		return (Action)getSession().get(Action.class, id);
+	}
+	
+	private Parameter getParameter(int id) {
+		return (Parameter)getSession().get(Parameter.class, id);
+	}
+	
+	@Override
 	public int saveProject(Project project) {
 		Session session = getSession();
 		session.saveOrUpdate(project);
@@ -302,8 +311,22 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		Query query2 = getSession().createSQLQuery(sql2.toString());
 		query2.setInteger("projectId", projectId);
 		list.addAll(query2.list());
-		
+		List<Parameter> paramList = new ArrayList<Parameter>();
+		for (Integer pId : list) {
+			paramList.add(getParameter(pId));
+		}
+		for (Parameter p : paramList) {
+			recursivelyAddSubParamList(list, p);
+		}
 		return list;
+	}
+	
+	private void recursivelyAddSubParamList(List<Integer> list, Parameter p) {
+		list.add(p.getId());
+		if (p.getParameterList() == null) return;
+		for (Parameter subP : p.getParameterList()) {
+			recursivelyAddSubParamList(list, subP);
+		}
 	}
 	
 	public int resetMockData(int projectId) {
@@ -313,7 +336,4 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		return query.executeUpdate();
 	}
 	
-	private Action getAction(int id) {
-		return (Action)getSession().get(Action.class, id);
-	}
 }

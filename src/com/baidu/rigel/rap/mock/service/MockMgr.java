@@ -16,9 +16,10 @@ public interface MockMgr {
 	 * @param mockData mock data string
 	 * example:  response.param1.subParam=@format=x.xxxx_AND_response.
 	 * param2=@value=1_AND_response.param3.subParam.subSubParam=@length=7
+	 * @return number of rows affected
 	 * 
 	 */
-	public void modify(int actionId, String mockData);
+	public int modify(int actionId, String mockData);
 
 	/**
 	 * clear all mock data of object in specified projet

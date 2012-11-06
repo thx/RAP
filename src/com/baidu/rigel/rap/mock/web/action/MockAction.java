@@ -89,7 +89,7 @@ public class MockAction extends ActionBase {
 	}
 	
 	public String modify() {
-		mockMgr.modify(actionId, mockData);
+		setNum(mockMgr.modify(actionId, mockData));
 		return SUCCESS;
 	}
 	
