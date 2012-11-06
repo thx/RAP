@@ -2,6 +2,7 @@
   * change version back to 0.4
   * add automation testing module, allow user use "modify" and "reset" interfaces to change mock rules dynamically by HTTP requests
   * add timestamp mechanism to prevent from cache errors
+  * add new tag format like @format[3], @value[4] to affect specified index of array element
   
 ======================rap v1.3 =================================================
   * UE: login automatically redirect 09/10/2012
