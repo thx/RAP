@@ -181,14 +181,14 @@ public class MockMgrImpl implements MockMgr {
 				if (tagIndex == index) {
 					regex = arr[0];
 					Xeger generator = new Xeger(regex);
-					return "\"" + generator.generate() + "\"";
+					return generator.generate();
 				}
 			}
 			
 			regex = tagMap.get("regex");
 			if (regex != null && !regex.isEmpty()) {
 				Xeger generator = new Xeger(regex);
-				return "\"" + generator.generate() + "\"";
+				return generator.generate();
 			}
 			
 			String value = tagMap.get("value_index");
@@ -198,12 +198,12 @@ public class MockMgrImpl implements MockMgr {
 				int tagIndex = Integer.parseInt(arr[1]);
 				if (tagIndex == index) {
 					value = arr[0];
-					return "\"" + value + "\"";
+					return value;
 				}
 			}
 			value = tagMap.get("value");
 			if (value != null && !value.isEmpty()) {
-				return "\"" + value + "\"";
+				return value;
 			}
 			
 			String format = tagMap.get("format_index");
@@ -221,6 +221,24 @@ public class MockMgrImpl implements MockMgr {
 			}
 			return NumberUtils.randomInt10Str();
 		} else if (dataType.equals("string")) {
+			String regex = tagMap.get("regex_index");
+			if (regex != null && !regex.isEmpty()) {
+				// value should be like "$trueValue_INDEX_5"
+				String[] arr = regex.split("_INDEX_");
+				int tagIndex = Integer.parseInt(arr[1]);
+				if (tagIndex == index) {
+					regex = arr[0];
+					Xeger generator = new Xeger(regex);
+					return "\"" + generator.generate() + "\"";
+				}
+			}
+			
+			regex = tagMap.get("regex");
+			if (regex != null && !regex.isEmpty()) {
+				Xeger generator = new Xeger(regex);
+				return "\"" + generator.generate() + "\"";
+			}
+			
 			String value = tagMap.get("value_index");
 			if (value != null && !value.isEmpty()) {
 				String[] arr = value.split("_INDEX_");
