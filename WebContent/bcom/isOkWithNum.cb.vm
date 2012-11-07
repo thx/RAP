@@ -1,1 +1,1 @@
-﻿{"isOk":$!isOk, "num":$!num}
+﻿$!callback({"isOk":$!isOk, "num":$!num})

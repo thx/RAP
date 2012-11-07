@@ -14,25 +14,25 @@
 	<body>
         <h3>$!utils.escapeInH($page.name)控制台</h3>
         <div id="divRootSetting">
-            <input id="txtRootPath" type="text" style="width:500px;" value="10.235.160.141:8806$!projectContext/mock/$!projectId"></input>
+            <input id="txtRootPath" type="text" style="width:500px;" value="fe.lzdp.us:8806$!projectContext/mock/$!projectId"></input>
             <span style="color:#666;">* 跟路径设置</span>
-        </div>
-        <div class="block" id="divResBoard">
-            <div id="divResBoardJson">ready</div>
-            <div id="divResBoardLog"></div>
-            <div class="clear"></div>
         </div>
         <div id="divActionList" class="demo tabs">
             <div class="nav nav-tabs">
             #foreach($action in $page.actionList)
                 <li><a href="#">$!utils.escapeInH($action.name)</a></li>
             #end
+                <li><a href="#">MODIFY</a></li>
+                <li><a href="#">RESET</a></li>
             </div>
             #foreach($action in $page.actionList)
             <div class="tester-form tab">
                 <form name="form$!velocityCount" class="form" method="post" path="$!action.requestUrl" onsubmit="return false;">
                     <input type="hidden" name="paramIdList" class="paramIdList" value="$!action.remarks" />
-                    <div class="item">请求地址：$!utils.escapeInH($action.requestUrl)</div>
+                    <div class="item">
+                        请求标识: <span style="color:#990000;">$action.id</span><br />
+                        请求地址：$!utils.escapeInH($action.requestUrl)
+                    </div>
                     #foreach($para in $action.requestParameterList)
                     <div class="item">
                         <input type="text" width="200px" class="field" name="$!para.identifier" />&nbsp; &nbsp;变量名:
@@ -47,6 +47,27 @@
                 </form>
             </div>
             #end
+            <div class="tester-form tab">
+                <div class="item">
+                    <input type="text" value="" id="txtActionId" placeholder="请输入Action ID" />
+                </div>
+                <div class="item">
+                    <textarea id="textareaModifyScript" placeholder="请输入脚本"></textarea>
+                </div>
+                <div class="item">
+                    <input type="button" class="btn btn-primary" value="生成请求" id="btnShowScript" />
+                    <input type="button" class="btn btn-danger" value="Modify" id="btnModify" />
+                </div>
+            </div>
+            <div class="tester-form tab">
+                <div class="item" id="divResetUrl">请求地址：fe.lzdp.us:8806/rap/mock/reset.action?projectId=$!projectId</div>
+                <div class="item"><input type="button" class="btn btn-danger" value="Reset" id="btnReset" /></div>
+            </div>
+        </div>
+        <div class="block" id="divResBoard">
+            <div id="divResBoardJson">ready</div>
+            <div id="divResBoardLog"></div>
+            <div class="clear"></div>
         </div>
         <div class="bottom">&nbsp;</div>
         <script>
@@ -56,6 +77,9 @@
                     divLog = document.getElementById("divResBoardLog"),
                     ERROR = -1, WARN = -2,                                // log type
                     LIGHT_GRAY = '#999', RED = 'red', ORANGE = 'orange',  // colors
+                    _resetUrl = '',
+                    _rootUrl = '',
+                    _modifyUrl = '',
                     logLine = 1;
 
                 log('tester initializing...');
@@ -82,24 +106,22 @@
                         log('request starting, url=' + color(url, LIGHT_GRAY));
                         Y.timeLog['time'] = new Date().getTime();
                         try {
-
-                        Y.jsonp(url, {
-                            on : {
-                                success : testResHandler,
-                                timeout : function() {
-                                    log(color('timeout', RED) + '... so long time to response!');
+                            Y.jsonp(url, {
+                                on : {
+                                    success : testResHandler,
+                                    timeout : function() {
+                                        log(color('timeout', RED) + '... so long time to response!');
+                                    },
+                                    failure : function(e) {
+                                        log(color('error occurred!', RED) + color(', detail:' + e.errors[0].error, LIGHT_GRAY));
+                                    }
                                 },
-                                failure : function(e) {
-                                    log(color('error occurred!', RED) + color(', detail:' + e.errors[0].error, LIGHT_GRAY));
-                                }
-                            },
-                            timeout : 10000,
-                            args : [form]
-                        });                        
+                                timeout : 10000,
+                                args : [form]
+                            });                        
                         } catch(e) {
-                        alert(e);
-                    }
-
+                            alert(e);
+                        }
                     });
 
 
@@ -162,7 +184,8 @@
                     
                 });
 
-                function testResHandler(response, form) {
+
+                function testResHandler(response, form, btn) {
                     var jsonString = Y.JSON.stringify(response); 
                     var beginTime = Y.timeLog['time'];
                     if (!beginTime) return;
@@ -170,6 +193,10 @@
                     log('request end in:' + color(endTime - beginTime, RED) + 'ms.');
                     Y.one('#divResBoardJson').setHTML(jsonString.formatJS());
 
+                    if (!form) {
+                        btn.removeClass('disabled');
+                        return
+                    };
 
                     // JSON format validating ...
                     var paramIdList = form.one('.paramIdList').get('value').split(','),
@@ -198,6 +225,90 @@
                 function color(t, c) {
                     return '<span style="color:' + c + ';">' + t + '</span>';
                 }
+
+                function initResetTab() {
+                    Y.one('#divResetUrl').setHTML('请求地址: ' + _resetUrl);
+                }
+
+                function initUrl() {
+                    var path = Y.one('#txtRootPath').get('value'),
+                        root = '';
+                    if (path.indexOf('/') != -1) {
+                        root = 'http://' + path.substring(0, path.indexOf('/'));
+                    }
+                    _resetUrl = root + '/rap/mock/reset.action?projectId=$!projectId';
+                    _modifyUrl = root + '/rap/mock/modify.action?actionId=' + Y.one('#txtActionId').get('value')
+                        + '&mockData=' + encodeURIComponent(Y.one('#textareaModifyScript').get('value'));
+                    _rootUrl = root;
+                    initResetTab();
+                }
+
+
+                initUrl();
+
+                Y.one('#txtRootPath').on('change', initUrl);
+
+                Y.one('#btnReset').on('click', function(e) {
+                    var btn = Y.one('#btnReset'),
+                        c = 'disabled';
+                    if (btn.hasClass(c)) return;
+                    btn.addClass(c);
+                    try {
+                        log('request starting, url=' + color(_resetUrl, LIGHT_GRAY));
+                        Y.timeLog['time'] = new Date().getTime();
+                        Y.jsonp(_resetUrl, {
+                            on : {
+                                success : testResHandler,
+                                timeout : function() {
+                                    log(color('timeout', RED) + '... so long time to response!');
+                                },
+                                failure : function(e) {
+                                    log(color('error occurred!', RED) + color(', detail:' + e.errors[0].error, LIGHT_GRAY));
+                                }
+                            },
+                            timeout : 10000,
+                            args : [null, btn]
+                        });                        
+                    } catch(e) {
+                        alert(e);
+                    }
+                });
+
+                Y.one('#btnShowScript').on('click', function() {
+                    initUrl();
+                    Y.one('#divResBoardJson').setHTML(_modifyUrl);
+                });
+
+                Y.one('#btnModify').on('click', function(e) {
+                    if (Y.one('#txtActionId').get('value') == '') {
+                        alert('请输入ActionId');
+                        return;
+                    }
+                    var btn = Y.one('#btnModify'),
+                        c = 'disabled';
+                    if (btn.hasClass(c)) return;
+                    btn.addClass(c);
+                    initUrl();
+                    try {
+                        log('request starting, url=' + color(_modifyUrl, LIGHT_GRAY));
+                        Y.timeLog['time'] = new Date().getTime();
+                        Y.jsonp(_modifyUrl, {
+                            on : {
+                                success : testResHandler,
+                                timeout : function() {
+                                    log(color('timeout', RED) + '... so long time to response!');
+                                },
+                                failure : function(e) {
+                                    log(color('error occurred!', RED) + color(', detail:' + e.errors[0].error, LIGHT_GRAY));
+                                }
+                            },
+                            timeout : 10000,
+                            args : [null, btn]
+                        });                        
+                    } catch(e) {
+                        alert(e);
+                    }
+                });
 
                 log('tester ready.');
             });

@@ -143,3 +143,11 @@ input,textarea {
 
 #divRootSetting {
 }
+
+#txtActionId {
+	width:400px;
+}
+#textareaModifyScript {
+	width: 800px;
+	height: 150px;
+}

@@ -371,6 +371,7 @@ public class MockMgrImpl implements MockMgr {
 	@Override
 	public int modify(int actionId, String mockData) {
 		Action action = projectDao.getAction(actionId);
+		if (action == null) return 0;
 		int num = 0;
 		// parse mock data
 		String[] mockDataSnips = mockData.split("_AND_");
