@@ -1,0 +1,49 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+#parse('/tcom/template.rap.vm')
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>RAP Help Center</title>
+        #includeRapStatic
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="${staticRoot}/bootstrap/js/bootstrap.min.js"></script>
+        <style type="text/css">
+        </style>
+    </head>
+    <body>
+        #bodyStart
+        <div id="container">
+            <ul id="myTab" class="nav nav-tabs">
+                <li class="active"><a href="#about" data-toggle="tab">关于RAP</a></li>
+                <li><a href="#edit" data-toggle="tab">接口编辑</a></li>
+                <li><a href="#mock" data-toggle="tab">数据伪造</a></li>
+                <li><a href="#tagy" data-toggle="tab">格式标签</a></li>
+                <li><a href="#test" data-toggle="tab">智能测试</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="about">
+                    <p>#include('/platform/help.about.vm')</p>
+                </div>
+                <div class="tab-pane fade" id="edit">
+                    <p>#include('/platform/help.edit.vm')</p>
+                </div>
+                <div class="tab-pane fade" id="mock">
+                    <p>#include('/platform/help.mock.vm')</p>
+                </div>
+                <div class="tab-pane fade" id="tagy">
+                    <p>#include('/platform/help.tagy.vm')</p>
+                </div>
+                <div class="tab-pane fade" id="test">
+                    <p>#include('/platform/help.test.vm')</p>
+                </div>
+            </div>
+        </div>
+        #bodyEnd
+        <script>
+            $('#myTab a').click(function (e) {
+              e.preventDefault();
+              $(this).tab('show');
+            })
+        </script>
+    </body>
+</html>

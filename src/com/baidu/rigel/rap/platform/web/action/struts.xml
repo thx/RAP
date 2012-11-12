@@ -16,5 +16,8 @@
          <action name="status" class="com.baidu.rigel.rap.platform.web.action.PlatformAction" method="status">
         	<result name="success" type="velocity">/platform/status.vm</result>
         </action>    
+          <action name="help" class="com.baidu.rigel.rap.platform.web.action.PlatformAction" method="help">
+        	<result name="success" type="velocity">/platform/help.vm</result>
+        </action>  
 	</package>
 </struts>

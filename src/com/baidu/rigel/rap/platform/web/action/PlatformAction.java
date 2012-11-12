@@ -21,4 +21,8 @@ public class PlatformAction extends ActionBase {
 	public String status() {
 		return SUCCESS;
 	}
+	
+	public String help() {
+		return SUCCESS;
+	}
 }

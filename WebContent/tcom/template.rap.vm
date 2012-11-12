@@ -16,6 +16,7 @@
                     <li><a href="$projectUrl.myProjectList">我的项目</a></li>
 					<li><a href="$accountUrl.myAccount">我的账户</a></li>
 					#end
+                    <li><a href="$platformUrl.help">帮助</a></li>
                     <li><a href="$platformUrl.about">关于</a></li>
                 </ul>
                 #if ($curUser) 
