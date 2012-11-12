@@ -164,7 +164,7 @@ public class VelocityManager {
 	 * 
 	 * @return a new StrutsVelocityContext
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Context createContext(ValueStack stack, HttpServletRequest req,
 			HttpServletResponse res) {
 		VelocityContext[] chainedContexts = prepareChainedContexts(req, res,
@@ -211,7 +211,7 @@ public class VelocityManager {
 	 * @param extraContext
 	 * @return an VelocityContext[] of contexts to chain
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected VelocityContext[] prepareChainedContexts(
 			HttpServletRequest servletRequest,
 			HttpServletResponse servletResponse, Map extraContext) {
@@ -270,7 +270,7 @@ public class VelocityManager {
 	 * @return the optional properties if struts.velocity.configfile was
 	 *         specified, an empty Properties file otherwise
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Properties loadConfiguration(ServletContext context) {
 		if (context == null) {
 			String gripe = "Error attempting to create a loadConfiguration from a null ServletContext!";
@@ -361,7 +361,7 @@ public class VelocityManager {
 			}
 		}
 
-		// overide with programmatically set properties
+		// override with programmatically set properties
 		if (this.velocityProperties != null) {
 			Iterator keys = this.velocityProperties.keySet().iterator();
 			while (keys.hasNext()) {
@@ -417,7 +417,7 @@ public class VelocityManager {
 	 * IoCVelocityContext, a SpringReferenceVelocityContext, and a
 	 * ToolboxVelocityContext
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Inject(StrutsConstants.STRUTS_VELOCITY_CONTEXTS)
 	public void setChainedContexts(String contexts) {
 		// we expect contexts to be a comma separated list of classnames
@@ -518,7 +518,7 @@ public class VelocityManager {
 	 * @param context
 	 * @param p
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	private void applyDefaultConfiguration(ServletContext context, Properties p) {
 		// ensure that caching isn't overly aggressive
 
@@ -597,7 +597,7 @@ public class VelocityManager {
 		p.setProperty("userdirective", userdirective);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	private void addDirective(StringBuffer sb, Class clazz) {
 		sb.append(clazz.getName()).append(",");
 	}

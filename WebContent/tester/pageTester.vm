@@ -31,7 +31,7 @@
                     <input type="hidden" name="paramIdList" class="paramIdList" value="$!action.remarks" />
                     <div class="item">
                         请求标识: <span style="color:#990000;">$action.id</span><br />
-                        请求地址：$!utils.escapeInH($action.requestUrl)
+                        请求地址: $!utils.escapeInH($action.requestUrl)
                     </div>
                     #foreach($para in $action.requestParameterList)
                     <div class="item">
