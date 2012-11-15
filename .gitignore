@@ -4,3 +4,7 @@
 *.war
 *.ear
 build/*
+./settings/*
+*.swp
+*.bak
+*.log
