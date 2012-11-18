@@ -1,0 +1,12 @@
+*.class
+
+# Package Files #
+*.war
+*.ear
+build/*
+./settings/*
+*.swp
+*.bak
+*.log
+bak
+logs

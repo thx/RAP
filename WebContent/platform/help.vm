@@ -18,23 +18,27 @@
                 <li><a href="#edit" data-toggle="tab">接口编辑</a></li>
                 <li><a href="#mock" data-toggle="tab">数据伪造</a></li>
                 <li><a href="#tagy" data-toggle="tab">格式标签</a></li>
-                <li><a href="#test" data-toggle="tab">智能测试</a></li>
+                <li><a href="#test" data-toggle="tab">智能测试</a></li> 
+                <li><a href="#console" data-toggle="tab">控制台</a></li> 
             </ul>
             <div id="myTabContent" class="tab-content">
                 <div class="tab-pane fade in active" id="about">
-                    <p>#include('/platform/help.about.vm')</p>
+                    <p>#parse('/platform/help.about.vm')</p>
                 </div>
                 <div class="tab-pane fade" id="edit">
-                    <p>#include('/platform/help.edit.vm')</p>
+                    <p>#parse('/platform/help.edit.vm')</p>
                 </div>
                 <div class="tab-pane fade" id="mock">
-                    <p>#include('/platform/help.mock.vm')</p>
+                    <p>#parse('/platform/help.mock.vm')</p>
                 </div>
                 <div class="tab-pane fade" id="tagy">
-                    <p>#include('/platform/help.tagy.vm')</p>
+                    <p>#parse('/platform/help.tagy.vm')</p>
                 </div>
                 <div class="tab-pane fade" id="test">
-                    <p>#include('/platform/help.test.vm')</p>
+                    <p>#parse('/platform/help.test.vm')</p>
+                </div>
+                <div class="tab-pane fade" id="console">
+                    <p>#parse('/platform/help.console.vm')</p>
                 </div>
             </div>
         </div>
