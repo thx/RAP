@@ -1718,54 +1718,7 @@ var rap = rap || {};
 		 }
 	 };
 
-//p.addResponseParameter(_curActionId);
-//newParamId = p.addChildParameter(parentParamId);
 
-	function processJSONImport(f, k, pId, notFirst) {
-		var id, param, item;
-		if (notFirst) {
-			if (!pId) {
-				id = p.addResponseParameter(_curActionId);
-				param = p.getParameter(id);
-				param.identifier = k;
-			} else {
-				id = p.addChildParameter(pId);
-				param = p.getParameter(id);
-				param.identifier = k;
-			}
-		}
-	    var key;
-		if (f instanceof Array && f.length) {
-			if (notFirst) {
-				item = f[0];
-				if (typeof f === 'string') {
-					param.dataType = 'array<string>';
-				} else if (typeof f === 'number') {
-					param.dataType = 'array<number>';
-				} else if (typeof f === 'boolean') {
-					param.dataType = 'array<boolean>';
-				} else if (f !== null && typeof f === 'object') {
-					param.dataType = 'array<object>';
-					for (key in item) {
-						processJSONImport(item[key], key, notFirst ? id : null, true);
-					}
-				}
-			}
-		} else if (typeof f === 'string') {
-			param && (param.dataType = 'string');
-		} else if (typeof f === 'number') {
-			param && (param.dataType = 'number');
-		} else if (typeof f === 'boolean') {
-			param && (param.dataType = 'boolean');
-		} else if (typeof f === 'undefined') {
-		} else if (f === null) {
-		} else if (typeof f === 'object') {
-			param && (param.dataType = 'object');
-			for (key in f) {
-				processJSONImport(f[key], key, notFirst ? id : null, true);
-			}
-		}
-	 }
 
 	/**
 	 * edit action
@@ -2943,6 +2896,56 @@ var rap = rap || {};
 			ecui.init(baidu.g("div-tree-" + moduleId));
 		}
    }
+
+	/**
+	 * process JSON import
+	 */
+	function processJSONImport(f, k, pId, notFirst) {
+		var id, param, item;
+		if (notFirst) {
+			if (!pId) {
+				id = p.addResponseParameter(_curActionId);
+				param = p.getParameter(id);
+				param.identifier = k;
+			} else {
+				id = p.addChildParameter(pId);
+				param = p.getParameter(id);
+				param.identifier = k;
+			}
+		}
+	    var key;
+		if (f instanceof Array && f.length) {
+			if (notFirst) {
+				item = f[0];
+				if (typeof f === 'string') {
+					param.dataType = 'array<string>';
+				} else if (typeof f === 'number') {
+					param.dataType = 'array<number>';
+				} else if (typeof f === 'boolean') {
+					param.dataType = 'array<boolean>';
+				} else if (f !== null && typeof f === 'object') {
+					param.dataType = 'array<object>';
+					for (key in item) {
+						processJSONImport(item[key], key, notFirst ? id : null, true);
+					}
+				}
+			}
+		} else if (typeof f === 'string') {
+			param && (param.dataType = 'string');
+		} else if (typeof f === 'number') {
+			param && (param.dataType = 'number');
+		} else if (typeof f === 'boolean') {
+			param && (param.dataType = 'boolean');
+		} else if (typeof f === 'undefined') {
+		} else if (f === null) {
+		} else if (typeof f === 'object') {
+			param && (param.dataType = 'object');
+			for (key in f) {
+				processJSONImport(f[key], key, notFirst ? id : null, true);
+			}
+		}
+	 }
+
 
 
 		/***************************************************
