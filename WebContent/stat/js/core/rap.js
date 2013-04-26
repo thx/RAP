@@ -1,5 +1,6 @@
-var rap = rap || {};
+'use strict';
 
+var rap = rap || {};
 
 /********************************************************
  *                                                      *
@@ -10,9 +11,7 @@ var rap = rap || {};
 /**
  * Util Module
  */
-(function(window, undefined) {
-    'use strict';
-
+(function() {
 	rap.util = rap.util || {};
 	
 	var util = rap.util,
@@ -371,7 +370,7 @@ var rap = rap || {};
 		}
 		return Validate;	
 	})();
-})();
+})(this);
 
 
 /********************************************************
@@ -944,7 +943,7 @@ var rap = rap || {};
 			) 
 		{   
 			var clonedObj = b.object.clone(recuredParam);
-			resetAllChildParameterId(clonedObj);
+			p.resetAllChildParameterId(clonedObj);
 			this.setParameterObj(autoCompletedParam, clonedObj);
 			return true;
 		}
@@ -1026,14 +1025,14 @@ var rap = rap || {};
 	 * including child parameters
 	 * of complex parameter
 	 */
-	resetAllChildParameterId = function(param) {
+	p.resetAllChildParameterId = function(param) {
 		if (!param || !param.id || !param.parameterList) return;
 		var parameterList = param.parameterList,
 			parameterListNum = parameterList.length;
 		for (var i = 0; i < parameterListNum; i++) {
 			var item = parameterList[i];
 			item.id = generateId();
-			resetAllChildParameterId(item);
+			p.resetAllChildParameterId(item);
 		}		
 	};
 	
@@ -1076,6 +1075,7 @@ var rap = rap || {};
 		b            = baidu,		            // tangram package
 		e            = ecui,		            // ecui package
 		_curModuleId,                           // current module id
+		_data,								    // project data object
 		_curActionId,                           // current action id
 		_isProcessing,                          // is workspace processing something
 		_messageTimer,                          // message timer
@@ -1131,7 +1131,7 @@ var rap = rap || {};
 			"RESPONSE_BEGIN"                     : "<br /><h2>RESPONSE PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-name\">Name</td><td class=\"head-identifier\">Identifier</td><td class=\"head-type\">Type</td><td class=\"head-remark\">Remark</td></tr>",
 			"RESPONSE_BEGIN_EDIT"                : "<br /><h2>RESPONSE PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-name\">Name</td><td class=\"head-identifier\">Identifier</td><td class=\"head-type\">Type</td><td class=\"head-remark\">Remark</td></tr>",
 			"RESPONSE_END"                       : "</table>",
-			"RESPONSE_PARAMETER_ADD_BUTTON"      : "<div><a href=\"#\" class=\"add-link div-add-param-link\" onclick=\"ws.addParam('response'); return false;\">新增响应参数</a></div>",
+			"RESPONSE_PARAMETER_ADD_BUTTON"      : "<div><a href=\"#\" class=\"add-link div-add-param-link\" onclick=\"ws.addParam('response'); return false;\">新增响应参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" onclick=\"ws.importJSON(); return false;\">导入JSON</a></div>",
 
 			"SAVE_PANEL_BEGIN"                   : "<div id=\"div-save-panel\">",
 			"SAVE_PANEL_END"                     : "</div>",
@@ -1183,7 +1183,8 @@ var rap = rap || {};
 			"CHECKIN_PANEL_MESSAGE"         : "div-checkin-floater-message",
 			"VSS_PANEL_MESSAGE"             : "div-saveVSS-floater-message",
 			"WORKSPACE_MESSAGE"             : "div-w-message",
-			"EDIT_INPUT"                    : "txtMTName" 
+			"EDIT_INPUT"                    : "txtMTName" ,
+			"IMPORT_JSON_MESSAGE"           : "div-importJSON-floater-message"
 		},
 		PREFIX = {
 			"SAVE" : "radio-save-"
@@ -1252,6 +1253,10 @@ var rap = rap || {};
 		});
 	};
 
+	ws._getData = function() {
+		return _data;
+	};
+
 	/**
 	 * switch module
 	 */
@@ -1262,7 +1267,7 @@ var rap = rap || {};
 		}
 		var oldCurM = getDiv(_curModuleId, "m"),
 			oldCurMT = getDiv(_curModuleId, "mt"),
-			newCurM = getDiv(id, "m");
+			newCurM = getDiv(id, "m"),
 			newCurMT = getDiv(id, "mt");
 
 		if (newCurM && newCurMT) {
@@ -1517,120 +1522,6 @@ var rap = rap || {};
         processed();
     };
 
-	/**
-	 * do save
-	ws.updateSave = function() {
-		var save = getSelectedSave();
-		if (save != null) {
-			if(confirm(MESSAGE.CONFIRM_COVER)) {
-				var q = "id=" + _data.id + "&saveId=" + save.id + "&projectData=" + util.escaper.escapeInU(getProjectDataJson());
-				showMessage(CONST.LOADING, ELEMENT_ID.SAVE_PANEL_MESSAGE, MESSAGE.SAVING);
-				if (!processing(ELEMENT_ID.SAVE_PANEL_MESSAGE)) return;
-				b.ajax.post(URL.updateSave, q, function(xhr, response) {
-					try {
-						var obj = eval("(" + response + ")");
-						_data.saveList = obj.saveList;
-						initSavePanel();
-						showMessage(CONST.LOAD, ELEMENT_ID.SAVE_PANEL_MESSAGE, MESSAGE.SAVED);
-					} catch(e) {
-						showMessage(CONST.WARN, ELEMENT_ID.SAVE_PANEL_MESSAGE, MESSAGE.FATAL_ERROR);
-					} finally {
-						processed();
-					}
-				});
-			}
-		} else { // new save
-			if (_data.saveList.length >= CONFIG.SAVE_LIST_MAX_LENGTH) {
-				showMessage(CONST.WARN, ELEMENT_ID.SAVE_PANEL_MESSAGE, MESSAGE.SAVE_LIST_MAX_LENGTH_OVERFLOW);
-				return;
-			}
-			var q = "projectData=" + util.escaper.escapeInU(getProjectDataJson()) + "&id=" + _data.id;
-			showMessage(CONST.LOADING, ELEMENT_ID.SAVE_PANEL_MESSAGE, MESSAGE.SAVING);
-			if (!processing(ELEMENT_ID.SAVE_PANEL_MESSAGE)) return;
-			b.ajax.post(URL.updateSave, q, function(xhr, response) {
-				try {
-					var obj = eval("(" + response + ")");
-					_data.saveList = obj.saveList;
-					initSavePanel();
-					showMessage(CONST.LOAD, ELEMENT_ID.SAVE_PANEL_MESSAGE, MESSAGE.SAVED);
-				} catch(e) {
-					showMessage(CONST.WARN, ELEMENT_ID.SAVE_PANEL_MESSAGE, MESSAGE.FATAL_ERROR);
-				} finally {
-					processed();
-				}
-			});
-		}
-	}
-	*/
-
-	/**
-	 * do load
-	ws.querySave = function() {
-		var save = getSelectedSave();
-		if (save == null) {
-			showMessage(CONST.WARN, ELEMENT_ID.SAVE_PANEL_MESSAGE, MESSAGE.CHOOSE_AT_FIRST);
-			return;
-		}
-		ws.closeSavePanel();
-		showMessage(CONST.LOADING, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.LOADING);
-		processing();
-		b.ajax.post(URL.querySave, "saveId=" + save.id, function(xhr, response) {
-			try {
-				var obj = eval("(" + response + ")");
-				p.init(obj);
-				showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.LOAD);
-			
-			} catch(e) {
-				showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
-			} finally {
-				processed();
-			}
-			// bind will cause processing again.
-			bind();
-		});
-	};
-	*/
-
-	/**
-	 * update current save
-	ws.updateCurrentSave = function() {
-		if (!confirm(MESSAGE.CONFIRM_SAVE)) return;
-		var q = "id=" + _data.id + "&projectData=" + util.escaper.escapeInU(getProjectDataJson());
-		showMessage(CONST.LOADING, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVING);
-		if (!processing()) return;
-		b.ajax.post(URL.updateCurrentSave, q, function(xhr, response) {
-			showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVED);
-			processed();
-		});
-	}
-	*/
-
-	/**
-	 * check out
-	ws.checkOut = function() {
-		if (!confirm(MESSAGE.CONFIRM_CHECKOUT)) return;
-		ecFloater.show(ELEMENT_ID.CHECKOUT_PANEL);
-		ecui.get(ELEMENT_ID.CHECKOUT_PANEL).setTitle("Check Out");
-		var q = "projectId=" + p.getId() + "&projectData=" + util.escaper.escapeInU(b.json.stringify(p.getData()))
-			+ "&projectDataOriginal=" + util.escaper.escapeInU(b.json.stringify(_data.projectDataOriginal));
-		showMessage(CONST.LOADING, ELEMENT_ID.CHECKOUT_PANEL_MESSAGE, MESSAGE.PROCESSING);
-		if (!processing()) return;
-		b.ajax.post(URL.checkOut, q, function(xhr, response) {
-			try {
-				var obj = eval("(" + response + ")");
-				p.init(obj.projectData);	
-				_data.projectDataOriginal = obj.projectDataOriginal;
-				b.g(ELEMENT_ID.CHECKOUT_PANEL_CONTENT).innerHTML = obj.log ? obj.log : TEMPLATE.NO_DATA_CHECKED;
-				bind(true);
-				showMessage(CONST.LOAD, ELEMENT_ID.CHECKOUT_PANEL_MESSAGE, MESSAGE.PROCESSED);
-			} catch(e) {
-				showMessage(CONST.WARN, ELEMENT_ID.CHECKOUT_PANEL_MESSAGE, MESSAGE.FATAL_ERROR);
-			} finally {
-				processed();
-			}
-		});
-	};
-	 */
 
 	/**
 	 * check in
@@ -1810,6 +1701,73 @@ var rap = rap || {};
 	};
 
 	/**
+	 * do import JSON
+	 */
+	ws.doImportJSON = function() {
+		if (!validate('formImportJSONFloater')) return;
+		var ele = b.g('importJSONFloater-text');
+		var txt = ele.value;
+		try {
+			var data = rap.Y.JSON.parse(txt);
+			ele.value = '';
+			processJSONImport(data);
+			this.switchA(_curActionId);
+			this.cancelImportJSON();
+		 } catch (e) {
+			showMessage(CONST.WARN, ELEMENT_ID.IMPORT_JSON_MESSAGE, 'JSON解析错误: ' + e.message);
+		 }
+	 };
+
+//p.addResponseParameter(_curActionId);
+//newParamId = p.addChildParameter(parentParamId);
+
+	function processJSONImport(f, k, pId, notFirst) {
+		var id, param, item;
+		if (notFirst) {
+			if (!pId) {
+				id = p.addResponseParameter(_curActionId);
+				param = p.getParameter(id);
+				param.identifier = k;
+			} else {
+				id = p.addChildParameter(pId);
+				param = p.getParameter(id);
+				param.identifier = k;
+			}
+		}
+	    var key;
+		if (f instanceof Array && f.length) {
+			if (notFirst) {
+				item = f[0];
+				if (typeof f === 'string') {
+					param.dataType = 'array<string>';
+				} else if (typeof f === 'number') {
+					param.dataType = 'array<number>';
+				} else if (typeof f === 'boolean') {
+					param.dataType = 'array<boolean>';
+				} else if (f !== null && typeof f === 'object') {
+					param.dataType = 'array<object>';
+					for (key in item) {
+						processJSONImport(item[key], key, notFirst ? id : null, true);
+					}
+				}
+			}
+		} else if (typeof f === 'string') {
+			param && (param.dataType = 'string');
+		} else if (typeof f === 'number') {
+			param && (param.dataType = 'number');
+		} else if (typeof f === 'boolean') {
+			param && (param.dataType = 'boolean');
+		} else if (typeof f === 'undefined') {
+		} else if (f === null) {
+		} else if (typeof f === 'object') {
+			param && (param.dataType = 'object');
+			for (key in f) {
+				processJSONImport(f[key], key, notFirst ? id : null, true);
+			}
+		}
+	 }
+
+	/**
 	 * edit action
 	 */
     ws.editA = function(actionId) {
@@ -1961,6 +1919,17 @@ var rap = rap || {};
 	ws.cancelEditP = function() {
 		ecui.get("editPFloater").hide();
 	};
+
+	/**
+	 * cancel import JSON
+	 */
+	 ws.cancelImportJSON = function() {
+		 ecui.get('importJSONFloater').hide();
+	 };
+
+	 ws.importJSON = function() {
+		ecFloater.show("importJSONFloater");
+	 };
 
 	/**
 	 * cancel save in VSS mode
@@ -2965,9 +2934,11 @@ var rap = rap || {};
 	*/
    function renderModuleTreeList() {
 		var moduleList = p.getModuleList(),
-			moduleListNum = moduleList.length;
+			moduleListNum = moduleList.length,
+			i = 0,
+			moduleId = 0;
 
-		for (var i = 0; i < moduleListNum; i++) {
+		for (; i < moduleListNum; i++) {
 			moduleId = moduleList[i].id;
 			ecui.init(baidu.g("div-tree-" + moduleId));
 		}
@@ -3150,7 +3121,7 @@ var rap = rap || {};
          */
         function processTextarea(txt) {
             var arr = [],
-                hasCode = txt.indexOf('@code') > -1;
+                hasCode = txt.indexOf('@code') > -1,
                 i = 0;
             if (txt.length > 100) {
                 var t1 = hasCode ? txt.replace(/(@code|@end)/gmi, '') : txt;
@@ -3267,7 +3238,8 @@ var rap = rap || {};
                     'boolean',
                     'array<number>',
                     'array<string>',
-                    'array<object>'
+                    'array<object>',
+                    'array<boolean>'
 					],
 				typeListNum = typeList.length;
 
@@ -3366,10 +3338,16 @@ var rap = rap || {};
 	 *                                                      *
 	 ********************************************************/
 
- })(window);
+ })();
 
 
 /*                                                      *
  *             ##workspace-module-end                   *
  *                                                      *
  ********************************************************/
+
+
+ // 先这么搞... 想重构成本太大.... dirty solution here
+ APP.use('json-parse', function(Y) {
+	 rap.Y = Y;
+ });

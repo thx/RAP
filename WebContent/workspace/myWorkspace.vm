@@ -82,8 +82,7 @@
 		#elseif ($workspace.modeInt == 2)
 			#startFloater("checkinFloater" "Check In" 600 400)
 			<div class="myfloater">
-				<div id="div-checkin-floater-message" style="display:none;">
-				</div>
+				<div id="div-checkin-floater-message" style="display:none;"></div>
 				<div id="div-checkin-floater-content">
 				</div>
 				<div class="div-floater-control">
@@ -111,7 +110,7 @@
 
 			#startFloater("saveFloater" "Save/Load Workspace" 600 400)
 			<div class="myfloater">
-				<div id="div-save-floater-message" style="display:none;">
+				<div id="div-save-floater-message" style="display:none;" class="label">
 				</div>
 				<div id="div-save-floater-content">
 				</div>
@@ -222,6 +221,25 @@
 			</div>
 		</form>
 		#endFloater
+		#startFloater("importJSONFloater" "Import JSON" 600 350)
+		<form name="formImportJSONFloater">
+			<div id="div-importJSON-floater-message" style="display:none;" class="label"></div>
+			<div class="myfloater">
+				<table class="table">
+					<tr>
+						<td>
+							<textarea placeholder="请输入JSON" id="importJSONFloater-text" style="width: 510px; height: 200px; font-size: 12px; line-height: 1.5;" cols="20" rows="20"></textarea>
+						</td>
+					</tr>
+				</table>
+				<div class="div-floater-control">
+					<input type="button" class="btn btn-primary" onclick="ws.doImportJSON();"  value="提交" />
+					<input type="button" class="btn" onclick="ws.cancelImportJSON();"  value="取消"/>
+				</div>
+			</div>
+		</form>
+		#endFloater
+
 	</body>
 	<script type="text/javascript">
 		var urlObj = {
