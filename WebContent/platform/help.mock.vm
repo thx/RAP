@@ -1,1 +1,3 @@
-这里教大家如何生成自动化的数据伪造服务接口
+通过在备注中添加@format, @value等标签，即可自动生成数据。点击接口编辑工作区中的“控制台”按钮进入控制台，默认所有数据接口均为mock服务提供的接口。<br />
+mock service 地址：http://fe.lzdp.us:8806/rap/mock/19  <br />
+其中&nbsp;<span class="label">19</span>&nbsp;为项目ID，不同项目不同。若在请求信息中填写的url为/myUrl，则请求http://fe.lzdp.us:8806/rap/mock/19<span style="color:#990000;font-weight:bold;">/myUrl</span>可根据接口返回符合格式的数据。

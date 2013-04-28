@@ -1,1 +1,10 @@
-这里教大家如何使用各种数据标签来精准的模拟符合要求的数据
+<span class="label">@value</span>
+<p>固定值，如@value=2012-02-23 则该字段返回的所有数据值均为2012-02-23, 另外@value支持[xx]，常用于如期，如@value=2012-02-[xx]则生成的数据将按顺序为：2012-02-01, 2012-02-02, 2012-02-03.. 等等。</p>
+<span class="label">@format</span>
+<p>格式化，如@format=0.xxxx 则生成4位随机小数如0.1232, 0.2543等等。x表示0-9的随机数，类似的@format=xxxxx表示五位随机整数。</p>
+<span class="label">@length</span>
+<p>数组长度，如@length=7 表示生成7组数据，该标签仅支持添加在数组类型的参数中。</p>
+<span class="label">@regex</span>
+<p>正则标签，如@regex=[a-z]b 生成数据诸如ab, bb, cb等。根据用户填写的正则表达式生成数据。</p>
+<span class="label">@format[2]</span>
+<p>所有标签可以通过下标来针对于数组中的某一项元素进行控制，例如@format[2]=xxx 表示只在第三组数据生成三位随机数，若该参数不在数组内则无效。</p>
