@@ -1,5 +1,3 @@
-*.class
-
 # Package Files #
 *.war
 *.ear
@@ -9,4 +7,3 @@ build/*
 *.bak
 *.log
 bak
-logs
