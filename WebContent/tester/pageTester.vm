@@ -1,17 +1,17 @@
 ﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 #parse('/tcom/const.inc.vm')
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>RAP - $!utils.escapeInH($page.name)控制台</title>
+        <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <title>RAP - $!utils.escapeInH($page.name)控制台</title>
         <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap.css?_r=$!timeStamp" type="text/css" media="screen">
         <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap-responsive.css?_r=$!timeStamp" type="text/css" media="screen">
         <link rel="stylesheet" href="${staticRoot}/css/rap.template.css?_r=$!timeStamp" type="text/css" media="screen">
-		<link type="text/css" rel="stylesheet" href="${staticRoot}/css/pageTester.css?_r=$!timeStamp" />
+                <link type="text/css" rel="stylesheet" href="${staticRoot}/css/pageTester.css?_r=$!timeStamp" />
         <script src="http://a.tbcdn.cn/??s/yui/3.6.0/build/yui/yui-min.js"></script>
         <script src="${staticRoot}/js/util/jsformat.js"></script>
-	</head>
-	<body>
+        </head>
+        <body>
         <h3>$!utils.escapeInH($page.name)控制台</h3>
         <div id="divRootSetting">
             <input id="txtRootPath" type="text" style="width:500px;" value="fe.lzdp.us:8806$!projectContext/mock/$!projectId"></input>
@@ -87,12 +87,19 @@
                 Y.all('.form').each(function(form) {
                     form.one('.btn-run').on('click', function(e) {
                         Y.one('#divResBoardJson').setHTML('加载中，请稍后...');
-                        var url = '',
-                            qArr = [],
-                            i = 0,
-                            fields = form.all('.field'),
-                            baseUrl = Y.one('#txtRootPath').get('value') + form.getAttribute('path');
+                        var url     = '';
+                        var qArr    = [];
+                        var i       = 0;
+                        var fields  = form.all('.field');
+                        var baseUrl = Y.one('#txtRootPath').get('value');
+                        var path    = form.getAttribute('path');
 
+                        if (~path.indexOf('http')) {
+                            path = path.substring(7);
+                            path = path.substring(path.indexOf("/"));
+                        }
+
+                        baseUrl += path;
                         fields.each(function(field) {
                             var name = field.get('name'),
                                 value = field.get('value');
@@ -118,7 +125,7 @@
                                 },
                                 timeout : 10000,
                                 args : [form]
-                            });                        
+                            });
                         } catch(e) {
                             alert(e);
                         }
@@ -166,7 +173,7 @@
                                     clearTabsState();
                                     var li = e.target.ancestor('li');
                                     li.setAttribute('class', 'active');
-                                    showTab(i); 
+                                    showTab(i);
                                 }
                             })(i++));
                         });
@@ -181,12 +188,12 @@
                         });
 
                     }());
-                    
+
                 });
 
 
                 function testResHandler(response, form, btn) {
-                    var jsonString = Y.JSON.stringify(response); 
+                    var jsonString = Y.JSON.stringify(response);
                     var beginTime = Y.timeLog['time'];
                     if (!beginTime) return;
                     var endTime = new Date().getTime();
@@ -268,7 +275,7 @@
                             },
                             timeout : 10000,
                             args : [null, btn]
-                        });                        
+                        });
                     } catch(e) {
                         alert(e);
                     }
@@ -304,7 +311,7 @@
                             },
                             timeout : 10000,
                             args : [null, btn]
-                        });                        
+                        });
                     } catch(e) {
                         alert(e);
                     }

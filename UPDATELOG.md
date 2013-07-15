@@ -1,3 +1,7 @@
+======================rap v0.5 =================================================
+  * data mock
+  	fix problems when request URL is absolute
+
 ======================rap v0.4 =================================================
   * change version back to 0.4
   * add automation testing module, allow user use "modify" and "reset" interfaces to change mock rules dynamically by HTTP requests

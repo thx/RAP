@@ -272,7 +272,15 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 	@SuppressWarnings("unchecked")
 	@Override 
 	public List<Action> getMatchedActionList(int projectId, String pattern) {
-		String sql = "SELECT a.id FROM tb_action a JOIN tb_action_and_page ap ON ap.action_id = a.id JOIN tb_page p ON p.id = ap.page_id JOIN tb_module m ON m.id = p.module_id WHERE a.request_url = :pattern AND m.project_id = :projectId ";
+		StringBuilder sb = new StringBuilder();
+		sb
+		.append("SELECT a.id FROM tb_action a ")
+		.append("JOIN tb_action_and_page ap ON ap.action_id = a.id ")
+		.append("JOIN tb_page p ON p.id = ap.page_id ")
+		.append("JOIN tb_module m ON m.id = p.module_id ")
+		.append("WHERE LOCATE(:pattern, a.request_url) != 0 AND m.project_id = :projectId ");
+		
+		String sql = sb.toString();
 		Query query = getSession().createSQLQuery(sql);
 		query.setString("pattern", pattern);
 		query.setInteger("projectId", projectId);

@@ -38,9 +38,11 @@ public class MockMgrImpl implements MockMgr {
 	@Override
 	public String generateData(int projectId, String pattern) {
 		_num = 1;
+		System.out.println("pattern before processed:" + pattern);
 		if (pattern.contains("?")) {
 			pattern = pattern.substring(0, pattern.indexOf("?"));
 		}
+		System.out.println("pattern processed:" + pattern);
 		List<Action> aList = projectDao
 				.getMatchedActionList(projectId, pattern);
 		if (aList.size() == 0)

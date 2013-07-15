@@ -26,7 +26,7 @@ public class MockAction extends ActionBase {
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
 	}
-	
+
 	public String get_c() {
 		return _c;
 	}
@@ -73,8 +73,20 @@ public class MockAction extends ActionBase {
 		return pattern;
 	}
 
+	/**
+	 * force callback or _c to be the last parameter
+	 * 
+	 * @param pattern
+	 */
 	public void setPattern(String pattern) {
 		this.pattern = pattern;
+		if (pattern != null) {
+			if (pattern.indexOf("callback") != -1) {
+				_c = pattern.substring(pattern.indexOf("callback") + 9);
+			} else if (pattern.indexOf("_c") != -1) {
+				_c = pattern.substring(pattern.indexOf("_c") + 3);
+			}
+		}
 	}
 
 	public String createData() {
@@ -87,12 +99,12 @@ public class MockAction extends ActionBase {
 		}
 		return SUCCESS;
 	}
-	
+
 	public String modify() {
 		setNum(mockMgr.modify(actionId, mockData));
 		return SUCCESS;
 	}
-	
+
 	public String reset() {
 		setNum(mockMgr.reset(projectId));
 		return SUCCESS;

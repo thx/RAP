@@ -76,8 +76,8 @@ CREATE TABLE tb_parameter
 (
 	id int(10) AUTO_INCREMENT NOT NULL
 		PRIMARY KEY,
-	name varchar(32) NULL,
-	identifier varchar(32) NULL,
+	name varchar(256) NULL,
+	identifier varchar(256) NULL,
 	data_type varchar(32) NULL,
 	remark varchar(512) NULL,
 	expression varchar(128) NULL,
