@@ -337,16 +337,20 @@ public class MockMgrImpl implements MockMgr {
 			// tag format validation
 			if (tag.startsWith("@") && tag.contains("=")) {
 				if (tag.startsWith("@value")) {
-					String val = tag.split("=")[1];
-					if (val.contains("[xx]") && isMocking) {
-						Integer n = _num++ % 30;
-						val = val.replace("[xx]", n >= 10 ? n.toString() : "0" + n);
-					}
-					if (tag.contains("value[")) {
-						tagMap.put("value_index", val + "_INDEX_" + tag.substring(tag.indexOf("[") + 1, tag.indexOf("]")));
-					} else {
-						tagMap.put("value", val);
-					}
+					String[] valueSplitArr = tag.split("=");
+					String val = null;
+					if (valueSplitArr.length > 1) {
+						val = valueSplitArr[1];
+						if (val.contains("[xx]") && isMocking) {
+							Integer n = _num++ % 30;
+							val = val.replace("[xx]", n >= 10 ? n.toString() : "0" + n);
+						}
+						if (tag.contains("value[")) {
+							tagMap.put("value_index", val + "_INDEX_" + tag.substring(tag.indexOf("[") + 1, tag.indexOf("]")));
+						} else {
+							tagMap.put("value", val);
+						}
+					} 
 				}  else if (tag.startsWith("@format")) {
 					if (tag.contains("format[")) {
 						tagMap.put("format_index", tag.split("=")[1] + "_INDEX_" + tag.substring(tag.indexOf("[") + 1, tag.indexOf("]")));

@@ -3,9 +3,9 @@
 var rap = rap || {};
 
 /********************************************************
- *                              *
- *         ##util module begin              *
- *                              *
+ *                                                      *
+ *         ##util module begin                          *
+ *                                                      *
  ********************************************************/
 
 /**
@@ -25,7 +25,7 @@ var rap = rap || {};
      * @return 转义后的输出
      */
     util.escaper.escapeInHJ = function(inputStr) {
-        var inputStr = inputStr.replace(/\&/g, "&amp;");
+        inputStr.replace(/\&/g, "&amp;");
         inputStr = inputStr.replace(/\</g, "&lt;");
         inputStr = inputStr.replace(/\>/g, "&gt;");
         inputStr = inputStr.replace(/\\/g, "\\\\");
@@ -2899,6 +2899,11 @@ var rap = rap || {};
 
     /**
      * process JSON import
+     *
+     * @param {object}  f value to be processed
+     * @param {string}  k key
+     * @param {number}  pid parameter id
+     * @param {boolean} notFirst
      */
     function processJSONImport(f, k, pId, notFirst) {
         var id, param, item;
@@ -2914,16 +2919,21 @@ var rap = rap || {};
             }
         }
         var key;
+        var f2; // child of f2
         if (f instanceof Array && f.length) {
             if (notFirst) {
                 item = f[0];
-                if (typeof f === 'string') {
+                f2 = f[0];
+                if (typeof f2 === 'string') {
                     param.dataType = 'array<string>';
-                } else if (typeof f === 'number') {
+                    param.remark = '@value=' + f;
+                } else if (typeof f2 === 'number') {
                     param.dataType = 'array<number>';
-                } else if (typeof f === 'boolean') {
+                    param.remark = '@value=' + f;
+                } else if (typeof f2 === 'boolean') {
                     param.dataType = 'array<boolean>';
-                } else if (f !== null && typeof f === 'object') {
+                    param.remark = '@value=' + f;
+                } else if (f !== null && typeof f2 === 'object') {
                     param.dataType = 'array<object>';
                     for (key in item) {
                         processJSONImport(item[key], key, notFirst ? id : null, true);
@@ -2931,11 +2941,20 @@ var rap = rap || {};
                 }
             }
         } else if (typeof f === 'string') {
-            param && (param.dataType = 'string');
+            if(param) {
+                param.dataType = 'string';
+                param.remark = '@value=' + f;
+            }
         } else if (typeof f === 'number') {
-            param && (param.dataType = 'number');
+            if(param) {
+                param.dataType = 'number';
+                param.remark = '@value=' + f;
+            }
         } else if (typeof f === 'boolean') {
-            param && (param.dataType = 'boolean');
+            if(param) {
+                param.dataType = 'boolean';
+                param.remark = '@value=' + f;
+            }
         } else if (typeof f === 'undefined') {
         } else if (f === null) {
         } else if (typeof f === 'object') {
@@ -2949,10 +2968,10 @@ var rap = rap || {};
 
 
         /***************************************************
-         *                         *
-         *       ##html-template-engine-begin          *
-         *                         *
-         *                         */
+         *                                                 *
+         *       ##html-template-engine-begin              *
+         *                                                 *
+         *                                                 */
 
 
         /**
