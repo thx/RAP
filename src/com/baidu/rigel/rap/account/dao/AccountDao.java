@@ -25,5 +25,7 @@ public interface AccountDao {
 			String password, String newPassword);
 
 	List<User> getUserList();
+
+	void _changePassword(String account, String password);
 	
 }

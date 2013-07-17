@@ -1123,13 +1123,13 @@ var rap = rap || {};
         },
         TEMPLATE = {            // static template
 
-            "REQUEST_BEGIN"              : "<h2>REQUEST PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-name\">Name</td><td class=\"head-identifier\">Identifier</td><td class=\"head-type\">Type</td><td class=\"head-remark\">Remark</td></tr>",
-            "REQUEST_BEGIN_EDIT"         : "<h2>REQUEST PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-name\">Name</td><td class=\"head-identifier\">Identifier</td><td class=\"head-type\">Type</td><td class=\"head-remark\">Remark</td></tr>",
+            "REQUEST_BEGIN"              : "<h2>REQUEST PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "REQUEST_BEGIN_EDIT"         : "<h2>REQUEST PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "REQUEST_END"            : "</table>",
             "REQUEST_PARAMETER_ADD_BUTTON"       : "<div><a href=\"#\" class=\"add-link div-add-param-link\" onclick=\"ws.addParam('request'); return false;\">新增请求参数</a></div>",
 
-            "RESPONSE_BEGIN"             : "<br /><h2>RESPONSE PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-name\">Name</td><td class=\"head-identifier\">Identifier</td><td class=\"head-type\">Type</td><td class=\"head-remark\">Remark</td></tr>",
-            "RESPONSE_BEGIN_EDIT"        : "<br /><h2>RESPONSE PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-name\">Name</td><td class=\"head-identifier\">Identifier</td><td class=\"head-type\">Type</td><td class=\"head-remark\">Remark</td></tr>",
+            "RESPONSE_BEGIN"             : "<br /><h2>RESPONSE PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "RESPONSE_BEGIN_EDIT"        : "<br /><h2>RESPONSE PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "RESPONSE_END"               : "</table>",
             "RESPONSE_PARAMETER_ADD_BUTTON"      : "<div><a href=\"#\" class=\"add-link div-add-param-link\" onclick=\"ws.addParam('response'); return false;\">新增响应参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" onclick=\"ws.importJSON(); return false;\">导入JSON</a></div>",
 
@@ -2971,7 +2971,7 @@ var rap = rap || {};
          *                                                 *
          *       ##html-template-engine-begin              *
          *                                                 *
-         *                                                 */
+         ***************************************************/
 
 
         /**
@@ -3216,8 +3216,8 @@ var rap = rap || {};
                         ? "<a href=\"#\" class=\"add-link\" onclick=\"ws.addParam('child', "
                     + param.id +  "); return false;\">&nbsp;</a>" : "") + "</div>", "op");
             }
+            str += getPTDHtml(param.id, util.escaper.escapeInH(param.identifier), "identifier", level);
             str += getPTDHtml(param.id, util.escaper.escapeInH(param.name), "name");
-            str += getPTDHtml(param.id, util.escaper.escapeInH(param.identifier), "identifier");
             str += getDataTypeEditSelectHtml(param.id, param.dataType);
             str += getPTDHtml(param.id, util.escaper.escapeInH(param.remark), "remark");
             str += "</tr>";
@@ -3233,10 +3233,10 @@ var rap = rap || {};
          * get parameter td html
          * value must be processed by escapeInH !!!
          */
-        function getPTDHtml(id, value, type) {
+        function getPTDHtml(id, value, type, level) {
             return "<td id='td-param-" + type + "-" + id + "' class='td-param " + type
                 + "' onclick='ws.edit(" + id + ", \"param-"+ type +
-                "\");' >" + value + "</td>";
+                "\");' >" + (level ? new Array(level + 1).join('&nbsp;&nbsp;&nbsp;&nbsp;') : '') + value + "</td>";
         }
 
         /**

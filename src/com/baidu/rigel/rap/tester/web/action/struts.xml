@@ -10,6 +10,10 @@
 			class="com.baidu.rigel.rap.tester.web.action.TesterAction" method="pageTester">
 			<result name="success" type="velocity">/tester/pageTester.vm</result>
 		</action>
+		<action name="___init___"
+			class="com.baidu.rigel.rap.tester.web.action.TesterAction" method="___init___">
+			<result name="success" type="velocity">/bcom/isOk.cb.vm</result>
+		</action>
 	</package>
 
 </struts>

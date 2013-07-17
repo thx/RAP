@@ -102,5 +102,16 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 	public List<User> getUserList() {
 		return getSession().createQuery("from User").list();
 	}
+
+	@Override
+	public void _changePassword(String account, String password) {
+		Session session = getSession();
+		User user = (User) session.load(User.class, getUserId(account));
+		if (user != null) {
+			user.setPassword(password);
+			session.update(user);
+		}
+		
+	}
 	
 }

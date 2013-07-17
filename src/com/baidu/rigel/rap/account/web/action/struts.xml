@@ -13,15 +13,15 @@
         </action> 
         <action name="doLogout" class="com.baidu.rigel.rap.account.web.action.AccountAction" method="doLogout">
         	<result name="success" type="velocity">/platform/home.vm</result>
-        </action><!--
-        <action name="register" class="com.baidu.rigel.rap.account.web.action.AccountAction" method="register">
+        </action>
+     <!--    <action name="register" class="com.baidu.rigel.rap.account.web.action.AccountAction" method="register">
         	<result name="success" type="velocity">/account/register.vm</result>
         </action> 
 		<action name="doRegister" class="com.baidu.rigel.rap.account.web.action.AccountAction" method="doRegister">
         	<result name="success" type="velocity">/platform/home.vm</result>
         	<result name="error" type="velocity">/account/register.vm</result>
-        </action>     
-        --><action name="myAccount" class="com.baidu.rigel.rap.account.web.action.AccountAction" method="myAccount">
+        </action>   -->   
+        <action name="myAccount" class="com.baidu.rigel.rap.account.web.action.AccountAction" method="myAccount">
         	<result name="success" type="velocity">/account/myAccount.vm</result>
         	<result name="error" type="velocity">/account/login.vm</result>
         </action>

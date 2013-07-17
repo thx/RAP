@@ -176,7 +176,6 @@ body {
 
 .tree-m {
 	width: 240px;
-	height: 390px;
 	overflow-y: auto;
 	overflow-x: auto;
 	float: left;
@@ -250,7 +249,7 @@ body {
 	border-left: none;
 }
 
-.div-a .name {
+.div-a .identifier {
 	border-left: none;
 }
 
@@ -273,7 +272,7 @@ body {
 }
 
 .div-a .expander {
-	width: 0;
+	width: 1px;
 	border: none;
 	border-top: 1px white solid;
 }

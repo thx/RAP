@@ -8,6 +8,8 @@ public interface AccountMgr {
 	
 	/**
 	 * login operation
+	 * double MD5 check before validation
+	 * 
 	 * @param account the user name
 	 * @param password the password
 	 * @return return true if succeed, otherwise return false
@@ -78,5 +80,14 @@ public interface AccountMgr {
 	 */
 	boolean updateProfile(long userId, String name, String email, String password,
 			String newPassword);
+	
+	/**
+	 * used for system adjust
+	 * ignore MD5 check or process
+	 * 
+	 * @param account
+	 * @param password
+	 */
+	void _updatePassword(String account, String password);
 	
 }

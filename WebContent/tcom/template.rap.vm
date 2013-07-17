@@ -8,7 +8,7 @@
             <a class="btn btn-navbar" data-toggle="collapse"
                 data-target=".nav-collapse"> <span class="icon-bar"></span> <span
                 class="icon-bar"></span> <span class="icon-bar"></span>
-            </a> <a class="brand" href="http://fe.lzdp.us">RAP v0.4</a>
+            </a> <a class="brand" href="http://fe.lzdp.us">RAP v0.5</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li><a href="$platformUrl.home">首页</a></li>
@@ -30,7 +30,8 @@
                 <form name="formMain" class="navbar-form pull-right" action="$accountUrl.doLogin" method="post">
                     <input class="span2" type="text" placeholder="用户名" name="account"> 
                     <input class="span2" type="password" placeholder="密码" name="password">
-                    <button type="submit" class="btn">登录</button>
+                    <button type="submit" class="btn btn-primary">登录</button>
+                    <!--<button type="button" onclick="window.location.href = '$accountUrl.register'" class="btn">注册</button>-->
                 </form>
                 #end
             </div>
@@ -45,7 +46,7 @@
 #macro (bodyEnd)
     <hr>
     <footer>
-        <p>&copy;&nbsp;<a href="mailto:huoyong.msb@taobao.com">一淘数据部</a>&nbsp;原创出品&nbsp;在线用户:$!countOfOnlineUserList</p>
+        <p>&copy;&nbsp;如需帮助请联系<a href="mailto:huoyong.msb@taobao.com">霍雍</a>&nbsp;&nbsp;在线用户:$!countOfOnlineUserList</p>
     </footer>
 </div>
 #end

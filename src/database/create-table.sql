@@ -170,16 +170,16 @@ CREATE TABLE tb_action
 (
 	id int(10) AUTO_INCREMENT NOT NULL
 		PRIMARY KEY,
-	name varchar(128) NOT NULL,
+	name varchar(256) NOT NULL,
 	description text NULL,
 
     /* request block */
 	request_type int NOT NULL
 		DEFAULT 1,
-	request_url varchar(256) NULL,
+	request_url text NULL,
 
 	/* response block */
-	response_template varchar(256) NULL /* front end template path */
+	response_template text NULL /* front end template path */
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 	

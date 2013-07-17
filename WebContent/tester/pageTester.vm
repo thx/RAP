@@ -14,7 +14,7 @@
         <body>
         <h3>$!utils.escapeInH($page.name)控制台</h3>
         <div id="divRootSetting">
-            <input id="txtRootPath" type="text" style="width:500px;" value="fe.lzdp.us:8806$!projectContext/mock/$!projectId"></input>
+            <input id="txtRootPath" type="text" style="width:500px;" value="etaoux-bj$!projectContext/mock/$!projectId"></input>
             <span style="color:#666;">* 跟路径设置</span>
         </div>
         <div id="divActionList" class="demo tabs">

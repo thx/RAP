@@ -3,7 +3,11 @@
         fix problems when request URL is absolute 07/15/2013
         enhance JSON import, default add @value into remark field 07/15/2013
         fix bugs when JSON imported has Array<xxx> elements 07/16/2013
-
+        chenge database table tb_action.request_url, request_template to text,change name to varchar(256) 07/16/2013
+        add MD5 password encryption 07/17/2013
+        optimize left tree display in interface edit workspace 07/17/2013
+        change display order, from name => identifier to identifier => name, optimize parameter list display 07/17/2013
+        
 ======================rap v0.4 =================================================
   * change version back to 0.4
   * add automation testing module, allow user use "modify" and "reset" interfaces to change mock rules dynamically by HTTP requests

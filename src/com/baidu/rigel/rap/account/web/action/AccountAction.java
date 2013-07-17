@@ -140,23 +140,23 @@ public class AccountAction extends ActionBase {
 		return SUCCESS;
 	}
 	
-	public String register() {
-		doLogout();
-		return SUCCESS;
-	}
-	
-	public String doRegister() {		
-		User user = new User();
-		user.setAccount(getAccount());
-		user.setPassword(getPassword());
-		user.setName(getName());
-		user.setEmail(getEmail());
-		if (super.getAccountMgr().addUser(user)) {
-			return doLogin();
-		} else {
-			return ERROR;
-		}		
-	}
+//	public String register() {
+//		doLogout();
+//		return SUCCESS;
+//	}
+//	
+//	public String doRegister() {		
+//		User user = new User();
+//		user.setAccount(getAccount());
+//		user.setPassword(getPassword());
+//		user.setName(getName());
+//		user.setEmail(getEmail());
+//		if (super.getAccountMgr().addUser(user)) {
+//			return doLogin();
+//		} else {
+//			return ERROR;
+//		}		
+//	}
 	
 	public String myAccount() {
 		if (!isUserLogined()) {
