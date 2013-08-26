@@ -42,6 +42,9 @@ public class MockMgrImpl implements MockMgr {
 		if (pattern.contains("?")) {
 			pattern = pattern.substring(0, pattern.indexOf("?"));
 		}
+		if (pattern.charAt(0) == '/') {
+			pattern = pattern.substring(1);
+		}
 		System.out.println("pattern processed:" + pattern);
 		List<Action> aList = projectDao
 				.getMatchedActionList(projectId, pattern);

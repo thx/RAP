@@ -2,14 +2,14 @@
 #parse('/tcom/const.inc.vm')
 <html>
         <head>
-                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                <title>RAP - $!utils.escapeInH($page.name)控制台</title>
-        <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap.css?_r=$!timeStamp" type="text/css" media="screen">
-        <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap-responsive.css?_r=$!timeStamp" type="text/css" media="screen">
-        <link rel="stylesheet" href="${staticRoot}/css/rap.template.css?_r=$!timeStamp" type="text/css" media="screen">
-                <link type="text/css" rel="stylesheet" href="${staticRoot}/css/pageTester.css?_r=$!timeStamp" />
-        <script src="http://a.tbcdn.cn/??s/yui/3.6.0/build/yui/yui-min.js"></script>
-        <script src="${staticRoot}/js/util/jsformat.js"></script>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <title>RAP - $!utils.escapeInH($page.name)控制台</title>
+            <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap.css?_r=$!timeStamp" type="text/css" media="screen">
+            <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap-responsive.css?_r=$!timeStamp" type="text/css" media="screen">
+            <link rel="stylesheet" href="${staticRoot}/css/rap.template.css?_r=$!timeStamp" type="text/css" media="screen">
+            <link type="text/css" rel="stylesheet" href="${staticRoot}/css/pageTester.css?_r=$!timeStamp" />
+            <script src="http://a.tbcdn.cn/??s/yui/3.6.0/build/yui/yui-min.js"></script>
+            <script src="${staticRoot}/js/util/jsformat.js"></script>
         </head>
         <body>
         <h3>$!utils.escapeInH($page.name)控制台</h3>
@@ -97,6 +97,10 @@
                         if (~path.indexOf('http')) {
                             path = path.substring(7);
                             path = path.substring(path.indexOf("/"));
+                        }
+
+                        if (path[0] !== '/') {
+                            path = '/' + path;
                         }
 
                         baseUrl += path;

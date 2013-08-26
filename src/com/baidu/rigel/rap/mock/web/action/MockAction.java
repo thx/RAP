@@ -28,15 +28,15 @@ public class MockAction extends ActionBase {
 	}
 
 	public String get_c() {
-		return _c;
+		return callbackFilter(_c);
 	}
 
 	public void set_c(String _c) {
-		this._c = _c;
+		this._c = _c;;
 	}
 
 	public String getCallback() {
-		return callback;
+		return callbackFilter(callback);
 	}
 
 	public void setCallback(String callback) {
@@ -72,6 +72,16 @@ public class MockAction extends ActionBase {
 	public String getPattern() {
 		return pattern;
 	}
+	
+	private String callbackFilter(String cb) {
+		if (cb == null) {
+			return "callback";
+		}
+		if (cb.contains("&")) {
+			cb = cb.substring(0, cb.indexOf("&"));
+		}
+		return cb;
+	}
 
 	/**
 	 * force callback or _c to be the last parameter
@@ -90,6 +100,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createData() {
+		String _c = get_c();
 		if (callback != null && !callback.isEmpty()) {
 			setContent(callback + "(" + mockMgr.generateData(id, pattern) + ")");
 		} else if (_c != null && !_c.isEmpty()) {
