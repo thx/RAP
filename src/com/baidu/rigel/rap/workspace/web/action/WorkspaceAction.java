@@ -340,6 +340,13 @@ public class WorkspaceAction extends ActionBase {
 	}
 
 	public String checkIn() throws Exception {
+		User curUser = getCurUser();
+		if (curUser == null) {
+			setErrMsg(LOGIN_WARN_MSG);
+			setIsOk(false);
+			return JSON_ERROR;
+		}
+		
 		// update project
 		projectMgr.updateProject(getId(), getProjectData(),
 				getDeletedObjectListData());
@@ -353,7 +360,7 @@ public class WorkspaceAction extends ActionBase {
 		checkIn.setProjectData(project
 				.toString(Project.toStringType.TO_PARAMETER));
 		checkIn.setTag(getTag());
-		checkIn.setUser(getCurUser());
+		checkIn.setUser(curUser);
 		checkIn.setVersion(project.getVersion());
 		checkIn.versionUpgrade(getVersionPosition());
 
@@ -389,6 +396,13 @@ public class WorkspaceAction extends ActionBase {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String lock() {
+		long curUserId = getCurUserId();
+		if (curUserId <= 0) {
+			setIsOk(false);
+			setErrMsg(LOGIN_WARN_MSG);
+			return JSON_ERROR;
+		}
+		
 		boolean isOk = false;
 		if (isLocked(getId())) {
 			// if the project is locked, find the locker
@@ -410,10 +424,9 @@ public class WorkspaceAction extends ActionBase {
 			}
 			Map projectLockList = (Map) app
 					.get(ContextManager.KEY_PROJECT_LOCK_LIST);
-			long userId = super.getCurUserId();
-			if (projectLockList.get(userId) == null) {
-				projectLockList.put(userId, getId());
-				System.out.println("user[" + userId + "] locked project["
+			if (projectLockList.get(curUserId) == null) {
+				projectLockList.put(curUserId, getId());
+				System.out.println("user[" + curUserId + "] locked project["
 						+ getId() + "]");
 			}
 			isOk = true;

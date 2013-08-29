@@ -345,7 +345,7 @@ public class MockMgrImpl implements MockMgr {
 					if (valueSplitArr.length > 1) {
 						val = valueSplitArr[1];
 						if (val.contains("[xx]") && isMocking) {
-							Integer n = _num++ % 30;
+							Integer n = _num++ % 31;
 							val = val.replace("[xx]", n >= 10 ? n.toString() : "0" + n);
 						}
 						if (tag.contains("value[")) {

@@ -9,6 +9,10 @@ import com.opensymphony.xwork2.ActionSupport;
 public class ActionBase extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
+	
+	public static String JSON_ERROR = "json-error";
+	
+	public static String LOGIN_WARN_MSG = "您登录过期啦，不要乱动哦，请打开新页面登录后再提交吧 >  。<";
 
 	private boolean isReturnUrlFirstSet;
 	

@@ -38,6 +38,7 @@
 		<global-results>
 			<result name="login" type="velocity">/account/login.vm</result>
 			<result name="error" type="velocity">/error.vm</result>
+			<result name="json-error" type="velocity">/bcom/jsonError.cb.vm</result>
 			<result name="input" type="velocity">/error.vm</result>
 			<result name="redirect" type="velocity">/common/redirect.vm</result>
 		</global-results>
