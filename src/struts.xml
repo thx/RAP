@@ -51,20 +51,20 @@
 	</package>
 
 	<!-- project action mapping -->
-	<include file="com/baidu/rigel/rap/project/web/action/struts.xml" />
+	<include file="com/taobao/rigel/rap/project/web/action/struts.xml" />
 
 	<!-- account action mapping -->
-	<include file="com/baidu/rigel/rap/account/web/action/struts.xml" />
+	<include file="com/taobao/rigel/rap/account/web/action/struts.xml" />
 
 	<!-- workspace action mapping -->
-	<include file="com/baidu/rigel/rap/workspace/web/action/struts.xml" />
+	<include file="com/taobao/rigel/rap/workspace/web/action/struts.xml" />
 
 	<!-- platform action mapping -->
-	<include file="com/baidu/rigel/rap/platform/web/action/struts.xml" />
+	<include file="com/taobao/rigel/rap/platform/web/action/struts.xml" />
 	
 	<!-- platform tester mapping -->
-	<include file="com/baidu/rigel/rap/tester/web/action/struts.xml" />
+	<include file="com/taobao/rigel/rap/tester/web/action/struts.xml" />
 	
 	<!-- platform mock mapping -->
-	<include file="com/baidu/rigel/rap/mock/web/action/struts.xml" />
+	<include file="com/taobao/rigel/rap/mock/web/action/struts.xml" />
 </struts>

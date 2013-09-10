@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.taobao.rigel.rap.workspace.bo.Save" table="tb_workspace_save">
+  	  <id name="id" type="integer">
+		  <column name="id" />
+		  <generator class="identity" />
+	  </id>	 
+	  <property name="workspaceId">
+		  <column name="workspace_id" />
+	  </property> 
+	  <property name="updateDate">
+		  <column name="update_date" />
+	  </property>
+	  <property name="projectData">
+		  <column name="project_data" />
+	  </property>
+	  <many-to-one name="workspace" column="workspace_id" insert="false" update="false" />
+  </class>
+</hibernate-mapping>

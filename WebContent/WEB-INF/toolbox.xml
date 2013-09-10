@@ -7,11 +7,11 @@
   <tool>
   	<key>utils</key>
   	<scope>application</scope>
-  	<class> com.baidu.rigel.rap.common.StringUtils</class>
+  	<class> com.taobao.rigel.rap.common.StringUtils</class>
   </tool>
   <tool>
   	<key>dateUtils</key>
   	<scope>application</scope>
-  	<class> com.baidu.rigel.rap.common.DateUtils</class>
+  	<class> com.taobao.rigel.rap.common.DateUtils</class>
   </tool>
 </toolbox>

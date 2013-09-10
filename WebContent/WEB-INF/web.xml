@@ -22,7 +22,7 @@
 	</filter>
 	<filter>
 		<filter-name>authCheckFilter</filter-name>
-		<filter-class>com.baidu.rigel.rap.common.AuthCheckFilter</filter-class>
+		<filter-class>com.taobao.rigel.rap.common.AuthCheckFilter</filter-class>
 	</filter>
 	<filter>
 		<filter-name>openSessionInViewFilter</filter-name>
@@ -30,7 +30,7 @@
 	</filter>
 	<filter>
 		<filter-name>SetCharacterEncoding</filter-name>
-		<filter-class>com.baidu.rigel.rap.common.SetCharacterEncodingFilter</filter-class>
+		<filter-class>com.taobao.rigel.rap.common.SetCharacterEncodingFilter</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>utf-8</param-value>
@@ -96,7 +96,7 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<listener>
-		<listener-class>com.baidu.rigel.rap.common.SessionListener</listener-class>
+		<listener-class>com.taobao.rigel.rap.common.SessionListener</listener-class>
 	</listener>
 	<error-page>
 		<error-code>404</error-code>

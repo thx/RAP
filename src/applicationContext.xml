@@ -21,11 +21,11 @@
 			</list>
 		</property>
 	</bean>
-	<import resource="classpath:/com/baidu/rigel/rap/common/applicationContext.xml" />
-	<import resource="classpath:/com/baidu/rigel/rap/project/applicationContext.xml" />
-	<import resource="classpath:/com/baidu/rigel/rap/workspace/applicationContext.xml" />
-	<import resource="classpath:/com/baidu/rigel/rap/account/applicationContext.xml" />
-	<import resource="classpath:/com/baidu/rigel/rap/mock/applicationContext.xml" />
+	<import resource="classpath:/com/taobao/rigel/rap/common/applicationContext.xml" />
+	<import resource="classpath:/com/taobao/rigel/rap/project/applicationContext.xml" />
+	<import resource="classpath:/com/taobao/rigel/rap/workspace/applicationContext.xml" />
+	<import resource="classpath:/com/taobao/rigel/rap/account/applicationContext.xml" />
+	<import resource="classpath:/com/taobao/rigel/rap/mock/applicationContext.xml" />
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
@@ -68,16 +68,16 @@
 		</property>
 		<property name="mappingResources">
 			<list>
-		        <value>com/baidu/rigel/rap/project/mapping/Project.hbm.xml</value>
-		        <value>com/baidu/rigel/rap/project/mapping/Module.hbm.xml</value>
-		        <value>com/baidu/rigel/rap/project/mapping/Page.hbm.xml</value>
-		        <value>com/baidu/rigel/rap/project/mapping/Action.hbm.xml</value>
-		        <value>com/baidu/rigel/rap/project/mapping/Parameter.hbm.xml</value>
-		        <value>com/baidu/rigel/rap/account/mapping/User.hbm.xml</value>
-		        <value>com/baidu/rigel/rap/account/mapping/Role.hbm.xml</value>
-		        <value>com/baidu/rigel/rap/workspace/mapping/Workspace.hbm.xml</value>
-		        <value>com/baidu/rigel/rap/workspace/mapping/Save.hbm.xml</value>
-		        <value>com/baidu/rigel/rap/workspace/mapping/CheckIn.hbm.xml</value>
+		        <value>com/taobao/rigel/rap/project/mapping/Project.hbm.xml</value>
+		        <value>com/taobao/rigel/rap/project/mapping/Module.hbm.xml</value>
+		        <value>com/taobao/rigel/rap/project/mapping/Page.hbm.xml</value>
+		        <value>com/taobao/rigel/rap/project/mapping/Action.hbm.xml</value>
+		        <value>com/taobao/rigel/rap/project/mapping/Parameter.hbm.xml</value>
+		        <value>com/taobao/rigel/rap/account/mapping/User.hbm.xml</value>
+		        <value>com/taobao/rigel/rap/account/mapping/Role.hbm.xml</value>
+		        <value>com/taobao/rigel/rap/workspace/mapping/Workspace.hbm.xml</value>
+		        <value>com/taobao/rigel/rap/workspace/mapping/Save.hbm.xml</value>
+		        <value>com/taobao/rigel/rap/workspace/mapping/CheckIn.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
