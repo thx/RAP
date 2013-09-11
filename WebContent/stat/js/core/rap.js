@@ -1079,6 +1079,7 @@ var rap = rap || {};
         _viewState,                     // view state, used for recover view state after page binding
         _debugCounter,                  // debug message counter
         _isLocalStorageEnabled,         // is local storage enabled, need HTML5 supports
+        _isMockDisplay,                 // will mock labels displayed, default:false
         URL      = null,                // url object, contains all url required
         MESSAGE = {
             "CONFIRM_COVER"                     : "是否确定覆盖旧的内容?",
@@ -1187,6 +1188,7 @@ var rap = rap || {};
      */
     ws.init = function(workspaceObj, urlObj) {
         _isLocalStorageEnabled = typeof(localStorage) != 'undefined';
+        _isMockDisplay = false;
         URL = urlObj;
         try {
 
@@ -1279,13 +1281,19 @@ var rap = rap || {};
 
     /**
      * switch action
+     *
+     * @actionId     {number} action id
+     * @forceRefresh {boolean} if true, refresh will be done forcely (ignore the case
+     *                         when target action id equals to current action id
      */
-    ws.switchA = function(actionId) {
-        if (!p.isActionInModule(actionId, _curModuleId)) return;
+    ws.switchA = function(actionId, forceRefresh) {
+        if (!forceRefresh) {
+            if (!p.isActionInModule(actionId, _curModuleId)) return;
+        }
         var action = p.getAction(actionId);
         if (action == null) return;
         getDiv(_curModuleId, "a").innerHTML = getAHtml(action);
-    renderA();
+        renderA();
         _curActionId = actionId;
     };
 
@@ -1448,7 +1456,8 @@ var rap = rap || {};
             case "param-remark":
                 width = CONFIG.PARAMETER_REMARK_WIDTH;
                 el = getTd(id, key)
-                oldValue = b.trim(el.innerHTML)
+                // oldValue = b.trim(el.innerHTML)
+                oldValue = b.trim(p.getParameter(id).remark)
                 str += getEditInputHtml(oldValue, width, CONFIG.REMARK_MAX_LENGTH);
                 break;
             default:
@@ -1652,6 +1661,9 @@ var rap = rap || {};
                 var key = editContext.key;
                 // param-name => name
                 p.setParameter(editContext.id, newValue, key.substring(6, key.length));
+                if (editContext.key === 'param-remark') {
+                    newValue = remarkFilter(newValue);
+                }
                 break;
             default:
                 throw Error("not implemented finish edit for key:" + editContext.key);
@@ -2084,6 +2096,16 @@ var rap = rap || {};
     };
 
 
+    /**
+     * toggle mock labels display
+     */
+    ws.toggleMockDisplay = function() {
+        b.g('btnToggleMockDisplay').value = (_isMockDisplay ? '显示' : '隐藏') + 'Mock标签';
+        _isMockDisplay = !_isMockDisplay;
+        ws.switchA(_curActionId, true);
+    };
+
+
     /********************************************************
      *                              *
      *         ##private-methods-begin          *
@@ -2434,24 +2456,24 @@ var rap = rap || {};
      * render action
      */
     function renderA() {
-    var list = b.q('js-code-area'),
-        length = list.length,
+        var list = b.q('js-code-area'),
+            length = list.length,
+            i = 0;
+
+        for (; i < length; i++) {
+            var item = list[i];
+            item.innerHTML = item.innerHTML.formatJS();
+        }
+
+        list = b.q('div-a-desc-expander');
+        length = list.length;
         i = 0;
 
-    for (; i < length; i++) {
-        var item = list[i];
-        item.innerHTML = item.innerHTML.formatJS();
-    }
-
-    list = b.q('div-a-desc-expander');
-    length = list.length;
-    i = 0;
-
-    for(; i < length; i++) {
-        b.on(list[i], "click", function(e) {
-        e.stopPropagation();
-        });
-    }
+        for(; i < length; i++) {
+            b.on(list[i], "click", function(e) {
+            e.stopPropagation();
+            });
+        }
     }
 
     /**
@@ -3223,9 +3245,25 @@ var rap = rap || {};
          * value must be processed by escapeInH !!!
          */
         function getPTDHtml(id, value, type, level) {
+            if (type === 'remark') {
+                value = remarkFilter(value);
+            }
             return "<td id='td-param-" + type + "-" + id + "' class='td-param " + type
                 + "' onclick='ws.edit(" + id + ", \"param-"+ type +
                 "\");' >" + (level ? new Array(level + 1).join('&nbsp;&nbsp;&nbsp;&nbsp;') : '') + value + "</td>";
+        }
+
+
+        /**
+         * remark filter, remove @labels
+         */
+        function remarkFilter(r) {
+            if (_isMockDisplay) {
+                return r;
+            }
+            if (!r) return '';
+            // 感谢@逸才 提供正则表达式
+            return r.replace(/[\s;]?@\w+=[^ ;]+[ ;]?/g, '');
         }
 
         /**

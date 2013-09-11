@@ -3,7 +3,9 @@
         enhance mock for type equals to "array<string>"
         string data type now support @format
   * workspace
+  		new feature: show/hide mock labels, by default, @value labels will be hidden
         fix bug: check in versions disorder
+        fix bug: default focus in edit mode inputs disorder
 ======================rap v0.5 =================================================
   * data mock
         fix problems when request URL is absolute 07/15/2013
