@@ -1,3 +1,9 @@
+======================rap v0.6 =================================================
+  * data mock
+        enhance mock for type equals to "array<string>"
+        string data type now support @format
+  * workspace
+        fix bug: check in versions disorder
 ======================rap v0.5 =================================================
   * data mock
         fix problems when request URL is absolute 07/15/2013

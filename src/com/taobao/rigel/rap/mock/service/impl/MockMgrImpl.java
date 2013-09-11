@@ -19,14 +19,20 @@ import com.taobao.rigel.rap.project.dao.ProjectDao;
 
 public class MockMgrImpl implements MockMgr {
 	private ProjectDao projectDao;
-	
+
 	/**
 	 * random seed
 	 */
 	private int _num = 1;
-	private String[] NAME_LIB = {"圣香", "定球", "征宇", "灵兮", "永盛", "小婉", "紫丞", "少侠", "木谦", "周亮", "宝山", "张中", "晓哲老师", "夜沨大湿"};
-	private String[] LOCATION_LIB = {"北京 朝阳区", "北京 海淀区", "北京 昌平区", "吉林 长春 绿园区", "吉林 吉林 丰满区"};
-	private String[] PHONE_LIB = {"15813243928", "13884928343", "18611683243", "18623432532"};
+	private String[] NAME_LIB = { "霍雍", "行列好基友", "肌肉男幻刺", "领饭队长金台", "爱起早望天",
+			"木头李牧", "三冰", "自勉", "思霏", "诚冉", "甘苦", "勇智", "墨汁老湿", "圣香", "定球",
+			"征宇", "灵兮", "永盛", "小婉", "紫丞", "少侠", "木谦", "周亮", "宝山", "张中", "晓哲老师",
+			"夜沨大湿" };
+	private String[] LOCATION_LIB = { "北京 朝阳区", "北京 海淀区", "北京 昌平区",
+			"吉林 长春 绿园区", "吉林 吉林 丰满区" };
+	private String[] PHONE_LIB = { "15813243928", "13884928343", "18611683243",
+			"18623432532", "18611582432" };
+
 	public ProjectDao getProjectDao() {
 		return projectDao;
 	}
@@ -59,13 +65,13 @@ public class MockMgrImpl implements MockMgr {
 		}
 		StringBuilder json = new StringBuilder();
 		String left = "{", right = "}";
-		
+
 		// match both @type=array && @type=array_map
 		if (desc.contains("@type=array")) {
 			left = "[";
 			right = "]";
-		}   
-		
+		}
+
 		// for array_map.length
 		String key = "@length=";
 		String numStr = null;
@@ -79,9 +85,9 @@ public class MockMgrImpl implements MockMgr {
 		int num = numStr == null ? 1 : Integer.parseInt(numStr);
 		json.append(left);
 		boolean first = true;
-		
+
 		boolean isArrayMap = desc.contains("@type=array_map");
-		
+
 		for (int i = 0; i < num; i++) {
 			first = true;
 			if (i > 0) {
@@ -113,7 +119,8 @@ public class MockMgrImpl implements MockMgr {
 		} else {
 			p.setMockDataTEMP(p.getRemark());
 		}
-		if (p.getParameterList() == null) return;
+		if (p.getParameterList() == null)
+			return;
 		for (Parameter subP : p.getParameterList()) {
 			recursivelyLoadMockData(subP);
 		}
@@ -121,11 +128,16 @@ public class MockMgrImpl implements MockMgr {
 
 	/**
 	 * build JSON
-	 * @param json string builder
-	 * @param para parameter to be parsed
-	 * @param index available in array<object> stands for index of array, 
-	 * used for special mode of tags like @format[3] which means the third
-	 * record enabled only. Default value should be -1 which disabled the feature.
+	 * 
+	 * @param json
+	 *            string builder
+	 * @param para
+	 *            parameter to be parsed
+	 * @param index
+	 *            available in array<object> stands for index of array, used for
+	 *            special mode of tags like @format[3] which means the third
+	 *            record enabled only. Default value should be -1 which disabled
+	 *            the feature.
 	 */
 	private void buildJson(StringBuilder json, Parameter para, int index) {
 		boolean isArrayObject = para.getDataType().equals("array<object>");
@@ -139,23 +151,24 @@ public class MockMgrImpl implements MockMgr {
 		}
 		if (para.getParameterList() == null
 				|| para.getParameterList().size() == 0) {
-			json.append(para.getIdentifier() + ":"
-					+ mockValue(para, index));
+			json.append(para.getIdentifier() + ":" + mockValue(para, index));
 		} else {
 			// object and array<object>
 			json.append(para.getIdentifier() + ":");
 			String left = "{", right = "}";
-			
+
 			if (isArrayObject) {
 				left = "[";
 				right = "]";
 			}
 			json.append(left);
 			boolean first;
-			for (int i = 0; i <ARRAY_LENGTH; i++) {
+			for (int i = 0; i < ARRAY_LENGTH; i++) {
 				first = true;
-				if (isArrayObject && i > 0) json.append(",");
-				if (isArrayObject) json.append("{");
+				if (isArrayObject && i > 0)
+					json.append(",");
+				if (isArrayObject)
+					json.append("{");
 				for (Parameter p : para.getParameterList()) {
 					if (first) {
 						first = false;
@@ -164,7 +177,8 @@ public class MockMgrImpl implements MockMgr {
 					}
 					buildJson(json, p, i);
 				}
-				if (isArrayObject) json.append("}");				
+				if (isArrayObject)
+					json.append("}");
 			}
 			json.append(right);
 		}
@@ -176,7 +190,7 @@ public class MockMgrImpl implements MockMgr {
 		Map<String, String> tagMap = new HashMap<String, String>();
 		parseTags(tags, tagMap, true);
 		String returnValue = "0";
-		
+
 		if (dataType.equals("number")) {
 			String regex = tagMap.get("regex_index");
 			if (regex != null && !regex.isEmpty()) {
@@ -189,13 +203,13 @@ public class MockMgrImpl implements MockMgr {
 					return generator.generate();
 				}
 			}
-			
+
 			regex = tagMap.get("regex");
 			if (regex != null && !regex.isEmpty()) {
 				Xeger generator = new Xeger(regex);
 				return generator.generate();
 			}
-			
+
 			String value = tagMap.get("value_index");
 			if (value != null && !value.isEmpty()) {
 				// value should be like "$trueValue_INDEX_5"
@@ -210,7 +224,7 @@ public class MockMgrImpl implements MockMgr {
 			if (value != null && !value.isEmpty()) {
 				return value;
 			}
-			
+
 			String format = tagMap.get("format_index");
 			if (format != null && !format.isEmpty()) {
 				String[] arr = format.split("_INDEX_");
@@ -237,13 +251,13 @@ public class MockMgrImpl implements MockMgr {
 					return "\"" + generator.generate() + "\"";
 				}
 			}
-			
+
 			regex = tagMap.get("regex");
 			if (regex != null && !regex.isEmpty()) {
 				Xeger generator = new Xeger(regex);
 				return "\"" + generator.generate() + "\"";
 			}
-			
+
 			String value = tagMap.get("value_index");
 			if (value != null && !value.isEmpty()) {
 				String[] arr = value.split("_INDEX_");
@@ -251,11 +265,17 @@ public class MockMgrImpl implements MockMgr {
 				if (tagIndex == index) {
 					value = arr[0];
 					if (value.contains("[name]")) {
-						return "\"" + NAME_LIB[NumberUtils.randomInt(NAME_LIB.length)] + "\"";
+						return "\""
+								+ NAME_LIB[NumberUtils
+										.randomInt(NAME_LIB.length)] + "\"";
 					} else if (value.contains("[location]")) {
-						return "\"" + LOCATION_LIB[NumberUtils.randomInt(LOCATION_LIB.length)] + "\"";
+						return "\""
+								+ LOCATION_LIB[NumberUtils
+										.randomInt(LOCATION_LIB.length)] + "\"";
 					} else if (value.contains("[phone]")) {
-						return "\"" + PHONE_LIB[NumberUtils.randomInt(PHONE_LIB.length)] + "\"";
+						return "\""
+								+ PHONE_LIB[NumberUtils
+										.randomInt(PHONE_LIB.length)] + "\"";
 					} else {
 						return "\"" + value + "\"";
 					}
@@ -264,14 +284,24 @@ public class MockMgrImpl implements MockMgr {
 			value = tagMap.get("value");
 			if (value != null && !value.isEmpty()) {
 				if (value.contains("[name]")) {
-					return "\"" + NAME_LIB[NumberUtils.randomInt(NAME_LIB.length)] + "\"";
+					return "\""
+							+ NAME_LIB[NumberUtils.randomInt(NAME_LIB.length)]
+							+ "\"";
 				} else if (value.contains("[location]")) {
-					return "\"" + LOCATION_LIB[NumberUtils.randomInt(LOCATION_LIB.length)] + "\"";
+					return "\""
+							+ LOCATION_LIB[NumberUtils
+									.randomInt(LOCATION_LIB.length)] + "\"";
 				} else if (value.contains("[phone]")) {
-					return "\"" + PHONE_LIB[NumberUtils.randomInt(PHONE_LIB.length)] + "\"";
+					return "\""
+							+ PHONE_LIB[NumberUtils.randomInt(PHONE_LIB.length)]
+							+ "\"";
 				} else {
 					return "\"" + value + "\"";
 				}
+			}
+			String format = tagMap.get("format");
+			if (format != null && !format.isEmpty()) {
+				return "\"" + NumberUtils.randomByFormat(format) + "\"";
 			}
 			return "\"测试内容\"";
 		} else if (dataType.equals("boolean")) {
@@ -299,7 +329,7 @@ public class MockMgrImpl implements MockMgr {
 					return "\"" + value + "\"";
 				}
 			}
-			
+
 			value = tagMap.get("value");
 			if (value != null && !value.isEmpty()) {
 				return "\"" + value + "\"";
@@ -316,27 +346,31 @@ public class MockMgrImpl implements MockMgr {
 				int tagIndex = Integer.parseInt(arr[1]);
 				if (tagIndex == index) {
 					value = arr[0];
-					return "\"" + value + "\"";
+					return value;
 				}
 			}
 			value = tagMap.get("value");
 			if (value != null && !value.isEmpty()) {
-				return "\"" + value + "\"";
+				return value;
 			}
 			return "[\"测试1\", \"测试2\", \"测试3\", \"测试4\", \"测试5\"]";
-		} 
+		}
 		return returnValue;
 	}
 
-	
 	/**
 	 * from tag string to tag map
-	 * @param tags tag string input by parsing whole string splited by seperator ";"
-	 * @param tagMap tag map
+	 * 
+	 * @param tags
+	 *            tag string input by parsing whole string splited by seperator
+	 *            ";"
+	 * @param tagMap
+	 *            tag map
 	 * @param isMocking
 	 */
-	private void parseTags(String[] tags, Map<String, String> tagMap, boolean isMocking) {
-		for(String tag : tags) {
+	private void parseTags(String[] tags, Map<String, String> tagMap,
+			boolean isMocking) {
+		for (String tag : tags) {
 			// tag format validation
 			if (tag.startsWith("@") && tag.contains("=")) {
 				if (tag.startsWith("@value")) {
@@ -346,29 +380,51 @@ public class MockMgrImpl implements MockMgr {
 						val = valueSplitArr[1];
 						if (val.contains("[xx]") && isMocking) {
 							Integer n = _num++ % 31;
-							val = val.replace("[xx]", n >= 10 ? n.toString() : "0" + n);
+							val = val.replace("[xx]", n >= 10 ? n.toString()
+									: "0" + n);
 						}
 						if (tag.contains("value[")) {
-							tagMap.put("value_index", val + "_INDEX_" + tag.substring(tag.indexOf("[") + 1, tag.indexOf("]")));
+							tagMap.put(
+									"value_index",
+									val
+											+ "_INDEX_"
+											+ tag.substring(
+													tag.indexOf("[") + 1,
+													tag.indexOf("]")));
 						} else {
 							tagMap.put("value", val);
 						}
-					} 
-				}  else if (tag.startsWith("@format")) {
+					}
+				} else if (tag.startsWith("@format")) {
 					if (tag.contains("format[")) {
-						tagMap.put("format_index", tag.split("=")[1] + "_INDEX_" + tag.substring(tag.indexOf("[") + 1, tag.indexOf("]")));
+						tagMap.put(
+								"format_index",
+								tag.split("=")[1]
+										+ "_INDEX_"
+										+ tag.substring(tag.indexOf("[") + 1,
+												tag.indexOf("]")));
 					} else {
 						tagMap.put("format", tag.split("=")[1]);
 					}
 				} else if (tag.startsWith("@length")) {
 					if (tag.contains("length[")) {
-						tagMap.put("length_index", tag.split("=")[1] + "_INDEX_" + tag.substring(tag.indexOf("[") + 1, tag.indexOf("]")));
+						tagMap.put(
+								"length_index",
+								tag.split("=")[1]
+										+ "_INDEX_"
+										+ tag.substring(tag.indexOf("[") + 1,
+												tag.indexOf("]")));
 					} else {
 						tagMap.put("length", tag.split("=")[1]);
 					}
 				} else if (tag.startsWith("@regex")) {
 					if (tag.contains("regex[")) {
-						tagMap.put("regex_index", tag.split("=")[1] + "_INDEX_" + tag.substring(tag.indexOf("[") + 1, tag.indexOf("]")));
+						tagMap.put(
+								"regex_index",
+								tag.split("=")[1]
+										+ "_INDEX_"
+										+ tag.substring(tag.indexOf("[") + 1,
+												tag.indexOf("]")));
 					} else {
 						tagMap.put("regex", tag.split("=")[1]);
 					}
@@ -380,26 +436,33 @@ public class MockMgrImpl implements MockMgr {
 	@Override
 	public int modify(int actionId, String mockData) {
 		Action action = projectDao.getAction(actionId);
-		if (action == null) return 0;
+		if (action == null)
+			return 0;
 		int num = 0;
 		// parse mock data
 		String[] mockDataSnips = mockData.split("_AND_");
 		for (String snip : mockDataSnips) {
-			Set<Parameter> pList = snip.startsWith("request.") ?
-					action.getRequestParameterList() : action.getResponseParameterList();
-			Parameter p = locateParam(pList, snip.substring(snip.indexOf(".") + 1));
-			if (p == null) continue;
+			Set<Parameter> pList = snip.startsWith("request.") ? action
+					.getRequestParameterList() : action
+					.getResponseParameterList();
+			Parameter p = locateParam(pList,
+					snip.substring(snip.indexOf(".") + 1));
+			if (p == null)
+				continue;
 			String paramMockData = snip.substring(snip.indexOf("=") + 1);
 			p.setMockData(paramMockData);
 			num++;
 		}
-		return num;		
+		return num;
 	}
-	
+
 	/**
 	 * recursively locating parameter specified in the mock data
+	 * 
 	 * @param pList
-	 * @param snip request.a.b.c=@xxxx   =>    a.b.c==@xxxx (namely request. or response. removed)
+	 * @param snip
+	 *            request.a.b.c=@xxxx => a.b.c==@xxxx (namely request. or
+	 *            response. removed)
 	 * @return
 	 */
 	private Parameter locateParam(Set<Parameter> pList, String snip) {
@@ -420,5 +483,5 @@ public class MockMgrImpl implements MockMgr {
 	public int reset(int projectId) {
 		return projectDao.resetMockData(projectId);
 	}
-	
+
 }

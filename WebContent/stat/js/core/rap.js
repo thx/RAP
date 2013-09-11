@@ -171,14 +171,12 @@ var rap = rap || {};
                         {
                             /* 如果有同名的Element, 则设置Element的innerHTML值 */
                             e._eMsg = o;
-                            e.onInvalid = function (msg)
-                            {
+                            e.onInvalid = function (msg) {
                                 this._eMsg.innerHTML = msg;
-                            }
-                            e.onValid = function ()
-                            {
+                            };
+                            e.onValid = function () {
                                 this._eMsg.innerHTML = '';
-                            }
+                            };
                         }
                         else
                         {
@@ -186,16 +184,12 @@ var rap = rap || {};
                             e.onInvalid = window[invalid];
                             e.onValid = e.onInvalid.valid;
                         }
-                    }
-                    else
-                    {
-                        e.onInvalid = function ()
-                        {
+                    } else {
+                        e.onInvalid = function () {
                             this._sValue = this.value;
                             baidu.addClass(this, 'invalid');
                             this.value = msg;
-                            this.onfocus = function ()
-                            {
+                            this.onfocus = function () {
                                 baidu.removeClass(this,'invalid');
                                 var v = this._sValue;
                                 /* 恢复原来的值 */
@@ -204,16 +198,13 @@ var rap = rap || {};
                                     this.value = v;
                                     this._sValue = undefined;
                                 }
-                            }
-                        }
+                            };
+                        };
                     }
                 }
-                try
-                {
+                try {
                     e.onInvalid(msg);
-                }
-                catch (e)
-                {
+                } catch (ex) {
                 }
                 return false;
             }
@@ -1071,93 +1062,93 @@ var rap = rap || {};
 
     var ws       = rap.workspace,       // workspace module
         p        = rap.project,         // project module
-        util     = rap.util,        // utility module
+        util     = rap.util,            // utility module
         b        = baidu,               // tangram package
-        e        = ecui,            // ecui package
-        _curModuleId,               // current module id
-        _data,                                  // project data object
-        _curActionId,               // current action id
-        _isProcessing,              // is workspace processing something
-        _messageTimer,              // message timer
+        e        = ecui,                // ecui package
+        _curModuleId,                   // current module id
+        _data,                          // project data object
+        _curActionId,                   // current action id
+        _isProcessing,                  // is workspace processing something
+        _messageTimer,                  // message timer
         _messageContainerId,            // message container id
         _sessionDelayTimer,             // session delay timer
-        _doesSoFarNoActionDisplay,          // does so far no action display on the page
-        _editContext,               // edit context
-        _isEditMode,                // is edit mode
+        _doesSoFarNoActionDisplay,      // does so far no action display on the page
+        _editContext,                   // edit context
+        _isEditMode,                    // is edit mode
         _deletedObjectList,             // deleted object list
-        _viewState,                 // view state, used for recover view state after page binding
-        _debugCounter,              // debug message counter
-    _isLocalStorageEnabled,         // is local storage enabled, need HTML5 supports
-        URL      = null,            // url object, contains all url required
+        _viewState,                     // view state, used for recover view state after page binding
+        _debugCounter,                  // debug message counter
+        _isLocalStorageEnabled,         // is local storage enabled, need HTML5 supports
+        URL      = null,                // url object, contains all url required
         MESSAGE = {
-            "CONFIRM_COVER"            : "是否确定覆盖旧的内容?",
-            "CONFIRM_SAVE"             : "是否确认保存?",
-            "CONFIRM_CANCEL"           : "是否确定取消?",
-            "CONFIRM_CHECKIN"          : "是否确定提交?",
-            "CONFIRM_CHECKOUT"         : "是否确定获取?",
-            "CHECK_LOCK_CONFLICKTION"      : "正在为您检查工作区锁定状态...",
-            "CHECK_LOCK_CONFLICKTION_COMPLETED": "您已成功切换至编辑状态，该项目已被您锁定。",
-            "CHOOSE_AT_FIRST"          : "请先选择您要操作的选项.",
-            "SAVE_LIST_MAX_LENGTH_OVERFLOW"    : "您的存档空间已满，请删除不必要的存档，或覆盖旧的存档。",
-            "CONFIRM_DELETE"           : "您是否确认删除?",
-            "LOADING"              : "加载中...",
-            "LOAD"                 : "已完成加载",
-            "MODULE_LOADING"           : "正在加载项目模块...",
-            "MODULE_LOAD"              : "项目模块加载完成",
-            "VERSION_LOADING"          : "正在请求版本信息...",
-            "VERSION_LOAD"             : "版本信息已加载",
-            "VERSION_EXIT"             : "已退出版本观看模式",
-            "VERSION_SWITCHING"        : "正在为您切换版本...",
-            "VERSION_SWITCHED"         : "版本切换成功",
-            "VERSION_SWITCH_ERROR"         : "版本切换中发生错误，已恢复至切换前",
-            "SAVING"               : "正在保存...",
-            "SAVED"                : "保存成功",
-            "DELETING"             : "正在删除...",
-            "DELETED"              : "删除成功",
-            "PROCESSING"               : "正在处理中,请稍后...",
-            "PROCESSED"            : "处理成功",
-            "ERROR"                : "出现错误，请稍后重试。",
-            "DO_NOT_DOUBLE_CLICK"          : "您的请求正在处理，请勿重复点击。",
-            "FATAL_ERROR"              : "发生严重错误，请联系维护人员并保留现场。",
-            "SESSION_DELAY_ERROR"          : "Session延时发生异常，建议您立即保存工作区并联系维护人员."
+            "CONFIRM_COVER"                     : "是否确定覆盖旧的内容?",
+            "CONFIRM_SAVE"                      : "是否确认保存?",
+            "CONFIRM_CANCEL"                    : "是否确定取消?",
+            "CONFIRM_CHECKIN"                   : "是否确定提交?",
+            "CONFIRM_CHECKOUT"                  : "是否确定获取?",
+            "CHECK_LOCK_CONFLICKTION"           : "正在为您检查工作区锁定状态...",
+            "CHECK_LOCK_CONFLICKTION_COMPLETED" : "您已成功切换至编辑状态，该项目已被您锁定。",
+            "CHOOSE_AT_FIRST"                   : "请先选择您要操作的选项.",
+            "SAVE_LIST_MAX_LENGTH_OVERFLOW"     : "您的存档空间已满，请删除不必要的存档，或覆盖旧的存档。",
+            "CONFIRM_DELETE"                    : "您是否确认删除?",
+            "LOADING"                           : "加载中...",
+            "LOAD"                              : "已完成加载",
+            "MODULE_LOADING"                    : "正在加载项目模块...",
+            "MODULE_LOAD"                       : "项目模块加载完成",
+            "VERSION_LOADING"                   : "正在请求版本信息...",
+            "VERSION_LOAD"                      : "版本信息已加载",
+            "VERSION_EXIT"                      : "已退出版本观看模式",
+            "VERSION_SWITCHING"                 : "正在为您切换版本...",
+            "VERSION_SWITCHED"                  : "版本切换成功",
+            "VERSION_SWITCH_ERROR"              : "版本切换中发生错误，已恢复至切换前",
+            "SAVING"                            : "正在保存...",
+            "SAVED"                             : "保存成功",
+            "DELETING"                          : "正在删除...",
+            "DELETED"                           : "删除成功",
+            "PROCESSING"                        : "正在处理中,请稍后...",
+            "PROCESSED"                         : "处理成功",
+            "ERROR"                             : "出现错误，请稍后重试。",
+            "DO_NOT_DOUBLE_CLICK"               : "您的请求正在处理，请勿重复点击。",
+            "FATAL_ERROR"                       : "发生严重错误，请联系维护人员并保留现场。",
+            "SESSION_DELAY_ERROR"               : "Session延时发生异常，建议您立即保存工作区并联系维护人员."
         },
         TEMPLATE = {            // static template
 
-            "REQUEST_BEGIN"              : "<h2>REQUEST PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
-            "REQUEST_BEGIN_EDIT"         : "<h2>REQUEST PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
-            "REQUEST_END"            : "</table>",
-            "REQUEST_PARAMETER_ADD_BUTTON"       : "<div><a href=\"#\" class=\"add-link div-add-param-link\" onclick=\"ws.addParam('request'); return false;\">新增请求参数</a></div>",
+            "REQUEST_BEGIN"                 : "<h2>REQUEST PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "REQUEST_BEGIN_EDIT"            : "<h2>REQUEST PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "REQUEST_END"                   : "</table>",
+            "REQUEST_PARAMETER_ADD_BUTTON"  : "<div><a href=\"#\" class=\"add-link div-add-param-link\" onclick=\"ws.addParam('request'); return false;\">新增请求参数</a></div>",
 
-            "RESPONSE_BEGIN"             : "<br /><h2>RESPONSE PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
-            "RESPONSE_BEGIN_EDIT"        : "<br /><h2>RESPONSE PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
-            "RESPONSE_END"               : "</table>",
-            "RESPONSE_PARAMETER_ADD_BUTTON"      : "<div><a href=\"#\" class=\"add-link div-add-param-link\" onclick=\"ws.addParam('response'); return false;\">新增响应参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" onclick=\"ws.importJSON(); return false;\">导入JSON</a></div>",
+            "RESPONSE_BEGIN"                : "<br /><h2>RESPONSE PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "RESPONSE_BEGIN_EDIT"           : "<br /><h2>RESPONSE PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "RESPONSE_END"                  : "</table>",
+            "RESPONSE_PARAMETER_ADD_BUTTON" : "<div><a href=\"#\" class=\"add-link div-add-param-link\" onclick=\"ws.addParam('response'); return false;\">新增响应参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" onclick=\"ws.importJSON(); return false;\">导入JSON</a></div>",
 
-            "SAVE_PANEL_BEGIN"           : "<div id=\"div-save-panel\">",
-            "SAVE_PANEL_END"             : "</div>",
+            "SAVE_PANEL_BEGIN"              : "<div id=\"div-save-panel\">",
+            "SAVE_PANEL_END"                : "</div>",
 
-            "VERSION_PANEL_BEGIN"        : "<div id=\"div-version-panel\"><table class='table-version'><tr class='head'><td class='version-op'>OP</td><td class='version'>版本</td><td class='operator'>操作人</td><td class='operation-time'>操作时间</td><td class='version-desc'>描述</td></tr>",
-            "VERSION_PANEL_END"          : "</table></div>",
+            "VERSION_PANEL_BEGIN"           : "<div id=\"div-version-panel\"><table class='table-version'><tr class='head'><td class='version-op'>OP</td><td class='version'>版本</td><td class='operator'>操作人</td><td class='operation-time'>操作时间</td><td class='version-desc'>描述</td></tr>",
+            "VERSION_PANEL_END"             : "</table></div>",
 
-            "MODULE_ADD_BUTTON"          : "<div id=\"div-add-m\"><a href=\"#\" class=\"add-link\" onclick=\"ws.addM(); return false;\">&nbsp;</a></div>",
+            "MODULE_ADD_BUTTON"             : "<div id=\"div-add-m\"><a href=\"#\" class=\"add-link\" onclick=\"ws.addM(); return false;\">&nbsp;</a></div>",
 
-            "SEPERATOR"              : "<div class=\"seperator\"></div>" ,
+            "SEPERATOR"                     : "<div class=\"seperator\"></div>" ,
 
-            "NO_DATA_CHECKED"            : "<div class='log-item'><font color='gray'>没有可获取或更新的数据</font></div>"
+            "NO_DATA_CHECKED"               : "<div class='log-item'><font color='gray'>没有可获取或更新的数据</font></div>"
         },
         CONFIG = {
-            "SAVE_LIST_MAX_LENGTH"      : 10,
-            "DEFAULT_MAX_LENGTH"    : 50,
-            "REMARK_MAX_LENGTH"     : 9999,
-            "DEFAULT_INPUT_WIDTH"       : 100,
-            "MODULE_NAME_WIDTH"     : 100,
-            "PARAMETER_NAME_WIDTH"      : 160,
-            "PARAMETER_IDENTIFIER_WIDTH": 160,
-            "PARAMETER_TYPE_WIDTH"      : 110,
-            "PARAMETER_REMARK_WIDTH"    : 300,
-            "MESSAGE_TIMEOUT"       : 5000,
-            "SESSION_DELAY_TIMESPAN"    : 300000,
-            "KEYPRESS_EVENT_NAME"       : (baidu.browser.firefox ? "keypress" : "keydown")
+            "SAVE_LIST_MAX_LENGTH"       : 10,
+            "DEFAULT_MAX_LENGTH"         : 50,
+            "REMARK_MAX_LENGTH"          : 9999,
+            "DEFAULT_INPUT_WIDTH"        : 100,
+            "MODULE_NAME_WIDTH"          : 100,
+            "PARAMETER_NAME_WIDTH"       : 160,
+            "PARAMETER_IDENTIFIER_WIDTH" : 160,
+            "PARAMETER_TYPE_WIDTH"       : 110,
+            "PARAMETER_REMARK_WIDTH"     : 300,
+            "MESSAGE_TIMEOUT"            : 5000,
+            "SESSION_DELAY_TIMESPAN"     : 300000,
+            "KEYPRESS_EVENT_NAME"        : (baidu.browser.firefox ? "keypress" : "keydown")
         },
         CONST = {
             "WARN"     : "warn",
@@ -1169,22 +1160,22 @@ var rap = rap || {};
             "VERSION"  : "version"
         },
         ELEMENT_ID = {
-            "SAVE_PANEL"            : "saveFloater",
-            "SAVE_PANEL_CONTENT"        : "div-save-floater-content",
-            "SAVE_PANEL_MESSAGE"        : "div-save-floater-message",
-            "VERSION_PANEL"         : "versionFloater",
-            "VERSION_PANEL_MESSAGE"     : "div-version-floater-message",
-            "VERSION_PANEL_CONTENT"     : "div-version-floater-content",
-            "CHECKOUT_PANEL"        : "checkoutFloater",
-            "CHECKOUT_PANEL_CONTENT"    : "div-checkout-floater-content",
-            "CHECKOUT_PANEL_MESSAGE"    : "div-checkout-floater-message",
-            "CHECKIN_PANEL"         : "checkinFloater",
-            "CHECKIN_PANEL_CONTENT"     : "div-checkin-floater-content",
-            "CHECKIN_PANEL_MESSAGE"     : "div-checkin-floater-message",
-            "VSS_PANEL_MESSAGE"         : "div-saveVSS-floater-message",
-            "WORKSPACE_MESSAGE"         : "div-w-message",
-            "EDIT_INPUT"            : "txtMTName" ,
-            "IMPORT_JSON_MESSAGE"       : "div-importJSON-floater-message"
+            "SAVE_PANEL"             : "saveFloater",
+            "SAVE_PANEL_CONTENT"     : "div-save-floater-content",
+            "SAVE_PANEL_MESSAGE"     : "div-save-floater-message",
+            "VERSION_PANEL"          : "versionFloater",
+            "VERSION_PANEL_MESSAGE"  : "div-version-floater-message",
+            "VERSION_PANEL_CONTENT"  : "div-version-floater-content",
+            "CHECKOUT_PANEL"         : "checkoutFloater",
+            "CHECKOUT_PANEL_CONTENT" : "div-checkout-floater-content",
+            "CHECKOUT_PANEL_MESSAGE" : "div-checkout-floater-message",
+            "CHECKIN_PANEL"          : "checkinFloater",
+            "CHECKIN_PANEL_CONTENT"  : "div-checkin-floater-content",
+            "CHECKIN_PANEL_MESSAGE"  : "div-checkin-floater-message",
+            "VSS_PANEL_MESSAGE"      : "div-saveVSS-floater-message",
+            "WORKSPACE_MESSAGE"      : "div-w-message",
+            "EDIT_INPUT"             : "txtMTName" ,
+            "IMPORT_JSON_MESSAGE"    : "div-importJSON-floater-message"
         },
         PREFIX = {
             "SAVE" : "radio-save-"
@@ -1195,7 +1186,7 @@ var rap = rap || {};
      * initialize run when dom ready
      */
     ws.init = function(workspaceObj, urlObj) {
-    //_isLocalStorageEnabled = typeof(localStorage) != 'undefined';
+        _isLocalStorageEnabled = typeof(localStorage) != 'undefined';
         URL = urlObj;
         try {
 
@@ -1218,24 +1209,22 @@ var rap = rap || {};
              * initialize variables that shuold be only initialized once
              */
             _viewState = {
-                            "moduleId"   : -1,
-                            "pageId"     : -1,
-                            "actionId"   : -1,
-                            "parameterId": -1
-                        };
+                "moduleId"   : -1,
+                "pageId"     : -1,
+                "actionId"   : -1,
+                "parameterId": -1
+            };
 
             _debugCounter = 1;
 
             window.onbeforeunload = function() {
                 if (_isEditMode) {
-            if (!_isLocalStorageEnabled) {
-            return "您的浏览器不支持本地存储，现在退出所有修改都将丢失，确认退出？";
-            } else {
-            localStorage.setItem('_data', b.json.stringify(_data));
-            }
+                    if (_isLocalStorageEnabled) {
+                        localStorage.setItem('_data', b.json.stringify(_data));
+                    }
+                    return "现在退出所有修改都将丢失，确认退出？";
                 }
             }
-
 
             /**
              * bind page
@@ -1342,7 +1331,7 @@ var rap = rap || {};
         this.finishEdit();
         this.switchA(_curActionId);
         if (newParamId > 0) {
-            this.edit(newParamId, "param-name");
+            this.edit(newParamId, "param-identifier");
         }
     }
 
@@ -2410,16 +2399,16 @@ var rap = rap || {};
         } else if (code == 27) {
             cancelEdit();
         } else if (code == 9) {
-        if (e.preventDefault) {
-        e.preventDefault();
-        } else {
-        e.returnValue = null;
-        }
+            if (e.preventDefault) {
+                e.preventDefault();
+            } else {
+                e.returnValue = null;
+            }
             switch (_editContext.key) {
-                case "param-name":
-                    ws.edit(_editContext.id, "param-identifier");
-                    break;
                 case "param-identifier":
+                    ws.edit(_editContext.id, "param-name");
+                    break;
+                case "param-name":
                     var select = b.g("select-dataType-" + _editContext.id);
                     focusElement(select);
                     break;
@@ -3348,24 +3337,26 @@ var rap = rap || {};
         }
 
 
-        /*                              *
-         *                              *
-         *         ##html-template-engine-end           *
-         *                              *
+        /********************************************************
+         *                                                      *
+         *         ##html-template-engine-end                   *
+         *                                                      *
          ********************************************************/
 
 
-    /*                              *
-     *         ##private-methods-end            *
-     *                              *
+    /********************************************************
+     *                                                      *
+     *         ##private-methods-end                        *
+     *                                                      *
      ********************************************************/
 
  })();
 
 
-/*                              *
- *         ##workspace-module-end           *
- *                              *
+/********************************************************
+ *                                                      *
+ *         ##workspace-module-end                       *
+ *                                                      *
  ********************************************************/
 
 

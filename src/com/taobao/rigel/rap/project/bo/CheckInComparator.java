@@ -8,9 +8,7 @@ public class CheckInComparator implements Comparator<CheckIn>{
 
 	@Override
 	public int compare(CheckIn o1, CheckIn o2) {
-		CheckIn l = (CheckIn) o1;
-		CheckIn r = (CheckIn) o2;
-		return l.getId() > r.getId() ? 0 : 1;
+		return o1.getId() > o2.getId() ? -1 : 1;
 	}
 
 }
