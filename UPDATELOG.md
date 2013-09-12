@@ -6,6 +6,7 @@
   		new feature: show/hide mock labels, by default, @value labels will be hidden
         fix bug: check in versions disorder
         fix bug: default focus in edit mode inputs disorder
+        fix bug: labels partly shown in workspace because of HTML encoding
 ======================rap v0.5 =================================================
   * data mock
         fix problems when request URL is absolute 07/15/2013

@@ -3230,7 +3230,8 @@ var rap = rap || {};
             str += getPTDHtml(param.id, util.escaper.escapeInH(param.identifier), "identifier", level);
             str += getPTDHtml(param.id, util.escaper.escapeInH(param.name), "name");
             str += getDataTypeEditSelectHtml(param.id, param.dataType);
-            str += getPTDHtml(param.id, util.escaper.escapeInH(param.remark), "remark");
+            // for remarkFilter, escape after filter processed...
+            str += getPTDHtml(param.id, param.remark, "remark");
             str += "</tr>";
 
             for (var i = 0; i < parameterListNum; i++) {
@@ -3243,10 +3244,13 @@ var rap = rap || {};
         /**
          * get parameter td html
          * value must be processed by escapeInH !!!
+         *
+         * for remarkFilter, escape after filter processed...
          */
         function getPTDHtml(id, value, type, level) {
             if (type === 'remark') {
                 value = remarkFilter(value);
+                value = util.escaper.escapeInH(value);
             }
             return "<td id='td-param-" + type + "-" + id + "' class='td-param " + type
                 + "' onclick='ws.edit(" + id + ", \"param-"+ type +
