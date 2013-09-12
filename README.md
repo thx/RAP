@@ -32,7 +32,7 @@ Rigel Automation Platform
 
 `RAP` is a web interfaces management system, can generate mock data based on structured interface documents.
 
-So-called "Interface Document" defined the format and details of web requests.
+The so-called "Interface Document" defined format and details of web requests.
 
 Structure of the doc:
 `project` => `module` => `page` => `request` => `parameter` [=> `parameter`]
