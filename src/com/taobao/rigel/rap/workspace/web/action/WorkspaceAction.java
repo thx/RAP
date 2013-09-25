@@ -70,7 +70,7 @@ public class WorkspaceAction extends ActionBase {
 	public void setModule(Module module) {
 		this.module = module;
 	}
-	
+
 	private VelocityEngine velocityEngine;
 
 	public VelocityEngine getVelocityEngine() {
@@ -217,7 +217,8 @@ public class WorkspaceAction extends ActionBase {
 	public String myWorkspace() {
 		if (!isUserLogined()) {
 			plsLogin();
-			setRelativeReturnUrl("/workspace/myWorkspace.action?projectId=" + projectId);
+			setRelativeReturnUrl("/workspace/myWorkspace.action?projectId="
+					+ projectId);
 			return LOGIN;
 		}
 		Workspace workspace = new Workspace();
@@ -346,7 +347,7 @@ public class WorkspaceAction extends ActionBase {
 			setIsOk(false);
 			return JSON_ERROR;
 		}
-		
+
 		// update project
 		projectMgr.updateProject(getId(), getProjectData(),
 				getDeletedObjectListData());
@@ -402,14 +403,14 @@ public class WorkspaceAction extends ActionBase {
 			setErrMsg(LOGIN_WARN_MSG);
 			return JSON_ERROR;
 		}
-		
+
 		boolean isOk = false;
 		if (isLocked(getId())) {
 			// if the project is locked, find the locker
 			User user = getLocker(getId());
 			if (!user.getAccount().equals(getCurAccount())) {
-				setJson("{\"isOk\":false, \"errMsg\":\"该项目目前被" + user.getName()
-						+ "(" + user.getAccount() + ")" + "锁定.\"}");
+				setJson("{\"isOk\":false, \"errMsg\":\"该项目目前正被"
+						+ user.getName() + "锁定.\"}");
 			} else {
 				// user request lock a locked project
 				// which is locked by himself, so let him go
@@ -459,7 +460,7 @@ public class WorkspaceAction extends ActionBase {
 	 * caution: no authentication so far
 	 * 
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public String export() throws Exception {
 		project = projectMgr.getProject(projectId);
@@ -480,7 +481,8 @@ public class WorkspaceAction extends ActionBase {
 		}
 		StringWriter sw = new StringWriter();
 		template.merge(context, sw);
-		fileInputStream = new ByteArrayInputStream(sw.toString().getBytes("UTF8"));
+		fileInputStream = new ByteArrayInputStream(sw.toString().getBytes(
+				"UTF8"));
 		return SUCCESS;
 	}
 

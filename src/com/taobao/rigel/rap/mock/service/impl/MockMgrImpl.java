@@ -151,10 +151,10 @@ public class MockMgrImpl implements MockMgr {
 		}
 		if (para.getParameterList() == null
 				|| para.getParameterList().size() == 0) {
-			json.append(para.getIdentifier() + ":" + mockValue(para, index));
+			json.append(para.getMockIdentifier() + ":" + mockValue(para, index));
 		} else {
 			// object and array<object>
-			json.append(para.getIdentifier() + ":");
+			json.append(para.getMockIdentifier() + ":");
 			String left = "{", right = "}";
 
 			if (isArrayObject) {

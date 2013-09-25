@@ -3121,7 +3121,7 @@ var rap = rap || {};
          * get action info html
          */
         function getAInfoHtml(a) {
-            var head = "<h2>ACTION INFO</h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
+            var head = "<h2 style='margin-top:30px;'>ACTION INFO</h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
                 body = "",
                 foot = "</div>";
 

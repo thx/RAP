@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.hamcrest.core.IsEqual;
+
 import com.taobao.rigel.rap.common.StringUtils;
 
 public class Parameter implements java.io.Serializable {
@@ -59,6 +61,13 @@ public class Parameter implements java.io.Serializable {
 	private String identifier;
 	
 	public String getIdentifier() {
+		return identifier;
+	}
+	
+	public String getMockIdentifier() {
+		if (identifier == null || identifier.isEmpty()) {
+			return "emptyIdentifier";
+		}
 		return identifier;
 	}
 	

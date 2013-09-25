@@ -2,11 +2,15 @@
   * data mock
         enhance mock for type equals to "array<string>"
         string data type now support @format
+        MOCK API param exists after "callback=jsonp123" will be resulting in errors.
+        fix empty parameter bug (mock data cannot be generated when empty parameter exists)
   * workspace
   		new feature: show/hide mock labels, by default, @value labels will be hidden
         fix bug: check in versions disorder
         fix bug: default focus in edit mode inputs disorder
         fix bug: labels partly shown in workspace because of HTML encoding
+  * system
+  		fix log4j tomcat startup error, change log level to WARN
 ======================rap v0.5 =================================================
   * data mock
         fix problems when request URL is absolute 07/15/2013
@@ -25,7 +29,7 @@
   * add new tag regex like @regex=[a-zA-Z]bc to import powerful regular expression mechanism
   * update pageTester, add new tabs modify and reset which can help operate on mock data
 
-======================rap v1.3 =================================================
+======================rap v0.3 =================================================
   * UE: login automatically redirect 09/10/2012
   * add new mock data tag:@value=[xx], for mocking from 01 to 30, eg->@value=2012-09-[xx], output: 2012-09-01, 2012-09-02, 2012-09-03...  09/10/2012
   * update mock service, add @type=array, @type=array_map, @length=\d+ for action description, add new _c callback  09/10/2012
@@ -33,9 +37,9 @@
   * increase size of working area  09/10/2012
   * fix bugs (data type choose, word file export encoding, etc.)  09/10/2012
 
-======================rap v1.2 =================================================
+======================rap v0.2 =================================================
   * simplify operation flow √ 08/29/2012
-  * fix shortcuts compatibilities in different browsers (1.1 only support Firefox)  07/24/2012
+  * fix shortcuts compatibilities in different browsers (0.1 only support Firefox)  07/24/2012
   * change literal for some are too old 07/24/2012
   * validation for JSON String in page testers 07/24/2012
   * add more comment for my code 07/24/2012
