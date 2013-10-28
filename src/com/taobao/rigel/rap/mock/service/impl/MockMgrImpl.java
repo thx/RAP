@@ -24,10 +24,10 @@ public class MockMgrImpl implements MockMgr {
 	 * random seed
 	 */
 	private int _num = 1;
-	private String[] NAME_LIB = { "霍雍", "行列好基友", "肌肉男幻刺", "领饭队长金台", "爱起早望天",
-			"木头李牧", "三冰", "自勉", "思霏", "诚冉", "甘苦", "勇智", "墨汁老湿", "圣香", "定球",
-			"征宇", "灵兮", "永盛", "小婉", "紫丞", "少侠", "木谦", "周亮", "宝山", "张中", "晓哲老师",
-			"夜沨大湿" };
+	private String[] NAME_LIB = { "霍雍", "行列", "幻刺", "金台", "望天",
+			"李牧", "三冰", "自勉", "思霏", "诚冉", "甘苦", "勇智", "墨汁老湿", "圣香", "定球",
+			"征宇", "灵兮", "永盛", "小婉", "紫丞", "少侠", "木谦", "周亮", "宝山", "张中", "晓哲",
+			"夜沨" };
 	private String[] LOCATION_LIB = { "北京 朝阳区", "北京 海淀区", "北京 昌平区",
 			"吉林 长春 绿园区", "吉林 吉林 丰满区" };
 	private String[] PHONE_LIB = { "15813243928", "13884928343", "18611683243",
@@ -362,7 +362,7 @@ public class MockMgrImpl implements MockMgr {
 	 * from tag string to tag map
 	 * 
 	 * @param tags
-	 *            tag string input by parsing whole string splited by seperator
+	 *            tag string input by parsing whole string split by separator
 	 *            ";"
 	 * @param tagMap
 	 *            tag map
