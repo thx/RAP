@@ -110,7 +110,13 @@ public class MockMgrImpl implements MockMgr {
 			}
 		}
 		json.append(right);
-		return json.toString();
+		String result = json.toString();
+		return resultFilter(result);
+	}
+
+	private String resultFilter(String result) {
+		result = result.replaceAll("////",";");
+		return result;
 	}
 
 	private void recursivelyLoadMockData(Parameter p) {

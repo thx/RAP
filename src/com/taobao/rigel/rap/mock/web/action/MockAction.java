@@ -77,9 +77,17 @@ public class MockAction extends ActionBase {
 		if (cb == null) {
 			return "callback";
 		}
+		if (cb.contains("_c=")) {
+			int startIndex = cb.indexOf("_c=") + 3;
+			int endIndex = cb.indexOf("&", startIndex);
+			if (endIndex == -1) endIndex = cb.length();
+			cb = cb.substring(startIndex, endIndex);
+			return cb;
+		}
 		if (cb.contains("&")) {
 			cb = cb.substring(0, cb.indexOf("&"));
 		}
+		
 		return cb;
 	}
 
