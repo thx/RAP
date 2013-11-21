@@ -114,6 +114,11 @@ public class MockMgrImpl implements MockMgr {
 		return resultFilter(result);
 	}
 
+	/**
+	 * for escaping separators
+	 * @param result
+	 * @return
+	 */
 	private String resultFilter(String result) {
 		result = result.replaceAll("////",";");
 		return result;
@@ -151,42 +156,48 @@ public class MockMgrImpl implements MockMgr {
 		String[] tags = para.getMockDataTEMP().split(";");
 		Map<String, String> tagMap = new HashMap<String, String>();
 		parseTags(tags, tagMap, false);
-		String length = tagMap.get("length");
-		if (length != null && !length.isEmpty()) {
-			ARRAY_LENGTH = Integer.parseInt(length);
-		}
-		if (para.getParameterList() == null
-				|| para.getParameterList().size() == 0) {
-			json.append(para.getMockIdentifier() + ":" + mockValue(para, index));
+		
+		// if isArray && has @value tag, directly output @value content
+		if (para.getDataType().contains("array") && tagMap.get("value") != null) {
+			json.append(para.getMockIdentifier() + ":" + tagMap.get("value"));
 		} else {
-			// object and array<object>
-			json.append(para.getMockIdentifier() + ":");
-			String left = "{", right = "}";
-
-			if (isArrayObject) {
-				left = "[";
-				right = "]";
+			String length = tagMap.get("length");
+			if (length != null && !length.isEmpty()) {
+				ARRAY_LENGTH = Integer.parseInt(length);
 			}
-			json.append(left);
-			boolean first;
-			for (int i = 0; i < ARRAY_LENGTH; i++) {
-				first = true;
-				if (isArrayObject && i > 0)
-					json.append(",");
-				if (isArrayObject)
-					json.append("{");
-				for (Parameter p : para.getParameterList()) {
-					if (first) {
-						first = false;
-					} else {
-						json.append(",");
-					}
-					buildJson(json, p, i);
+			if (para.getParameterList() == null
+					|| para.getParameterList().size() == 0) {
+				json.append(para.getMockIdentifier() + ":" + mockValue(para, index));
+			} else {
+				// object and array<object>
+				json.append(para.getMockIdentifier() + ":");
+				String left = "{", right = "}";
+	
+				if (isArrayObject) {
+					left = "[";
+					right = "]";
 				}
-				if (isArrayObject)
-					json.append("}");
+				json.append(left);
+				boolean first;
+				for (int i = 0; i < ARRAY_LENGTH; i++) {
+					first = true;
+					if (isArrayObject && i > 0)
+						json.append(",");
+					if (isArrayObject)
+						json.append("{");
+					for (Parameter p : para.getParameterList()) {
+						if (first) {
+							first = false;
+						} else {
+							json.append(",");
+						}
+						buildJson(json, p, i);
+					}
+					if (isArrayObject)
+						json.append("}");
+				}
+				json.append(right);
 			}
-			json.append(right);
 		}
 	}
 
