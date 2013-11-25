@@ -7,7 +7,7 @@
   "author": "Chen Yicai <yicai.cyj@taobao.com>",
   "devDependencies": {
     "grunt": "~0.4.2",
-    "superagent": "~0.15.7",
-    "unzip": "~0.1.9"
+    "unzip": "~0.1.9",
+    "request": "~2.27.0"
   }
 }

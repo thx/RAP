@@ -1,7 +1,12 @@
-baseurl:
+baseurl: /my-project
 markdown: redcarpet
 pygments: true
 safe: true
 lsi: false
 permalink: /:categories/:title
 excerpt_separator: "\n\n"
+exclude:
+  - Gruntfile.js
+  - brix-core.sublime-project
+  - package.json
+  - readme.md
