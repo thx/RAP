@@ -1,0 +1,13 @@
+{
+  "name": "base",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Base files of THX websites.",
+  "homepage": "http://thx.github.io/",
+  "author": "Chen Yicai <yicai.cyj@taobao.com>",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "superagent": "~0.15.7",
+    "unzip": "~0.1.9"
+  }
+}

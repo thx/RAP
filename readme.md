@@ -5,5 +5,18 @@
 ## 所含内容
 
 ```bash
-
+.
+├── Gruntfile.js
+├── _config.yml
+├── _includes
+│   ├── archive.html
+│   └── ceiling.html
+├── assets
+│   ├── base.css
+│   ├── img
+│   │   └── bg.jpg
+│   └── syntax
+│       └── github.css
+├── package.json
+└── readme.md
 ```
