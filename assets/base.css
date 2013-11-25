@@ -10,6 +10,43 @@ body {
 }
 
 /*
+ * Shamelessly copied from https://github.com/lepture/yue.css/blob/master/yue.css
+ */
+.type h1,
+.type h2,
+.type h3,
+.type h4,
+.type h5,
+.type h6 {
+  color: #222223;
+}
+.type h1 {
+  font-size: 1.8em;
+  margin: 0.67em 0;
+}
+.type > h1 {
+  margin-top: 0;
+  font-size: 2em;
+}
+.type h2 {
+  font-size: 1.5em;
+  margin: 0.83em 0;
+}
+.type h3 {
+  font-size: 1.17em;
+  margin: 1em 0;
+}
+.type h4,
+.type h5,
+.type h6 {
+  font-size: 1em;
+  margin: 1.6em 0 1em 0;
+}
+.type h6 {
+  font-weight: 500;
+}
+
+/*
  * icons
  */
 .mi-projects:before {
@@ -46,50 +83,68 @@ body {
 /*
  * Aside styles
  */
-#aside .logo {
+#nav .logo {
   display: block;
   line-height: 1;
   text-align: center;
-  margin: 1em;
+  vertical-align: middle;
+  padding-left: 20px;
+  padding-right: 20px;
   font-family: Georgia, serif;
 }
-#aside .logo:hover {
+#nav .logo:hover {
   border-bottom: none;
   color: #FC4349;
 }
-#aside .logo .iconfont {
+#nav .logo .iconfont {
   display: block;
   font-size: 500%;
 }
-#aside ul {
+#nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-#aside .entry {
-  display: block;
-  padding: 5px 10px;
-  border-bottom: 1px dotted #6DBCDB;
+#nav .entry {
+  display: inline-block;
+  padding: 16px 20px;
 }
-#aside .entry:hover {
-  color: #fff;
-  background: #2C3E50;
+#nav .entry:hover {
+  background: #d6d6d6;
+  border-bottom: none;
+}
+#nav a {
+  color: #313131;
 }
 
 /*
  * Ceiling
  */
 #ceiling {
-  padding: 5px 20px;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: #f4f4f4;
+  border-bottom: 1px solid #d6d6d6;
+  color: #aaa;
+}
+#ceiling a {
+  float: left;
+  display: block;
+  padding: 10px 25px 10px 20px;
+}
+#ceiling a:link,
+#ceiling a:visited {
+  color: #aaa;
 }
 #ceiling .products {
   float: left;
 }
 #ceiling .products a {
-  display: inline-block;
-  margin-right: 10px;
+  border-right: 1px solid #d6d6d6;
 }
-#ceiling .products a:hover {
+#ceiling a:hover {
   border-bottom: none;
 }
 #ceiling .portal {
@@ -129,7 +184,7 @@ body {
     padding: 70px 20px 20px;
   }
 
-  #aside {
+  #nav {
     position: absolute;
     left: -200px;
     top: 0;
@@ -138,7 +193,7 @@ body {
     background: #2C3E50;
   }
 
-  #aside .toggler {
+  #nav .toggler {
     display: inline-block;
     position: absolute;
     top: 10px;
@@ -148,12 +203,12 @@ body {
     background: rgba(35, 52, 80, 0.8);
   }
 
-  #aside a:link,
-  #aside a:visited {
+  #nav a:link,
+  #nav a:visited {
     color: #fff;
   }
 
-  #aside .entry:hover {
+  #nav .entry:hover {
     background: #fff;
     color: #2C3E50;
   }
@@ -165,42 +220,49 @@ body {
     text-align: center;
   }
 
-  #ceiling {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 28px;
-    padding: 0;
-    background: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  }
-  #ceiling .bd {
-    text-align: left;
-    width: 680px;
-    margin: 0 auto;
-  }
   #page {
     text-align: left;
     width: 700px;
-    margin: 30px auto 0;
+    margin: 108px auto 0;
   }
 
-  #aside {
+  #nav {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #d6d6d6;
+  }
+  #nav.fixed {
     position: fixed;
-    left: 50%;
-    top: 77px;
-    margin-left: -490px;
-    width: 140px;
+    top: 0;
+    background: #f4f4f4;
+  }
+  #nav .logo {
+    float: left;
+  }
+  #nav .menu {
+    float: right;
+  }
+  #nav li {
+    float: right;
+  }
+  #nav .entry {
+    border-right: 1px solid #d6d6d6;
+  }
+  #nav .toggler {
+    display: none;
   }
 
   #content {
     max-width: 680px;
     padding: 10px;
+    margin-top: 32px;
   }
 
-  #aside .toggler {
-    display: none;
+  .ds-thread {
+    margin-top: 30px;
   }
 }
 

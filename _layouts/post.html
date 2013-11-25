@@ -1,0 +1,47 @@
+---
+layout: page
+script: assets/post.js
+---
+
+<div id="page">
+  <div id="content">
+    <div id="content-wrap">
+      {% include ceiling.html %}
+      <article>
+        <h1>{{ page.title }}</h1>
+        <div class="authors">
+          {% for author in page.authors %}
+          <address>
+            <a href="{{ author.homepage }}">{{ author.name }}</a>
+          </address>
+          {% endfor %}
+        </div>
+        {{ content }}
+      </article>
+      <!-- Duoshuo Comment BEGIN -->
+      <div class="ds-thread"></div>
+      <!-- Duoshuo Comment END -->
+    </div>
+  </div>
+  <div id="nav" class="clearfix">
+    <a href="javascript:void(0)" class="toggler" id="J_toggler">
+      <i class="iconfont">&#271;</i> 导航
+    </a>
+    <a href="{{ site.baseurl }}/" class="logo text-hide">Brix</a>
+    <ul class="menu">
+    {% for category in site.categories %}
+      <li>
+        <a href="{{ site.baseurl }}/{{ category[0] }}" class="entry">
+          <i class="iconfont mi-{{ category[0] }}"></i>
+          {{ category[0] | capitalize }}
+        </a>
+      </li>
+    {% endfor %}
+      <li>
+        <a href="{{ site.baseurl }}/faq/" class="entry">
+          <i class="iconfont">&#228;</i> 常问常答
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
