@@ -19,7 +19,8 @@ KISSY.use('node,event', function(S) {
     }
 
     S.one(window).on('scroll', function(e) {
-        if (S.one('body').scrollTop() > 48) {
+        var ceilingHeight = S.one('#ceiling').outerHeight()
+        if (S.one('body').scrollTop() > ceilingHeight) {
             S.one('#nav').addClass('fixed')
         }
         else {
