@@ -1,0 +1,269 @@
+/*
+ * Basic styles
+ */
+body {
+  background: #e4e6e5 url(img/bg.jpg);
+}
+
+.highlight {
+  background: none;
+}
+
+/*
+ * Shamelessly copied from https://github.com/lepture/yue.css/blob/master/yue.css
+ */
+.type h1,
+.type h2,
+.type h3,
+.type h4,
+.type h5,
+.type h6 {
+  color: #222223;
+}
+.type h1 {
+  font-size: 1.8em;
+  margin: 0.67em 0;
+}
+.type > h1 {
+  margin-top: 0;
+  font-size: 2em;
+}
+.type h2 {
+  font-size: 1.5em;
+  margin: 0.83em 0;
+}
+.type h3 {
+  font-size: 1.17em;
+  margin: 1em 0;
+}
+.type h4,
+.type h5,
+.type h6 {
+  font-size: 1em;
+  margin: 1.6em 0 1em 0;
+}
+.type h6 {
+  font-weight: 500;
+}
+
+/*
+ * icons
+ */
+.mi-projects:before {
+  content: '\f082';
+}
+.mi-mobile:before {
+  content: '\f086';
+}
+.mi-brix:before {
+  content: '\f039';
+}
+.mi-rap:before {
+  content: '\016e';
+}
+.mi-magix:before {
+  content: '\0052';
+}
+.mi-mock:before {
+  content: '\0034';
+}
+.mi-releases:before {
+  content: '\0030';
+}
+.mi-tutorial:before {
+  content: '\016b';
+}
+.mi-whos-using:before {
+  content: '\00fa';
+}
+.mi-articles:before {
+  content: '\0123';
+}
+
+/*
+ * Aside styles
+ */
+#nav .logo {
+  display: block;
+  line-height: 1;
+  text-align: center;
+  vertical-align: middle;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: Georgia, serif;
+}
+#nav .logo:hover {
+  border-bottom: none;
+  color: #FC4349;
+}
+#nav .logo .iconfont {
+  display: block;
+  font-size: 500%;
+}
+#nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#nav .entry {
+  display: inline-block;
+  padding: 16px 20px;
+}
+#nav .entry:hover {
+  background: #d6d6d6;
+  border-bottom: none;
+}
+#nav a {
+  color: #313131;
+}
+
+/*
+ * Ceiling
+ */
+#ceiling {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: #f4f4f4;
+  border-bottom: 1px solid #d6d6d6;
+  color: #aaa;
+}
+#ceiling a {
+  float: left;
+  display: block;
+  padding: 10px 25px 10px 20px;
+}
+#ceiling a:link,
+#ceiling a:visited {
+  color: #aaa;
+}
+#ceiling .products {
+  float: left;
+}
+#ceiling .products a {
+  border-right: 1px solid #d6d6d6;
+}
+#ceiling a:hover {
+  border-bottom: none;
+  color: #313131;
+}
+#ceiling .portal {
+  float: right;
+}
+
+/*
+ * Media queries
+ * put mobile devices first.
+ */
+@media (max-width: 799px) {
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  #ceiling {
+    display: none;
+  }
+
+  #page {
+    position: relative;
+    left: 0;
+    top: 0;
+    height: 100%;
+    -webkit-transition: left 0.2s;
+       -moz-transition: left 0.2s;
+            transition: left 0.2s;
+  }
+
+  #content {
+    height: 100%;
+    overflow: auto;
+  }
+
+  #content-wrap {
+    padding: 70px 20px 20px;
+  }
+
+  #nav {
+    position: absolute;
+    left: -200px;
+    top: 0;
+    height: 100%;
+    width: 200px;
+    background: #2C3E50;
+  }
+
+  #nav .toggler {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 200px;
+    width: 50px;
+    padding: 5px 10px;
+    background: rgba(35, 52, 80, 0.8);
+  }
+
+  #nav a:link,
+  #nav a:visited {
+    color: #fff;
+  }
+
+  #nav .entry:hover {
+    background: #fff;
+    color: #2C3E50;
+  }
+}
+
+
+@media (min-width: 800px) {
+  body {
+    text-align: center;
+  }
+
+  #page {
+    text-align: left;
+    width: 700px;
+    margin: 108px auto 0;
+  }
+
+  #nav {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #d6d6d6;
+  }
+  #nav.fixed {
+    position: fixed;
+    top: 0;
+    background: #f4f4f4;
+  }
+  #nav .logo {
+    float: left;
+  }
+  #nav .menu {
+    float: right;
+  }
+  #nav li {
+    float: right;
+  }
+  #nav .entry {
+    border-right: 1px solid #d6d6d6;
+  }
+  #nav .toggler {
+    display: none;
+  }
+
+  #content {
+    max-width: 680px;
+    padding: 10px;
+    margin-top: 32px;
+  }
+
+  .ds-thread {
+    margin-top: 30px;
+  }
+}
+

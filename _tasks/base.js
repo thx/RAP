@@ -17,7 +17,7 @@ module.exports = function(grunt) {
           var epath = entry.path
           var fpath = epath.replace(/^[^\/]+\//, '')
 
-          if (/_includes|assets/.test(epath) && !/\/$/.test(epath)) {
+          if (/_includes|assets|_tasks/.test(epath) && !/\/$/.test(epath)) {
             entry.pipe(fs.createWriteStream(fpath))
             grunt.log.writeln('Updated ' + fpath)
           }
@@ -37,15 +37,23 @@ module.exports = function(grunt) {
         glob(pattern, function copy(err, entries) {
           if (err) grunt.fail.fatal(err)
 
-          entries.forEach(function(entry) {
+          Q.all(entries.map(function(entry) {
             var fpath = path.join(basePath, entry)
+            var d = Q.defer()
 
             if (fs.existsSync(fpath)) {
               grunt.log.writeln('Updated ' + entry)
-              fs.createReadStream(entry).pipe(fs.createWriteStream(fpath))
+              fs.createReadStream(entry)
+                .pipe(fs.createWriteStream(fpath))
+                .on('finish', function() {
+                  d.resolve()
+                })
             }
+
+            return d.promise
+          })).done(function() {
+            d.resolve()
           })
-          d.resolve()
         })
 
         return d.promise
@@ -53,6 +61,7 @@ module.exports = function(grunt) {
 
       Q.all([
         search('_includes/*.html'),
+        search('_tasks/*.js'),
         search('assets/**/*.css')
       ]).done(done)
     }
