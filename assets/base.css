@@ -155,6 +155,27 @@ body {
   float: right;
 }
 
+#footer {
+  text-align: center;
+}
+#footer a {
+  color: #313131;
+}
+#footer a:hover {
+  border-bottom: none;
+}
+#footer .cnzz,
+#footer address {
+  display: inline-block;
+  vertical-align: top;
+}
+#footer .cnzz {
+  padding-top: 3px;
+}
+#footer address {
+  font-size: 12px;
+}
+
 /*
  * Media queries
  * put mobile devices first.
@@ -274,6 +295,10 @@ body {
 
   .ds-thread {
     margin-top: 30px;
+  }
+
+  #footer {
+    margin: 40px auto 20px;
   }
 }
 
