@@ -7,62 +7,74 @@ module.exports = function(grunt) {
   var path = require('path')
   var Q = require('q')
 
-  grunt.registerTask('base', function(command) {
+  grunt.registerTask('base', function(command /* push|pull */, source /* github */) {
     var done = this.async()
+    var basePath = path.resolve(process.cwd(), '../base')
+
+    function copy(pattern, options, target) {
+      var d = Q.defer()
+
+      target = target || process.cwd()
+      glob(pattern, options, function(err, entries) {
+        if (err) grunt.fail.fatal(err)
+
+        Q.all(entries.map(function(entry) {
+          var fpath = path.join(target, entry)
+          var d = Q.defer()
+
+          if (fs.existsSync(fpath)) {
+            grunt.log.writeln('Updated ' + entry)
+            fs.createReadStream(entry)
+              .pipe(fs.createWriteStream(fpath))
+              .on('finish', function() {
+                d.resolve()
+              })
+          }
+
+          return d.promise
+        })).done(function() {
+          d.resolve()
+        })
+      })
+
+      return d.promise
+    }
 
     function pull() {
-      request('https://github.com/thx/base/archive/master.zip')
-        .pipe(unzip.Parse())
-        .on('entry', function(entry) {
-          var epath = entry.path
-          var fpath = epath.replace(/^[^\/]+\//, '')
+      if (source === 'github') {
+        request('https://github.com/thx/base/archive/master.zip')
+          .pipe(unzip.Parse())
+          .on('entry', function(entry) {
+            var epath = entry.path
+            var fpath = epath.replace(/^[^\/]+\//, '')
 
-          if (/_includes|assets|_tasks/.test(epath) && !/\/$/.test(epath)) {
-            entry.pipe(fs.createWriteStream(fpath))
-            grunt.log.writeln('Updated ' + fpath)
-          }
-          else {
-            grunt.log.writeln('Skipped ' + fpath)
-          }
-        })
-        .on('close', done)
+            if (/_includes|assets|_tasks/.test(epath) && !/\/$/.test(epath)) {
+              entry.pipe(fs.createWriteStream(fpath))
+              grunt.log.writeln('Updated ' + fpath)
+            }
+            else {
+              grunt.log.writeln('Skipped ' + fpath)
+            }
+          })
+          .on('close', done)
+      }
+      else {
+        Q.all([
+          copy('_includes/*.html', { cwd: basePath }),
+          copy('_tasks/*.js', { cwd: basePath }),
+          copy('assets/**/*.{css,jpg,png,js}', { cwd: basePath })
+        ]).done(done)
+      }
     }
 
     function push() {
-      var basePath = path.resolve(process.cwd(), '../base')
-
-      function search(pattern) {
-        var d = Q.defer()
-
-        glob(pattern, function copy(err, entries) {
-          if (err) grunt.fail.fatal(err)
-
-          Q.all(entries.map(function(entry) {
-            var fpath = path.join(basePath, entry)
-            var d = Q.defer()
-
-            if (fs.existsSync(fpath)) {
-              grunt.log.writeln('Updated ' + entry)
-              fs.createReadStream(entry)
-                .pipe(fs.createWriteStream(fpath))
-                .on('finish', function() {
-                  d.resolve()
-                })
-            }
-
-            return d.promise
-          })).done(function() {
-            d.resolve()
-          })
-        })
-
-        return d.promise
-      }
-
       Q.all([
-        search('_includes/*.html'),
-        search('_tasks/*.js'),
-        search('assets/**/*.css')
+        copy('_includes/*.html', null, basePath),
+        copy('_tasks/*.js', null, basePath),
+        copy('assets/base.css', null, basePath),
+        copy('assets/post.js', null, basePath),
+        copy('assets/img/bg.jpg', null, basePath),
+        copy('assets/syntax/*.css', null, basePath)
       ]).done(done)
     }
 
