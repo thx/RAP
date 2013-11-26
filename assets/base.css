@@ -79,6 +79,9 @@ body {
 .mi-articles:before {
   content: '\0123';
 }
+.mi-iconfont:before {
+  content: '\003c';
+}
 
 /*
  * Aside styles
