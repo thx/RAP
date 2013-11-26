@@ -194,27 +194,30 @@ body {
     top: 0;
     height: 100%;
     width: 200px;
-    background: #2C3E50;
+    background: #f4f4f4;
   }
 
   #nav .toggler {
     display: inline-block;
     position: absolute;
-    top: 10px;
+    top: 0;
     left: 200px;
     width: 50px;
-    padding: 5px 10px;
-    background: rgba(35, 52, 80, 0.8);
+    padding: 16px 20px;
+    background: #f4f4f4;
+  }
+  #nav .toggler:hover {
+    border-bottom: none;
   }
 
-  #nav a:link,
-  #nav a:visited {
-    color: #fff;
+  #nav a.logo {
+    margin-bottom: 28px;
   }
 
-  #nav .entry:hover {
-    background: #fff;
-    color: #2C3E50;
+  #nav .entry {
+    display: block;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
 }
 

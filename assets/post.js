@@ -9,7 +9,7 @@ KISSY.use('node,event', function(S) {
 
             page.css(
                 'left',
-                parseInt(page.css('left'), 10) > 0 ? 0 : S.one('#aside').outerWidth()
+                parseInt(page.css('left'), 10) > 0 ? 0 : S.one('#nav').outerWidth()
             )
             e.stopPropagation()
         })
