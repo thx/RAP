@@ -12,9 +12,11 @@ module.exports = function(grunt) {
     var basePath = path.resolve(process.cwd(), '../base')
 
     function copy(pattern, options, target) {
-      var d = Q.defer()
-
       target = target || process.cwd()
+      options = options || {}
+      var d = Q.defer()
+      var cwd = options.cwd || process.cwd()
+
       glob(pattern, options, function(err, entries) {
         if (err) grunt.fail.fatal(err)
 
@@ -24,7 +26,7 @@ module.exports = function(grunt) {
 
           if (fs.existsSync(fpath)) {
             grunt.log.writeln('Updated ' + entry)
-            fs.createReadStream(entry)
+            fs.createReadStream(path.join(cwd, entry))
               .pipe(fs.createWriteStream(fpath))
               .on('finish', function() {
                 d.resolve()
