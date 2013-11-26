@@ -165,10 +165,6 @@ body {
     overflow-x: hidden;
   }
 
-  #ceiling {
-    display: none;
-  }
-
   #page {
     position: relative;
     left: 0;
@@ -186,6 +182,11 @@ body {
 
   #content-wrap {
     padding: 70px 20px 20px;
+    position: relative;
+  }
+
+  #ceiling .products {
+    margin-left: 90px;
   }
 
   #nav {
@@ -193,8 +194,9 @@ body {
     left: -200px;
     top: 0;
     height: 100%;
-    width: 200px;
+    width: 199px;
     background: #f4f4f4;
+    border-right: 1px solid #d6d6d6;
   }
 
   #nav .toggler {
@@ -203,11 +205,13 @@ body {
     top: 0;
     left: 200px;
     width: 50px;
-    padding: 16px 20px;
+    padding: 10px 20px;
     background: #f4f4f4;
+    border-right: 1px solid #d6d6d6;
+    border-bottom: 1px solid #d6d6d6;
   }
   #nav .toggler:hover {
-    border-bottom: none;
+    border-bottom: 1px solid #d6d6d6;
   }
 
   #nav a.logo {
