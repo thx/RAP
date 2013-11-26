@@ -1,4 +1,4 @@
-baseurl: /my-project
+baseurl: /your-project
 markdown: redcarpet
 pygments: true
 safe: true
@@ -10,3 +10,4 @@ exclude:
   - brix-core.sublime-project
   - package.json
   - readme.md
+  - node_modules

@@ -8,6 +8,8 @@
   "devDependencies": {
     "grunt": "~0.4.2",
     "unzip": "~0.1.9",
-    "request": "~2.27.0"
+    "request": "~2.27.0",
+    "glob": "~3.2.7",
+    "q": "~0.9.7"
   }
 }
