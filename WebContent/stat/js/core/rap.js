@@ -1709,7 +1709,11 @@ var rap = rap || {};
         var ele = b.g('importJSONFloater-text');
         var txt = ele.value;
         try {
-            var data = rap.Y.JSON.parse(txt);
+            if (typeof JSON === 'undefined') {
+                alert('您用的啥浏览器啊？连JSON转换都不支持也～～～请考虑用新浏览器试试？谢谢啦，mua~~~!');
+                return;
+            }
+            var data = JSON.parse(txt);
             ele.value = '';
             processJSONImport(data);
             this.switchA(_curActionId);
@@ -1943,6 +1947,35 @@ var rap = rap || {};
             switchToViewModeSub();
         }
     };
+
+    ws.quickSave = function() {
+        var q = "id=" + p.getId() + "&projectData=" + util.escaper.escapeInU(getProjectDataJson())
+            + "&deletedObjectListData=" + util.escaper.escapeInU(b.json.stringify(_deletedObjectList))
+            + "&versionPosition=4&description=quick save";
+            showMessage(CONST.LOADING, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVING);
+            if (!processing(ELEMENT_ID.WORKSPACE_MESSAGE)) return;
+            b.ajax.post(URL.checkIn, q, function(xhr, response) {
+            try {
+                var obj = eval("(" + response + ")");
+                if (obj.isOk) {
+                    p.init(obj.projectData);
+                    _data.projectDataOriginal = b.object.clone(obj.projectData);
+                    _data.checkList = obj.checkList;
+                    initVersionPanel();
+                    switchToViewModeSub();
+                    ws.cancelSaveVSS();
+                    showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVED);
+                } else {
+                    showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, obj.errMsg);
+                }
+            } catch(e) {
+                showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
+            } finally {
+                processed();
+            }
+        });
+
+    ;}
 
     ws.doSaveVSS = function() {
         if (!validate("formSaveVSSFloater")) return;
@@ -2206,6 +2239,7 @@ var rap = rap || {};
             b.hide("btnEdit");
             b.hide("btnVersion");
             b.show("btnSave");
+            b.show("btnFastSave");
             b.show("btnCancel");
             b.show("div-add-p");
             b.hide("btnExitVersion");
@@ -2215,6 +2249,7 @@ var rap = rap || {};
             b.show("btnEdit");
             b.show("btnVersion");
             b.hide("btnSave");
+            b.hide("btnFastSave");
             b.hide("btnCancel");
             b.hide("div-add-p");
             b.hide("btnExitVersion");
@@ -2224,6 +2259,7 @@ var rap = rap || {};
             b.hide("btnEdit");
             b.show("btnVersion");
             b.hide("btnSave");
+            b.hide("btnFastSave");
             b.hide("btnCancel");
             b.hide("div-add-p");
             b.show("btnExitVersion");
@@ -3400,9 +3436,3 @@ var rap = rap || {};
  *         ##workspace-module-end                       *
  *                                                      *
  ********************************************************/
-
-
- // 先这么搞... 想重构成本太大.... dirty solution here
- APP.use('json-parse', function(Y) {
-     rap.Y = Y;
- });

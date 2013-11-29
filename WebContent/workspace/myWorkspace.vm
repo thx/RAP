@@ -19,6 +19,7 @@
                 <div id="div-w-message" class="label" style="display:none;">
                 </div>
                 <div id="div-control-panel">
+                	<input id="btnFastSave" type="button" class="btn btn-primary" value="懒人保存（思霏专享）" onclick="ws.quickSave(); return false;"  style="display: none" /> 
                     <input id="btnSave" type="button" class="btn btn-primary" value="保存" onclick="ws.switchToViewMode(true); return false;"  style="display: none" />
                     <input id="btnCancel" type="button" class="btn" value="取消" onclick="ws.switchToViewMode(false); return false;"  style="display: none" />
                     <input id="btnEdit" type="button" class="btn btn-primary" value="启用编辑" onclick="ws.switchToEditMode(); return false;" />

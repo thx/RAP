@@ -530,12 +530,14 @@ baidu.dom.ready(function (){
 <link rel="stylesheet" href="${staticRoot}/js/ui/table/css/table.css?_r=$!timeStamp" type="text/css">
 <link rel="stylesheet" href="${staticRoot}/js/ui/floater/css/floater.css?_r=$!timeStamp" type="text/css">
 <link rel="stylesheet" href="${staticRoot}/js/ui/calendar/css/calendar.css?_r=$!timeStamp" type="text/css"/>
+<!--
 <script src="http://a.tbcdn.cn/apps/lz/edui/v0.1.2/js/seed.js"></script>
+-->
 <script type="text/javascript" src="${staticRoot}/js/core/tangram-1.2.1.js?_r=$!timeStamp"></script>
 <script type="text/javascript" src="${staticRoot}/js/core/tangram-fix.js?_r=$!timeStamp"></script>
-<script type="text/javascript" src="${staticRoot}/js/core/ecui-1.1.0-all.js?_r=$!timeStamp"></script>
+<script type="text/javascript" src="${staticRoot}/js/core/ecui-1.1.0-br.js?_r=$!timeStamp"></script>
 <script type="text/javascript" src="${staticRoot}/js/ui/table/js/ecomui.table.js?_r=$!timeStamp"></script>
 <script type="text/javascript" src="${staticRoot}/js/ui/floater/js/floater.js?_r=$!timeStamp"></script>
 <script type="text/javascript" src="${staticRoot}/js/ui/calendar/js/ecomui.calendar.js?_r=$!timeStamp"></script>
-<script type="text/javascript" src="${staticRoot}/js/core/rap.js?_r=$!timeStamp"></script>
+<script type="text/javascript" src="${staticRoot}/js/core/rap.min.js?_r=$!timeStamp"></script>
 #end
