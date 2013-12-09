@@ -67,6 +67,9 @@ body {
 .mi-mock:before {
   content: '\0034';
 }
+.mi-crox:before {
+  content: '\012a';
+}
 .mi-releases:before {
   content: '\0030';
 }
