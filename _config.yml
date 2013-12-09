@@ -1,4 +1,4 @@
-baseurl: /your-project
+baseurl: /base
 markdown: redcarpet
 pygments: true
 safe: true
