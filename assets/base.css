@@ -88,6 +88,9 @@ body {
 .mi-products:before {
   content: '\0199';
 }
+.mi-cube:before {
+  content: '\01bc';
+}
 
 /*
  * Aside styles
@@ -224,14 +227,21 @@ body {
     margin-left: 45px;
   }
   #ceiling .products a {
-    padding: 2px 10px;
+    padding: 2px 5px;
     border-right: none;
   }
   #ceiling .products .name {
     display: none;
   }
-  #ceiling .products .iconfont {
+  #ceiling .products .iconfont,
+  #ceiling .portal .iconfont {
     font-size: 20px;
+  }
+  #ceiling .portal a {
+    padding: 2px 10px;
+  }
+  #ceiling .portal .name {
+    display: none;
   }
 
   #nav {
@@ -277,7 +287,13 @@ body {
     padding: 10px 20px;
   }
   #ceiling .products a {
-    padding: 6px 20px;
+    padding: 6px 15px;
+  }
+  #ceiling .portal a {
+    padding: 6px 15px;
+  }
+  #ceiling .portal .name {
+    display: inline-block;
   }
 
   #nav .toggler {
