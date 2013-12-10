@@ -171,11 +171,13 @@ public class ProjectMgrImpl implements ProjectMgr {
 			Project project = projectDao.getProject(projectId);
 			if (project != null) {
 				String ids = project.getRelatedIds();
-				String[] arr = ids.split(",");
-				for (String id : arr) {
-					actionList = projectDao.getMatchedActionList(Integer.parseInt(id), pattern);
-					if (actionList != null && actionList.size() != 0) {
-						return actionList;
+				if (ids != null && !ids.isEmpty()) {
+					String[] arr = ids.split(",");
+					for (String id : arr) {
+						actionList = projectDao.getMatchedActionList(Integer.parseInt(id), pattern);
+						if (actionList != null && actionList.size() != 0) {
+							return actionList;
+						}
 					}
 				}
 			}

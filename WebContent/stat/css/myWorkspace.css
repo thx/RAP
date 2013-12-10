@@ -471,6 +471,7 @@ body {
 
 .tr-param {
 	height: 25px;
+	background-color: #b8def5;
 }
 
 .tr-param td {
@@ -502,32 +503,37 @@ body {
 	margin: 8px;
 }
 
+
 .param-level-0 {
-	
+	background-color: #b8def5;
 }
 
 .param-level-1 {
-	background-color: Silver;
+	background-color: #eddff3;
 }
 
 .param-level-2 {
-	background-color: Gray;
+	background-color: #d0ebf2;
 }
 
 .param-level-3 {
-	background-color: #8CB70E;
+	background-color: #e8f1df;
 }
 
 .param-level-4 {
-	background-color: Orange;
+	background-color: #f1e0df;
 }
 
 .param-level-5 {
-	background-color: Blue;
+	background-color: #f1ebdf;
 }
 
 .param-level-6 {
-	background-color: Red;
+	background-color: #e5e4f2;
+}
+
+.param-level-7 {
+	backbround-color: #e5e4f2;
 }
 
 .edit-input {

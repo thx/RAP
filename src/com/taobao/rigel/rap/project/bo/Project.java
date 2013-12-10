@@ -28,7 +28,7 @@ public class Project implements java.io.Serializable {
 	private String introduction;	
 	private User user;	
 	private int workspaceModeInt;
-	private String relatedIds;
+	private String relatedIds = "";
 	
 	public String getRelatedIds() {
 		return relatedIds;
