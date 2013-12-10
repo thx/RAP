@@ -7,7 +7,7 @@ permalink: /:categories/:title
 excerpt_separator: "\n\n"
 exclude:
   - Gruntfile.js
-  - brix-core.sublime-project
+  - "*.sublime-project"
   - package.json
   - readme.md
   - node_modules
