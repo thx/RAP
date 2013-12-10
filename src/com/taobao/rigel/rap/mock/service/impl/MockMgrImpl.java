@@ -16,9 +16,19 @@ import com.taobao.rigel.rap.mock.service.MockMgr;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Parameter;
 import com.taobao.rigel.rap.project.dao.ProjectDao;
+import com.taobao.rigel.rap.project.service.ProjectMgr;
 
 public class MockMgrImpl implements MockMgr {
 	private ProjectDao projectDao;
+	private ProjectMgr projectMgr;
+
+	public ProjectMgr getProjectMgr() {
+		return projectMgr;
+	}
+
+	public void setProjectMgr(ProjectMgr projectMgr) {
+		this.projectMgr = projectMgr;
+	}
 
 	/**
 	 * random seed
@@ -52,7 +62,7 @@ public class MockMgrImpl implements MockMgr {
 			pattern = pattern.substring(1);
 		}
 		System.out.println("pattern processed:" + pattern);
-		List<Action> aList = projectDao
+		List<Action> aList = projectMgr
 				.getMatchedActionList(projectId, pattern);
 		if (aList.size() == 0)
 			return "{\"isOk\":false, \"errMsg\":\"no matched action\"}";

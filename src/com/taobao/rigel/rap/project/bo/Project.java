@@ -28,7 +28,16 @@ public class Project implements java.io.Serializable {
 	private String introduction;	
 	private User user;	
 	private int workspaceModeInt;
+	private String relatedIds;
 	
+	public String getRelatedIds() {
+		return relatedIds;
+	}
+
+	public void setRelatedIds(String relatedIds) {
+		this.relatedIds = relatedIds;
+	}
+
 	public enum toStringType {TO_MODULE, TO_PAGE, TO_ACTION, TO_PARAMETER};
 	
 	public enum StageType {DESIGNING, DEVELOPING, DEBUGING};	

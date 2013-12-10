@@ -12,6 +12,11 @@
                 <comment>项目名称</comment>
             </column>
         </property>
+          <property name="relatedIds" type="string">
+            <column name="related_ids" not-null="true">
+                <comment>项目相关ID</comment>
+            </column>
+        </property>
         <property name="version" type="string">
             <column name="version" not-null="true">
                 <comment>当前版本</comment>

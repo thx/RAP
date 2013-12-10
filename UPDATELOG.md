@@ -1,6 +1,7 @@
 ======================rap v0.7 更新列表===========================================
-	[MOCK模块]增加对array<number>, array<string>, array<object>, array<boolean>的@value支持，RAP用户一旦为数组元素设定@value标签，将以@value中的内容作为该字段输出，不会继续遍历深层结构。 2013-11-21
-	[MOCK模块]增加对备注标签、注释分隔符的转义处理，当用户标签内容包含分隔符分号时，需使用////替代来防止当作分隔符处理。 2013-11-21
+    [MOCK模块]增加对array<number>, array<string>, array<object>, array<boolean>的@value支持，RAP用户一旦为数组元素设定@value标签，将以@value中的内容作为该字段输出，不会继续遍历深层结构。 2013-11-21
+    [MOCK模块]增加对备注标签、注释分隔符的转义处理，当用户标签内容包含分隔符分号时，需使用////替代来防止当作分隔符处理。 2013-11-21
+    [MOCK模块]增加MOCK串联，只要设置tb_project.related_ids即可实现跨项目的MOCK数据共享 2013-12-10
 
 ======================rap v0.6 =================================================
   * data mock
@@ -9,12 +10,12 @@
         MOCK API param exists after "callback=jsonp123" will be resulting in errors.
         fix empty parameter bug (mock data cannot be generated when empty parameter exists)
   * workspace
-  		new feature: show/hide mock labels, by default, @value labels will be hidden
+        new feature: show/hide mock labels, by default, @value labels will be hidden
         fix bug: check in versions disorder
         fix bug: default focus in edit mode inputs disorder
         fix bug: labels partly shown in workspace because of HTML encoding
   * system
-  		fix log4j tomcat startup error, change log level to WARN
+        fix log4j tomcat startup error, change log level to WARN
 ======================rap v0.5 =================================================
   * data mock
         fix problems when request URL is absolute 07/15/2013
@@ -24,7 +25,7 @@
         add MD5 password encryption 07/17/2013
         optimize left tree display in interface edit workspace 07/17/2013
         change display order, from name => identifier to identifier => name, optimize parameter list display 07/17/2013
-        
+
 ======================rap v0.4 =================================================
   * change version back to 0.4
   * add automation testing module, allow user use "modify" and "reset" interfaces to change mock rules dynamically by HTTP requests

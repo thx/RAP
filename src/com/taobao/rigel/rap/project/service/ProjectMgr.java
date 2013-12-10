@@ -103,4 +103,13 @@ public interface ProjectMgr {
 	 * @param page
 	 */
 	void loadParamIdListForPage(Page page);
+	
+	/**
+	 * get matched action list based on URL pattern
+	 * 
+	 * @param projectId
+	 * @param pattern
+	 * @return
+	 */
+	List<Action> getMatchedActionList(int projectId, String pattern);
 }

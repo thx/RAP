@@ -163,4 +163,23 @@ public class ProjectMgrImpl implements ProjectMgr {
 			}
 		}
 	}
+
+	@Override
+	public List<Action> getMatchedActionList(int projectId, String pattern) {
+		List<Action> actionList = projectDao.getMatchedActionList(projectId, pattern);
+		if (actionList == null || actionList.size() == 0) {
+			Project project = projectDao.getProject(projectId);
+			if (project != null) {
+				String ids = project.getRelatedIds();
+				String[] arr = ids.split(",");
+				for (String id : arr) {
+					actionList = projectDao.getMatchedActionList(Integer.parseInt(id), pattern);
+					if (actionList != null && actionList.size() != 0) {
+						return actionList;
+					}
+				}
+			}
+		}
+		return actionList;
+	}
 }

@@ -105,6 +105,8 @@ CREATE TABLE tb_project
 	stage int(10) NOT NULL
 		DEFAULT 1,
 	project_data longtext NULL,
+	related_ids varchar(128) NOT NULL
+	DEFAULT '',
 
 	FOREIGN KEY(user_id) REFERENCES tb_user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
