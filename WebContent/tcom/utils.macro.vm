@@ -521,11 +521,21 @@ baidu.dom.ready(function (){
 #end
 
 #**
+ * @desc : includeNewRapStatic 新版统一引入静态资源 
+ *#
+#macro (includeNewRapStatic)
+<link rel="stylesheet" href="${staticRoot}/bootstrap3/css/bootstrap.css?_r=$!timeStamp" type="text/css" media="screen">
+<link rel="stylesheet" href="${staticRoot}/css/rap.template.css?_r=$!timeStamp" type="text/css" media="screen">
+<script type="text/javascript" src="${staticRoot}/js/jquery.1.10.2.min.js?_r=$!timeStamp"></script>
+<script type="text/javascript" src="${staticRoot}/bootstrap3/js/bootstrap.js?_r=$!timeStamp"></script>
+#end
+
+
+#**
  * @desc : includeRapStatic 统一引入静态资源 
  *#
 #macro (includeRapStatic)
 <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap.css?_r=$!timeStamp" type="text/css" media="screen">
-<link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap-responsive.css?_r=$!timeStamp" type="text/css" media="screen">
 <link rel="stylesheet" href="${staticRoot}/css/rap.template.css?_r=$!timeStamp" type="text/css" media="screen">
 <link rel="stylesheet" href="${staticRoot}/js/ui/table/css/table.css?_r=$!timeStamp" type="text/css">
 <link rel="stylesheet" href="${staticRoot}/js/ui/floater/css/floater.css?_r=$!timeStamp" type="text/css">

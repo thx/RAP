@@ -8,3 +8,6 @@ build/*
 *.log
 bak
 *.class
+.classpath
+.settings/*
+src/mysql.local.properties
