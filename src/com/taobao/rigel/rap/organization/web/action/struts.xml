@@ -7,8 +7,16 @@
 
 	<package name="organization" extends="rap-default" namespace="/organization">
 
-		<action name="myHome" class="com.taobao.rigel.rap.organization.web.action.OrganizationAction" method="myHome">
-              <result name="success" type="velocity">/organization/myHome.vm</result>
+		<action name="index" class="com.taobao.rigel.rap.organization.web.action.OrganizationAction" method="index">
+              <result name="success" type="velocity">/organization/home/index.vm</result>
+        </action>
+        
+        <action name="group" class="com.taobao.rigel.rap.organization.web.action.OrganizationAction" method="group">
+              <result name="success" type="velocity">/organization/group/index.vm</result>
+        </action>
+        
+        <action name="productline" class="com.taobao.rigel.rap.organization.web.action.OrganizationAction" method="productline">
+              <result name="success" type="velocity">/organization/productline/index.vm</result>
         </action>
         
         <action name="myProjectListData" class="com.taobao.rigel.rap.organization.web.action.OrganizationAction" method="myProjectListData">
