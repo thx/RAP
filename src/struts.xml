@@ -52,6 +52,9 @@
 
 	<!-- project action mapping -->
 	<include file="com/taobao/rigel/rap/project/web/action/struts.xml" />
+	
+	<!-- organization action mapping -->
+	<include file="com/taobao/rigel/rap/organization/web/action/struts.xml" />
 
 	<!-- account action mapping -->
 	<include file="com/taobao/rigel/rap/account/web/action/struts.xml" />
