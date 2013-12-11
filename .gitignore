@@ -11,3 +11,4 @@ bak
 .classpath
 .settings/*
 src/mysql.local.properties
+bin/
