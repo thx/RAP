@@ -33,7 +33,8 @@
 	"myAccount":"$projectContext/account/myAccount.action",
 	"updateProfile":"$projectContext/account/updateProfile.action",
 	"doUpdateProfile":"$projectContext/account/doUpdateProfile.action",
-	"doChangeProfile":"$projectContext/account/doChangeProfile.action"
+	"doChangeProfile":"$projectContext/account/doChangeProfile.action",
+	"myHome":"$projectContext/org/index.action"
 })
 
 #set($projectUrl = {
@@ -42,7 +43,8 @@
 	"addProject":"$projectContext/project/addProject.action",
 	"myProject":"$projectContext/project/myProject.action",
 	"projectDetailAjax":"$projectContext/project/projectDetailAjax.action",
-	"addOrUpdateProject":"$projectContext/project/addOrUpdateProject.action"
+	"addOrUpdateProject":"$projectContext/project/addOrUpdateProject.action",
+	"allProductlineList":"$projectContext/org/productline.action"
 })
 
 #set($workspaceUrl = {

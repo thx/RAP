@@ -1,6 +1,67 @@
 #parse('/tcom/utils.macro.vm')
 
 ## master page start
+#macro (bodyNewStart)
+<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://etaoux-bj.taobao.ali.com/rap">RAP V0.7</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="$platformUrl.home">首页</a></li>
+        #if($isLogined)
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">团队切换 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="$projectUrl.allProductlineList?id=1">阿里巴巴CBU</a></li>
+			<li><a href="$projectUrl.allProductlineList?id=2">聚划算</a></li>
+			<li><a href="$projectUrl.allProductlineList?id=3">良无限</a></li>
+			<li><a href="$projectUrl.allProductlineList?id=4">天猫</a></li>
+			<li><a href="$projectUrl.allProductlineList?id=5">支付宝</a></li>
+			<li><a href="$projectUrl.allProductlineList?id=6">阿里妈妈</a></li>
+			<li><a href="$projectUrl.allProductlineList?id=7">阿里巴巴ICBU</a></li>
+			<li><a href="$projectUrl.allProductlineList?id=8">阿里金融</a></li>
+			<li><a href="$projectUrl.allProductlineList?id=9">阿里云</a></li>
+			<li><a href="$projectUrl.allProductlineList?id=10">商家业务部</a></li>
+			<li><a href="$projectUrl.allProductlineList?id=11">阿里巴巴集团</a></li>
+			<li><a href="$projectUrl.allProductlineList?id=12">淘宝网</a></li>
+			<li><a href="$projectUrl.allProductlineList?id=13">虾米音乐</a></li>
+			<li><a href="$projectUrl.allProductlineList?id=14">淘点点</a></li>
+			<li><a href="$projectUrl.allProductlineList?id=15">来往</a></li>
+			<li><a href="$projectUrl.allProductlineList?id=16">手机淘宝</a></li>
+          </ul>
+        </li>
+        
+        <!-- <li><a href="$projectUrl.myProjectList">我的项目</a></li>
+        <li><a href="$projectUrl.allProductlineList">产品线管理</a></li> -->
+        <li><a href="$accountUrl.myHome">我的账户</a></li>
+        #end
+        <li><a href="$platformUrl.help">帮助</a></li>
+        <li><a href="$platformUrl.about">关于</a></li>
+      </ul>
+      #if ($curUser) 
+      <div class="pull-right">
+          <ul class="nav navbar-nav">
+              <li><a href="$accountUrl.myAccount">$curUser.name</a></li>
+              <li><a href="$accountUrl.doLogout">注销登录</a> </li>
+          </ul>
+      </div>
+      #elseif(!$loginCtlHidden)
+      <form name="formMain" class="navbar-form pull-right" action="$accountUrl.doLogin" method="post">
+          <input class="span2 form-control" style="width:200px" type="text" placeholder="用户名" name="account"> 
+          <input class="span2 form-control" style="width:200px" type="password" placeholder="密码" name="password">
+          <button type="submit" class="btn btn-primary">登录</button>
+          <!--<button type="button" onclick="window.location.href = '$accountUrl.register'" class="btn">注册</button>-->
+      </form>
+      #end
+    </div><!-- /.nav-collapse -->
+  </div><!-- /.container -->
+</div><!-- /.navbar -->
+<div class="container">
+#end
+
+## master page start
 #macro (bodyStart)
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
