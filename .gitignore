@@ -8,5 +8,4 @@ build/*
 *.log
 bak
 *.class
-src/mysql.local.properties
 bin/
