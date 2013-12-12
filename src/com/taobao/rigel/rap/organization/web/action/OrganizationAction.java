@@ -8,6 +8,7 @@ public class OrganizationAction extends ActionBase {
 	private static final long serialVersionUID = -7254075166703993812L;
 	private OrganizationMgr organizationMgr;
 	
+
 	public OrganizationMgr getOrganizationMgr() {
 		return organizationMgr;
 	}
@@ -17,6 +18,17 @@ public class OrganizationAction extends ActionBase {
 	}
 
 	public String myHome() {
+		return SUCCESS;
+	}
+	public String index() {
+		return SUCCESS;
+	}
+	
+	public String group() {
+		return SUCCESS;
+	}
+	
+	public String productline() {
 		return SUCCESS;
 	}
 	
