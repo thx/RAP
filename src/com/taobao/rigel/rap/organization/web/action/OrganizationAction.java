@@ -32,7 +32,7 @@ public class OrganizationAction extends ActionBase {
 		return SUCCESS;
 	}
 	
-	public String myProjectListData() {
+	public String projects() {
 		setJson("{\"isOk\":\"true\"}");
 		return SUCCESS;
 	}

@@ -1,5 +1,8 @@
 $(function() {
 	//$(".content").html('group here');
+	$.get($.route('org.home.projects'), function(data) {
+		console.log(data.isOk);
+	}, 'JSON');
 	
 	var groups = {
 		groups: [

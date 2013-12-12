@@ -1,5 +1,12 @@
 $(function() {
 	//$(".content").html('group here');
+
+	/*
+	$.post(URLS['update'], {
+		id: 1
+	}, function(data) {
+		console.log(data.isOk);
+	}, 'JSON');*/
 	
 	var groups = {
 		groups: [
@@ -132,7 +139,7 @@ $(function() {
 				box = box.parent('.box');
 			}
 			var projId = box.data('projid');
-			window.location.href="/rap/project.action?id=" + projId;
+			window.location.href= $.route('workspace.mine') + '?projectId=' + projId;
 		})
 		.delegate('.box-to-add', 'click', function() {
 			var that = this;

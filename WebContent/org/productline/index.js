@@ -1,6 +1,5 @@
 $(function() {
 	function render() {
-		//$(".content").html('home here');
 		var data = {
 			items: [{
 				id: 1,
