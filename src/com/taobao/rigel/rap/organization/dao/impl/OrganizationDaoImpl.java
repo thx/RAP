@@ -1,10 +1,83 @@
 package com.taobao.rigel.rap.organization.dao.impl;
 
+import java.util.List;
+
+import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.taobao.rigel.rap.organization.bo.Corporation;
+import com.taobao.rigel.rap.organization.bo.Group;
+import com.taobao.rigel.rap.organization.bo.ProductionLine;
 import com.taobao.rigel.rap.organization.dao.OrganizationDao;
 
 public class OrganizationDaoImpl extends HibernateDaoSupport implements
 		OrganizationDao {
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Corporation> getCorporationList() {
+		return getSession().createQuery("from Corporation").list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Group> getGroupList() {
+		return getSession().createQuery("from Group").list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ProductionLine> getProductionLineList() {
+		return getSession().createQuery("from ProductionLine").list();
+	}
+
+	@Override
+	public void addGroup(Group group) {
+		getSession().save(group);
+	}
+
+	@Override
+	public void addProductionList(ProductionLine productionLine) {
+		getSession().save(productionLine);
+	}
+
+	@Override
+	public void removeGroup(int groupId) {
+		Session session = getSession();
+		Object group = session.get(Group.class, groupId);
+		if (group != null) {
+			session.delete((Group) group);
+		}
+	}
+
+	@Override
+	public void removeProductionLine(int productionLineId) {
+		Session session = getSession();
+		Object productionLine = session.get(ProductionLine.class,
+				productionLineId);
+		if (productionLine != null) {
+			session.delete((ProductionLine) productionLine);
+		}
+	}
+
+	@Override
+	public void updateGroup(Group group) {
+		getSession().update(group);
+	}
+
+	@Override
+	public void updateProductionLine(ProductionLine productionLine) {
+		getSession().update(productionLine);
+	}
+
+	@Override
+	public Group getGroup(int id) {
+		return (Group) getSession().get(Group.class, id);
+	}
+
+	@Override
+	public ProductionLine getProductionLine(int id) {
+		return (ProductionLine) getSession().get(ProductionLine.class, id);
+	}
+
 }

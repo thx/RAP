@@ -1,6 +1,6 @@
 package com.taobao.rigel.rap.organization.bo;
 
-public class Organization {
+public class Corporation {
 	private int id;
 	private String logoUrl;
 	private int userId;

@@ -21,7 +21,7 @@ CREATE TABLE tb_production_line
 	user_id int(10) NOT NULL,
 	
 	FOREIGN KEY(user_id) REFERENCES tb_user(id),	
-	FOREIGN KEY(coporation_id) REFERENCES tb_corporation(id)
+	FOREIGN KEY(corporation_id) REFERENCES tb_corporation(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE tb_group
@@ -33,9 +33,8 @@ CREATE TABLE tb_group
 	user_id int(10) NOT NULL,
 	
 	FOREIGN KEY(user_id) REFERENCES tb_user(id),
-	FOREIGN KEY(product_line_id) REFERENCES tb_production_line(id)
+	FOREIGN KEY(production_line_id) REFERENCES tb_production_line(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 
 
