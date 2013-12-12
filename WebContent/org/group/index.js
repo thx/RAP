@@ -1,5 +1,12 @@
 $(function() {
 	//$(".content").html('group here');
+
+	/*
+	$.post(URLS['update'], {
+		id: 1
+	}, function(data) {
+		console.log(data.isOk);
+	}, 'JSON');*/
 	
 	var groups = {
 		groups: [
