@@ -10,3 +10,6 @@ bak
 *.class
 bin/
 target
+.classpath
+.settings
+.project
