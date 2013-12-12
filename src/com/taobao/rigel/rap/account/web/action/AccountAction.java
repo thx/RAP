@@ -2,7 +2,6 @@ package com.taobao.rigel.rap.account.web.action;
 
 import java.util.Map;
 
-import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.ContextManager;
 
@@ -21,7 +20,25 @@ public class AccountAction extends ActionBase {
 	private String newPassword;
 	private String name;
 	private String email;
+	private String SSO_TOKEN;
+	private String BACK_URL;
 	
+	public String getSSO_TOKEN() {
+		return SSO_TOKEN;
+	}
+
+	public void setSSO_TOKEN(String sSO_TOKEN) {
+		SSO_TOKEN = sSO_TOKEN;
+	}
+
+	public String getBACK_URL() {
+		return BACK_URL;
+	}
+
+	public void setBACK_URL(String bACK_URL) {
+		BACK_URL = bACK_URL;
+	}
+
 	public long getUserId() {
 		return userId;
 	}
@@ -183,6 +200,11 @@ public class AccountAction extends ActionBase {
 			setIsEditMode(true);
 			setErrMsg("旧密码输入错误");
 		}
+		return SUCCESS;
+	}
+	
+	public String sendBucSSOToken() {
+		setJson(SSO_TOKEN + ", " + BACK_URL);
 		return SUCCESS;
 	}
 }
