@@ -1,14 +1,19 @@
 $(function() {
 	//$(".content").html('group here');
-	$.get($.route('org.home.projects'), function(data) {
-		console.log(data.isOk);
-	}, 'JSON');
+	//$.get($.route('org.home.projects'), function(data) {
+	//	console.log(data.isOk);
+	//}, 'JSON');
 	
-	var groups = {
+	var NAME_MAP = {
+		'user': '我的项目',
+		'star': '重要项目',
+		'heart': '我关注的项目'
+	};
+	
+	var data = {
 		groups: [
 		{
-			id: 1,
-			name: '<i class="glyphicon glyphicon-user"></i> 我的项目',
+			type: 'user',
 			projects: [
 			    {
 			    	id: 1,
@@ -36,8 +41,7 @@ $(function() {
 			    }
 			]
 		},{
-			id: 1,
-			name: '<i class="glyphicon glyphicon-heart"></i> 我关注的项目',
+			type: 'heart',
 			projects: [
 			    {
 			    	id: 1,
@@ -53,8 +57,7 @@ $(function() {
 			    }
 			]
 		},{
-			id: 1,
-			name: '<i class="glyphicon glyphicon-star"></i> 重要项目',
+			type: 'star',
 			projects: [
 			    {
 			    	id: 1,
@@ -72,6 +75,11 @@ $(function() {
 		}]
 	};
 	
+	function fillNames(groups) {
+		groups.forEach(function (group) {
+			group.name = NAME_MAP[group.type] || '其他';
+		});
+	}
 	function bindEvents() {
 		$('body')
 		.delegate('.box', 'click', function() {
@@ -81,11 +89,11 @@ $(function() {
 			}
 			var projId = box.data('projid');
 			window.location.href="/rap/project.action?id=" + projId;
-		})
+		});
 	}
 	var tmpl = $('#group-tmpl').text();
-	
-	var html = $.render(tmpl, groups);
+	fillNames(data.groups);
+	var html = $.render(tmpl, data);
 	$(".groups").append(html);
 	bindEvents();
 });
