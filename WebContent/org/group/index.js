@@ -8,62 +8,12 @@ $(function() {
 		console.log(data.isOk);
 	}, 'JSON');*/
 	
-	var groups = {
-		groups: [
-		{
-			id: 1,
-			name: '测试分组1',
-			projects: [
-			    {
-			    	id: 1,
-			    	name: '测试项目11',
-			    	desc: '这是一个测试项目',
-			    	status: '最近更新：2小时前',
-			    	important: true
-			    },
-			    {
-			    	id: 2,
-			    	name: '测试项目',
-			    	desc: '这是一个测试项目',
-			    	status: '最近更新：2小时前'
-			    },
-			    {
-			    	id: 3,
-			    	name: '测试项目',
-			    	desc: '这是一个测试项目',
-			    	status: '最近更新：2小时前'
-			    },
-			    {
-			    	id: 4,
-			    	name: '测试项目',
-			    	desc: '这是一个测试项目',
-			    	status: '最近更新：2小时前'
-			    }
-			]
-		},{
-			id: 1,
-			name: '测试分组2',
-			projects: [
-			    {
-			    	id: 1,
-			    	name: '测试项目',
-			    	desc: '这是一个测试项目',
-			    	status: '最近更新：2小时前'
-			    }
-			]
-		},{
-			id: 1,
-			name: '测试分组3',
-			projects: [
-			    {
-			    	id: 1,
-			    	name: '测试项目',
-			    	desc: '这是一个测试项目',
-			    	status: '最近更新：2小时前'
-			    }
-			]
-		}]
-	};
+	var plId = $.getLoc('plid');
+	if (!plId) {
+		alert('亲，没有产品线ID，这不可能吧。。。')
+		return;
+	}
+	
 	
 	function showUpdateGroupForm() {
 		var prev = $(this).prev();
@@ -90,15 +40,21 @@ $(function() {
 				}, 1000);
 				return;
 			}
+			var id = $(this).data('id');
 			$.confirm({
 				content: '删除以后不能恢复，请谨慎操作',
 				title: '您确定要删除此分组吗？',
 				confirmText: '删除分组',
 				confirmClicked: function() {
-					con.parent('.group').hide('slow', function() {
-						$(this).remove();
-					});
-					$(this).modal('hide');
+					var modal = $(this);
+					$.post($.route('org.group.delete'), {
+						id: id
+					}, function(data) {
+						con.parent('.group').hide('slow', function() {
+							$(this).remove();
+						});
+						modal.modal('hide');
+					}, "JSON")
 				}
 			});
 		})
@@ -121,15 +77,17 @@ $(function() {
 						}, 1000);
 						return;
 					}
-					var html = $.render(tmpl, {
-						groups: [{
-							id: 2,
-							name: inputer.val()
-						}]
-					});
-					var node = $(html);
-					$(".groups").append(node);
-					$(this).modal('hide');
+					var modal = $(this);
+					$.post($.route('org.group.create'), {
+						productLineId: plId,
+						name: inputer.val().trim()
+					}, function(data) {
+						var html = $.render(tmpl, data);
+						var node = $(html);
+						$(".groups").append(node);
+						modal.modal('hide');
+					}, "JSON")
+					
 				}
 			});
 		})
@@ -162,15 +120,15 @@ $(function() {
 						return;
 					}
 					var tmpl = $('#create-proj-success-tmpl').text();
-					var data = {
-						id: 1,
+					var modal = $(this);
+					$.post($.route('org.project.create'), {
 						name: inputer.val(),
-						desc: $(this).find('textarea').val(),
-						status: '刚刚创建'
-					};
-					var html = $.render(tmpl, data);
-					$(that).before(html);
-					$(this).modal('hide');
+						desc: $(this).find('textarea').val()
+					}, function(data) {
+						var html = $.render(tmpl, data);
+						$(that).before(html);
+						modal.modal('hide');
+					}, "JSON")
 				}
 			});
 		})
@@ -187,15 +145,31 @@ $(function() {
 				return;
 			}
 			
+			var id = jqThis.data('id');
 			var newValue = inputer.val();
-			jqThis.parent().prev().html(newValue);
-			jqThis.parent().hide();
-			jqThis.parent().next().show();
+			$.post($.route('org.group.update'), {
+				name: newValue,
+				id: id
+			}, function(data) {
+				jqThis.parent().prev().html(newValue);
+				jqThis.parent().hide();
+				jqThis.parent().next().show();
+			}, "JSON");
 		});
 	}
-	var tmpl = $('#group-tmpl').text();
 	
-	var html = $.render(tmpl, groups);
-	$(".groups").append(html);
-	bindEvents();
+	function render() {
+		$.get($.route('org.group.all'), {
+			productLineId: plId
+		}, function(groups) {
+			var tmpl = $('#group-tmpl').text();
+			
+			var html = $.render(tmpl, groups);
+			$(".groups").append(html);
+			bindEvents();
+		}, 'JSON');
+	}
+	
+	
+	render();
 });

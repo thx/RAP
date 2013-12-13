@@ -15,6 +15,9 @@
 				'update': '/rap/org/productline/update.action',
 				'delete': '/rap/org/productline/delete.action',
 				'create': '/rap/org/productline/create.action'
+			},
+			project: {
+				'create': '/rap/org/project/create.action'
 			}
 		},
 		workspace: {
@@ -41,6 +44,23 @@
 			} else {
 				return null;
 			}
+		}
+	}
+	$.route._urls = function() {
+		console.log(JSON.stringify(URLS, null, 2))
+	};
+	
+	var regs = {
+		id: /(&|\?)?id\s*=\s*([\w\d_-]+)/,
+		plid: /(&|\?)?plid\s*=\s*([\w\d_-]+)/
+	}
+	$.getLoc = function(prop) {
+		var reg = regs[prop];
+		var matched = reg.exec(window.location.href);
+		if (matched) {
+			return matched[2];
+		} else {
+			return '';
 		}
 	}
 })($);

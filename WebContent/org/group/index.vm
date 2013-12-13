@@ -11,7 +11,7 @@
 	    #bodyNewStart
 	    <div class="page">
 		    <div class="groups-con content">
-		    	<h2>测试产品线1</h2>
+		    	<h2>$!utils.escapeInH($productLine.name)</h2>
 		    	<div>
 		    		<span class="btn btn-primary create-group"><i class="glyphicon glyphicon-plus"></i> 创建分组</span>
 		    	</div>
@@ -27,10 +27,10 @@
         <span class="group-name">{{name}}</span>
         <span class="modify-con">
             <input type="text" name="name" class="form-control modify-name" value="" />
-            <span class="btn btn-success save-update-group" data-id="{{groupId}}">保存</span> <span class="btn btn-default cancel-edit">取消</span> 
+            <span class="btn btn-success save-update-group" data-id="{{id}}">保存</span> <span class="btn btn-default cancel-edit">取消</span> 
         </span>
-        <span class="btn btn-hover btn-default update-group" data-id="{{groupId}}"><i class="glyphicon glyphicon-edit"></i> 修改名称</span> 
-        <span class="btn btn-hover btn-default delete-group" data-id="{{groupId}}"><i class="glyphicon glyphicon-trash"></i> 删除这个分组</span>
+        <span class="btn btn-hover btn-default update-group" data-id="{{id}}"><i class="glyphicon glyphicon-edit"></i> 修改名称</span> 
+        <span class="btn btn-hover btn-default delete-group" data-id="{{id}}"><i class="glyphicon glyphicon-trash"></i> 删除这个分组</span>
     </h3>
     <div class="box-con clearfix">
 		{{#projects}}

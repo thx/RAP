@@ -102,7 +102,7 @@ public class GroupAction extends ActionBase {
 		Map<String, Object> g = new HashMap<String, Object>();
 		g.put("id", id);
 		g.put("name", name);
-		setJson("{\"groups\":[" + gson.toJson(g) + "]");
+		setJson("{\"groups\":[" + gson.toJson(g) + "]}");
 		return SUCCESS;
 	}
 
