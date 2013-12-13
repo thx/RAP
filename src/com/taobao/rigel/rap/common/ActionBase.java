@@ -148,6 +148,9 @@ public class ActionBase extends ActionSupport {
 	private String json;
 
 	public String getJson() {
+		if (json == null || json.isEmpty()) {
+			return new RapError().toString();
+		}
 		return json;
 	}
 

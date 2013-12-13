@@ -18,7 +18,12 @@ public class User implements java.io.Serializable {
 	private boolean isLockedOut;
 	private Date lastLoginDate;
 	private int incorrectLoginAttempt;
+	private String realName;
 	
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
 	public long getId() {
 		return this.id;
 	}
@@ -216,5 +221,9 @@ public class User implements java.io.Serializable {
 			}
 		}
 		return "";
+	}
+
+	public String getRealName() {
+		return this.realName;
 	}
 }
