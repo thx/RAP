@@ -18,6 +18,14 @@ public class GroupAction extends ActionBase {
 	private OrganizationMgr organizationMgr;
 	private ProjectMgr projectMgr;
 	private int id;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	private String name;
 
 	public String getName() {
@@ -85,12 +93,16 @@ public class GroupAction extends ActionBase {
 	}
 
 	public String create() {
+		Gson gson = new Gson();
 		Group group = new Group();
 		group.setName(name);
 		group.setUserId((int)getCurUserId());
 		group.setProductionLineId(productLineId);
-		organizationMgr.addGroup(group);
-		setJson("{\"isOk\":\"true\"}");
+		int id = organizationMgr.addGroup(group);
+		Map<String, Object> g = new HashMap<String, Object>();
+		g.put("id", id);
+		g.put("name", name);
+		setJson("{\"groups\":[" + gson.toJson(g) + "]");
 		return SUCCESS;
 	}
 

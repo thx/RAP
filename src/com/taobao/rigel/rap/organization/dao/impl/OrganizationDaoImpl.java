@@ -38,13 +38,15 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
 	}
 
 	@Override
-	public void addGroup(Group group) {
-		getSession().save(group);
+	public int addGroup(Group group) {
+		Object s = getSession().save(group);
+		return (Integer)s;
 	}
 
 	@Override
-	public void addProductionList(ProductionLine productionLine) {
-		getSession().save(productionLine);
+	public int addProductionList(ProductionLine productionLine) {
+		Object s = getSession().save(productionLine);
+		return (Integer)s;
 	}
 
 	@Override
@@ -69,8 +71,10 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
 	@Override
 	public void updateGroup(Group group) {
 		Group g = getGroup(group.getId());
-		g.setName(group.getName());
-		getSession().update(g);
+		if (g != null) {
+			g.setName(group.getName());
+			getSession().update(g);
+		}
 	}
 
 	@Override

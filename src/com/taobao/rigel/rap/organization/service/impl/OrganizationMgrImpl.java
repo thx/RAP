@@ -35,13 +35,13 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 	}
 
 	@Override
-	public void addGroup(Group group) {
-		organizationDao.addGroup(group);
+	public int addGroup(Group group) {
+		return organizationDao.addGroup(group);
 	}
 
 	@Override
-	public void addProductionList(ProductionLine productionLine) {
-		organizationDao.addProductionList(productionLine);
+	public int  addProductionList(ProductionLine productionLine) {
+		return organizationDao.addProductionList(productionLine);
 	}
 
 	@Override

@@ -71,11 +71,15 @@ public class ProductlineAction extends ActionBase {
 
 	public String create() {
 		ProductionLine line = new ProductionLine();
+		Gson gson = new Gson();
 		line.setName(name);
 		line.setUserId((int)getCurUserId());
 		line.setCorporationId(corpId);
-		organizationMgr.addProductionList(line);
-		setJson("{\"isOk\":\"true\"}");
+		int id = organizationMgr.addProductionList(line);
+		Map<String, Object> p = new HashMap<String, Object>();
+		p.put("id", id);
+		p.put("name", name);
+		setJson("{\"items\":[" + gson.toJson(p) + "]}");
 		return SUCCESS;
 	}
 

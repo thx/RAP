@@ -33,14 +33,14 @@ public interface OrganizationDao {
 	 * 
 	 * @param group
 	 */
-	void addGroup(Group group);
+	int addGroup(Group group);
 
 	/**
 	 * add production line
 	 * 
 	 * @param productionLine
 	 */
-	void addProductionList(ProductionLine productionLine);
+	int addProductionList(ProductionLine productionLine);
 
 	/**
 	 * remove group
