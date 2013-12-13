@@ -91,6 +91,9 @@ body {
 .mi-cube:before {
   content: '\01bc';
 }
+.mi-diamond:before {
+  content: '\f005';
+}
 
 /*
  * Aside styles
