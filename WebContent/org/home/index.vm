@@ -21,7 +21,7 @@
 {{#groups}}
 <div class="group">
     <h3>
-        <span class="group-name">{{{name}}}</span>
+        <span class="group-name"><i class="glyphicon glyphicon-{{type}}"></i> {{name}}</span>
     </h3>
     <div class="box-con clearfix">
 		{{#projects}}
