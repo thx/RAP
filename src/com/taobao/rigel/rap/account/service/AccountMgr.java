@@ -3,6 +3,7 @@ package com.taobao.rigel.rap.account.service;
 import java.util.List;
 
 import com.taobao.rigel.rap.account.bo.User;
+import com.taobao.rigel.rap.organization.bo.Corporation;
 
 public interface AccountMgr {
 	
@@ -89,5 +90,11 @@ public interface AccountMgr {
 	 * @param password
 	 */
 	void _updatePassword(String account, String password);
+	
+	/**
+	 * get corporation list
+	 * @return
+	 */
+	List<Corporation> getCorporationList();
 	
 }

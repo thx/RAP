@@ -6,11 +6,22 @@ import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.dao.AccountDao;
 import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.StringUtils;
+import com.taobao.rigel.rap.organization.bo.Corporation;
+import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 
 public class AccountMgrImpl implements AccountMgr {
 
 	private AccountDao accountDao;
+	private OrganizationMgr organizationMgr;
 	
+	public OrganizationMgr getOrganizationMgr() {
+		return organizationMgr;
+	}
+
+	public void setOrganizationMgr(OrganizationMgr organizationMgr) {
+		this.organizationMgr = organizationMgr;
+	}
+
 	public AccountDao getAccountDao() {
 		return accountDao;
 	}
@@ -85,6 +96,11 @@ public class AccountMgrImpl implements AccountMgr {
 	@Override
 	public void _updatePassword(String account, String password) {
 		accountDao._changePassword(account, password);
+	}
+
+	@Override
+	public List<Corporation> getCorporationList() {
+		return organizationMgr.getCorporationList();
 	}
 
 }
