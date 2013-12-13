@@ -86,7 +86,6 @@ public class GroupAction extends ActionBase {
 
 	public String create() {
 		Group group = new Group();
-		group.setId(id);
 		group.setName(name);
 		group.setUserId((int)getCurUserId());
 		group.setProductionLineId(productLineId);

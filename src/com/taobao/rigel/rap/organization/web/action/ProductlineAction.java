@@ -71,7 +71,6 @@ public class ProductlineAction extends ActionBase {
 
 	public String create() {
 		ProductionLine line = new ProductionLine();
-		line.setId(id);
 		line.setName(name);
 		line.setUserId((int)getCurUserId());
 		line.setCorporationId(corpId);
