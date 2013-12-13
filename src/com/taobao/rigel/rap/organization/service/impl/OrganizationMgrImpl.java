@@ -25,13 +25,13 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 	}
 
 	@Override
-	public List<Group> getGroupList() {
-		return organizationDao.getGroupList();
+	public List<Group> getGroupList(int productionLineId) {
+		return organizationDao.getGroupList(productionLineId);
 	}
 
 	@Override
-	public List<ProductionLine> getProductionLineList() {
-		return organizationDao.getProductionLineList();
+	public List<ProductionLine> getProductionLineList(int corpId) {
+		return organizationDao.getProductionLineList(corpId);
 	}
 
 	@Override

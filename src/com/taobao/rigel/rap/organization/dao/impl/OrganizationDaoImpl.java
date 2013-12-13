@@ -2,6 +2,7 @@ package com.taobao.rigel.rap.organization.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -21,14 +22,19 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Group> getGroupList() {
-		return getSession().createQuery("from Group").list();
+	public List<Group> getGroupList(int productionLineId) {
+		Query query = getSession().createQuery(
+				"from Group where productionLineId = :id");
+		query.setInteger("id", productionLineId);
+		return query.list();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ProductionLine> getProductionLineList() {
-		return getSession().createQuery("from ProductionLine").list();
+	public List<ProductionLine> getProductionLineList(int corpId) {
+		return getSession()
+				.createQuery("from ProductionLine where corporation_id = :id")
+				.setInteger("id", corpId).list();
 	}
 
 	@Override

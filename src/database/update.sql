@@ -37,6 +37,9 @@ CREATE TABLE tb_group
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+ALTER TABLE tb_project
+ADD COLUMN group_id int(10) NULL
+
 
 +tb_user.group_id    // FOREIGN KEY
 +tb_user.login_type // tinyint NOT NULL DEFAULT 1, 1-RAP帐号登录, 2-域帐号登录

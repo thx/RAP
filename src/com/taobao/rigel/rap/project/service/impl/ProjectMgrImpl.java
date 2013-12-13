@@ -184,4 +184,9 @@ public class ProjectMgrImpl implements ProjectMgr {
 		}
 		return actionList;
 	}
+
+	@Override
+	public List<Project> getProjectListByGroup(int id) {
+		return projectDao.getProjectListByGroup(id);
+	}
 }

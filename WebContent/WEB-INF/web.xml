@@ -12,6 +12,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:applicationContext.xml</param-value>
 	</context-param>
+	<!-- 
 	<filter>
 		<filter-name>ssoFilter</filter-name>
 		<filter-class>com.alibaba.buc.sso.client.filter.SSOFilter</filter-class>
@@ -36,6 +37,7 @@
 			<param-value>*/ok.html,*/status.taobao,/login.htm,/logout.htm,*/images*,*/css/*,*/favicon.ico</param-value>
 		</init-param>
 	</filter>
+	 -->
 	<filter>
 		<filter-name>UrlRewriteFilter</filter-name>
 		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
@@ -60,10 +62,12 @@
 			<param-value>utf-8</param-value>
 		</init-param>
 	</filter>
+	<!-- 
 	<filter-mapping>
 		<filter-name>ssoFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	 -->
 	<filter-mapping>
 		<filter-name>UrlRewriteFilter</filter-name>
 		<url-pattern>/*</url-pattern>

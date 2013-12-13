@@ -108,4 +108,11 @@ public interface ProjectDao {
 	 * @return affected rows num
 	 */
 	public int resetMockData(int projectId);
+
+	/**
+	 * get project list by group
+	 * @param id
+	 * @return
+	 */
+	List<Project> getProjectListByGroup(int id);
 }

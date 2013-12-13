@@ -18,14 +18,14 @@ public interface OrganizationMgr {
 	 * 
 	 * @return
 	 */
-	List<Group> getGroupList();
+	List<Group> getGroupList(int productionLineId);
 
 	/**
 	 * get production line list
 	 * 
 	 * @return
 	 */
-	List<ProductionLine> getProductionLineList();
+	List<ProductionLine> getProductionLineList(int corpId);
 
 	/**
 	 * add group

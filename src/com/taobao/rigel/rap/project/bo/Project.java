@@ -29,7 +29,16 @@ public class Project implements java.io.Serializable {
 	private User user;	
 	private int workspaceModeInt;
 	private String relatedIds = "";
+	private int groupId;
 	
+	public int getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
+	}
+
 	public String getRelatedIds() {
 		return relatedIds;
 	}
