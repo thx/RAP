@@ -46,14 +46,12 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
 	@Override
 	public void removeGroup(int groupId) {
-		// TODO Auto-generated method stub
-		
+		organizationDao.removeGroup(groupId);
 	}
 
 	@Override
 	public void removeProductionLine(int productionLineId) {
-		// TODO Auto-generated method stub
-		
+		organizationDao.removeProductionLine(productionLineId);
 	}
 
 	@Override

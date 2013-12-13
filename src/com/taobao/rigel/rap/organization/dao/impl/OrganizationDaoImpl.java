@@ -68,12 +68,16 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
 
 	@Override
 	public void updateGroup(Group group) {
-		getSession().update(group);
+		Group g = getGroup(group.getId());
+		g.setName(group.getName());
+		getSession().update(g);
 	}
 
 	@Override
-	public void updateProductionLine(ProductionLine productionLine) {
-		getSession().update(productionLine);
+	public void updateProductionLine(ProductionLine line) {
+		ProductionLine p = getProductionLine(line.getId());
+		p.setName(line.getName());
+		getSession().update(p);
 	}
 
 	@Override

@@ -15,6 +15,24 @@ public class ProductlineAction extends ActionBase {
 	private static final long serialVersionUID = -5059179317694489758L;
 	private OrganizationMgr organizationMgr;
 	private int corpId;
+	private int id;
+	private String name;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public int getCorpId() {
 		return corpId;
@@ -52,18 +70,28 @@ public class ProductlineAction extends ActionBase {
 	}
 
 	public String create() {
+		ProductionLine line = new ProductionLine();
+		line.setId(id);
+		line.setName(name);
+		line.setUserId((int)getCurUserId());
+		line.setCorporationId(corpId);
+		organizationMgr.addProductionList(line);
 		setJson("{\"isOk\":\"true\"}");
 		return SUCCESS;
 	}
 
 	public String delete() {
+		organizationMgr.removeProductionLine(id);
 		setJson("{\"isOk\":\"true\"}");
 		return SUCCESS;
 	}
 
 	public String update() {
+		ProductionLine line = new ProductionLine();
+		line.setId(id);
+		line.setName(name);
+		organizationMgr.updateProductionLine(line);
 		setJson("{\"isOk\":\"true\"}");
 		return SUCCESS;
 	}
-
 }

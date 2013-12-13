@@ -17,6 +17,16 @@ public class GroupAction extends ActionBase {
 	private static final long serialVersionUID = 8516914838278239248L;
 	private OrganizationMgr organizationMgr;
 	private ProjectMgr projectMgr;
+	private int id;
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public ProjectMgr getProjectMgr() {
 		return projectMgr;
@@ -75,16 +85,27 @@ public class GroupAction extends ActionBase {
 	}
 
 	public String create() {
+		Group group = new Group();
+		group.setId(id);
+		group.setName(name);
+		group.setUserId((int)getCurUserId());
+		group.setProductionLineId(productLineId);
+		organizationMgr.addGroup(group);
 		setJson("{\"isOk\":\"true\"}");
 		return SUCCESS;
 	}
 
 	public String delete() {
+		organizationMgr.removeGroup(id);
 		setJson("{\"isOk\":\"true\"}");
 		return SUCCESS;
 	}
 
 	public String update() {
+		Group group = new Group();
+		group.setId(id);
+		group.setName(name);
+		organizationMgr.updateGroup(group);
 		setJson("{\"isOk\":\"true\"}");
 		return SUCCESS;
 	}
