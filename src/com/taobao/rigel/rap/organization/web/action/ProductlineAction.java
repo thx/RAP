@@ -17,6 +17,15 @@ public class ProductlineAction extends ActionBase {
 	private int corpId;
 	private int id;
 	private String name;
+	private int plid;
+
+	public int getPlid() {
+		return plid;
+	}
+
+	public void setPlid(int plid) {
+		this.plid = plid;
+	}
 
 	public int getId() {
 		return id;
@@ -36,6 +45,10 @@ public class ProductlineAction extends ActionBase {
 
 	public int getCorpId() {
 		return corpId;
+	}
+
+	public ProductionLine getProductLine() {
+		return organizationMgr.getProductionLine(plid);
 	}
 
 	public void setCorpId(int corpId) {
@@ -73,7 +86,7 @@ public class ProductlineAction extends ActionBase {
 		ProductionLine line = new ProductionLine();
 		Gson gson = new Gson();
 		line.setName(name);
-		line.setUserId((int)getCurUserId());
+		line.setUserId((int) getCurUserId());
 		line.setCorporationId(corpId);
 		int id = organizationMgr.addProductionList(line);
 		Map<String, Object> p = new HashMap<String, Object>();
@@ -84,8 +97,7 @@ public class ProductlineAction extends ActionBase {
 	}
 
 	public String delete() {
-		organizationMgr.removeProductionLine(id);
-		setJson("{\"isOk\":\"true\"}");
+		setJson(organizationMgr.removeProductionLine(id).toString());
 		return SUCCESS;
 	}
 

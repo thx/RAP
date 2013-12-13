@@ -3,6 +3,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<bean id="organizationMgr" class="com.taobao.rigel.rap.organization.service.impl.OrganizationMgrImpl">
 		<property name="organizationDao" ref="organizationDao" />
+		<property name="projectMgr" ref="projectMgr" />
 	</bean>
 	<bean id="organizationDao" class="com.taobao.rigel.rap.organization.dao.impl.OrganizationDaoImpl" parent="baseDao" />
 </beans>

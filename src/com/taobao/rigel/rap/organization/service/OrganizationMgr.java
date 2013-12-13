@@ -2,6 +2,7 @@ package com.taobao.rigel.rap.organization.service;
 
 import java.util.List;
 
+import com.taobao.rigel.rap.common.RapError;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.bo.Group;
 import com.taobao.rigel.rap.organization.bo.ProductionLine;
@@ -9,10 +10,11 @@ import com.taobao.rigel.rap.organization.bo.ProductionLine;
 public interface OrganizationMgr {
 	/**
 	 * get corporation list
+	 * 
 	 * @return
 	 */
 	List<Corporation> getCorporationList();
-	
+
 	/**
 	 * get group list
 	 * 
@@ -46,14 +48,14 @@ public interface OrganizationMgr {
 	 * 
 	 * @param groupId
 	 */
-	void removeGroup(int groupId);
+	RapError removeGroup(int groupId);
 
 	/**
 	 * remove production line
 	 * 
 	 * @param productionLineId
 	 */
-	void removeProductionLine(int productionLineId);
+	RapError removeProductionLine(int productionLineId);
 
 	/**
 	 * update group
@@ -68,5 +70,13 @@ public interface OrganizationMgr {
 	 * @param productionLine
 	 */
 	void updateProductionLine(ProductionLine productionLine);
+
+	/**
+	 * get production line
+	 * 
+	 * @param plid
+	 * @return
+	 */
+	ProductionLine getProductionLine(int plid);
 
 }
