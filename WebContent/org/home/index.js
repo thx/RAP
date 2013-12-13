@@ -88,7 +88,7 @@ $(function() {
 				box = box.parent('.box');
 			}
 			var projId = box.data('projid');
-			window.location.href="/rap/project.action?id=" + projId;
+			window.location.href= $.route('workspace.mine') + '?projectId=' + projId;
 		});
 	}
 	var tmpl = $('#group-tmpl').text();
