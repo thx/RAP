@@ -17,7 +17,12 @@
 				'create': '/rap/org/productline/create.action'
 			},
 			project: {
-				'create': '/rap/org/project/create.action'
+				'create': '/rap/project/create.action',
+				'delete': '/rap/project/delete.action',
+				'update': '/rap/project/update.action'
+			}, 
+			account: {
+				'all': '/rap/account/all.action'
 			}
 		},
 		workspace: {

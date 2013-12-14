@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.RapError;
 import com.taobao.rigel.rap.organization.bo.Group;
+import com.taobao.rigel.rap.organization.bo.ProductionLine;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
@@ -19,10 +20,14 @@ public class GroupAction extends ActionBase {
 	private OrganizationMgr organizationMgr;
 	private ProjectMgr projectMgr;
 	private int id;
+	
+	
 
 	public int getId() {
 		return id;
 	}
+
+	
 
 	public void setId(int id) {
 		this.id = id;

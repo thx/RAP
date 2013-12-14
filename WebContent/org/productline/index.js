@@ -90,10 +90,11 @@ $(function() {
 				$.post($.route('org.productline.delete'), {
 					id: id
 				}, function(data) {
-					if (data.isOk) {
+					if (data.code == 200) {
 						var node = $('.pl-' + id);
 						node.remove();
 					} else {
+						alert(data.msg);
 					}
 					modal.modal('hide');
 				}, "JSON")
