@@ -82,6 +82,9 @@ $(function() {
 				}));
 				con.hide();
 				inputer.val('');
+				setTimeout(function() {
+					inputer.focus();
+				}, 100);
 			});
 		}
 	}
