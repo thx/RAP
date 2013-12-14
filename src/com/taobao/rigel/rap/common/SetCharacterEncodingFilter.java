@@ -118,7 +118,7 @@ public class SetCharacterEncodingFilter implements Filter {
             if (characterEncoding != null)
                 request.setCharacterEncoding(characterEncoding);
         }
-
+        
         // Pass control on to the next filter
         chain.doFilter(request, response);
 

@@ -31,7 +31,9 @@
       <div class="pull-right">
           <ul class="nav navbar-nav">
               <li><a href="$accountUrl.myAccount">$curUser.name</a></li>
+              <!--
               <li><a href="$accountUrl.doLogout">注销登录</a> </li>
+              -->
           </ul>
       </div>
       #elseif(!$loginCtlHidden)
@@ -71,7 +73,9 @@
                 <div class="navbar-form pull-right">
                     <ul class="nav">
                         <li><a href="$accountUrl.myAccount">$curUser.name</a></li>
+                        <!--
                         <li><a href="$accountUrl.doLogout">注销登录</a> </li>
+                    	-->
                     </ul>
                 </div>
                 #elseif(!$loginCtlHidden)

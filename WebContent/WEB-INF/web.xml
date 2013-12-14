@@ -12,7 +12,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:applicationContext.xml</param-value>
 	</context-param>
-	<!-- 
+
 	<filter>
 		<filter-name>ssoFilter</filter-name>
 		<filter-class>com.alibaba.buc.sso.client.filter.SSOFilter</filter-class>
@@ -37,7 +37,7 @@
 			<param-value>*/ok.html,*/status.taobao,/login.htm,/logout.htm,*/images*,*/css/*,*/favicon.ico</param-value>
 		</init-param>
 	</filter>
-	 -->
+
 	<filter>
 		<filter-name>UrlRewriteFilter</filter-name>
 		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
@@ -46,6 +46,20 @@
 			<param-value>/WEB-INF/urlrewrite.xml</param-value>
 		</init-param>
 	</filter>
+	<filter>
+		<filter-name>DelegatingFilterProxy</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>authCheckFilter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+
 	<filter>
 		<filter-name>authCheckFilter</filter-name>
 		<filter-class>com.taobao.rigel.rap.common.AuthCheckFilter</filter-class>
@@ -62,12 +76,19 @@
 			<param-value>utf-8</param-value>
 		</init-param>
 	</filter>
-	<!-- 
+
 	<filter-mapping>
 		<filter-name>ssoFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	 -->
+	<filter-mapping>
+		<filter-name>DelegatingFilterProxy</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>authCheckFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	<filter-mapping>
 		<filter-name>UrlRewriteFilter</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -82,7 +103,8 @@
 	<servlet>
 		<servlet-name>velocity</servlet-name>
 		<servlet-class>
-			org.apache.velocity.tools.view.servlet.VelocityViewServlet</servlet-class>
+			org.apache.velocity.tools.view.servlet.VelocityViewServlet
+		</servlet-class>
 		<!-- Unless you plan to put your toolbox.xml and velocity.properties under 
 			different folders or give them different names, then these two init-params 
 			are unnecessary as of VelocityTools 1.3. The VelocityViewServlet will automatically 
