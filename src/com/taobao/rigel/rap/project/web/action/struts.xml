@@ -7,33 +7,54 @@
 
 	<package name="project" extends="rap-default" namespace="/project">
 
-		<action name="removeProject" class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="removeProject">
-              <result name="success" type="velocity">/project/myProjectList.vm</result>
-        </action>
-       
-        <action name="myProjectList" class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="myProjectList">
-              <result name="success" type="velocity">/project/myProjectList.vm</result>
-        </action>
-        
-        <action name="myProject" class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="myProject">
-        	  <result name="success" type="velocity">/project/myProject.vm</result>
-        </action>
-               
-        <action name="projectDetailAjax" class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="projectDetailAjax">
-        	<result name="success" type="velocity">/bcom/project.cb.vm</result>
-        </action>
-        
-        <action name="addOrUpdateProject" class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="addOrUpdateProject">
-        	<result name="success" type="velocity">/project/myProjectList.vm</result>
-        </action>
-        
-        <action name="autoGenerate" class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="autoGenerate">
-        	<result name="success" type="stream">
-        		<param name="contentType">text/plain</param>
-        		<param name="contentDisposition">attachment; filename="${generatedFileName}"</param>
-        		<param name="inputName">outputStream</param>
+		<action name="removeProject"
+			class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="removeProject">
+			<result name="success" type="velocity">/project/myProjectList.vm</result>
+		</action>
+
+		<action name="delete"
+			class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="delete">
+			<result name="success" type="velocity">/bcom/json.cb.vm</result>
+		</action>
+
+		<action name="create"
+			class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="create">
+			<result name="success" type="velocity">/bcom/json.cb.vm</result>
+		</action>
+
+		<action name="update"
+			class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="update">
+			<result name="success" type="velocity">/bcom/json.cb.vm</result>
+		</action>
+
+		<action name="myProjectList"
+			class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="myProjectList">
+			<result name="success" type="velocity">/project/myProjectList.vm</result>
+		</action>
+
+		<action name="myProject"
+			class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="myProject">
+			<result name="success" type="velocity">/project/myProject.vm</result>
+		</action>
+
+		<action name="projectDetailAjax"
+			class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="projectDetailAjax">
+			<result name="success" type="velocity">/bcom/project.cb.vm</result>
+		</action>
+
+		<action name="addOrUpdateProject"
+			class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="addOrUpdateProject">
+			<result name="success" type="velocity">/project/myProjectList.vm</result>
+		</action>
+
+		<action name="autoGenerate"
+			class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="autoGenerate">
+			<result name="success" type="stream">
+				<param name="contentType">text/plain</param>
+				<param name="contentDisposition">attachment; filename="${generatedFileName}"</param>
+				<param name="inputName">outputStream</param>
 			</result>
-        </action>
+		</action>
 	</package>
 
 </struts>

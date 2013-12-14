@@ -38,7 +38,11 @@ CREATE TABLE tb_group
 
 
 ALTER TABLE tb_project
-ADD COLUMN group_id int(10) NULL
+ADD COLUMN group_id int(10) NULL;
+
+ALTER TABLE tb_user
+ADD COLUMN realname varchar(128) NOT NULL
+	DEFAULT '';
 
 
 +tb_user.group_id    // FOREIGN KEY
