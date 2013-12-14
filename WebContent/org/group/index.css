@@ -133,3 +133,55 @@
 	display: inline;
 	width: 300px;
 }
+
+.accounts-con {
+	position: absolute;
+}
+
+.accounts {
+	display: inline-block;
+	width: 142px;
+}
+
+.picking-user .picked-user {
+	background-color: #EEE;
+	padding: 6px 10px 8px 0px;
+	display: inline-block;
+	color: #999;
+	border-radius: 4px;
+	position: relative;
+	margin-bottom: 5px;
+	width: 142px;
+	text-align: center;
+}
+
+.picking-user .picked-user .unpick-btn {
+	margin-left: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	color: #CCC;
+	position: absolute; right: 3px; top: 0;
+	line-height: 12px;
+}
+.picking-user .picked-user .unpick-btn:hover {
+	color: #333;
+}
+
+.accounts-con .autocompleter {
+	list-style: none;
+	padding: 0;
+	border: 1px solid #DDD;
+	width: 150px;
+	background-color: white;
+	border-bottom: none;
+	border-radius: 2px;
+	box-shadow: 0 0 2px #DDD;
+}
+.accounts-con .autocompleter li {
+	padding: 5px; 
+	cursor: pointer;
+	border-bottom: 1px solid #DDD;
+}
+.accounts-con .autocompleter li:hover {
+	background-color: #F2F2F2;
+}

@@ -24,7 +24,7 @@ public class RapError {
 	}
 
 	public String toString() {
-		return "{\"code\":" + this.code + ", \"msg\":、“" + msg + "\"}";
+		return "{\"code\":" + this.code + ", \"msg\":\"" + msg + "\"}";
 	}
 
 }

@@ -11,7 +11,7 @@
 	    #bodyNewStart
 	    <div class="page">
 		    <div class="groups-con content">
-		    	<h2>测试产品线1</h2>
+		    	<h2>$!utils.escapeInH($productLine.name)</h2>
 		    	<div>
 		    		<span class="btn btn-primary create-group"><i class="glyphicon glyphicon-plus"></i> 创建分组</span>
 		    	</div>
@@ -27,10 +27,10 @@
         <span class="group-name">{{name}}</span>
         <span class="modify-con">
             <input type="text" name="name" class="form-control modify-name" value="" />
-            <span class="btn btn-success save-update-group" data-id="{{groupId}}">保存</span> <span class="btn btn-default cancel-edit">取消</span> 
+            <span class="btn btn-success save-update-group" data-id="{{id}}">保存</span> <span class="btn btn-default cancel-edit">取消</span> 
         </span>
-        <span class="btn btn-hover btn-default update-group" data-id="{{groupId}}"><i class="glyphicon glyphicon-edit"></i> 修改名称</span> 
-        <span class="btn btn-hover btn-default delete-group" data-id="{{groupId}}"><i class="glyphicon glyphicon-trash"></i> 删除这个分组</span>
+        <span class="btn btn-hover btn-default update-group" data-id="{{id}}"><i class="glyphicon glyphicon-edit"></i> 修改名称</span> 
+        <span class="btn btn-hover btn-default delete-group" data-id="{{id}}"><i class="glyphicon glyphicon-trash"></i> 删除这个分组</span>
     </h3>
     <div class="box-con clearfix">
 		{{#projects}}
@@ -80,14 +80,34 @@
       <input type="text" class="form-control" style="width:432px;" placeholder="请在此编辑项目名称" value=""/>
     </div>
   </div>
- <div class="form-group" style="margin-bottom:0">
+ <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">项目描述 <span style="color:red">&#42;</span></label>
     <div class="col-sm-10">
-      <textarea class="form-control" style="width:432px;resize:vertical;" placeholder="请在此编辑项目描述"></textarea>
+      <textarea class="form-control desc" style="width:432px;resize:vertical;" placeholder="请在此编辑项目描述"></textarea>
     </div>
+  </div>
+<div class="form-group" style="margin-bottom:0">
+    <label for="inputPassword3" class="col-sm-2 control-label">项目成员</label>
+    <div class="col-sm-10 picking-user" style="position:relative">
+	  <input class="form-control accounts" placeholder="添加项目成员"/>
+      <div class="accounts-con"></div>
+	</div>
   </div>
 </div>
 		</script>
+<script type="text/tmpl" id="user-auto-list">
+	<ul class="autocompleter">
+		{{#users}}
+			<li data-name="{{name}}" data-realname="{{realname}}" data-block="{{block}}">
+				{{#block}}没有更多匹配数据{{/block}}
+				{{^block}}{{name}} ({{realname}}){{/block}}
+			</li>
+		{{/users}}
+	</ul>
+</script>
+<script type="text/tmpl" id="user-item-tmpl">
+<span class="picked-user" data-name="{{name}}" data-realname="{{realname}}">{{name}} ({{realname}})<i class="unpick-btn">&times;</i></span>
+</script>
 	    <script src="./group/index.js"></script>
 	    #bodyEnd
 	</body>
