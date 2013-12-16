@@ -6,12 +6,16 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.auto.generate.bo.VelocityTemplateGenerator;
 import com.taobao.rigel.rap.auto.generate.contract.Generator;
 import com.taobao.rigel.rap.common.ActionBase;
+import com.taobao.rigel.rap.common.RapError;
 import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
@@ -52,6 +56,7 @@ public class ProjectAction extends ActionBase {
 	}
 
 	public String getAccounts() {
+		if (accounts == null) return "";
 		return accounts;
 	}
 
@@ -235,6 +240,7 @@ public class ProjectAction extends ActionBase {
 	public String create() {
 		if (!isUserLogined())
 			return LOGIN;
+		Gson gson = new Gson();
 		Project project = new Project();
 		project.setCreateDate(new Date());
 		project.setUser(getCurUser());
@@ -251,7 +257,15 @@ public class ProjectAction extends ActionBase {
 				memberAccountList.add(account);
 		}
 		project.setMemberAccountList(memberAccountList);
-		projectMgr.addProject(project);
+		int projectId = projectMgr.addProject(project);
+		project = projectMgr.getProject(projectId);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("id", project.getId());
+		result.put("name", project.getName());
+		result.put("desc", project.getIntroduction());
+		result.put("accounts", project.getMemberAccountListStr());
+		result.put("groupId", project.getGroupId());
+		setJson(new RapError(gson.toJson(result)).toString());
 		return SUCCESS;
 	}
 

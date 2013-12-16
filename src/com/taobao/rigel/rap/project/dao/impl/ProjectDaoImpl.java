@@ -48,7 +48,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		project = (Project) session.load(Project.class, project.getId());
 		project.setProjectData(project
 				.toString(Project.toStringType.TO_PARAMETER));
-		return 0;
+		return project.getId();
 	}
 
 	@Override
