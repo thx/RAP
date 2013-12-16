@@ -31,9 +31,8 @@
 	width: 200px;
 	height: 128px;
 	border: 1px solid #DDD;
-	margin: 10px 10px 10px 0;
+	margin: 20px 10px 10px 0;
 	position: relative;
-	cursor: pointer;
 }
 
 .groups-con .groups .group .box .star {
@@ -49,7 +48,7 @@
 	width: 200px;
 	height: 128px;
 	border: 1px dashed #DDD;
-	margin: 10px 10px 10px 0;
+	margin: 20px 10px 10px 0;
 	position: relative;
 	cursor: pointer;
 	opacity: 0.7;
@@ -73,6 +72,7 @@
 
 .groups-con .groups .group .box .info {
 	padding: 10px;
+	cursor: pointer;
 }
 
 .groups-con .groups .group .box .intro {
@@ -113,6 +113,31 @@
 	text-align: center;
 }
 
+.groups-con .groups .group .box:hover .tools {
+	display: block;
+}
+.groups-con .groups .group .box .tools {
+	text-align: center;
+	position: absolute;
+	right: -1px;
+	top: -26px;
+	width: auto;
+	background-color: #F2F2F2;
+	padding: 2px;
+	color: #999;
+	border: 1px solid #DDD;
+	display: none;
+	border-radius: 5px 5px 0 0;
+}
+
+.groups-con .groups .group .box .tools .glyphicon {
+	margin-left: 4px;
+	margin-right: 4px;
+	cursor: pointer;
+}
+.groups-con .groups .group .box .tools .glyphicon:hover {
+	color: #F90;
+}
 .groups-con .groups .group .box .title {
 	font-size: 18px;
 	color: #6D8095; 
@@ -145,13 +170,12 @@
 
 .picking-user .picked-user {
 	background-color: #EEE;
-	padding: 6px 10px 8px 0px;
+	padding: 6px 14px 8px 6px;
 	display: inline-block;
 	color: #999;
 	border-radius: 4px;
 	position: relative;
 	margin-bottom: 5px;
-	width: 142px;
 	text-align: center;
 }
 
@@ -181,6 +205,9 @@
 	padding: 5px; 
 	cursor: pointer;
 	border-bottom: 1px solid #DDD;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .accounts-con .autocompleter li:hover {
 	background-color: #F2F2F2;

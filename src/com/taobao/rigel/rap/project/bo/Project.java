@@ -494,6 +494,6 @@ public class Project implements java.io.Serializable {
 	
 	public String getLastUpdateStr() {
 		PrettyTime p = new PrettyTime();
-		return p.format(new Date());
+		return p.format(this.updateTime);
 	}
 }

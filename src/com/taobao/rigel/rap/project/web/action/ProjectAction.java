@@ -271,28 +271,29 @@ public class ProjectAction extends ActionBase {
 
 	private String updateProject() {
 		if (!isUserLogined())
-			return LOGIN;
-		if (!getCurUser().canManageProject(getId())) {
-			setErrMsg("您没有管理该项目的权限");
-			return ERROR;
-		}
-		Project project = new Project();
-		project.setId(getId());
-		project.setIntroduction(getIntroduction());
-		project.setName(getName());
+            return LOGIN;
+        if (!getCurUser().canManageProject(getId())) {
+            setErrMsg("您没有管理该项目的权限");
+            return ERROR;
+        }
+        Project project = new Project();
+        project.setId(getId());
+        project.setIntroduction(getIntroduction());
+        project.setName(getName());
 
-		List<String> memberAccountList = new ArrayList<String>();
-		String[] list = getMemberAccountListStr().split(",");
-		// format: mashengbo(大灰狼堡森), linpanhui(林攀辉),
-		for (String item : list) {
-			String account = item.contains("(") ? item.substring(0,
-					item.indexOf("(")).trim() : item.trim();
-			if (!account.equals(""))
-				memberAccountList.add(account);
-		}
-		project.setMemberAccountList(memberAccountList);
-		projectMgr.updateProject(project);
-		return myProjectList();
+        List<String> memberAccountList = new ArrayList<String>();
+        String[] list = getMemberAccountListStr().split(",");
+        // format: mashengbo(大灰狼堡森), linpanhui(林攀辉),
+        for (String item : list) {
+ 
+            String account = item.contains("(") ? item.substring(0,
+                    item.indexOf("(")).trim() : item.trim();
+            if (!account.equals(""))
+                memberAccountList.add(account);
+        }
+        project.setMemberAccountList(memberAccountList);
+        projectMgr.updateProject(project);
+        return myProjectList(); 
 	}
 
 	public String update() {
@@ -316,8 +317,16 @@ public class ProjectAction extends ActionBase {
 			if (!account.equals(""))
 				memberAccountList.add(account);
 		}
+		Gson gson = new Gson();
 		project.setMemberAccountList(memberAccountList);
 		projectMgr.updateProject(project);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("id", project.getId());
+		result.put("name", project.getName());
+		result.put("desc", project.getIntroduction());
+		result.put("accounts", project.getMemberAccountListStr());
+		result.put("groupId", project.getGroupId());
+		setJson(new RapError(gson.toJson(result)).toString());
 		return SUCCESS;
 	}
 
