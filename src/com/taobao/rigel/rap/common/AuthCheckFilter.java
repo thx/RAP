@@ -48,7 +48,7 @@ public class AuthCheckFilter implements Filter {
 				User newUser = new User();
 				newUser.setAccount(emailPrefix);
 				newUser.setPassword("RESERVED");
-				String name = user.getTbWW();
+				String name = user.getAliWW();
 				if (name == null || name.isEmpty()) {
 					name = user.getLastName();
 				}
