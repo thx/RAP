@@ -7,6 +7,10 @@ public class RapError {
 
 	}
 
+	public RapError(String result) {
+		this.result = result;
+	}
+
 	public RapError(int code, String msg) {
 		this.code = code;
 		this.msg = msg;
@@ -14,6 +18,7 @@ public class RapError {
 
 	private int code = 200;
 	private String msg = "";
+	private String result = "";
 
 	public String getMsg() {
 		return msg;
@@ -24,7 +29,8 @@ public class RapError {
 	}
 
 	public String toString() {
-		return "{\"code\":" + this.code + ", \"msg\":\"" + msg + "\"}";
+		return "{\"code\":" + this.code + ", \"msg\":\"" + msg + "\", \"result\":"
+				+ this.result + "}";
 	}
 
 }
