@@ -1,10 +1,10 @@
 Rigel Automation Platform
 ===
 
-    @version v0.6.0
-    @author  Bosn Ma
-    @weibo   http://weibo.com/bosn
-    @mail    bosn@outlook.com
+    @version v0.7.0
+    @author  Bosn(霍雍), wangjeaf(思竹)
+    @weibo   http://weibo.com/bosn, http://github.com/wangjeaf
+    @mail    bosn@outlook.com, wangjeaf@gmail.com
 
 `RAP` 是一个WEB接口管理系统，可通过结构化的接口文档生成测试数据。
 
