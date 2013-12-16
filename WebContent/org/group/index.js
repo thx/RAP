@@ -226,7 +226,6 @@ $(function() {
 							accounts: values.join(', ')
 						}, function(data) {
 							var data = data.result;
-							data.status = '刚刚修改';
 							var html = $.render(tmpl, data);
 							box.replaceWith(html);
 							modal.modal('hide');
@@ -304,7 +303,6 @@ $(function() {
 							accounts: values.join(', ')
 						}, function(data) {
 							var data = data.result;
-							data.status = '刚刚创建';
 							var html = $.render(tmpl, data);
 							$(that).before(html);
 							modal.modal('hide');
