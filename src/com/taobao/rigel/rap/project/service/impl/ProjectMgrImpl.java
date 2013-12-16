@@ -51,13 +51,11 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 	@Override
 	public List<Project> getProjectList(User user, int curPageNum, int pageSize) {
-		if (user.isUserInRole("admin")) {
-			user = null;
-		}
 		List<Project> projectList = projectDao.getProjectList(user, curPageNum,
 				pageSize);
 		for (Project p : projectList) {
-			if (user == null || p.getUser().getId() == user.getId())
+			if (user.isUserInRole("admin")
+					|| p.getUser().getId() == user.getId())
 				p.setIsManagable(true);
 		}
 		return projectList;
