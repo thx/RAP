@@ -155,7 +155,7 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 	@Override
 	public long getProjectListNum(User user) {
-		if (user.isUserInRole("admin")) {
+		if (user != null && user.isUserInRole("admin")) {
 			user = null;
 		}
 		return projectDao.getProjectListNum(user);

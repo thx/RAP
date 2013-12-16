@@ -110,7 +110,7 @@ $(function() {
 	}
 	
 	function init() {
-		$.get($.route('org.productline.all'), {corpId: 1}, function(data) {
+		$.get($.route('org.productline.all'), {corpId: corpId}, function(data) {
 			render(data);
 			bindEvents();
 		}, 'JSON');
