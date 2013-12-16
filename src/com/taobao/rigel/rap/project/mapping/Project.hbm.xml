@@ -17,7 +17,7 @@
 				<comment>项目相关ID</comment>
 			</column>
 		</property>
-		<property name="groupId">
+		<property name="groupId" type="integer">
 			<column name="group_id" not-null="false">
 				<comment>分组ID</comment>
 			</column>

@@ -24,6 +24,10 @@
 ## 配置静态资源请求的路径
 #set($staticRoot = "$!projectContext/stat")
 
+#set($newUrl = {
+	"home":"$projectContext/org/index.do"
+})
+
 #set($accountUrl = {
 	"login":"$projectContext/account/login.action",
 	"doLogin":"$projectContext/account/doLogin.action",

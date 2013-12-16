@@ -18,7 +18,7 @@ $(function() {
 				box = box.parent('.box');
 			}
 			var projId = box.data('projid');
-			window.location.href= $.route('workspace.mine') + '?projectId=' + projId;
+			window.open($.route('workspace.mine') + '?projectId=' + projId);
 		});
 	}
 	

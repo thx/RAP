@@ -4,7 +4,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>欢迎使用RAP        </title>
-		#includeRapStatic
+		#includeNewRapStatic
         <style type="text/css">
             .img-circle {border:5px dashed #DFDFDF;}
             .marketing { text-align: center; color: #5a5a5a; }
@@ -15,7 +15,7 @@
         </style>
 	</head>
 	<body>
-	    #bodyStart
+	    #bodyNewStart
             <!-- title block begin -->
             <div class="hero-unit">
                 <h1>Rigel Automation Platform</h1>

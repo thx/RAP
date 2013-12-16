@@ -16,9 +16,10 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 	@Override
 	public boolean validate(String account, String password) {
 		try {
-		User user = (User) getSession().load(User.class, getUserId(account));
-		return user != null && user.getPassword().equals(password);
-		} catch(ObjectNotFoundException ex) {
+			User user = (User) getSession()
+					.load(User.class, getUserId(account));
+			return user != null && user.getPassword().equals(password);
+		} catch (ObjectNotFoundException ex) {
 			return false;
 		}
 	}
@@ -46,14 +47,23 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 
 	/**
 	 * get user id
+	 * 
 	 * @param account
 	 * @return return -1 if the user doesn't exist, otherwise return id of user
 	 */
 	public long getUserId(String account) {
-		Query q = getSession().createQuery("from User where account = :account");
+		Query q = getSession()
+				.createQuery("from User where account = :account");
 		q.setString("account", account);
 		User user = (User) q.uniqueResult();
 		return user == null ? -1 : user.getId();
+	}
+
+	public User getUserByName(String name) {
+		Query q = getSession().createQuery("from User where name = :name");
+		q.setString("name", name);
+		User user = (User) q.uniqueResult();
+		return user;
 	}
 
 	@Override
@@ -61,7 +71,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 		User user = (User) getSession().get(User.class, userId);
 		return user;
 	}
-	
+
 	@Override
 	public User getUser(String account) {
 		return getUser(getUserId(account));
@@ -84,8 +94,8 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 			user.setName(name);
 		if (email != null && !email.equals(""))
 			user.setEmail(email);
-		if(password != null && !password.equals("")) {
-			if (user.getPassword().equals(password) && newPassword != null 
+		if (password != null && !password.equals("")) {
+			if (user.getPassword().equals(password) && newPassword != null
 					&& !newPassword.equals("")) {
 				user.setPassword(newPassword);
 			} else {
@@ -93,7 +103,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 				// incorrect, return false
 				return false;
 			}
-		} 
+		}
 		return true;
 	}
 
@@ -111,7 +121,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 			user.setPassword(password);
 			session.update(user);
 		}
-		
+
 	}
-	
+
 }
