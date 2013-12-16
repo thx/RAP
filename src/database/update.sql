@@ -21,7 +21,7 @@ CREATE TABLE tb_production_line
 	user_id int(10) NOT NULL,
 	
 	FOREIGN KEY(user_id) REFERENCES tb_user(id),	
-	FOREIGN KEY(coporation_id) REFERENCES tb_corporation(id)
+	FOREIGN KEY(corporation_id) REFERENCES tb_corporation(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE tb_group
@@ -33,13 +33,18 @@ CREATE TABLE tb_group
 	user_id int(10) NOT NULL,
 	
 	FOREIGN KEY(user_id) REFERENCES tb_user(id),
-	FOREIGN KEY(product_line_id) REFERENCES tb_production_line(id)
+	FOREIGN KEY(production_line_id) REFERENCES tb_production_line(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+ALTER TABLE tb_project
+ADD COLUMN group_id int(10) NULL;
 
+ALTER TABLE tb_user
+ADD COLUMN realname varchar(128) NOT NULL
+	DEFAULT '';
 
-+tb_user.group_id    // FOREIGN KEY
-+tb_user.login_type // tinyint NOT NULL DEFAULT 1, 1-RAP帐号登录, 2-域帐号登录
-+tb_user.ali_user_id // varchar(20) NULL, login_type为2时有效
+ALTER TABLE tb_project
+ADD COLUMN update_time timestamp NOT NULL
+		DEFAULT now();
 	

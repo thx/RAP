@@ -1,12 +1,15 @@
 package com.taobao.rigel.rap.project.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.dao.AccountDao;
 import com.taobao.rigel.rap.common.ArrayUtils;
+import com.taobao.rigel.rap.organization.bo.Group;
+import com.taobao.rigel.rap.organization.dao.OrganizationDao;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Module;
 import com.taobao.rigel.rap.project.bo.Page;
@@ -18,6 +21,15 @@ import com.taobao.rigel.rap.project.service.ProjectMgr;
 public class ProjectMgrImpl implements ProjectMgr {
 
 	private ProjectDao projectDao;
+	private OrganizationDao organizationDao;
+
+	public OrganizationDao getOrganizationDao() {
+		return organizationDao;
+	}
+
+	public void setOrganizationDao(OrganizationDao organizationDao) {
+		this.organizationDao = organizationDao;
+	}
 
 	public ProjectDao getProjectDao() {
 		return this.projectDao;
@@ -39,13 +51,11 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 	@Override
 	public List<Project> getProjectList(User user, int curPageNum, int pageSize) {
-		if (user.isUserInRole("admin")) {
-			user = null;
-		}
 		List<Project> projectList = projectDao.getProjectList(user, curPageNum,
 				pageSize);
 		for (Project p : projectList) {
-			if (user == null || p.getUser().getId() == user.getId())
+			if (user.isUserInRole("admin")
+					|| p.getUser().getId() == user.getId())
 				p.setIsManagable(true);
 		}
 		return projectList;
@@ -53,18 +63,36 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 	@Override
 	public int addProject(Project project) {
+		project.setUpdateTime(new Date());
+		project.setCreateDate(new Date());
 		for (String account : project.getMemberAccountList()) {
 			User user = accountDao.getUser(account);
 			if (user != null) {
 				project.addMember(user);
 			}
 		}
-		return projectDao.addProject(project);
+		int result = projectDao.addProject(project);
+
+		Group g = organizationDao.getGroup(project.getGroupId());
+		if (g.getProductionLineId() > 0) {
+			organizationDao.updateCountersInProductionLine(g
+					.getProductionLineId());
+		}
+
+		return result;
 	}
 
 	@Override
 	public int removeProject(int id) {
-		return projectDao.removeProject(id);
+		Project p = getProject(id);
+		Group g = organizationDao.getGroup(p.getGroupId());
+		int pId = g.getProductionLineId();
+		int result = projectDao.removeProject(id);
+
+		if (pId > 0) {
+			organizationDao.updateCountersInProductionLine(pId);
+		}
+		return result;
 	}
 
 	@Override
@@ -72,6 +100,7 @@ public class ProjectMgrImpl implements ProjectMgr {
 		Project project = getProject(outerProject.getId());
 		project.setName(outerProject.getName());
 		project.setIntroduction(outerProject.getIntroduction());
+		project.setUpdateTime(new Date());
 
 		if (outerProject.getMemberAccountList() != null) {
 			// adding new ones
@@ -124,7 +153,7 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 	@Override
 	public long getProjectListNum(User user) {
-		if (user.isUserInRole("admin")) {
+		if (user != null && user.isUserInRole("admin")) {
 			user = null;
 		}
 		return projectDao.getProjectListNum(user);
@@ -166,7 +195,8 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 	@Override
 	public List<Action> getMatchedActionList(int projectId, String pattern) {
-		List<Action> actionList = projectDao.getMatchedActionList(projectId, pattern);
+		List<Action> actionList = projectDao.getMatchedActionList(projectId,
+				pattern);
 		if (actionList == null || actionList.size() == 0) {
 			Project project = projectDao.getProject(projectId);
 			if (project != null) {
@@ -174,7 +204,8 @@ public class ProjectMgrImpl implements ProjectMgr {
 				if (ids != null && !ids.isEmpty()) {
 					String[] arr = ids.split(",");
 					for (String id : arr) {
-						actionList = projectDao.getMatchedActionList(Integer.parseInt(id), pattern);
+						actionList = projectDao.getMatchedActionList(
+								Integer.parseInt(id), pattern);
 						if (actionList != null && actionList.size() != 0) {
 							return actionList;
 						}
@@ -183,5 +214,10 @@ public class ProjectMgrImpl implements ProjectMgr {
 			}
 		}
 		return actionList;
+	}
+
+	@Override
+	public List<Project> getProjectListByGroup(int id) {
+		return projectDao.getProjectListByGroup(id);
 	}
 }

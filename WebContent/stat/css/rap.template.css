@@ -1,71 +1,1 @@
-body {
-	padding-top: 60px;
-	padding-bottom: 40px;
-}
-
-.left {float:left;}
-.right {float:right;}
-
-.es-prev,.es-next {
-	border: 0;
-	cursor: pointer;
-	width: 101px;
-	height: 30px;
-	background: url(img/step.png) no-repeat;
-	font-size: 0;
-}
-
-.es-next {
-	background-position: 0 -30px
-}
-
-.add-link,.edit-link,.del-link,.test-link {
-	margin-right: 5px;
-	background: url(img/op-icon.gif) no-repeat;
-	cursor: pointer;
-	padding-left: 18px;
-	text-decoration: none;
-	color: #0100FE;
-}
-
-.add-link {
-	background-position: 0 -31px
-}
-
-.edit-link {
-	background-position: 0 -256px;
-	padding-top: 1px
-}
-
-.del-link {
-	background-position: 0 -94px;
-}
-
-.test-link {
-	background-position: 0 0;
-}
-
-.float-left {
-	float: left;
-}
-
-.clear {
-	clear: both;
-}
-
-div#tipDiv {
-	color: #000;
-	font-size: 12px;
-	line-height: 1.2;
-	position: absolute;
-	background-color: #E1E5F1;
-	border: 1px solid #667295;
-	width: 150px;
-	padding: 4px;
-	z-index: 999999;
-}
-
-.invalid {
-	border: solid Red 1px;
-	color: Red;
-}
+body {	padding-top: 60px;	padding-bottom: 40px;}.left {float:left;}.right {float:right;}.es-prev,.es-next {	border: 0;	cursor: pointer;	width: 101px;	height: 30px;	background: url(img/step.png) no-repeat;	font-size: 0;}.es-next {	background-position: 0 -30px}.add-link,.edit-link,.del-link,.test-link {	margin-top: 5px;	display: inline-block;	margin-right: 5px;	background: url(img/op-icon.gif) no-repeat;	cursor: pointer;	padding-left: 18px;	text-decoration: none !important;	color: #0100FE;}.add-link {	background-position: 0 -31px}.edit-link {	background-position: 0 -256px;	padding-top: 1px}.del-link {	background-position: 0 -94px;}.test-link {	background-position: 0 0;}.float-left {	float: left;}.clear {	clear: both;}div#tipDiv {	color: #000;	font-size: 12px;	line-height: 1.2;	position: absolute;	background-color: #E1E5F1;	border: 1px solid #667295;	width: 150px;	padding: 4px;	z-index: 999999;}.invalid {	border: solid Red 1px;	color: Red;}

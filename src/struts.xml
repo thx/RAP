@@ -6,7 +6,7 @@
 <struts>
 
 	<constant name="struts.devMode" value="true" />
-
+	<constant name="struts.action.extension" value="action,do"/> 
 	<package name="rap-default" extends="struts-default">
 		<interceptors>
 			<interceptor-stack name="baseStack">

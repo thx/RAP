@@ -1,7 +1,57 @@
 #parse('/tcom/utils.macro.vm')
 
 ## master page start
-#macro (bodyStart)
+#macro (bodyNewStart)
+<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://etaoux-bj.taobao.ali.com/rap">RAP V0.7</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="$newUrl.home">我的主页</a></li>
+        #if($isLogined)
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">$curCorpName <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+          	#foreach($corp in $corpList)
+          	 <li><a href="$projectUrl.allProductlineList?id=$corp.id">$corp.name</a></li>
+          	#end
+          </ul>
+        </li>
+        
+        <!-- <li><a href="$projectUrl.myProjectList">我的项目</a></li>
+        <li><a href="$projectUrl.allProductlineList">产品线管理</a></li> -->
+        #end
+        <li><a href="$platformUrl.help">帮助</a></li>
+        <li><a href="$platformUrl.home">关于</a></li>
+      </ul>
+      #if ($curUser) 
+      <div class="pull-right">
+          <ul class="nav navbar-nav">
+              <li><a href="$accountUrl.myAccount">$curUser.name</a></li>
+              <!--
+              <li><a href="$accountUrl.doLogout">注销登录</a> </li>
+              -->
+          </ul>
+      </div>
+      #elseif(!$loginCtlHidden)
+      <form name="formMain" class="navbar-form pull-right" action="$accountUrl.doLogin" method="post">
+          <input class="span2 form-control" style="width:200px" type="text" placeholder="用户名" name="account"> 
+          <input class="span2 form-control" style="width:200px" type="password" placeholder="密码" name="password">
+          <button type="submit" class="btn btn-primary">登录</button>
+          <!--<button type="button" onclick="window.location.href = '$accountUrl.register'" class="btn">注册</button>-->
+      </form>
+      #end
+    </div><!-- /.nav-collapse -->
+  </div><!-- /.container -->
+</div><!-- /.navbar -->
+<div class="container">
+#end
+
+## master page start
+#macro (bodyStart $noMenu)
+#if(!$noMenu)
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
@@ -18,12 +68,15 @@
 					#end
                     <li><a href="$platformUrl.help">帮助</a></li>
                     <li><a href="$platformUrl.about">关于</a></li>
+                    <li><a href="$newUrl.home">回到新版</a></li>
                 </ul>
                 #if ($curUser) 
                 <div class="navbar-form pull-right">
                     <ul class="nav">
                         <li><a href="$accountUrl.myAccount">$curUser.name</a></li>
+                        <!--
                         <li><a href="$accountUrl.doLogout">注销登录</a> </li>
+                    	-->
                     </ul>
                 </div>
                 #elseif(!$loginCtlHidden)
@@ -39,6 +92,7 @@
         </div>
     </div>
 </div>
+#end
 <div class="container">
 #end
 

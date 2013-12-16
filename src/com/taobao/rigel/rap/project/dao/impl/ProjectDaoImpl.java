@@ -1,6 +1,7 @@
 package com.taobao.rigel.rap.project.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.ObjectNotFoundException;
@@ -8,6 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.ArrayUtils;
 import com.taobao.rigel.rap.project.bo.Action;
@@ -17,22 +19,21 @@ import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Parameter;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.dao.ProjectDao;
-import com.google.gson.Gson;
 
 public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Project> getProjectList(User user, int curPageNum, int pageSize) {	
+	public List<Project> getProjectList(User user, int curPageNum, int pageSize) {
 		curPageNum = curPageNum <= 0 ? 1 : curPageNum;
-		String hql = "from Project as p order by p.id desc";
 		String hqlByUser = "from Project as p left join fetch p.userList as u where p.user.id = :userId or u.id = :userId order by p.id desc";
-		Query query = user == null ? getSession().createQuery(hql) :
-			getSession().createQuery(hqlByUser).setLong("userId",user.getId());
+		Query query = getSession().createQuery(hqlByUser).setLong("userId",
+						user.getId());
 		query = query.setFirstResult(pageSize * (curPageNum - 1));
 		query.setMaxResults(pageSize);
 		return query.list();
 	}
+
 	
 	@Override
 	public int addProject(Project project) {
@@ -45,34 +46,35 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		}
 		session.save(project);
 		project = (Project) session.load(Project.class, project.getId());
-		project.setProjectData(project.toString(Project.toStringType.TO_PARAMETER));
-		return 0;
+		project.setProjectData(project
+				.toString(Project.toStringType.TO_PARAMETER));
+		return project.getId();
 	}
-	
+
 	@Override
 	public int removeProject(int id) {
 		Session session = getSession();
 		Object project = session.get(Project.class, id);
 		if (project != null) {
-			session.delete((Project)project);
+			session.delete((Project) project);
 			return 0;
 		} else {
 			return -1;
 		}
-		
+
 	}
-	
+
 	@Override
 	public int updateProject(Project project) {
 		Session session = getSession();
 		session.update(project);
 		return 0;
 	}
-	
+
 	@Override
 	public Project getProject(int id) {
 		Project p = null;
-		try {		
+		try {
 			Session session = getSession();
 			p = (Project) session.load(Project.class, id);
 		} catch (Exception ex) {
@@ -80,55 +82,57 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		}
 		return p;
 	}
-	
+
 	@Override
 	public Module getModule(int id) {
 		Module m = null;
-		try {	
+		try {
 			Session session = getSession();
-			m = (Module)session.get(Module.class, id);
+			m = (Module) session.get(Module.class, id);
 		} catch (ObjectNotFoundException ex) {
 			ex.printStackTrace();
-		}
-		  catch (Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		return m;
 	}
-	
+
 	@Override
 	public Page getPage(int id) {
-		return (Page)getSession().get(Page.class, id);
+		return (Page) getSession().get(Page.class, id);
 	}
-	
+
 	@Override
 	public Action getAction(int id) {
-		return (Action)getSession().get(Action.class, id);
+		return (Action) getSession().get(Action.class, id);
 	}
-	
+
 	private Parameter getParameter(int id) {
-		return (Parameter)getSession().get(Parameter.class, id);
+		return (Parameter) getSession().get(Parameter.class, id);
 	}
-	
+
 	@Override
 	public int saveProject(Project project) {
 		Session session = getSession();
 		session.saveOrUpdate(project);
 		return 0;
 	}
-	
+
 	@Override
-	public String updateProject(int id, String projectData, String deletedObjectListData) {
+	public String updateProject(int id, String projectData,
+			String deletedObjectListData) {
 		Session session = getSession();
-		//StringBuilder log = new StringBuilder();
+		// StringBuilder log = new StringBuilder();
 		Gson gson = new Gson();
-		
-		Project projectClient = gson.fromJson(projectData,	Project.class);	
-		
-		ObjectItem[] deletedObjectList = gson.fromJson(deletedObjectListData, ObjectItem[].class);
-		
+
+		Project projectClient = gson.fromJson(projectData, Project.class);
+
+		ObjectItem[] deletedObjectList = gson.fromJson(deletedObjectListData,
+				ObjectItem[].class);
+
 		Project projectServer = (Project) session.load(Project.class, id);
-		
+		projectServer.setUpdateTime(new Date());
+
 		// performing deleting
 		for (ObjectItem item : deletedObjectList) {
 			if (item.getClassName().equals("Module")) {
@@ -141,14 +145,14 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 				projectServer.removeParameter(item.getId(), session);
 			}
 		}
-		
+
 		// performing adding & updating
 		for (Module module : projectClient.getModuleList()) {
 			Module moduleServer = projectServer.findModule(module.getId());
 			if (moduleServer == null) {
-				addModule(session, projectServer, module);				
+				addModule(session, projectServer, module);
 				continue;
-			} 
+			}
 			moduleServer.update(module);
 			for (Page page : module.getPageList()) {
 				Page pageServer = projectServer.findPage(page.getId());
@@ -158,61 +162,73 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 				}
 				pageServer.update(page);
 				for (Action action : page.getActionList()) {
-					Action actionServer = projectServer.findAction(action.getId());
+					Action actionServer = projectServer.findAction(action
+							.getId());
 					if (actionServer == null) {
 						addAction(session, page, action);
 						continue;
 					}
 					actionServer.update(action);
 					for (Parameter parameter : action.getRequestParameterList()) {
-						Parameter parameterServer = projectServer.findParameter(parameter.getId(), true);
+						Parameter parameterServer = projectServer
+								.findParameter(parameter.getId(), true);
 						if (parameterServer == null) {
 							addParameter(session, action, parameter, true);
 							continue;
 						}
 						parameterServer.update(parameter);
-						for (Parameter childParameter : parameter.getParameterList()) {
-							processParameterRecursively(session, projectServer, parameter, childParameter);
+						for (Parameter childParameter : parameter
+								.getParameterList()) {
+							processParameterRecursively(session, projectServer,
+									parameter, childParameter);
 						}
 					}
-					
-					for (Parameter parameter : action.getResponseParameterList()) {
-						Parameter parameterServer = projectServer.findParameter(parameter.getId(), false);
+
+					for (Parameter parameter : action
+							.getResponseParameterList()) {
+						Parameter parameterServer = projectServer
+								.findParameter(parameter.getId(), false);
 						if (parameterServer == null) {
 							addParameter(session, action, parameter, false);
 							continue;
 						}
 						parameterServer.update(parameter);
-						for (Parameter childParameter : parameter.getParameterList()) {
-							processParameterRecursively(session, projectServer, parameter, childParameter);
-						}					
+						for (Parameter childParameter : parameter
+								.getParameterList()) {
+							processParameterRecursively(session, projectServer,
+									parameter, childParameter);
+						}
 					}
 				}
 			}
 		}
 		return "";
 	}
-	
-	private void processParameterRecursively(Session session, Project projectServer, Parameter parameter, Parameter childParameter){
-		Parameter childParameterServer = projectServer.findChildParameter(childParameter.getId());
+
+	private void processParameterRecursively(Session session,
+			Project projectServer, Parameter parameter, Parameter childParameter) {
+		Parameter childParameterServer = projectServer
+				.findChildParameter(childParameter.getId());
 		if (childParameterServer == null) {
 			addParameterRecursively(session, parameter, childParameter);
 		} else {
 			childParameterServer.update(childParameter);
 		}
-		for (Parameter childOfChildParameter : childParameter.getParameterList()) {
-			processParameterRecursively(session, projectServer, childParameter, childOfChildParameter);
+		for (Parameter childOfChildParameter : childParameter
+				.getParameterList()) {
+			processParameterRecursively(session, projectServer, childParameter,
+					childOfChildParameter);
 		}
 	}
-	
-	private void addModule(Session session, Project project, Module module){
-		project.addModule(module);		
+
+	private void addModule(Session session, Project project, Module module) {
+		project.addModule(module);
 		session.save(module);
-		for (Page page : module.getPageList()){
+		for (Page page : module.getPageList()) {
 			addPage(session, module, page);
 		}
 	}
-	
+
 	private void addPage(Session session, Module module, Page page) {
 		module = (Module) session.load(Module.class, module.getId());
 		module.addPage(page);
@@ -221,7 +237,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 			addAction(session, page, action);
 		}
 	}
-	
+
 	private void addAction(Session session, Page page, Action action) {
 		page = (Page) session.load(Page.class, page.getId());
 		page.addAction(action);
@@ -233,8 +249,9 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 			addParameter(session, action, parameter, false);
 		}
 	}
-	
-	private void addParameter(Session session, Action action, Parameter parameter, boolean isRequest) {
+
+	private void addParameter(Session session, Action action,
+			Parameter parameter, boolean isRequest) {
 		action = (Action) session.load(Action.class, action.getId());
 		action.addParameter(parameter, isRequest);
 		session.save(parameter);
@@ -242,44 +259,52 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 			addParameterRecursively(session, parameter, childParameter);
 		}
 	}
-	
+
 	/**
 	 * add parameter recursively
-	 * @param session session object
-	 * @param parameter parent parameter
-	 * @param childParameter child parameter
+	 * 
+	 * @param session
+	 *            session object
+	 * @param parameter
+	 *            parent parameter
+	 * @param childParameter
+	 *            child parameter
 	 */
-	private void addParameterRecursively(Session session, Parameter parameter, Parameter childParameter) {
-		parameter = (Parameter) session.load(Parameter.class, parameter.getId());
+	private void addParameterRecursively(Session session, Parameter parameter,
+			Parameter childParameter) {
+		parameter = (Parameter) session
+				.load(Parameter.class, parameter.getId());
 		parameter.addChild(childParameter);
 		session.save(childParameter);
-		for (Parameter childOfChildParameter : childParameter.getParameterList()) {
-			addParameterRecursively(session, childParameter, childOfChildParameter);
+		for (Parameter childOfChildParameter : childParameter
+				.getParameterList()) {
+			addParameterRecursively(session, childParameter,
+					childOfChildParameter);
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public long getProjectListNum(User user) {	
+	public long getProjectListNum(User user) {
 		String hql = "select count(p) from Project as p order by p.id desc";
 		String hqlByUser = "select count(p) from Project as p left join p.userList as u where p.user.id = :userId or u.id = :userId order by p.id desc";
-		Query query = user == null ? getSession().createQuery(hql) :
-			getSession().createQuery(hqlByUser).setLong("userId", user.getId());
+		Query query = user == null ? getSession().createQuery(hql)
+				: getSession().createQuery(hqlByUser).setLong("userId",
+						user.getId());
 		List<Long> list = query.list();
 		return list.get(0);
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	@Override 
+	@Override
 	public List<Action> getMatchedActionList(int projectId, String pattern) {
 		StringBuilder sb = new StringBuilder();
-		sb
-		.append("SELECT a.id FROM tb_action a ")
-		.append("JOIN tb_action_and_page ap ON ap.action_id = a.id ")
-		.append("JOIN tb_page p ON p.id = ap.page_id ")
-		.append("JOIN tb_module m ON m.id = p.module_id ")
-		.append("WHERE LOCATE(:pattern, a.request_url) != 0 AND m.project_id = :projectId ");
-		
+		sb.append("SELECT a.id FROM tb_action a ")
+				.append("JOIN tb_action_and_page ap ON ap.action_id = a.id ")
+				.append("JOIN tb_page p ON p.id = ap.page_id ")
+				.append("JOIN tb_module m ON m.id = p.module_id ")
+				.append("WHERE LOCATE(:pattern, a.request_url) != 0 AND m.project_id = :projectId ");
+
 		String sql = sb.toString();
 		Query query = getSession().createSQLQuery(sql);
 		query.setString("pattern", pattern);
@@ -291,31 +316,29 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		}
 		return actionList;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private List<Integer> getParameterIdList(int projectId) {
 		StringBuilder sql = new StringBuilder();
-		sql
-		.append(" SELECT DISTINCT p.id")
-		.append(" FROM tb_parameter p")
-		.append(" JOIN tb_response_parameter_list_mapping rplm ON p.id = rplm.parameter_id")
-		.append(" JOIN tb_action_and_page ap ON ap.action_id = rplm.action_id")
-		.append(" JOIN tb_page p2 ON p2.id = ap.page_id")
-		.append(" JOIN tb_module m ON m.id = p2.module_id")
-		.append(" WHERE m.project_id = :projectId");
+		sql.append(" SELECT DISTINCT p.id")
+				.append(" FROM tb_parameter p")
+				.append(" JOIN tb_response_parameter_list_mapping rplm ON p.id = rplm.parameter_id")
+				.append(" JOIN tb_action_and_page ap ON ap.action_id = rplm.action_id")
+				.append(" JOIN tb_page p2 ON p2.id = ap.page_id")
+				.append(" JOIN tb_module m ON m.id = p2.module_id")
+				.append(" WHERE m.project_id = :projectId");
 		Query query = getSession().createSQLQuery(sql.toString());
 		query.setInteger("projectId", projectId);
 		List<Integer> list = query.list();
-		
+
 		StringBuilder sql2 = new StringBuilder();
-		sql2
-		.append(" SELECT DISTINCT p.id")
-		.append(" FROM tb_parameter p")
-		.append(" JOIN tb_request_parameter_list_mapping rplm ON p.id = rplm.parameter_id")
-		.append(" JOIN tb_action_and_page ap ON ap.action_id = rplm.action_id")
-		.append(" JOIN tb_page p2 ON p2.id = ap.page_id")
-		.append(" JOIN tb_module m ON m.id = p2.module_id")
-		.append(" WHERE m.project_id = :projectId");
+		sql2.append(" SELECT DISTINCT p.id")
+				.append(" FROM tb_parameter p")
+				.append(" JOIN tb_request_parameter_list_mapping rplm ON p.id = rplm.parameter_id")
+				.append(" JOIN tb_action_and_page ap ON ap.action_id = rplm.action_id")
+				.append(" JOIN tb_page p2 ON p2.id = ap.page_id")
+				.append(" JOIN tb_module m ON m.id = p2.module_id")
+				.append(" WHERE m.project_id = :projectId");
 		Query query2 = getSession().createSQLQuery(sql2.toString());
 		query2.setInteger("projectId", projectId);
 		list.addAll(query2.list());
@@ -328,20 +351,30 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		}
 		return list;
 	}
-	
+
 	private void recursivelyAddSubParamList(List<Integer> list, Parameter p) {
 		list.add(p.getId());
-		if (p.getParameterList() == null) return;
+		if (p.getParameterList() == null)
+			return;
 		for (Parameter subP : p.getParameterList()) {
 			recursivelyAddSubParamList(list, subP);
 		}
 	}
-	
+
 	public int resetMockData(int projectId) {
 		List<Integer> pIdList = getParameterIdList(projectId);
-		String sql = "UPDATE tb_parameter SET mock_data = NULL where id in (" + ArrayUtils.join(pIdList, ",") + ")";
+		String sql = "UPDATE tb_parameter SET mock_data = NULL where id in ("
+				+ ArrayUtils.join(pIdList, ",") + ")";
 		Query query = getSession().createSQLQuery(sql);
 		return query.executeUpdate();
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Project> getProjectListByGroup(int id) {
+		String hql = "from Project where groupId = :id";
+		Query query = getSession().createQuery(hql);
+		query.setInteger("id", id);
+		return query.list();
+	}
 }

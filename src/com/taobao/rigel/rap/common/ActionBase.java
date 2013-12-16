@@ -1,23 +1,29 @@
 package com.taobao.rigel.rap.common;
 
+import java.util.List;
 import java.util.Map;
 
+import com.opensymphony.xwork2.ActionSupport;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
-import com.opensymphony.xwork2.ActionSupport;
+import com.taobao.rigel.rap.organization.bo.Corporation;
 
 public class ActionBase extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public static String JSON_ERROR = "json-error";
-	
+
 	public static String LOGIN_WARN_MSG = "您登录过期啦，不要乱动哦，请打开新页面登录后再提交吧 >  。<";
 
 	private boolean isReturnUrlFirstSet;
-	
+
 	private boolean isLoginCtlHidden;
 	private int num;
+
+	public List<Corporation> getCorpList() {
+		return accountMgr.getCorporationList();
+	}
 
 	public int getNum() {
 		return num;
@@ -81,6 +87,18 @@ public class ActionBase extends ActionSupport {
 		return isUserLogined() ? ContextManager.getSession()
 				.get(ContextManager.KEY_ACCOUNT).toString() : null;
 	}
+	
+	public String getCurCorpName() {
+		Object nameObj = ContextManager.getSession().get(ContextManager.KEY_CORP_NAME);
+		String name = null;
+		if (nameObj != null) {
+			name = nameObj.toString();
+		}
+		if (name == null || name.isEmpty()) {
+			return "团队切换";
+		}
+		return name;
+	}
 
 	public boolean getIsLogined() {
 		return isUserLogined();
@@ -142,6 +160,9 @@ public class ActionBase extends ActionSupport {
 	private String json;
 
 	public String getJson() {
+		if (json == null || json.isEmpty()) {
+			return new RapError().toString();
+		}
 		return json;
 	}
 
@@ -163,4 +184,5 @@ public class ActionBase extends ActionSupport {
 	public void plsLogin() {
 		setErrMsg("请先登录");
 	}
+
 }

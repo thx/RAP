@@ -19,6 +19,7 @@ package com.taobao.rigel.rap.common;
 
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -117,7 +118,7 @@ public class SetCharacterEncodingFilter implements Filter {
             if (characterEncoding != null)
                 request.setCharacterEncoding(characterEncoding);
         }
-
+        
         // Pass control on to the next filter
         chain.doFilter(request, response);
 

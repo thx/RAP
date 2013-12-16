@@ -9,13 +9,15 @@
         <link type="text/css" rel="stylesheet" href="${staticRoot}/css/myWorkspace.css?_r=$!timeStamp" />
         <script src="${staticRoot}/js/util/jsformat.js"></script>
     </head>
-    <body>
-        #bodyStart
+    <body class="workspace">
+        #bodyStart(true)
         <div id="div-fixed-panel">
             <div class="clearfix">
+            	<!--
                 <div id="div-return">
                     <a href="$projectUrl.myProjectList" class="btn">返回</a>
                 </div>
+                -->
                 <div id="div-w-message" class="label" style="display:none;">
                 </div>
                 <div id="div-control-panel">
@@ -32,7 +34,7 @@
             <div id="div-debug"></div>
             <div id="div-mt-list" class="clearfix"></div>
             <div id="div-empty-hint" style="display: none">请点击“启用编辑”，然后右上角+号添加第一个模块哦！！！</div>
-            <div id="div-add-p" style="display: none"><a href="#" class="add-link" onclick="ws.addP(); return false;">新增页面</a></div>
+            <div id="div-add-p" style="display: none"><a href="#" class="btn" onclick="ws.addP(); return false;">新增页面</a></div>
         </div>
         <div id="div-w">
             <div id="div-m-list"> </div>

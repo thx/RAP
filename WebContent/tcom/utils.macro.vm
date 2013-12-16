@@ -525,8 +525,10 @@ baidu.dom.ready(function (){
  *#
 #macro (includeNewRapStatic)
 <link rel="stylesheet" href="${staticRoot}/bootstrap3/css/bootstrap.css?_r=$!timeStamp" type="text/css" media="screen">
+<link rel="stylesheet" href="${staticRoot}/bootstrap3/css/bootstrap-theme.css?_r=$!timeStamp" type="text/css" media="screen">
 <link rel="stylesheet" href="${staticRoot}/css/rap.template.css?_r=$!timeStamp" type="text/css" media="screen">
-<script type="text/javascript" src="${staticRoot}/js/jquery.1.10.2.min.js?_r=$!timeStamp"></script>
+<script type="text/javascript" src="${staticRoot}/js/base.js?_r=$!timeStamp"></script>
+<script type="text/javascript" src="${staticRoot}/js/routes.js?_r=$!timeStamp"></script>
 <script type="text/javascript" src="${staticRoot}/bootstrap3/js/bootstrap.js?_r=$!timeStamp"></script>
 #end
 

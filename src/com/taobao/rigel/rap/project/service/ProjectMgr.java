@@ -112,4 +112,11 @@ public interface ProjectMgr {
 	 * @return
 	 */
 	List<Action> getMatchedActionList(int projectId, String pattern);
+
+	/**
+	 * get project list by group id
+	 * @param id
+	 * @return
+	 */
+	List<Project> getProjectListByGroup(int id);
 }

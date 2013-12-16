@@ -1,0 +1,226 @@
+.groups-con {
+	padding: 10px;
+}
+
+.groups-con h2 {
+	font-size: 24px;
+	margin-bottom: 36px;
+}
+
+.groups-con .groups .group {
+	border-top: 1px solid #CCC;
+	margin-top: 30px;
+}
+.groups-con .groups .group h3 {
+	height: 36px;
+	line-height: 36px;
+	font-size: 22px;
+	color: #999;
+}
+
+.groups-con .groups .group h3 .btn-hover {
+	display: none !important;
+}
+
+.groups-con .groups .group h3:hover .btn-hover {
+	display: inline-block !important;
+}
+
+.groups-con .groups .group .box {
+	float: left;
+	width: 200px;
+	height: 128px;
+	border: 1px solid #DDD;
+	margin: 20px 10px 10px 0;
+	position: relative;
+}
+
+.groups-con .groups .group .box .star {
+	color: #F90;
+	position: absolute;
+	right: -8px;
+	top: -10px;
+	font-size: 24px;
+}
+
+.groups-con .groups .group .box-to-add {
+	float: left;
+	width: 200px;
+	height: 128px;
+	border: 1px dashed #DDD;
+	margin: 20px 10px 10px 0;
+	position: relative;
+	cursor: pointer;
+	opacity: 0.7;
+	background: url('/rap/stat/img/plus.png') no-repeat center center;
+	background-color: #FFF;
+	-webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+}
+
+.groups-con .groups .group .box:hover {
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.groups-con .groups .group .box-to-add:hover {
+  opacity: 1;
+  background-color: #F2F2F2;
+}
+
+.groups-con .groups .group .box .info {
+	padding: 10px;
+	cursor: pointer;
+}
+
+.groups-con .groups .group .box .intro {
+	color: rgba(0, 0, 0, 0.3);
+	text-overflow: ellipsis;
+	width: 182px;
+	white-space: inherit;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+@-webkit-keyframes spaceboots {
+	0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+	10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
+	20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
+	30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
+	40% { -webkit-transform: translate(1px, -1px) rotate(1deg); }
+	50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
+	60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+	70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); }
+	80% { -webkit-transform: translate(-1px, -1px) rotate(1deg); }
+	90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
+	100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
+}
+.shake {
+	-webkit-animation-name: spaceboots;
+	-webkit-animation-duration: 0.8s;
+	-webkit-transform-origin:50% 50%;
+	-webkit-animation-iteration-count: 2;
+	-webkit-animation-timing-function: linear;
+	display:inline-block
+}
+
+.groups-con .groups .group .box .status {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 30px;
+	padding: 5px;
+	color: rgba(0, 0, 0, 0.4);
+	background-color: rgba(0, 0, 0, 0.1);
+	text-align: center;
+}
+
+.groups-con .groups .group .box:hover .tools {
+	display: block;
+}
+
+.groups-con .groups .group .box .tools {
+	text-align: center;
+	position: absolute;
+	height: 26px;
+	right: -1px;
+	top: -26px;
+	width: auto;
+	background-color: #F2F2F2;
+	padding: 2px;
+	color: #999;
+	border: 1px solid #DDD;
+	display: none;
+	border-radius: 5px 5px 0 0;
+}
+
+.groups-con .groups .group .box .tools .glyphicon {
+	margin-left: 4px;
+	margin-right: 4px;
+	cursor: pointer;
+}
+.groups-con .groups .group .box .tools .glyphicon:hover {
+	color: #F90;
+}
+.groups-con .groups .group .box .title {
+	font-size: 18px;
+	color: #6D8095; 
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.groups-con .groups .group .group-name {
+	margin-right: 10px;
+}
+
+.groups-con .groups .group .modify-con {
+	display: none;
+}
+
+.groups-con .groups .group .modify-name {
+	display: inline;
+	width: 300px;
+}
+
+.accounts-con {
+	position: absolute;
+}
+
+.accounts-inputer {
+	display: inline-block;
+	width: 142px;
+}
+
+.picking-user .picked-user {
+	background-color: #EEE;
+	padding: 6px 14px 8px 6px;
+	display: inline-block;
+	color: #999;
+	border-radius: 4px;
+	position: relative;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+.picking-user .picked-user .unpick-btn {
+	margin-left: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	color: #CCC;
+	position: absolute; right: 3px; top: 0;
+	line-height: 12px;
+}
+.picking-user .picked-user .unpick-btn:hover {
+	color: #333;
+}
+
+.accounts-con .autocompleter {
+	list-style: none;
+	padding: 0;
+	border: 1px solid #DDD;
+	width: 150px;
+	background-color: white;
+	border-bottom: none;
+	border-radius: 2px;
+	box-shadow: 0 0 2px #DDD;
+}
+.accounts-con .autocompleter li {
+	padding: 5px; 
+	cursor: pointer;
+	border-bottom: 1px solid #DDD;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.accounts-con .autocompleter li:hover {
+	background-color: #F2F2F2;
+}
+
+.loading {
+	margin-top: 20px;
+}

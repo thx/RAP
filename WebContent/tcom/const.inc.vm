@@ -14,7 +14,7 @@
 #set($dateFormat = 'yyyy-MM-dd')
 
 ## 时间戳
-#set($timeStamp = '201307171624')
+#set($timeStamp = '201312161659.v0.7')
 
 ##----------------------页面请求action地址-------------------------------
 ## 配置工程的上下文路径
@@ -23,6 +23,10 @@
 
 ## 配置静态资源请求的路径
 #set($staticRoot = "$!projectContext/stat")
+
+#set($newUrl = {
+	"home":"$projectContext/org/index.do"
+})
 
 #set($accountUrl = {
 	"login":"$projectContext/account/login.action",
@@ -33,7 +37,8 @@
 	"myAccount":"$projectContext/account/myAccount.action",
 	"updateProfile":"$projectContext/account/updateProfile.action",
 	"doUpdateProfile":"$projectContext/account/doUpdateProfile.action",
-	"doChangeProfile":"$projectContext/account/doChangeProfile.action"
+	"doChangeProfile":"$projectContext/account/doChangeProfile.action",
+	"myHome":"$projectContext/org/index.action"
 })
 
 #set($projectUrl = {
@@ -42,7 +47,8 @@
 	"addProject":"$projectContext/project/addProject.action",
 	"myProject":"$projectContext/project/myProject.action",
 	"projectDetailAjax":"$projectContext/project/projectDetailAjax.action",
-	"addOrUpdateProject":"$projectContext/project/addOrUpdateProject.action"
+	"addOrUpdateProject":"$projectContext/project/addOrUpdateProject.action",
+	"allProductlineList":"$projectContext/org/productline.action"
 })
 
 #set($workspaceUrl = {
