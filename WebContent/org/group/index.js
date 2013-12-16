@@ -46,6 +46,9 @@ $(function() {
 		}
 		var remained = [];
 		users.forEach(function(user) {
+			if (remained.length >= 10) {
+				return;
+			}
 			if (picked.indexOf(user.account) != -1) {
 				return;
 			}
@@ -160,7 +163,7 @@ $(function() {
 			var box = $(this);
 			box = box.parents('.box');
 			var projId = box.data('projid');
-			window.location.href= $.route('workspace.mine') + '?projectId=' + projId;
+			window.open($.route('workspace.mine') + '?projectId=' + projId);
 		})
 		.delegate('.box .glyphicon-pencil', 'click', function() {
 			var id = $(this).data('id');
@@ -361,7 +364,7 @@ $(function() {
 			var tmpl = $('#group-tmpl').text();
 			
 			var html = $.render(tmpl, groups);
-			$(".groups").append(html);
+			$(".groups").html(html);
 			bindEvents();
 		}, 'JSON');
 	}

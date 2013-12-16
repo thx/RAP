@@ -321,12 +321,18 @@ public class ProjectAction extends ActionBase {
 		project.setMemberAccountList(memberAccountList);
 		projectMgr.updateProject(project);
 		project = projectMgr.getProject(project.getId());
+		
+		if (getCurUser().isUserInRole("admin") || getCurUser().getId() == project.getUser().getId()) {
+			project.setIsManagable(true);
+		} 
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("id", project.getId());
 		result.put("name", project.getName());
 		result.put("desc", project.getIntroduction());
 		result.put("accounts", project.getMemberAccountListStr());
 		result.put("groupId", project.getGroupId());
+		result.put("isManagable", project.getIsManagable());
 		setJson(new RapError(gson.toJson(result)).toString());
 		return SUCCESS;
 	}

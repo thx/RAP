@@ -16,6 +16,7 @@
 		    		<span class="btn btn-primary create-group"><i class="glyphicon glyphicon-plus"></i> 创建分组</span>
 		    	</div>
 		    	<div class="groups">
+		    		<div class="loading">加载中，请稍候</div>
 		    	</div>
 		    </div>
 	    </div>

@@ -13,6 +13,7 @@
 		    <div class="groups-con content">
 		    	<h2>Dashboard</h2>
 		    	<div class="groups">
+		    		<div class="loading">加载中，请稍候</div>
 		    	</div>
 		    </div>
 	    </div>

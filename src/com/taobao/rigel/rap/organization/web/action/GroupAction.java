@@ -81,11 +81,15 @@ public class GroupAction extends ActionBase {
 					.getProjectListByGroup(groupModel.getId());
 			List<Map<String, Object>> projects = new ArrayList<Map<String, Object>>();
 			for (Project projectModel : projectModelList) {
+				if (getCurUser().isUserInRole("admin") || getCurUser().getId() == projectModel.getUser().getId()) {
+					projectModel.setIsManagable(true);
+				} 
 				Map<String, Object> project = new HashMap<String, Object>();
 				project.put("id", projectModel.getId());
 				project.put("name", projectModel.getName());
 				project.put("desc", projectModel.getIntroduction());
 				project.put("status", projectModel.getLastUpdateStr());
+				project.put("accounts", projectModel.getMemberAccountListStr());
 				project.put("isManagable", projectModel.getIsManagable());
 				projects.add(project);
 			}

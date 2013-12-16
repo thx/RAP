@@ -126,6 +126,7 @@
 .groups-con .groups .group .box .tools {
 	text-align: center;
 	position: absolute;
+	height: 26px;
 	right: -1px;
 	top: -26px;
 	width: auto;
@@ -218,4 +219,8 @@
 }
 .accounts-con .autocompleter li:hover {
 	background-color: #F2F2F2;
+}
+
+.loading {
+	margin-top: 20px;
 }

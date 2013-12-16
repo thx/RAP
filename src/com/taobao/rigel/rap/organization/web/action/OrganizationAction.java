@@ -71,11 +71,15 @@ public class OrganizationAction extends ActionBase {
 		List<Project> projectList = projectMgr.getProjectList(getCurUser(), 1,
 				(int) totalRecNum);
 		for (Project p : projectList) {
+			if (getCurUser().isUserInRole("admin") || getCurUser().getId() == p.getUser().getId()) {
+				p.setIsManagable(true);
+			} 
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("id", p.getId());
 			map.put("name", p.getName());
 			map.put("desc", p.getIntroduction());
 			map.put("status", p.getLastUpdateStr());
+			map.put("accounts", p.getMemberAccountListStr());
 			map.put("isManagable", p.getIsManagable());
 			projects.add(map);
 		}
