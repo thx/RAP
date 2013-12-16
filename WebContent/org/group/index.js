@@ -172,10 +172,11 @@ $(function() {
 				title: '删除项目',
 				confirmText: '确认删除',
 				confirmClicked: function() {
+					var modal = $(this);
 					$.post($.route('org.project.delete'), {
 						id: id
 					}, function(data) {
-						if (data.status == '200') {
+						if (data.code == '200') {
 							box.hide('slow', function() {
 								box.remove();
 							});
