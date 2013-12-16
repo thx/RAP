@@ -13,7 +13,30 @@
 		<param-value>classpath*:applicationContext.xml</param-value>
 	</context-param>
 
-	
+	<filter>
+		<filter-name>ssoFilter</filter-name>
+		<filter-class>com.alibaba.buc.sso.client.filter.SSOFilter</filter-class>
+		<init-param>
+			<param-name>APP_NAME</param-name>
+			<param-value>rapauto</param-value>
+		</init-param>
+		<init-param>
+			<param-name>SSO_CALLBACK_CLASS</param-name>
+			<param-value>com.alibaba.buc.sso.client.handler.impl.SimpleSSOCallback</param-value>
+		</init-param>
+		<init-param>
+			<param-name>SSO_SERVER_URL</param-name>
+			<param-value>https://login.alibaba-inc.com</param-value>
+		</init-param>
+		<init-param>
+			<param-name>CLIENT_KEY</param-name>
+			<param-value>0e6f43d9-e380-4a7b-88ec-65b5568ce2ee</param-value>
+		</init-param>
+		<init-param>
+			<param-name>EXCLUSIONS</param-name>
+			<param-value>*/ok.html,*/status.taobao,/login.htm,/logout.htm,*/stat/*,*/favicon.ico</param-value>
+		</init-param>
+	</filter>
 
 	<filter>
 		<filter-name>UrlRewriteFilter</filter-name>
