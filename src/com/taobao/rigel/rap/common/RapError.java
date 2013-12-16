@@ -17,8 +17,27 @@ public class RapError {
 	}
 
 	private int code = 200;
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+
 	private String msg = "";
 	private String result = "";
+
+	public String getResult() {
+		if (result == null || result.isEmpty()) {
+			return "\"\"";
+		}
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
 
 	public String getMsg() {
 		return msg;
@@ -29,8 +48,8 @@ public class RapError {
 	}
 
 	public String toString() {
-		return "{\"code\":" + this.code + ", \"msg\":\"" + msg + "\", \"result\":"
-				+ this.result + "}";
+		return "{\"code\":" + getCode() + ", \"msg\":\"" + getMsg() + "\", \"result\":"
+				+ getResult() + "}";
 	}
 
 }
