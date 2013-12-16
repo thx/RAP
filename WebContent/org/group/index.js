@@ -225,6 +225,11 @@ $(function() {
 							desc: $(this).find('textarea.desc').val(),
 							accounts: values.join(', ')
 						}, function(data) {
+							if (data.code != '200') {
+								modal.modal('hide');
+								alert(data.msg);
+								return;
+							}
 							var data = data.result;
 							var html = $.render(tmpl, data);
 							box.replaceWith(html);
