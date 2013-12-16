@@ -74,12 +74,14 @@
                 <tr>
                     <td></td>
                     <td>
+                    	<!--
                         #if($isEditMode)
                         <input type="submit" value="更新资料" class="btn btn-primary" />
                         <input type="button" value="取消" class="btn" onclick="window.location.href='$accountUrl.myAccount'" />
                         #else
                         <input type="button" value="修改资料" class="btn" onclick="window.location.href='$accountUrl.updateProfile'" />
                         #end
+                        -->
                     </td>
                 </tr>
                 <tr>

@@ -26,11 +26,11 @@
 		</init-param>
 		<init-param>
 			<param-name>SSO_SERVER_URL</param-name>
-			<param-value>https://login-test.alibaba-inc.com</param-value>
+			<param-value>https://login.alibaba-inc.com</param-value>
 		</init-param>
 		<init-param>
 			<param-name>CLIENT_KEY</param-name>
-			<param-value>285ba7b1-47de-41ea-9205-8f761f960781</param-value>
+			<param-value>0e6f43d9-e380-4a7b-88ec-65b5568ce2ee</param-value>
 		</init-param>
 		<init-param>
 			<param-name>EXCLUSIONS</param-name>

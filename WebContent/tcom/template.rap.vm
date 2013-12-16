@@ -12,7 +12,7 @@
         <li><a href="$newUrl.home">我的主页</a></li>
         #if($isLogined)
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">团队切换 <b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">$curCorpName <b class="caret"></b></a>
           <ul class="dropdown-menu">
           	#foreach($corp in $corpList)
           	 <li><a href="$projectUrl.allProductlineList?id=$corp.id">$corp.name</a></li>

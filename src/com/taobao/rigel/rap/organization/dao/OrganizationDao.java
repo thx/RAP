@@ -85,9 +85,18 @@ public interface OrganizationDao {
 	 * @return
 	 */
 	ProductionLine getProductionLine(int id);
-	
+
+	/**
+	 * get corporation
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Corporation getCorporation(int id);
+
 	/**
 	 * update ProductionLine.projectNum
+	 * 
 	 * @param productionLineId
 	 */
 	public void updateCountersInProductionLine(int productionLineId);

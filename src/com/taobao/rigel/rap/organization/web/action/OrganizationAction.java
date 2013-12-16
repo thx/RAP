@@ -7,6 +7,8 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.common.ActionBase;
+import com.taobao.rigel.rap.common.ContextManager;
+import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.bo.ProductionLine;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 import com.taobao.rigel.rap.project.bo.Project;
@@ -17,6 +19,15 @@ public class OrganizationAction extends ActionBase {
 	private OrganizationMgr organizationMgr;
 	private ProjectMgr projectMgr;
 	private int plid;
+	private int id;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getPlid() {
 		return plid;
@@ -58,7 +69,12 @@ public class OrganizationAction extends ActionBase {
 		return SUCCESS;
 	}
 
+	@SuppressWarnings("unchecked")
 	public String productline() {
+		Corporation c = organizationMgr.getCorporation(id);
+		if (c != null) {
+			ContextManager.getSession().put(ContextManager.KEY_CORP_NAME, c.getName());
+		}
 		return SUCCESS;
 	}
 

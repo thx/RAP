@@ -112,4 +112,9 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
 		query.executeUpdate();
 	}
 
+	@Override
+	public Corporation getCorporation(int id) {
+		return (Corporation) getSession().get(Corporation.class, id);
+	}
+
 }

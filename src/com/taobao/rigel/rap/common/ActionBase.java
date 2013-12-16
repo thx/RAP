@@ -87,6 +87,18 @@ public class ActionBase extends ActionSupport {
 		return isUserLogined() ? ContextManager.getSession()
 				.get(ContextManager.KEY_ACCOUNT).toString() : null;
 	}
+	
+	public String getCurCorpName() {
+		Object nameObj = ContextManager.getSession().get(ContextManager.KEY_CORP_NAME);
+		String name = null;
+		if (nameObj != null) {
+			name = nameObj.toString();
+		}
+		if (name == null || name.isEmpty()) {
+			return "团队切换";
+		}
+		return name;
+	}
 
 	public boolean getIsLogined() {
 		return isUserLogined();

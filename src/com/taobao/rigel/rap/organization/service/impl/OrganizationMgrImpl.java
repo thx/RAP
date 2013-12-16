@@ -104,4 +104,9 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 		return organizationDao.getProductionLine(plid);
 	}
 
+	@Override
+	public Corporation getCorporation(int id) {
+		return organizationDao.getCorporation(id);
+	}
+
 }

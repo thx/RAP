@@ -79,5 +79,13 @@ public interface OrganizationMgr {
 	 */
 	ProductionLine getProductionLine(int plid);
 	
+	/**
+	 * get corporation
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Corporation getCorporation(int id);
+	
 
 }

@@ -495,6 +495,6 @@ public class Project implements java.io.Serializable {
 	
 	public String getLastUpdateStr() {
 		PrettyTime p = new PrettyTime(new Locale("zh"));
-		return p.format(this.updateTime);
+		return p.format(this.updateTime) + "更新";
 	}
 }

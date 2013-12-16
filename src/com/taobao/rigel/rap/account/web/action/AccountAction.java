@@ -214,6 +214,7 @@ public class AccountAction extends ActionBase {
 		return SUCCESS;
 	}
 
+	/**
 	public String updateProfile() {
 		setIsEditMode(true);
 		return SUCCESS;
@@ -227,9 +228,9 @@ public class AccountAction extends ActionBase {
 		}
 		return SUCCESS;
 	}
+	*/
 
 	public String sendBucSSOToken() {
-		setJson(SSO_TOKEN + ", " + BACK_URL);
 		return SUCCESS;
 	}
 }
