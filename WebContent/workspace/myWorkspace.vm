@@ -9,7 +9,7 @@
         <link type="text/css" rel="stylesheet" href="${staticRoot}/css/myWorkspace.css?_r=$!timeStamp" />
         <script src="${staticRoot}/js/util/jsformat.js"></script>
     </head>
-    <body>
+    <body class="workspace">
         #bodyStart(true)
         <div id="div-fixed-panel">
             <div class="clearfix">
