@@ -44,9 +44,9 @@
 				<div class="star"><i class="glyphicon glyphicon-star"></i></div>
 			{{/important}}
 			<div class="tools">
-				<i class="glyphicon glyphicon-pencil" data-id="{{id}}"></i>
+				{{#isManagable}}<i class="glyphicon glyphicon-pencil" data-id="{{id}}"></i>{{/isManagable}}
 				<i class="glyphicon glyphicon-eye-open" data-id="{{id}}"></i>
-				<i class="glyphicon glyphicon-trash" data-id="{{id}}"></i>
+				{{#isManagable}}<i class="glyphicon glyphicon-trash" data-id="{{id}}"></i>{{/isManagable}}
 			</div>
 			<input type="hidden" class="accounts-hidden" value="{{accounts}}"/>
         </div>
