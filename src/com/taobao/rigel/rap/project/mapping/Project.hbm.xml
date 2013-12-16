@@ -32,6 +32,11 @@
 				<comment>创建时间</comment>
 			</column>
 		</property>
+		<property name="updateTime" type="timestamp">
+			<column name="update_time" not-null="true">
+				<comment>更新时间</comment>
+			</column>
+		</property>
 		<property name="introduction" type="string">
 			<column name="introduction" not-null="false">
 				<comment>项目简介</comment>

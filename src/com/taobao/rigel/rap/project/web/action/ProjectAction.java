@@ -320,6 +320,7 @@ public class ProjectAction extends ActionBase {
 		Gson gson = new Gson();
 		project.setMemberAccountList(memberAccountList);
 		projectMgr.updateProject(project);
+		project = projectMgr.getProject(project.getId());
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("id", project.getId());
 		result.put("name", project.getName());
