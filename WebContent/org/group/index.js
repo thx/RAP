@@ -26,7 +26,7 @@ $(function() {
 	function showAutocompleter(modal, users) {
 		modal = $(modal);
 		var con = modal.find('.accounts-con');
-		var inputer = modal.find('.accounts');
+		var inputer = modal.find('.accounts-inputer');
 		if (!inputer.data('blur-binded')) {
 			inputer.data('blur-binded', 1);
 			inputer.on('blur', function() {
@@ -82,9 +82,9 @@ $(function() {
 				}));
 				con.hide();
 				inputer.val('');
-				setTimeout(function() {
+				//setTimeout(function() {
 					inputer.focus();
-				}, 100);
+				//}, 100);
 			});
 		}
 	}
@@ -195,7 +195,7 @@ $(function() {
 						$(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
 							$(this).parent('.picked-user').remove();
 						});
-						$(this).find('.accounts').keyup(function() {
+						$(this).find('.accounts-inputer').keyup(function() {
 							showAutocompleter(that, users);
 						}).focus(function() {
 							showAutocompleter(that, users);
@@ -231,6 +231,7 @@ $(function() {
 								return;
 							}
 							var data = data.result;
+							data.status = data.status || '刚刚更新';
 							var html = $.render(tmpl, data);
 							box.replaceWith(html);
 							modal.modal('hide');
@@ -277,7 +278,7 @@ $(function() {
 						$(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
 							$(this).parent('.picked-user').remove();
 						});
-						$(this).find('.accounts').keyup(function() {
+						$(this).find('.accounts-inputer').keyup(function() {
 							showAutocompleter(that, users);
 						}).focus(function() {
 							showAutocompleter(that, users);
@@ -308,6 +309,7 @@ $(function() {
 							accounts: values.join(', ')
 						}, function(data) {
 							var data = data.result;
+							data.status = data.status || '刚刚创建';
 							var html = $.render(tmpl, data);
 							$(that).before(html);
 							modal.modal('hide');

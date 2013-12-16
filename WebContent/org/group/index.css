@@ -22,7 +22,7 @@
 	display: none !important;
 }
 
-.groups-con .groups .group:hover h3 .btn-hover {
+.groups-con .groups .group h3:hover .btn-hover {
 	display: inline-block !important;
 }
 
@@ -116,6 +116,7 @@
 .groups-con .groups .group .box:hover .tools {
 	display: block;
 }
+
 .groups-con .groups .group .box .tools {
 	text-align: center;
 	position: absolute;
@@ -163,7 +164,7 @@
 	position: absolute;
 }
 
-.accounts {
+.accounts-inputer {
 	display: inline-block;
 	width: 142px;
 }

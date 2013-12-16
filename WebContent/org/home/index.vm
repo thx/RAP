@@ -85,7 +85,7 @@
 	  {{#users}}
 	  <span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">{{account}} ({{name}})<i class="unpick-btn">&times;</i></span>
 	  {{/users}}
-	  <input class="form-control accounts" placeholder="添加项目成员"/>
+	  <input class="form-control accounts-inputer" placeholder="添加项目成员"/>
       <div class="accounts-con"></div>
 	</div>
   </div>
