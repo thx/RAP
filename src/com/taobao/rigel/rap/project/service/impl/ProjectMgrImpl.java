@@ -54,6 +54,8 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 	@Override
 	public int addProject(Project project) {
+		project.setUpdateTime(new Date());
+		project.setCreateDate(new Date());
 		for (String account : project.getMemberAccountList()) {
 			User user = accountDao.getUser(account);
 			if (user != null) {

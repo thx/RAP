@@ -77,6 +77,12 @@
 
 .groups-con .groups .group .box .intro {
 	color: rgba(0, 0, 0, 0.3);
+	text-overflow: ellipsis;
+	width: 182px;
+	white-space: inherit;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 @-webkit-keyframes spaceboots {
