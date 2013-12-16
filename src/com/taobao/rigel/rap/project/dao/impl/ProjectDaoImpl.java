@@ -26,16 +26,15 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 	@Override
 	public List<Project> getProjectList(User user, int curPageNum, int pageSize) {
 		curPageNum = curPageNum <= 0 ? 1 : curPageNum;
-		String hql = "from Project as p order by p.id desc";
 		String hqlByUser = "from Project as p left join fetch p.userList as u where p.user.id = :userId or u.id = :userId order by p.id desc";
-		Query query = user == null ? getSession().createQuery(hql)
-				: getSession().createQuery(hqlByUser).setLong("userId",
+		Query query = getSession().createQuery(hqlByUser).setLong("userId",
 						user.getId());
 		query = query.setFirstResult(pageSize * (curPageNum - 1));
 		query.setMaxResults(pageSize);
 		return query.list();
 	}
 
+	
 	@Override
 	public int addProject(Project project) {
 		Session session = getSession();
