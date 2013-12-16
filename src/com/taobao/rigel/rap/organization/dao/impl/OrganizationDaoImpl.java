@@ -94,4 +94,22 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
 		return (ProductionLine) getSession().get(ProductionLine.class, id);
 	}
 
+	@Override
+	public void updateCountersInProductionLine(int productionLineId) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT COUNT(*) FROM tb_project p ")
+		.append("JOIN tb_group g ON p.group_id = g.id ")
+		.append("JOIN tb_production_line pl ON pl.id = g.production_line_id ")
+		.append("WHERE g.production_line_id = :id");
+		Query query = getSession().createSQLQuery(sql.toString());
+		query.setInteger("id", productionLineId);
+		int num = Integer.parseInt(query.uniqueResult().toString());
+		sql = new StringBuilder();
+		sql.append("UPDATE tb_production_line SET project_num = :num WHERE id = :id");
+		query = getSession().createSQLQuery(sql.toString());
+		query.setInteger("num", num);
+		query.setInteger("id", productionLineId);
+		query.executeUpdate();
+	}
+
 }
