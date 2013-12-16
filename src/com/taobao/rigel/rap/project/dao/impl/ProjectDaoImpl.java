@@ -378,5 +378,4 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		query.setInteger("id", id);
 		return query.list();
 	}
-
 }

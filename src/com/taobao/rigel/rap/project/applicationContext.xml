@@ -4,6 +4,7 @@
 	<bean id="projectMgr" class="com.taobao.rigel.rap.project.service.impl.ProjectMgrImpl">
 		<property name="projectDao" ref="projectDao" />
 		<property name="accountDao" ref="accountDao" />
+		<property name="organizationDao" ref="organizationDao" />
 	</bean>
 	<bean id="projectDao" class="com.taobao.rigel.rap.project.dao.impl.ProjectDaoImpl" parent="baseDao" />
 	<bean id="accountDao" class="com.taobao.rigel.rap.account.dao.impl.AccountDaoImpl" parent="baseDao" />

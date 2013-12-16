@@ -8,6 +8,8 @@ import java.util.Set;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.dao.AccountDao;
 import com.taobao.rigel.rap.common.ArrayUtils;
+import com.taobao.rigel.rap.organization.bo.Group;
+import com.taobao.rigel.rap.organization.dao.OrganizationDao;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Module;
 import com.taobao.rigel.rap.project.bo.Page;
@@ -19,6 +21,15 @@ import com.taobao.rigel.rap.project.service.ProjectMgr;
 public class ProjectMgrImpl implements ProjectMgr {
 
 	private ProjectDao projectDao;
+	private OrganizationDao organizationDao;
+
+	public OrganizationDao getOrganizationDao() {
+		return organizationDao;
+	}
+
+	public void setOrganizationDao(OrganizationDao organizationDao) {
+		this.organizationDao = organizationDao;
+	}
 
 	public ProjectDao getProjectDao() {
 		return this.projectDao;
@@ -62,12 +73,28 @@ public class ProjectMgrImpl implements ProjectMgr {
 				project.addMember(user);
 			}
 		}
-		return projectDao.addProject(project);
+		int result = projectDao.addProject(project);
+
+		Group g = organizationDao.getGroup(project.getGroupId());
+		if (g.getProductionLineId() > 0) {
+			organizationDao.updateCountersInProductionLine(g
+					.getProductionLineId());
+		}
+
+		return result;
 	}
 
 	@Override
 	public int removeProject(int id) {
-		return projectDao.removeProject(id);
+		Project p = getProject(id);
+		Group g = organizationDao.getGroup(p.getGroupId());
+		int pId = g.getProductionLineId();
+		int result = projectDao.removeProject(id);
+
+		if (pId > 0) {
+			organizationDao.updateCountersInProductionLine(pId);
+		}
+		return result;
 	}
 
 	@Override
@@ -170,7 +197,8 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 	@Override
 	public List<Action> getMatchedActionList(int projectId, String pattern) {
-		List<Action> actionList = projectDao.getMatchedActionList(projectId, pattern);
+		List<Action> actionList = projectDao.getMatchedActionList(projectId,
+				pattern);
 		if (actionList == null || actionList.size() == 0) {
 			Project project = projectDao.getProject(projectId);
 			if (project != null) {
@@ -178,7 +206,8 @@ public class ProjectMgrImpl implements ProjectMgr {
 				if (ids != null && !ids.isEmpty()) {
 					String[] arr = ids.split(",");
 					for (String id : arr) {
-						actionList = projectDao.getMatchedActionList(Integer.parseInt(id), pattern);
+						actionList = projectDao.getMatchedActionList(
+								Integer.parseInt(id), pattern);
 						if (actionList != null && actionList.size() != 0) {
 							return actionList;
 						}
