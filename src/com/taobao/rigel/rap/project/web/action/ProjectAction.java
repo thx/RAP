@@ -30,6 +30,16 @@ public class ProjectAction extends ActionBase {
 	}
 
 	private String desc;
+	
+	private int groupId;
+
+	public int getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
+	}
 
 	private String accounts;
 
@@ -230,6 +240,7 @@ public class ProjectAction extends ActionBase {
 		project.setUser(getCurUser());
 		project.setIntroduction(getDesc());
 		project.setName(getName());
+		project.setGroupId(groupId);
 		List<String> memberAccountList = new ArrayList<String>();
 		String[] list = getAccounts().split(",");
 		// format: mashengbo(大灰狼堡森), linpanhui(林攀辉),
