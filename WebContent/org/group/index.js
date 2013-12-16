@@ -42,14 +42,14 @@ $(function() {
 		var picked = [];
 		var nodes = modal.find('.picked-user');
 		for(var i = 0, l = nodes.length; i < l; i++) {
-			picked.push($(nodes[i]).data('name'));
+			picked.push($(nodes[i]).data('account'));
 		}
 		var remained = [];
 		users.forEach(function(user) {
-			if (picked.indexOf(user.name) != -1) {
+			if (picked.indexOf(user.account) != -1) {
 				return;
 			}
-			if (user.name.indexOf(val) != -1) {
+			if (user.account.indexOf(val) != -1) {
 				remained.push(user);
 			}
 		});
@@ -78,7 +78,7 @@ $(function() {
 				var node = $(this);
 				inputer.before($.render(itemTeml, {
 					name: node.data('name'), 
-					realname: node.data('realname')
+					account: node.data('account')
 				}));
 				con.hide();
 				inputer.val('');
@@ -156,7 +156,7 @@ $(function() {
 				}
 			});
 		})
-		.delegate('.box', 'click', function() {
+		.delegate('.box .info', 'click', function() {
 			var box = $(this);
 			if (!box.hasClass('box')) {
 				box = box.parent('.box');
@@ -164,9 +164,32 @@ $(function() {
 			var projId = box.data('projid');
 			window.location.href= $.route('workspace.mine') + '?projectId=' + projId;
 		})
+		.delegate('.box .glyphicon-trash', 'click', function() {
+			var id = $(this).data('id');
+			var box = $(this).parents('.box');
+			$.confirm({
+				content: '删除以后不可恢复，请谨慎操作',
+				title: '删除项目',
+				confirmText: '确认删除',
+				confirmClicked: function() {
+					$.post($.route('org.project.delete'), {
+						id: id
+					}, function(data) {
+						if (data.status == '200') {
+							box.hide('slow', function() {
+								box.remove();
+							});
+						} else {
+							alert(data.msg);
+						}
+						modal.modal('hide');
+					}, "JSON")
+				}
+			})
+		})
 		.delegate('.box-to-add', 'click', function() {
 			var that = this;
-			
+			var groupId = $(this).data('groupid');
 			getUsers(function(users) {
 				$.confirm({
 					content: $('#create-proj-tmpl').text(),
@@ -196,10 +219,17 @@ $(function() {
 						}
 						var tmpl = $('#create-proj-success-tmpl').text();
 						var modal = $(this);
+						var accounts = $(this).find('.picked-user');
+						var values = [];
+						for(var i = 0, l = accounts.length; i < l; i++) {
+							var current = $(accounts[i]);
+							values.push(current.data('account') + '(' + current.data('name') + ')')
+						}
 						$.post($.route('org.project.create'), {
+							groupId: groupId,
 							name: inputer.val(),
-							desc: $(this).find('textarea.desc').val(),
-							accounts: $(this).find('textarea.accounts').val()
+							introduction: $(this).find('textarea.desc').val(),
+							accounts: values.join(', ')
 						}, function(data) {
 							var html = $.render(tmpl, data);
 							$(that).before(html);
@@ -234,22 +264,16 @@ $(function() {
 			}, "JSON");
 		});
 	}
-	var users = [{name: 'wangjeaf1', realname: '王致富'}, 
-	             {name: 'zhifu.wzf2', realname: 'wzf2'}, 
-	             {name: 'huoyongd3', realname:'活用'},
-	             {name: 'wangjeaf', realname: '王致富'}, 
-	             {name: 'zhifu.wzf', realname: 'wzf2'}, 
-	             {name: 'huoyongd', realname:'活用'}
-	];
-	
+	var users = null;
 	function getUsers(callback) {
 		if (users) {
 			callback(users);
 			return;
 		}
 		
-		$.get($.route('org.user.all'), function(data) {
-			users = data;
+		$.get($.route('org.account.all'), function(data) {
+			users = data.users;
+			console.log(users);
 			callback(users);
 		}, "JSON");
 	}

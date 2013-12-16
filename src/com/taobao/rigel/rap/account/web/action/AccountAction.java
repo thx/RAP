@@ -58,7 +58,7 @@ public class AccountAction extends ActionBase {
 			o.put("realName", user.getRealName());
 			result.add(o);
 		}
-		setJson("{users:" + gson.toJson(result) + "}");
+		setJson("{\"users\":" + gson.toJson(result) + "}");
 		return SUCCESS;
 	}
 
