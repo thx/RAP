@@ -86,6 +86,7 @@ public class GroupAction extends ActionBase {
 				project.put("id", projectModel.getId());
 				project.put("name", projectModel.getName());
 				project.put("desc", projectModel.getIntroduction());
+				project.put("accounts", projectModel.getMemberAccountListStr());
 				project.put("status", "最近x小时更新");
 				projects.add(project);
 			}

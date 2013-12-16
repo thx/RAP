@@ -67,5 +67,17 @@
 		} else {
 			return '';
 		}
+	};
+	
+	$.local = function(key, value) {
+		if (arguments.length == 0) {
+			console.log($.__locals);
+			return;
+		}
+		if (arguments.length == 1) {
+			$.__locals = $.__locals || {};
+			return $.__locals[key];
+		}
+		$.__locals[key] = value;
 	}
 })($);
