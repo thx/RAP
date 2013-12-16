@@ -5,7 +5,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>欢迎使用RAP        </title>
 		#includeNewRapStatic
-		<link rel="stylesheet" href="./productline/index.css" type="text/css" media="screen">
+		<link rel="stylesheet" href="./productline/index.css?_r=$!timeStamp" type="text/css" media="screen">
 	</head>
 	<body>
 	    #bodyNewStart
@@ -52,7 +52,7 @@
   </div>
 </div>
 		</script>
-	    <script src="./productline/index.js"></script>
+	    <script src="./productline/index.js?_r=$!timeStamp"></script>
 	    #bodyEnd
 	</body>
 </html>

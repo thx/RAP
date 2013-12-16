@@ -5,7 +5,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>欢迎使用RAP        </title>
 		#includeNewRapStatic
-		<link rel="stylesheet" href="./group/index.css" type="text/css" media="screen">
+		<link rel="stylesheet" href="./group/index.css?_r=$!timeStamp" type="text/css" media="screen">
 	</head>
 	<body>
 	    #bodyNewStart
@@ -124,7 +124,7 @@
 <script type="text/tmpl" id="user-item-tmpl">
 <span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">{{account}} ({{name}})<i class="unpick-btn">&times;</i></span>
 </script>
-	    <script src="./group/index.js"></script>
+	    <script src="./group/index.js?_r=$!timeStamp"></script>
 	    #bodyEnd
 	</body>
 </html>
