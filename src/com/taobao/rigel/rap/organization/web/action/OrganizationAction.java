@@ -75,7 +75,7 @@ public class OrganizationAction extends ActionBase {
 			map.put("id", p.getId());
 			map.put("name", p.getName());
 			map.put("desc", p.getIntroduction());
-			map.put("status", "最近n小时更新");
+			map.put("status", p.getLastUpdateStr());
 			projects.add(map);
 		}
 		StringBuilder json = new StringBuilder();

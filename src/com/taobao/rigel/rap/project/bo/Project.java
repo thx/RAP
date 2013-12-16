@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Session;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.DateUtils;
@@ -25,6 +26,7 @@ public class Project implements java.io.Serializable {
 	private long userId;
 	private String name;
 	private Date createDate;
+	private Date updateTime;
 	private String introduction;	
 	private User user;	
 	private int workspaceModeInt;
@@ -59,6 +61,14 @@ public class Project implements java.io.Serializable {
 		this.workspaceModeInt = workspaceModeInt;
 	}
 	
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
 	public ModeType getWorkspaceMode() {
 		if (workspaceModeInt == 1) {
 			return ModeType.VSS;
@@ -480,5 +490,10 @@ public class Project implements java.io.Serializable {
 	public void removeMember(User user) {
 		getUserList().remove(user);
 		user.getJoinedProjectList().remove(this);		
+	}
+	
+	public String getLastUpdateStr() {
+		PrettyTime p = new PrettyTime();
+		return p.format(new Date());
 	}
 }

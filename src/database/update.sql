@@ -44,8 +44,7 @@ ALTER TABLE tb_user
 ADD COLUMN realname varchar(128) NOT NULL
 	DEFAULT '';
 
-
-+tb_user.group_id    // FOREIGN KEY
-+tb_user.login_type // tinyint NOT NULL DEFAULT 1, 1-RAP帐号登录, 2-域帐号登录
-+tb_user.ali_user_id // varchar(20) NULL, login_type为2时有效
+ALTER TABLE tb_project
+ADD COLUMN update_time timestamp NOT NULL
+		DEFAULT now();
 	

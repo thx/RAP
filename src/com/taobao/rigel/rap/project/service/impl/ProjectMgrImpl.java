@@ -1,6 +1,7 @@
 package com.taobao.rigel.rap.project.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -72,6 +73,7 @@ public class ProjectMgrImpl implements ProjectMgr {
 		Project project = getProject(outerProject.getId());
 		project.setName(outerProject.getName());
 		project.setIntroduction(outerProject.getIntroduction());
+		project.setUpdateTime(new Date());
 
 		if (outerProject.getMemberAccountList() != null) {
 			// adding new ones

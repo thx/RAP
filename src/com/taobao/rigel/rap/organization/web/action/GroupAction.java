@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.RapError;
 import com.taobao.rigel.rap.organization.bo.Group;
-import com.taobao.rigel.rap.organization.bo.ProductionLine;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
@@ -86,7 +85,7 @@ public class GroupAction extends ActionBase {
 				project.put("id", projectModel.getId());
 				project.put("name", projectModel.getName());
 				project.put("desc", projectModel.getIntroduction());
-				project.put("status", "最近x小时更新");
+				project.put("status", projectModel.getLastUpdateStr());
 				projects.add(project);
 			}
 			group.put("projects", projects);

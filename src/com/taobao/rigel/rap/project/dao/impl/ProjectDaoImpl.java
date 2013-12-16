@@ -1,6 +1,7 @@
 package com.taobao.rigel.rap.project.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.ObjectNotFoundException;
@@ -8,6 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.ArrayUtils;
 import com.taobao.rigel.rap.project.bo.Action;
@@ -17,7 +19,6 @@ import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Parameter;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.dao.ProjectDao;
-import com.google.gson.Gson;
 
 public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 
@@ -131,6 +132,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 				ObjectItem[].class);
 
 		Project projectServer = (Project) session.load(Project.class, id);
+		projectServer.setUpdateTime(new Date());
 
 		// performing deleting
 		for (ObjectItem item : deletedObjectList) {
