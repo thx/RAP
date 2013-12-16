@@ -17,16 +17,7 @@ public class ProductlineAction extends ActionBase {
 	private int corpId;
 	private int id;
 	private String name;
-	private int plid;
-
-	public int getPlid() {
-		return plid;
-	}
-
-	public void setPlid(int plid) {
-		this.plid = plid;
-	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -47,9 +38,7 @@ public class ProductlineAction extends ActionBase {
 		return corpId;
 	}
 
-	public ProductionLine getProductLine() {
-		return organizationMgr.getProductionLine(plid);
-	}
+	
 
 	public void setCorpId(int corpId) {
 		this.corpId = corpId;

@@ -8,26 +8,77 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import com.alibaba.buc.sso.client.util.SimpleUserUtil;
+import com.alibaba.platform.buc.sso.common.dto.SimpleSSOUser;
+import com.taobao.rigel.rap.account.bo.User;
+import com.taobao.rigel.rap.account.service.AccountMgr;
 
 public class AuthCheckFilter implements Filter {
+	AccountMgr accountMgr;
 
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-		
+	public AccountMgr getAccountMgr() {
+		return accountMgr;
+	}
+
+	public void setAccountMgr(AccountMgr accountMgr) {
+		this.accountMgr = accountMgr;
 	}
 
 	@Override
-	public void doFilter(ServletRequest arg0, ServletResponse arg1,
-			FilterChain arg2) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		
+	public void destroy() {
+
+	}
+
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response,
+			FilterChain chain) throws IOException, ServletException {
+		HttpSession session = ((HttpServletRequest) request).getSession();
+		boolean logined = session.getAttribute(ContextManager.KEY_ACCOUNT) != null;
+
+		if (!logined) {
+			SimpleSSOUser user = SimpleUserUtil
+					.findUser((HttpServletRequest) request);
+			String emailPrefix = user.getEmailPrefix();
+			User rapUser = accountMgr.getUser(emailPrefix);
+			if (rapUser == null) {
+				// proceed register
+				User newUser = new User();
+				newUser.setAccount(emailPrefix);
+				newUser.setPassword("RESERVED");
+				String name = user.getTbWW();
+				if (name == null || name.isEmpty()) {
+					name = user.getLastName();
+				}
+				newUser.setName(name);
+				newUser.setEmail(user.getEmailAddr());
+				getAccountMgr().addUser(newUser);
+				rapUser = accountMgr.getUser(emailPrefix);
+				if (rapUser == null) {
+					try {
+						throw new Exception("user register failed!");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			// proceed login
+			String account = rapUser.getAccount();
+			long userId = rapUser.getId();
+			session.setAttribute(ContextManager.KEY_ACCOUNT, account);
+			session.setAttribute(ContextManager.KEY_USER_ID, userId);
+
+		}
+
+		chain.doFilter(request, response);
+
 	}
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -1,28 +1,11 @@
 $(function() {
-	function render() {
-		var data = {
-			items: [{
-				id: 1,
-				name: '测试产品线1',
-				count: 123
-			},
-			{
-				id: 2,
-				name: '测试产品线2',
-				count: 123
-			},
-			{
-				id: 3,
-				name: '测试产品线3',
-				count: 123
-			},
-			{
-				id: 4,
-				name: '测试产品线4',
-				count: 123
-			}]
-		};
-		
+	
+	var corpId = $.getLoc('id');
+	if (!corpId) {
+		alert('亲，没有团队ID，这不可能吧。。。')
+		return;
+	}
+	function render(data) {
 		var tmpl = $('#table-rows').text();
 		$('#pl-items').html($.render(tmpl, data));
 	}
@@ -45,16 +28,17 @@ $(function() {
 					}, 1000);
 					return;
 				}
-				var tmpl = $('#table-rows').text();
-				$('#pl-items').append($.render(tmpl, {items:
-					[{
-						id: 5,
-						name: $(this).find('input[type=text]').val(),
-						count: 0
-					}]
-				}
-				));
-				$(this).modal('hide');
+				var modal = $(this);
+				var value = inputer.val().trim();
+				$.post($.route('org.productline.create'), {
+					corpId: corpId,
+					name: value
+				}, function(data) {
+					var tmpl = $('#table-rows').text();
+					data.count = 0;
+					$('#pl-items').append($.render(tmpl, data));
+					modal.modal('hide');
+				}, "JSON")
 			}
 		});
 	}
@@ -71,6 +55,7 @@ $(function() {
 				$(this).find('input[type=text]').focus();
 			},
 			confirmClicked: function() {
+				var modal = $(this);
 				var inputer = $(this).find('input[type=text]');
 				if (inputer.val().trim() == '') {
 					inputer.addClass('shake');
@@ -80,8 +65,14 @@ $(function() {
 					}, 1000);
 					return;
 				}
-				$('.pl-' + id).find('.name').html($(this).find('input[type=text]').val());
-				$(this).modal('hide');
+				var value = inputer.val().trim();
+				$.post($.route('org.productline.update'), {
+					id: id,
+					name: value
+				}, function(data) {
+					$('.pl-' + id).find('.name').html(value);
+					modal.modal('hide');
+				}, "JSON")
 			}
 		});
 	}
@@ -95,9 +86,18 @@ $(function() {
 			title: '您确定要删除产品线 ' + name + ' 吗？',
 			confirmText: '确定删除',
 			confirmClicked: function() {
-				var node = $('.pl-' + id);
-				node.remove();
-				$(this).modal('hide');
+				var modal = $(this);
+				$.post($.route('org.productline.delete'), {
+					id: id
+				}, function(data) {
+					if (data.code == 200) {
+						var node = $('.pl-' + id);
+						node.remove();
+					} else {
+						alert(data.msg);
+					}
+					modal.modal('hide');
+				}, "JSON")
 			}
 		});
 	}
@@ -110,8 +110,10 @@ $(function() {
 	}
 	
 	function init() {
-		render();
-		bindEvents();
+		$.get($.route('org.productline.all'), {corpId: 1}, function(data) {
+			render(data);
+			bindEvents();
+		}, 'JSON');
 	}
 	
 	init();

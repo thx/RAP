@@ -103,4 +103,9 @@ public class AccountMgrImpl implements AccountMgr {
 		return organizationMgr.getCorporationList();
 	}
 
+	@Override
+	public User getUserByName(String name) {
+		return accountDao.getUserByName(name);
+	}
+
 }

@@ -1,5 +1,6 @@
 body {
-	margin-top: 25px;
+	margin:0;
+	padding:0;
 }
 
 .air {
@@ -159,7 +160,6 @@ body {
 
 #div-fixed-panel {
 	position: fixed;
-	top: 40px;
 	width: 1170px;
 	margin: 0 auto;
 	background: #FFF;
@@ -643,4 +643,8 @@ body {
 */
 .container .label {
 	line-height: 20px;
+}
+body .container {
+	margin:auto;
+	width:80%;
 }
