@@ -2,7 +2,7 @@ var duoshuoQuery = {short_name:"thx"};
 
 KISSY.use('node,event', function(S) {
     S.one('#J_toggler').on('click', function(e) {
-        if (toggler.outerWidth() > 0) {
+        if (e.currentTarget.outerWidth() > 0) {
             var page = S.one('#page')
 
             page.css(

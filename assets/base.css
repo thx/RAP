@@ -298,7 +298,7 @@ body a {
     padding: 0;
   }
   #page .stoc ol {
-    list-style: disc inside;
+    list-style: disc outside;
     padding-left: 40px;
   }
   #page .stoc a:hover {
@@ -383,6 +383,10 @@ body a {
     margin-top: 30px;
   }
 
+  #footer {
+    margin: 40px auto 20px;
+  }
+
   #page .stoc {
     top: 130px;
     left: 50%;
@@ -398,10 +402,5 @@ body a {
   #page .fixed .stoc {
     top: 80px;
   }
-
-  #footer {
-    margin: 40px auto 20px;
-  }
 }
-
 
