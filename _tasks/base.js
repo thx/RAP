@@ -76,8 +76,7 @@ module.exports = function(grunt) {
         copy('assets/base.css', null, basePath),
         copy('assets/post.js', null, basePath),
         copy('assets/img/bg.jpg', null, basePath),
-        copy('assets/syntax/*.css', null, basePath),
-        copy('atom.xml', null, basePath)
+        copy('assets/syntax/*.css', null, basePath)
       ]).done(done)
     }
 
