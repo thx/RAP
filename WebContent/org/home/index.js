@@ -22,8 +22,6 @@ $(function() {
 		}, "JSON");
 	}
 	
-	
-	
 	function bindEvents() {
 		$('body')
 		.delegate('.box .info, .box .tools .glyphicon-eye-open', 'click', function() {
@@ -40,7 +38,7 @@ $(function() {
 			var accounts = box.find('.accounts-hidden').val();
 			var splited = accounts.split(',');
 			var pickeds = [];
-			var reg = /([\w\d_-]+)\(([^,]+)\)/;
+			var reg = /(.+)\s*\(([^,]+)\)/;
 			for(var i = 0, l = splited.length; i < l; i++) {
 				var matched = reg.exec(splited[i]);
 				if (matched) {
