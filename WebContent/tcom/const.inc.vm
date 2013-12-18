@@ -19,7 +19,7 @@
 ##----------------------页面请求action地址-------------------------------
 ## 配置工程的上下文路径
 #set($projectContext = "$!link.getContextPath()")
-#set($projectContext = "$!link.getContextPath()/rap")
+##set($projectContext = "$!link.getContextPath()/rap")
 
 ## 配置静态资源请求的路径
 #set($staticRoot = "$!projectContext/stat")

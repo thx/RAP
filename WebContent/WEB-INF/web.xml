@@ -34,7 +34,7 @@
 		</init-param>
 		<init-param>
 			<param-name>EXCLUSIONS</param-name>
-			<param-value>*/ok.html,*/status.taobao,/login.htm,/logout.htm,*/stat/*,*/favicon.ico</param-value>
+			<param-value>*/stat/*,*/favicon.ico,/t/*,/crossdomain.xml,/*.htm,/*.html</param-value>
 		</init-param>
 	</filter>
 

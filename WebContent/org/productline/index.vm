@@ -32,7 +32,7 @@
 	    <script type="text/tmpl" id="table-rows">
 {{#items}}
 <tr class="pl-item pl-{{id}}" data-id="{{id}}">
-    <td><a class="name" href="/rap/org/group.action?plid={{id}}">{{name}}</a></td>
+    <td><a class="name" href="/org/group.action?plid={{id}}">{{name}}</a></td>
     <td>{{count}}</td>
     <td>
         <span class="btn btn-sm btn-primary update-btn" data-id="{{id}}"><i class="glyphicon glyphicon-edit"></i> 修改</span>

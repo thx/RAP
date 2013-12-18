@@ -2,31 +2,31 @@
 	var URLS = {
 		org : {
 			home: {
-				'projects': '/rap/org/projects.action'
+				'projects': '/org/projects.action'
 			},
 			group: {
-				'all':    '/rap/org/group/all.action',
-				'update': '/rap/org/group/update.action',
-				'delete': '/rap/org/group/delete.action',
-				'create': '/rap/org/group/create.action'
+				'all':    '/org/group/all.action',
+				'update': '/org/group/update.action',
+				'delete': '/org/group/delete.action',
+				'create': '/org/group/create.action'
 			},
 			productline: {
-				'all':    '/rap/org/productline/all.action',
-				'update': '/rap/org/productline/update.action',
-				'delete': '/rap/org/productline/delete.action',
-				'create': '/rap/org/productline/create.action'
+				'all':    '/org/productline/all.action',
+				'update': '/org/productline/update.action',
+				'delete': '/org/productline/delete.action',
+				'create': '/org/productline/create.action'
 			},
 			project: {
-				'create': '/rap/project/create.action',
-				'delete': '/rap/project/delete.action',
-				'update': '/rap/project/update.action'
+				'create': '/project/create.action',
+				'delete': '/project/delete.action',
+				'update': '/project/update.action'
 			}, 
 			account: {
-				'all': '/rap/account/all.action'
+				'all': '/account/all.action'
 			}
 		},
 		workspace: {
-			'mine': '/rap/workspace/myWorkspace.action'
+			'mine': '/workspace/myWorkspace.action'
 		}
 	};
 	
