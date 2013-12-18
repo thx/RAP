@@ -41,34 +41,36 @@ public class AuthCheckFilter implements Filter {
 		if (!logined) {
 			SimpleSSOUser user = SimpleUserUtil
 					.findUser((HttpServletRequest) request);
-			String emailPrefix = user.getEmailPrefix();
-			User rapUser = accountMgr.getUser(emailPrefix);
-			if (rapUser == null) {
-				// proceed register
-				User newUser = new User();
-				newUser.setAccount(emailPrefix);
-				newUser.setPassword("RESERVED");
-				String name = user.getAliWW();
-				if (name == null || name.isEmpty()) {
-					name = user.getLastName();
-				}
-				newUser.setName(name);
-				newUser.setEmail(user.getEmailAddr());
-				getAccountMgr().addUser(newUser);
-				rapUser = accountMgr.getUser(emailPrefix);
+			if (user != null) {
+				String emailPrefix = user.getEmailPrefix();
+				User rapUser = accountMgr.getUser(emailPrefix);
 				if (rapUser == null) {
-					try {
-						throw new Exception("user register failed!");
-					} catch (Exception e) {
-						e.printStackTrace();
+					// proceed register
+					User newUser = new User();
+					newUser.setAccount(emailPrefix);
+					newUser.setPassword("RESERVED");
+					String name = user.getAliWW();
+					if (name == null || name.isEmpty()) {
+						name = user.getLastName();
+					}
+					newUser.setName(name);
+					newUser.setEmail(user.getEmailAddr());
+					getAccountMgr().addUser(newUser);
+					rapUser = accountMgr.getUser(emailPrefix);
+					if (rapUser == null) {
+						try {
+							throw new Exception("user register failed!");
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 				}
+				// proceed login
+				String account = rapUser.getAccount();
+				long userId = rapUser.getId();
+				session.setAttribute(ContextManager.KEY_ACCOUNT, account);
+				session.setAttribute(ContextManager.KEY_USER_ID, userId);
 			}
-			// proceed login
-			String account = rapUser.getAccount();
-			long userId = rapUser.getId();
-			session.setAttribute(ContextManager.KEY_ACCOUNT, account);
-			session.setAttribute(ContextManager.KEY_USER_ID, userId);
 
 		}
 
