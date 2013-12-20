@@ -1,8 +1,8 @@
 var duoshuoQuery = {short_name:"thx"};
 
-KISSY.use('node,event', function(S) {
+KISSY.use('node,event', function(S, Node) {
     S.one('#J_toggler').on('click', function(e) {
-        if (e.currentTarget.outerWidth() > 0) {
+        if (Node(e.currentTarget).outerWidth() > 0) {
             var page = S.one('#page')
 
             page.css(
