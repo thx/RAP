@@ -171,7 +171,12 @@ body a {
   float: right;
 }
 
+.ds-thread {
+  margin-top: 30px;
+}
+
 #footer {
+  margin: 40px auto 20px;
   text-align: center;
 }
 #footer a {
@@ -377,14 +382,6 @@ body a {
     max-width: 680px;
     padding: 10px;
     margin-top: 32px;
-  }
-
-  .ds-thread {
-    margin-top: 30px;
-  }
-
-  #footer {
-    margin: 40px auto 20px;
   }
 
   #page .stoc {
