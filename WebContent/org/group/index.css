@@ -52,7 +52,7 @@
 	position: relative;
 	cursor: pointer;
 	opacity: 0.7;
-	background: url('/rap/stat/img/plus.png') no-repeat center center;
+	background: url('/stat/img/plus.png') no-repeat center center;
 	background-color: #FFF;
 	-webkit-transition: .3s;
     -moz-transition: .3s;

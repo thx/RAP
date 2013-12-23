@@ -118,6 +118,10 @@
 			<param-value>/WEB-INF/velocity.properties</param-value>
 		</init-param>
 	</servlet>
+	<servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/t/*,/crossdomain.xml</url-pattern>
+    </servlet-mapping>
 	<!-- Map *.vm files to Velocity -->
 	<servlet-mapping>
 		<servlet-name>velocity</servlet-name>
