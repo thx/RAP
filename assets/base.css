@@ -98,6 +98,9 @@ body a {
 .mi-diamond:before {
   content: '\f005';
 }
+.mi-gaming:before {
+  content: '\007a';
+}
 
 /*
  * Aside styles
