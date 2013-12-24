@@ -3,7 +3,7 @@
   <div class="stoc">
   <label><i class="iconfont">&#61477;</i> 目录</label>
   {{#each tree}}
-    <ol>
+    <ol class="decimal">
     {{#each children}}
       <li><a href="#{{id}}" class="j-entry level2">{{text}}</a>
         {{#if children.length !== 0}}
