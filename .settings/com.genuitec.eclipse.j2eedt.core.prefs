@@ -1,3 +1,4 @@
-#Thu Dec 12 15:44:45 CST 2013
+#Tue Dec 24 13:46:52 CST 2013
+defaultTldInfo=f\=http\://java.sun.com/jsf/core;http\://java.sun.com/jsf/html\=h;http\://struts.apache.org/tags-bean\=bean;http\://java.sun.com/jsp/jstl/fmt\=fmt;bean\=http\://struts.apache.org/tags-bean;nested\=http\://struts.apache.org/tags-nested;http\://java.sun.com/jsp/jstl/sql\=sql;fmt\=http\://java.sun.com/jsp/jstl/fmt;c\=http\://java.sun.com/jsp/jstl/core;http\://struts.apache.org/tags-logic\=logic;http\://java.sun.com/jsp/jstl/xml\=x;http\://java.sun.com/jsp/jstl/core\=c;logic\=http\://struts.apache.org/tags-logic;h\=http\://java.sun.com/jsf/html;http\://struts.apache.org/tags-tiles\=tiles;http\://java.sun.com/jsp/jstl/functions\=fn;tiles\=http\://struts.apache.org/tags-tiles;sql\=http\://java.sun.com/jsp/jstl/sql;http\://struts.apache.org/tags-html\=html;html\=http\://struts.apache.org/tags-html;http\://struts.apache.org/tags-nested\=nested;http\://java.sun.com/jsf/core\=f;fn\=http\://java.sun.com/jsp/jstl/functions;x\=http\://java.sun.com/jsp/jstl/xml
 eclipse.preferences.version=1
 useAssemblyMapping=true
