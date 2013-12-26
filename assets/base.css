@@ -226,6 +226,10 @@ a {
     padding-left: 14px;
 }
 
+.stoc li .level2 {
+    font-weight: bold;
+}
+
 @media (max-width: 799px) {
   html, body {
     height: 100%;
@@ -449,8 +453,8 @@ a {
     height: auto;
     border-bottom: 1px solid #F3F3F3;
     padding: 0 .5em;
-    overflow: hidden;
     *zoom:1;
+    *float:left;
   }
   #page .fixed .stoc {
     top: 80px;
