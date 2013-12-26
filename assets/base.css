@@ -447,18 +447,18 @@ a {
   #page .stoc {
     top: 130px;
     left: 50%;
-    right: initial;
-    bottom: initial;
+    right: auto;
     padding: 0;
     overflow: auto;
     margin-left: 360px;
+    bottom: auto;
   }
   #page .stoc a {
     height: auto;
     border-bottom: 1px solid #F3F3F3;
     padding: 0 .5em;
     *zoom:1;
-    *float:left;
+    overflow: hidden;
   }
   #page .fixed .stoc {
     top: 80px;
