@@ -222,6 +222,9 @@ a {
   background-color: #fff;
 }
 
+#page .stoc ol {
+    padding-left: 14px;
+}
 
 @media (max-width: 799px) {
   html, body {
@@ -328,10 +331,6 @@ a {
   #page .stoc {
     position: static;
     background: none;
-  }
-
-  #page .stoc ol {
-    padding-left: 14px;
   }
 
   #page .stoc label {
