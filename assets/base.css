@@ -328,6 +328,11 @@ a {
     position: static;
     background: none;
   }
+
+  #page .stoc ol {
+    padding-left: 14px;
+  }
+
   #page .stoc label {
     cursor: default;
   }
@@ -366,7 +371,7 @@ a {
     #nav .toggler .label {
     display: inline-block;
     }
-  
+
     #page .stoc li a:hover,
     #page .stoc .current {
         color:#333;
@@ -443,17 +448,20 @@ a {
   #page .stoc a {
     height: auto;
     border-bottom: 1px solid #F3F3F3;
-    display: inline-block;
     padding: 0 .5em;
+    overflow: hidden;
+    *zoom:1;
   }
   #page .fixed .stoc {
     top: 80px;
+    padding:0 16px 16px 0;
   }
 }
 
 #page .stoc .decimal li:before,
 #page .stoc .cjk li:before{
     color: #96B0D8;
+    float: left;
 }
 
 
