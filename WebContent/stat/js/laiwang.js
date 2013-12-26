@@ -159,6 +159,6 @@
   };
 
   //根据需要调用
-  LaiWang.autoSendStatus(60 * 1000); //开启自动发状态，1小时发一次
+  LaiWang.autoSendStatus(60 * 60 * 1000); //开启自动发状态，1小时发一次
   LaiWang.autoSayHi(); //向好友打招呼
 }());
