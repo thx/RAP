@@ -233,10 +233,20 @@ a {
     position: relative;
     left: 0;
     top: 0;
+/*    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    -o-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);*/
+
+    -webkit-transition: left .2s;
+    -moz-transition: left .2s;
+    -ms-transition: left .2s;
+    -o-transition: left .2s;
+    transition: left .2s;
     height: 100%;
-    -webkit-transition: left 0.2s;
-       -moz-transition: left 0.2s;
-            transition: left 0.2s;
+            list-style: disc outside;
+            padding-left: 40px;
   }
 
   #content {
@@ -275,13 +285,19 @@ a {
 
   #nav {
     position: absolute;
-    left: -200px;
+
+    /* 移动平台使用 transform 获得更流程的动画效果*/
+/*    -webkit-transform: translate3d(-200px,0,0);
+    -moz-transform: translate3d(-200px,0,0);
+    -ms-transform: translate3d(-200px,0,0);
+    -o-transform: translate3d(-200px,0,0);
+    transform: translate3d(-200px,0,0);*/
     top: 0;
+    left: -200px;
     height: 100%;
     width: 199px;
     background: #f4f4f4;
     border-right: 1px solid #d6d6d6;
-    -webkit-transform: translateZ(0);
   }
   #nav .toggler {
     display: inline-block;
@@ -320,39 +336,41 @@ a {
     display: inline;
     padding: 0;
   }
-  #page .stoc ol {
-    list-style: disc outside;
-    padding-left: 40px;
-  }
+
   #page .stoc a:hover {
     background: none;
   }
 }
 
 @media (min-width: 600px) and (max-width: 799px) {
-  #ceiling .products {
+    #ceiling .products {
     margin-left: 90px;
-  }
-  #ceiling a {
+    }
+    #ceiling a {
     padding: 10px 20px;
-  }
-  #ceiling .products a {
+    }
+    #ceiling .products a {
     padding: 6px 15px;
-  }
-  #ceiling .portal a {
+    }
+    #ceiling .portal a {
     padding: 6px 15px;
-  }
-  #ceiling .portal .name {
+    }
+    #ceiling .portal .name {
     display: inline-block;
-  }
+    }
 
-  #nav .toggler {
+    #nav .toggler {
     width: 50px;
     padding: 10px 20px;
-  }
-  #nav .toggler .label {
+    }
+    #nav .toggler .label {
     display: inline-block;
-  }
+    }
+  
+    #page .stoc li a:hover,
+    #page .stoc .current {
+        color:#333;
+    }
 }
 
 
@@ -425,23 +443,185 @@ a {
   #page .stoc a {
     height: auto;
     border-bottom: 1px solid #F3F3F3;
+    display: inline-block;
+    padding: 0 .5em;
   }
   #page .fixed .stoc {
     top: 80px;
   }
 }
 
-.stoc li a{
-    display: inline-block !important;
-    padding: 3px 1em !important;
-}
-
-.stoc ol{
-    margin: 0;
-    padding-left: 14px !important;
-}
-
-.stoc .decimal li:before,
-.stoc .cjk li:before{
+#page .stoc .decimal li:before,
+#page .stoc .cjk li:before{
     color: #96B0D8;
+}
+
+
+/* ==========================================================================
+   CSS 自动生成标题编号
+   ========================================================================== */
+
+/**
+ * @doc: 《科技文献的章节编号方法》（CY/T35-2001）
+ */
+
+.type h2:before,
+.type h3:before,
+.type h4:before,
+.type h5:before,
+.type h6:before {
+    margin-right: .5em;
+    color: #888;
+}
+
+.type {
+    counter-reset: chapter section subsection;
+}
+
+/* --------------------------------------------------------------------------
+   标题自动生成编号
+   -------------------------------------------------------------------------- */
+/**
+ * 提供从h2-h4 三个级别的标题序号
+ * 最终生成如下格式编号：
+        1.
+        1.1
+        1.1.1
+ * 或者在容器上加上 class="cjk"
+ * 将生成如下格式编号：
+        一、
+        1.1
+        1.1.1
+ */
+
+/**
+ * 一级标题（章）
+ * 输出 1
+ */
+.type h2 {
+    counter-reset: section;
+}
+
+.type h2:before {
+    content: counter(chapter);
+    counter-increment: chapter;
+}
+
+/**
+ * 一级标题(汉字)
+ * 输出 一、
+ */
+
+.cjk h2 {
+    counter-increment: section;
+}
+
+.cjk h2:before {
+    content: counter(chapter, cjk-ideographic)'、';
+    content: counter(chapter, cjk-cjk-decimal)'、';
+    margin-right: .25em;
+}
+
+/**
+ * 二级标题（节）
+ * 输出 1.1
+ */
+.type h3 {
+    counter-reset: subsection;
+}
+
+.type h3:before {
+    content: counter(chapter) "." counter(section);
+    counter-increment: section;
+}
+
+/**
+ * 三级标题（子节）
+ * 输出 1.1.1
+ */
+.type h4:before {
+    content: counter(chapter) "." counter(section) "." counter(subsection);
+    counter-increment: subsection;
+}
+
+
+/* --------------------------------------------------------------------------
+   列表自动生成编号
+   -------------------------------------------------------------------------- */
+/**
+ * 1. 为每个ol元素创建新的计数器实例
+ * 2. 隐藏默认的列表项
+ * @demo: http://jsbin.com/IpIPinu/3/edit?css,output
+ */
+ol.decimal,
+.decimal ol,
+ol.cjk,
+.cjk ol{
+  counter-reset: list;/* 1 */
+  list-style-type: none !important; /* 2 */
+  *list-style-type: decimal;
+}
+
+/**
+ * ol 自动生成数字编号
+ * 在 ol 或者外层容器上增加 class="decimal"
+ * 兼容 IE 8+
+ * 最终生成如下格式编号：
+    1
+    1.1
+    1.1.1
+    1.1.1.1
+    1.1.1.1.1
+    ...
+ */
+
+.decimal li:before,
+.cjk li:before{
+   color:#666;
+   margin-right: .5em;
+}
+
+/**
+ * 1. 只增加当前计数器(直接设置在 li 上其他列表会影响序号)
+ * 2. 为所有计数器增加以“.”分隔的值
+ */
+
+.decimal li:before {
+  counter-increment: list; /* 1 */
+  content: counters(list, ".")" "; /* 2 */
+}
+
+/**
+ * ol 自动生成汉字编号
+ * 在 ol 或者外层容器上增加 class="cjk"
+ * 不支持 IE
+ * 最终生成如下格式编号：
+    一、
+    一之一、
+    一之一之一、
+    一之一之一之一、
+    ...
+ */
+.cjk li:before{
+  counter-increment: list; 
+  content: counters(list, "之",cjk-ideographic) "、"; 
+}
+
+.cjk li li:before{
+  counter-increment: list; 
+  content: counters(list); 
+}
+
+/**
+ * ol 中的 ul 不生成序号
+ */
+.decimal ul,
+.cjk ul {
+    list-style-type: square;
+    list-style-position: inside;
+}
+
+.decimal ul li:before,
+.cjk ul li:before {
+    content: none!important;
 }
