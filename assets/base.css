@@ -230,6 +230,10 @@ a {
     font-weight: bold;
 }
 
+#page .fixed .stoc {
+    padding:0 16px 16px 0;
+}
+
 @media (max-width: 799px) {
   html, body {
     height: 100%;
