@@ -397,6 +397,23 @@ a {
         -o-transition: .3s;
         transition: .3s;
     }
+    #nav .logo {
+        float: left;
+    }
+    #nav .menu,
+    #nav li {
+        float: right;
+        height: 100%;
+    }
+    #nav .entry {
+        border-left: 1px solid #d6d6d6;
+    }
+    #nav li:last-child .entry {
+        border-left: none;
+    }
+    #nav .toggler {
+        display: none;
+    }
     #nav.fixed {
         position: fixed;
         top: 0;
@@ -413,22 +430,6 @@ a {
         display: inline-block;
         font-size: 20px;
         margin-right: 5px;
-    }
-
-    #nav .logo {
-        float: left;
-    }
-    #nav .menu,
-    #nav li {
-        float: right;
-        height: 100%;
-    }
-
-    #nav .entry {
-        border-right: 1px solid #d6d6d6;
-    }
-    #nav .toggler {
-        display: none;
     }
 
     #content {
