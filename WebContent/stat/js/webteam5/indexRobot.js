@@ -4,6 +4,7 @@
    */
   var selfId = '{{id}}';    // [必填] 个人ID
   var pageNum = 1;          // 非首次加载时翻页数，范围0-5，默认1
+  var checkSpan = 1000;       // 更新速度，秒，建议10分钟（600）以上
 
 
   var ev = document.createEvent('HTMLEvents');
@@ -12,7 +13,7 @@
   var firstLoadMore = true;
 
   ev.initEvent('click', true, true);
-  setInterval(checker, 60 * 1000);
+  setInterval(checker, checkSpan * 1000);
 
   function checker() {
     if (!+selfId) {
