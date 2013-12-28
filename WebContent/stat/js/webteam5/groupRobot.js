@@ -1,14 +1,22 @@
 (function() {
   var LaiWang = {
     autoEventVoice: function() {
-      var selfId = '{{id}}';   // self ID, 可不写，不写则只评论不围观。
-      var pageNum = 3;         // 翻页数0-5
+      var onlyComment = true;   // true:只评论, false:评论加围观（但会过滤已围观过的帖)
+      var pageNum = 1;          // 翻页数1-5
       var msgs = ['求解救~~！', '求厂外好友~~', '求解救，求加', '加我有福利哦~~~', '让我们一起来往吧！加我加我！', '求解救T  .T', '求加T .T'];
+
+
+      var selfId = $('#my-profile-info a').attr('href').substring(3); 
+      console.log("selfId:", selfId);
+      if (onlyComment) {
+        selfId = '';
+        console.log("启动了只评论模式，selfId清空...");
+      }
       var send = function(arr) {
         console.log(arr.length);
         var item = arr.shift();
         if (item) {
-          if (!+selfId) {
+          if (onlyComment) {
                 $.ajax({
                   url: '/comment/add/' + item.appId + '/' + item.id + '/' +
                     item.uid + '.xhtml',
@@ -104,7 +112,7 @@
       };
 
 
-      loadMore(pageNum - 0);
+      loadMore(5 - pageNum);
     }
   };
 

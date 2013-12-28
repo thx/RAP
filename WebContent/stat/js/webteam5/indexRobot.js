@@ -2,17 +2,19 @@
   /**
    * configurations
    */
-  var selfId = '{{id}}';    // [必填] 个人ID
-  var pageNum = 1;          // 非首次加载时翻页数，范围0-5，默认1
-  var checkSpan = 1000;       // 更新速度，秒，建议10分钟（600）以上
+  
+  var pageNum = 1;          // 非首次加载时翻页数，范围1-5，默认1
+  var checkSpan = 600;       // 更新速度，秒，建议10分钟（600）以上
 
 
   var ev = document.createEvent('HTMLEvents');
   var homeBtn = $('#navigation .bbl-history[href="/home"]');
   var first = true;
   var firstLoadMore = true;
-
+  var selfId = $('#my-profile-info a').attr('href').substring(3); 
+  console.log("selfId:", selfId);
   ev.initEvent('click', true, true);
+  checker();
   setInterval(checker, checkSpan * 1000);
 
   function checker() {
