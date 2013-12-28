@@ -2,17 +2,22 @@
   /**
    * configurations
    */
-  var selfId = '{{id}}';
+  var selfId = '{{id}}';    // [必填] 个人ID
+  var pageNum = 1;          // 非首次加载时翻页数，范围0-5，默认1
 
 
   var ev = document.createEvent('HTMLEvents');
   var homeBtn = $('#navigation .bbl-history[href="/home"]');
   var first = true;
+  var firstLoadMore = true;
 
   ev.initEvent('click', true, true);
   setInterval(checker, 60 * 1000);
 
   function checker() {
+    if (!+selfId) {
+      throw Error("selfId 不合法!");
+    }
     if (first) {
       console.log('first loading...');
       first = false;
@@ -32,7 +37,8 @@
     var LaiWang = {
       autoVoice: function() {
 
-        var msgs = ['今天好冷啊~', '额...T  .T', 'piu~piu~~', ':)', '>. <', 'd- m-b|||'];
+        var msgs = ['今天好冷啊~', '额...T  .T', 'piu~piu~~', ':)', '>. <', 'd- m-b|||',
+          'hoho', '今天忙不', '来往今天好热闹', '额~~~~', 'T  m T', 'O  .O', '-  .-'];
 
         var send = function(arr) {
           console.log(arr.length);
@@ -93,6 +99,7 @@
           send(a);
         };
         var loadMore = function(flag) {
+          if (flag < 0) return;
           var node = document.getElementById('wall-wrapper');
           var e = document.createEvent('MouseEvents');
           e.initEvent('click', true, true);
@@ -111,7 +118,12 @@
         };
 
 
-        loadMore(0);
+        if (firstLoadMore) {
+          loadMore(0);
+          firstLoadMore = false;
+        } else {
+          loadMore(5 - pageNum);
+        }
       }
     };
 
