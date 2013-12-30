@@ -5,6 +5,7 @@
       var pageNum = 3;          // 翻页数1-5
       var msgs = ['求解救~~！', '求厂外好友~~', '求解救，求加', '加我有福利哦~~~', '让我们一起来往吧！加我加我！', '求解救T  .T', '求加T .T'];
       var msgs = ['厂内GG一枚，求朋友T  .T', '求好友~~~', '求场外好友~~~', 'HOHO', '求来往~~~', '求勾搭...', '新年快乐', ':)', '>. <', '^_^'];
+      var msgs = ['早安!', '大家早啊～～欢迎加我为好友哦', 'Godd morning everybody!', '早上好', '哈哈', ':)'];
 
       var selfId = $('#my-profile-info a').attr('href').substring(3); 
       console.log("selfId:", selfId);

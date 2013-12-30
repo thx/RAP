@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>测试</title>
+	<style>
+	    .ks-overlay {
+	        position:absolute;
+	        left:-9999px;
+	        top:-9999px;
+	    }
+	</style>
+</head>
+<body>
+ 	<iframe id="hidden_iframe_add" name="hidden_iframe_add"></iframe>
+    <form action="http://api.laiwang.com/v1/relationship/friend/add_with_remark" method="post" target="hidden_iframe_add" id="add_ls_user">
+        <input name="id" value="" id="lw_userId" />
+        <input name="remark" value="" />
+        <input name="access_token" value="" />
+        <input type="submit" />
+    </form>
+
+    <iframe id="hidden_iframe_k" name="hidden_iframe_k"></iframe>
+    <form action="http://api.laiwang.com/v1/stepping_stone/user_setting/question/get" method="get" target="hidden_iframe_k" id="knock_step1">
+        <input name="uid" value="" id="k1_uid" />
+        <input name="access_token" value="" />
+        <input type="submit" />
+    </form>
+
+    <form action="http://api.laiwang.com/v1/stepping_stone/user_setting/question/verify" method="post" target="hidden_iframe_k" id="knock_step2">
+        <input name="answers" id="k2_ans" />
+        <input name="uid" value="" id="k2_uid" />
+        <input name="access_token" value="" />
+        <input type="submit" />
+    </form>
+</body>
+
+<script type="text/javascript">
+var userData=[ ];
+var start=function(){
+    if(new Date().getHours()>=5){
+        var userId=Math.random()<.3?11100000+Math.round(Math.random()*(11200000-11100000)):2900000+Math.round(Math.random()*(6000000-2900000));
+        console.log(userId);
+        document.getElementById('lw_userId').value=userId;
+        document.getElementById('add_ls_user').submit();
+    }else{
+        setTimeout(start,30*60*1000);
+    }
+};
+var iframe=document.getElementById('hidden_iframe_add');
+iframe.addEventListener('load',function(){
+    setTimeout(function(){
+        start();
+    },2000+Math.random()*(Math.random()<.1?20*1000:5000));
+},false);
+
+var iframe=document.getElementById('hidden_iframe_k');
+iframe.addEventListener('load',function(){
+    setTimeout(function(){
+        startKnock();
+    },2000+Math.random()*(Math.random()<.1?20*1000:5000));
+},false);
+
+
+start();
+var startKnock=function(){
+    if(!startKnock.$step){
+        startKnock.$user=userData.shift();
+        console.log("还有", userData.length, "个用户等待登门拜访");
+        startKnock.$step=1;
+    }
+    if(!startKnock.$user)return;
+    if(startKnock.$step==1){
+        console.log(startKnock.$user.uid);
+        document.getElementById('k1_uid').value=startKnock.$user.uid;
+        document.getElementById('knock_step1').submit();
+        startKnock.$step=2;
+    }
+
+    if(startKnock.$step==2){
+        document.getElementById('k2_uid').value=startKnock.$user.uid;
+
+        //document.getElementById('k2_ans').value='{"1":{"answer":"'+(1+Math.round(Math.random()*2))+'"},"2":{"answer":"'+(1+Math.round(Math.random()*2))+'"},"3":{"answer":"'+(1+Math.round(Math.random()*2))+'"}}';
+        document.getElementById('k2_ans').value='{"1":{"answer":"1"},"2":{"answer":"2"},"3":{"answer":"1"}}';
+        document.getElementById('knock_step2').submit();
+        startKnock.$step=0;
+    }
+}
+startKnock();
+</script>
+</html>
