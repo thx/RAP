@@ -2,7 +2,7 @@
   var LaiWang = {
     autoEventVoice: function() {
       var onlyComment = true;   // true:只评论, false:评论加围观（但会过滤已围观过的帖)
-      var pageNum = 3;          // 翻页数1-5
+      var pageNum = 10;          // 翻页数1-5
       var msgs = ['求解救~~！', '求厂外好友~~', '求解救，求加', '加我有福利哦~~~', '让我们一起来往吧！加我加我！', '求解救T  .T', '求加T .T'];
       var msgs = ['厂内GG一枚，求朋友T  .T', '求好友~~~', '求场外好友~~~', 'HOHO', '求来往~~~', '求勾搭...', '新年快乐', ':)', '>. <', '^_^'];
       var msgs = ['早安!', '大家早啊～～欢迎加我为好友哦', 'Godd morning everybody!', '早上好', '哈哈', ':)'];
@@ -95,6 +95,7 @@
         send(a);
       };
       var loadMore = function(flag) {
+        console.log('翻页到第', flag + 1, '页');
         var node = document.getElementById('eventStreamWrapper').parentNode;
         var e = document.createEvent('MouseEvents');
         e.initEvent('click', true, true);
@@ -103,17 +104,17 @@
           last = last.previousSibling;
         }
         last.dispatchEvent(e);
-        if (flag < 5) {
+        if (flag < pageNum) {
           setTimeout(function() {
             loadMore(flag + 1);
-          }, 5000);
+          }, 500);
         } else {
-          readList();
+          //readList();
         }
       };
 
 
-      loadMore(5 - pageNum);
+      loadMore(0);
     }
   };
 
