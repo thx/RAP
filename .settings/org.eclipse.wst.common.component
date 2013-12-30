@@ -4,6 +4,6 @@
         <wb-resource deploy-path="/" source-path="/WebContent"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <property name="java-output-path" value="/RAP/build/classes"/>
-        <property name="context-root" value="/rap"/>
+        <property name="context-root" value="ROOT"/>
     </wb-module>
 </project-modules>

@@ -118,6 +118,18 @@ public class MockAction extends ActionBase {
 		}
 		return SUCCESS;
 	}
+	
+	public String createRule() {
+		String _c = get_c();
+		if (callback != null && !callback.isEmpty()) {
+			setContent(callback + "(" + mockMgr.generateRule(id, pattern) + ")");
+		} else if (_c != null && !_c.isEmpty()) {
+			setContent(_c + "(" + mockMgr.generateRule(id, pattern) + ")");
+		} else {
+			setContent(mockMgr.generateRule(id, pattern));
+		}
+		return SUCCESS;
+	}
 
 	public String modify() {
 		setNum(mockMgr.modify(actionId, mockData));

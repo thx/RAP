@@ -551,5 +551,5 @@ baidu.dom.ready(function (){
 <script type="text/javascript" src="${staticRoot}/js/ui/table/js/ecomui.table.js?_r=$!timeStamp"></script>
 <script type="text/javascript" src="${staticRoot}/js/ui/floater/js/floater.js?_r=$!timeStamp"></script>
 <script type="text/javascript" src="${staticRoot}/js/ui/calendar/js/ecomui.calendar.js?_r=$!timeStamp"></script>
-<script type="text/javascript" src="${staticRoot}/js/core/rap.min.js?_r=$!timeStamp"></script>
+<script type="text/javascript" src="${staticRoot}/js/core/rap.js?_r=$!timeStamp"></script>
 #end

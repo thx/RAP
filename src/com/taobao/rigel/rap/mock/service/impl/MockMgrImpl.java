@@ -123,6 +123,79 @@ public class MockMgrImpl implements MockMgr {
 		String result = json.toString();
 		return resultFilter(result);
 	}
+	
+	@Override
+	public String generateRule(int projectId, String pattern) {
+		_num = 1;
+		System.out.println("pattern before processed:" + pattern);
+		if (pattern.contains("?")) {
+			pattern = pattern.substring(0, pattern.indexOf("?"));
+		}
+		if (pattern.charAt(0) == '/') {
+			pattern = pattern.substring(1);
+		}
+		System.out.println("pattern processed:" + pattern);
+		List<Action> aList = projectMgr
+				.getMatchedActionList(projectId, pattern);
+		if (aList.size() == 0)
+			return "{\"isOk\":false, \"errMsg\":\"no matched action\"}";
+		Action action = aList.get(0);
+		String desc = action.getDescription();
+		Set<Parameter> pList = action.getResponseParameterList();
+		// load mock data by QA
+		for (Parameter p : pList) {
+			recursivelyLoadMockData(p);
+		}
+		StringBuilder json = new StringBuilder();
+		String left = "{", right = "}";
+
+		// match both @type=array && @type=array_map
+		if (desc.contains("@type=array")) {
+			left = "[";
+			right = "]";
+		}
+
+		// for array_map.length
+		String key = "@length=";
+		String numStr = null;
+		if (desc.contains(key)) {
+			Pattern p = Pattern.compile("@length=(\\d+)");
+			Matcher matcher = p.matcher(desc);
+			if (matcher.find()) {
+				numStr = matcher.group(1);
+			}
+		}
+		int num = numStr == null ? 1 : Integer.parseInt(numStr);
+		json.append(left);
+		boolean first = true;
+
+		boolean isArrayMap = desc.contains("@type=array_map");
+
+		for (int i = 0; i < num; i++) {
+			first = true;
+			if (i > 0) {
+				json.append(",");
+			}
+			if (isArrayMap) {
+				json.append("{");
+			}
+			for (Parameter p : pList) {
+				if (first) {
+					first = false;
+				} else {
+					json.append(",");
+				}
+				buildMockTemplate(json, p, -1);
+			}
+
+			if (isArrayMap) {
+				json.append("}");
+			}
+		}
+		json.append(right);
+		String result = json.toString();
+		return resultFilter(result);
+	}
 
 	/**
 	 * for escaping separators
@@ -210,8 +283,62 @@ public class MockMgrImpl implements MockMgr {
 			}
 		}
 	}
+	
+	/**
+	 * build mock.js template
+	 * 
+	 * @param json
+	 *            string builder
+	 * @param para
+	 *            parameter to be parsed
+	 * @param index
+	 *            available in array<object> stands for index of array, used for
+	 *            special mode of tags like @format[3] which means the third
+	 *            record enabled only. Default value should be -1 which disabled
+	 *            the feature.
+	 */
+	private void buildMockTemplate(StringBuilder json, Parameter para, int index) {
+		boolean isArrayObject = para.getDataType().equals("array<object>");
+		int ARRAY_LENGTH = 1;
+		
+		if (para.getParameterList() == null
+				|| para.getParameterList().size() == 0) {
+			json.append(para.getMockIdentifier() + ":" + mockjsValue(para, index));
+		} else {
+			// object and array<object>
+			json.append(para.getMockIdentifier() + ":");
+			String left = "{", right = "}";
+
+			if (isArrayObject) {
+				left = "[";
+				right = "]";
+			}
+			json.append(left);
+			boolean first;
+			for (int i = 0; i < ARRAY_LENGTH; i++) {
+				first = true;
+				if (isArrayObject && i > 0)
+					json.append(",");
+				if (isArrayObject)
+					json.append("{");
+				for (Parameter p : para.getParameterList()) {
+					if (first) {
+						first = false;
+					} else {
+						json.append(",");
+					}
+					buildMockTemplate(json, p, i);
+				}
+				if (isArrayObject)
+					json.append("}");
+			}
+			json.append(right);
+		}
+		
+	}
 
 	private String mockValue(Parameter para, int index) {
+		parameterFilter(para);
 		String dataType = para.getDataType();
 		String[] tags = para.getMockDataTEMP().split(";");
 		Map<String, String> tagMap = new HashMap<String, String>();
@@ -385,6 +512,33 @@ public class MockMgrImpl implements MockMgr {
 		return returnValue;
 	}
 
+
+	private String mockjsValue(Parameter para, int index) {
+		parameterFilter(para);
+		//String dataType = para.getDataType();
+		String[] tags = para.getMockDataTEMP().split(";");
+		Map<String, String> tagMap = new HashMap<String, String>();
+		parseTags(tags, tagMap, true);
+		String returnValue = "1";
+		String mockValue = tagMap.get("mock");
+		if (mockValue != null && !mockValue.isEmpty()) {
+			return "\"" + mockValue + "\"";
+		}
+		return returnValue;
+	}
+
+	
+	private void parameterFilter(Parameter para) {
+		String identifier = para.getIdentifier();
+		if (identifier != null && !identifier.isEmpty()) {
+			int index = identifier.indexOf("|");
+			if (index > -1) {
+				identifier = identifier.substring(0, index);
+				para.setIdentifier(identifier);
+			}
+		}
+	}
+
 	/**
 	 * from tag string to tag map
 	 * 
@@ -455,6 +609,8 @@ public class MockMgrImpl implements MockMgr {
 					} else {
 						tagMap.put("regex", tag.split("=")[1]);
 					}
+				} else if (tag.startsWith("@mock")) {
+					tagMap.put("mock", tag.split("=")[1]);
 				}
 			}
 		}

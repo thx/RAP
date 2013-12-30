@@ -1445,7 +1445,8 @@ var rap = rap || {};
             case "param-identifier":
                 width = CONFIG.PARAMETER_IDENTIFIER_WIDTH;
                 el = getTd(id, key)
-                oldValue = b.trim(el.innerHTML)
+                //oldValue = b.trim(el.innerHTML)
+                oldValue = b.trim(p.getParameter(id).identifier);
                 str += getEditInputHtml(oldValue, width, CONFIG.DEFAULT_MAX_LENGTH);
                 break;
             case "param-validator":
@@ -1457,7 +1458,7 @@ var rap = rap || {};
                 width = CONFIG.PARAMETER_REMARK_WIDTH;
                 el = getTd(id, key)
                 // oldValue = b.trim(el.innerHTML)
-                oldValue = b.trim(p.getParameter(id).remark)
+                oldValue = b.trim(p.getParameter(id).remark);
                 str += getEditInputHtml(oldValue, width, CONFIG.REMARK_MAX_LENGTH);
                 break;
             default:
@@ -1663,6 +1664,8 @@ var rap = rap || {};
                 p.setParameter(editContext.id, newValue, key.substring(6, key.length));
                 if (editContext.key === 'param-remark') {
                     newValue = remarkFilter(newValue);
+                } else if (editContext.key === 'param-identifier') {
+                    newValue = identifierFilter(newValue);
                 }
                 break;
             default:
@@ -3287,6 +3290,8 @@ var rap = rap || {};
             if (type === 'remark') {
                 value = remarkFilter(value);
                 value = util.escaper.escapeInH(value);
+            } else if (type === 'identifier') {
+                value = identifierFilter(value);
             }
             return "<td id='td-param-" + type + "-" + id + "' class='td-param " + type
                 + "' onclick='ws.edit(" + id + ", \"param-"+ type +
@@ -3304,6 +3309,17 @@ var rap = rap || {};
             if (!r) return '';
             // 感谢@逸才 提供正则表达式
             return r.replace(/[\s;]?@\w+=[^ ;]+[ ;]?/g, '');
+        }
+
+        /**
+         * identifier filter, remove things after |(used for mockjs)
+         */
+        function identifierFilter(r) {
+            if (_isMockDisplay) {
+                return r;
+            }
+            if (!r) return '';
+            return r.replace(/\|.*$/g, '');
         }
 
         /**

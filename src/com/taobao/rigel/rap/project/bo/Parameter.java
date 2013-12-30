@@ -7,8 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.hamcrest.core.IsEqual;
-
 import com.taobao.rigel.rap.common.StringUtils;
 
 public class Parameter implements java.io.Serializable {
@@ -186,4 +184,5 @@ public class Parameter implements java.io.Serializable {
 		stringBuilder.append("\"dataType\":\"" + StringUtils.escapeInJ(getDataType()) + "\"}");
 		return stringBuilder.toString();
 	}
+
 }

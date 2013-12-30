@@ -27,4 +27,6 @@ public interface MockMgr {
 	 * @return number of rows affected
 	 */
 	public int reset(int projectId);
+
+	public String generateRule(int id, String pattern);
 }

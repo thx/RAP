@@ -25,6 +25,14 @@
 			</result>
 			<result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
 			</result>
+		</action>
+		
+		<action name="createRule" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+			method="createRule">
+			<result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
+			</result>
+			<result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+			</result>
 
 		</action>
 
