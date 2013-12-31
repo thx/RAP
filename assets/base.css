@@ -1,0 +1,524 @@
+/*
+ * Basic styles
+ */
+body {
+    background: #e4e6e5 url(img/bg.jpg);
+}
+
+/* 全局hover颜色和背景色动画 */
+a {
+    color: #3187DB;
+    -webkit-transition: color .2s linear, background-color .2s linear, border-color .3s linear;
+    -moz-transition: color .2s linear, background-color .2s linear, border-color .3s linear;
+    -o-transition: color .2s linear, background-color .2s linear, border-color .3s linear;
+    -ms-transition: color .2s linear, background-color .2s linear, border-color .3s linear;
+    transition: color .2s linear, background-color .2s linear, border-color .3s linear;
+}
+
+.iconfont {
+    line-height: 1.8;   /* normal 的具体值似乎不是 1.8 */
+}
+
+.highlight {
+    background: none;
+}
+
+/*
+ * Shamelessly copied from https://github.com/lepture/yue.css/blob/master/yue.css
+ */
+.type h1,
+.type h2,
+.type h3,
+.type h4,
+.type h5,
+.type h6 {
+    color: #222223;
+}
+.type h1 {
+    font-size: 1.8em;
+    margin: 0.67em 0;
+}
+.type > h1 {
+    margin-top: 0;
+    font-size: 2em;
+}
+.type h2 {
+    font-size: 1.5em;
+    margin: 0.83em 0;
+    border-bottom: 1px solid #E5E5E5;
+}
+.type h3 {
+    font-size: 1.17em;
+    margin: 1em 0;
+}
+.type h4,
+.type h5,
+.type h6 {
+    font-size: 1em;
+    margin: 1.6em 0 1em 0;
+}
+.type h6 {
+    font-weight: 500;
+}
+
+/*
+ * icons
+ */
+.mi-projects:before {
+    content: '\f082';
+}
+.mi-mobile:before {
+    content: '\f086';
+}
+.mi-brix:before {
+    content: '\f039';
+}
+.mi-rap:before {
+    content: '\016e';
+}
+.mi-magix:before {
+    content: '\f06f';
+}
+.mi-mock:before {
+    content: '\0034';
+}
+.mi-crox:before {
+    content: '\012a';
+}
+.mi-releases:before {
+    content: '\0030';
+}
+.mi-tutorial:before {
+    content: '\016b';
+}
+.mi-whos-using:before {
+    content: '\00fa';
+}
+.mi-articles:before {
+    content: '\0123';
+}
+.mi-iconfont:before {
+    content: '\003c';
+}
+.mi-products:before {
+    content: '\0199';
+}
+.mi-cube:before {
+    content: '\01bc';
+}
+.mi-diamond:before {
+    content: '\f005';
+}
+.mi-gaming:before {
+    content: '\007a';
+}
+.mi-canvax:before {
+    content: '\00fb';
+}
+.mi-bisheng:before {
+    content: '\012f';
+}
+
+/*
+ * Aside styles
+ */
+#nav .logo {
+    display: block;
+    line-height: 1;
+    text-align: center;
+    vertical-align: middle;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: Georgia, serif;
+}
+#nav .logo:hover {
+    border-bottom: none;
+    color: #FC4349;
+}
+#nav .logo .iconfont {
+    display: block;
+    font-size: 500%;
+}
+#nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+#nav .entry {
+    display: block;
+    height: 100%;
+    line-height: 60px;
+    padding: 0 20px;
+}
+#nav .entry:hover {
+    background: #d6d6d6;
+    border-bottom: none;
+}
+#nav a {
+    color: #313131;
+}
+
+/*
+ * Ceiling
+ */
+#ceiling {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: #f4f4f4;
+    border-bottom: 1px solid #d6d6d6;
+    color: #aaa;
+}
+#ceiling a {
+    float: left;
+    display: block;
+}
+#ceiling a:link,
+#ceiling a:visited {
+    color: #aaa;
+}
+#ceiling .products {
+    float: left;
+}
+#ceiling .products a {
+    border-right: 1px solid #d6d6d6;
+}
+#ceiling a:hover {
+    border-bottom: none;
+    color: #313131;
+}
+#ceiling .portal {
+    float: right;
+}
+
+.ds-thread {
+    margin-top: 30px;
+}
+
+#footer {
+    margin: 40px auto 20px;
+    text-align: center;
+}
+#footer a {
+    color: #313131;
+}
+#footer a:hover {
+    border-bottom: none;
+}
+#footer .cnzz,
+#footer address {
+    display: inline-block;
+    vertical-align: top;
+}
+#footer .cnzz {
+    padding-top: 3px;
+}
+#footer address {
+    font-size: 12px;
+    font-style: normal;
+}
+
+
+/*
+ * At least give me 320px, would you?
+ */
+#content {
+    min-width: 320px;
+    background-color: #fff;
+}
+
+#page .stoc {
+    background: none;
+}
+
+#page .stoc ol {
+    padding-left: 14px;
+}
+
+.stoc li .level2 {
+    font-weight: bold;
+}
+
+@media (max-width: 799px) {
+    html, body {
+        height: 100%;
+        overflow-x: hidden;
+    }
+
+    #page {
+        position: relative;
+        left: 0;
+        top: 0;
+    /*    -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);*/
+
+        -webkit-transition: left .2s;
+        -moz-transition: left .2s;
+        -ms-transition: left .2s;
+        -o-transition: left .2s;
+        transition: left .2s;
+        height: 100%;
+        list-style: disc outside;
+        /* padding-left: 40px; */
+    }
+
+    #content {
+        height: 100%;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch; /* 防止iOS 没有平滑滚动 */
+    }
+
+    #content-wrap {
+        padding: 90px 20px 20px;
+        position: relative;
+    }
+
+    #ceiling a {
+        padding: 6px 10px;
+    }
+    #ceiling .products {
+        margin-left: 45px;
+    }
+    #ceiling .products a {
+        padding: 2px 5px;
+        border-right: none;
+    }
+    #ceiling .products .name {
+        display: none;
+    }
+    #ceiling .products .iconfont,
+    #ceiling .portal .iconfont {
+        font-size: 20px;
+    }
+    #ceiling .portal a {
+        padding: 2px 10px;
+    }
+    #ceiling .portal .name {
+        display: none;
+    }
+
+    #nav {
+        position: absolute;
+
+        /* 移动平台使用 transform 获得更流程的动画效果*/
+    /*    -webkit-transform: translate3d(-200px,0,0);
+        -moz-transform: translate3d(-200px,0,0);
+        -ms-transform: translate3d(-200px,0,0);
+        -o-transform: translate3d(-200px,0,0);
+        transform: translate3d(-200px,0,0);*/
+        top: 0;
+        left: -200px;
+        height: 100%;
+        width: 199px;
+        background: #f4f4f4;
+        border-right: 1px solid #d6d6d6;
+    }
+    #nav .toggler {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 200px;
+        padding: 6px 10px;
+        background: #f4f4f4;
+        border-right: 1px solid #d6d6d6;
+        border-bottom: 1px solid #d6d6d6;
+    }
+    #nav .toggler:hover {
+        border-bottom: 1px solid #d6d6d6;
+    }
+    #nav .toggler .label {
+        display: none;
+    }
+    #nav a.logo {
+        margin-bottom: 28px;
+    }
+    #nav .entry {
+        display: block;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    /* 移出侧边导航栏的动画 */
+    .page-dodged {
+        left: 200px !important;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 799px) {
+    #ceiling .products {
+        margin-left: 90px;
+    }
+    #ceiling a {
+        padding: 10px 20px;
+    }
+    #ceiling .products a {
+        padding: 6px 15px;
+    }
+    #ceiling .portal a {
+        padding: 6px 15px;
+    }
+    #ceiling .portal .name {
+        display: inline-block;
+    }
+
+    #nav .toggler {
+        width: 50px;
+        padding: 10px 20px;
+    }
+    #nav .toggler .label {
+        display: inline-block;
+    }
+
+    #page .stoc li a:hover,
+    #page .stoc .current {
+        color:#333;
+    }
+}
+
+@media (min-width: 800px) {
+    body {
+        text-align: center;
+    }
+
+    #ceiling a {
+        padding: 10px;
+    }
+
+    #ceiling .products a {
+        border-right: none;
+    }
+
+    #page {
+        text-align: left;
+        width: 700px;
+        margin: 108px auto 0;
+    }
+
+    #nav {
+        position: absolute;
+        top: 48px;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        border-bottom: 1px solid #d6d6d6;
+        -webkit-transition: .3s;
+        -moz-transition: .3s;
+        -ms-transition: .3s;
+        -o-transition: .3s;
+        transition: .3s;
+    }
+    #nav .logo {
+        float: left;
+    }
+    #nav .menu,
+    #nav li {
+        float: right;
+        height: 100%;
+    }
+    #nav .entry {
+        border-left: 1px solid #d6d6d6;
+    }
+    #nav li:last-child .entry {
+        border-left: none;
+    }
+    #nav .toggler {
+        display: none;
+    }
+    #nav.fixed {
+        position: fixed;
+        top: 0;
+        background: #f4f4f4;
+        height: 30px;
+    }
+    #nav.fixed .entry {
+        line-height: 30px;
+    }
+    #nav.fixed .logo {
+        line-height: 30px;
+    }
+    #nav.fixed .logo .iconfont {
+        display: inline-block;
+        font-size: 20px;
+        margin-right: 5px;
+    }
+
+    #content {
+        max-width: 680px;
+        margin-top: 130px;
+        padding:1em 2em;
+    }
+}
+
+@media (max-width: 1199px) {
+    #page .stoc {
+        position: static;
+        background: none;
+    }
+
+    #page .stoc label {
+        cursor: default;
+    }
+    #page .stoc label,
+    #page .stoc a {
+        display: inline;
+        padding: 0;
+    }
+
+    #page .stoc a:hover {
+        background: none;
+        color: inherit;
+    }
+
+    #page .stoc > ol {
+        padding: 1em 0;
+    }
+
+    #page .stoc > ol > li {
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 2em;
+    }
+}
+
+@media (min-width: 1200px) {
+    #ceiling a {
+        padding: 10px 25px 10px 20px;
+    }
+
+    #ceiling .products a {
+        border-right: 1px solid #d6d6d6;
+    }
+
+    #page .stoc {
+        top: 130px;
+        left: 50%;
+        right: auto;
+        padding: 0;
+        overflow: auto;
+        margin-left: 360px;
+        bottom: auto;
+        padding:0 16px 16px 0;
+    }
+    #page .stoc a {
+        height: auto;
+        border-bottom: 1px solid transparent;
+        padding: 0 .5em;
+        *zoom:1;
+        overflow: hidden;
+    }
+    #page .fixed .stoc {
+        top: 80px;
+    }
+}
+
+#page .stoc .decimal li:before,
+#page .stoc .cjk li:before{
+    color: #96B0D8;
+    float: left;
+}
