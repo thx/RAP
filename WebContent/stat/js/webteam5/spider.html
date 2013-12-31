@@ -82,8 +82,8 @@
     function processGroupSub(data, timestamp, groupId, cb, nextCursor, index) {
         console.log("Performing the ", index + 1, "th load in group...");
         var url = "http://api.laiwang.com/v1/feed/post/event/list?access_token=" + ACCESS_TOKEN + "&size=20&eventId=" + groupId + "&timestamp=" + timestamp;
-        if (!nextCursor) {
-            url += "&nextCursor=" + nextCursor;
+        if (nextCursor) {
+            url += "&cursor=" + nextCursor;
         }
         $.ajax({
             type : "get",
@@ -95,13 +95,14 @@
                 } else {
                     setTimeout(function() {
                         processGroupSub(data, timestamp, groupId, cb, o.nextCursor, index + 1);
-                    }, 500);
+                    }, 500 * Math.random());
                 }
             }
         });
     }
 
     function processDataPool() {
+        result = [];
         console.log("Start processing dataPool...");
         var data = dataPool;
         var n;
@@ -111,6 +112,8 @@
         var resultMap = {};
         var c;
         var id;
+        var pc = 0;
+        var totalMap = {};
         
         console.log("process used map...");
         n = usedData.length;
@@ -133,18 +136,24 @@
                     k = o3.comments.length;
                     while (k--) {
                         id = o3.comments[k].commentor.id;
+                        pc++;
+                        totalMap[id] = true;
                         if (!usedMap[id]) {
                             resultMap[id] = true;
                         }
                     }
                     k = o3.emotions.length;
                     while (k--) {
+                        pc++;
                         id = o3.emotions[k].user.id;
+                        totalMap[id] = true;
                         if (!usedMap[id]) {
                             resultMap[id] = true;
                         }
                     }
                     id = o3.publisher.id;
+                    pc++;
+                    totalMap[id] = true;
                     if (!usedMap[id]) {
                         resultMap[id] = true;
                     } 
@@ -157,6 +166,12 @@
             result.push(key);
         }
         console.log("Process complete, collected ", result.length, " userIds. Enjoy :), powered by Bosn.");
+        console.log(pc, " ids processed in total.");
+        i = 0;
+        for (key in totalMap) {
+            i++;
+        }
+        console.log('totalMap has ', i, ' items.');
     }
 </script>
 </html>
