@@ -4,15 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width" />
   <title>{% if page.title %}{{ page.title }} - {% endif %} THX</title>
-  <link rel="stylesheet" type="text/css" href="http://g.tbcdn.cn/thx/cube/1.0.11/??cube.css,type.css">
-  <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/syntax/github.css">
-  <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/base.css">
+  {% include styles.html %}
 </head>
 <body>
   {{ content }}
-  <script src="http://g.tbcdn.cn/kissy/k/1.4.0/seed-min.js"></script>
-  {% if page.script %}
-  <script src="{{ site.baseurl }}/{{ page.script }}"></script>
-  {% endif %}
+  {% include scripts.html %}
 </body>
 </html>
