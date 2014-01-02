@@ -280,6 +280,9 @@ a {
     }
     #ceiling .products {
         margin-left: 45px;
+        width: 72%;
+        height: 40px;
+        overflow: hidden;
     }
     #ceiling .products a {
         padding: 2px 5px;
@@ -403,7 +406,7 @@ a {
 
     #nav {
         position: absolute;
-        top: 48px;
+        top: 46px;
         left: 0;
         width: 100%;
         height: 60px;

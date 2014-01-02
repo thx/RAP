@@ -1,3 +1,4 @@
 <!-- Duoshuo Comment BEGIN -->
-<div class="ds-thread" data-thread-key="{{ site.baseurl }}{{ page.id }}/" data-url="http://thx.alibaba-inc.com{{ site.baseurl }}{{ page.id }}/"></div>
+{% capture thread_key %}{{ site.baseurl }}{% if page.id %}{{ page.id }}/{% else %}{{ page.url | replace_first: 'index.html' }}{% endif %}{% endcapture %}
+<div class="ds-thread" data-thread-key="{{ thread_key }}" data-url="http://thx.alibaba-inc.com{{ thread_key }}"></div>
 <!-- Duoshuo Comment END -->
