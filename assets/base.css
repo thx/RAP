@@ -15,10 +15,6 @@ a {
     transition: color .2s linear, background-color .2s linear, border-color .3s linear;
 }
 
-.iconfont {
-    line-height: 1.8;   /* normal 的具体值似乎不是 1.8 */
-}
-
 .highlight {
     background: none;
 }
@@ -295,6 +291,7 @@ a {
     #ceiling .products .iconfont,
     #ceiling .portal .iconfont {
         font-size: 20px;
+        line-height: 1.8;
     }
     #ceiling .portal a {
         padding: 2px 10px;
@@ -321,6 +318,8 @@ a {
     }
     #nav .toggler {
         display: inline-block;
+        height: 28px;
+        line-height: 28px;
         position: absolute;
         top: 0;
         left: 200px;
@@ -369,6 +368,8 @@ a {
 
     #nav .toggler {
         width: 50px;
+        height: 28px;
+        line-height: 28px;
         padding: 10px 20px;
     }
     #nav .toggler .label {
@@ -467,7 +468,7 @@ a {
     #page .stoc label,
     #page .stoc a {
         display: inline;
-        padding: 0;
+        padding: 0 5px;
     }
 
     #page .stoc a:hover {
