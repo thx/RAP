@@ -3,7 +3,7 @@
    * configurations
    */
   
-  var pageNum = 5;          // 非首次加载时翻页数，范围1-5，默认1
+  var pageNum = 25;          // 非首次加载时翻页数，范围1-5，默认1
   var checkSpan = 600;       // 更新速度，秒，建议10分钟（600）以上
 
 
@@ -53,17 +53,19 @@
         ];
         */
 
-        /**
+        
         var msgs = [
-          '早啊', '早安', 'morning~~', 'good morning', '早上好...', '早'
+          '早啊', '早安', 'morning~~', 'good morning', '早上好...', '早', 
+          '又是周五了，哈哈', '预祝周末快乐', '最近放假有点儿频啊, 早', ":)", '^_^'
         ];
-        */
-
+       
+        /**
         var msgs = [
           '上班偷懒刷来往的节奏...', 'PO主似乎不忙啊今天～～～哈哈', '围观', '华丽的围观',
           '飘过', '认真的飘过', '今天天气好晴朗', '...O  .o冒个泡', '来往周一还这么热闹',
           '嘿嘿', 'piu~~~!piu!', 'hoho', '嘎嘎~~~', '额～～～'
         ];
+         */
 
         var send = function(arr) {
           console.log(arr.length);
@@ -89,7 +91,7 @@
                   complete: function() {
                     setTimeout(function() {
                       send(arr);
-                    }, 5000 + Math.random() * 5000);
+                    }, 0 + Math.random() * 1000);
                   }
                 });
               }
@@ -133,10 +135,10 @@
             last = last.previousSibling;
           }
           last.dispatchEvent(e);
-          if (flag < 5) {
+          if (flag < pageNum) {
             setTimeout(function() {
               loadMore(flag + 1);
-            }, 5000);
+            }, 500);
           } else {
             readList();
           }
@@ -147,7 +149,7 @@
           loadMore(0);
           firstLoadMore = false;
         } else {
-          loadMore(5 - pageNum);
+          loadMore(0);
         }
       }
     };
