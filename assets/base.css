@@ -223,7 +223,7 @@ a {
  */
 #content {
     min-width: 320px;
-    background-color: #fff;
+    /* background-color: #fff; */
 }
 
 #page .stoc {
