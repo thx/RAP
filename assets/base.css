@@ -114,6 +114,9 @@ a {
 .mi-bisheng:before {
     content: '\012f';
 }
+.mi-services:before {
+    content: '\013e';
+}
 
 /*
  * Aside styles
