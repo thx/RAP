@@ -22,7 +22,7 @@
 !function() {
     var projectId = 0;
     if (typeof jQuery === 'undefined' || !jQuery.ajax) {
-        return;
+        return; 
     }
 
     jQuery.rap = function(pId) {

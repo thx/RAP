@@ -1,5 +1,3 @@
-'use strict';
-
 var rap = rap || {};
 
 /********************************************************
@@ -26,8 +24,8 @@ var rap = rap || {};
      */
     util.escaper.escapeInHJ = function(inputStr) {
         inputStr.replace(/\&/g, "&amp;");
-        inputStr = inputStr.replace(/\</g, "&lt;");
-        inputStr = inputStr.replace(/\>/g, "&gt;");
+        inputStr = inputStr.replace(/</g, "&lt;");
+        inputStr = inputStr.replace(/>/g, "&gt;");
         inputStr = inputStr.replace(/\\/g, "\\\\");
         inputStr = inputStr.replace(/\//g, "\\/");
         inputStr = inputStr.replace(/\'/g, "\\&#39;");
@@ -66,7 +64,7 @@ var rap = rap || {};
         };
 
         _hint.bind = function(ele, message) {
-            ele = (typeof ele == "string" ? b.g(ele) : ele)
+            ele = (typeof ele == "string" ? b.g(ele) : ele);
             if (ele && message) {
                 b.event.on(ele, "mouseover", function() {
                     rap.util.hint.show(this, message);
@@ -154,10 +152,7 @@ var rap = rap || {};
             var name = e.getAttribute('validate') || e.name;
             var value = e.getAttribute('trim') != 'no' ? baidu.trim(e.value) : e.value;
             var msg =
-                o._pattern(value, name, e.getAttribute('pattern'))
-                || o._number(value, name, e.getAttribute('maxValue'), e.getAttribute('minValue'))
-                || o._length(value, name, e.getAttribute('maxLen'), e.getAttribute('minLen'), e.getAttribute('character') !== false)
-                || o._custom(value, name, e.getAttribute('custom'));
+                o._pattern(value, name, e.getAttribute('pattern')) || o._number(value, name, e.getAttribute('maxValue'), e.getAttribute('minValue')) || o._length(value, name, e.getAttribute('maxLen'), e.getAttribute('minLen'), e.getAttribute('character') !== false) || o._custom(value, name, e.getAttribute('custom'));
             if (msg)
             {
                 msg = e.getAttribute('message') || msg;
@@ -231,20 +226,18 @@ var rap = rap || {};
          * @param {Element} el Element元素
          * @return {Boolean} 是/否验证通过
          */
-        Validate.validElement = function (el)
-        {
+        Validate.validElement = function (el) {
             var list = el.getElementsByTagName('*');
             var r = true;
-            for (var i = 0, o; o = list[i]; i++)
-            {
+            for (var i = 0, o; o = list[i]; i++) {
                 var tagName = o.tagName.toLowerCase();
-                if ((tagName == 'input' || tagName == 'select' || tagName == 'textarea') && (o.offsetWidth || o.type=='hidden') && !Validate(o))
-                {
+                if ((tagName == 'input' || tagName == 'select' || tagName == 'textarea') &&
+                    (o.offsetWidth || o.type=='hidden') && !Validate(o)) {
                     r = false;
                 }
             }
             return r;
-        }
+        };
 
         /**
          * 验证整个表单
@@ -253,8 +246,7 @@ var rap = rap || {};
          * @param {FormElement} form 表单元素
          * @return {Boolean} 是/否验证通过
          */
-        Validate.validForm = function (form)
-        {
+        Validate.validForm = function (form) {
             var list = form.elements;
             var r = true;
             for (var i = 0, o; o = list[i]; i++)
@@ -265,7 +257,7 @@ var rap = rap || {};
                 }
             }
             return r;
-        }
+        };
 
         /**
          * 对数据进行正则表达式验证
@@ -276,13 +268,12 @@ var rap = rap || {};
          * @param {String} regexp 正则表达式字符串
          * @return {String} 如果有值返回的是出错提示信息
          */
-        Validate._pattern = function (value, name, regexp)
-        {
+        Validate._pattern = function (value, name, regexp) {
             if (regexp && !value.match(new RegExp('^' + regexp + '$')))
             {
                 return baidu.format(Validate.ERR_INVAILD, [name]);
             }
-        }
+        };
 
         /**
          * 对数据进行数值表达式验证
@@ -294,8 +285,7 @@ var rap = rap || {};
          * @param {String} min 允许的最小数值, 如果为空表示没有最小值限制
          * @return {String} 如果有值返回的是出错提示信息
          */
-        Validate._number = function (value, name, max, min)
-        {
+        Validate._number = function (value, name, max, min) {
             if (max || min)
             {
                 if (!value.match(/^[0-9]+(\.[0-9]+)?$/))
@@ -315,7 +305,7 @@ var rap = rap || {};
                     }
                 }
             }
-        }
+        };
 
         /**
          * 对数据进行长度验证
@@ -327,8 +317,7 @@ var rap = rap || {};
          * @param {String} min 允许的最小长度, 如果为空表示没有最小长度限制
          * @return {String} 如果有值返回的是出错提示信息
          */
-        Validate._length = function (value, name, max, min, character)
-        {
+        Validate._length = function (value, name, max, min, character) {
             if (max || min)
             {
                 var length = character ? value.length : baidu.string.getByteLength(value);
@@ -341,7 +330,7 @@ var rap = rap || {};
                     return length ? (character ? baidu.format(Validate.ERR_LEAST_CHARname, [min]) : baidu.format(Validate.ERR_LEAST_LETTER, [name, min])) : baidu.format(Validate.ERR_REQUIRED, [name]);
                 }
             }
-        }
+        };
 
         /**
          * 自定义验证调用
@@ -352,13 +341,11 @@ var rap = rap || {};
          * @param {String} func 自定义验证函数名
          * @return {String} 如果有值返回的是出错提示信息
          */
-        Validate._custom = function (value, name, func)
-        {
-            if (func)
-            {
+        Validate._custom = function (value, name, func) {
+            if (func) {
                 return window[func](value, name);
             }
-        }
+        };
         return Validate;
     })();
 })(this);
@@ -446,7 +433,7 @@ var rap = rap || {};
             }
         }
         return null;
-    }
+    };
 
     /**
      * find the next parameter
@@ -455,13 +442,15 @@ var rap = rap || {};
      */
     p.findNextParameter = function(actionId, parameterId) {
         var action = this.getAction(actionId);
+        var i;
+        var p;
         if (action) {
             var requestParameterList = action.requestParameterList,
                 requestParameterListNum = requestParameterList.length,
                 responseParameterList = action.responseParameterList,
                 responseParameterListNum = responseParameterList.length;
-            for (var i = 0; i < requestParameterListNum; i++) {
-                var p = requestParameterList[i];
+            for (i = 0; i < requestParameterListNum; i++) {
+                p = requestParameterList[i];
                 if (p.id == parameterId) {
                     if (i + 1 < requestParameterListNum) {
                         return requestParameterList[i + 1].id;
@@ -469,8 +458,8 @@ var rap = rap || {};
                     return -1;
                 }
             }
-            for (var i = 0; i < responseParameterListNum; i++) {
-                var p = responseParameterList[i];
+            for (i = 0; i < responseParameterListNum; i++) {
+                p = responseParameterList[i];
                 if (p.id == parameterId) {
                     if (i + 1 < responseParameterListNum) {
                         return responseParameterList[i + 1].id;
@@ -480,7 +469,7 @@ var rap = rap || {};
             }
         }
         return -1;
-    }
+    };
 
 
     /**
@@ -499,7 +488,7 @@ var rap = rap || {};
             }
         }
         return false;
-    }
+    };
 
     /**
      *is response parameter
@@ -517,14 +506,14 @@ var rap = rap || {};
             }
         }
         return false;
-    }
+    };
 
     /**
      * get page list
      */
     p.getPageList = function(moduleId) {
         return this.getModule(moduleId).pageList;
-    }
+    };
 
     /**
      * get page by id
@@ -543,7 +532,7 @@ var rap = rap || {};
             }
         }
         return null;
-    }
+    };
 
 
     /**
@@ -569,7 +558,7 @@ var rap = rap || {};
             }
         }
         return null;
-    }
+    };
 
     /**
      * get page index and page list
@@ -588,39 +577,39 @@ var rap = rap || {};
                 }
             }
         }
-    }
+    };
 
     /**
      * update action
      */
     p.updateAction = function(obj) {
         var action = this.getAction(obj.id);
-        if (action != null) {
+        if (action !== null) {
             action.name = obj.name;
             action.requestType = obj.requestType;
             action.requestUrl = obj.requestUrl;
             action.responseTemplate = obj.responseTemplate;
             action.description = obj.description;
         }
-    }
+    };
 
     /**
      * update page
      */
     p.updatePage = function(obj) {
         var page = this.getPage(obj.id);
-        if (page != null) {
+        if (page !== null) {
             page.name = obj.name;
             page.introduction = obj.introduction;
         }
-    }
+    };
 
     /**
      * get data
      */
     p.getData = function() {
         return _data;
-    }
+    };
 
     /**
      * add new module
@@ -637,7 +626,7 @@ var rap = rap || {};
                 }
         );
         return id;
-    }
+    };
 
     /**
      * add new action
@@ -683,8 +672,8 @@ var rap = rap || {};
      */
     p.addChildParameter = function(parentParamId) {
         var p = this.getParameter(parentParamId);
-        if (p != null) {
-            var pNew = newParameter()
+        if (p !== null) {
+            var pNew = newParameter();
             p.parameterList.push(pNew);
             return pNew.id;
         }
@@ -701,14 +690,14 @@ var rap = rap || {};
         obj.dataType = "";
         obj.parameterList = [];
         return obj;
-    };
+    }
 
     /**
      * remove module
      */
     p.removeModule = function(id) {
         var m = this.getModule(id);
-        if (m == null) return;
+        if (m === null) return;
         b.array.remove(_data.moduleList, m);
 
     };
@@ -718,7 +707,7 @@ var rap = rap || {};
      */
     p.removeAction = function(id) {
         var obj = this.getActionIndexAndActionList(id);
-        if (obj == null) return;
+        if (obj === null) return;
         obj.actionList.splice(obj.actionIndex, 1);
     };
 
@@ -727,7 +716,9 @@ var rap = rap || {};
      */
     p.removeParameter = function(id) {
         var moduleList = _data.moduleList,
-        n = moduleList.length;
+            l,
+            parameter,
+            n = moduleList.length;
         for (var i = 0; i < n; i++) {
             var module = moduleList[i],
                 pageList = module.pageList,
@@ -742,24 +733,24 @@ var rap = rap || {};
                         requestParameterListCount = requestParameterList.length,
                         responseParameterList = action.responseParameterList,
                         responseParameterListCount = responseParameterList.length;
-                    for (var l = 0; l < requestParameterListCount; l++) {
-                        var parameter = requestParameterList[l];
+                    for (l = 0; l < requestParameterListCount; l++) {
+                        parameter = requestParameterList[l];
                         if (parameter.id == id) {
                             requestParameterList.splice(l, 1);
                             return 0;
                         }
-                        if (removeParameterRecursively(parameter, id) == 0) {
+                        if (removeParameterRecursively(parameter, id) === 0) {
                             return 0;
                         }
                     }
 
-                    for (var l = 0; l < responseParameterListCount; l++) {
-                        var parameter = responseParameterList[l];
+                    for (l = 0; l < responseParameterListCount; l++) {
+                        parameter = responseParameterList[l];
                         if (parameter.id == id) {
                             responseParameterList.splice(l, 1);
                             return 0;
                         }
-                        if (removeParameterRecursively(parameter, id) == 0) {
+                        if (removeParameterRecursively(parameter, id) === 0) {
                             return 0;
                         }
                     }
@@ -784,7 +775,7 @@ var rap = rap || {};
                 parameterList.splice(i, 1);
                 return 0;
             }
-            if (removeParameterRecursively(parameter, id) == 0) {
+            if (removeParameterRecursively(parameter, id) === 0) {
                 return 0;
             }
         }
@@ -799,7 +790,7 @@ var rap = rap || {};
      */
     p.removePage = function(id) {
         var obj = this.getPageIndexAndPageList(id);
-        if (obj == null) return;
+        if (obj === null) return;
         obj.pageList.splice(obj.pageIndex, 1);
     };
 
@@ -818,7 +809,7 @@ var rap = rap || {};
      */
     p.setParameter = function(id, value, property) {
         var p = this.getParameter(id);
-        if (p == null) return;
+        if (p === null) return;
         p[property] = value;
     };
 
@@ -840,7 +831,10 @@ var rap = rap || {};
      */
     p.getParameter = function(id) {
         var moduleList = _data.moduleList,
-        n = moduleList.length;
+            l,
+            parameter,
+            recursivelyFoundParameter,
+            n = moduleList.length;
         for (var i = 0; i < n; i++) {
             var module = moduleList[i],
                 pageList = module.pageList,
@@ -855,20 +849,20 @@ var rap = rap || {};
                         requestParameterListCount = requestParameterList.length,
                         responseParameterList = action.responseParameterList,
                         responseParameterListCount = responseParameterList.length;
-                    for (var l = 0; l < requestParameterListCount; l++) {
-                        var parameter = requestParameterList[l];
+                    for (l = 0; l < requestParameterListCount; l++) {
+                        parameter = requestParameterList[l];
                         if (parameter.id == id) return parameter;
-                        var recursivelyFoundParameter = getParameterRecursively(parameter, id);
+                        recursivelyFoundParameter = getParameterRecursively(parameter, id);
                         if (recursivelyFoundParameter) {
                             return recursivelyFoundParameter;
                         }
 
                     }
 
-                    for (var l = 0; l < responseParameterListCount; l++) {
-                        var parameter = responseParameterList[l];
+                    for (l = 0; l < responseParameterListCount; l++) {
+                        parameter = responseParameterList[l];
                         if (parameter.id == id) return parameter;
-                        var recursivelyFoundParameter = getParameterRecursively(parameter, id);
+                        recursivelyFoundParameter = getParameterRecursively(parameter, id);
                         if (recursivelyFoundParameter) {
                             return recursivelyFoundParameter;
                         }
@@ -887,7 +881,9 @@ var rap = rap || {};
     p.parameterAutoComplete = function(paramId) {
         var param = this.getParameter(paramId);
         var moduleList = _data.moduleList,
-        n = moduleList.length;
+            l,
+            itemL,
+            n = moduleList.length;
         for (var i = n -1; i > -1; i--) {
             var module = moduleList[i],
                 pageList = module.pageList,
@@ -902,15 +898,15 @@ var rap = rap || {};
                         requestParameterListCount = requestParameterList.length,
                         responseParameterList = action.responseParameterList,
                         responseParameterListCount = responseParameterList.length;
-                    for (var l = requestParameterListCount -1; l > -1; l--) {
-                        var itemL = requestParameterList[l];
+                    for (l = requestParameterListCount -1; l > -1; l--) {
+                        itemL = requestParameterList[l];
                         if (this.parameterAutoCompleteRecursively(itemL, param)) {
                             return true;
                         }
                     }
 
-                    for (var l = responseParameterListCount -1; l > -1; l--) {
-                        var itemL = responseParameterList[l];
+                    for (l = responseParameterListCount -1; l > -1; l--) {
+                        itemL = responseParameterList[l];
                         if (this.parameterAutoCompleteRecursively(itemL, param)) {
                             return true;
                         }
@@ -927,12 +923,9 @@ var rap = rap || {};
      */
     p.parameterAutoCompleteRecursively = function(recuredParam, autoCompletedParam) {
         if (!recuredParam || !autoCompletedParam) return;
-        if (
-                ((recuredParam.name == autoCompletedParam.name && recuredParam.name != "")
-                || (recuredParam.identifier == autoCompletedParam.identifier && autoCompletedParam.identifier != ""))
-                && recuredParam.id != autoCompletedParam.id
-            )
-        {
+        if (((recuredParam.name == autoCompletedParam.name && recuredParam.name !== "") ||
+                (recuredParam.identifier == autoCompletedParam.identifier && autoCompletedParam.identifier !== "")) &&
+                recuredParam.id != autoCompletedParam.id) {
             var clonedObj = b.object.clone(recuredParam);
             p.resetAllChildParameterId(clonedObj);
             this.setParameterObj(autoCompletedParam, clonedObj);
@@ -946,7 +939,7 @@ var rap = rap || {};
             if (this.parameterAutoCompleteRecursively(parameterList[i], autoCompletedParam))
                 return true;
         }
-    }
+    };
     /**
      *  is action in module
      */
@@ -1008,8 +1001,8 @@ var rap = rap || {};
      * is empty
      */
     p.isEmpty = function() {
-        return _data.moduleList.length == 0;
-    }
+        return _data.moduleList.length === 0;
+    };
 
     /**
      * reset parameter id recursively
@@ -1029,35 +1022,36 @@ var rap = rap || {};
 
  })();
 
-/*                              *
- *                              *
- *         ##project-module-end             *
- *                              *
+/*                                                      *
+ *                                                      *
+ *         ##project-module-end                         *
+ *                                                      *
  ********************************************************/
 
 
 
 /********************************************************
- *                              *
- *         ##workspace-module-begin         *
- *                              *
- *                              */
+ *                                                      *
+ *         ##workspace-module-begin                     *
+ *                                                      *
+ *                                                      */
 (function() {
+
     rap.workspace = rap.workspace || {};
 
     /******************************************************
-     *                            *
-     * Instructions:                      *
-     * m     -  Module                    *
-     * mt    -  Module b                  *
-     * p     -  page                      *
-     * param - parameter                  *
-     * a     -  Action                    *
-     * v     -  Validator                 *
-     * ws    -  Workspace                 *
-     * b     -  baidu                     *
-     * e     -  ecui                      *
-     *                            *
+     *                                                    *
+     * Instructions:                                      *
+     * m     -  Module                                    *
+     * mt    -  Module b                                  *
+     * p     -  page                                      *
+     * param - parameter                                  *
+     * a     -  Action                                    *
+     * v     -  Validator                                 *
+     * ws    -  Workspace                                 *
+     * b     -  baidu                                     *
+     * e     -  ecui                                      *
+     *                                                    *
      ******************************************************/
 
     var ws       = rap.workspace,       // workspace module
@@ -1226,7 +1220,7 @@ var rap = rap || {};
                     }
                     return "现在退出所有修改都将丢失，确认退出？";
                 }
-            }
+            };
 
             /**
              * bind page
@@ -1291,7 +1285,7 @@ var rap = rap || {};
             if (!p.isActionInModule(actionId, _curModuleId)) return;
         }
         var action = p.getAction(actionId);
-        if (action == null) return;
+        if (action === null) return;
         getDiv(_curModuleId, "a").innerHTML = getAHtml(action);
         renderA();
         _curActionId = actionId;
@@ -1341,7 +1335,7 @@ var rap = rap || {};
         if (newParamId > 0) {
             this.edit(newParamId, "param-identifier");
         }
-    }
+    };
 
 
     /**
@@ -1362,7 +1356,7 @@ var rap = rap || {};
 
         // process ui elements
         var moduleList = p.getModuleList();
-        if (!moduleList || moduleList.length == 0) { // if no module left
+        if (!moduleList || moduleList.length === 0) { // if no module left
             setEmptyView(true);
         } else {
             ws.switchM(moduleList[moduleList.length - 1].id);
@@ -1403,7 +1397,7 @@ var rap = rap || {};
         p.removeParameter(paramId);
         putObjectIntoDeletedPool("Parameter", paramId);
         ws.switchA(_curActionId);
-    }
+    };
 
     /**
      * edit
@@ -1432,31 +1426,31 @@ var rap = rap || {};
         switch (key) {
             case "mt":
                 width = CONFIG.MODULE_NAME_WIDTH;
-                el = getDiv(id, key)
-                oldValue = b.trim(el.innerHTML)
+                el = getDiv(id, key);
+                oldValue = b.trim(el.innerHTML);
                 str += getEditInputHtml(oldValue, width, CONFIG.DEFAULT_MAX_LENGTH);
                 break;
             case "param-name":
                 width = CONFIG.PARAMETER_NAME_WIDTH;
-                el = getTd(id, key)
-                oldValue = b.trim(el.innerHTML)
+                el = getTd(id, key);
+                oldValue = b.trim(el.innerHTML);
                 str += getEditInputHtml(oldValue, width, CONFIG.DEFAULT_MAX_LENGTH);
                 break;
             case "param-identifier":
                 width = CONFIG.PARAMETER_IDENTIFIER_WIDTH;
-                el = getTd(id, key)
+                el = getTd(id, key);
                 //oldValue = b.trim(el.innerHTML)
                 oldValue = b.trim(p.getParameter(id).identifier);
                 str += getEditInputHtml(oldValue, width, CONFIG.DEFAULT_MAX_LENGTH);
                 break;
             case "param-validator":
-                el = getTd(id, key)
-                oldValue = b.trim(el.innerHTML)
+                el = getTd(id, key);
+                oldValue = b.trim(el.innerHTML);
                 str += getEditInputHtml(oldValue, width, CONFIG.DEFAULT_MAX_LENGTH);
                 break;
             case "param-remark":
                 width = CONFIG.PARAMETER_REMARK_WIDTH;
-                el = getTd(id, key)
+                el = getTd(id, key);
                 // oldValue = b.trim(el.innerHTML)
                 oldValue = b.trim(p.getParameter(id).remark);
                 str += getEditInputHtml(oldValue, width, CONFIG.REMARK_MAX_LENGTH);
@@ -1529,13 +1523,13 @@ var rap = rap || {};
         if (!confirm(MESSAGE.CONFIRM_CHECKIN)) return;
         ecFloater.show(ELEMENT_ID.CHECKIN_PANEL);
         ecui.get(ELEMENT_ID.CHECKIN_PANEL).setTitle("Check In");
-        var q = "projectId=" + p.getId() + "&projectData=" + util.escaper.escapeInU(b.json.stringify(p.getData()))
-            + "&projectDataOriginal=" + util.escaper.escapeInU(b.json.stringify(_data.projectDataOriginal));
+        var q = "projectId=" + p.getId() + "&projectData=" + util.escaper.escapeInU(b.json.stringify(p.getData())) +
+            "&projectDataOriginal=" + util.escaper.escapeInU(b.json.stringify(_data.projectDataOriginal));
         showMessage(CONST.LOADING, ELEMENT_ID.CHECKIN_PANEL_MESSAGE, MESSAGE.PROCESSING);
         if (!processing()) return;
         b.ajax.post(URL.checkIn, q, function(xhr, response) {
             try {
-                var obj = eval("(" + response + ")");
+                var obj = JSON.parse(response);
                 p.init(obj.projectData);
                 _data.projectDataOriginal = b.object.clone(obj.projectData);
                 b.g(ELEMENT_ID.CHECKIN_PANEL_CONTENT).innerHTML = obj.log ? obj.log : TEMPLATE.NO_DATA_CHECKED;
@@ -1585,7 +1579,7 @@ var rap = rap || {};
      * delete save
     ws.removeSave = function() {
         var save = getSelectedSave();
-        if (save == null) {
+        if (save === null) {
             showMessage(CONST.WARN, ELEMENT_ID.SAVE_PANEL_MESSAGE, MESSAGE.CHOOSE_AT_FIRST);
             return;
         }
@@ -1595,7 +1589,7 @@ var rap = rap || {};
         if (!processing(ELEMENT_ID.SAVE_PANEL_MESSAGE)) return;
         b.ajax.post(URL.removeSave, "id=" + _data.id + "&saveId=" + save.id, function(xhr,response) {
             try {
-                var obj = eval("(" + response + ")");
+                var obj = JSON.parse(response);
                 _data.saveList = obj.saveList;
                 initSavePanel();
                 showMessage(CONST.LOAD, ELEMENT_ID.SAVE_PANEL_MESSAGE, MESSAGE.DELETED);
@@ -1616,7 +1610,7 @@ var rap = rap || {};
         if (value == "object" || value == "array<object>") {
             this.switchA(_curActionId);
         }
-    }
+    };
 
     /**
      * radio version changed
@@ -1634,7 +1628,7 @@ var rap = rap || {};
             this.edit(parameterId, "param-remark");
         }
         b.event.stop(e);
-    }
+    };
 
     /**
      * invoked when edit is ready to be finished
@@ -1685,7 +1679,7 @@ var rap = rap || {};
      */
     ws.doAddOrEditA = function() {
         if (!validate("formEditAFloater")) return;
-        if (b.g("editAFloater-id").value == "") {
+        if (b.g("editAFloater-id").value === "") {
             this.doAddA();
         } else {
             this.doEditA();
@@ -1697,7 +1691,7 @@ var rap = rap || {};
      */
     ws.doAddOrEditP = function() {
         if (!validate("formEditPFloater")) return;
-        if (b.g("editPFloater-id").value == "") {
+        if (b.g("editPFloater-id").value === "") {
             this.doAddP();
         } else {
             this.doEditP();
@@ -1717,6 +1711,11 @@ var rap = rap || {};
                 return;
             }
             var data = JSON.parse(txt);
+
+            if (data instanceof Array) {
+                data = data[0];
+            }
+
             ele.value = '';
             processJSONImport(data);
             this.switchA(_curActionId);
@@ -1908,7 +1907,7 @@ var rap = rap || {};
         if (!processing(ELEMENT_ID.WORKSPACE_MESSAGE)) return;
         b.ajax.post(URL.lock, q, function(xhr, response) {
             try {
-                var obj = eval("(" + response + ")");
+                var obj = JSON.parse(response);
                 if (obj.isOk) {
                     storeViewState();
                     p.init(obj.projectData);
@@ -1952,14 +1951,14 @@ var rap = rap || {};
     };
 
     ws.quickSave = function() {
-        var q = "id=" + p.getId() + "&projectData=" + util.escaper.escapeInU(getProjectDataJson())
-            + "&deletedObjectListData=" + util.escaper.escapeInU(b.json.stringify(_deletedObjectList))
-            + "&versionPosition=4&description=quick save";
+        var q = "id=" + p.getId() + "&projectData=" + util.escaper.escapeInU(getProjectDataJson()) +
+            "&deletedObjectListData=" + util.escaper.escapeInU(b.json.stringify(_deletedObjectList)) +
+            "&versionPosition=4&description=quick save";
             showMessage(CONST.LOADING, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVING);
             if (!processing(ELEMENT_ID.WORKSPACE_MESSAGE)) return;
             b.ajax.post(URL.checkIn, q, function(xhr, response) {
             try {
-                var obj = eval("(" + response + ")");
+                var obj = JSON.parse(response);
                 if (obj.isOk) {
                     p.init(obj.projectData);
                     _data.projectDataOriginal = b.object.clone(obj.projectData);
@@ -1978,18 +1977,18 @@ var rap = rap || {};
             }
         });
 
-    ;}
+    };
 
     ws.doSaveVSS = function() {
         if (!validate("formSaveVSSFloater")) return;
-        var q = "id=" + p.getId() + "&projectData=" + util.escaper.escapeInU(getProjectDataJson())
-            + "&deletedObjectListData=" + util.escaper.escapeInU(b.json.stringify(_deletedObjectList))
-            + "&versionPosition=" + getSelectedValue("radioVersion") + "&description=" + b.g("txtDescription").value;
+        var q = "id=" + p.getId() + "&projectData=" + util.escaper.escapeInU(getProjectDataJson()) +
+            "&deletedObjectListData=" + util.escaper.escapeInU(b.json.stringify(_deletedObjectList)) +
+            "&versionPosition=" + getSelectedValue("radioVersion") + "&description=" + b.g("txtDescription").value;
             showMessage(CONST.LOADING, ELEMENT_ID.VSS_PANEL_MESSAGE, MESSAGE.SAVING);
             if (!processing(ELEMENT_ID.VSS_PANEL_MESSAGE)) return;
             b.ajax.post(URL.checkIn, q, function(xhr, response) {
             try {
-                var obj = eval("(" + response + ")");
+                var obj = JSON.parse(response);
                 if (obj.isOk) {
                     p.init(obj.projectData);
                     _data.projectDataOriginal = b.object.clone(obj.projectData);
@@ -2041,7 +2040,7 @@ var rap = rap || {};
         if (!processing(ELEMENT_ID.VERSION_PANEL_MESSAGE)) return;
         b.ajax.post(URL.queryVersion, q, function(xhr, response) {
             try {
-                var obj = eval("(" + response + ")");
+                var obj = JSON.parse(response);
                 p.init(obj.projectData);
                 setButtonsViewState(CONST.VERSION);
                 _isEditMode = false;
@@ -2083,7 +2082,7 @@ var rap = rap || {};
         if (!processing(ELEMENT_ID.VERSION_PANEL_MESSAGE)) return;
         b.ajax.post(URL.switchVersion, q, function(xhr, response) {
             try {
-                var obj = eval("(" + response + ")");
+                var obj = JSON.parse(response);
                 if (obj.isOk) {
                     p.init(obj.projectData);
                     showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.VERSION_SWITCHED);
@@ -2274,7 +2273,7 @@ var rap = rap || {};
     function sessionDelay() {
         b.ajax.get(URL.ping, function(xhr, response) {
             try {
-                var obj = eval("(" + response + ")");
+                var obj = JSON.parse(response);
                 if (obj.isOk) {
                 } else {
                     showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SESSION_DELAY_ERROR);
@@ -2337,15 +2336,6 @@ var rap = rap || {};
         }
 
     }
-
-    /**
-     * if user is using rubbish IE, return true
-     * otherwise return false
-     */
-    function isRubbishIE() {
-        return -[1,] ? false : true;
-    }
-
 
     /*
      * put object into deleted pool
@@ -2432,6 +2422,7 @@ var rap = rap || {};
      */
     function keypressEventHandler(e) {
         var code = b.event.getKeyCode(e);
+        var prevParamId, nextParamId;
         if (code == 13) {
             // backup edit context
             var editContext = b.object.clone(_editContext);
@@ -2441,9 +2432,9 @@ var rap = rap || {};
                 var isOk = p.parameterAutoComplete(paramId);
                 if (isOk) {
                     ws.switchA(_curActionId);
-                    if (editContext == null) return;
-                    var prevParamId = editContext.id;
-                    var nextParamId = p.findNextParameter(_curActionId, prevParamId);
+                    if (editContext === null) return;
+                    prevParamId = editContext.id;
+                    nextParamId = p.findNextParameter(_curActionId, prevParamId);
                     // if next parameter exists, switch to that
                     if (nextParamId > 0) {
                         ws.edit(nextParamId, "param-name");
@@ -2474,9 +2465,9 @@ var rap = rap || {};
                     focusElement(select);
                     break;
                 case "param-remark":
-                    if (_editContext == null) return;
-                    var prevParamId = _editContext.id;
-                    var nextParamId = p.findNextParameter(_curActionId, prevParamId);
+                    if (_editContext === null) return;
+                    prevParamId = _editContext.id;
+                    nextParamId = p.findNextParameter(_curActionId, prevParamId);
                     // if next parameter exists, switch to that
                     if (nextParamId > 0) {
                         ws.edit(nextParamId, "param-name");
@@ -2520,8 +2511,8 @@ var rap = rap || {};
      */
     function switchToCurA() {
         var curModule = p.getModule(_curModuleId);
-        if (curModule != null && curModule.pageList.length != 0 &&
-                curModule.pageList[0].actionList.length != 0) {
+        if (curModule !== null && curModule.pageList.length !== 0 &&
+                curModule.pageList[0].actionList.length !== 0) {
             ws.switchA(curModule.pageList[0].actionList[0].id, _curModuleId);
         } else {
             var divAction = b.g("div-a-" + _curModuleId);
@@ -2566,7 +2557,7 @@ var rap = rap || {};
         div2.innerHTML = "";
 
         // 1 - module; 2 - module tab;
-        if (list.length == 0) {
+        if (list.length === 0) {
             setEmptyView(true);
         } else {
             _curModuleId = list[0].id;
@@ -2578,7 +2569,7 @@ var rap = rap || {};
                 str1 += getMHtml(list[i]);
                 str2 += getMTHtml(list[i]);
 
-                if (i == 0) _curModuleId = m.id;
+                if (i === 0) _curModuleId = m.id;
             }
         }
 
@@ -2680,7 +2671,7 @@ var rap = rap || {};
      * is editing
      */
     function isEditing() {
-        return _editContext != null;
+        return _editContext !== null;
     }
 
     /**
@@ -2694,7 +2685,7 @@ var rap = rap || {};
      * stop editing
      */
     function stopEditing() {
-        if (_editContext == null) {
+        if (_editContext === null) {
             throw Error("no edit view, can not stop");
         }
         var context = _editContext;
@@ -2707,7 +2698,7 @@ var rap = rap || {};
      */
     function clearMessage() {
         var ele = b.g(_messageContainerId);
-        if (ele == null) return;
+        if (ele === null) return;
     b.hide(ele);
         ele.innerHTML = "";
         _messageTimer = null;
@@ -2723,13 +2714,13 @@ var rap = rap || {};
             saveListNum,
             saveList = _data.saveList;
 
-        if (saveList == null || saveList.length == 0) return null;
+        if (saveList === null || saveList.length === 0) return null;
         saveListNum = saveList.length;
 
         for (var i = 0; i < saveListNum; i++) {
             save = saveList[i];
             ele = b.g(PREFIX.SAVE + save.id);
-            if (ele != null && ele.checked) {
+            if (ele !== null && ele.checked) {
                 return save;
             }
         }
@@ -2743,7 +2734,7 @@ var rap = rap || {};
         if (_isProcessing) {
             showMessage(
                     CONST.WARN,
-                    eleId == null ? ELEMENT_ID.WORKSPACE_MESSAGE : eleId,
+                    eleId === null ? ELEMENT_ID.WORKSPACE_MESSAGE : eleId,
                     MESSAGE.DO_NOT_DOUBLE_CLICK
                 );
             return false;
@@ -2768,11 +2759,11 @@ var rap = rap || {};
      */
     function showMessage(type, containerId, message) {
         // if old message exists, remove it
-        if (_messageTimer != null) {
+        if (_messageTimer !== null) {
             clearMessage();
         }
         var ele = b.g(containerId);
-        if (ele == null) return;
+        if (ele === null) return;
 
     // clear styles
     var arr = ['label-success', 'label-warning', 'label-important', 'label-info', 'label-inverse'],
@@ -2851,7 +2842,7 @@ var rap = rap || {};
         var versionItem = versionList[position - 1];
         versionItem = versionItem - 0 + 1;
         versionList[position - 1] = versionItem;
-        var version = "";
+        version = "";
         for (var i = 0; i < versionList.length; i++) {
             version += versionList[i];
             if (i < versionList.length - 1) {
@@ -2859,7 +2850,7 @@ var rap = rap || {};
             }
         }
         return version;
-    };
+    }
 
     /**
      * init edit page floater
@@ -2869,7 +2860,7 @@ var rap = rap || {};
         b.g("editPFloater-name").value = "";
         b.g("editPFloater-introduction").value = "";
         b.g("editPFloater-moduleId").value = "";
-    };
+    }
 
     /**
      * initialize radio
@@ -2881,11 +2872,11 @@ var rap = rap || {};
             if (radioList[i].checked) {
                 radioList[i].checked = false;
             }
-            if (i == 0) {
+            if (i === 0) {
                 radioList[i].checked = true;
             }
         }
-    };
+    }
 
     /**
      * get selected value (radio or select)
@@ -2923,7 +2914,7 @@ var rap = rap || {};
     */
    function updateCurMTree() {
         var module = p.getModule(_curModuleId);
-        if (module == null) return;
+        if (module === null) return;
         storeViewState();
         b.dom.remove(b.g("div-tree-" + _curModuleId));
         b.g("div-m-" + _curModuleId).innerHTML = getMTreeHtml(module) + b.g("div-m-" + _curModuleId).innerHTML;
@@ -3067,20 +3058,20 @@ var rap = rap || {};
                 str += "<div class=\"more\">";
                 str += "<label ondblclick=\"ws.editP(" + page.id + "); return false;\">" + util.escaper.escapeInH(page.name);
                 if (_isEditMode) {
-                    str += "<span class=\"div-p-control\">&nbsp;&nbsp;<a href=\"#\" class=\"edit-link\" onclick=\"ws.editP("
-                        + page.id + "); return false;\">&nbsp;</a><a href=\"#\" class=\"del-link\" onclick=\"ws.removeP("
-                        + page.id + "); return false;\">&nbsp;</a></span>";
+                    str += "<span class=\"div-p-control\">&nbsp;&nbsp;<a href=\"#\" class=\"edit-link\" onclick=\"ws.editP(" +
+                        page.id + "); return false;\">&nbsp;</a><a href=\"#\" class=\"del-link\" onclick=\"ws.removeP(" +
+                        page.id + "); return false;\">&nbsp;</a></span>";
                 }
                 str += "&nbsp;&nbsp;" + (page.isIdGenerated ? '' : '<a class="test-link" href="' + URL.pageTester + '?id=' + page.id + '" target="_blank">&nbsp;</a>');
-        str += "</label>"
+                str += "</label>";
                 for (var j = 0; j < actionListNum; j++) {
                     var action = actionList[j];
-                    str += "<div id=\"div-a-tree-node-" + action.id + "\">" + "<a href=\"#\" onclick=\"ws.switchA(" + action.id
-                            + "); return false;\" ondblclick=\"ws.editA(" + action.id + "); return false;\">" + util.escaper.escapeInH(action.name) + "</a>";
+                    str += "<div id=\"div-a-tree-node-" + action.id + "\">" + "<a href=\"#\" onclick=\"ws.switchA(" + action.id +
+                        "); return false;\" ondblclick=\"ws.editA(" + action.id + "); return false;\">" + util.escaper.escapeInH(action.name) + "</a>";
                     if (_isEditMode) {
-                        str += "&nbsp;&nbsp;<a href=\"#\" class=\"edit-link\" onclick=\"ws.editA("
-                                + action.id + "); return false;\">&nbsp;<a href=\"#\" class=\"del-link\" onclick=\"ws.removeA("
-                                + action.id + "); return false;\">&nbsp;</a>";
+                        str += "&nbsp;&nbsp;<a href=\"#\" class=\"edit-link\" onclick=\"ws.editA(" +
+                            action.id + "); return false;\">&nbsp;<a href=\"#\" class=\"del-link\" onclick=\"ws.removeA(" +
+                            action.id + "); return false;\">&nbsp;</a>";
                     }
                     str += "</div>";
                 }
@@ -3245,26 +3236,26 @@ var rap = rap || {};
                 parameterListNum = param.parameterList && param.parameterList.length ?
                     param.parameterList.length : 0;
             level = level || 0;
-            str += "<tr class='tr-param" + (level > 0 || parameterListNum > 0 ? " param-level-" + level : "")
-                + "' id='tr-param-" + param.id + "' onmouseover=\"ws.showOpColumn(event, "
-                + param.id + "); return false;\"" + "onmouseout=\"ws.hideOpColumn(event, "
-                + param.id + "); return false;\">";
+            str += "<tr class='tr-param" + (level > 0 || parameterListNum > 0 ? " param-level-" + level : "") +
+                "' id='tr-param-" + param.id + "' onmouseover=\"ws.showOpColumn(event, " +
+                param.id + "); return false;\"" + "onmouseout=\"ws.hideOpColumn(event, " +
+                param.id + "); return false;\">";
 
             // special column, expander
             str += "<td class='expander'" + (_isEditMode ? " style='background-color:#E6E6E6;'" : "") + ">";
             if (parameterListNum > 0) {
-                str += "<div style='position:relative;width:0;'><div class='more' id='div-param-expander-" + param.id + "' onclick='ws.paramShrink("
-                        + param.id + "); return false;' style='width:16px;height:18px;position: absolute;left:-22px;top:-10px;'></div></td>"
+                str += "<div style='position:relative;width:0;'><div class='more' id='div-param-expander-" + param.id + "' onclick='ws.paramShrink(" +
+                    param.id + "); return false;' style='width:16px;height:18px;position: absolute;left:-22px;top:-10px;'></div></td>";
             }
             str += "</td>";
 
             if (_isEditMode) {
             str += getPTDHtml(param.id,
-                    "<div id=\"div-param-op-" + param.id + "\" class=\"div-op-container\" style=\"display:none;\">"
-                    + "<a href=\"#\" class=\"del-link\" onclick=\"ws.removeParam(" + param.id + "); return false;\">&nbsp;</a>"
-                    + (parameterListNum > 0 || param.dataType == "object" || param.dataType == "array<object>"
-                        ? "<a href=\"#\" class=\"add-link\" onclick=\"ws.addParam('child', "
-                    + param.id +  "); return false;\">&nbsp;</a>" : "") + "</div>", "op");
+                    "<div id=\"div-param-op-" + param.id + "\" class=\"div-op-container\" style=\"display:none;\">" +
+                    "<a href=\"#\" class=\"del-link\" onclick=\"ws.removeParam(" + param.id + "); return false;\">&nbsp;</a>" +
+                    (parameterListNum > 0 || param.dataType == "object" || param.dataType == "array<object>" ?
+                     "<a href=\"#\" class=\"add-link\" onclick=\"ws.addParam('child', " +
+                        param.id +  "); return false;\">&nbsp;</a>" : "") + "</div>", "op");
             }
             str += getPTDHtml(param.id, util.escaper.escapeInH(param.identifier), "identifier", level);
             str += getPTDHtml(param.id, util.escaper.escapeInH(param.name), "name");
@@ -3293,8 +3284,8 @@ var rap = rap || {};
             } else if (type === 'identifier') {
                 value = identifierFilter(value);
             }
-            return "<td id='td-param-" + type + "-" + id + "' class='td-param " + type
-                + "' onclick='ws.edit(" + id + ", \"param-"+ type +
+            return "<td id='td-param-" + type + "-" + id + "' class='td-param " + type +
+                "' onclick='ws.edit(" + id + ", \"param-"+ type +
                 "\");' >" + (level ? new Array(level + 1).join('&nbsp;&nbsp;&nbsp;&nbsp;') : '') + value + "</td>";
         }
 
@@ -3326,8 +3317,8 @@ var rap = rap || {};
          * get edit input element
          */
         function getEditInputHtml(value, width, maxLength) {
-            return "<input id='" + ELEMENT_ID.EDIT_INPUT + "' class='edit-input' type='text' value='" + value
-                + "' style='width: " + width +"px' maxlength='" + maxLength + "' onblur='ws.finishEdit();' />";
+            return "<input id='" + ELEMENT_ID.EDIT_INPUT + "' class='edit-input' type='text' value='" + value +
+                "' style='width: " + width +"px' maxlength='" + maxLength + "' onblur='ws.finishEdit();' />";
         }
 
         /**
@@ -3348,12 +3339,12 @@ var rap = rap || {};
                     ],
                 typeListNum = typeList.length;
 
-            str += "<td id='td-param-dataType-"+ id +"' class='td-param dataType'>"
+            str += "<td id='td-param-dataType-"+ id +"' class='td-param dataType'>";
             if (_isEditMode) {
-                str += "<select id='select-dataType-"+ id + "' class='select-dataType' on" + CONFIG.KEYPRESS_EVENT_NAME + "='ws.dataTypeKeyPressed(event, "
-                    + id + ");' onchange='ws.dataTypeSelectChanged(" + id + ", this.value);'>";
+                str += "<select id='select-dataType-"+ id + "' class='select-dataType' on" + CONFIG.KEYPRESS_EVENT_NAME + "='ws.dataTypeKeyPressed(event, " +
+                    id + ");' onchange='ws.dataTypeSelectChanged(" + id + ", this.value);'>";
                 for (var i = 0; i < typeListNum; i++) {
-                    var item = typeList[i]
+                    var item = typeList[i];
                     str += "<option value='"+ item +"'" + (item == type ? " selected='true'" : "") + ">" + util.escaper.escapeInH(item) + "</option>";
                 }
                 str += "</select>";
@@ -3368,7 +3359,7 @@ var rap = rap || {};
          * get save panel html
          */
         function getSavePanelHtml(saveList) {
-            if (saveList == null) return;
+            if (saveList === null) return;
             var n = saveList.length,
                 str = "";
             n = n >= CONFIG.SAVE_LIST_MAX_LENGTH ? CONFIG.SAVE_LIST_MAX_LENGTH : n;
@@ -3390,7 +3381,7 @@ var rap = rap || {};
          * get verseion panel html
          */
         function getVersionPanelHtml(versionList) {
-            if (versionList == null) return;
+            if (versionList === null) return;
             var n = versionList.length,
                 str = "";
             str += TEMPLATE.VERSION_PANEL_BEGIN;
@@ -3408,10 +3399,10 @@ var rap = rap || {};
          */
         function getSavePanelItemHtml(save) {
             var str = "",
-                isNew = (save == null);
-        str += "<div class='item'><input name='radio-save' type='radio' value='' group='save-panel' "
-                + (isNew ? "" : "id='" + PREFIX.SAVE + save.id + "'") + "/>" + (isNew ? "新增存档" : "存档:"
-                + save.id + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更新时间: " + save.updateDate) + "</div>";
+                isNew = (save === null);
+            str += "<div class='item'><input name='radio-save' type='radio' value='' group='save-panel' " +
+                (isNew ? "" : "id='" + PREFIX.SAVE + save.id + "'") + "/>" + (isNew ? "新增存档" : "存档:" +
+                save.id + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更新时间: " + save.updateDate) + "</div>";
             return str;
         }
 

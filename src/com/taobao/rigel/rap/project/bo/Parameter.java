@@ -66,7 +66,7 @@ public class Parameter implements java.io.Serializable {
 		if (identifier == null || identifier.isEmpty()) {
 			return "emptyIdentifier";
 		}
-		return identifier;
+		return "\"" + identifier + "\"";
 	}
 	
 	public void setIdentifier(String identifier) {
