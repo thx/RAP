@@ -14,17 +14,37 @@
  *******************************************/
 (function() {
     var node = document.getElementById('rap');
+    var blackList = [];
+    var whiteList = [];
+    var mode = 0; // 0-disabled, 1-blackList, 2-whiteList, 3-combo
+    var modeList = [0, 1, 2];
+    var projectId = 0;
+
+    // console handler
+    if (typeof window.console === 'undefined') {
+        window.console = {
+            log : function(){},
+            warn : function(){}
+        };
+    }
+
     if (!node) {
         var nodes = document.getElementsByTagName('script');
         node = nodes[nodes.length - 1];
     }
-    var projectId = 0;
     var ms = node.src.match(/(?:\?|&)projectId=([^&]+)(?:&|$)/);
     if (ms) {
         projectId = ms[1];
     }
+    var modePattern = node.src.match(/(?:\?|&)mode=([^&]+)(?:&|$)/);
+    if (modePattern) {
+        mode = +modePattern[1];
+        if (!(mode in modeList)) {
+            mode = 0;
+        }
+    }
     var enable = true;
-
+    console.log('Current RAP work mode:', mode, "(0-disabled, 1-black list, 2-white list, 3-combo)");
     var ens = node.src.match(/(?:\?|&)enable=([^&]+)(?:&|$)/);
     if (ens) {
         enable = ens[1] == 'true';
@@ -82,8 +102,8 @@
                         url = "http://rap.alibaba-inc.com/mockjs/" + projectId + url;
                         oOptions.url = url;
                         var oldSuccess = oOptions.success;
-                        oOptions.success = function() {
-                            arguments[0] = Mock.mock(arguments[0]);
+                        oOptions.success = function(data) {
+                            data = Mock.mock(data);
                             oldSuccess.apply(this, arguments);
                         };
                     }
@@ -92,4 +112,35 @@
             });
         }
     }
+
+    window.RAP = {
+        setBlackList : function(arr) {
+            if (arr && arr instanceof Array) {
+                blackList = arr;
+            }
+        },
+        setWhiteList : function(arr) {
+            if (arr && arr instanceof Array) {
+                whiteList = arr;
+            }
+        },
+        getBlackList : function() {
+            return blackList;
+        },
+        getWhiteList : function() {
+            return whiteList;
+        },
+        getMode : function() {
+            return mode;
+        },
+        setMode : function(m) {
+            m = +m;
+            if (m in modeList) {
+                mode = m;
+                console.log('RAP work mode switched to ', m);
+            } else {
+                console.warn('Illegal mode id. Please check.');
+            }
+        }
+    };
 })();

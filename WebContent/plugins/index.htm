@@ -5,7 +5,7 @@
     <title>RAP Example</title>
     <script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
     <!-- 引入RAP开始 -->
-    <script type="text/javascript" src="rap.plugin.js?projectId=76"></script>
+    <script type="text/javascript" src="rap.plugin.js?projectId=76&mode=1"></script>
     <script src="http://mockjs.com/dist/mock-min.js"></script>
     <!-- 引入RAP结束 -->
 
@@ -14,6 +14,13 @@
 <pre id="container">
 </pre>
 <script>
+
+RAP.setBlackList([
+    'test',
+    /test/g
+]);
+
+
 KISSY.use('node, ajax',function(S, Node, IO){
     KISSY.io({
         url:'/testxxx',
