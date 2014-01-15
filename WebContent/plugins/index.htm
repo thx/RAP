@@ -1,57 +1,29 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>RAP plugin tester</title>
+    <meta charset="utf-8" />
+    <title>RAP Example</title>
+    <script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
+    <!-- 引入RAP开始 -->
+    <script type="text/javascript" src="rap.plugin.js?projectId=76"></script>
+    <script src="http://mockjs.com/dist/mock-min.js"></script>
+    <!-- 引入RAP结束 -->
 
-<script src="jquery-2.0.3.min.js"></script>
-
-<!--
-<script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed-min.js?20131206"></script>
--->
-<script src="rap.plugin.js"></script>
 </head>
 <body>
-    Tester
-    <script>
-        /**
-         * jQuery tester
-         */
-
-        $.rap && $.rap(76);
-        $.ajax({
-            type: "POST",
-            url: "http://bosn.me/data", //请求的action
-            data: "id=123&name=bosn", //传的参数
-            dataType: 'json',
-            success: function(data){ //结果
-                console.log(data);
-                //debugger;
-            },
-            error: function() {
-                alert(JSON.stringify(arguments));
-            }
-        });
-      
-
-        /**
-         * KISSY tester
-        
-         KISSY.use('io', function(S, IO) {
-            if (KISSY.rap) {
-                IO = KISSY.rap(IO, 76);
-            }
-            IO({
-                type: "get",
-                url: "http://bosn.me/data", //请求的action
-                data: "id=123&name=bosn",
-                dataType: "jsonp",
-                success: function() {
-                    console.log(arguments);
-                }
-            });
-         });
-          */
-    </script>
+<pre id="container">
+</pre>
+<script>
+KISSY.use('node, ajax',function(S, Node, IO){
+    KISSY.io({
+        url:'/testxxx',
+        dataType:'json',
+        success:function(data){
+            console.log(data);
+            Node.one('#container').html(JSON.stringify(data, null, 4));
+        }
+    });
+});
+</script>
 </body>
 </html>
