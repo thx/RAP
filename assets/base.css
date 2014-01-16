@@ -121,14 +121,23 @@ a {
 /*
  * Aside styles
  */
+#nav {
+    background-color: #fff;
+}
 #nav .logo {
     display: block;
-    line-height: 1;
     text-align: center;
+    background: #ed4242 url(http://gtms01.alicdn.com/tps/i1/T1CpsWFoVnXXaWDHYM-160-113.png) 50% -10px no-repeat;
+    width: 160px;
+    height: 100%;
+    line-height: 1;
     vertical-align: middle;
     padding-left: 20px;
     padding-right: 20px;
     font-family: Georgia, serif;
+    -webkit-transition: background-position 0.5s;
+    -o-transition: background-position 0.5s;
+    transition: background-position 0.5s;
 }
 #nav .logo:hover {
     border-bottom: none;
@@ -226,15 +235,17 @@ a {
  */
 #content {
     min-width: 320px;
-    /* background-color: #fff; */
+     background-color: #fff; 
 }
 
 #page .stoc {
-    background: none;
+    /*background: none;*/
 }
 
 #page .stoc ol {
     padding-left: 14px;
+    padding-right: 1px;
+    padding-bottom: 10px;
 }
 
 .stoc li .level2 {
@@ -448,6 +459,7 @@ a {
     }
     #nav.fixed .logo {
         line-height: 30px;
+        background-position: 50% -80px;
     }
     #nav.fixed .logo .iconfont {
         display: inline-block;
@@ -473,7 +485,6 @@ a {
     }
     #page .stoc label,
     #page .stoc a {
-        display: inline;
         padding: 0 5px;
     }
 
@@ -503,14 +514,14 @@ a {
     }
 
     #page .stoc {
-        top: 130px;
+        top: 113px;
+        bottom: 20px;
         left: 50%;
         right: auto;
         padding: 0;
-        overflow: auto;
+        overflow-y: auto;
         margin-left: 360px;
-        bottom: auto;
-        padding:0 16px 16px 0;
+        /*padding:0 16px 16px 0;*/
     }
     #page .stoc a {
         height: auto;
@@ -520,7 +531,7 @@ a {
         overflow: hidden;
     }
     #page .fixed .stoc {
-        top: 80px;
+        top: 15px;
     }
 }
 
@@ -528,4 +539,169 @@ a {
 #page .stoc .cjk li:before{
     color: #96B0D8;
     float: left;
+}
+
+
+/* --------------------------------------------------------------------------
+   ol 自动生成编号
+   -------------------------------------------------------------------------- */
+      
+/**
+ * 数字编号，兼容 IE8+
+ * 通常用来生成一个目录，为了更好的语义，只支持 ol。
+ * @demo: http://jsbin.com/IpIPinu/3/edit?css,output
+ * 使用方法：
+ <ol class="type-toc">...</ol>
+ * 将会生成如下格式编号：
+        1.
+        1.1
+        1.1.1
+        ...
+
+ * 1. 为每个 ol 元素创建新的计数器实例
+ * 2. 隐藏默认的列表项
+ */
+.type-toc {
+    margin: 16px auto;
+    -webkit-overflow-scrolling: touch;
+    /*background-color: #fff !important;*/
+    border: 1px solid #EAEAEA;
+    /*border-bottom: 1px solid #EAEAEA;*/
+}
+
+
+.type-toc li {
+    overflow: hidden;
+    margin-top: 1px;
+    white-space: nowrap;
+}
+
+.type-toc li a {
+    display: block;
+    padding-left: .5em;
+    overflow: hidden;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+    /*border: 0 none;*/
+    color: #666;
+    /*background-color: #ccc;*/
+}
+
+.type-toc li a:hover,
+.type-toc .current {
+    background-color: #eee !important;
+    border-bottom: 1px solid #E0E0E0 !important;
+    border-radius: 0 0 3px 3px;
+    color: #3187DB !important;
+}
+
+
+.type-toc h2 {
+    border-right: 1px solid #eee;
+    margin-bottom: 6px;
+    background: #FBFBFB;
+    padding: 0 22px;
+    font-size: 18px;
+    color: #666;
+}
+
+
+.type-toc > ol {
+    margin: 0;
+    padding: 16px 20px;
+}
+
+.type-toc.fixed {
+    position: fixed;
+    left: 100px;
+    top: 20px;
+}
+
+.type-toc.fixed h2 {
+    font-size: 18px;
+    float: none;
+    width: 100%;
+    padding: 6px 16px;
+    margin: 0;
+}
+
+.type-toc.fixed h2 + ol {
+    padding-left: 0;
+}
+
+/*.type-toc > ol > li {
+    display: inline-block;
+    vertical-align: top;
+}*/
+
+ol.type-toc,
+.type-toc ol {
+    counter-reset: list;/* 1 */
+    list-style-type: none !important; /* 2 */
+    *list-style-type: type-toc !important;
+}
+
+.type-toc li:before {
+    color: #666;
+    margin-right: .25em;
+    padding-left: .5em;
+    float: left;
+}
+
+/**
+ * 1. 只增加当前计数器(直接设置在 li 上其他列表会影响序号)
+ * 2. 所有计数器中间以“.”分隔的值
+ */
+.type-toc li:before {
+    counter-increment: list; /* 1 */
+    content: counters(list, ".")" "; /* 2 */
+}
+
+/**
+ * ol 中的 ul 不生成序号
+ */
+.type-toc ul {
+    list-style-type: square;
+    list-style-position: inside;
+}
+
+.type-toc ul li:before {
+    content: none !important;
+}
+
+/**
+ * 避免目录中的标题影响正文编号
+ */
+.type .type-toc h2:before,
+.type .type-toc h3:before,
+.type .type-toc h4:before {
+    content: none;
+}
+
+/**
+ * 去除上下间距
+ */
+.type-toc ol,
+.type-toc ul {
+    margin-top: 0;
+    margin-bottom: 8px;
+} 
+
+
+/* 自定义滚动条样式 */
+
+.type-toc::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+}
+
+.type-toc::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, .26);
+}
+.type-toc::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, .36);
 }

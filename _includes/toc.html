@@ -1,9 +1,9 @@
 <script type="text/x-template" id="J_tocTpl">
 {% raw %}
-  <div class="stoc">
-  <label><i class="iconfont">&#61477;</i> 目录</label>
+  <div class="stoc type-toc">
+  <h2><i class="iconfont">&#390;</i> 目录</h2>
   {{#each tree}}
-    <ol class="decimal">
+    <ol>
     {{#each children}}
       <li><a href="#{{id}}" class="j-entry level2">{{text}}</a>
         {{#if children.length !== 0}}
