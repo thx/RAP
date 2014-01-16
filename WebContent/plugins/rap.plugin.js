@@ -1,23 +1,37 @@
-/*******************************************
- * *
- * jQuery初始化方法 *
- * $.rap && $.rap(projectId); *
- * *
- * *
- * KISSY初始化方法 *
- * if (KISSY.rap) { *
- * IO = KISSY.rap(IO, projectId); *
- * } *
- * *
- * {{projectId}}就是RAP提供的项目ID *
- * *
- *******************************************/
+/**********************************************************************************************************
+ *
+ * 使用方法
+ * 1. 在kissy, jQuery后面引入rap plugin
+ *     <script type="text/javascript" src="rap.plugin.js?projectId={{projectId}}&mode={{mode}}"></script>
+ *      其中{{projectId}}为RAP提供的项目ID
+ *      {{mode}}为RAP路由的工作模式, 默认值为1
+ *          0 - 不拦截
+ *          1 - 拦截全部
+ *          2 - 黑名单中的项不拦截
+ *          3 - 仅拦截白名单中的项
+ * 2. 引入mock.js
+ *     <script src="http://mockjs.com/dist/mock-min.js"></script>
+ * 3. 设置黑名单、白名单（可选）
+ *     设置黑名单
+ *     RAP.setBlackList(arr);
+ *     设置白名单
+ *     RAP.setWhiteList(arr);
+ *     其中arr可以包含匹配字符串，或正则对象，例：['test', /test/g]
+ *
+ ********************************************************************************************************/
 (function() {
     var node = document.getElementById('rap');
     var blackList = [];
     var whiteList = [];
-    var mode = 0; // 0-disabled, 1-blackList, 2-whiteList, 3-combo
-    var modeList = [0, 1, 2];
+    /**
+     * mode value range:
+     * 0-disabled
+     * 1-intercept all requests
+     * 2-black list strategy
+     * 3-white list strategy
+     */
+    var mode = 1;
+    var modeList = [0, 1, 2, 3];
     var projectId = 0;
 
     // console handler
@@ -40,7 +54,7 @@
     if (modePattern) {
         mode = +modePattern[1];
         if (!(mode in modeList)) {
-            mode = 0;
+            mode = 1;
         }
     }
     var enable = true;
@@ -56,23 +70,22 @@
         if (window.jQuery) {
             var ajax = jQuery.ajax;
             jQuery.ajax = function() {
-                if (!projectId) {
-                    ajax.apply(this, arguments);
-                }
                 var oOptions = arguments[0];
-                oOptions.jsonp = '_c';
-                oOptions.dataType = 'jsonp';
                 var url = oOptions.url;
-                if (url.indexOf('http://') > -1) {
-                    url = url.substring(url.indexOf('/', 7) + 1);
-                } else if (url.indexOf('https://') > -1) {
-                    url = url.substring(url.indexOf('/', 8) + 1);
+                if (route(url) && projectId) {
+                    oOptions.jsonp = '_c';
+                    oOptions.dataType = 'jsonp';
+                    if (url.indexOf('http://') > -1) {
+                        url = url.substring(url.indexOf('/', 7) + 1);
+                    } else if (url.indexOf('https://') > -1) {
+                        url = url.substring(url.indexOf('/', 8) + 1);
+                    }
+                    if (url.charAt(0) != '/') {
+                        url = '/' + url;
+                    }
+                    url = "http://rap.alibaba-inc.com/mockjs/" + projectId + url;
+                    oOptions.url = url;
                 }
-                if (url.charAt(0) != '/') {
-                    url = '/' + url;
-                }
-                url = "http://rap.alibaba-inc.com/mockjs/" + projectId + url;
-                oOptions.url = url;
                 ajax.apply(this, arguments);
             };
         }
@@ -87,30 +100,82 @@
                     var oOptions, url;
                     if (arguments[0]) {
                         oOptions = arguments[0];
-                        oOptions.type = "get";
-                        oOptions.jsonp = '_c';
-                        oOptions.dataType = 'jsonp';
                         url = oOptions.url;
-                        if (url.indexOf('http://') > -1) {
-                            url = url.substring(url.indexOf('/', 7) + 1);
-                        } else if (url.indexOf('https://') > -1) {
-                            url = url.substring(url.indexOf('/', 8) + 1);
+                        if (route(url)) {
+                            oOptions.type = "get";
+                            oOptions.jsonp = '_c';
+                            oOptions.dataType = 'jsonp';
+                            if (url.indexOf('http://') > -1) {
+                                url = url.substring(url.indexOf('/', 7) + 1);
+                            } else if (url.indexOf('https://') > -1) {
+                                url = url.substring(url.indexOf('/', 8) + 1);
+                            }
+                            if (url.charAt(0) != '/') {
+                                url = '/' + url;
+                            }
+                            url = "http://rap.alibaba-inc.com/mockjs/" + projectId + url;
+                            oOptions.url = url;
+                            var oldSuccess = oOptions.success;
+                            oOptions.success = function(data) {
+                                data = Mock.mock(data);
+                                oldSuccess.apply(this, arguments);
+                            };
                         }
-                        if (url.charAt(0) != '/') {
-                            url = '/' + url;
-                        }
-                        url = "http://rap.alibaba-inc.com/mockjs/" + projectId + url;
-                        oOptions.url = url;
-                        var oldSuccess = oOptions.success;
-                        oOptions.success = function(data) {
-                            data = Mock.mock(data);
-                            oldSuccess.apply(this, arguments);
-                        };
                     }
                     IO.apply(this, arguments);
                 };
             });
         }
+    }
+
+
+    /**
+     * router
+     *
+     * @param  {string} url
+     * @return {boolean} true if route to RAP MOCK, other wise do nothing.
+     */
+    function route(url) {
+        var i;
+        var o;
+        var blackMode;
+        var list;
+
+        if (!url || typeof url !== 'string') {
+            console.warn("Illegal url:", url);
+            return false;
+        }
+
+        /**
+         * disabled
+         */
+        if (mode === 0) {
+            return false;
+        }
+        /**
+         * intercept all requests
+         */
+        else if (mode == 1) {
+            return true;
+        }
+        /**
+         * black/white list mode
+         */
+        else if (mode === 2 || mode === 3) {
+            blackMode = mode === 2;
+            list = blackMode ? blackList : whiteList;
+            for (i = 0; i < list.length; i++) {
+                o = list[i];
+                if (typeof o === 'string' && url.indexOf(o) >= 0) {
+                    return !blackMode;
+                } else if (typeof o === 'object' && o instanceof RegExp && o.test(url)) {
+                    return !blackMode;
+                }
+            }
+            return blackMode;
+        }
+
+        return false;
     }
 
     window.RAP = {
