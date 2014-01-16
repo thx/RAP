@@ -160,19 +160,19 @@ a {
     color: #fff;
 }
 
-.skin-magix .logo {
+.skin-magix #nav .logo {
     color: #da1e38;
 }
 
-.skin-cube .logo {
+.skin-cube #nav .logo {
     color: #0e76bc;
 }
 
-.skin-brix-core .logo {
+.skin-brix-core #nav .logo {
     color: #0e76bc;
 }
 
-.skin-crox .logo {
+.skin-crox #nav .logo {
     color: #0e76bc;
 }
 
@@ -742,30 +742,30 @@ ol.type-toc,
  * 锚点高亮
  */
 @-webkit-keyframes highlight {
-  0% { background-color: rgb(255,255,0);}
+  0% { background-color: #FFAD00;}
   33% { background-color: transparent;}
-  66% { background-color: rgb(255,255,0);  }
+  66% { background-color: #FFAD00;  }
   100% { background-color: transparent; }
 }
 
 @-moz-keyframes highlight {
-  0% { background-color: rgb(255,255,0);}
+  0% { background-color: #FFAD00;}
   33% { background-color: transparent;}
-  66% { background-color: rgb(255,255,0);  }
+  66% { background-color: #FFAD00;  }
   100% { background-color: transparent; }
 }
 
 @-ms-keyframes highlight {
-  0% { background-color: rgb(255,255,0);}
+  0% { background-color: #FFAD00;}
   33% { background-color: transparent;}
-  66% { background-color: rgb(255,255,0);  }
+  66% { background-color: #FFAD00;  }
   100% { background-color: transparent; }
 }
 
 @keyframes highlight {
-  0% { background-color: rgb(255,255,0);}
+  0% { background-color: #FFAD00;}
   33% { background-color: transparent;}
-  66% { background-color: rgb(255,255,0);  }
+  66% { background-color: #FFAD00;  }
   100% { background-color: transparent; }
 }
 
