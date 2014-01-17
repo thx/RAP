@@ -276,7 +276,7 @@ a {
  */
 #content {
     min-width: 320px;
-     background-color: #fff; 
+     background-color: #fff;
 }
 
 #page .stoc {
@@ -571,6 +571,9 @@ a {
     #page .fixed .stoc {
         top: 15px;
     }
+    #page .stoc .folded ol {
+        display: none;
+    }
 }
 
 #page .stoc .decimal li:before,
@@ -583,7 +586,7 @@ a {
 /* --------------------------------------------------------------------------
    ol 自动生成编号
    -------------------------------------------------------------------------- */
-      
+
 /**
  * 数字编号，兼容 IE8+
  * 通常用来生成一个目录，为了更好的语义，只支持 ol。
@@ -722,7 +725,7 @@ ol.type-toc,
 .type-toc ul {
     margin-top: 0;
     margin-bottom: 8px;
-} 
+}
 
 
 /* 自定义滚动条样式 */
@@ -773,7 +776,7 @@ ol.type-toc,
 }
 
 :target{
-  -webkit-animation: highlight 1.6s ease;  
+  -webkit-animation: highlight 1.6s ease;
   -moz-animation: highlight 1.6s ease;
   -ms-animation: highlight 1.6s ease;
   -o-animation: highlight 1.6s ease;

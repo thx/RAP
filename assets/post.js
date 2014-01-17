@@ -39,16 +39,47 @@ KISSY.config('packages', {
     }
 })
 
-KISSY.use('brix/app', function(S, app) {
+KISSY.use('brix/app,node', function(S, app, Node) {
     app.config({
         imports: {
             mosaics: {
-                stoc: '0.0.1'
+                stoc: '0.0.2'
             }
         }
     })
 
     app.bootStyle(function() {
-        app.boot()
+        app.boot().done(function(root) {
+            root.on('ready', pageReady)
+        })
     })
+
+    function pageReady() {
+        var ol = S.one('#stoc ol')
+
+        ol.children().addClass('folded')
+        ol.one('li').removeClass('folded')
+
+        this.find('mosaics/stoc').on('mosaics:stoc:change', function(e) {
+            var li = e.currentEntry
+
+            while (li.parent('li')) {
+                li = li.parent('li')
+            }
+            li.siblings().addClass('folded')
+            li.removeClass('folded')
+        })
+
+        ol.delegate('click', '.folded', function(e) {
+            var li = Node(e.currentTarget)
+
+            li.siblings().addClass('folded')
+            li.removeClass('folded')
+        })
+
+        S.all('article').all('h1,h2,h3').each(function(heading) {
+            heading.prepend('<a name="build-files" class="anchor"></a>')
+            heading.prepend('<a name="build-files" class="anchor-link" href="#' + heading.attr('id') + ">#</a>')
+        })
+    }
 })
