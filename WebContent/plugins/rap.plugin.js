@@ -23,6 +23,8 @@
     var node = document.getElementById('rap');
     var blackList = [];
     var whiteList = [];
+    //var ROOT = 'rap.alibaba-inc.com';
+    var ROOT = 'etaoux-bj.taobao.ali.com:8080';
     /**
      * mode value range:
      * 0-disabled
@@ -83,7 +85,7 @@
                     if (url.charAt(0) != '/') {
                         url = '/' + url;
                     }
-                    url = "http://rap.alibaba-inc.com/mockjs/" + projectId + url;
+                    url = "http://" + ROOT + "/mockjs/" + projectId + url;
                     oOptions.url = url;
                 }
                 ajax.apply(this, arguments);
@@ -113,7 +115,7 @@
                             if (url.charAt(0) != '/') {
                                 url = '/' + url;
                             }
-                            url = "http://rap.alibaba-inc.com/mockjs/" + projectId + url;
+                            url = "http://" + ROOT + "/mockjs/" + projectId + url;
                             oOptions.url = url;
                             var oldSuccess = oOptions.success;
                             oOptions.success = function(data) {

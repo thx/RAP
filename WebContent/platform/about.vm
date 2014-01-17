@@ -10,6 +10,8 @@
 	    #bodyStart
         <div id="container">
             <p>对于RAP平台的任何问题，欢迎邮件至<a href="mailto:huoyong.msb@taobao.com">huoyong.msb@taobao.com</a></p>
+            <p>RAP是THX平台中的产品，想了解THX更多内容，请访问：<a href="http://thx.alibaba-inc.com" target="_blank">http://thx.alibaba-inc.com</a></p>
+            <p>RAP Github Repo: <a href="http://github.com/thx/RAP" target="_blank">http://github.com/thx/RAP</a></p>
         </div>
 		#bodyEnd
 	</body>

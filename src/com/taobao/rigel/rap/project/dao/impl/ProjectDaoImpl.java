@@ -76,7 +76,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		Project p = null;
 		try {
 			Session session = getSession();
-			p = (Project) session.load(Project.class, id);
+			p = (Project) session.get(Project.class, id);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

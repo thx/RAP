@@ -303,10 +303,10 @@ public class MockMgrImpl implements MockMgr {
 		
 		if (para.getParameterList() == null
 				|| para.getParameterList().size() == 0) {
-			json.append(para.getMockIdentifier() + ":" + mockjsValue(para, index));
+			json.append(para.getMockJSIdentifier() + ":" + mockjsValue(para, index));
 		} else {
 			// object and array<object>
-			json.append(para.getMockIdentifier() + ":");
+			json.append(para.getMockJSIdentifier() + ":");
 			String left = "{", right = "}";
 
 			if (isArrayObject) {
@@ -338,7 +338,6 @@ public class MockMgrImpl implements MockMgr {
 	}
 
 	private String mockValue(Parameter para, int index) {
-		parameterFilter(para);
 		String dataType = para.getDataType();
 		String[] tags = para.getMockDataTEMP().split(";");
 		Map<String, String> tagMap = new HashMap<String, String>();
@@ -514,29 +513,20 @@ public class MockMgrImpl implements MockMgr {
 
 
 	private String mockjsValue(Parameter para, int index) {
-		parameterFilter(para);
-		//String dataType = para.getDataType();
 		String[] tags = para.getMockDataTEMP().split(";");
 		Map<String, String> tagMap = new HashMap<String, String>();
 		parseTags(tags, tagMap, true);
 		String returnValue = "1";
 		String mockValue = tagMap.get("mock");
 		if (mockValue != null && !mockValue.isEmpty()) {
-			return "\"" + mockValue + "\"";
+			if (mockValue.startsWith("[") && mockValue.endsWith("]")) {
+				return mockValue;
+			} else {
+				return "\"" + mockValue + "\"";
+			}
+			
 		}
 		return returnValue;
-	}
-
-	
-	private void parameterFilter(Parameter para) {
-		String identifier = para.getIdentifier();
-		if (identifier != null && !identifier.isEmpty()) {
-			int index = identifier.indexOf("|");
-			if (index > -1) {
-				identifier = identifier.substring(0, index);
-				para.setIdentifier(identifier);
-			}
-		}
 	}
 
 	/**

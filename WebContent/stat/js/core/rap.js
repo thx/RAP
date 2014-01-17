@@ -1288,6 +1288,18 @@ var rap = rap || {};
         if (action === null) return;
         getDiv(_curModuleId, "a").innerHTML = getAHtml(action);
         renderA();
+
+
+        var last = b.g('div-a-tree-node-' + _curActionId);
+        var cur = b.g('div-a-tree-node-' + actionId);
+
+        if (last && b.dom.hasClass(last, 'cur')) {
+            b.dom.removeClass(last, 'cur');
+        }
+        if (cur && !b.dom.hasClass(cur, 'cur')) {
+            b.dom.addClass(cur, 'cur');
+        }
+
         _curActionId = actionId;
     };
 
@@ -2936,6 +2948,13 @@ var rap = rap || {};
             moduleId = moduleList[i].id;
             ecui.init(baidu.g("div-tree-" + moduleId));
         }
+
+        var cur = b.g('div-a-tree-node-' + _curActionId);
+
+        if (cur && !b.dom.hasClass(cur, 'cur')) {
+            b.dom.addClass(cur, 'cur');
+        }
+
    }
 
     /**

@@ -224,6 +224,7 @@ public class WorkspaceAction extends ActionBase {
 		Workspace workspace = new Workspace();
 		workspace.setProject(projectMgr.getProject(getProjectId()));
 		setWorkspaceJsonString(workspace.toString());
+		setWorkspace(workspace);
 		return SUCCESS;
 	}
 

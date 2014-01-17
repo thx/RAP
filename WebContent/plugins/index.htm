@@ -1,40 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>RAP Example</title>
-    <script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
-    <!-- 引入RAP开始 -->
-    <script type="text/javascript" src="rap.plugin.js?projectId=76&mode=3"></script>
-    <script src="http://mockjs.com/dist/mock-min.js"></script>
-    <!-- 引入RAP结束 -->
-
-</head>
-<body>
-<pre id="container">
-</pre>
-<script>
-
-RAP.setBlackList([
-    'atest',
-    /test/g
-]);
-RAP.setWhiteList([
-    'tiest',
-    /test/g
-]);
-
-
-KISSY.use('node, ajax',function(S, Node, IO){
-    KISSY.io({
-        url:'/testxxx',
-        dataType:'json',
-        success:function(data){
-            console.log(data);
-            Node.one('#container').html(JSON.stringify(data, null, 4));
-        }
-    });
-});
-</script>
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <title>RAP Example</title>
+        <script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
+        <!-- 引入RAP开始 -->
+        <script type="text/javascript" src="rap.plugin.js?projectId=65&mode=1"></script>
+        <script src="http://mockjs.com/dist/mock-min.js"></script>
+        <!-- 引入RAP结束 -->
+    </head>
+    <body>
+        <pre id="container">
+        </pre>
+        <script>
+            KISSY.use('node, ajax',function(S, Node, IO) {
+                KISSY.io({
+                    url:'/test1',
+                    dataType:'json',
+                    success:function(data){
+                        console.log(data);
+                        Node.one('#container').html(JSON.stringify(data, null, 4));
+                    }
+                });
+            });
+        </script>
+    </body>
 </html>

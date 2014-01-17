@@ -187,6 +187,10 @@ body {
 	float: left;
 }
 
+.tree-m .cur a {
+	color: #CC0000;
+}
+
 .seperator {
 	height: 400px;
 	left: 250px;
