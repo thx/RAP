@@ -6,6 +6,9 @@ Rigel Automation Platform
     @weibo   http://weibo.com/bosn, http://github.com/wangjeaf
     @mail    bosn@outlook.com, wangjeaf@gmail.com
 
+什么是RAP?
+--------------------------------------
+
 `RAP` 是一个WEB接口管理系统，可通过结构化的接口文档生成测试数据。
 
 所谓“接口文档”定义了WEB请求的格式与细节。
@@ -52,3 +55,45 @@ Based on this structured document data, RAP can automatically generate useful mo
     4. supports many shortcuts, using it conviniencely just like using Excel
     5. supplys a back-end console, can validate format of real interface output
     6. supports JSON import, Microsoft Word File export
+    
+RAP MOCK插件
+--------------------------------------
+
+RAP提供MOCK服务插件（暂时仅支持Kissy和jQuery），使用方法如下。
+
+### 1. 在kissy, jQuery后面引入rap plugin ###
+
+```bash
+<script type="text/javascript" src="rap.plugin.js?projectId={{projectId}}&mode={{mode}}"></script>
+```
+
+其中`{{projectId}}`为RAP提供的项目ID, `{{mode}}`为RAP路由的工作模式, 默认值为1。
+mode值及含义:
+- 0 - 不拦截
+- 1 - 拦截全部
+- 2 - 黑名单中的项不拦截
+- 3 - 仅拦截白名单中的项
+
+### 2. 引入mock.js ###
+
+```bash
+<script src="http://mockjs.com/dist/mock-min.js"></script>
+```
+
+### 3. 设置黑名单、白名单（可选) ###
+
+设置黑名单
+
+```bash
+RAP.setBlackList(arr);
+```
+
+设置白名单
+    
+```bash
+RAP.setWhiteList(arr);
+```
+
+其中arr可以包含匹配字符串，或正则对象，例：['test', /test/g]
+
+
