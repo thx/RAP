@@ -320,8 +320,8 @@ a {
     }
 
     #content {
-        height: 100%;
-        overflow: auto;
+        /*height: 100%;*/
+        /*overflow: auto;*/
         -webkit-overflow-scrolling: touch; /* 防止iOS 没有平滑滚动 */
     }
 
