@@ -330,6 +330,7 @@ a {
     #content-wrap {
         padding: 90px 20px 20px;
         position: relative;
+        overflow: hidden;
     }
 
     #ceiling a {
