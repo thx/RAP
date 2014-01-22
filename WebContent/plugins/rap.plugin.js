@@ -4,7 +4,7 @@
  * 1. 在kissy, jQuery后面引入rap plugin
  *     <script type="text/javascript" src="rap.plugin.js?projectId={{projectId}}&mode={{mode}}"></script>
  *      其中{{projectId}}为RAP提供的项目ID
- *      {{mode}}为RAP路由的工作模式, 默认值为1
+ *      {{mode}}为RAP路由的工作模式, 默认值为3
  *          0 - 不拦截
  *          1 - 拦截全部
  *          2 - 黑名单中的项不拦截
@@ -23,8 +23,8 @@
     var node = document.getElementById('rap');
     var blackList = [];
     var whiteList = [];
-    //var ROOT = 'rap.alibaba-inc.com';
-    var ROOT = 'etaoux-bj.taobao.ali.com:8080';
+    var ROOT = 'rap.alibaba-inc.com';
+    //var ROOT = 'etaoux-bj.taobao.ali.com:8080';
     /**
      * mode value range:
      * 0-disabled
@@ -32,7 +32,7 @@
      * 2-black list strategy
      * 3-white list strategy
      */
-    var mode = 1;
+    var mode = 3;
     var modeList = [0, 1, 2, 3];
     var projectId = 0;
 

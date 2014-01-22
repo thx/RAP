@@ -11,9 +11,16 @@
 	</rule>
 	<rule>
 		<note>
-			mock service
+			mockjs service
         </note>
 		<from>^/mockjs/(\d*?)/(.*)$</from>
 		<to type="redirect">/mock/createRule.action?id=$1&amp;pattern=/${escape:utf8:$2}</to>
+	</rule>
+	<rule>
+		<note>
+			mockjs plugin generator
+        </note>
+		<from>^/plugins/rap.plugin.js(.*)$</from>
+		<to type="redirect">/mock/createPluginScript.action$1</to>
 	</rule>
 </urlrewrite>

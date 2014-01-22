@@ -6,8 +6,12 @@
 <struts>
 
 	<constant name="struts.devMode" value="true" />
-	<constant name="struts.action.extension" value="action,do"/> 
+	<constant name="struts.action.extension" value="action,do" />
 	<package name="rap-default" extends="struts-default">
+		<result-types>
+			<result-type name="rapVelocityResult" default="true"
+				class="org.apache.struts2.views.velocity.RapVelocityResult" />
+		</result-types>
 		<interceptors>
 			<interceptor-stack name="baseStack">
 				<interceptor-ref name="createSession" />
@@ -42,17 +46,13 @@
 			<result name="input" type="velocity">/error.vm</result>
 			<result name="redirect" type="velocity">/common/redirect.vm</result>
 		</global-results>
-		<!-- 
-		<global-exception-mappings>
-			<exception-mapping result="error" exception="java.lang.RuntimeException" />
-			<exception-mapping result="error" exception="java.lang.Exception" />			
-		</global-exception-mappings>
-		 -->
+		<!-- <global-exception-mappings> <exception-mapping result="error" exception="java.lang.RuntimeException" 
+			/> <exception-mapping result="error" exception="java.lang.Exception" /> </global-exception-mappings> -->
 	</package>
 
 	<!-- project action mapping -->
 	<include file="com/taobao/rigel/rap/project/web/action/struts.xml" />
-	
+
 	<!-- organization action mapping -->
 	<include file="com/taobao/rigel/rap/organization/web/action/struts.xml" />
 
@@ -64,10 +64,10 @@
 
 	<!-- platform action mapping -->
 	<include file="com/taobao/rigel/rap/platform/web/action/struts.xml" />
-	
+
 	<!-- platform tester mapping -->
 	<include file="com/taobao/rigel/rap/tester/web/action/struts.xml" />
-	
+
 	<!-- platform mock mapping -->
 	<include file="com/taobao/rigel/rap/mock/web/action/struts.xml" />
 </struts>

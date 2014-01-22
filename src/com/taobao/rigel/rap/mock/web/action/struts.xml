@@ -26,7 +26,7 @@
 			<result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
 			</result>
 		</action>
-		
+
 		<action name="createRule" class="com.taobao.rigel.rap.mock.web.action.MockAction"
 			method="createRule">
 			<result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
@@ -34,6 +34,13 @@
 			<result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
 			</result>
 
+		</action>
+		<action name="createPluginScript" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+			method="createPluginScript">
+			<result name="success" type="rapVelocityResult">
+				<param name="contentType">text/javascript</param>
+				<param name="location">/mock/createPluginScript.vm</param>  
+			</result>
 		</action>
 
 	</package>

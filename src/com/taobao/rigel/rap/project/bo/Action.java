@@ -250,4 +250,17 @@ public class Action implements java.io.Serializable {
 		return sb.toString();
 	}
 
+	public String getRequestUrlRel() {
+		String url = this.requestUrl;
+		if (url == null || url.isEmpty()) {
+			return "xxxxxxxxxxxxxxxxEMPTY URLxxxxxxxxxxxxxxxxx";
+		}
+		if (url.contains("https://")) {
+			url = url.substring(url.indexOf("/", 7));
+		} else if (url.contains("http://")) {
+			url = url.substring(url.indexOf("/", 8));
+		}
+		return url;
+	}
+
 }

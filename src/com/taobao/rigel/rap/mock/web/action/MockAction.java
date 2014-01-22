@@ -1,7 +1,15 @@
 package com.taobao.rigel.rap.mock.web.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.mock.service.MockMgr;
+import com.taobao.rigel.rap.project.bo.Action;
+import com.taobao.rigel.rap.project.bo.Module;
+import com.taobao.rigel.rap.project.bo.Page;
+import com.taobao.rigel.rap.project.bo.Project;
+import com.taobao.rigel.rap.project.service.ProjectMgr;
 
 public class MockAction extends ActionBase {
 
@@ -14,6 +22,24 @@ public class MockAction extends ActionBase {
 	private String content;
 	private String callback;
 	private String _c;
+	private ProjectMgr projectMgr;
+	private List<String> urlList;
+
+	public List<String> getUrlList() {
+		return urlList;
+	}
+
+	public void setUrlList(List<String> urlList) {
+		this.urlList = urlList;
+	}
+
+	public ProjectMgr getProjectMgr() {
+		return projectMgr;
+	}
+
+	public void setProjectMgr(ProjectMgr projectMgr) {
+		this.projectMgr = projectMgr;
+	}
 
 	public void setMockData(String mockData) {
 		this.mockData = mockData;
@@ -138,6 +164,22 @@ public class MockAction extends ActionBase {
 
 	public String reset() {
 		setNum(mockMgr.reset(projectId));
+		return SUCCESS;
+	}
+	
+	public String createPluginScript() {
+		List<String> list = new ArrayList<String>();
+		Project p = projectMgr.getProject(projectId);
+		if (p != null) {
+			for (Module m : p.getModuleList()) {
+				for (Page page : m.getPageList()) {
+					for (Action a : page.getActionList()) {
+						list.add(a.getRequestUrlRel());
+					}
+				}
+			}
+		}
+		urlList = list;
 		return SUCCESS;
 	}
 }

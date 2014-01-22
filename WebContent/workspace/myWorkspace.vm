@@ -13,7 +13,7 @@
         #bodyStart(true)
         <div id="div-fixed-panel">
             <div class="clearfix">
-            	<!--
+                <!--
                 <div id="div-return">
                     <a href="$projectUrl.myProjectList" class="btn">返回</a>
                 </div>
@@ -21,7 +21,7 @@
                 <div id="div-w-message" class="label" style="display:none;">
                 </div>
                 <div id="div-control-panel">
-                	<input id="btnFastSave" type="button" class="btn btn-success" value="快捷保存" onclick="ws.quickSave(); return false;"  style="display: none" /> 
+                    <input id="btnFastSave" type="button" class="btn btn-success" value="快捷保存" onclick="ws.quickSave(); return false;"  style="display: none" />
                     <input id="btnSave" type="button" class="btn btn-primary" value="保存" onclick="ws.switchToViewMode(true); return false;"  style="display: none" />
                     <input id="btnCancel" type="button" class="btn" value="取消" onclick="ws.switchToViewMode(false); return false;"  style="display: none" />
                     <input id="btnEdit" type="button" class="btn btn-primary" value="启用编辑" onclick="ws.switchToEditMode(); return false;" />
@@ -243,24 +243,40 @@
             </div>
         </form>
         #endFloater
+        #startFloater("exportRAPDataFloater" "Import JSON" 600 350)
+        <form name="formImportJSONFloater">
+            <div class="myfloater">
+                <table class="table">
+                    <tr>
+                        <td>
+                            <textarea id="exportRAPDataFloater-text" style="width: 510px; height: 200px; font-size: 12px; line-height: 1.5;" cols="20" rows="20"></textarea>
+                        </td>
+                    </tr>
+                </table>
+                <div class="div-floater-control">
+                    <input type="button" class="btn" onclick="ws.closeExportRAPDataFloater();"  value="关闭" />
+                </div>
+            </div>
+        </form>
+        #endFloater
 
     </body>
     <script type="text/javascript">
         var urlObj = {
                 "getModuleHtmlAjax" : "$workspaceUrl.getModuleHtmlAjax",
-                "updateSave" : "$workspaceUrl.updateSave",
+                "updateSave"        : "$workspaceUrl.updateSave",
                 "updateCurrentSave" : "$workspaceUrl.updateCurrentSave",
-                "querySave" : "$workspaceUrl.querySave",
-                "removeSave" : "$workspaceUrl.removeSave",
-                "checkIn" : "$workspaceUrl.checkIn",
-                "checkOut" : "$workspaceUrl.checkOut",
-                "imageRoot" : "$staticRoot/img/",
-                "lock" : "$workspaceUrl.lock",
-                "unlock" : "$workspaceUrl.unlock",
-                "ping" : "$workspaceUrl.ping",
-                "queryVersion" : "$workspaceUrl.queryVersion",
-                "switchVersion" : "$workspaceUrl.switchVersion",
-                "pageTester" : "$testerUrl.pageTester"
+                "querySave"         : "$workspaceUrl.querySave",
+                "removeSave"        : "$workspaceUrl.removeSave",
+                "checkIn"           : "$workspaceUrl.checkIn",
+                "checkOut"          : "$workspaceUrl.checkOut",
+                "imageRoot"         : "$staticRoot/img/",
+                "lock"              : "$workspaceUrl.lock",
+                "unlock"            : "$workspaceUrl.unlock",
+                "ping"              : "$workspaceUrl.ping",
+                "queryVersion"      : "$workspaceUrl.queryVersion",
+                "switchVersion"     : "$workspaceUrl.switchVersion",
+                "pageTester"        : "$testerUrl.pageTester"
             },
             ws = rap.workspace,
             util = rap.util;
@@ -279,6 +295,6 @@
         util.hint.bind("btnSwitchVersion", "点击后将切换至该版本");
         util.hint.bind("btnExitVersion", "点击后将切换回首次进入工作区的默认模式");
         util.hint.bind("btnToggleMockDisplay", "默认MOCK标签（@value， @format等等）是隐藏的，该按钮可以隐藏/显示文档中的MOCK数据信息。");
-        
+
     </script>
 </html>
