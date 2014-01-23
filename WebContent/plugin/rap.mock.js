@@ -1,24 +1,3 @@
-/**********************************************************************************************************
- *
- * 使用方法
- * 1. 在kissy, jQuery后面引入rap plugin
- *     <script type="text/javascript" src="rap.plugin.js?projectId={{projectId}}&mode={{mode}}"></script>
- *      其中{{projectId}}为RAP提供的项目ID
- *      {{mode}}为RAP路由的工作模式, 默认值为3
- *          0 - 不拦截
- *          1 - 拦截全部
- *          2 - 黑名单中的项不拦截
- *          3 - 仅拦截白名单中的项
- * 2. 引入mock.js
- *     <script src="http://mockjs.com/dist/mock-min.js"></script>
- * 3. 设置黑名单、白名单（可选）
- *     设置黑名单
- *     RAP.setBlackList(arr);
- *     设置白名单
- *     RAP.setWhiteList(arr);
- *     其中arr可以包含匹配字符串，或正则对象，例：['test', /test/g]
- *
- ********************************************************************************************************/
 (function() {
     var node = document.getElementById('rap');
     var blackList = [];

@@ -20,7 +20,7 @@
 		<note>
 			mockjs plugin generator
         </note>
-		<from>^/plugins/rap.plugin.js(.*)$</from>
+		<from>^/rap.plugin.js(.*)$</from>
 		<to type="redirect">/mock/createPluginScript.action$1</to>
 	</rule>
 </urlrewrite>

@@ -7,47 +7,20 @@
         #includeNewRapStatic
         <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="${staticRoot}/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${staticRoot}/js/core/markdown.min.js"></script>
         <style type="text/css">
         </style>
     </head>
     <body>
         #bodyNewStart
-        <div id="container">
-            <ul id="myTab" class="nav nav-tabs">
-                <li class="active"><a href="#about" data-toggle="tab">关于RAP</a></li>
-                <li><a href="#edit" data-toggle="tab">接口编辑</a></li>
-                <li><a href="#mock" data-toggle="tab">数据伪造</a></li>
-                <li><a href="#tagy" data-toggle="tab">格式标签</a></li>
-                <li><a href="#test" data-toggle="tab">智能测试</a></li> 
-                <li><a href="#console" data-toggle="tab">控制台</a></li> 
-            </ul>
-            <div id="myTabContent" class="tab-content">
-                <div class="tab-pane fade in active" id="about">
-                    <p>#parse('/platform/help.about.vm')</p>
-                </div>
-                <div class="tab-pane fade" id="edit">
-                    <p>#parse('/platform/help.edit.vm')</p>
-                </div>
-                <div class="tab-pane fade" id="mock">
-                    <p>#parse('/platform/help.mock.vm')</p>
-                </div>
-                <div class="tab-pane fade" id="tagy">
-                    <p>#parse('/platform/help.tagy.vm')</p>
-                </div>
-                <div class="tab-pane fade" id="test">
-                    <p>#parse('/platform/help.test.vm')</p>
-                </div>
-                <div class="tab-pane fade" id="console">
-                    <p>#parse('/platform/help.console.vm')</p>
-                </div>
-            </div>
-        </div>
+        <div id="container"><!--${text}--></div>
         #bodyEnd
         <script>
-            $('#myTab a').click(function (e) {
-              e.preventDefault();
-              $(this).tab('show');
-            })
+           var txt = $('#container').html();
+           txt = txt.replace(/<!--/g, "");
+           txt = txt.replace(/-->/g, "");
+           var html = markdown.toHTML(txt);
+           $('#container').html(html);
         </script>
     </body>
 </html>

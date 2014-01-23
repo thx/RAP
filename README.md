@@ -50,5 +50,3 @@ RAP.setWhiteList(arr);
 ```
 
 其中arr可以包含匹配字符串，或正则对象，例：['test', /test/g]
-
-

@@ -37,6 +37,8 @@ public class AuthCheckFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		boolean logined = session.getAttribute(ContextManager.KEY_ACCOUNT) != null;
+		
+		SystemConstant.README_PATH = session.getServletContext().getRealPath("/README.md");
 
 		if (!logined) {
 			SimpleSSOUser user = SimpleUserUtil

@@ -12,7 +12,6 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:applicationContext.xml</param-value>
 	</context-param>
-
 	<filter>
 		<filter-name>ssoFilter</filter-name>
 		<filter-class>com.alibaba.buc.sso.client.filter.SSOFilter</filter-class>
@@ -34,10 +33,9 @@
 		</init-param>
 		<init-param>
 			<param-name>EXCLUSIONS</param-name>
-			<param-value>*/stat/*,*/favicon.ico,/t/*,/crossdomain.xml,/*.htm,/*.html</param-value>
+			<param-value>*/stat/*,*/favicon.ico,/t/*,/crossdomain.xml,/*.htm,/*.html,*.md</param-value>
 		</init-param>
 	</filter>
-
 	<filter>
 		<filter-name>UrlRewriteFilter</filter-name>
 		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
@@ -58,8 +56,6 @@
 			<param-value>true</param-value>
 		</init-param>
 	</filter>
-
-
 	<filter>
 		<filter-name>authCheckFilter</filter-name>
 		<filter-class>com.taobao.rigel.rap.common.AuthCheckFilter</filter-class>
@@ -76,7 +72,6 @@
 			<param-value>utf-8</param-value>
 		</init-param>
 	</filter>
-
 	<filter-mapping>
 		<filter-name>ssoFilter</filter-name>
 		<url-pattern>/*</url-pattern>
