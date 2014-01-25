@@ -2,7 +2,7 @@
  * Basic styles
  */
 body {
-    background: #e4e6e5 url(img/bg.jpg);
+    background: #e4e6e5;
 }
 
 /* 全局hover颜色和背景色动画 */
@@ -36,7 +36,7 @@ a {
 }
 .type > h1 {
     margin-top: 0;
-    font-size: 2em;
+    font-size: 1.8em;
 }
 .type h2 {
     font-size: 1.5em;
@@ -56,6 +56,31 @@ a {
     font-weight: 500;
 }
 
+/**
+ * 引入Logo字体图标
+ */
+@font-face {
+    font-family: 'logo';
+    src: url('http://at.alicdn.com/t/font_1390195988_9420388.eot'); /* IE9*/
+    src: url('http://at.alicdn.com/t/font_1390195988_9420388.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('http://at.alicdn.com/t/font_1390195989_0386753.woff') format('woff'), /* chrome、firefox */
+    url('http://at.alicdn.com/t/font_1390195988_7969282.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('http://at.alicdn.com/t/font_1390195989_0668917.svg#svgFontName') format('svg'); /* iOS 4.1- */
+}
+
+.iconlogo,
+.type .iconlogo {
+    font-family: "logo";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    display: inline-block;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 /*
  * icons
  */
@@ -66,19 +91,31 @@ a {
     content: '\f086';
 }
 .mi-brix:before {
-    content: '\f039';
+    content: '\3433';
 }
 .mi-rap:before {
-    content: '\016e';
+    content: '\3434';
 }
 .mi-magix:before {
-    content: '\f06f';
+    content: '\3432';
 }
 .mi-mock:before {
-    content: '\0034';
+    content: '\3435';
 }
 .mi-crox:before {
-    content: '\012a';
+    content: '\3436';
+}
+.mi-cube:before {
+    content: '\3439';
+}
+.mi-iconfont:before {
+    content: '\343a';
+}
+.mi-canvax:before {
+    content: '\3437';
+}
+.mi-bisheng:before {
+    content: '\3438';
 }
 .mi-releases:before {
     content: '\0030';
@@ -92,27 +129,17 @@ a {
 .mi-articles:before {
     content: '\0123';
 }
-.mi-iconfont:before {
-    content: '\003c';
-}
 .mi-products:before {
     content: '\0199';
 }
-.mi-cube:before {
-    content: '\01bc';
-}
+
 .mi-diamond:before {
     content: '\f005';
 }
 .mi-gaming:before {
     content: '\007a';
 }
-.mi-canvax:before {
-    content: '\00fb';
-}
-.mi-bisheng:before {
-    content: '\012f';
-}
+
 .mi-services:before {
     content: '\013e';
 }
@@ -127,10 +154,9 @@ a {
 #nav .logo {
     display: block;
     text-align: center;
-    width: 160px;
-    height: 100%;
     line-height: 60px;
     vertical-align: middle;
+    background-color: #ed4242;
     -webkit-transition: 0.3s;
     -moz-transition: 0.3s;
     -ms-transition: 0.3s;
@@ -142,26 +168,21 @@ a {
     line-height: 30px;
 }
 
+#nav .iconlogo {
+    font-size: 80px;
+    color: #fff;
+    display: block;
+    width: 130px;
+}
+
 /**
  * 皮肤
  */
 
-.skin-index #nav .logo {
+.skin-index #nav.fixed .iconlogo {
     font-size: 50px;
-    letter-spacing: 1px;
-    background: #ed4242 url(http://gtms01.alicdn.com/tps/i1/T1CpsWFoVnXXaWDHYM-160-113.png) 50% -10px no-repeat;
 }
 
-.skin-index #nav.fixed .logo {
-    font-size: 20px;
-    background-position: 50% -80px;
-}
-
-.skin-index #nav .logo .ir {
-    display: block;
-    background-color: #ed4242;
-    color: #fff;
-}
 
 .skin-magix #nav a.logo {
     color: #da1e38;
@@ -230,7 +251,7 @@ a {
     color: #aaa;
 }
 #ceiling .products {
-    float: left;
+    /*float: left;*/
 }
 #ceiling .products a {
     border-right: 1px solid #d6d6d6;
@@ -240,7 +261,12 @@ a {
     color: #313131;
 }
 #ceiling .portal {
-    float: right;
+    /*float: right;*/
+}
+
+#ceiling .bd {
+    height: 45px;
+    line-height: 45px;
 }
 
 .ds-thread {
@@ -279,10 +305,6 @@ a {
      background-color: #fff;
 }
 
-#page .stoc {
-    background: none;
-}
-
 #page .stoc ol {
     padding-left: 14px;
     padding-right: 1px;
@@ -294,7 +316,7 @@ a {
 }
 
 @media (max-width: 799px) {
-    html, body {
+    html {
         height: 100%;
         overflow-x: hidden;
         overflow-y: auto;
@@ -321,29 +343,28 @@ a {
         /* padding-left: 40px; */
     }
 
-    #content {
-        /*height: 100%;*/
-        /*overflow: auto;*/
-        -webkit-overflow-scrolling: touch; /* 防止iOS 没有平滑滚动 */
-    }
-
     #content-wrap {
-        padding: 90px 20px 20px;
+        padding: 40px 15px 20px;
         position: relative;
         overflow: hidden;
     }
 
+    #ceiling .bd {
+        height: 40px;
+        line-height: 40px;
+    }
+
     #ceiling a {
-        padding: 6px 10px;
+        padding: 0 10px;
     }
     #ceiling .products {
         margin-left: 45px;
-        width: 72%;
-        height: 40px;
-        overflow: hidden;
+        /*width: 72%;*/
+        /*height: 40px;*/
+        /*overflow: hidden;*/
     }
     #ceiling .products a {
-        padding: 2px 5px;
+        padding: 0 4px;
         border-right: none;
     }
     #ceiling .products .name {
@@ -352,13 +373,16 @@ a {
     #ceiling .products .iconfont,
     #ceiling .portal .iconfont {
         font-size: 20px;
-        line-height: 1.8;
     }
     #ceiling .portal a {
-        padding: 2px 10px;
+        padding: 0 10px;
     }
     #ceiling .portal .name {
         display: none;
+    }
+
+    #page .projects .banner a {
+        font-size: 36px;
     }
 
     #nav {
@@ -378,23 +402,20 @@ a {
         border-right: 1px solid #d6d6d6;
     }
     #nav .toggler {
-        display: inline-block;
-        height: 28px;
-        line-height: 28px;
+        height: 40px;
+        line-height: 40px;
         position: absolute;
+        padding:0 12px;
         top: 0;
         left: 200px;
-        padding: 6px 10px;
-        background: #f4f4f4;
+        /*background: #f4f4f4;*/
         border-right: 1px solid #d6d6d6;
         border-bottom: 1px solid #d6d6d6;
     }
     #nav .toggler:hover {
         border-bottom: 1px solid #d6d6d6;
     }
-    #nav .toggler .label {
-        display: none;
-    }
+
     #nav a.logo {
         margin-bottom: 28px;
     }
@@ -402,6 +423,10 @@ a {
         display: block;
         padding-top: 5px;
         padding-bottom: 5px;
+    }
+
+    #nav .iconlogo {
+        width: 100%;
     }
 
     /* 移出侧边导航栏的动画 */
@@ -414,14 +439,20 @@ a {
     #ceiling .products {
         margin-left: 90px;
     }
+
+    #ceiling .bd {
+        height: 45px;
+        line-height: 45px;
+    }
+
     #ceiling a {
         padding: 10px 20px;
     }
     #ceiling .products a {
-        padding: 6px 15px;
+        padding: 0 15px;
     }
     #ceiling .portal a {
-        padding: 6px 15px;
+        padding: 0 15px;
     }
     #ceiling .portal .name {
         display: inline-block;
@@ -429,10 +460,17 @@ a {
 
     #nav .toggler {
         width: 50px;
-        height: 28px;
-        line-height: 28px;
-        padding: 10px 20px;
+        height: 45px;
+        line-height: 45px;
+        padding: 0 20px;
+        text-align: center;
+        color: #808080;
     }
+
+    #nav .toggler .iconfont {
+        font-size: 28px;
+    }
+
     #nav .toggler .label {
         display: inline-block;
     }
@@ -449,7 +487,7 @@ a {
     }
 
     #ceiling a {
-        padding: 10px;
+        padding:0 10px;
     }
 
     #ceiling .products a {
@@ -459,7 +497,7 @@ a {
     #page {
         text-align: left;
         width: 700px;
-        margin: 108px auto 0;
+        margin: 130px auto 0;
     }
 
     #nav {
@@ -509,8 +547,8 @@ a {
 
     #content {
         max-width: 680px;
-        margin-top: 130px;
-        padding:1em 2em;
+        /*margin-top: 130px;*/
+        padding: 1em 2em;
     }
 }
 
@@ -518,12 +556,9 @@ a {
     #page .stoc {
         position: static;
         background: none;
+        border-bottom: 1px solid #CCC;
     }
 
-    #page .stoc label {
-        cursor: default;
-    }
-    #page .stoc label,
     #page .stoc a {
         padding: 0 5px;
     }
@@ -533,24 +568,46 @@ a {
         color: inherit;
     }
 
-    #page .stoc > ol {
-        padding: 1em 0;
+    #page .type-toc h2 {
+        padding: 0;
     }
 
-    #page .stoc > ol > li {
-        display: inline-block;
-        vertical-align: top;
-        margin-right: 2em;
+    #nav .toggler .label {
+        display: none;
+    }
+
+    /* 2014-01-25 小屏幕上也要目录折叠功能 */
+    #page .stoc .folded ol {
+        display: none;
     }
 }
 
 @media (min-width: 1200px) {
     #ceiling a {
-        padding: 10px 25px 10px 20px;
+        padding: 0 25px 0 20px;
     }
 
     #ceiling .products a {
         border-right: 1px solid #d6d6d6;
+    }
+
+    #page .stoc {
+        background: none;
+        -webkit-transition: opacity 5s ease-in-out;
+        -moz-transition: opacity 5s ease-in-out;
+        -ms-transition: opacity 5s ease-in-out;
+        -o-transition: opacity 5s ease-in-out;
+        transition: opacity 5s ease-in-out;
+        opacity: .3
+    }
+
+    #page .stoc:hover {
+        -webkit-transition: opacity .3s ease-out;
+        -moz-transition: opacity .3s ease-out;
+        -ms-transition: opacity .3s ease-out;
+        -o-transition: opacity .3s ease-out;
+        transition: opacity .3s ease-out;
+        opacity: .999999;
     }
 
     #page .stoc {
@@ -564,6 +621,7 @@ a {
         margin-left: 360px;
         /*padding:0 16px 16px 0;*/
     }
+
     #page .stoc a {
         height: auto;
         border-bottom: 1px solid transparent;
@@ -613,6 +671,15 @@ a {
 }
 
 
+input ~ ol >li >ol {
+    display: none;
+}
+
+input:checked ~ ol >li >ol {
+    display: block;
+}
+
+
 .type-toc li {
     overflow: hidden;
     margin-top: 1px;
@@ -642,10 +709,15 @@ a {
 
 
 .type-toc h2 {
-    margin-bottom: 6px;
-    padding: 0 22px;
+    padding: 0 12px;
     font-size: 18px;
     color: #666;
+    border: 0 none;
+    margin: 0;
+}
+
+.type-toc label .iconfont {
+    margin-right: 10px;
 }
 
 
@@ -788,13 +860,14 @@ ol.type-toc,
 
 
 
-h2,h3,h3,h5,h6 {
+h2,h3,h4,h5,h6 {
     position: relative;
     -webkit-background-clip:padding-box;
     -moz-background-clip:padding;
     background-clip:padding-box;
     border-top: 80px solid transparent;
     margin-top: -80px;
+    padding-left: 1em;
 }
 
 
@@ -805,7 +878,8 @@ h2,h3,h3,h5,h6 {
 .anchor-link{
     visibility: hidden;
     position: absolute;
-    left: -1.5em;
+    left: -.5em;
+    top: -3px;
     z-index: 9;
     width: 1.5em;
     /*padding: 0 2px 0 5px;*/
@@ -841,28 +915,150 @@ h5:hover .anchor-link {
     overflow: hidden;
 }
 
-
 /**
- * 引入字体图标   
+ * 移动端阅读优化
  */
-@font-face {
-    font-family: 'logo';
-    src: url('http://at.alicdn.com/t/font_1390195988_9420388.eot'); /* IE9*/
-    src: url('http://at.alicdn.com/t/font_1390195988_9420388.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('http://at.alicdn.com/t/font_1390195989_0386753.woff') format('woff'), /* chrome、firefox */
-    url('http://at.alicdn.com/t/font_1390195988_7969282.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-    url('http://at.alicdn.com/t/font_1390195989_0668917.svg#svgFontName') format('svg'); /* iOS 4.1- */
+
+@media (max-width: 800px) {
+    .type {
+        font-size: 16px;
+    }
 }
 
-.icon-logo,
-.type .icon-logo {
-    font-family: "logo";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
+.type-set-label {
+    display: block;
+    vertical-align: middle;
+    position: relative;
+    z-index: 9999;
+    height: 36px;
+    line-height: 36px;
+    border: 0 none;
+    text-align: right;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.settings {
+    position: absolute;
+    right: 0;
+    top: 46px;
+    z-index: 1000;
+    height: 0;
+    overflow: hidden;
+    -webkit-transition: .32s ease;
+    -moz-transition: .32s ease;
+    -ms-transition: .32s ease;
+    -o-transition: .32s ease;
+    transition: .32s ease;
+}
+
+.settings-visible {
+    height: 144px;
+}
+
+.type-set-label .bd {
     display: inline-block;
-    speak: none;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    width: 130px;
+    background-color: #eee;
+    pointer-events: auto;
+}
+
+.type-set-label .bd:hover {
+    background-color: #ddd;
+}
+
+.body-night .type-set-label .bd:hover {
+    background-color: #333;
+}
+
+.set-icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+    text-align: center;
+}
+
+.set-first .bd{
+    /*border-top: 1px solid #999;*/
+}
+
+
+/* 文字大小 */
+.set-font-small{
+    font-size: 14px;
+}
+
+.set-font-middle {
+    font-size: 18px;
+}
+
+.set-font-large {
+    font-size: 26px;
+}
+
+.body-font-small #page .type {
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.body-font-small #page .type p {
+    line-height: 1.7;
+}
+
+.body-font-large #page .type {
+    font-size: 18px;
+    line-height: 2;
+}
+
+.body-font-large #page .type p {
+    line-height: 2;
+}
+
+/* 夜晚模式配色 */
+.body-night {
+    background: #2f2f2f;
+}
+.body-night #page #content {
+    background-color: #2f2f2f;
+    color: #CACCD1;
+}
+
+.body-night #page h1,
+.body-night #page h2,
+.body-night #page h3,
+.body-night #page h4,
+.body-night #page h5,
+.body-night #page h6,
+.body-night #page .type-toc a {
+    color: #E9EAEC;
+}
+
+.body-night #page #ceiling,
+.body-night #page #nav,
+.body-night #page .stoc {
+    background-color: #222;
+}
+
+.body-night #page #ceiling a,
+.body-night #page #nav a {
+    color: #fff;
+}
+
+.body-night #page a {
+    color: #DAECFD;
+}
+.body-night #page a:hover {
+    color: #fff;
+}
+
+.body-night #page .type h2,
+.body-night #page #ceiling,
+.body-night #page #nav .toggler,
+.body-night #page .stoc {
+    border-bottom-color: #555;
+    border-right-color: #555;
+}
+.body-night .type-set-label .bd{
+    background-color: #3f3f3f;
+    color: #fff;
 }

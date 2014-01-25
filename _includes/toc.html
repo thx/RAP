@@ -1,11 +1,11 @@
 <script type="text/x-template" id="J_tocTpl">
 {% raw %}
-  <div class="stoc type-toc">
-  <h2><i class="iconfont">&#390;</i> 目录</h2>
+<div class="stoc type-toc">
+  <label id="J_tocToggler"><h2><i class="iconfont">&#390;</i>目录</h2></label>
   {{#each tree}}
     <ol>
     {{#each children}}
-      <li><a href="#{{id}}" class="j-entry level2">{{text}}</a>
+      <li class="folded"><a href="#{{id}}" class="j-entry level2">{{text}}</a>
         {{#if children.length !== 0}}
         <ol>
         {{#each children}}

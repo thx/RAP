@@ -1,6 +1,24 @@
 var duoshuoQuery = {short_name:"thx"};
 
 KISSY.use('node,event', function(S, Node) {
+
+    function store(p, v) {
+        if (!window.localStorage) {
+            return
+        }
+
+        if (typeof v == 'undefined') {
+            return localStorage.getItem(p)
+        }
+        else {
+            localStorage.setItem(p, v)
+        }
+    }
+
+    if (store('body.className')) {
+        S.one('body')[0].className = store('body.className')
+    }
+
     S.one('#J_toggler').on('click', function(e) {
         if (Node(e.currentTarget).outerWidth() > 0) {
             S.one('#page').toggleClass('page-dodged')
@@ -8,8 +26,32 @@ KISSY.use('node,event', function(S, Node) {
         }
     })
 
+    S.one('#J_settingsToggler').on('click', function(e) {
+        S.one('.settings').toggleClass('settings-visible')
+        e.stopPropagation()
+    })
+
     S.one('body').on('click', function() {
         S.one('#page').removeClass('page-dodged')
+        S.one('.settings').removeClass('settings-visible')
+    })
+
+    S.one('.settings').delegate('click', '.type-set-label', function(e) {
+        var fontSize = e.currentTarget.getAttribute('data-font-size')
+        var klass = e.currentTarget.getAttribute('data-class')
+        var body = S.one('body')
+
+        if (fontSize) {
+            body.removeClass('body-font-small')
+            body.removeClass('body-font-middle')
+            body.removeClass('body-font-large')
+            body.addClass('body-font-' + fontSize)
+        }
+        else if (klass) {
+            body.toggleClass('body-' + klass)
+        }
+
+        store('body.className', body[0].className)
     })
 
     S.one(window).on('scroll', function(e) {
@@ -57,8 +99,9 @@ KISSY.use('brix/app,node', function(S, app, Node) {
     function pageReady() {
         var ol = S.one('#stoc ol')
 
-        ol.children().addClass('folded')
-        ol.one('li').removeClass('folded')
+        if (matchMedia('(min-width: 1200px)').matches) {
+            ol.one('li').removeClass('folded')
+        }
 
         this.find('mosaics/stoc').on('mosaics:stoc:change', function(e) {
             var li = e.currentEntry
@@ -81,6 +124,10 @@ KISSY.use('brix/app,node', function(S, app, Node) {
             var id = heading.attr('id')
             heading.prepend('<a name="' + id + '" class="anchor"></a>')
             heading.prepend('<a class="anchor-link" href="#' + id + '"></a>')
+        })
+
+        S.one('#J_tocToggler').on('click', function() {
+            S.one('.stoc ol').children().toggleClass('folded')
         })
     }
 })
