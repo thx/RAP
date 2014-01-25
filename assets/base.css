@@ -541,8 +541,7 @@ a {
     #nav.fixed .entry {
         line-height: 30px;
     }
-    #nav.fixed .logo .iconfont,
-    #nav.fixed .logo .iconlogo {
+    #nav.fixed .logo .iconfont {
         display: inline-block;
         font-size: 20px;
         margin-right: 5px;
