@@ -77,6 +77,8 @@ a {
     font-variant: normal;
     display: inline-block;
     speak: none;
+    margin-top: 0;
+    margin-bottom: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -539,7 +541,8 @@ a {
     #nav.fixed .entry {
         line-height: 30px;
     }
-    #nav.fixed .logo .iconfont {
+    #nav.fixed .logo .iconfont,
+    #nav.fixed .logo .iconlogo {
         display: inline-block;
         font-size: 20px;
         margin-right: 5px;
@@ -1061,4 +1064,11 @@ h5:hover .anchor-link {
 .body-night .type-set-label .bd{
     background-color: #3f3f3f;
     color: #fff;
+}
+.body-night #ceiling .products a,
+.body-night #nav,
+.body-night #nav .entry,
+.body-night .projects .project,
+.body-night .projects .project-table .banner {
+    border-color: #555 !important;
 }
