@@ -77,8 +77,6 @@ a {
     font-variant: normal;
     display: inline-block;
     speak: none;
-    margin-top: 0;
-    margin-bottom: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -159,6 +157,8 @@ a {
     line-height: 60px;
     vertical-align: middle;
     background-color: #ed4242;
+    margin-top: 0;
+    margin-bottom: 0;
     -webkit-transition: 0.3s;
     -moz-transition: 0.3s;
     -ms-transition: 0.3s;
