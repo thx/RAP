@@ -864,12 +864,19 @@ ol.type-toc,
 
 h2,h3,h4,h5,h6 {
     position: relative;
+    z-index: -1;
     -webkit-background-clip:padding-box;
     -moz-background-clip:padding;
     background-clip:padding-box;
     border-top: 80px solid transparent;
     margin-top: -80px;
     padding-left: 1em;
+}
+
+/* 防止标题上边距导致文字无法选中 */
+.type {
+    position: relative;
+    z-index: 1;
 }
 
 
