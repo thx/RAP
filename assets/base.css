@@ -304,7 +304,9 @@ a {
  */
 #content {
     min-width: 320px;
-     background-color: #fff;
+    background-color: #fff;
+    position: relative;
+    z-index: 1;
 }
 
 #page .stoc ol {
@@ -873,7 +875,7 @@ h2,h3,h4,h5,h6 {
     padding-left: 1em;
 }
 
-/* 防止标题上边距导致文字无法选中 */
+/* 防止标题上边距导致 */
 .type {
     position: relative;
     z-index: 1;
