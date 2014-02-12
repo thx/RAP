@@ -33,7 +33,6 @@
             </div>
             <div id="div-debug"></div>
             <div id="div-mt-list" class="clearfix"></div>
-            <div id="div-empty-hint" style="display: none">请点击“启用编辑”，然后右上角+号添加第一个模块哦！！！</div>
             <div id="div-add-p" style="display: none"><a href="#" class="btn" onclick="ws.addP(); return false;">新增页面</a></div>
         </div>
         <div id="div-w">

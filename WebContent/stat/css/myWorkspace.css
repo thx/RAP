@@ -178,6 +178,7 @@ body {
 	background-color: #F2F2F2;
 	border: 1px solid #DDD;
 	border-radius: 0 0 12px 12px;
+	padding-top: 20px;
 }
 
 .tree-m {
@@ -550,10 +551,10 @@ body {
 	backbround-color: #e5e4f2;
 }
 
-.edit-input {
-	border: none;
-	border-bottom: 1px solid gray;
-	background-color: #E6E6E6;
+.td-param .edit-input {
+	background: none;
+	margin:0;
+	font-style:italic;
 }
 
 .item {

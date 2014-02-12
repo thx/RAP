@@ -2550,11 +2550,11 @@ var rap = rap || {};
      */
     function setEmptyView(isEmpty, moduleId) {
         if (isEmpty) {
-            b.show("div-empty-hint");
+            //b.show("div-empty-hint");
             b.hide("div-add-p");
             _curModuleId = -1;
         } else {
-            b.hide("div-empty-hint");
+            //b.hide("div-empty-hint");
             b.show("div-add-p");
             _curModuleId = moduleId;
         }
