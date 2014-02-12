@@ -203,11 +203,11 @@ a {
  */
 
 /* 首页 */
-.skin-index #nav .iconlogo {
+.skin-home #nav .iconlogo {
     font-size: 80px;
 }
 
-.skin-index #nav.fixed .iconlogo {
+.skin-home #nav.fixed .iconlogo {
     font-size: 50px;
 }
 
