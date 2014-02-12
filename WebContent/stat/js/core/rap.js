@@ -1004,6 +1004,9 @@ var rap = rap || {};
         return _data.moduleList.length === 0;
     };
 
+
+    p.generateId = generateId;
+
     /**
      * reset parameter id recursively
      * including child parameters
@@ -1239,7 +1242,11 @@ var rap = rap || {};
     };
 
     ws._getData = function() {
-        return _data;
+        return p.getData();
+    };
+
+    ws.generateId = function() {
+        return p.generateId();
     };
 
     /**
@@ -1922,6 +1929,9 @@ var rap = rap || {};
                 var obj = JSON.parse(response);
                 if (obj.isOk) {
                     storeViewState();
+                    if (obj.projectData.moduleList.length === 0) {
+                        obj.projectData.moduleList = [{"id":ws.generateId(),"name":"某模块","introduction":"","pageList":[{"moduleId":ws.generateId(),"name":"某页面","introduction":"","id":ws.generateId(),"isIdGenerated":true,"actionList":[{"pageId":ws.generateId(),"name":"某请求","requestType":"1","requestUrl":"","responseTemplate":"","description":"","id":ws.generateId(),"requestParameterList":[{"id":ws.generateId(),"identifier":"reqParam","name":"某请求参数","remark":"","validator":"","dataType":"number","parameterList":[]}],"responseParameterList":[{"id":ws.generateId(),"identifier":"resParam","name":"某响应参数","remark":"","validator":"","dataType":"number","parameterList":[]}]}]}]}];
+                    }
                     p.init(obj.projectData);
                     _data.projectDataOriginal = b.object.clone(obj.projectData);
                     setButtonsViewState(CONST.EDIT);

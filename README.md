@@ -1,7 +1,7 @@
 Rigel Automation Platform
 ===
 
-    @version v0.7.0
+    @version v0.8.0
     @author  Bosn(霍雍), wangjeaf(思竹)
     @weibo   http://weibo.com/bosn, http://github.com/wangjeaf
     @mail    bosn@outlook.com, wangjeaf@gmail.com

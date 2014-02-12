@@ -5,7 +5,7 @@
 <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="http://rap.alibaba-inc.com">RAP V0.7</a>
+      <a class="navbar-brand" href="http://rap.alibaba-inc.com">RAP V0.8</a>
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
@@ -58,7 +58,7 @@
             <a class="btn btn-navbar" data-toggle="collapse"
                 data-target=".nav-collapse"> <span class="icon-bar"></span> <span
                 class="icon-bar"></span> <span class="icon-bar"></span>
-            </a> <a class="brand" href="http://rap.alibaba-inc.com">RAP v0.7</a>
+            </a> <a class="brand" href="http://rap.alibaba-inc.com">RAP v0.8</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li><a href="$platformUrl.home">首页</a></li>
