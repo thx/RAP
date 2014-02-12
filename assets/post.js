@@ -1,4 +1,5 @@
-var duoshuoQuery = {short_name:"thx"};
+/*jshint asi: true */
+var duoshuoQuery = {short_name: 'thx'}
 
 KISSY.use('node,event', function(S, Node) {
 
@@ -15,9 +16,18 @@ KISSY.use('node,event', function(S, Node) {
         }
     }
 
-    if (store('body.className')) {
-        S.one('body').addClass(store('body.className'))
+    var settings = store('settings') ? JSON.parse(store('settings')) : {}
+    var classList = []
+
+    for (var p in settings) {
+        if (typeof settings[p] === 'boolean') {
+            classList.push('body-' + p)
+        }
+        else {
+            classList.push(settings[p])
+        }
     }
+    S.one('body').addClass(classList.join(' '))
 
     S.one('#J_toggler').on('click', function(e) {
         if (Node(e.currentTarget).outerWidth() > 0) {
@@ -42,16 +52,19 @@ KISSY.use('node,event', function(S, Node) {
         var body = S.one('body')
 
         if (fontSize) {
+            klass = 'body-font-' + fontSize
             body.removeClass('body-font-small')
             body.removeClass('body-font-middle')
             body.removeClass('body-font-large')
-            body.addClass('body-font-' + fontSize)
+            body.addClass(klass)
+            settings.fontSize = klass
         }
         else if (klass) {
             body.toggleClass('body-' + klass)
+            settings[klass] = body.hasClass('body-' + klass)
         }
 
-        store('body.className', body[0].className)
+        store('settings', JSON.stringify(settings))
     })
 
     S.one(window).on('scroll', function(e) {
