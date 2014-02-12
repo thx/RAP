@@ -153,6 +153,8 @@ a {
 }
 #nav .logo {
     display: block;
+    width: 160px;
+    overflow: hidden;
     text-align: center;
     line-height: 60px;
     vertical-align: middle;
@@ -170,16 +172,38 @@ a {
     line-height: 30px;
 }
 
+#nav .logo .dib {
+    vertical-align: middle;
+}
+
 #nav .iconlogo {
-    font-size: 80px;
     color: #fff;
-    display: block;
-    width: 130px;
+    /*width: 130px;*/
+    font-size: 56px;
+}
+
+#nav .logo-text {
+    color: #fff;
+    font-size: 32px;
+    margin-left: 10px;
+}
+
+#nav.fixed .iconlogo {
+    font-size: 30px;
+}
+
+#nav.fixed .logo-text {
+    font-size: 20px;
 }
 
 /**
  * 皮肤
  */
+
+/* 首页 */
+.skin-index #nav .iconlogo {
+    font-size: 80px;
+}
 
 .skin-index #nav.fixed .iconlogo {
     font-size: 50px;
