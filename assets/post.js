@@ -20,7 +20,7 @@ KISSY.use('node,event', function(S, Node) {
     var classList = []
 
     for (var p in settings) {
-        if (typeof settings[p] === 'boolean') {
+        if (typeof settings[p] === 'boolean' && settings[p]) {
             classList.push('body-' + p)
         }
         else {
