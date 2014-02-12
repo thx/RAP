@@ -16,7 +16,7 @@ KISSY.use('node,event', function(S, Node) {
     }
 
     if (store('body.className')) {
-        S.one('body')[0].className = store('body.className')
+        S.one('body').addClass(store('body.className'))
     }
 
     S.one('#J_toggler').on('click', function(e) {
