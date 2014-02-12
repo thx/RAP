@@ -157,6 +157,7 @@ a {
     overflow: hidden;
     text-align: center;
     line-height: 60px;
+    height: 60px;
     vertical-align: middle;
     background-color: #ed4242;
     margin-top: 0;
@@ -169,6 +170,7 @@ a {
 }
 
 #nav.fixed .logo {
+    height: 30px;
     line-height: 30px;
 }
 
