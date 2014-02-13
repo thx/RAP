@@ -1135,3 +1135,46 @@ h5:hover .anchor-link {
 .body-night #ds-thread a:hover {
     color: #fff !important;
 }
+
+/* ==========================================================================
+   代码示例
+   ========================================================================== */
+
+.type-demo {
+    padding: 45px 16px 16px;
+    margin-top: 16px;
+    position: relative;
+    border: 1px solid #ddd;
+    margin-bottom: -1px;
+    border-radius: 3px 3px 0 0; 
+}
+
+.type-demo:after {
+    content: "演示";
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    font-size: 14px;
+    color: #BBB;
+    letter-spacing: 1px;
+}
+
+.type-demo .well {
+    padding: 16px;
+    background-color: #F5F5F5;
+    border: 1px solid #E3E3E3;
+    border-radius: 6px;
+}
+
+.type-demo + .highlight pre {
+    border-radius: 0 0 3px 3px;
+}
+
+.type-demo a + a {
+    margin: 0;
+}
+
+.type-demo .btn {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
