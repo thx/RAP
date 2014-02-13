@@ -297,6 +297,10 @@ a {
     line-height: 45px;
 }
 
+#ceiling .dib {
+    vertical-align: top;
+}
+
 .ds-thread {
     margin-top: 30px;
 }
@@ -392,7 +396,7 @@ a {
         /*overflow: hidden;*/
     }
     #ceiling .products a {
-        padding: 0 4px;
+        padding: 0 3px;
         border-right: none;
     }
     #ceiling .products .name {
@@ -1102,4 +1106,19 @@ h5:hover .anchor-link {
 .body-night .projects .project,
 .body-night .projects .project-table .banner {
     border-color: #555 !important;
+}
+
+.body-night .type pre,
+.body-night .type code {
+    background-color: #3F3F3F;
+    border-color: #555;
+}
+
+.body-night #ds-thread #ds-reset .ds-textarea-wrapper textarea {
+    background-color: #2F2F2F !important;
+    color: #CACCD1 !important;
+}
+
+.body-night #ds-thread #ds-reset .ds-textarea-wrapper textarea:focus {
+    color: #CACCD1 !important;
 }
