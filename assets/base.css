@@ -300,11 +300,6 @@ a {
     /*float: right;*/
 }
 
-#ceiling .bd {
-    height: 45px;
-    line-height: 45px;
-}
-
 #ceiling .dib {
     vertical-align: top;
 }
@@ -389,7 +384,7 @@ a {
         overflow: hidden;
     }
 
-    #ceiling .bd {
+    #ceiling {
         height: 40px;
         line-height: 40px;
     }
