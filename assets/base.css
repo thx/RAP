@@ -45,6 +45,7 @@ a {
 }
 .type h3 {
     font-size: 1.17em;
+    margin: 1em 0;
 }
 .type h4,
 .type h5,
@@ -896,7 +897,11 @@ ol.type-toc,
 }
 
 /* 修复顶部带有Fixed导航锚点定位不准确问题 */
-h2, h3, h4, h5, h6 {
+.type h2,
+.type h3,
+.type h4,
+.type h5,
+.type h6 {
     padding-left: 1em;
     position: relative;
     z-index: -1; /* 防止盖住上面的内容 */
@@ -904,7 +909,7 @@ h2, h3, h4, h5, h6 {
     -moz-background-clip:padding;
     background-clip:padding-box;
     border-top: 80px solid transparent;
-    margin-top: -80px;  
+    margin-top: -60px; 
 }
 
 /* 防止标题上边距导致 */
@@ -1114,6 +1119,10 @@ h5:hover .anchor-link {
 .body-night .type pre,
 .body-night .type code {
     background-color: #3F3F3F;
+    border-color: #555;
+}
+
+.body-night .type-demo {
     border-color: #555;
 }
 
