@@ -5,6 +5,10 @@ body {
     background: #e4e6e5;
 }
 
+.justify, .dib-box .justify {
+    line-height: inherit;
+}
+
 /* 全局hover颜色和背景色动画 */
 a {
     color: #3187DB;
@@ -301,7 +305,7 @@ a {
 }
 
 #ceiling .dib {
-    vertical-align: top;
+    vertical-align: middle;
 }
 
 .ds-thread {
