@@ -272,6 +272,8 @@ a {
     width: 100%;
     top: 0;
     left: 0;
+    height: 45px;
+    line-height: 45px;
     background: #f4f4f4;
     border-bottom: 1px solid #d6d6d6;
     color: #aaa;
@@ -479,8 +481,7 @@ a {
     }
 
     #ceiling .bd {
-        height: 45px;
-        line-height: 45px;
+        line-height: inherit;
     }
 
     #ceiling a {
