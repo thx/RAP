@@ -997,9 +997,7 @@ h4 .anchor-link {
 
 h2:hover .anchor-link,
 h3:hover .anchor-link,
-h4:hover .anchor-link,
-h5:hover .anchor-link,
-h5:hover .anchor-link {
+h4:hover .anchor-link {
     visibility: visible;
 }
 
