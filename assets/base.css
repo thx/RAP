@@ -955,21 +955,36 @@ ol.type-toc,
  * 生成行内锚点链接符号
  * http://www.fileformat.info/info/unicode/char/a7/index.htm
  */
-.anchor-link{
+.anchor-link {
     visibility: hidden;
     position: absolute;
     left: -.5em;
+    padding-left: .5em;
     top: -3px;
     z-index: 9;
-    width: 1.5em;
+    width: 2em;
+    /*text-indent: .5em;*/
     /*padding: 0 2px 0 5px;*/
-    text-align: center;
+    /*background: rgba(255, 0, 0, 0.2);*/
 }
 
 .anchor-link:hover {
     border: 0 none !important;
     text-decoration: none;
 }
+
+h2 .anchor-link {
+    width: 2em;
+}
+
+h3 .anchor-link {
+    width: 2.5em;
+}
+
+h4 .anchor-link {
+    width: 3.5em;
+}
+
 
 /**
  * 生成章节号
