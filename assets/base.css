@@ -904,11 +904,11 @@ ol.type-toc,
 .type h6 {
     padding-left: 1em;
     position: relative;
-    -webkit-background-clip:padding-box;
+/*    -webkit-background-clip:padding-box;
     -moz-background-clip:padding;
     background-clip:padding-box;
     border-top: 80px solid transparent;
-    margin-top: -70px; 
+    margin-top: -70px; */
 }
 
 /**
@@ -916,7 +916,7 @@ ol.type-toc,
  * 每个 z-index 递减，防止 h2+h3 这样的结构导致 h2 无法选中
  */
 
-.type h2 {
+/*.type h2 {
     z-index: -2;
 }
 
@@ -934,9 +934,7 @@ ol.type-toc,
 
 .type h6 {
     z-index: -6;
-}
-
-/* 防止标题上边距导致 */
+}*/
 .type {
     position: relative;
     z-index: 1;
