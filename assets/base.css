@@ -896,6 +896,16 @@ ol.type-toc,
     animation: highlight 1.6s ease;
 }
 
+
+.anchor:target ~ .anchor-link {
+    visibility: visible;
+    -webkit-animation: highlight 1.6s ease;
+    -moz-animation: highlight 1.6s ease;
+    -ms-animation: highlight 1.6s ease;
+    -o-animation: highlight 1.6s ease;
+    animation: highlight 1.6s ease;
+}
+
 /* 修复顶部带有Fixed导航锚点定位不准确问题 */
 .type h2,
 .type h3,
@@ -954,7 +964,6 @@ ol.type-toc,
     width: 1.5em;
     /*padding: 0 2px 0 5px;*/
     text-align: center;
-    /*background-color:red;*/
 }
 
 .anchor-link:hover {
@@ -981,7 +990,7 @@ h5:hover .anchor-link {
 
 .anchor {
     position: absolute;
-    top: -90px;
+    top: -50px;
     overflow: hidden;
 }
 

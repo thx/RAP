@@ -136,8 +136,8 @@ KISSY.use('brix/app,node', function(S, app, Node) {
         S.all('article').all('h2,h3,h4,h5,h6').each(function(heading) {
             var id = heading.attr('id')
             heading.removeAttr('id')
-            heading.prepend('<a name="' + id + '" class="anchor"></a>')
             heading.prepend('<a class="anchor-link" href="#' + id + '"></a>')
+            heading.prepend('<a id="' + id + '" class="anchor"></a>')
         })
 
         S.one('#J_tocToggler').on('click', function() {
