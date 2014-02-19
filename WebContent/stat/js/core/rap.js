@@ -1548,7 +1548,7 @@ var rap = rap || {};
         if (!processing()) return;
         b.ajax.post(URL.checkIn, q, function(xhr, response) {
             try {
-                var obj = JSON.parse(response);
+                var obj = eval("(" + response + ")");
                 p.init(obj.projectData);
                 _data.projectDataOriginal = b.object.clone(obj.projectData);
                 b.g(ELEMENT_ID.CHECKIN_PANEL_CONTENT).innerHTML = obj.log ? obj.log : TEMPLATE.NO_DATA_CHECKED;
@@ -1608,7 +1608,7 @@ var rap = rap || {};
         if (!processing(ELEMENT_ID.SAVE_PANEL_MESSAGE)) return;
         b.ajax.post(URL.removeSave, "id=" + _data.id + "&saveId=" + save.id, function(xhr,response) {
             try {
-                var obj = JSON.parse(response);
+                var obj = eval("(" + response + ")";
                 _data.saveList = obj.saveList;
                 initSavePanel();
                 showMessage(CONST.LOAD, ELEMENT_ID.SAVE_PANEL_MESSAGE, MESSAGE.DELETED);
@@ -1729,7 +1729,7 @@ var rap = rap || {};
                 alert('您用的啥浏览器啊？连JSON转换都不支持也～～～请考虑用新浏览器试试？谢谢啦，mua~~~!');
                 return;
             }
-            var data = JSON.parse(txt);
+            var data = eval("(" + txt + ")");
 
             if (data instanceof Array) {
                 data = data[0];
@@ -1926,7 +1926,8 @@ var rap = rap || {};
         if (!processing(ELEMENT_ID.WORKSPACE_MESSAGE)) return;
         b.ajax.post(URL.lock, q, function(xhr, response) {
             try {
-                var obj = JSON.parse(response);
+                response = jsonFilter(response);
+                var obj = eval("(" + response + ")");
                 if (obj.isOk) {
                     storeViewState();
                     if (obj.projectData.moduleList.length === 0) {
@@ -1980,7 +1981,7 @@ var rap = rap || {};
             if (!processing(ELEMENT_ID.WORKSPACE_MESSAGE)) return;
             b.ajax.post(URL.checkIn, q, function(xhr, response) {
             try {
-                var obj = JSON.parse(response);
+                var obj = eval("(" + response + ")");
                 if (obj.isOk) {
                     p.init(obj.projectData);
                     _data.projectDataOriginal = b.object.clone(obj.projectData);
@@ -2010,7 +2011,7 @@ var rap = rap || {};
             if (!processing(ELEMENT_ID.VSS_PANEL_MESSAGE)) return;
             b.ajax.post(URL.checkIn, q, function(xhr, response) {
             try {
-                var obj = JSON.parse(response);
+                var obj = eval("(" + response + ")");
                 if (obj.isOk) {
                     p.init(obj.projectData);
                     _data.projectDataOriginal = b.object.clone(obj.projectData);
@@ -2062,7 +2063,7 @@ var rap = rap || {};
         if (!processing(ELEMENT_ID.VERSION_PANEL_MESSAGE)) return;
         b.ajax.post(URL.queryVersion, q, function(xhr, response) {
             try {
-                var obj = JSON.parse(response);
+                var obj = eval("(" + response + ")");
                 p.init(obj.projectData);
                 setButtonsViewState(CONST.VERSION);
                 _isEditMode = false;
@@ -2104,7 +2105,7 @@ var rap = rap || {};
         if (!processing(ELEMENT_ID.VERSION_PANEL_MESSAGE)) return;
         b.ajax.post(URL.switchVersion, q, function(xhr, response) {
             try {
-                var obj = JSON.parse(response);
+                var obj = eval("(" + response + ")");
                 if (obj.isOk) {
                     p.init(obj.projectData);
                     showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.VERSION_SWITCHED);
@@ -2295,7 +2296,7 @@ var rap = rap || {};
     function sessionDelay() {
         b.ajax.get(URL.ping, function(xhr, response) {
             try {
-                var obj = JSON.parse(response);
+                var obj = eval("(" + response + ")");
                 if (obj.isOk) {
                 } else {
                     showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SESSION_DELAY_ERROR);
@@ -3328,7 +3329,7 @@ var rap = rap || {};
             }
             if (!r) return '';
             // 感谢@逸才 提供正则表达式
-            return r.replace(/[\s;]?@\w+=[^ ;]+[ ;]?/g, '');
+            return r.replace(/[\s;]?@\w+=[^;]+[ ;]?/g, '');
         }
 
         /**
@@ -3341,6 +3342,17 @@ var rap = rap || {};
             if (!r) return '';
             return r.replace(/\|.*$/g, '');
         }
+
+        /**
+         * escaption handler
+         */
+        function jsonFilter(s) {
+            if (!s) return '';
+            s =  s.replace(/\\'/g, "'");
+            s = s.replace();
+            return s;
+        }
+
 
         /**
          * get edit input element

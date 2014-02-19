@@ -39,7 +39,7 @@
         }
     }
     var enable = true;
-    console.log('Current RAP work mode:', mode, "(0-disabled, 1-black list, 2-white list, 3-combo)");
+    console.log('Current RAP work mode:', mode, "(0-disabled, 1-intercept all requests, 21-black list, 3-white list)");
     var ens = node.src.match(/(?:\?|&)enable=([^&]+)(?:&|$)/);
     if (ens) {
         enable = ens[1] == 'true';
