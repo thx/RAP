@@ -33,7 +33,7 @@ RAP的主要目标用户群有四种：
 
 RAP所解决的问题，主要集中于中大型的企业级项目，接口形式有一定的复杂度。比如一个报表的请求，可能嵌套较多的层级。传统的方式描述较多嵌套的层级结构会较为麻烦，复制、移动等修改都消耗大量时间，而RAP通过GUI工具和结构分析可以很好的解决这些问题。再复杂的嵌套参数，一键复制和移动。展开、折叠毫不费力。RAP专为接口编辑而设计，在用户体验和细节上做了大量处理，保证高效、方便的接口文档编辑。
 
-![RAP文档编辑区](http://gtms02.alicdn.com/tps/i2/T1chaxFwdbXXbNZB.a-2474-1456.png "RAP文档编辑区")
+<img src="http://gtms02.alicdn.com/tps/i2/T1chaxFwdbXXbNZB.a-2474-1456.png" alt="RAP文档编辑区" width="800" />
 
 ### 二、手写模拟数据耗费时间 ###
 
@@ -59,9 +59,9 @@ RAP中对接口文档的编辑提供了一套可视化界面，编辑操作像Ex
 
 在设计阶段写好接口文档后，RAP会根据接口文档中的请求路径、接口数据自动生成所有的服务接口。在联调前，所有MOCK服务全部可跑通，并根据文档变化实时更新，前端自测将变得更加简单。
 
-RAP的MOCK数据是动态生成的，默认数据会有自己的初始行为，您也能通过标签精细的控制数据生成的逻辑。这也为后续我们创建”响应参数“的数据创造基础。目前RAP支持[MockJS](http://mockjs.com)和RAP MOCK两种Mock规则，后续还会进行更多扩充。
-
-![RAPv0.8请求流程](http://gtms02.alicdn.com/tps/i2/T1laKBFphXXXbNpIQO-1330-592.png "RAPv0.8请求流程")
+RAP的MOCK数据是动态生成的，默认数据会有自己的初始行为，您也能通过标签精细的控制数据生成的逻辑。这也为后续我们创建”响应参数“的数据创造基础。目前RAP支持[MockJS](http://mockjs.com)和RAP MOCK两种Mock规则，后续还会进行更多扩充
+。
+<img src="http://gtms02.alicdn.com/tps/i2/T1laKBFphXXXbNpIQO-1330-592.png" alt="RAPv0.8请求流程" width="500" />
 
 ### 三：集合THX平台发挥更大的优势 ###
 
@@ -79,9 +79,9 @@ RAP第一版在2010年中完成开发，历经了3年多的实际应用，无论
 
 在即将到来的RAPv1.0版本中，我们会增加分布式的NodeJS客户端，支持Web服务器与RAP的深度结合，利用反向代理解决Mock服务跨域问题，支持离线存取，分散服务器Mock压力，并在客户端实现更多强大的功能。
 
-![RAPv1.0请求流程](http://gtms04.alicdn.com/tps/i4/T1uMyyFtxbXXcs5az5-1798-948.png "RAPv1.0请求流程")
+<img src="http://gtms04.alicdn.com/tps/i4/T1uMyyFtxbXXcs5az5-1798-948.png" alt="RAPv1.0请求流程" width="700" />
 
-![RAPv1.0规则编辑和同步流程](http://gtms03.alicdn.com/tps/i3/T1lZqAFBNXXXXdFSzs-1458-300.png "RAPv1.0规则编辑和同步流程")
+<img src="http://gtms03.alicdn.com/tps/i3/T1lZqAFBNXXXXdFSzs-1458-300.png" alt="RAPv1.0规则编辑和同步流程" width="700" />
 
 ## 关于RAP ##
 
