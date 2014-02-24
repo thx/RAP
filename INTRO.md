@@ -71,4 +71,20 @@ RAP第一版在2010年中完成开发，历经了3年多的实际应用，无论
 
 在文档结构化后再利用上，接口文档是第一个尝试，我们也在努力挖掘更多的可再利用文档，用以提升其它的重复劳动，我们也在努力让现有功能更加完善。无论你是前端、后端还是测试，有了RAP，文档共享和开发将更为方便。
 
-![RAP文档编辑区](http://gtms02.alicdn.com/tps/i2/T1phJ3FrpgXXb10Fo7-2488-1454.png "RAP文档编辑区")
+## DEMO截图 ##
+
+### RAP文档编辑区 ###
+
+![RAP文档编辑区](http://gtms02.alicdn.com/tps/i2/T1chaxFwdbXXbNZB.a-2474-1456.png "RAP文档编辑区")
+
+### RAPv0.8请求流程 ###
+
+![RAPv0.8请求流程](http://gtms02.alicdn.com/tps/i2/T1laKBFphXXXbNpIQO-1330-592.png "RAPv0.8请求流程")
+
+### RAPv1.0请求流程 ###
+
+![RAPv1.0请求流程](http://gtms04.alicdn.com/tps/i4/T1uMyyFtxbXXcs5az5-1798-948.png "RAPv1.0请求流程")
+
+### RAPv1.0规则编辑和同步流程 ###
+
+![RAPv1.0规则编辑和同步流程](http://gtms03.alicdn.com/tps/i3/T1lZqAFBNXXXXdFSzs-1458-300.png "RAPv1.0规则编辑和同步流程")
