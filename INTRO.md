@@ -85,4 +85,4 @@ RAP第一版在2010年中完成开发，历经了3年多的实际应用，无论
 
 ## 关于RAP ##
 
-RAP由阿里妈妈用户体验部开发，属于[THX](http://thx.alibaba-inc.com)平台的产品之一。欢迎大家访问[RAP主站](http://rap.alibaba-inc.com)，有任何疑问欢迎邮件至：[huoyong.msb@taobao.com](huoyong.msb@taobao.com)。RAP诚挚的期待您的光临！
+RAP由阿里妈妈用户体验部开发，属于[THX](http://thx.alibaba-inc.com)平台的产品之一。欢迎大家访问[RAP主站](http://rap.alibaba-inc.com)，有任何疑问欢迎邮件至：[huoyong.msb@taobao.com](mailto:huoyong.msb@taobao.com)。RAP诚挚的期待您的光临！
