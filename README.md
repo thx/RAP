@@ -13,8 +13,9 @@ Rigel Automation Platform
 
 资料列表
 --------------------------------------
-[RAP详细介绍](https://github.com/thx/RAP/blob/master/INTRO.md)
-[RAPv0.8快速上手视频](http://v.youku.com/v_show/id_XNjc3NTY2MzI0.html)
+
+- [RAP详细介绍](https://github.com/thx/RAP/blob/master/INTRO.md)
+- [RAPv0.8快速上手视频](http://v.youku.com/v_show/id_XNjc3NTY2MzI0.html)
 
 起始工作
 --------------------------------------
