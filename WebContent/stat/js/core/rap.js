@@ -1664,6 +1664,9 @@ var rap = rap || {};
         switch (editContext.key) {
             case "mt":
                 el = getDiv(editContext.id, editContext.key);
+                if (newValue === '') {
+                    newValue = '未命名';
+                }
                 p.setModuleName(editContext.id, newValue);
                 updateCurMTree();
                 break;
@@ -2158,7 +2161,12 @@ var rap = rap || {};
      * toggle mock labels display
      */
     ws.toggleMockDisplay = function() {
-        b.g('btnToggleMockDisplay').value = (_isMockDisplay ? '显示' : '隐藏') + 'Mock标签';
+        if (!_isMockDisplay) {
+            $('#btnToggleMockDisplay').addClass('btn-warning');
+        } else {
+            $('#btnToggleMockDisplay').removeClass('btn-warning');
+        }
+        var html = b.g('btnToggleMockDisplay').innerHTML;
         _isMockDisplay = !_isMockDisplay;
         ws.switchA(_curActionId, true);
     };

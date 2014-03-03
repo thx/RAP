@@ -16,17 +16,41 @@
                 <div id="div-w-message" class="label" style="display:none;">
                 </div>
                 <div id="div-control-panel">
-                    <input type="text" id="inputSearch">
+                    <input type="text" id="inputSearch" placeholder="工作区搜索">
                         <span class="glyphicon glyphicon-search"></span>
                     </input>
-                    <input id="btnFastSave" type="button" class="btn btn-success" value="快捷保存" onclick="ws.quickSave(); return false;"  style="display: none" />
-                    <input id="btnSave" type="button" class="btn btn-primary" value="保存" onclick="ws.switchToViewMode(true); return false;"  style="display: none" />
-                    <input id="btnCancel" type="button" class="btn" value="取消" onclick="ws.switchToViewMode(false); return false;"  style="display: none" />
-                    <input id="btnEdit" type="button" class="btn btn-primary" value="启用编辑" onclick="ws.switchToEditMode(); return false;" />
-                    <input id="btnVersion" type="button" class="btn" value="版本管理" onclick="ws.version(); return false;" />
-                    <input id="btnExitVersion" type="button" class="btn" value="退出版本" onclick="ws.exitVersion(); return false;" style="display: none;" />
-                    <input id="btnExport" type="button" class="btn" value="导出文档" onclick="window.open('$!workspaceUrl.export?projectId=$!projectId')"/>
-                    <input id="btnToggleMockDisplay" type="button" class="btn" value="显示Mock标签" onclick="ws.toggleMockDisplay();"/>
+                    <button id="btnFastSave" type="button" class="btn btn-primary" onclick="ws.quickSave(); return false;"  style="display: none">
+                        <span class="glyphicon glyphicon-flash"></span>
+                        一键保存
+                    </button>
+                    <button id="btnSave" type="button" class="btn" onclick="ws.switchToViewMode(true); return false;"  style="display: none">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                        保存
+                    </button>
+                    <button id="btnCancel" type="button" class="btn" onclick="ws.switchToViewMode(false); return false;"  style="display: none">
+                        <span class="glyphicon glyphicon-trash"></span>
+                        取消
+                    </button>
+                    <button id="btnEdit" type="button" class="btn btn-primary" onclick="ws.switchToEditMode(); return false;">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        编辑
+                    </button>
+                    <button id="btnVersion" type="button" class="btn" onclick="ws.version(); return false;">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                        版本管理
+                    </button>
+                    <button id="btnExitVersion" type="button" class="btn" onclick="ws.exitVersion(); return false;" style="display: none;">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                        返回
+                    </button>
+                    <button id="btnExport" type="button" class="btn" onclick="window.open('$!workspaceUrl.export?projectId=$!projectId')">
+                        <span class="glyphicon glyphicon-file"></span>
+                        导出文档
+                    </button>
+                    <button id="btnToggleMockDisplay" type="button" class="btn" onclick="ws.toggleMockDisplay();">
+                        <span class="glyphicon glyphicon-headphones"></span>
+                        Mock
+                    </button>
                 </div>
             </div>
             <div id="div-debug"></div>
@@ -72,8 +96,14 @@
                         <tr>
                             <td></td>
                             <td>
-                                <input type="button" class="btn btn-primary" value="提交" onclick="ws.doSaveVSS(); return false;" />
-                                <input type="button" class="btn" value="取消" onclick="ws.cancelSaveVSS(); return false;" />
+                                <button type="button" class="btn btn-primary" onclick="ws.doSaveVSS(); return false;">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    提交
+                                </button>
+                                <button type="button" class="btn" onclick="ws.cancelSaveVSS(); return false;">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                    取消
+                                </button>
                             </td>
                         </tr>
                     </table>
@@ -132,9 +162,20 @@
             <div id="div-version-floater-content">
             </div>
             <div class="div-floater-control">
-                <input id="btnObserveVersion" type="button" class="btn btn-primary" value="查看版本" onclick="ws.readProjectOfVersion();" />&nbsp;&nbsp;&nbsp;
-                <input id="btnSwitchVersion" type="button" class="btn btn-danger" value="切换版本" onclick="ws.switchVersion();" />&nbsp;&nbsp;&nbsp;
-                <input type="button" value="取消" class="btn" onclick="ws.closeVersionPanel();" />
+                <button id="btnObserveVersion" type="button" class="btn btn-primary" onclick="ws.readProjectOfVersion();">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                    查看版本
+                </button>
+                &nbsp;&nbsp;&nbsp;
+                <button id="btnSwitchVersion" type="button" class="btn btn-danger" onclick="ws.switchVersion();">
+                    <span class="glyphicon glyphicon-repeat"></span>
+                    切换版本
+                </button>&nbsp;&nbsp;&nbsp;
+                <button type="button"  class="btn" onclick="ws.closeVersionPanel();">
+                    <span class="glyphicon glyphicon-remove">
+                    </span>
+                    取消
+                </button>
             </div>
         </div>
         #endFloater
@@ -189,8 +230,14 @@
                 </tr>
             </table>
             <div class="div-floater-control">
-                <input type="button" class="btn btn-primary" onclick="ws.doAddOrEditA();"  value="提交" />
-                <input type="button" class="btn" onclick="ws.cancelEditA();"  value="取消"/>
+                <button type="button" class="btn btn-primary" onclick="ws.doAddOrEditA();">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    确定
+                </button>
+                <button type="button" class="btn" onclick="ws.cancelEditA();">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    取消
+                </button>
             </div>
         </div>
         </form>
@@ -216,8 +263,12 @@
 
                 </table>
                 <div class="div-floater-control">
-                    <input type="button" class="btn btn-primary" onclick="ws.doAddOrEditP();"  value="提交" />
-                    <input type="button" class="btn" onclick="ws.cancelEditP();"  value="取消"/>
+                    <button type="button" class="btn btn-primary" onclick="ws.doAddOrEditP();">
+                        <span class="glyphicon glyphicon-ok"></span>提交
+                    </button>
+                    <button type="button" class="btn" onclick="ws.cancelEditP();">
+                        <span class="glyphicon glyphicon-remove"></span>取消
+                    </button>
                 </div>
             </div>
         </form>
@@ -234,8 +285,14 @@
                     </tr>
                 </table>
                 <div class="div-floater-control">
-                    <input type="button" class="btn btn-primary" onclick="ws.doImportJSON();"  value="提交" />
-                    <input type="button" class="btn" onclick="ws.cancelImportJSON();"  value="取消"/>
+                    <button type="button" class="btn btn-primary" onclick="ws.doImportJSON();">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        导入
+                    </button>
+                    <button type="button" class="btn" onclick="ws.cancelImportJSON();">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        取消
+                    </button>
                 </div>
             </div>
         </form>
