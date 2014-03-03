@@ -31,16 +31,13 @@ script: assets/post.js
       <i class="iconlogo mi-rap dib"></i> <span class="logo-text dib">RAP</span>
     </a>
     <ul class="menu">
-    {% for category in site.categories %}
       <li>
-        <a href="{{ site.baseurl }}/{{ category[0] }}" class="entry">
-          <i class="iconfont mi-{{ category[0] }}"></i>
-          {{ category[0] | capitalize }}
+        <a href="{{ site.baseurl }}/tutorials" class="entry">
+          <i class="iconfont">&#338;</i> Tutorials
         </a>
       </li>
-    {% endfor %}
       <li>
-        <a href="https://github.com/thx/RAP" class="entry">
+        <a href="https://github.com/thx/RAP" target="_blank" class="entry">
           <i class="iconfont">&#61464;</i> Github
         </a>
       </li>
