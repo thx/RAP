@@ -1,4 +1,4 @@
-baseurl: /rap
+baseurl: /RAP
 markdown: redcarpet
 pygments: true
 safe: true

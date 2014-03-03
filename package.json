@@ -1,9 +1,9 @@
 {
-  "name": "rap",
+  "name": "RAP",
   "private": true,
   "version": "0.0.1",
-  "description": "rap doc for thx.github.io.",
-  "homepage": "http://thx.github.io/rap",
+  "description": "RAP doc for thx.github.io.",
+  "homepage": "http://thx.github.io/RAP",
   "author": "Wang Zhifu <wangjeaf@gmail.com>",
   "devDependencies": {
     "grunt": "~0.4.2",
