@@ -4,6 +4,7 @@ script: assets/post.js
 ---
 
 <div id="page">
+  {% include settings.html %}
   <div id="content">
     <div id="content-wrap">
       {% include ceiling.html %}
@@ -32,13 +33,13 @@ script: assets/post.js
     </a>
     <ul class="menu">
       <li>
-        <a href="{{ site.baseurl }}/tutorials" class="entry">
-          <i class="iconfont">&#338;</i> Tutorials
+        <a href="https://github.com/thx/RAP" target="_blank" class="entry">
+          <i class="iconfont">&#61464;</i> Github
         </a>
       </li>
       <li>
-        <a href="https://github.com/thx/RAP" target="_blank" class="entry">
-          <i class="iconfont">&#61464;</i> Github
+        <a href="{{ site.baseurl }}/tutorials" class="entry">
+          <i class="iconfont">&#338;</i> Tutorials
         </a>
       </li>
     </ul>
