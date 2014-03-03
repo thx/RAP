@@ -1,10 +1,10 @@
 {
-  "name": "base",
+  "name": "rap",
   "private": true,
   "version": "0.0.1",
-  "description": "Base files of THX websites.",
-  "homepage": "http://thx.github.io/",
-  "author": "Chen Yicai <yicai.cyj@taobao.com>",
+  "description": "rap doc for thx.github.io.",
+  "homepage": "http://thx.github.io/rap",
+  "author": "Wang Zhifu <wangjeaf@gmail.com>",
   "devDependencies": {
     "grunt": "~0.4.2",
     "unzip": "~0.1.9",
