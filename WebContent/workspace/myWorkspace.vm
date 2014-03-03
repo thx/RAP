@@ -19,27 +19,27 @@
                     <input type="text" id="inputSearch" placeholder="工作区搜索">
                         <span class="glyphicon glyphicon-search"></span>
                     </input>
-                    <button id="btnFastSave" type="button" class="btn btn-primary" onclick="ws.quickSave(); return false;"  style="display: none">
+                    <button id="btnFastSave" type="button" class="btn btn-primary" onclick="ws.quickSave(); return false;"  style="display: none" title="一键保存，方便快捷。建议少量修改无需说明时使用。">
                         <span class="glyphicon glyphicon-flash"></span>
                         一键保存
                     </button>
-                    <button id="btnSave" type="button" class="btn" onclick="ws.switchToViewMode(true); return false;"  style="display: none">
+                    <button id="btnSave" type="button" class="btn" onclick="ws.switchToViewMode(true); return false;"  style="display: none" title="点击该按钮将提交您所有的更改至服务器，同时解除项目锁定。">
                         <span class="glyphicon glyphicon-floppy-disk"></span>
                         保存
                     </button>
-                    <button id="btnCancel" type="button" class="btn" onclick="ws.switchToViewMode(false); return false;"  style="display: none">
+                    <button id="btnCancel" type="button" class="btn" onclick="ws.switchToViewMode(false); return false;"  style="display: none" title="点击该按钮将放弃您所有的更改，同时退出编辑模式，并解除项目锁定。">
                         <span class="glyphicon glyphicon-trash"></span>
                         取消
                     </button>
-                    <button id="btnEdit" type="button" class="btn btn-primary" onclick="ws.switchToEditMode(); return false;">
+                    <button id="btnEdit" type="button" class="btn btn-primary" onclick="ws.switchToEditMode(); return false;" title="进入编辑模式后您才可以修改项目数据，当您进入编辑模式时项目会被锁定，其他用户暂时不能编辑。">
                         <span class="glyphicon glyphicon-pencil"></span>
                         编辑
                     </button>
-                    <button id="btnVersion" type="button" class="btn" onclick="ws.version(); return false;">
+                    <button id="btnVersion" type="button" class="btn" onclick="ws.version(); return false;" title="点击进入版本管理，在这里您可以查看任何版本或将当前接口文档切换至某个特定版本。">
                         <span class="glyphicon glyphicon-refresh"></span>
                         版本管理
                     </button>
-                    <button id="btnExitVersion" type="button" class="btn" onclick="ws.exitVersion(); return false;" style="display: none;">
+                    <button id="btnExitVersion" type="button" class="btn" onclick="ws.exitVersion(); return false;" style="display: none;" title="点击后将退出版本查看，回到观看前的场景。">
                         <span class="glyphicon glyphicon-arrow-left"></span>
                         返回
                     </button>
@@ -47,7 +47,7 @@
                         <span class="glyphicon glyphicon-file"></span>
                         导出文档
                     </button>
-                    <button id="btnToggleMockDisplay" type="button" class="btn" onclick="ws.toggleMockDisplay();">
+                    <button id="btnToggleMockDisplay" type="button" class="btn" onclick="ws.toggleMockDisplay();" title="为方便文档查看，默认MOCK标签（@mock）等信息是隐藏的，该按钮可以隐藏/显示文档中的MOCK数据信息。">
                         <span class="glyphicon glyphicon-headphones"></span>
                         Mock
                     </button>
@@ -162,12 +162,12 @@
             <div id="div-version-floater-content">
             </div>
             <div class="div-floater-control">
-                <button id="btnObserveVersion" type="button" class="btn btn-primary" onclick="ws.readProjectOfVersion();">
+                <button id="btnObserveVersion" type="button" class="btn btn-primary" onclick="ws.readProjectOfVersion();" title="点击后将以只读的方式查看某一版本。">
                     <span class="glyphicon glyphicon-eye-open"></span>
                     查看版本
                 </button>
                 &nbsp;&nbsp;&nbsp;
-                <button id="btnSwitchVersion" type="button" class="btn btn-danger" onclick="ws.switchVersion();">
+                <button id="btnSwitchVersion" type="button" class="btn btn-danger" onclick="ws.switchVersion();" title="点击后将切换至该版本。">
                     <span class="glyphicon glyphicon-repeat"></span>
                     切换版本
                 </button>&nbsp;&nbsp;&nbsp;
@@ -340,22 +340,7 @@
             data.projectData.moduleList = [{"id":ws.generateId(),"name":"某模块","introduction":"","pageList":[{"moduleId":ws.generateId(),"name":"某页面","introduction":"","id":ws.generateId(),"isIdGenerated":true,"actionList":[{"pageId":ws.generateId(),"name":"某请求","requestType":"1","requestUrl":"","responseTemplate":"","description":"","id":ws.generateId(),"requestParameterList":[{"id":ws.generateId(),"identifier":"reqParam","name":"某请求参数","remark":"","validator":"","dataType":"number","parameterList":[]}],"responseParameterList":[{"id":ws.generateId(),"identifier":"resParam","name":"某响应参数","remark":"","validator":"","dataType":"number","parameterList":[]}]}]}]}];
         }
 
-
         ws.init(data, urlObj);
-
-        /**
-         * loading hint
-         */
-        util.hint.init();
-        util.hint.bind("btnEdit", "进入编辑模式后您才可以修改项目数据，您正在使用的是VSS模式，这意味着当你进入编辑模式时其他人不能够进入编辑，反之亦然。");
-        util.hint.bind("btnSave", "点击该按钮将提交您所有的更改至服务器，同时退出编辑模式，其他用户可以进入编辑模式。");
-        util.hint.bind("btnFastSave", "一键保存，方便快捷。建议少量修改无需说明时使用。");
-        util.hint.bind("btnCancel", "点击该按钮将放弃您所有的更改，同时退出编辑模式，其他用户可以进入编辑模式。");
-        util.hint.bind("btnVersion", "点击进入版本管理，在这里您可以查看任何版本或将当前项目强行切换至某个特定版本");
-        util.hint.bind("btnObserveVersion", "点击后将以只读的方式查看某一版本");
-        util.hint.bind("btnSwitchVersion", "点击后将切换至该版本");
-        util.hint.bind("btnExitVersion", "点击后将切换回首次进入工作区的默认模式");
-        util.hint.bind("btnToggleMockDisplay", "默认MOCK标签（@value， @format等等）是隐藏的，该按钮可以隐藏/显示文档中的MOCK数据信息。");
 
     </script>
 </html>
