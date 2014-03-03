@@ -86,11 +86,12 @@ public class ProjectMgrImpl implements ProjectMgr {
 	public int removeProject(int id) {
 		Project p = getProject(id);
 		Group g = organizationDao.getGroup(p.getGroupId());
-		int pId = g.getProductionLineId();
 		int result = projectDao.removeProject(id);
-
-		if (pId > 0) {
-			organizationDao.updateCountersInProductionLine(pId);
+		if (g != null) {
+			int pId = g.getProductionLineId();
+			if (pId > 0) {
+				organizationDao.updateCountersInProductionLine(pId);
+			}
 		}
 		return result;
 	}

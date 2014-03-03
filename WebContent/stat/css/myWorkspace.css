@@ -308,14 +308,13 @@ body {
 }
 
 #div-mt-list {
-	height: 47px;
 	border-bottom: 1px solid #DDD;
 	width: 1157px;
 	text-align: left;
+	margin-top:13px;
 }
 
 #div-mt-list .tab {
-	height: 23px;
 	padding: 8px 8px 2px 8px;
 	font-size: 16px;
 	color: #999;
@@ -326,15 +325,11 @@ body {
 	float: right;
 	text-align: center;
 	cursor: pointer;
-	margin-top: 13px;
-	border-radius: 5px 5px 0 0;
 }
 
 #div-mt-list .cur {
 	background-color: #F2F2F2;
 	margin-bottom: -1px;
-	height: 22px;
-	margin-top: 13px;
 	border-bottom: 1px solid #F2F2F2;
 }
 
@@ -363,7 +358,7 @@ body {
 
 #div-w {
 	position: relative;
-	margin-top: 67px;
+	margin-top: 76px;
 }
 
 #div-w-message {
@@ -551,10 +546,15 @@ body {
 	backbround-color: #e5e4f2;
 }
 
-.td-param .edit-input {
+.td-param .edit-input, .tab input {
 	background: none;
 	margin:0;
 	font-style:italic;
+}
+
+.tab input {
+	height:22px;
+	font-size:12px;
 }
 
 .item {
