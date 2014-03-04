@@ -16,9 +16,22 @@
                 <div id="div-w-message" class="label" style="display:none;">
                 </div>
                 <div id="div-control-panel">
-                    <input type="text" id="inputSearch" placeholder="工作区搜索">
+                    <div id="div-workspace-search">
+                        <input type="text" id="inputSearch" placeholder="工作区搜索">
+                        </input>
                         <span class="glyphicon glyphicon-search"></span>
-                    </input>
+                        <div class="dropdown clearfix" id="dropdown-workspace-search" style="display:none;">
+                            <ul class="dropdown-menu" style="display:block" role="menu" aria-labelledby="dropdownMenu2">
+                                <li role="presentation" class="dropdown-header">Dropdown header</li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation" class="dropdown-header">Dropdown header</li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                    </div>
                     <button id="btnFastSave" type="button" class="btn btn-primary" onclick="ws.quickSave(); return false;"  style="display: none" title="一键保存，方便快捷。建议少量修改无需说明时使用。">
                         <span class="glyphicon glyphicon-flash"></span>
                         一键保存

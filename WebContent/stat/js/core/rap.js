@@ -965,6 +965,19 @@ var rap = rap || {};
     };
 
     /**
+     * get module id by action id
+     */
+    p.getModuleIdByActionId = function(actionId) {
+        var mList = _data.moduleList;
+        var n = mList.length;
+        while (n--) {
+            if (this.isActionInModule(actionId, mList[n].id)) {
+                return mList[n].id;
+            }
+        }
+    };
+
+    /**
      * get parameter recursively
      * return obj if exists,
      * otherwise return null
@@ -1021,6 +1034,58 @@ var rap = rap || {};
             item.id = generateId();
             p.resetAllChildParameterId(item);
         }
+    };
+
+    /**
+     * serach project by key
+     */
+    p.search = function(key) {
+        var r = {
+            'byActionName' : [],
+            'byActionUrl'  : [],
+            'byPageName' : []
+        };
+
+        var AN = 'byActionName',
+            AU = 'byActionUrl',
+            PN = 'byPageName';
+
+        var mList = _data.moduleList,
+            mListNum = mList.length,
+            mItem,
+            pList,
+            pListNum,
+            pItem,
+            aList,
+            aListNum,
+            aItem;
+
+        var i, j, k, m, n;
+
+        for (i = 0; i < mListNum; i++) {
+            mItem = mList[i];
+
+            for (j = 0; j < mItem.pageList.length; j++) {
+                pItem = mItem.pageList[j];
+
+                if (pItem.name.indexOf(key) != -1) {
+                    r[PN].push(pItem);
+                }
+
+                for (k = 0; k < pItem.actionList.length; k++) {
+                    aItem = pItem.actionList[k];
+                    if (aItem.name.indexOf(key) != -1) {
+                        r[AN].push(aItem);
+                    }
+                    if (aItem.requestUrl.indexOf(key) != -1) {
+                        r[AU].push(aItem);
+                    }
+                }
+            }
+        }
+
+        return r;
+
     };
 
  })();
@@ -1239,6 +1304,37 @@ var rap = rap || {};
                 return event.target == this.getBase();
             };
         });
+
+
+        // workspace UI events register
+        var inputSearch = $('#inputSearch');
+        inputSearch.keyup(function() {
+            workspaceSearch(inputSearch.val());
+        });
+    };
+
+    ws.workspaceSearchResultHandler = function(type, id) {
+        var page;
+        var actionId;
+        var moduleId;
+        if (type === 'a') {
+            actionId = id;
+        } else if (type === 'p') {
+            page = p.getPage(id);
+            if (page.actionList.length) {
+                actionId = page.actionList[0].id;
+            }
+        }
+
+
+        if (actionId) {
+            moduleId = p.getModuleIdByActionId(actionId);
+            this.switchM(moduleId);
+            this.switchA(actionId);
+        }
+
+        $('#dropdown-workspace-search').hide();
+        $("#inputSearch").val('');
     };
 
     ws._getData = function() {
@@ -1531,7 +1627,7 @@ var rap = rap || {};
      * used when something bad happend :(
      */
     ws._processed = function() {
-    processed();
+        processed();
     };
 
 
@@ -3045,12 +3141,105 @@ var rap = rap || {};
      }
 
 
+    /**
+     * workspace search
+     */
+    function workspaceSearch(key) {
+        var AN = 'byActionName',
+            AU = 'byActionUrl',
+            PN = 'byPageName';
+
+        if ($.trim(key) === '') {
+            $('#dropdown-workspace-search').hide();
+        } else {
+            var r = p.search(key);
+            if (r[AN].length || r[AU].length || r[PN].length) {
+                $('#dropdown-workspace-search').html(getSearchResultHTML(r));
+                $('#dropdown-workspace-search').show();
+            } else {
+                $('#dropdown-workspace-search').hide();
+            }
+        }
+    }
+
+
 
         /***************************************************
          *                                                 *
          *       ##html-template-engine-begin              *
          *                                                 *
          ***************************************************/
+
+        /**
+         * get workspace search result HTML
+         */
+        function getSearchResultHTML(r) {
+            var AN = 'byActionName',
+                AU = 'byActionUrl',
+                PN = 'byPageName',
+                n, o,
+                html = '',
+                header, footer, body,
+                htmlList = [];
+            /**
+            <ul class="dropdown-menu" style="display:block" role="menu" aria-labelledby="dropdownMenu2">
+                <li role="presentation" class="dropdown-header">Dropdown header</li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation" class="dropdown-header">Dropdown header</li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+            </ul>
+            */
+            header = '<ul class="dropdown-menu" style="display:block" role="menu" aria-labelledby="dropdownMenu2">';
+
+            // action name results
+            html = '';
+            n = r[AN].length;
+            if (n) {
+                html += '<li role="presentation" class="dropdown-header">Action Name (' + n + ')</li>';
+                while (n--) {
+                    o = r[AN][n];
+                    html += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="ws.workspaceSearchResultHandler(\'a\', ' +
+                        o.id + ');">' + o.name + '&nbsp;&nbsp;' + o.requestUrl + '</a></li>';
+                }
+                htmlList.push(html);
+            }
+
+            // action url results
+            html = '';
+            n = r[AU].length;
+            if (n) {
+                html += '<li role="presentation" class="dropdown-header">Request Url (' + n + ')</li>';
+                while (n--) {
+                    o = r[AU][n];
+                    html += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="ws.workspaceSearchResultHandler(\'a\', ' +
+                        o.id + ');">' + o.name + '&nbsp;&nbsp;' + o.requestUrl + '</a></li>';
+                }
+                htmlList.push(html);
+            }
+
+            // page name results
+            html = '';
+            n = r[PN].length;
+            if (n) {
+                html += '<li role="presentation" class="dropdown-header">Page Name (' + n + ')</li>';
+                while (n--) {
+                    o = r[PN][n];
+                    html += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="ws.workspaceSearchResultHandler(\'p\', ' +
+                        o.id + ');">' + o.name + '</a></li>';
+                }
+                htmlList.push(html);
+            }
+
+
+            body = htmlList.join('<li role="presentation" class="divider"></li>');
+
+            footer = '</ul>';
+
+            return header + body + footer;
+        }
 
 
         /**
