@@ -18,5 +18,4 @@ RAP采用JSON-Schema规范描述HTTP请求及其JSON响应。
 ## 导航
 
 - [RAP 主页](http://rap.alibaba-inc.com)
-
 - [RAP使用介绍视频](http://thx.github.io/RAP/resources/video/)
