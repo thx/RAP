@@ -1,5 +1,14 @@
 var rap = rap || {};
 
+// console compability
+if (!window.console) {
+    window.console = {
+        log : function() {},
+        warn : function() {},
+        error : function() {}
+    };
+}
+
 /********************************************************
  *                                                      *
  *         ##util module begin                          *
@@ -1040,6 +1049,7 @@ var rap = rap || {};
      * serach project by key
      */
     p.search = function(key) {
+        var RESULT_LENGTH_LIMIT = 6;
         var r = {
             'byActionName' : [],
             'byActionUrl'  : [],
@@ -1048,7 +1058,8 @@ var rap = rap || {};
 
         var AN = 'byActionName',
             AU = 'byActionUrl',
-            PN = 'byPageName';
+            PN = 'byPageName',
+            KEYS = [AN, AU, PN];
 
         var mList = _data.moduleList,
             mListNum = mList.length,
@@ -1084,8 +1095,15 @@ var rap = rap || {};
             }
         }
 
-        return r;
+        for (i = 0; i < KEYS.length; i++) {
+            n = r[KEYS[i]].length;
+            r[KEYS[i] + '_length'] = n;
+            if (n > RESULT_LENGTH_LIMIT) {
+                r[KEYS[i]].length = RESULT_LENGTH_LIMIT;
+            }
+        }
 
+        return r;
     };
 
  })();
@@ -1309,7 +1327,7 @@ var rap = rap || {};
         // workspace UI events register
         var inputSearch = $('#inputSearch');
         inputSearch.keyup(function() {
-            workspaceSearch(inputSearch.val());
+            workspaceSearch(inputSearch.val(), arguments);
         });
     };
 
@@ -3141,13 +3159,53 @@ var rap = rap || {};
      }
 
 
+    var _curSearchIndex = -1;
+
     /**
      * workspace search
      */
-    function workspaceSearch(key) {
+    function workspaceSearch(key, ev) {
         var AN = 'byActionName',
             AU = 'byActionUrl',
             PN = 'byPageName';
+
+        var liList = $('#dropdown-workspace-search .item');
+        var selectedItem;
+        var orders;
+
+
+        if (ev) {
+            ev = ev[0];
+        }
+
+        // up/down arrow
+        if (ev.keyCode === 38 || ev.keyCode === 40) {
+            console.log('keyCode:' , ev.keyCode, ", index:", _curSearchIndex, ", length:", liList.length);
+            liList.css('background', 'none');
+            $(liList[_curSearchIndex]).removeClass('selected');
+            if (ev.keyCode === 40) {
+                _curSearchIndex++;
+            } else {
+                _curSearchIndex--;
+            }
+
+            if (_curSearchIndex < 0) {
+                _curSearchIndex = liList.length - 1;
+            } else if (_curSearchIndex >= liList.length) {
+                _curSearchIndex = 0;
+            }
+            $(liList[_curSearchIndex]).css('background', '#DFDFDF');
+            $(liList[_curSearchIndex]).addClass('selected');
+
+            return;
+
+        // enter response
+        } else if (ev.keyCode === 13) {
+            selectedItem = $('#dropdown-workspace-search .selected');
+            orders = selectedItem.find('a').attr('onclick');
+            eval(orders);
+            return;
+        }
 
         if ($.trim(key) === '') {
             $('#dropdown-workspace-search').hide();
@@ -3156,8 +3214,10 @@ var rap = rap || {};
             if (r[AN].length || r[AU].length || r[PN].length) {
                 $('#dropdown-workspace-search').html(getSearchResultHTML(r));
                 $('#dropdown-workspace-search').show();
+                _curSearchIndex = -1;
             } else {
                 $('#dropdown-workspace-search').hide();
+                $('#dropdown-workspace-search .item').removeClass('selected');
             }
         }
     }
@@ -3177,7 +3237,7 @@ var rap = rap || {};
             var AN = 'byActionName',
                 AU = 'byActionUrl',
                 PN = 'byPageName',
-                n, o,
+                n, o, num,
                 html = '',
                 header, footer, body,
                 htmlList = [];
@@ -3197,12 +3257,16 @@ var rap = rap || {};
             // action name results
             html = '';
             n = r[AN].length;
+            num = n;
             if (n) {
-                html += '<li role="presentation" class="dropdown-header">Action Name (' + n + ')</li>';
+                html += '<li role="presentation" class="dropdown-header">Action Name (' + r[AN + "_length"]  + ')</li>';
                 while (n--) {
                     o = r[AN][n];
-                    html += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="ws.workspaceSearchResultHandler(\'a\', ' +
+                    html += '<li role="presentation" class="item"><a role="menuitem" tabindex="-1" href="#" onclick="ws.workspaceSearchResultHandler(\'a\', ' +
                         o.id + ');">' + o.name + '&nbsp;&nbsp;' + o.requestUrl + '</a></li>';
+                }
+                if (r[AN + "_length"] > num) {
+                    html += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="return false;">... ...</a></li>';
                 }
                 htmlList.push(html);
             }
@@ -3210,12 +3274,16 @@ var rap = rap || {};
             // action url results
             html = '';
             n = r[AU].length;
+            num = n;
             if (n) {
-                html += '<li role="presentation" class="dropdown-header">Request Url (' + n + ')</li>';
+                html += '<li role="presentation" class="dropdown-header">Request Url (' + r[AU + "_length"] + ')</li>';
                 while (n--) {
                     o = r[AU][n];
-                    html += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="ws.workspaceSearchResultHandler(\'a\', ' +
+                    html += '<li role="presentation" class="item"><a role="menuitem" tabindex="-1" href="#" onclick="ws.workspaceSearchResultHandler(\'a\', ' +
                         o.id + ');">' + o.name + '&nbsp;&nbsp;' + o.requestUrl + '</a></li>';
+                }
+                if (r[AU + "_length"] > num) {
+                    html += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="return false;">... ...</a></li>';
                 }
                 htmlList.push(html);
             }
@@ -3223,16 +3291,19 @@ var rap = rap || {};
             // page name results
             html = '';
             n = r[PN].length;
+            num = n;
             if (n) {
-                html += '<li role="presentation" class="dropdown-header">Page Name (' + n + ')</li>';
+                html += '<li role="presentation" class="dropdown-header">Page Name (' + r[PN + "_length"] + ')</li>';
                 while (n--) {
                     o = r[PN][n];
-                    html += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="ws.workspaceSearchResultHandler(\'p\', ' +
+                    html += '<li role="presentation" class="item"><a role="menuitem" tabindex="-1" href="#" onclick="ws.workspaceSearchResultHandler(\'p\', ' +
                         o.id + ');">' + o.name + '</a></li>';
+                }
+                if (r[PN + "_length"] > num) {
+                    html += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="return false;">... ...</a></li>';
                 }
                 htmlList.push(html);
             }
-
 
             body = htmlList.join('<li role="presentation" class="divider"></li>');
 

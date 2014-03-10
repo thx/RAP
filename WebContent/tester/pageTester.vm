@@ -225,6 +225,9 @@
                         n = paramIdList.length;
                     for (i = 0; i < n; i++) {
                         key = paramIdList[i];
+                        if (key && key.indexOf('|') !== -1) {
+                            key = key.substring(0, key.indexOf('|'));
+                        }
                         if (!~jsonString.indexOf(key)) {
                             log('parameter [' + color(key, RED) + '] lost!', ERROR);
                         }
