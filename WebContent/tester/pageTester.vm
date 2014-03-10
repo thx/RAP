@@ -10,6 +10,7 @@
             <link type="text/css" rel="stylesheet" href="${staticRoot}/css/pageTester.css?_r=$!timeStamp" />
             <script src="http://a.tbcdn.cn/??s/yui/3.6.0/build/yui/yui-min.js"></script>
             <script src="${staticRoot}/js/util/jsformat.js"></script>
+            <script src="http://mockjs.com/dist/mock-min.js"></script>
         </head>
         <body>
         <h3>$!utils.escapeInH($page.name)控制台</h3>
@@ -198,6 +199,15 @@
 
                 function testResHandler(response, form, btn) {
                     var jsonString = Y.JSON.stringify(response);
+                    var path = Y.one('#txtRootPath').get('value');
+                    var obj = eval("(" + jsonString + ")");
+
+                    if (path.indexOf('mockjs') != -1) {
+                        obj = Mock.mock(obj);
+                    }
+
+                    jsonString = JSON.stringify(obj);
+
                     var beginTime = Y.timeLog['time'];
                     if (!beginTime) return;
                     var endTime = new Date().getTime();

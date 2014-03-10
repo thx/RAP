@@ -1,5 +1,5 @@
 (function() {
-    var node = document.getElementById('rap');
+    var node = null;
     var blackList = [];
     var whiteList = [];
     var ROOT = 'rap.alibaba-inc.com';

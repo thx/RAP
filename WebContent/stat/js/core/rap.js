@@ -3334,6 +3334,30 @@ var rap = rap || {};
         }
 
         /**
+         * sort parameters recursively
+         */
+        function sortParams(params) {
+            if (!params) return;
+            var i = 0;
+            var n = params.length;
+            var o;
+            params.sort(paramsSorter);
+            for (; i < n; i++) {
+               sortParams(params[i].parameterList);
+            }
+        }
+
+        /**
+         * params sorter
+         */
+        function paramsSorter(p1, p2) {
+            if (p1 !== p2) {
+                return p1.identifier > p2.identifier ? 1 : -1;
+            }
+            return p1.id > p2.id ? 1 : -1;
+        }
+
+        /**
          * get action html
          */
         function getAHtml(a) {
@@ -3342,7 +3366,12 @@ var rap = rap || {};
                 responseParameterList = a.responseParameterList,
                 requestParameterListNum = requestParameterList.length,
                 responseParameterListNum = responseParameterList.length,
-                p, i;
+                p, i,
+                breaker = true;
+
+
+            sortParams(requestParameterList);
+            sortParams(responseParameterList);
 
             str += getAInfoHtml(a);
             if (requestParameterListNum > 0) {
