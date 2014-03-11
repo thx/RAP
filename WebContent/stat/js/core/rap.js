@@ -1329,6 +1329,14 @@ if (!window.console) {
         inputSearch.keyup(function() {
             workspaceSearch(inputSearch.val(), arguments);
         });
+
+        $(document.body).keypress(function(ev) {
+            if (ev.altKey && ev.charCode === 402) {
+                inputSearch.focus();
+                ev.preventDefault();
+            }
+        });
+
     };
 
     ws.workspaceSearchResultHandler = function(type, id) {
