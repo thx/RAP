@@ -1,7 +1,7 @@
 Rigel Automation Platform
 ===
 
-    @version v0.8.0
+    @version v0.8.1
     @author  Bosn(霍雍), wangjeaf(思竹)
     @weibo   http://weibo.com/bosn, http://github.com/wangjeaf
     @mail    bosn@outlook.com, wangjeaf@gmail.com
@@ -9,20 +9,22 @@ Rigel Automation Platform
 什么是RAP?
 --------------------------------------
 
-在前后端分离的开发模式下，我们通常需要定义一份`接口文档`来规范接口的具体信息。如一个请求的地址、有几个参数、参数名称及类型含义等等。`RAP` 首先方便团队录入、查看和管理这些接口文档，并通过分析结构化的文档数据，重复利用并生成自测数据、提供自测控制台等等，很大的提升开发效率。
+在前后端分离的开发模式下，我们通常需要定义一份`接口文档`来规范接口的具体信息。如一个请求的地址、有几个参数、参数名称及类型含义等等。`RAP` 首先方便团队录入、查看和管理这些接口文档，并通过分析结构化的文档数据，重复利用并生成自测数据、提供自测控制台等等... 大幅度提升开发效率。
 
-资料列表
+相关链接
 --------------------------------------
 
+- [RAPv0.8快速上手视频(使用前必读)](http://v.youku.com/v_show/id_XNjc3NTY2MzI0.html)
 - [RAP详细介绍](https://github.com/thx/RAP/blob/master/INTRO.md)
-- [RAPv0.8快速上手视频](http://v.youku.com/v_show/id_XNjc3NTY2MzI0.html)
+- [访问RAP(暂仅限阿里内网)](http://rap.alibaba-inc.com)
+- [THX平台](http://thx.alibaba-inc.com)
 
 起始工作
 --------------------------------------
 
 ### 一、登录 & 注册 ###
 
-目前只支持域帐号登录，域帐号登录后会自动完成新用户注册及登录流程。后续我们会补充其它帐号的登录方式（RAP、微博）
+目前只支持域帐号登录，域帐号登录后会自动完成新用户注册及登录流程。后续我们会补充其它帐号的登录方式（RAP、微博、QQ等）
 
 ### 二、创建项目 ###
 
@@ -61,9 +63,12 @@ id|+1      @mock=100
 
 表示id从100开始，每次加1
 
-具体请参加MockJS文档{{link}}，也可参考MockJS对接的例子{{link}}。
+具体Mock规则如何填写，请访问[MockJS文档](http://mockjs.com)，也可参考RAP平台中，[MockJS对接的例子](http://rap.alibaba-inc.com/workspace/myWorkspace.action?projectId=79)。
 
 在编辑Mock规则时，请点击“显示Mock标签”，默认Mock信息会被隐藏，以使得接口文档更方便大多数人查看。
+
+在备注里，MOCK标签和普通的备注需要用分号隔开，比如一个参数叫userId，备注信息是"用户ID", mock标签是@mock=123，则在备注中应该填写:`用户ID;@mock=123`
+
 
 ### for RD 之 Console ###
 
@@ -82,7 +87,7 @@ RAP开放了Mock规则的API，QA或对此有需求的同学可以通过RAP API�
 RAP 快捷键
 -------------------------------------
 
-- `Alt + F` 工作区搜索，出现结果后通过上、下、回车键即可操作
+- `Alt + F` 工作区搜索，候选列表出现时可通过上、下、回车键操作
 - `Ctrl + Enter` 位于参数编辑时，根据当前行的参数标识或参数名称自动补全
 - `Tab` 位于参数编辑时，自动切换到下一个位置
 - `Shift + Tab` 位于参数编辑时，自动切换到上一个位置
