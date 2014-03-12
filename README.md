@@ -14,11 +14,12 @@ Rigel Automation Platform
 相关链接
 --------------------------------------
 
-- [RAPv0.8快速上手视频(使用前必读)](http://v.youku.com/v_show/id_XNjc3NTY2MzI0.html)
-- [RAP详细介绍](https://github.com/thx/RAP/blob/master/INTRO.md)
-- [RAP文档](http://thx.alibaba-inc.com/RAP/)
-- [RAP@GitHub](https://github.com/thx/RAP/blob/master/INTRO.md)
-- [访问RAP(暂仅限阿里内网)](http://rap.alibaba-inc.com)
+- [快速上手视频(用前必读)](http://v.youku.com/v_show/id_XNjc3NTY2MzI0.html)
+- [详细介绍](https://github.com/thx/RAP/blob/master/INTRO.md)
+- [文档中心](http://thx.alibaba-inc.com/RAP/)
+- [GitHub](https://github.com/thx/RAP/blob/master/INTRO.md)
+- [更新日志](https://github.com/thx/RAP/blob/master/UPDATELOG.md)
+- [进入RAP(暂限阿里内网)](http://rap.alibaba-inc.com)
 - [THX平台](http://thx.alibaba-inc.com)
 
 起始工作
