@@ -30,6 +30,90 @@ $(function() {
 			var projId = box.data('projid');
 			window.open($.route('workspace.mine') + '?projectId=' + projId);
 		})
+		.delegate('.box-to-add', 'click', function() {
+			var that = this;
+			var groupId = $(this).data('groupid');
+			getUsers(function(users) {
+				$.confirm({
+					content: $.render($('#create-proj-tmpl').text(), {}),
+					title: '创建项目',
+					confirmText: '确认创建',
+					showCallback: function() {
+						var that = this;
+						$(this).find('input[type=text]').focus();
+						$(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
+							$(this).parent('.picked-user').remove();
+						});
+						$(this).find('.accounts-inputer').keyup(function() {
+							$.autocomplete(that, users);
+						}).focus(function() {
+							$.autocomplete(that, users);
+						});
+						$('.project-target .team').change(function() {
+							var corpId = $(this).val();
+							if (corpId == '') {
+								return;
+							}
+							fillSelectAsync('org.productline.all', {
+								corpId: corpId
+							}, $('#option-list-tmpl').text(), '.project-target .productline')
+						})
+						$('.project-target .productline').change(function() {
+							var plId = $(this).val();
+							if (!plId) {
+								return;
+							}
+							fillSelectAsync('org.group.all', {
+								productLineId: plId
+							}, $('#option-list-tmpl').text(), '.project-target .group')
+						})
+					},
+					confirmClicked: function() {
+						var inputer = $(this).find('input[type=text]');
+						if (inputer.val().trim() == '') {
+							inputer.addClass('shake');
+							inputer.focus();
+							setTimeout(function() {
+								inputer && inputer.removeClass('shake');
+							}, 1000);
+							return;
+						}
+						var grouper = $(this).find('.project-target .group');
+						
+						if (grouper.val().trim() == '') {
+							var parent = grouper.parents('.project-target');
+							parent.addClass('shake');
+							setTimeout(function() {
+								parent && parent.removeClass('shake');
+							}, 1000);
+							return;
+						}
+						
+						var groupId = grouper.val();
+						var tmpl = $('#create-proj-success-tmpl').text();
+						var modal = $(this);
+						var accounts = $(this).find('.picked-user');
+						var values = [];
+						for(var i = 0, l = accounts.length; i < l; i++) {
+							var current = $(accounts[i]);
+							values.push(current.data('account') + '(' + current.data('name') + ')')
+						}
+						$.post($.route('org.project.create'), {
+							groupId: groupId,
+							name: inputer.val(),
+							desc: $(this).find('textarea.desc').val(),
+							accounts: values.join(', ')
+						}, function(data) {
+							var data = data.result;
+							data.status = data.status || '刚刚创建';
+							var html = $.render(tmpl, data);
+							$(that).before(html);
+							modal.modal('hide');
+						}, "JSON")
+					}
+				});
+			});
+		})
 		.delegate('.box .glyphicon-pencil', 'click', function() {
 			var id = $(this).data('id');
 			var box = $(this).parents('.box');
@@ -50,7 +134,7 @@ $(function() {
 			}
 			getUsers(function(users) {
 				$.confirm({
-					content: $.render($('#create-proj-tmpl').text(), {
+					content: $.render($('#update-proj-tmpl').text(), {
 						name: name,
 						desc: desc,
 						users: pickeds
@@ -132,6 +216,23 @@ $(function() {
 				}
 			})
 		})
+	}
+	
+	function fillSelectAsync(route, params, tmpl, target) {
+		$.get($.route(route), params, function(data) {
+			if (data.groups) {
+				data.items = data.groups;
+			}
+			if (data.items.length == 0) {
+				data.items = [{id: '', name: '--无查询结果--'}];
+			} else {
+				data.items.unshift({id: '', name: '--请选择--'});
+			}
+			
+			var html = $.render(tmpl, data);
+			console.log(tmpl, data, html);
+			$(target).html(html);
+		}, "JSON");
 	}
 	
 	function render() {
