@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import nl.flotsam.xeger.Xeger;
 
 import com.taobao.rigel.rap.common.ArrayUtils;
+import com.taobao.rigel.rap.common.MockjsRunner;
 import com.taobao.rigel.rap.common.NumberUtils;
 import com.taobao.rigel.rap.mock.service.MockMgr;
 import com.taobao.rigel.rap.project.bo.Action;
@@ -21,6 +22,7 @@ import com.taobao.rigel.rap.project.service.ProjectMgr;
 public class MockMgrImpl implements MockMgr {
 	private ProjectDao projectDao;
 	private ProjectMgr projectMgr;
+	private static MockjsRunner runner;
 
 	public ProjectMgr getProjectMgr() {
 		return projectMgr;
@@ -122,6 +124,13 @@ public class MockMgrImpl implements MockMgr {
 		json.append(right);
 		String result = json.toString();
 		return resultFilter(result);
+	}
+	
+	@Override
+	public String generateRuleData(int projectId, String pattern) {
+		runner = new MockjsRunner();
+		String result = generateRule(projectId, pattern);
+		return runner.renderMockJsRule(result);
 	}
 	
 	@Override

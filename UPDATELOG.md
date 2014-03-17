@@ -1,4 +1,9 @@
 ### rap v0.8.1 ###
+* [功能] 对MockJS插件支持host配置(函数调用、参数传参host=xxx两种方式）。2014-03-17
+* [优化] 修改urlrewrite方式，createRule.action/createMockjsData.action等redirect URL对用户隐藏，不再使用redirect，改用forward。 2014-03-17
+* [变更] 暂时隐藏掉pageTeseter的自动化测试模块，期待未来更多合作后再次开放。 2014-03-17
+* [BUG] 解决KISSY的IO拦截不全的问题（function(IO){}回调中使用IO();不能拦截的问题已修正）。 2014-03-17
+* [功能] 增加对直接返回MockJS数据的支持（后端生成MockJS数据）。 2014-03-17
 * [UE] 增加搜索快捷键Alt + F。2014-03-11
 * [UE] 搜索优化-限制每类条目数最多6条，支持快捷键上、下、回车检索。 2014-03-10
 * [BUG] 解决MockJS标签导致pageTester无法正确检验接口结构的问题 2014-03-10

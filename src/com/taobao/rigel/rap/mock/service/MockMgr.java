@@ -28,5 +28,21 @@ public interface MockMgr {
 	 */
 	public int reset(int projectId);
 
+	/**
+	 * generate mockjs rule
+	 * 
+	 * @param id
+	 * @param pattern
+	 * @return
+	 */
 	public String generateRule(int id, String pattern);
+	
+	/**
+	 * generate mockjs data
+	 * 
+	 * @param id
+	 * @param pattern
+	 * @return
+	 */
+	public String generateRuleData(int id, String pattern);
 }

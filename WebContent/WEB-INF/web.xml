@@ -98,8 +98,7 @@
 	<servlet>
 		<servlet-name>velocity</servlet-name>
 		<servlet-class>
-			org.apache.velocity.tools.view.servlet.VelocityViewServlet
-		</servlet-class>
+			org.apache.velocity.tools.view.servlet.VelocityViewServlet</servlet-class>
 		<!-- Unless you plan to put your toolbox.xml and velocity.properties under 
 			different folders or give them different names, then these two init-params 
 			are unnecessary as of VelocityTools 1.3. The VelocityViewServlet will automatically 
@@ -113,10 +112,8 @@
 			<param-value>/WEB-INF/velocity.properties</param-value>
 		</init-param>
 	</servlet>
-	<!-- <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>/t/*,/crossdomain.xml</url-pattern>
-    </servlet-mapping> -->
+	<!-- <servlet-mapping> <servlet-name>default</servlet-name> <url-pattern>/t/*,/crossdomain.xml</url-pattern> 
+		</servlet-mapping> -->
 	<!-- Map *.vm files to Velocity -->
 	<servlet-mapping>
 		<servlet-name>velocity</servlet-name>
@@ -141,6 +138,9 @@
 	<filter-mapping>
 		<filter-name>struts2</filter-name>
 		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
 	</filter-mapping>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

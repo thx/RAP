@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>RAP Example</title>
-        <script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
-        <!-- 引入RAP开始 -->
-         <div id="rap">
-        </div>
-        <script type="text/javascript" src="http://etaoux-bj.taobao.ali.com:8080/rap.plugin.js?projectId=65&mode=1"></script>
-        <!-- 引入RAP结束 -->
-        <script src="jquery-2.0.3.min.js"></script>
-    </head>
-    <body>
-        <pre id="container">
+<head>
+<meta charset="utf-8" />
+<title>RAP Example</title>
+<script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
+<!-- 引入RAP开始 -->
+<div id="rap"></div>
+<script type="text/javascript"
+	src="http://etaoux-bj.taobao.ali.com:8080/rap.plugin.js?projectId=79&mode=1"></script>
+<!-- 引入RAP结束 -->
+<script src="jquery-2.0.3.min.js"></script>
+</head>
+<body>
+	<pre id="container">
         </pre>
-       
-        <script>
-            KISSY.use('node, ajax',function(S, Node, IO) {
-                KISSY.io({
-                    url:'/test1',
-                    dataType:'json',
-                    success:function(data){
-                        console.log(data);
-                        Node.one('#container').html(JSON.stringify(data, null, 4));
-                    }
-                });
-            });
 
-        </script>
-    </body>
+	<script>
+		KISSY.use([ 'node', 'io' ], {
+			success : function(S, Node, IO) {
+				IO({
+					url : '/complexCase.do',
+					dataType : 'json',
+					success : function(data) {
+						console.log(data);
+						Node.one('#container').html(
+								JSON.stringify(data, null, 4));
+					}
+				});
+			}
+		});
+	</script>
+</body>
 </html>

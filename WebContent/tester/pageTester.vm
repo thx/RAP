@@ -23,8 +23,10 @@
             #foreach($action in $page.actionList)
                 <li><a href="#">$!utils.escapeInH($action.name)</a></li>
             #end
+            <!-- 
                 <li><a href="#">MODIFY</a></li>
                 <li><a href="#">RESET</a></li>
+                 -->
             </div>
             #foreach($action in $page.actionList)
             <div class="tester-form tab">

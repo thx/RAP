@@ -7,14 +7,21 @@
 			mock service
         </note>
 		<from>^/mock/(\d*?)/(.*)$</from>
-		<to type="redirect">/mock/createData.action?id=$1&amp;pattern=/${escape:utf8:$2}</to>
+		<to>/mock/createData.action?id=$1&amp;pattern=/${escape:utf8:$2}</to>
 	</rule>
 	<rule>
 		<note>
 			mockjs service
         </note>
 		<from>^/mockjs/(\d*?)/(.*)$</from>
-		<to type="redirect">/mock/createRule.action?id=$1&amp;pattern=/${escape:utf8:$2}</to>
+		<to>/mock/createRule.action?id=$1&amp;pattern=/${escape:utf8:$2}</to>
+	</rule>
+	<rule>
+		<note>
+			mockjs result service
+        </note>
+		<from>^/mockjsdata/(\d*?)/(.*)$</from>
+		<to>/mock/createMockjsData.action?id=$1&amp;pattern=/${escape:utf8:$2}</to>
 	</rule>
 	<rule>
 		<note>

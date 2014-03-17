@@ -182,4 +182,16 @@ public class MockAction extends ActionBase {
 		urlList = list;
 		return SUCCESS;
 	}
+	
+	public String createMockjsData() {
+		String _c = get_c();
+		if (callback != null && !callback.isEmpty()) {
+			setContent(callback + "(" + mockMgr.generateRuleData(id, pattern) + ")");
+		} else if (_c != null && !_c.isEmpty()) {
+			setContent(_c + "(" + mockMgr.generateRuleData(id, pattern) + ")");
+		} else {
+			setContent(mockMgr.generateRuleData(id, pattern));
+		}
+		return SUCCESS;
+	}
 }

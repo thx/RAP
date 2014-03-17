@@ -1,5 +1,6 @@
 package com.taobao.rigel.rap.common;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -38,7 +39,8 @@ public class AuthCheckFilter implements Filter {
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		boolean logined = session.getAttribute(ContextManager.KEY_ACCOUNT) != null;
 		
-		SystemConstant.README_PATH = session.getServletContext().getRealPath("/README.md");
+		SystemConstant.README_PATH = session.getServletContext().getRealPath(File.separator + "README.md");
+		SystemConstant.ROOT = session.getServletContext().getRealPath(File.separator);
 
 		if (!logined) {
 			SimpleSSOUser user = SimpleUserUtil

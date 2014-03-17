@@ -35,6 +35,15 @@
 			</result>
 
 		</action>
+		<action name="createMockjsData" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+			method="createMockjsData">
+			<result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
+			</result>
+			<result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+			</result>
+
+		</action>
+		
 		<action name="createPluginScript" class="com.taobao.rigel.rap.mock.web.action.MockAction"
 			method="createPluginScript">
 			<result name="success" type="rapVelocityResult">
