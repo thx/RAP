@@ -169,6 +169,7 @@
 
 .accounts-con {
 	position: absolute;
+	z-index: 10000;
 }
 
 .accounts-inputer {
@@ -224,3 +225,11 @@
 .loading {
 	margin-top: 20px;
 }
+
+.project-target {
+	position: relative;
+}
+
+.project-target .team {width: 30%; float: left;}
+.project-target .productline {width: 30%; float: left; margin-left: 10px;}
+.project-target .group {width: 30%; float: left; margin-left: 10px;}

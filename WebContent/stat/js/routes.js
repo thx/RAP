@@ -2,7 +2,9 @@
 	var URLS = {
 		org : {
 			home: {
-				'projects': '/org/projects.action'
+				'projects': '/org/projects.action',
+				'productlines': '/org/home/productlines.action',
+				'groups': '/org/home/groups.action'
 			},
 			group: {
 				'all':    '/org/group/all.action',
