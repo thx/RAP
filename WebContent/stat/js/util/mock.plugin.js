@@ -173,6 +173,10 @@
 
             KISSY.use = function(modules, callback) {
                 var ioIndex = getIOIndex(modules);
+                if (ioIndex == -1) {
+                	KISSY.oldUse.apply(this, arguments);
+                	return;
+                }
                 ioIndex++;
 
                 var callbackIndex = arguments.length - 1;
