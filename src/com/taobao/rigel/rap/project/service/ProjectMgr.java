@@ -119,4 +119,12 @@ public interface ProjectMgr {
 	 * @return
 	 */
 	List<Project> getProjectListByGroup(int id);
+
+	/**
+	 * search project
+	 * 
+	 * @param key
+	 * @return
+	 */
+	List<Project> search(String key);
 }

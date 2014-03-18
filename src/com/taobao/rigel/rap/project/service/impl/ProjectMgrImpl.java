@@ -221,4 +221,9 @@ public class ProjectMgrImpl implements ProjectMgr {
 	public List<Project> getProjectListByGroup(int id) {
 		return projectDao.getProjectListByGroup(id);
 	}
+	
+	@Override
+	public List<Project> search(String key) {
+		return projectDao.search(key);
+	}
 }
