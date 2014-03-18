@@ -1,4 +1,10 @@
 var root = /unit-tests/;
+RAP.setHost(window.location.host);
+
+module('env confirm');
+test('no KISSY.io when kissy seed inited', function() {
+	ok(KISSY.io === undefined, 'KISSY.io is undefined when kissy seed loaded');
+})
 
 async.map([
 	'getrule/base.js',

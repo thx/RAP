@@ -1,9 +1,5 @@
 module('rap-plugin-base');
 
-test('no KISSY.io when kissy seed inited', function() {
-	ok(KISSY.io === undefined, 'KISSY.io is undefined when kissy seed loaded');
-})
-
 test('get data from KISSY.use("io")', function() {
 	stop();
 	action = '/base';

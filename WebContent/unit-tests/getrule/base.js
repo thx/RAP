@@ -1,4 +1,17 @@
-module('mockjs-rule-base');
-test('a', function() {
-	equal(0, 0, 'ok');
+module('get-mockjs-rule');
+
+test('get mockjs rule from host by /mockjs/projectId/action', function() {
+	stop();
+	$.ajax({  
+        type : "get",  
+        url : "/mockjs/114/mockjs/base",  
+        dataType : "jsonp",
+        jsonp: "callback",
+        success : function(data){
+        	start();
+        	ok('a|1-10' in data, 'mockjs rule: a|1-10 is in data');
+        },  
+        error:function(){  
+        }  
+    });  
 });
