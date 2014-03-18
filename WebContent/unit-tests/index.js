@@ -12,7 +12,9 @@ async.map([
 	'getruledata/base.js',
 	
 	'rap-plugin/base.js',
-	'rap-plugin/jsapis.js'
+	'rap-plugin/jsapis.js',
+	
+	'errors/rap-plugin-error.js'
 ], function(s, callback) {
 	$.getScript(root + s + '?' + (+new Date)).done(callback);
 }, function(err, results) {
