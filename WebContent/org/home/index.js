@@ -230,14 +230,18 @@ $(function() {
 			}
 			
 			var html = $.render(tmpl, data);
-			console.log(tmpl, data, html);
 			$(target).html(html);
 		}, "JSON");
 	}
 	
 	function bindSearchEvents() {
-		var con = $('.project-autocomplete-con');
-		function handler() {
+		var con = $('.project-autocomplete-con'),
+			ul = $('.project-autocomplete-con ul');
+		function handler(e) {
+			var code = e.keyCode;
+			if (code == 38 || code == 40) {
+				return;
+			}
 			var jqThis = $(this),
 				old = jqThis.data('oldValue'),
 				val = jqThis.val().trim();
@@ -265,16 +269,80 @@ $(function() {
 					return;
 				}
 				jqThis.data('searching', 0);
+				if (data && data.length == 0) {
+					data = [{id: '-1', name: '没有找到 "' + val + '" 对应的项目，o(╯□╰)o'}];
+				}
+				ul.html($.render($('#project-autocomplete-li').text(), {
+					projects: data
+				}));
 				con.show();
-				//console.log(data);
 			}, 'JSON');
 		}
-		$('.project-search-inputer').focus(handler).keyup(handler).blur(function() {
+		var inputer = $('.project-search-inputer'), prev;
+		ul.delegate('li', 'mouseenter', function() {
+			prev && prev.removeClass('active');
+			prev = $(this).addClass('active');
+		}).delegate('li', 'mouseleave', function() {
+			$(this).removeClass('active');
+		});
+		inputer.focus(handler).keyup(handler).blur(function() {
 			var jqThis = $(this), val = jqThis.val().trim();
 			if (val) {
 				jqThis.data('oldValue', val);
 			}
-			con.hide();
+			setTimeout(function() {
+				con.hide();
+			}, 300);
+		}).keydown(function(e) {
+			var code = e.keyCode;
+			if (code == 38) {
+				e.preventDefault();
+				var active = ul.children().index(ul.find('.active'));
+				var node = null;
+				if (active == -1 || active == 0) {
+					node = ul.children().last();
+				} else {
+					node = $(ul.children()[active - 1]);
+				}
+				if (prev) {
+					prev.removeClass('active');
+				}
+				node.addClass('active');
+				prev = node;
+			} else if (code == 40) {
+				e.preventDefault();
+				var active = ul.children().index(ul.find('.active'));
+				var node = null;
+				if (active == -1 || active == ul.children().length - 1) {
+					node = ul.children().first();
+				} else {
+					node = $(ul.children()[active + 1])
+				}
+				if (prev) {
+					prev.removeClass('active');
+				}
+				node.addClass('active');
+				prev = node;
+			} else if (code == 27) {
+				con.hide();
+				inputer.blur();
+			} else if (code == 13) {
+				if (prev) {
+					var id = prev.data('id');
+					if (id == '-1') {
+						return;
+					}
+					window.location.href = '/workspace/myWorkspace.action?projectId=' + id;
+				}
+			}
+		})
+		con.delegate('li', 'click', function() {
+			var jqThis = $(this);
+			var id = jqThis.data('id');
+			if (id == '-1') {
+				return;
+			}
+			window.location.href = '/workspace/myWorkspace.action?projectId=' + id;
 		})
 	}
 	
@@ -289,20 +357,6 @@ $(function() {
 			});
 			var html = $.render(tmpl, data);
 			$(".groups").html(html);
-			$('.project-autocomplete-con ul').html($.render($('#project-autocomplete-li').text(), {
-				projects: [
-				    {id: '0', name: '一个牛逼的项目-0'},
-				    {id: '1', name: '一个牛逼的项目-1'},
-				    {id: '2', name: '一个牛逼的项目-2'},
-				    {id: '3', name: '一个牛逼的项目-3'},
-				    {id: '4', name: '一个牛逼的项目-4'},
-				    {id: '5', name: '一个牛逼的项目-5'},
-				    {id: '6', name: '一个牛逼的项目-6'},
-				    {id: '7', name: '一个牛逼的项目-7'},
-				    {id: '8', name: '一个牛逼的项目-8'},
-				    {id: '9', name: '一个牛逼的项目-9'}
-				]
-			}));
 			
 			bindEvents();
 			bindSearchEvents();

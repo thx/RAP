@@ -241,12 +241,12 @@
 	margin-bottom: 0;
 }
 .project-autocomplete-con li {
-	cursor: pointer; padding: 6px 11px; line-height: 20px;
+	cursor: pointer; padding: 6px 11px; line-height: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .project-autocomplete-con li:nth-child(odd) {
 	background-color: #F9F9F9;
 }
-.project-autocomplete-con li:hover {
+.project-autocomplete-con li:hover, .project-autocomplete-con li.active {
 	background-color: #F2F2F2; 
 }
 .search-project-con {
@@ -259,4 +259,7 @@
 	right: 8px;
 	top: 10px;
 	color: #CCC;
+}
+.project-search-inputer {
+	padding-right: 25px;
 }
