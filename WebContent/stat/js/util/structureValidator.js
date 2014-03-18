@@ -1,14 +1,20 @@
 !function() {
     var global = this;
 
-    function StructureValidator(o1, o2) {
+    function StructureValidator(o1, o2, leftName, rightName) {
+    	if (!leftName) {
+    		leftName = 'obj';
+    	}
+    	if (!rightName) {
+    		rightName = 'obj';
+    	}
         if (this === global) {
             throw Error('Please use "new StructureValidator(o1, o2);"');
         }
         this.o1 = o1;
         this.o2 = o2;
-        this._check(o2, o1, 'left', true);
-        this._check(o1, o2, 'right');
+        this._check(o2, o1, 'left', leftName, true);
+        this._check(o1, o2, 'right', rightName);
     }
 
     StructureValidator.prototype.getResult = function() {
@@ -18,7 +24,7 @@
         };
     };
 
-    StructureValidator.prototype._check = function(o1, o2, key, isReverseCheck) {
+    StructureValidator.prototype._check = function(o1, o2, key, keyName, isReverseCheck) {
         var result = [];
         var LOST = "LOST";
         var EMPTY_ARRAY = "EMPTY_ARRAY";
@@ -84,7 +90,7 @@
             }
         }
 
-        checkStructure(o1, o2, key, result);
+        checkStructure(o1, o2, keyName, result);
         this[key] = result;
     };
 
