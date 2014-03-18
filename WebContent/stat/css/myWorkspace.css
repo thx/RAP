@@ -377,12 +377,16 @@ body {
 }
 
 #div-control-panel {
-    float: right;
+    float: right; margin-right: 13px;
 }
 
 #div-control-panel .button {
     float: right;
     margin-left: 8px;
+}
+
+#div-control-panel .btn {
+	outline: none;
 }
 
 #div-return {
@@ -667,4 +671,20 @@ body .container {
 #div-workspace-search {
     position: relative;
     display: inline-block;
+    width: 300px;
+}
+
+#div-workspace-search .glyphicon-search {
+	position: absolute; right: 8px; top: 10px; color: #999;
+}
+#inputSearch {
+	padding-right: 25px;
+}
+
+#dropdown-workspace-search .dropdown-menu {
+	min-width: 300px; max-width: 600px;
+}
+
+#dropdown-workspace-search .dropdown-menu li {
+	overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }

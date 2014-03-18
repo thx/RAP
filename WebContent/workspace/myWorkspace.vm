@@ -17,7 +17,7 @@
                 </div>
                 <div id="div-control-panel">
                     <div id="div-workspace-search">
-                        <input type="text" id="inputSearch" placeholder="工作区搜索">
+                        <input type="text" id="inputSearch" class="form-control" placeholder="工作区搜索">
                         </input>
                         <span class="glyphicon glyphicon-search"></span>
                         <div class="dropdown clearfix" id="dropdown-workspace-search" style="display:none;">
@@ -36,11 +36,11 @@
                         <span class="glyphicon glyphicon-flash"></span>
                         一键保存
                     </button>
-                    <button id="btnSave" type="button" class="btn" onclick="ws.switchToViewMode(true); return false;"  style="display: none" title="点击该按钮将提交您所有的更改至服务器，同时解除项目锁定。">
+                    <button id="btnSave" type="button" class="btn btn-default" onclick="ws.switchToViewMode(true); return false;"  style="display: none" title="点击该按钮将提交您所有的更改至服务器，同时解除项目锁定。">
                         <span class="glyphicon glyphicon-floppy-disk"></span>
                         保存
                     </button>
-                    <button id="btnCancel" type="button" class="btn" onclick="ws.switchToViewMode(false); return false;"  style="display: none" title="点击该按钮将放弃您所有的更改，同时退出编辑模式，并解除项目锁定。">
+                    <button id="btnCancel" type="button" class="btn btn-default" onclick="ws.switchToViewMode(false); return false;"  style="display: none" title="点击该按钮将放弃您所有的更改，同时退出编辑模式，并解除项目锁定。">
                         <span class="glyphicon glyphicon-trash"></span>
                         取消
                     </button>
@@ -48,19 +48,19 @@
                         <span class="glyphicon glyphicon-pencil"></span>
                         编辑
                     </button>
-                    <button id="btnVersion" type="button" class="btn" onclick="ws.version(); return false;" title="点击进入版本管理，在这里您可以查看任何版本或将当前接口文档切换至某个特定版本。">
+                    <button id="btnVersion" type="button" class="btn btn-default" onclick="ws.version(); return false;" title="点击进入版本管理，在这里您可以查看任何版本或将当前接口文档切换至某个特定版本。">
                         <span class="glyphicon glyphicon-refresh"></span>
                         版本管理
                     </button>
-                    <button id="btnExitVersion" type="button" class="btn" onclick="ws.exitVersion(); return false;" style="display: none;" title="点击后将退出版本查看，回到观看前的场景。">
+                    <button id="btnExitVersion" type="button" class="btn btn-default" onclick="ws.exitVersion(); return false;" style="display: none;" title="点击后将退出版本查看，回到观看前的场景。">
                         <span class="glyphicon glyphicon-arrow-left"></span>
                         返回
                     </button>
-                    <button id="btnExport" type="button" class="btn" onclick="window.open('$!workspaceUrl.export?projectId=$!projectId')">
+                    <button id="btnExport" type="button" class="btn btn-default" onclick="window.open('$!workspaceUrl.export?projectId=$!projectId')">
                         <span class="glyphicon glyphicon-file"></span>
                         导出文档
                     </button>
-                    <button id="btnToggleMockDisplay" type="button" class="btn" onclick="ws.toggleMockDisplay();" title="为方便文档查看，默认MOCK标签（@mock）等信息是隐藏的，该按钮可以隐藏/显示文档中的MOCK数据信息。">
+                    <button id="btnToggleMockDisplay" type="button" class="btn btn-default" onclick="ws.toggleMockDisplay();" title="为方便文档查看，默认MOCK标签（@mock）等信息是隐藏的，该按钮可以隐藏/显示文档中的MOCK数据信息。">
                         <span class="glyphicon glyphicon-headphones"></span>
                         Mock
                     </button>
