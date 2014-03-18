@@ -2284,9 +2284,9 @@ if (!window.console) {
      */
     ws.toggleMockDisplay = function() {
         if (!_isMockDisplay) {
-            $('#btnToggleMockDisplay').addClass('btn-warning');
+            $('#btnToggleMockDisplay').addClass('btn-success');
         } else {
-            $('#btnToggleMockDisplay').removeClass('btn-warning');
+            $('#btnToggleMockDisplay').removeClass('btn-success');
         }
         var html = b.g('btnToggleMockDisplay').innerHTML;
         _isMockDisplay = !_isMockDisplay;
