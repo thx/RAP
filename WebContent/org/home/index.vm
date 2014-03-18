@@ -17,12 +17,27 @@
 		    	</div>
 		    </div>
 	    </div>
-	   
+<script type="text/mtpl" id="project-autocomplete-li">
+{{#projects}}
+	<li data-id="{{id}}">{{name}}</li>
+{{/projects}}		
+</script>
 <script type="text/tmpl" id="group-tmpl">
 {{#groups}}
 <div class="group">
     <h3>
         <span class="group-name"><i class="glyphicon glyphicon-{{type}}"></i> {{name}}</span>
+        {{#mine}}
+        <div class="search-project-con">
+        	<span class="glyphicon glyphicon-search"></span>
+        	<input type="text" class="project-search-inputer form-control" autofocus=true placeholder="请在此输入关键字搜索项目"/>
+        	<div class="project-autocomplete-con">
+        		<ul class="list-unstyled">
+
+        		</ul>
+        	</div>
+        </div>
+        {{/mine}}
     </h3>
     <div class="box-con clearfix">
 		{{#projects}}

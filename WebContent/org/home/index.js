@@ -235,15 +235,77 @@ $(function() {
 		}, "JSON");
 	}
 	
+	function bindSearchEvents() {
+		var con = $('.project-autocomplete-con');
+		function handler() {
+			var jqThis = $(this),
+				old = jqThis.data('oldValue'),
+				val = jqThis.val().trim();
+			if (old && old === val) {
+				con.show();
+				jqThis.data('searching', 0);
+				return;
+			}
+			if (old) {
+				jqThis.removeData('oldValue');
+			}
+			if (!jqThis.val().trim()) {
+				con.hide();
+				jqThis.data('searching', 0);
+				return;
+			}
+			if (jqThis.data('searching')) {
+				return;
+			}
+			jqThis.data('searching', 1);
+			
+			$.get($.route('org.project.search'), {key: val}, function(data) {
+				if (!jqThis.data('searching')) {
+					// 可能返回途中，就已经不需要这个数据了，比如：清空了input
+					return;
+				}
+				jqThis.data('searching', 0);
+				con.show();
+				//console.log(data);
+			}, 'JSON');
+		}
+		$('.project-search-inputer').focus(handler).keyup(handler).blur(function() {
+			var jqThis = $(this), val = jqThis.val().trim();
+			if (val) {
+				jqThis.data('oldValue', val);
+			}
+			con.hide();
+		})
+	}
+	
 	function render() {
 		var tmpl = $('#group-tmpl').text();
 		$.get($.route('org.home.projects'), {}, function(data) {
 			data.groups.forEach(function (group) {
 				group.name = NAME_MAP[group.type] || '其他';
+				if (group.type == 'user') {
+					group.mine = true;
+				}
 			});
 			var html = $.render(tmpl, data);
 			$(".groups").html(html);
+			$('.project-autocomplete-con ul').html($.render($('#project-autocomplete-li').text(), {
+				projects: [
+				    {id: '0', name: '一个牛逼的项目-0'},
+				    {id: '1', name: '一个牛逼的项目-1'},
+				    {id: '2', name: '一个牛逼的项目-2'},
+				    {id: '3', name: '一个牛逼的项目-3'},
+				    {id: '4', name: '一个牛逼的项目-4'},
+				    {id: '5', name: '一个牛逼的项目-5'},
+				    {id: '6', name: '一个牛逼的项目-6'},
+				    {id: '7', name: '一个牛逼的项目-7'},
+				    {id: '8', name: '一个牛逼的项目-8'},
+				    {id: '9', name: '一个牛逼的项目-9'}
+				]
+			}));
+			
 			bindEvents();
+			bindSearchEvents();
 		}, "JSON");
 	}
 	

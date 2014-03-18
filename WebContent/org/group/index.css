@@ -233,3 +233,30 @@
 .project-target .team {width: 30%; float: left;}
 .project-target .productline {width: 30%; float: left; margin-left: 10px;}
 .project-target .group {width: 30%; float: left; margin-left: 10px;}
+
+.project-autocomplete-con {
+	 width: 400px; font-size: 14px; position: absolute; left: 0; top: 35px; background-color: #FFF; border: 1px solid #CCC; z-index: 1000
+}
+.project-autocomplete-con ul {
+	margin-bottom: 0;
+}
+.project-autocomplete-con li {
+	cursor: pointer; padding: 6px 11px; line-height: 20px;
+}
+.project-autocomplete-con li:nth-child(odd) {
+	background-color: #F9F9F9;
+}
+.project-autocomplete-con li:hover {
+	background-color: #F2F2F2; 
+}
+.search-project-con {
+	width: 400px; display: inline-block; margin-left: 20px; position: relative;
+}
+
+.search-project-con .glyphicon-search {
+	position: absolute; 
+	font-size: 14px;
+	right: 8px;
+	top: 10px;
+	color: #CCC;
+}

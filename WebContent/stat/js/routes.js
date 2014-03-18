@@ -21,7 +21,8 @@
 			project: {
 				'create': '/project/create.action',
 				'delete': '/project/delete.action',
-				'update': '/project/update.action'
+				'update': '/project/update.action',
+				'search': '/project/search.action'
 			}, 
 			account: {
 				'all': '/account/all.action'
