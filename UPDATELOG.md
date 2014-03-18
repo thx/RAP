@@ -1,6 +1,6 @@
 ### rap v0.8.1 ###
 * [功能] 增加项目搜索功能。2014-03-18
-* [功能] 增加JSON结构对比，用以校验后端接口数据结构 2014-03-18
+* [功能] 增加JSON结构对比，用以校验后端接口数据结构。 2014-03-18
 * [功能] 我的主页增加直接创建项目。 2014-03-18
 * [功能] 对MockJS插件支持host配置(函数调用、参数传参host=xxx两种方式）。2014-03-17
 * [优化] 修改urlrewrite方式，createRule.action/createMockjsData.action等redirect URL对用户隐藏，不再使用redirect，改用forward。 2014-03-17

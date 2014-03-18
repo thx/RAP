@@ -10,13 +10,13 @@
             <link type="text/css" rel="stylesheet" href="${staticRoot}/css/pageTester.css?_r=$!timeStamp" />
             <script src="http://a.tbcdn.cn/??s/yui/3.6.0/build/yui/yui-min.js"></script>
             <script src="${staticRoot}/js/util/jsformat.js"></script>
-             <script src="${staticRoot}/js/util/structureValidator.js"></script>
+            <script src="${staticRoot}/js/util/structureValidator.js"></script>
             <script src="http://mockjs.com/dist/mock-min.js"></script>
         </head>
         <body>
         <h3>$!utils.escapeInH($page.name)控制台</h3>
         <div id="divRootSetting">
-            <input id="txtRootPath" type="text" style="width:500px;" value="rap.alibaba-inc.com$!projectContext/mockjs/$!projectId"></input>
+            <input id="txtRootPath" type="text" style="width:500px;" value=""></input>
             <span style="color:#666;">* 根路径设置</span>
         </div>
         <div id="divActionList" class="demo tabs">
@@ -24,7 +24,7 @@
             #foreach($action in $page.actionList)
                 <li><a href="#">$!utils.escapeInH($action.name)</a></li>
             #end
-            <!-- 
+            <!--
                 <li><a href="#">MODIFY</a></li>
                 <li><a href="#">RESET</a></li>
                  -->
@@ -75,6 +75,18 @@
         </div>
         <div class="bottom">&nbsp;</div>
         <script>
+
+            if (!window.console) {
+                window.console = {
+                    log : function() {},
+                    warn : function() {},
+                    err : function() {}
+                };
+            }
+
+            var RAP_ROOT = 'rap.alibaba-inc.com$!projectContext/mockjs/$!projectId';
+            document.getElementById("txtRootPath").value = RAP_ROOT;
+
             YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify', function (Y) {
                 var source = Y.one("#resBoard-template"),
                     TResBoard = Y.Handlebars.compile(source),
@@ -96,6 +108,8 @@
                         var i       = 0;
                         var fields  = form.all('.field');
                         var baseUrl = Y.one('#txtRootPath').get('value');
+                        var baseUrlOrigin = Y.one('#txtRootPath').get('value');
+                        var rapUrl  = RAP_ROOT;
                         var path    = form.getAttribute('path');
 
                         if (~path.indexOf('http')) {
@@ -108,6 +122,7 @@
                         }
 
                         baseUrl += path;
+                        rapUrl += path;
                         fields.each(function(field) {
                             var name = field.get('name'),
                                 value = field.get('value');
@@ -117,13 +132,74 @@
                         if (!~baseUrl.indexOf('http://')) {
                             baseUrl = "http://" + baseUrl;
                         }
+                        if (!~rapUrl.indexOf('http://')) {
+                            rapUrl = "http://" + rapUrl;
+                        }
+
                         url = baseUrl + '?' + qArr.join('&');
                         log('request starting, url=' + color(url, LIGHT_GRAY));
                         Y.timeLog['time'] = new Date().getTime();
                         try {
                             Y.jsonp(url, {
                                 on : {
-                                    success : testResHandler,
+                                    success : function() {
+                                        var realData = testResHandler.apply(this, arguments);
+                                        if (RAP_ROOT != baseUrlOrigin) {
+                                            Y.jsonp(rapUrl, {
+                                                on : {
+                                                    success : function(response) {
+
+                                                        function validatorResultLog(item, isReverse) {
+                                                            var LOST = "LOST";
+                                                            var EMPTY_ARRAY = "EMPTY_ARRAY";
+                                                            var TYPE_NOT_EQUAL = "TYPE_NOT_EQUAL";
+                                                            var eventName;
+                                                            if (item.type === LOST) {
+                                                                eventName = isReverse ? '未在接口文档中未定义。' : '缺失';
+                                                            } else if (item.type = EMPTY_ARRAY) {
+                                                                eventName = '数组为空，无法判断其内部的结构。';
+                                                                return; // 暂时忽略此种情况
+                                                            } else if (item.type = TYPE_NOT_EQUAL) {
+                                                                eventName = '数据类型与接口文档中的定义不符';
+                                                            }
+
+                                                            log('参数 ' + color(item.namespace + "." + item.property, RED) + ' ' + eventName, ERROR);
+
+                                                        }
+                                                        var jsonString = Y.JSON.stringify(response);
+                                                        var path = Y.one('#txtRootPath').get('value');
+                                                        var obj = eval("(" + jsonString + ")");
+
+                                                        if (path.indexOf('mockjs') != -1) {
+                                                            obj = Mock.mock(obj);
+                                                        }
+
+                                                        var validator = new StructureValidator(realData, obj);
+                                                        var result = validator.getResult();
+                                                        var realDataResult = result.left;
+                                                        var rapDataResult = result.right;
+                                                        var i;
+
+                                                        for (i = 0; i < realDataResult.length; i++) {
+                                                            validatorResultLog(realDataResult[i], '真实数据');
+                                                        }
+                                                        for (i = 0; i < rapDataResult.length; i++) {
+                                                            validatorResultLog(rapDataResult[i], '模拟数据', true);
+                                                        }
+
+                                                        //log('parameter [' + color(key, RED) + '] lost!', ERROR);
+                                                    },
+                                                    timeout : function() {
+                                                        log(color('timeout', RED) + '... so long time to response!');
+                                                    },
+                                                    failure : function(e) {
+                                                        console.log(color('error occurred!', RED) + color(', detail:' + e.errors[0].error, LIGHT_GRAY));
+                                                    }
+                                                },
+                                                timeout : 10000
+                                            });
+                                        }
+                                    },
                                     timeout : function() {
                                         log(color('timeout', RED) + '... so long time to response!');
                                     },
@@ -222,19 +298,7 @@
                         return
                     };
 
-                    // JSON format validating ...
-                    var paramIdList = form.one('.paramIdList').get('value').split(','),
-                        i, key,
-                        n = paramIdList.length;
-                    for (i = 0; i < n; i++) {
-                        key = paramIdList[i];
-                        if (key && key.indexOf('|') !== -1) {
-                            key = key.substring(0, key.indexOf('|'));
-                        }
-                        if (!~jsonString.indexOf(key)) {
-                            log('parameter [' + color(key, RED) + '] lost!', ERROR);
-                        }
-                    }
+                    return obj;
                 }
 
                 function log(msg, type) {
