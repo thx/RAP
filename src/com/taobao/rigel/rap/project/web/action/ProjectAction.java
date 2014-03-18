@@ -25,6 +25,22 @@ public class ProjectAction extends ActionBase {
 
 	private int id;
 
+	private List<Project> searchResult;
+
+	public List<Project> getSearchResult() {
+		return searchResult;
+	}
+
+	private String key;
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
 	public int getId() {
 		return this.id;
 	}
@@ -34,7 +50,7 @@ public class ProjectAction extends ActionBase {
 	}
 
 	private String desc;
-	
+
 	private int groupId;
 
 	public int getGroupId() {
@@ -56,7 +72,8 @@ public class ProjectAction extends ActionBase {
 	}
 
 	public String getAccounts() {
-		if (accounts == null) return "";
+		if (accounts == null)
+			return "";
 		return accounts;
 	}
 
@@ -271,29 +288,29 @@ public class ProjectAction extends ActionBase {
 
 	private String updateProject() {
 		if (!isUserLogined())
-            return LOGIN;
-        if (!getCurUser().canManageProject(getId())) {
-            setErrMsg("您没有管理该项目的权限");
-            return ERROR;
-        }
-        Project project = new Project();
-        project.setId(getId());
-        project.setIntroduction(getIntroduction());
-        project.setName(getName());
+			return LOGIN;
+		if (!getCurUser().canManageProject(getId())) {
+			setErrMsg("您没有管理该项目的权限");
+			return ERROR;
+		}
+		Project project = new Project();
+		project.setId(getId());
+		project.setIntroduction(getIntroduction());
+		project.setName(getName());
 
-        List<String> memberAccountList = new ArrayList<String>();
-        String[] list = getMemberAccountListStr().split(",");
-        // format: mashengbo(大灰狼堡森), linpanhui(林攀辉),
-        for (String item : list) {
- 
-            String account = item.contains("(") ? item.substring(0,
-                    item.indexOf("(")).trim() : item.trim();
-            if (!account.equals(""))
-                memberAccountList.add(account);
-        }
-        project.setMemberAccountList(memberAccountList);
-        projectMgr.updateProject(project);
-        return myProjectList(); 
+		List<String> memberAccountList = new ArrayList<String>();
+		String[] list = getMemberAccountListStr().split(",");
+		// format: mashengbo(大灰狼堡森), linpanhui(林攀辉),
+		for (String item : list) {
+
+			String account = item.contains("(") ? item.substring(0,
+					item.indexOf("(")).trim() : item.trim();
+			if (!account.equals(""))
+				memberAccountList.add(account);
+		}
+		project.setMemberAccountList(memberAccountList);
+		projectMgr.updateProject(project);
+		return myProjectList();
 	}
 
 	public String update() {
@@ -321,11 +338,12 @@ public class ProjectAction extends ActionBase {
 		project.setMemberAccountList(memberAccountList);
 		projectMgr.updateProject(project);
 		project = projectMgr.getProject(project.getId());
-		
-		if (getCurUser().isUserInRole("admin") || getCurUser().getId() == project.getUser().getId()) {
+
+		if (getCurUser().isUserInRole("admin")
+				|| getCurUser().getId() == project.getUser().getId()) {
 			project.setIsManagable(true);
-		} 
-		
+		}
+
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("id", project.getId());
 		result.put("name", project.getName());
@@ -416,6 +434,20 @@ public class ProjectAction extends ActionBase {
 
 	public String getGeneratedFileName() {
 		return projectMgr.getPage(getPageId()).getTemplate();
+	}
+
+	public String search() {
+		searchResult = projectMgr.search(key);
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		for (Project p : searchResult) {
+			Map<String, Object> item = new HashMap<String, Object>();
+			item.put("id", p.getId());
+			item.put("name", p.getName());
+			list.add(item);
+		}
+		Gson gson = new Gson();
+		setJson(gson.toJson(list));
+		return SUCCESS;
 	}
 
 }

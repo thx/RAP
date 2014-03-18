@@ -115,4 +115,12 @@ public interface ProjectDao {
 	 * @return
 	 */
 	List<Project> getProjectListByGroup(int id);
+
+	/**
+	 * project search
+	 * 
+	 * @param key
+	 * @return
+	 */
+	List<Project> search(String key);
 }

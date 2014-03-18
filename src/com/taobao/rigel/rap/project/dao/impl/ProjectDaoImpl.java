@@ -377,4 +377,13 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		query.setInteger("id", id);
 		return query.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Project> search(String key) {
+		String hql = "from Project where name LIKE :key";
+		Query query = getSession().createQuery(hql);
+		query.setString("key", "%" + key + "%");
+		return query.list();
+	}
 }
