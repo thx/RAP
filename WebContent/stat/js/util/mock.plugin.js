@@ -84,8 +84,77 @@
 		 */
         if (window.KISSY) {
             KISSY.oldUse = KISSY.use;
+            KISSY.oldAdd = KISSY.add;
+            
+            KISSY.add('rap_io', function(S, IO) {
+            	var fn = KISSY.io = KISSY.IO = KISSY.ajax = function(options) {
+                    var oOptions, url;
+                    var oldSuccess;
+                    if (arguments[0]) {
+                        oOptions = arguments[0];
+                        url = oOptions.url;
+                        if (route(url) && !oOptions.RAP_NOT_TRACK) {
+                            oOptions.type = "get";
+                            oOptions.jsonp = '_c';
+                            oOptions.dataType = 'jsonp';
+                            if (url.indexOf('http://') > -1) {
+                                url = url.substring(url.indexOf('/', 7) + 1);
+                            } else if (url.indexOf('https://') > -1) {
+                                url = url.substring(url.indexOf('/', 8) + 1);
+                            }
+                            if (url.charAt(0) != '/') {
+                                url = '/' + url;
+                            }
+                            url = "http://" + ROOT + "/mockjs/" + projectId + url;
+                            oOptions.url = url;
+                            var oldSuccess = oOptions.success;
+                            oOptions.success = function(data) {
+                                data = Mock.mock(data);
+                                oldSuccess.apply(this, arguments);
+                            };
+                        } else {
+                            if (!oOptions.RAP_NOT_TRACK) {
+                                // real data checking
+                                oldSuccess = oOptions.success;
+                                oOptions.success = function() {
+                                    var realData = arguments[0];
+                                    KISSY.IO({
+                                        url : url,
+                                        dataType : 'jsonp',
+                                        jsonp : '_c',
+                                        RAP_NOT_TRACK : true,
+                                        success : function(mockData) {
+                                            var validator = new StructureValidator(realData, mockData);
+                                            var result = validator.getResult();
+                                            var realDataResult = result.left;
+                                            var rapDataResult = result.right;
+                                            var i;
 
-            function getIOIndex(modules) {
+                                            if (realDataResult.length === 0 && rapDataResult.length === 0) {
+                                                console.log('接口结构校验完毕，未发现问题。');
+                                            } else {
+                                                for (i = 0; i < realDataResult.length; i++) {
+                                                    validatorResultLog(realDataResult[i]);
+                                                }
+                                                for (i = 0; i < rapDataResult.length; i++) {
+                                                    validatorResultLog(rapDataResult[i], true);
+                                                }
+                                            }
+                                        }
+                                    });
+                                    oldSuccess.apply(this,arguments);
+                                };
+                            }
+                        }
+                    }
+                    IO.apply(this, arguments);
+                }
+            	return fn;
+            }, {
+            	requires: ['io']
+            });
+            
+            function replace(modules) {
                 var splited = modules;
                 if (KISSY.isString(modules)) {
                     splited = modules.split(',')
@@ -94,113 +163,33 @@
                 for (var i = 0, l = splited.length; i < l; i++) {
                     var name = KISSY.trim(splited[i]).toLowerCase();
                     if (name === 'ajax' || name === 'io') {
-                        index = i;
-                        break;
+                        splited[i] = 'rap_io'
                     } 
                 };
-                return index;
-            }
-
-            function buildRealCallback(ioIndex, oldCallback) {
-                return function() {
-                    var that = this;
-                    var oldIO = arguments[ioIndex];
-                    arguments[ioIndex] = KISSY.IO = KISSY.io = KISSY.ajax = function(options) {
-                        var oOptions, url;
-                        var oldSuccess;
-                        if (arguments[0]) {
-                            oOptions = arguments[0];
-                            url = oOptions.url;
-                            if (route(url) && !oOptions.RAP_NOT_TRACK) {
-                                oOptions.type = "get";
-                                oOptions.jsonp = '_c';
-                                oOptions.dataType = 'jsonp';
-                                if (url.indexOf('http://') > -1) {
-                                    url = url.substring(url.indexOf('/', 7) + 1);
-                                } else if (url.indexOf('https://') > -1) {
-                                    url = url.substring(url.indexOf('/', 8) + 1);
-                                }
-                                if (url.charAt(0) != '/') {
-                                    url = '/' + url;
-                                }
-                                url = "http://" + ROOT + "/mockjs/" + projectId + url;
-                                oOptions.url = url;
-                                var oldSuccess = oOptions.success;
-                                oOptions.success = function(data) {
-                                    data = Mock.mock(data);
-                                    oldSuccess.apply(this, arguments);
-                                };
-                            } else {
-                                if (!oOptions.RAP_NOT_TRACK) {
-                                    // real data checking
-                                    oldSuccess = oOptions.success;
-                                    oOptions.success = function() {
-                                        var realData = arguments[0];
-                                        KISSY.IO({
-                                            url : url,
-                                            dataType : 'jsonp',
-                                            jsonp : '_c',
-                                            RAP_NOT_TRACK : true,
-                                            success : function(mockData) {
-                                                var validator = new StructureValidator(realData, mockData);
-                                                var result = validator.getResult();
-                                                var realDataResult = result.left;
-                                                var rapDataResult = result.right;
-                                                var i;
-
-                                                if (realDataResult.length === 0 && rapDataResult.length === 0) {
-                                                    console.log('接口结构校验完毕，未发现问题。');
-                                                } else {
-                                                    for (i = 0; i < realDataResult.length; i++) {
-                                                        validatorResultLog(realDataResult[i]);
-                                                    }
-                                                    for (i = 0; i < rapDataResult.length; i++) {
-                                                        validatorResultLog(rapDataResult[i], true);
-                                                    }
-                                                }
-                                            }
-                                        });
-                                        oldSuccess.apply(this,arguments);
-                                    };
-                                }
-                            }
-                        }
-                        oldIO.apply(that, arguments);
-                    }
-                    oldCallback.apply(this, arguments);
-                }
+                return splited.join(',');
             }
 
             KISSY.use = function(modules, callback) {
-                var ioIndex = getIOIndex(modules);
-                if (ioIndex == -1) {
-                	KISSY.oldUse.apply(this, arguments);
-                	return;
-                }
-                ioIndex++;
-
-                var callbackIndex = arguments.length - 1;
-
-                var oldCallback = originCallback = arguments[callbackIndex];
-
-                if (KISSY.isObject(originCallback)) {
-                    oldCallback = originCallback.success;
-                }
-
-                var realCallback = buildRealCallback(ioIndex, oldCallback);
-
-                if (KISSY.isObject(originCallback)) {
-                    originCallback.success = realCallback;
-                    arguments[callbackIndex] = originCallback;
-                } else {
-                    arguments[callbackIndex] = realCallback;
-                }
-
+                arguments[0] = replace(modules);
                 KISSY.oldUse.apply(this, arguments);
             };
+            
+            KISSY.add = function(name, fn, options) {
+            	if (options && options.requires) {
+            		
+            		for(var i = 0, l = options.requires.length; i < l; i++) {
+            			var current = options.requires[i].toLowerCase();
+
+            			if (current == 'io' || current == 'ajax') {
+            				options.requires[i] = 'rap_io';
+            			}
+            		}
+            	}
+            	
+            	KISSY.oldAdd.apply(this, arguments);
+            };
+            
         }
-
-
 
     }
 

@@ -22,3 +22,25 @@ test('without io: KISSY.use("node", function(S, A) {})', function() {
 		ok(S.config, 'still has S.config');
 	});
 })
+
+test('KISSY.add using IO', function() {
+	stop();
+	KISSY.add('tester/module', function(S, Node, IO) {
+		ok(KISSY.io != undefined, 'got KISSY.io');
+		ok(KISSY.ajax != undefined, 'got KISSY.ajax');
+		ok(KISSY.IO != undefined, 'got KISSY.IO');
+		
+		IO({
+	        url: '/base',
+	        dataType:'json',
+	        success: function(data) {
+	        	equal(data.a, 1, 'get data ok');
+	        	start();
+	        }
+		})
+	}, {requires: ['node', 'io']})
+	
+	KISSY.use('tester/module', function(S, A) {
+		
+	})
+})

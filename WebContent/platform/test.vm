@@ -10,10 +10,10 @@
 	<body>
 	    #bodyNewStart
         <div id="container">
-            <h1 id="qunit-header">RAP自动化测试套件<span style="font-size:14px; margin-left:10px;">（如果测试不通过，请保留现场，并告知 @霍雍 or @思竹，多谢~）</span></h1>  
-    		<h2 id="qunit-banner"></h2>  
-    		<div id="qunit-testrunner-toolbar"></div>  
-    		<h2 id="qunit-userAgent"></h2>  
+            <h1 id="qunit-header">RAP自动化测试套件<span style="font-size:14px; margin-left:10px;">（如果测试不通过，请保留现场，并告知 @思竹 or @霍雍，多谢~）</span></h1>  
+    		<h2 id="qunit-banner"></h2>
+    		<div id="qunit-testrunner-toolbar"></div>
+    		<h2 id="qunit-userAgent"></h2>
     		<ol id="qunit-tests"></ol>
         </div>
         <script src="../stat/qunit/qunit.js?_r=$!timeStamp"></script>
@@ -25,6 +25,7 @@
         </script>
         <script src="/rap.plugin.js?projectId=114"></script>
         <script>
+        	jQuery.rapAjax = jQuery.ajax;
         	jQuery.ajax = jQuery.oldAjax;
         </script>
         <script src="../unit-tests/index.js?_r=$!timeStamp"></script>
