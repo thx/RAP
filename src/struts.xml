@@ -7,6 +7,7 @@
 
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.action.extension" value="action,do" />
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
 	<package name="rap-default" extends="struts-default">
 		<result-types>
 			<result-type name="rapVelocityResult" default="true"

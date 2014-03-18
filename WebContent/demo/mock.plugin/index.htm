@@ -7,7 +7,7 @@
 <!-- 引入RAP开始 -->
 <div id="rap"></div>
 <script type="text/javascript"
-	src="http://etaoux-bj.taobao.ali.com:8080/rap.plugin.js?projectId=79&mode=1"></script>
+	src="http://etaoux-bj.taobao.ali.com:8080/rap.plugin.js?projectId=79&mode=0"></script>
 <!-- 引入RAP结束 -->
 <script src="jquery-2.0.3.min.js"></script>
 </head>
@@ -19,8 +19,8 @@
 		KISSY.use([ 'node', 'io' ], {
 			success : function(S, Node, IO) {
 				IO({
-					url : '/complexCase.do',
-					dataType : 'json',
+					url : '/mockjs/79/complexCase.do',
+					dataType : 'jsonp',
 					success : function(data) {
 						console.log(data);
 						Node.one('#container').html(
