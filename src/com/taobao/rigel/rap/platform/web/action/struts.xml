@@ -18,6 +18,9 @@
         </action>    
           <action name="help" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="help">
         	<result name="success" type="velocity">/platform/help.vm</result>
-        </action>  
+        </action>
+        <action name="test" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="test">
+        	<result name="success" type="velocity">/platform/test.vm</result>
+        </action>
 	</package>
 </struts>

@@ -38,6 +38,10 @@ public class PlatformAction extends ActionBase {
 	public String status() {
 		return SUCCESS;
 	}
+	
+	public String test() {
+		return SUCCESS;
+	}
 
 	public String help() throws IOException {
 		FileInputStream inputStream = new FileInputStream(SystemConstant.README_PATH);
