@@ -1,5 +1,29 @@
 module('rap-plugin-base');
 
+test('KISSY.use("rap_io"), to see KISSY.io|KISSY.IO|KISSY.ajax', function() {
+	stop();
+	action = '/base';
+	KISSY.use('rap_io', function(S, IO) {
+		ok(KISSY.io != undefined, 'got KISSY.io');
+		ok(KISSY.ajax != undefined, 'got KISSY.ajax');
+		ok(KISSY.IO != undefined, 'got KISSY.IO');
+		
+		ok(KISSY.io == IO, 'KISSY.io is rap_io');
+		ok(KISSY.ajax == IO, 'KISSY.io is rap_io');
+		ok(KISSY.IO == IO, 'KISSY.io is rap_io');
+		
+		IO({
+	        url: action,
+	        dataType:'json',
+	        success: function(data) {
+	        	equal(data.a, 1, 'get data ok by KISSY.use("io")');
+	        	start();
+	        }
+		})
+	})
+})
+
+
 test('get data from KISSY.use("io")', function() {
 	stop();
 	action = '/base';

@@ -189,6 +189,10 @@
             	KISSY.oldAdd.apply(this, arguments);
             };
             
+            if (KISSY.IO || KISSY.io || KISSY.ajax) {
+            	KISSY.use('rap_io', function() {});
+            }
+            
         }
 
     }
