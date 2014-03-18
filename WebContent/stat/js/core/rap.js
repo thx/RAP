@@ -3127,13 +3127,13 @@ if (!window.console) {
                 f2 = f[0];
                 if (typeof f2 === 'string') {
                     param.dataType = 'array<string>';
-                    param.remark = '@value=' + f;
+                    param.remark = '@mock=' + f;
                 } else if (typeof f2 === 'number') {
                     param.dataType = 'array<number>';
-                    param.remark = '@value=' + f;
+                    param.remark = '@mock=' + f;
                 } else if (typeof f2 === 'boolean') {
                     param.dataType = 'array<boolean>';
-                    param.remark = '@value=' + f;
+                    param.remark = '@mock=' + f;
                 } else if (f !== null && typeof f2 === 'object') {
                     param.dataType = 'array<object>';
                     for (key in item) {
@@ -3144,17 +3144,17 @@ if (!window.console) {
         } else if (typeof f === 'string') {
             if(param) {
                 param.dataType = 'string';
-                param.remark = '@value=' + f;
+                param.remark = '@mock=' + f;
             }
         } else if (typeof f === 'number') {
             if(param) {
                 param.dataType = 'number';
-                param.remark = '@value=' + f;
+                param.remark = '@mock=' + f;
             }
         } else if (typeof f === 'boolean') {
             if(param) {
                 param.dataType = 'boolean';
-                param.remark = '@value=' + f;
+                param.remark = '@mock=' + f;
             }
         } else if (typeof f === 'undefined') {
         } else if (f === null) {

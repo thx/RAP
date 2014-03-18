@@ -184,10 +184,8 @@
                                                             validatorResultLog(realDataResult[i]);
                                                         }
                                                         for (i = 0; i < rapDataResult.length; i++) {
-                                                            validatorResultLog(rapDataResult[i], 'true);
+                                                            validatorResultLog(rapDataResult[i], true);
                                                         }
-
-                                                        //log('parameter [' + color(key, RED) + '] lost!', ERROR);
                                                     },
                                                     timeout : function() {
                                                         log(color('timeout', RED) + '... so long time to response!');
