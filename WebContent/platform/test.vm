@@ -10,7 +10,7 @@
 	<body>
 	    #bodyNewStart
         <div id="container">
-            <h1 id="qunit-header">RAP自动化测试套件（如果测试不通过，请告知 @霍雍 or @思竹，多谢~）</h1>  
+            <h1 id="qunit-header">RAP自动化测试套件<span style="font-size:12px;">（如果测试不通过，请请保留现场，并告知 @霍雍 or @思竹，多谢~）</span></h1>  
     		<h2 id="qunit-banner"></h2>  
     		<div id="qunit-testrunner-toolbar"></div>  
     		<h2 id="qunit-userAgent"></h2>  
