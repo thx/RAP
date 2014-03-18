@@ -682,9 +682,9 @@ body .container {
 }
 
 #dropdown-workspace-search .dropdown-menu {
-	min-width: 300px; max-width: 600px;
+	min-width: 300px; max-width: 687px;
 }
 
-#dropdown-workspace-search .dropdown-menu li {
+#dropdown-workspace-search .dropdown-menu li a {
 	overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
