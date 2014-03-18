@@ -73,7 +73,7 @@
                     } else if (isArrayObject(oa[p]) && isArrayObject(ob[p])) {
                         l = oa[p][0];
                         r = ob[p][0];
-                        if (l && r) {
+                        if (l && r && isObject(l) && isObject(r)) {
                             checkStructure(l, r, ns + '.' + p + '[0]');
                         } else if (l && !r) {
                             result.push({
@@ -120,6 +120,6 @@
         console.dir(validator.getResult());
     }
 
-    tester();
+    //tester();
 
 }();
