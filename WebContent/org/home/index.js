@@ -263,7 +263,7 @@ $(function() {
 			}
 			jqThis.data('searching', 1);
 			
-			$.get($.route('org.project.search'), {key: val}, function(data) {
+			$.post($.route('org.project.search'), {key: val}, function(data) {
 				if (!jqThis.data('searching')) {
 					// 可能返回途中，就已经不需要这个数据了，比如：清空了input
 					return;
