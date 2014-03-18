@@ -33,7 +33,7 @@
 		</init-param>
 		<init-param>
 			<param-name>EXCLUSIONS</param-name>
-			<param-value>*/stat/*,*/favicon.ico,/t/*,/crossdomain.xml,/*.htm,/*.html,*.md,*/mock/*,*/mockjs/*</param-value>
+			<param-value>*/stat/*,*/favicon.ico,/t/*,/crossdomain.xml,/*.htm,/*.html,*.md,*/mock/*,*/mockjs/*,*/mockjsdata/*,/rap.plugin.js</param-value>
 		</init-param>
 	</filter>
 	<filter>
