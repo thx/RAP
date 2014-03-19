@@ -128,7 +128,9 @@ public class MockMgrImpl implements MockMgr {
 	
 	@Override
 	public String generateRuleData(int projectId, String pattern) {
-		runner = new MockjsRunner();
+		if (runner == null) {
+			runner = new MockjsRunner();
+		}
 		String result = generateRule(projectId, pattern);
 		return runner.renderMockJsRule(result);
 	}
