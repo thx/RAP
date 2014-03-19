@@ -1,6 +1,6 @@
 module('get-mockjs-rule');
 
-test('jQuery: get mockjs rule from host by /mockjs/projectId/action', function() {
+test('jQuery - getMockjsRule - /mockjs/projectId/action', function() {
 	stop();
 	$.ajax({  
         type : "get",  
@@ -17,21 +17,23 @@ test('jQuery: get mockjs rule from host by /mockjs/projectId/action', function()
     });  
 });
 
-test('jQuery.ajax(replaced by RAP) - getMockjsData - data rendered in plugin by Mock.mock, Action:/mockjs/base', function() {
+
+test('KISSY - getMockjsRule - /mockjs/projectId/action', function() {
 	stop();
-	equal(RAP.getPrefix(), '/mockjs/', 'PREFIX is /mockjs/');
-	$.rapAjax({  
-        type : "get",  
-        url : "/mockjs/base",  
-        dataType : "jsonp",
-        jsonp: "callback",
-        success : function(data){
-        	console.log(data);
-        	start();
-        	ok('a' in data, 'mockjs : a is in data');
-        	ok(KISSY.isNumber(data['a']), 'and dataType is number');
-        },  
-        error:function(){  
-        }  
-    });  
+	var base = '/mockjs/114/mockjs/base';
+	KISSY.oldUse('io', function(S, IO) {
+		IO({
+			type : "get",  
+	        url : base,  
+	        dataType : "jsonp",
+	        jsonp: "callback",
+	        success : function(data){
+	        	start();
+	        	ok('a|1-10' in data, 'mockjs rule: a|1-10 is in data');
+	        	ok(KISSY.isNumber(data['a|1-10']), 'and dataType is number');
+	        },  
+	        error:function(){  
+	        }  
+		})
+	});
 });
