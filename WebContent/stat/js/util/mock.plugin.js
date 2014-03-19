@@ -6,8 +6,10 @@
     var whiteList = [#foreach($url in $urlList)#if($velocityCount>1),#end"$url"#end];
     var ROOT = 'rap.alibaba-inc.com';
     var LOST = "LOST";
+    var PREFIX = "/mockjs/";
     var EMPTY_ARRAY = "EMPTY_ARRAY";
     var TYPE_NOT_EQUAL = "TYPE_NOT_EQUAL";
+    
     /**
 	 * mode value range: 0-disabled 1-intercept all requests 2-black list
 	 * strategy 3-white list strategy
@@ -71,7 +73,7 @@
                     if (url.charAt(0) != '/') {
                         url = '/' + url;
                     }
-                    url = "http://" + ROOT + "/mockjs/" + projectId + url;
+                    url = "http://" + ROOT + PREFIX + projectId + url;
                     oOptions.url = url;
                 }
                 ajax.apply(this, arguments);
@@ -105,7 +107,7 @@
                             if (url.charAt(0) != '/') {
                                 url = '/' + url;
                             }
-                            url = "http://" + ROOT + "/mockjs/" + projectId + url;
+                            url = "http://" + ROOT + PREFIX + projectId + url;
                             oOptions.url = url;
                             var oldSuccess = oOptions.success;
                             oOptions.success = function(data) {
@@ -295,6 +297,15 @@
         },
         setHost : function(h) {
         	ROOT = h;
+        },
+        getHost : function() {
+        	return ROOT;
+        },
+        setPrefix: function(p) {
+        	PREFIX = p;
+        },
+        getPrefix: function(p) {
+        	return PREFIX;
         }
     };
 })();
