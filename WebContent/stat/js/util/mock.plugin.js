@@ -347,13 +347,13 @@
      * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
      */
     function rapUrlConverterKissy(options) {
+    	var url = options.url;
         if (!options || typeof options !== 'object') {
             throw Error('illegal option object:' + options);
         }
         options.type = "get";
         options.jsonp = '_c';
         options.dataType = 'jsonp';
-        var url = options.url;
         url = convertUrlToRelative(url);
         url = "http://" + ROOT + PREFIX + projectId + url;
         options.url = url;
@@ -365,6 +365,7 @@
      * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
      */
     function rapUrlConverterJQuery(options) {
+    	var url = options.url;
         if (!options || typeof options !== 'object') {
             throw Error('illegal option object:' + options);
         }
