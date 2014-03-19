@@ -1278,7 +1278,7 @@ if (!window.console) {
             _data.projectDataOriginal = b.object.clone(_data.projectData);
 
         } catch(e) {
-            showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
+            showMessage(CONST.ERROR, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
         }
         b.dom.ready(function () {
 
@@ -1677,7 +1677,7 @@ if (!window.console) {
                 bind(true);
                 showMessage(CONST.LOAD, ELEMENT_ID.CHECKIN_PANEL_MESSAGE, MESSAGE.PROCESSED);
             } catch(e) {
-                showMessage(CONST.WARN, ELEMENT_ID.CHECKIN_PANEL_MESSAGE, MESSAGE.FATAL_ERROR);
+                showMessage(CONST.ERROR, ELEMENT_ID.CHECKIN_PANEL_MESSAGE, MESSAGE.FATAL_ERROR);
             } finally {
                 processed();
             }
@@ -1865,7 +1865,7 @@ if (!window.console) {
             this.switchA(_curActionId);
             this.cancelImportJSON();
          } catch (e) {
-            showMessage(CONST.WARN, ELEMENT_ID.IMPORT_JSON_MESSAGE, 'JSON解析错误: ' + e.message);
+            showMessage(CONST.ERROR, ELEMENT_ID.IMPORT_JSON_MESSAGE, 'JSON解析错误: ' + e.message);
          }
      };
 
@@ -2070,7 +2070,7 @@ if (!window.console) {
                     showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, obj.errMsg);
                 }
             } catch(e) {
-                showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
+                showMessage(CONST.ERROR, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
             } finally {
                 processed();
             }
@@ -2918,23 +2918,26 @@ if (!window.console) {
         var ele = b.g(containerId);
         if (ele === null) return;
 
-    // clear styles
-    var arr = ['label-success', 'label-warning', 'label-important', 'label-info', 'label-inverse'],
-        n = arr.length,
-        i = 0;
-    for (; i < n; i++) {
-        b.dom.hasClass(ele, arr[i]) && b.dom.removeClass(ele, arr[i]);
-    }
+        // clear styles
+        var arr = ['label-success', 'label-warning', 'label-important', 'label-info', 'label-inverse'],
+            n = arr.length,
+            i = 0;
+        for (; i < n; i++) {
+            b.dom.hasClass(ele, arr[i]) && b.dom.removeClass(ele, arr[i]);
+        }
 
         switch (type) {
             case CONST.WARN:
-        b.dom.addClass(ele, 'label-important');
+                b.dom.addClass(ele, 'label-warning');
                 break;
             case CONST.LOADING:
-        b.dom.addClass(ele, 'label-info');
+                b.dom.addClass(ele, 'label-info');
                 break;
             case CONST.LOAD:
-        b.dom.addClass(ele, 'label-success');
+                b.dom.addClass(ele, 'label-success');
+                break;
+            case CONST.ERROR:
+                b.dom.addClass(ele, 'label-danger');
                 break;
             default:
                 break;
