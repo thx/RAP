@@ -4,12 +4,15 @@
 <meta charset="utf-8" />
 <title>RAP Example</title>
 <script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script> -->
+<!-- <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> -->
 <!-- 引入RAP开始 -->
 <div id="rap"></div>
+<!-- <script type="text/javascript"
+	src="http://rap.alibaba-inc.com/rap.plugin.js?projectId=79"></script> -->
 <script type="text/javascript"
-	src="http://rap.alibaba-inc.com/rap.plugin.js?projectId=79"></script>
+	src="http://etaoux-bj.taobao.ali.com:8080/rap.plugin.js?projectId=79&mode=0"></script>
 <!-- 引入RAP结束 -->
-<script src="jquery-2.0.3.min.js"></script>
 </head>
 <body>
 	<pre id="container">
@@ -17,31 +20,41 @@
 
 	<script>
 		var url = 'complexCase.do';
-		/**
+		 
 		KISSY.use([ 'node', 'io' ], {
 			success : function(S, Node, IO) {
 				IO({
-					url : '/mockjs/79/.do',
-					dataType : 'jsonp',
+					url : url,
+					dataType : 'json',
+					type : 'get',
 					success : function(data) {
 						console.log(data);
 						Node.one('#container').html(
-								JSON.stringify(data, null, 4));
+							JSON.stringify(data, null, 4));
 					}
 				});
 			}
 		});
-		*/
+
 		
+		/*
 		$.ajax({
 			type : 'GET',
 			url : url,
-				success : function(data) {
-						console.log(data);
-						Node.one('#container').html(
-								JSON.stringify(data, null, 4));
-					}
+			dataType : 'json',
+			success : function(data) {
+				console.log(data);
+				$('#container').html(JSON.stringify(data, null, 4));
+			}
 		});
+		 */
+		
+		/*
+		$.get(url, function(data) {
+			console.log('get result', data);
+			$('#container').html(JSON.stringify(data, null, 4));
+		});
+		*/
 	</script>
 </body>
 </html>
