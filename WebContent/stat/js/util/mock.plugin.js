@@ -66,7 +66,9 @@
                     rapUrlConverterJQuery(oOptions);
                     var oldSuccess = oOptions.success;
                     oOptions.success = function(data) {
-                        data = Mock.mock(data);
+                    	if (PREFIX == '/mockjs/') {
+                    		data = Mock.mock(data);
+                    	}
                         oldSuccess.apply(this, arguments);
                     };
                 } else if(isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
@@ -109,7 +111,9 @@
                             rapUrlConverterKissy(oOptions);
                             oldSuccess = oOptions.success;
                             oOptions.success = function(data) {
-                                data = Mock.mock(data);
+                            	if (PREFIX == '/mockjs/') {
+                            		data = Mock.mock(data);
+                            	}
                                 oldSuccess.apply(this, arguments);
                             };
                         } else {
@@ -220,7 +224,9 @@
 
 
     function checkerHandler(mockData) {
-        mockData = Mock.mock(mockData);
+    	if (PREFIX == '/mockjs/') {
+    		mockData = Mock.mock(mockData);
+    	}
         var realData = this.data;
         var validator = new StructureValidator(realData, mockData);
         var result = validator.getResult();
@@ -371,7 +377,6 @@
         }
         options.jsonp = '_c';
         options.dataType = 'jsonp';
-        var url = options.url;
         url = convertUrlToRelative(url);
         url = "http://" + ROOT + PREFIX + projectId + url;
         options.url = url;
