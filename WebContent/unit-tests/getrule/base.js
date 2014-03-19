@@ -4,7 +4,7 @@ test('jQuery: get mockjs rule from host by /mockjs/projectId/action', function()
 	stop();
 	$.ajax({  
         type : "get",  
-        url : "/mockjs/114/mockjs/base",  
+        url : "/mockjs/114/mockjs/base",
         dataType : "jsonp",
         jsonp: "callback",
         success : function(data){
@@ -17,8 +17,7 @@ test('jQuery: get mockjs rule from host by /mockjs/projectId/action', function()
     });  
 });
 
-
-test('jQuery.ajax(replaced by rap), get mockjs rule by /mockjs/base', function() {
+test('jQuery.ajax(replaced by RAP) - getMockjsData - data rendered in plugin by Mock.mock, Action:/mockjs/base', function() {
 	stop();
 	equal(RAP.getPrefix(), '/mockjs/', 'PREFIX is /mockjs/');
 	$.rapAjax({  
