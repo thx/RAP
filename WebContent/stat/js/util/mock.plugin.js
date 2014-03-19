@@ -61,18 +61,29 @@
                 var oOptions = arguments[0];
                 var url = oOptions.url;
                 if (route(url) && projectId) {
-                    oOptions.jsonp = '_c';
-                    oOptions.dataType = 'jsonp';
-                    if (url.indexOf('http://') > -1) {
-                        url = url.substring(url.indexOf('/', 7) + 1);
-                    } else if (url.indexOf('https://') > -1) {
-                        url = url.substring(url.indexOf('/', 8) + 1);
-                    }
-                    if (url.charAt(0) != '/') {
-                        url = '/' + url;
-                    }
-                    url = "http://" + ROOT + "/mockjs/" + projectId + url;
-                    oOptions.url = url;
+                    rapUrlConverterJQuery(oOptions);
+                    var oldSuccess = oOptions.success;
+                    oOptions.success = function(data) {
+                        data = Mock.mock(data);
+                        oldSuccess.apply(this, arguments);
+                    };
+                } else if(isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
+                    var checkerOptions = {url : oOptions.url};
+                    rapUrlConverterJQuery(checkerOptions);
+                    checkerOptions.RAP_NOT_TRACK = true;
+                    checkerOptions.success = checkerHandler;
+                    // real data checking
+                    oldSuccess = oOptions.success;
+                    oOptions.success = function() {
+                        var realData = arguments[0];
+                        checkerOptions.context = {
+                            data : realData
+                        };
+                        // perform real data check
+                        ajax.apply(jQuery, [checkerOptions]);
+                        oldSuccess.apply(this,arguments);
+                    };
+                
                 }
                 ajax.apply(this, arguments);
             };
@@ -94,57 +105,29 @@
                         oOptions = arguments[0];
                         url = oOptions.url;
                         if (route(url) && !oOptions.RAP_NOT_TRACK) {
-                            oOptions.type = "get";
-                            oOptions.jsonp = '_c';
-                            oOptions.dataType = 'jsonp';
-                            if (url.indexOf('http://') > -1) {
-                                url = url.substring(url.indexOf('/', 7) + 1);
-                            } else if (url.indexOf('https://') > -1) {
-                                url = url.substring(url.indexOf('/', 8) + 1);
-                            }
-                            if (url.charAt(0) != '/') {
-                                url = '/' + url;
-                            }
-                            url = "http://" + ROOT + "/mockjs/" + projectId + url;
-                            oOptions.url = url;
+                            rapUrlConverterKissy(oOptions);
                             var oldSuccess = oOptions.success;
                             oOptions.success = function(data) {
                                 data = Mock.mock(data);
                                 oldSuccess.apply(this, arguments);
                             };
-                        } else {
-                            if (!oOptions.RAP_NOT_TRACK) {
-                                // real data checking
-                                oldSuccess = oOptions.success;
-                                oOptions.success = function() {
-                                    var realData = arguments[0];
-                                    KISSY.IO({
-                                        url : url,
-                                        dataType : 'jsonp',
-                                        jsonp : '_c',
-                                        RAP_NOT_TRACK : true,
-                                        success : function(mockData) {
-                                            var validator = new StructureValidator(realData, mockData);
-                                            var result = validator.getResult();
-                                            var realDataResult = result.left;
-                                            var rapDataResult = result.right;
-                                            var i;
-
-                                            if (realDataResult.length === 0 && rapDataResult.length === 0) {
-                                                console.log('接口结构校验完毕，未发现问题。');
-                                            } else {
-                                                for (i = 0; i < realDataResult.length; i++) {
-                                                    validatorResultLog(realDataResult[i]);
-                                                }
-                                                for (i = 0; i < rapDataResult.length; i++) {
-                                                    validatorResultLog(rapDataResult[i], true);
-                                                }
-                                            }
-                                        }
-                                    });
-                                    oldSuccess.apply(this,arguments);
+                        } else if(isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
+                            var checkerOptions = {url:oOptions.url};
+                            rapUrlConverterKissy(checkerOptions);
+                            checkerOptions.RAP_NOT_TRACK = true;
+                            checkerOptions.success = checkerHandler;
+                            // real data checking
+                            oldSuccess = oOptions.success;
+                            oOptions.success = function() {
+                                var realData = arguments[0];
+                                checkerOptions.context = {
+                                    data : realData
                                 };
-                            }
+                                // perform real data check
+                                KISSY.IO(checkerOptions);
+                                oldSuccess.apply(this,arguments);
+                            };
+                        
                         }
                     }
                     IO.apply(this, arguments);
@@ -194,14 +177,54 @@
     }
 
 
+
+    function checkerHandler(mockData) {
+        mockData = Mock.mock(mockData);;
+        var realData = this.data;
+        var validator = new StructureValidator(realData, mockData);
+        var result = validator.getResult();
+        var realDataResult = result.left;
+        var rapDataResult = result.right;
+        var i;
+
+        if (realDataResult.length === 0 && rapDataResult.length === 0) {
+            console.log('接口结构校验完毕，未发现问题。');
+        } else {
+            for (i = 0; i < realDataResult.length; i++) {
+                validatorResultLog(realDataResult[i]);
+            }
+            for (i = 0; i < rapDataResult.length; i++) {
+                validatorResultLog(rapDataResult[i], true);
+            }
+        }
+    }
+
+    /**
+     * is in white list
+     *
+     */
+     function isInWhiteList(url) {
+        var i;
+        var o;
+        for (i = 0; i < whiteList.length; i++) {
+            o = whiteList[i];
+            if (typeof o === 'string' && url.indexOf(o) >= 0) {
+                return true;
+            } else if (typeof o === 'object' && o instanceof RegExp && o.test(url)) {
+                return true;
+            }
+        }
+        return false;
+     }
+
+
     /**
 	 * router
 	 * 
-	 * @param {string}
-	 *            url
+	 * @param {string} url
 	 * @return {boolean} true if route to RAP MOCK, other wise do nothing.
 	 */
-    function route(url) {
+    function route(url, ignoreMode) {
         var i;
         var o;
         var blackMode;
@@ -258,6 +281,58 @@
 
         console.error('参数 ' + item.namespace + "." + item.property + ' ' + eventName);
 
+    }
+
+    /**
+     * convert url from absolute to relative
+     */
+    function convertUrlToRelative(url) {
+        if (!url) {
+            throw Error('Illegal url:' + url);
+        }
+        if (url.indexOf('http://') > -1) {
+            url = url.substring(url.indexOf('/', 7) + 1);
+        } else if (url.indexOf('https://') > -1) {
+            url = url.substring(url.indexOf('/', 8) + 1);
+        }
+        if (url.charAt(0) != '/') {
+            url = '/' + url;
+        }
+        return url;
+    }
+
+    /**
+     * convert url to rap mock url (KISSY version)
+     * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
+     */
+    function rapUrlConverterKissy(options) {
+        if (!options || typeof options !== 'object') {
+            throw Error('illegal option object:' + options);
+        }
+        options.type = "get";
+        options.jsonp = '_c';
+        options.dataType = 'jsonp';
+        var url = options.url;
+        url = convertUrlToRelative(url);
+        url = "http://" + ROOT + "/mockjs/" + projectId + url;
+        options.url = url;
+        return options;
+    }
+
+    /**
+     * convert url to rap mock url (jQuery version)
+     * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
+     */
+    function rapUrlConverterJQuery(options) {
+        if (!options || typeof options !== 'object') {
+            throw Error('illegal option object:' + options);
+        }
+        options.jsonp = '_c';
+        options.dataType = 'jsonp';
+        url = convertUrlToRelative(url);
+        url = "http://" + ROOT + "/mockjs/" + projectId + url;
+        options.url = url;
+        return options;
     }
 
     window.RAP = {
