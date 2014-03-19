@@ -7,7 +7,7 @@
 <!-- 引入RAP开始 -->
 <div id="rap"></div>
 <script type="text/javascript"
-	src="http://rap.alibaba-inc.com/rap.plugin.js?projectId=79&mode=0"></script>
+	src="http://rap.alibaba-inc.com/rap.plugin.js?projectId=79"></script>
 <!-- 引入RAP结束 -->
 <script src="jquery-2.0.3.min.js"></script>
 </head>
@@ -16,10 +16,12 @@
         </pre>
 
 	<script>
+		var url = 'complexCase.do';
+		/**
 		KISSY.use([ 'node', 'io' ], {
 			success : function(S, Node, IO) {
 				IO({
-					url : '/mockjs/79/complexCase.do',
+					url : '/mockjs/79/.do',
 					dataType : 'jsonp',
 					success : function(data) {
 						console.log(data);
@@ -28,6 +30,17 @@
 					}
 				});
 			}
+		});
+		*/
+		
+		$.ajax({
+			type : 'GET',
+			url : url,
+				success : function(data) {
+						console.log(data);
+						Node.one('#container').html(
+								JSON.stringify(data, null, 4));
+					}
 		});
 	</script>
 </body>
