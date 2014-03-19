@@ -117,7 +117,7 @@
                         } else {
                             if (!oOptions.RAP_NOT_TRACK) {
                                 // real data checking
-                                oldSuccess = oOptions.success;
+                                var oldSuccess = oOptions.success;
                                 oOptions.success = function() {
                                     var realData = arguments[0];
                                     KISSY.IO({
@@ -159,7 +159,7 @@
             function replace(modules) {
                 var splited = modules;
                 if (KISSY.isString(modules)) {
-                    splited = modules.split(',')
+                    splited = modules.split(',');
                 }
                 var index = -1;
                 for (var i = 0, l = splited.length; i < l; i++) {
@@ -167,7 +167,7 @@
                     if (name === 'ajax' || name === 'io') {
                         splited[i] = 'rap_io'
                     } 
-                };
+                }
                 return splited.join(',');
             }
 
