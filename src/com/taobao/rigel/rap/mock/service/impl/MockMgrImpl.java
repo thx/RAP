@@ -22,7 +22,6 @@ import com.taobao.rigel.rap.project.service.ProjectMgr;
 public class MockMgrImpl implements MockMgr {
 	private ProjectDao projectDao;
 	private ProjectMgr projectMgr;
-	private static MockjsRunner runner;
 
 	public ProjectMgr getProjectMgr() {
 		return projectMgr;
@@ -128,9 +127,8 @@ public class MockMgrImpl implements MockMgr {
 	
 	@Override
 	public String generateRuleData(int projectId, String pattern) {
-		runner = new MockjsRunner();
 		String result = generateRule(projectId, pattern);
-		return runner.renderMockJsRule(result);
+		return MockjsRunner.renderMockjsRule(result);
 	}
 	
 	@Override

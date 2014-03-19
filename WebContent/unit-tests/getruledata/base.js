@@ -1,10 +1,10 @@
 module('get-mockjs-rule-data');
 
-test('jQuery: get mockjs data from host by /mockjsdata/projectId/action', function() {
+test('jQuery - getMockjsData - /mockjsdata/projectId/action', function() {
 	stop();
 	$.ajax({  
         type : "get",  
-        url : "/mockjsdata/114//mockjs/base",  
+        url : "/mockjsdata/114/mockjs/base",  
         dataType : "jsonp",
         jsonp: "callback",
         success : function(data){
@@ -18,12 +18,12 @@ test('jQuery: get mockjs data from host by /mockjsdata/projectId/action', functi
     });  
 });
 
-test('KISSY: get mockjs data from host by /mockjsdata/projectId/action', function() {
+test('KISSY - getMockjsData - /mockjsdata/projectId/action', function() {
 	stop();
 	KISSY.oldUse('io', function(S, IO) {
 		IO({
 			type : "get",  
-	        url : "/mockjsdata/114//mockjs/base",  
+	        url : "/mockjsdata/114/mockjs/base",  
 	        dataType : "jsonp",
 	        jsonp: "callback",
 	        success : function(data){

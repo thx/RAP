@@ -28,6 +28,7 @@
         	jQuery.rapAjax = jQuery.ajax;
         	jQuery.ajax = jQuery.oldAjax;
         </script>
+        <script src="../unit-tests/prepare.js?_r=$!timeStamp"></script>
         <script src="../unit-tests/index.js?_r=$!timeStamp"></script>
 		#bodyEnd
 	</body>
