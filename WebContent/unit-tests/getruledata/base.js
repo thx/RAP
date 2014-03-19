@@ -1,6 +1,6 @@
 module('get-mockjs-data');
 
-test('jQuery.ajax - getMockjsData - get "/mockjsdata/projectId/action"', function() {
+test('jQuery.ajax[ORIGIN] - getMockjsData - get /mockjsdata/projectId/action', function() {
 	stop();
 	$.ajax({  
         type : "get",  
@@ -19,7 +19,7 @@ test('jQuery.ajax - getMockjsData - get "/mockjsdata/projectId/action"', functio
 });
 
 
-test('jQuery.ajax(replaced by RAP) - getMockjsData - just get by action : /mockjs/base', function() {
+test('jQuery.ajax[RAPPED] - getMockjsData - Action : /mockjs/base', function() {
 	stop();
 	equal(RAP.getPrefix(), '/mockjs/', 'PREFIX is /mockjs/');
 	$.rapAjax({  
@@ -39,7 +39,7 @@ test('jQuery.ajax(replaced by RAP) - getMockjsData - just get by action : /mockj
 });
 
 
-test('jQuery.ajax(replaced by RAP) - getMockjsData - prefix: /mockjsdata/, Action:/mockjs/base', function() {
+test('jQuery.ajax[RAPPED] - getMockjsData - Prefix: /mockjsdata/, Action:/mockjs/base', function() {
 	stop();
 	equal(RAP.getPrefix(), '/mockjs/', 'PREFIX is /mockjs/');
 	var old = RAP.getPrefix();
@@ -61,7 +61,7 @@ test('jQuery.ajax(replaced by RAP) - getMockjsData - prefix: /mockjsdata/, Actio
 });
 
 
-test('KISSY - getMockjsData - get /mockjsdata/projectId/action', function() {
+test('KISSY[ORIGIN] - getMockjsData - get /mockjsdata/projectId/action', function() {
 	stop();
 	KISSY.oldUse('io', function(S, IO) {
 		IO({
@@ -82,7 +82,7 @@ test('KISSY - getMockjsData - get /mockjsdata/projectId/action', function() {
 });
 
 
-test('KISSY - getMockjsData - just get by action: /mockjs/base', function() {
+test('KISSY[RAPPED] - getMockjsData - Action: /mockjs/base', function() {
 	stop();
 	var base = '/mockjs/base';
 	KISSY.use('io', function(S, IO) {
@@ -103,7 +103,7 @@ test('KISSY - getMockjsData - just get by action: /mockjs/base', function() {
 	});
 });
 
-test('KISSY - getMockjsData - setPrefix("/mockjsdata/") and just get by action', function() {
+test('KISSY[RAPPED] - getMockjsData - Prefix: /mockjsdata/, Action: /mockjs/base', function() {
 	stop();
 	var base = '/mockjs/base';
 	KISSY.use('io', function(S, IO) {
