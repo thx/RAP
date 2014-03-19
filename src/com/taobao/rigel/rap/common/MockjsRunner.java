@@ -16,14 +16,14 @@ public class MockjsRunner {
 			+ File.separator + "mockjs.js";
 	private Context ct;
 	private Scriptable scope;
-
+	private static String jsCode;
 	public MockjsRunner() {
 		System.out.println("mockjs ROOT:" + MOCKJS_PATH);
 		this.ct = Context.enter();
 		this.scope = ct.initStandardObjects();
 		this.initMockjs(ct, scope);
 	}
-
+	
 	public Context getContext() {
 		return this.ct;
 	}
@@ -56,7 +56,9 @@ public class MockjsRunner {
     } 
 
 	private void initMockjs(Context ct, Scriptable scope) {
-		String jsCode = MockjsRunner.getMockjsCode();
+		if (jsCode == null) {
+			jsCode = MockjsRunner.getMockjsCode();
+		}
 		try {
 			ct.evaluateString(scope, jsCode, null, 1, null);
 			ct.evaluateString(scope, "", null, 1, null);
@@ -65,7 +67,7 @@ public class MockjsRunner {
 		}
 	}
 
-	public String renderMockJsRule(String mockRule) {
+	private String doRenderMockJsRule(String mockRule) {
 		System.out.println("mockRule:" + mockRule);
 		try {
 			Object result = ct.evaluateString(scope,
@@ -77,10 +79,12 @@ public class MockjsRunner {
 			return "JS_ERROR";
 		}
 	}
+	
+	public static String renderMockjsRule(String mockRule) {
+		return new MockjsRunner().doRenderMockJsRule(mockRule);
+	}
 
 	public static void main(String[] args) {
-		MockjsRunner tester = new MockjsRunner();
-		System.out.println(tester
-				.renderMockJsRule("{'id|1-20': '1', 'b': '@IMG'}"));
+		System.out.println(MockjsRunner.renderMockjsRule("{'id|1-20': '1', 'b': '@IMG'}"));
 	}
 }
