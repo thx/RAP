@@ -135,7 +135,7 @@
                 };
                 return fn;
             }, {
-                requires: ['io']
+                requires: ['ajax']
             });
 
 
