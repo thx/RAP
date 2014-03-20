@@ -1,5 +1,6 @@
 package com.taobao.rigel.rap.mock.web.action;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,7 +146,7 @@ public class MockAction extends ActionBase {
 		return SUCCESS;
 	}
 	
-	public String createRule() {
+	public String createRule() throws UnsupportedEncodingException {
 		String _c = get_c();
 		if (callback != null && !callback.isEmpty()) {
 			setContent(callback + "(" + mockMgr.generateRule(id, pattern) + ")");
@@ -183,7 +184,7 @@ public class MockAction extends ActionBase {
 		return SUCCESS;
 	}
 	
-	public String createMockjsData() {
+	public String createMockjsData() throws UnsupportedEncodingException {
 		String _c = get_c();
 		if (callback != null && !callback.isEmpty()) {
 			setContent(callback + "(" + mockMgr.generateRuleData(id, pattern) + ")");

@@ -1,5 +1,7 @@
 package com.taobao.rigel.rap.mock.service.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,10 +37,9 @@ public class MockMgrImpl implements MockMgr {
 	 * random seed
 	 */
 	private int _num = 1;
-	private String[] NAME_LIB = { "霍雍", "行列", "幻刺", "金台", "望天",
-			"李牧", "三冰", "自勉", "思霏", "诚冉", "甘苦", "勇智", "墨汁老湿", "圣香", "定球",
-			"征宇", "灵兮", "永盛", "小婉", "紫丞", "少侠", "木谦", "周亮", "宝山", "张中", "晓哲",
-			"夜沨" };
+	private String[] NAME_LIB = { "霍雍", "行列", "幻刺", "金台", "望天", "李牧", "三冰",
+			"自勉", "思霏", "诚冉", "甘苦", "勇智", "墨汁老湿", "圣香", "定球", "征宇", "灵兮", "永盛",
+			"小婉", "紫丞", "少侠", "木谦", "周亮", "宝山", "张中", "晓哲", "夜沨" };
 	private String[] LOCATION_LIB = { "北京 朝阳区", "北京 海淀区", "北京 昌平区",
 			"吉林 长春 绿园区", "吉林 吉林 丰满区" };
 	private String[] PHONE_LIB = { "15813243928", "13884928343", "18611683243",
@@ -124,15 +125,18 @@ public class MockMgrImpl implements MockMgr {
 		String result = json.toString();
 		return resultFilter(result);
 	}
-	
+
 	@Override
-	public String generateRuleData(int projectId, String pattern) {
+	public String generateRuleData(int projectId, String pattern)
+			throws UnsupportedEncodingException {
 		String result = generateRule(projectId, pattern);
 		return MockjsRunner.renderMockjsRule(result);
 	}
-	
+
 	@Override
-	public String generateRule(int projectId, String pattern) {
+	public String generateRule(int projectId, String pattern)
+			throws UnsupportedEncodingException {
+		String originalPattern = pattern;
 		_num = 1;
 		System.out.println("pattern before processed:" + pattern);
 		if (pattern.contains("?")) {
@@ -144,9 +148,12 @@ public class MockMgrImpl implements MockMgr {
 		System.out.println("pattern processed:" + pattern);
 		List<Action> aList = projectMgr
 				.getMatchedActionList(projectId, pattern);
-		if (aList.size() == 0)
+		if (aList.size() == 0) {
 			return "{\"isOk\":false, \"errMsg\":\"no matched action\"}";
-		Action action = aList.get(0);
+		}
+
+		Action action = actionPick(aList, originalPattern);
+
 		String desc = action.getDescription();
 		Set<Parameter> pList = action.getResponseParameterList();
 		// load mock data by QA
@@ -204,13 +211,72 @@ public class MockMgrImpl implements MockMgr {
 		return resultFilter(result);
 	}
 
+	private Action actionPick(List<Action> actionList, String pattern)
+			throws UnsupportedEncodingException {
+		Action result = actionList.get(0);
+		Map<String, List<String>> requestParams = getUrlParameters(pattern);
+		for (Action action : actionList) {
+			Map<String, List<String>> docActionParams = getUrlParameters(action
+					.getRequestUrl());
+			boolean hasSchema = false;
+			boolean isPassed = true;
+			for (String docParamKey : docActionParams.keySet()) {
+				if (docParamKey.contains("{") && docParamKey.contains("}")) {
+					hasSchema = true;
+					String docParamKeyProcessed = docParamKey.substring(1,
+							docParamKey.length() - 1);
+					List<String> list1 = requestParams
+							.get(docParamKeyProcessed);
+					List<String> list2 = docActionParams.get(docParamKey);
+					if (list1 != null && list2 != null && list1.size() > 0
+							&& list2.size() > 0
+							&& list1.get(0).equals(list2.get(0))) {
+						// checked passed
+					} else {
+						isPassed = false;
+						break;
+					}
+				}
+			}
+			if (isPassed && hasSchema) {
+				return action;
+			}
+		}
+		return result;
+	}
+
+	public static Map<String, List<String>> getUrlParameters(String url)
+			throws UnsupportedEncodingException {
+		Map<String, List<String>> params = new HashMap<String, List<String>>();
+		String[] urlParts = url.split("\\?");
+		if (urlParts.length > 1) {
+			String query = urlParts[1];
+			for (String param : query.split("&")) {
+				String pair[] = param.split("=");
+				String key = URLDecoder.decode(pair[0], "UTF-8");
+				String value = "";
+				if (pair.length > 1) {
+					value = URLDecoder.decode(pair[1], "UTF-8");
+				}
+				List<String> values = params.get(key);
+				if (values == null) {
+					values = new ArrayList<String>();
+					params.put(key, values);
+				}
+				values.add(value);
+			}
+		}
+		return params;
+	}
+
 	/**
 	 * for escaping separators
+	 * 
 	 * @param result
 	 * @return
 	 */
 	private String resultFilter(String result) {
-		result = result.replaceAll("////",";");
+		result = result.replaceAll("////", ";");
 		return result;
 	}
 
@@ -246,7 +312,7 @@ public class MockMgrImpl implements MockMgr {
 		String[] tags = para.getMockDataTEMP().split(";");
 		Map<String, String> tagMap = new HashMap<String, String>();
 		parseTags(tags, tagMap, false);
-		
+
 		// if isArray && has @value tag, directly output @value content
 		if (para.getDataType().contains("array") && tagMap.get("value") != null) {
 			json.append(para.getMockIdentifier() + ":" + tagMap.get("value"));
@@ -257,12 +323,13 @@ public class MockMgrImpl implements MockMgr {
 			}
 			if (para.getParameterList() == null
 					|| para.getParameterList().size() == 0) {
-				json.append(para.getMockIdentifier() + ":" + mockValue(para, index));
+				json.append(para.getMockIdentifier() + ":"
+						+ mockValue(para, index));
 			} else {
 				// object and array<object>
 				json.append(para.getMockIdentifier() + ":");
 				String left = "{", right = "}";
-	
+
 				if (isArrayObject) {
 					left = "[";
 					right = "]";
@@ -290,7 +357,7 @@ public class MockMgrImpl implements MockMgr {
 			}
 		}
 	}
-	
+
 	/**
 	 * build mock.js template
 	 * 
@@ -307,10 +374,11 @@ public class MockMgrImpl implements MockMgr {
 	private void buildMockTemplate(StringBuilder json, Parameter para, int index) {
 		boolean isArrayObject = para.getDataType().equals("array<object>");
 		int ARRAY_LENGTH = 1;
-		
+
 		if (para.getParameterList() == null
 				|| para.getParameterList().size() == 0) {
-			json.append(para.getMockJSIdentifier() + ":" + mockjsValue(para, index));
+			json.append(para.getMockJSIdentifier() + ":"
+					+ mockjsValue(para, index));
 		} else {
 			// object and array<object>
 			json.append(para.getMockJSIdentifier() + ":");
@@ -341,7 +409,7 @@ public class MockMgrImpl implements MockMgr {
 			}
 			json.append(right);
 		}
-		
+
 	}
 
 	private String mockValue(Parameter para, int index) {
@@ -518,7 +586,6 @@ public class MockMgrImpl implements MockMgr {
 		return returnValue;
 	}
 
-
 	private String mockjsValue(Parameter para, int index) {
 		String[] tags = para.getMockDataTEMP().split(";");
 		Map<String, String> tagMap = new HashMap<String, String>();
@@ -531,7 +598,7 @@ public class MockMgrImpl implements MockMgr {
 			} else {
 				return "\"" + mockValue + "\"";
 			}
-			
+
 		}
 		return returnValue;
 	}
@@ -607,7 +674,10 @@ public class MockMgrImpl implements MockMgr {
 						tagMap.put("regex", tag.split("=")[1]);
 					}
 				} else if (tag.startsWith("@mock")) {
-					tagMap.put("mock", tag.split("=")[1]);
+					String[] tagArr = tag.split("=");
+					if (tagArr.length > 1) {
+						tagMap.put("mock", tagArr[1]);
+					}
 				}
 			}
 		}

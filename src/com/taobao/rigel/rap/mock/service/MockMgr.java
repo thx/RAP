@@ -1,5 +1,7 @@
 package com.taobao.rigel.rap.mock.service;
 
+import java.io.UnsupportedEncodingException;
+
 public interface MockMgr {
 	/**
 	 * automatically generate testing data
@@ -34,8 +36,9 @@ public interface MockMgr {
 	 * @param id
 	 * @param pattern
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
-	public String generateRule(int id, String pattern);
+	public String generateRule(int id, String pattern) throws UnsupportedEncodingException;
 	
 	/**
 	 * generate mockjs data
@@ -43,6 +46,7 @@ public interface MockMgr {
 	 * @param id
 	 * @param pattern
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
-	public String generateRuleData(int id, String pattern);
+	public String generateRuleData(int id, String pattern) throws UnsupportedEncodingException;
 }

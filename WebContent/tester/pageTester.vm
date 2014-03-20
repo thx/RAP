@@ -136,7 +136,7 @@
                             rapUrl = "http://" + rapUrl;
                         }
 
-                        url = baseUrl + '?' + qArr.join('&');
+                        url = baseUrl + (baseUrl.indexOf('?') === -1 ? '?' : '&') + qArr.join('&');
                         log('request starting, url=' + color(url, LIGHT_GRAY));
                         Y.timeLog['time'] = new Date().getTime();
                         try {
