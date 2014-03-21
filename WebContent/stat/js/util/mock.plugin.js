@@ -66,7 +66,9 @@
                     rapUrlConverterJQuery(oOptions);
                     var oldSuccess = oOptions.success;
                     oOptions.success = function(data) {
-                        data = Mock.mock(data);
+                    	if (PREFIX == '/mockjs/') {
+                    		data = Mock.mock(data);
+                    	}
                         oldSuccess.apply(this, arguments);
                     };
                 } else if(isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
@@ -109,20 +111,43 @@
                             rapUrlConverterKissy(oOptions);
                             oldSuccess = oOptions.success;
                             oOptions.success = function(data) {
-                                data = Mock.mock(data);
+                            	if (PREFIX == '/mockjs/') {
+                            		data = Mock.mock(data);
+                            	}
                                 oldSuccess.apply(this, arguments);
                             };
-                        } else if(isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
-                            var checkerOptions = {url:oOptions.url};
-                            rapUrlConverterKissy(checkerOptions);
-                            checkerOptions.RAP_NOT_TRACK = true;
-                            checkerOptions.success = checkerHandler;
-                            // real data checking
-                            oldSuccess = oOptions.success;
-                            oOptions.success = function() {
-                                var realData = arguments[0];
-                                checkerOptions.context = {
-                                    data : realData
+                        } else {
+                            if (!oOptions.RAP_NOT_TRACK) {
+                                // real data checking
+                                var oldSuccess = oOptions.success;
+                                oOptions.success = function() {
+                                    var realData = arguments[0];
+                                    KISSY.IO({
+                                        url : url,
+                                        dataType : 'jsonp',
+                                        jsonp : '_c',
+                                        RAP_NOT_TRACK : true,
+                                        success : function(mockData) {
+                                            var validator = new StructureValidator(realData, mockData);
+                                            var result = validator.getResult();
+                                            var realDataResult = result.left;
+                                            var rapDataResult = result.right;
+                                            var i;
+
+                                            if (realDataResult.length === 0 && rapDataResult.length === 0) {
+                                                console.log('接口结构校验完毕，未发现问题。');
+                                            } else {
+                                                for (i = 0; i < realDataResult.length; i++) {
+                                                    validatorResultLog(realDataResult[i]);
+                                                }
+                                                for (i = 0; i < rapDataResult.length; i++) {
+                                                    validatorResultLog(rapDataResult[i], true);
+                                                }
+                                            }
+                                        }
+                                    });
+                                    oldSuccess.apply(this,arguments);
+
                                 };
                                 // perform real data check
                                 KISSY.IO(checkerOptions);
@@ -137,7 +162,21 @@
             }, {
                 requires: ['ajax']
             });
-
+            
+            function replace(modules) {
+                var splited = modules;
+                if (KISSY.isString(modules)) {
+                    splited = modules.split(',');
+                }
+                var index = -1;
+                for (var i = 0, l = splited.length; i < l; i++) {
+                    var name = KISSY.trim(splited[i]).toLowerCase();
+                    if (name === 'ajax' || name === 'io') {
+                        splited[i] = 'rap_io'
+                    } 
+                }
+                return splited.join(',');
+            }
 
             KISSY.use = function(modules, callback) {
                 var args = arguments;
@@ -185,7 +224,9 @@
 
 
     function checkerHandler(mockData) {
-        mockData = Mock.mock(mockData);
+    	if (PREFIX == '/mockjs/') {
+    		mockData = Mock.mock(mockData);
+    	}
         var realData = this.data;
         var validator = new StructureValidator(realData, mockData);
         var result = validator.getResult();
