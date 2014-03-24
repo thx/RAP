@@ -54,8 +54,9 @@ public class MockMgrImpl implements MockMgr {
 	}
 
 	@Override
-	public String generateData(int projectId, String pattern) {
+	public String generateData(int projectId, String pattern) throws UnsupportedEncodingException {
 		_num = 1;
+		String originalPattern = pattern;
 		System.out.println("pattern before processed:" + pattern);
 		if (pattern.contains("?")) {
 			pattern = pattern.substring(0, pattern.indexOf("?"));
@@ -68,7 +69,9 @@ public class MockMgrImpl implements MockMgr {
 				.getMatchedActionList(projectId, pattern);
 		if (aList.size() == 0)
 			return "{\"isOk\":false, \"errMsg\":\"no matched action\"}";
-		Action action = aList.get(0);
+		
+		Action action = actionPick(aList, originalPattern);
+
 		String desc = action.getDescription();
 		Set<Parameter> pList = action.getResponseParameterList();
 		// load mock data by QA

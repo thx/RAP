@@ -134,7 +134,7 @@ public class MockAction extends ActionBase {
 		}
 	}
 
-	public String createData() {
+	public String createData() throws UnsupportedEncodingException {
 		String _c = get_c();
 		if (callback != null && !callback.isEmpty()) {
 			setContent(callback + "(" + mockMgr.generateData(id, pattern) + ")");

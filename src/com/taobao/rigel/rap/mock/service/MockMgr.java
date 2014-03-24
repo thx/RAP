@@ -9,8 +9,9 @@ public interface MockMgr {
 	 * @param projectId
 	 * @param pattern
 	 * @return JSON String
+	 * @throws UnsupportedEncodingException 
 	 */
-	public String generateData(int projectId, String pattern);
+	public String generateData(int projectId, String pattern) throws UnsupportedEncodingException;
 
 	/**
 	 * modify mock data of parameters based on mockData
