@@ -1,4 +1,5 @@
 ### rap v0.8.1 ###
+* [功能] 请求链接添加新语法url?[callback]=foo，用以支持自定义的JSONP callback key。 2014-03-24
 * [功能] 请求链接添加新语法url?{action}=update，用以支持REST_API的带参数查询接口的功能。 2014-03-20
 * [BUG] 修复pageTester控制台请求链接带参数时的请求路径错误。 2014-03-20
 * [BUG] 修复@mock空标签导致MOCK异常的问题。 2014-03-20

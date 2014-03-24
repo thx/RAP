@@ -2,7 +2,9 @@ package com.taobao.rigel.rap.mock.web.action;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.mock.service.MockMgr;
@@ -59,7 +61,8 @@ public class MockAction extends ActionBase {
 	}
 
 	public void set_c(String _c) {
-		this._c = _c;;
+		this._c = _c;
+		;
 	}
 
 	public String getCallback() {
@@ -99,7 +102,7 @@ public class MockAction extends ActionBase {
 	public String getPattern() {
 		return pattern;
 	}
-	
+
 	private String callbackFilter(String cb) {
 		if (cb == null) {
 			return "callback";
@@ -107,14 +110,15 @@ public class MockAction extends ActionBase {
 		if (cb.contains("_c=")) {
 			int startIndex = cb.indexOf("_c=") + 3;
 			int endIndex = cb.indexOf("&", startIndex);
-			if (endIndex == -1) endIndex = cb.length();
+			if (endIndex == -1)
+				endIndex = cb.length();
 			cb = cb.substring(startIndex, endIndex);
 			return cb;
 		}
 		if (cb.contains("&")) {
 			cb = cb.substring(0, cb.indexOf("&"));
 		}
-		
+
 		return cb;
 	}
 
@@ -135,25 +139,38 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createData() throws UnsupportedEncodingException {
+		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
+		String result = mockMgr.generateData(id, pattern, options);
+		if (options.get("callback") != null) {
+			_c = (String) options.get("callback");
+			callback = (String) options.get("callback");
+		}
+
 		if (callback != null && !callback.isEmpty()) {
-			setContent(callback + "(" + mockMgr.generateData(id, pattern) + ")");
+			setContent(callback + "(" + result + ")");
 		} else if (_c != null && !_c.isEmpty()) {
-			setContent(_c + "(" + mockMgr.generateData(id, pattern) + ")");
+			setContent(_c + "(" + result + ")");
 		} else {
-			setContent(mockMgr.generateData(id, pattern));
+			setContent(result);
 		}
 		return SUCCESS;
 	}
-	
+
 	public String createRule() throws UnsupportedEncodingException {
+		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
+		String result = mockMgr.generateRule(id, pattern, options);
+		if (options.get("callback") != null) {
+			_c = (String) options.get("callback");
+			callback = (String) options.get("callback");
+		}
 		if (callback != null && !callback.isEmpty()) {
-			setContent(callback + "(" + mockMgr.generateRule(id, pattern) + ")");
+			setContent(callback + "(" + result + ")");
 		} else if (_c != null && !_c.isEmpty()) {
-			setContent(_c + "(" + mockMgr.generateRule(id, pattern) + ")");
+			setContent(_c + "(" + result + ")");
 		} else {
-			setContent(mockMgr.generateRule(id, pattern));
+			setContent(result);
 		}
 		return SUCCESS;
 	}
@@ -167,7 +184,7 @@ public class MockAction extends ActionBase {
 		setNum(mockMgr.reset(projectId));
 		return SUCCESS;
 	}
-	
+
 	public String createPluginScript() {
 		List<String> list = new ArrayList<String>();
 		Project p = projectMgr.getProject(projectId);
@@ -183,15 +200,21 @@ public class MockAction extends ActionBase {
 		urlList = list;
 		return SUCCESS;
 	}
-	
+
 	public String createMockjsData() throws UnsupportedEncodingException {
 		String _c = get_c();
+		Map<String, Object> options = new HashMap<String, Object>();
+		String result = mockMgr.generateRuleData(id, pattern, options);
+		if (options.get("callback") != null) {
+			_c = (String) options.get("callback");
+			callback = (String) options.get("callback");
+		}
 		if (callback != null && !callback.isEmpty()) {
-			setContent(callback + "(" + mockMgr.generateRuleData(id, pattern) + ")");
+			setContent(callback + "(" + result + ")");
 		} else if (_c != null && !_c.isEmpty()) {
-			setContent(_c + "(" + mockMgr.generateRuleData(id, pattern) + ")");
+			setContent(_c + "(" + result + ")");
 		} else {
-			setContent(mockMgr.generateRuleData(id, pattern));
+			setContent(result);
 		}
 		return SUCCESS;
 	}

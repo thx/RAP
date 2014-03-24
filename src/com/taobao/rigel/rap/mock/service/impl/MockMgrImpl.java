@@ -54,7 +54,8 @@ public class MockMgrImpl implements MockMgr {
 	}
 
 	@Override
-	public String generateData(int projectId, String pattern) throws UnsupportedEncodingException {
+	public String generateData(int projectId, String pattern,
+			Map<String, Object> options) throws UnsupportedEncodingException {
 		_num = 1;
 		String originalPattern = pattern;
 		System.out.println("pattern before processed:" + pattern);
@@ -69,8 +70,8 @@ public class MockMgrImpl implements MockMgr {
 				.getMatchedActionList(projectId, pattern);
 		if (aList.size() == 0)
 			return "{\"isOk\":false, \"errMsg\":\"no matched action\"}";
-		
-		Action action = actionPick(aList, originalPattern);
+
+		Action action = actionPick(aList, originalPattern, options);
 
 		String desc = action.getDescription();
 		Set<Parameter> pList = action.getResponseParameterList();
@@ -130,15 +131,15 @@ public class MockMgrImpl implements MockMgr {
 	}
 
 	@Override
-	public String generateRuleData(int projectId, String pattern)
-			throws UnsupportedEncodingException {
-		String result = generateRule(projectId, pattern);
+	public String generateRuleData(int projectId, String pattern,
+			Map<String, Object> options) throws UnsupportedEncodingException {
+		String result = generateRule(projectId, pattern, options);
 		return MockjsRunner.renderMockjsRule(result);
 	}
 
 	@Override
-	public String generateRule(int projectId, String pattern)
-			throws UnsupportedEncodingException {
+	public String generateRule(int projectId, String pattern,
+			Map<String, Object> options) throws UnsupportedEncodingException {
 		String originalPattern = pattern;
 		_num = 1;
 		System.out.println("pattern before processed:" + pattern);
@@ -155,7 +156,7 @@ public class MockMgrImpl implements MockMgr {
 			return "{\"isOk\":false, \"errMsg\":\"no matched action\"}";
 		}
 
-		Action action = actionPick(aList, originalPattern);
+		Action action = actionPick(aList, originalPattern, options);
 
 		String desc = action.getDescription();
 		Set<Parameter> pList = action.getResponseParameterList();
@@ -214,8 +215,8 @@ public class MockMgrImpl implements MockMgr {
 		return resultFilter(result);
 	}
 
-	private Action actionPick(List<Action> actionList, String pattern)
-			throws UnsupportedEncodingException {
+	private Action actionPick(List<Action> actionList, String pattern,
+			Map<String, Object> options) throws UnsupportedEncodingException {
 		Action result = actionList.get(0);
 		Map<String, List<String>> requestParams = getUrlParameters(pattern);
 		for (Action action : actionList) {
@@ -224,6 +225,15 @@ public class MockMgrImpl implements MockMgr {
 			boolean hasSchema = false;
 			boolean isPassed = true;
 			for (String docParamKey : docActionParams.keySet()) {
+				if (docParamKey.contains("[") && docParamKey.contains("]")) {
+					String docParamKeyProcessed = docParamKey.substring(1,
+							docParamKey.length() - 1);
+					List<String> list = requestParams.get(docParamKeyProcessed);
+					if (list != null && list.size() > 0) {
+						options.put("callback", list.get(0));
+					}
+				}
+
 				if (docParamKey.contains("{") && docParamKey.contains("}")) {
 					hasSchema = true;
 					String docParamKeyProcessed = docParamKey.substring(1,

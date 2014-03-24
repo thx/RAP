@@ -140,3 +140,17 @@ RAP.getMode();
 ```bash
 RAP.setMode(1);
 ```
+
+接口文档进阶
+--------------------------------------
+
+### 接口文档请求链接语法
+
+http://www.taobao.com/getItem?[callback]=foo
+
+`[callback]` 表示参数`callback`会用作JSONP的回调key，若实际请求为getItem?callback=foo，则返回结果为:foo({...});
+
+http://www.taobao.com/getREST?{path}=delete
+
+`{path}` 表示参数`path`会在RAP文档和开发环境进行接口对接时，需要考虑path参数，一般REST API会使用比较多。因为REST不同请求是通过参数区分的，比如getRest?path=delete, getRest?path=update, 而{path}表示两者为不同的接口。
+
