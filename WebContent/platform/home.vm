@@ -6,23 +6,30 @@
 		<title>欢迎使用RAP        </title>
 		#includeNewRapStatic
         <style type="text/css">
-            .img-circle {border:5px dashed #DFDFDF;}
             .marketing { text-align: center; color: #5a5a5a; }
             .marketing h1 { margin: 60px 0 10px; font-size: 40px; font-weight: 200; line-height: 1; letter-spacing: -1px; }
             .marketing h2 { font-weight: 200; margin-bottom: 5px; }
             .marketing p { font-size: 16px; line-height: 1.5; }
             .marketing .marketing-byline { margin-bottom: 40px; font-size: 20px; font-weight: 300; line-height: 25px; color: #999; }
+        	.hero-unit h1{margin-top: 40px; margin-bottom: 20px;}
+        	.hero-unit {margin-bottom: 100px; margin-top: 100px; text-align: center;}
+        	.label {
+        		color: #666;
+        	}
+        	.row-fluid p, .row-fluid h2 {text-align: center;}
+        	.row-fluid p {color: #999;}
+        	.extra {margin-top: 100px; text-align: center; margin-bottom: 100px;}
+        	.extra p {margin-top: 20px;}
         </style>
 	</head>
 	<body>
 	    #bodyNewStart
             <!-- title block begin -->
-            <p>对于RAP平台的任何问题，欢迎邮件至<a href="mailto:huoyong.msb@taobao.com">huoyong.msb@taobao.com</a></p>
-            <p>RAP是THX平台中的产品，想了解THX更多内容，请访问：<a href="http://thx.alibaba-inc.com" target="_blank">http://thx.alibaba-inc.com</a></p>
-            <p>RAP Github Repo: <a href="http://github.com/thx/RAP" target="_blank">http://github.com/thx/RAP</a></p>	
             <div class="hero-unit">
-                <h1>Rigel Automation Platform</h1>
-                <p>在开发WEB应用时前后端会约定请求接口，包含请求链接、参数等细节。RAP提供了接口数据的共享平台，功能强大使用方便。同时利用这些数据自动化的生成伪造数据、提供后端开发工具包等，减少重复劳动并提升开发效率。</p>
+                <h1>RAP（Rigel Automation Platform）</h1>
+                <p style="font-size: 22px;margin-bottom: 20px;">随时随地 编辑、查看、使用、校验接口数据</p>
+                <p style="color:#AAA">在开发WEB应用时前后端会约定请求接口，包含请求链接、参数等细节。RAP提供了接口数据的共享平台，功能强大使用方便。</p>
+                <p style="color:#AAA">同时利用这些数据自动化的生成伪造数据、提供后端开发工具包等，减少重复劳动并提升开发效率。</p>
                 <!--
                 <p>
                     <a class="btn btn-primary btn-large">了解更多 &raquo;</a>
@@ -33,21 +40,29 @@
 
             <!-- feature block begin -->
             <div class="row-fluid">
-                <div class="span4">
-                    <img src="${staticRoot}/img/home_img_1.png" class="img-circle">
+            	<div class="row">
+                <div class="col-sm-3" style="margin-left: 4%;">
+                    <img src="${staticRoot}/img/home_img_1.png" class="">
                     <h2>接口版本管理</h2>
                     <p>RAP提供了接口数据共享平台，每次提交都有&nbsp;<span class="label">版本跟踪</span>&nbsp;，可随时切换查看任何一个版本方便团队协作。也可随时导出Word文档离线查看。权限控制保证文档准确性、可操作性。</p>
                 </div>
-                <div class="span4">
-                    <img src="${staticRoot}/img/home_img_3.png" class="img-circle">
+                <div class="col-sm-3 col-sm-offset-1">
+                    <img src="${staticRoot}/img/home_img_3.png" class="">
                     <h2>自动数据接口</h2>
                     <p>只要填写好接口，RAP会自动生成用于数据伪造的接口，这些接口会根据文档中的信息自动化的生成随机伪造数据。通过一些&nbsp;<span class="label">标签</span>&nbsp;，还可控制数据伪造的形式和范围。</p>
                 </div>
-                <div class="span4">
-                    <img src="${staticRoot}/img/home_img_2.png" class="img-circle">
+                <div class="col-sm-3 col-sm-offset-1">
+                    <img src="${staticRoot}/img/home_img_2.png" class="">
                     <h2>后端工具包</h2>
                     <p>只要填写好接口数据平台还提供了&nbsp;<span class="label">后端工具包</span>&nbsp;，用于检验所开发接口是否满足文档要求，对请求和响应的格式、参数拼写等进行验证。对接口进行简单测试等等。</p>
                 </div>
+                </div>
+            </div>
+            <div class="extra">
+            	<h1>相关链接</h1>
+            	<p>对于RAP平台的任何问题，欢迎邮件至<a href="mailto:huoyong.msb@taobao.com">huoyong.msb@taobao.com</a></p>
+            	<p>RAP是THX平台中的产品，想了解THX更多内容，请访问：<a href="http://thx.alibaba-inc.com" target="_blank">http://thx.alibaba-inc.com</a></p>
+            	<p>RAP Github Repo: <a href="http://github.com/thx/RAP" target="_blank">http://github.com/thx/RAP</a></p>	
             </div>
             <!-- feature block end -->
 
