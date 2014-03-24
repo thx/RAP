@@ -608,6 +608,9 @@ public class MockMgrImpl implements MockMgr {
 		if (mockValue != null && !mockValue.isEmpty()) {
 			if (mockValue.startsWith("[") && mockValue.endsWith("]")) {
 				return mockValue;
+			} else if (para.getDataType().equals("number")
+					|| para.getDataType().equals("boolean")) {
+				return mockValue;
 			} else {
 				return "\"" + mockValue + "\"";
 			}

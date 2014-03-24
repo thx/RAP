@@ -241,6 +241,8 @@
         var blackMode;
         var list;
 
+        url = convertUrlToRelative(url);
+        
         if (!url || typeof url !== 'string') {
             console.warn("Illegal url:", url);
             return false;
@@ -265,7 +267,7 @@
             blackMode = mode === 2;
             list = blackMode ? blackList : whiteList;
             for (i = 0; i < list.length; i++) {
-                o = list[i];
+                o = convertUrlToRelative(list[i]);
                 if (typeof o === 'string' && url.indexOf(o) >= 0) {
                     return !blackMode;
                 } else if (typeof o === 'object' && o instanceof RegExp && o.test(url)) {
