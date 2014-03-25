@@ -28,7 +28,6 @@ test('jQuery.ajax[RAPPED] - getMockjsData - Action : /mockjs/base', function() {
         dataType : "jsonp",
         jsonp: "callback",
         success : function(data){
-        	console.log(data);
         	start();
         	ok('a' in data, 'mockjs : a is in data');
         	ok(KISSY.isNumber(data['a']), 'and dataType is number');

@@ -46,3 +46,7 @@ test('RAP.set/getPrefix', function() {
 	RAP.setPrefix(old);
 	equal(RAP.getPrefix(), old, 'recover ok');
 })
+
+// TODO
+// setWhiteList([url]) test
+// setWhiteList([url]) and check test
