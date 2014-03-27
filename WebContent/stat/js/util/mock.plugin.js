@@ -64,12 +64,20 @@
                 if (route(url) && projectId) {
                     rapUrlConverterJQuery(oOptions);
                     var oldSuccess = oOptions.success;
-                    oOptions.success = function(data) {
+                    oldSuccess && (oOptions.success = function(data) {
                         if (PREFIX == '/mockjs/') {
                             data = Mock.mock(data);
                         }
                         oldSuccess.apply(this, arguments);
-                    };
+                    });
+
+                    var oldComplete = oOptions.complete;
+                    oldComplete && (oOptions.complete = function(data) {
+                        if (PREFIX == '/mockjs/') {
+                            data = Mock.mock(data);
+                        }
+                        oldComplete.apply(this, arguments);
+                    });
                 } else if(isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
                     var checkerOptions = {url : oOptions.url};
                     rapUrlConverterJQuery(checkerOptions);

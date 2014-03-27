@@ -154,3 +154,7 @@ http://www.taobao.com/getREST?{path}=delete
 
 `{path}` 表示参数`path`会在RAP文档和开发环境进行接口对接时，需要考虑path参数，一般REST API会使用比较多。因为REST不同请求是通过参数区分的，比如getRest?path=delete, getRest?path=update, 而{path}表示两者为不同的接口。
 
+### 最外层为数组的接口
+
+需要在接口描述的开头增加一条指令：@type=array_map;@length=1
+表示返回的最外层结构是数组，长度是1。
