@@ -282,7 +282,7 @@
             list = blackMode ? blackList : whiteList;
             for (i = 0; i < list.length; i++) {
                 o = convertUrlToRelative(list[i]);
-                if (typeof o === 'string' && url.indexOf(o) >= 0) {
+                if (typeof o === 'string' && (url.indexOf(o) >= 0 || o.indexOf(url) >= 0)) {
                     return !blackMode;
                 } else if (typeof o === 'object' && o instanceof RegExp && o.test(url)) {
                     return !blackMode;
