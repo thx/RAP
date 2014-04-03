@@ -1,4 +1,6 @@
 ### rap v0.8.1 ###
+* [BUG] 修复数据导入错误。 2014-04-02
+* [功能] 增加pageTester对[action], {action]的URL语法的支持。 2014-04-02
 * [BUG] 修复@行列 提出的KISSY complete的问题。 2014-03-27
 * [功能] 请求链接添加新语法url?[callback]=foo，用以支持自定义的JSONP callback key。 2014-03-24
 * [功能] 请求链接添加新语法url?{action}=update，用以支持REST_API的带参数查询接口的功能。 2014-03-20

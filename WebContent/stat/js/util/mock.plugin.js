@@ -63,12 +63,12 @@
                 var url = oOptions.url;
                 if (route(url) && projectId) {
                     rapUrlConverterJQuery(oOptions);
-                    var oldSuccess = oOptions.success;
-                    oldSuccess && (oOptions.success = function(data) {
+                    var oldSuccess1 = oOptions.success;
+                    oldSuccess1 && (oOptions.success = function(data) {
                         if (PREFIX == '/mockjs/') {
                             data = Mock.mock(data);
                         }
-                        oldSuccess.apply(this, arguments);
+                        oldSuccess1.apply(this, arguments);
                     });
 
                     var oldComplete = oOptions.complete;
@@ -84,7 +84,7 @@
                     checkerOptions.RAP_NOT_TRACK = true;
                     checkerOptions.success = checkerHandler;
                     // real data checking
-                    oldSuccess = oOptions.success;
+                    var oldSuccess2 = oOptions.success;
                     oOptions.success = function() {
                         var realData = arguments[0];
                         checkerOptions.context = {
@@ -92,7 +92,7 @@
                         };
                         // perform real data check
                         ajax.apply(jQuery, [checkerOptions]);
-                        oldSuccess.apply(this,arguments);
+                        oldSuccess2.apply(this,arguments);
                     };
                 }
                 ajax.apply(this, arguments);
@@ -110,20 +110,19 @@
             KISSY.add('rap_io', function(S, IO) {
                 var fn = KISSY.io = KISSY.IO = KISSY.ajax = function(options) {
                     var oOptions, url;
-                    var oldSuccess;
                     if (arguments[0]) {
                         oOptions = arguments[0];
                         url = oOptions.url;
                         if (route(url) && !oOptions.RAP_NOT_TRACK) {
                             rapUrlConverterKissy(oOptions);
-                            oldSuccess = oOptions.success;
-                            oldSuccess && (oOptions.success = function(data) {
+                            var oldSuccess1 = oOptions.success;
+                            oldSuccess1 && (oOptions.success = function(data) {
                                 if (PREFIX == '/mockjs/') {
                                     data = Mock.mock(data);
                                 }
-                                oldSuccess.apply(this, arguments);
+                                oldSuccess1.apply(this, arguments);
                             });
-                            oldComplete = oOptions.complete;
+                            var oldComplete = oOptions.complete;
                             oldComplete && (oOptions.complete = function(data) {
                                 if (PREFIX == '/mockjs/') {
                                     data = Mock.mock(data);
@@ -136,7 +135,7 @@
                             checkerOptions.RAP_NOT_TRACK = true;
                             checkerOptions.success = checkerHandler;
                             // real data checking
-                            oldSuccess = oOptions.success;
+                            var oldSuccess2 = oOptions.success;
                             oOptions.success = function() {
                                 var realData = arguments[0];
                                 checkerOptions.context = {
@@ -144,7 +143,7 @@
                                 };
                                 // perform real data check
                                 IO(checkerOptions);
-                                oldSuccess.apply(this,arguments);
+                                oldSuccess2.apply(this,arguments);
                             };
 
                         }
@@ -202,7 +201,7 @@
     }
 
 
-    function checkerHandler(mockData) {     
+    function checkerHandler(mockData) {
         if (PREFIX == '/mockjs/') {
             mockData = Mock.mock(mockData);
         }
@@ -257,7 +256,7 @@
         var list;
 
         url = convertUrlToRelative(url);
-        
+
         if (!url || typeof url !== 'string') {
             console.warn("Illegal url:", url);
             return false;

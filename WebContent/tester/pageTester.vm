@@ -137,6 +137,7 @@
                         }
 
                         url = baseUrl + (baseUrl.indexOf('?') === -1 ? '?' : '&') + qArr.join('&');
+                        url = url.replace(/[{}]/g, "");
                         log('request starting, url=' + color(url, LIGHT_GRAY));
                         Y.timeLog['time'] = new Date().getTime();
                         try {
