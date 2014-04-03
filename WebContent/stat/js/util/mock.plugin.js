@@ -233,7 +233,7 @@
         var o;
         for (i = 0; i < whiteList.length; i++) {
             o = whiteList[i];
-            if (typeof o === 'string' && url.indexOf(o) >= 0) {
+            if (typeof o === 'string' && (url.indexOf(o) >= 0 || o.indexOf(url) >= 0)) {
                 return true;
             } else if (typeof o === 'object' && o instanceof RegExp && o.test(url)) {
                 return true;
