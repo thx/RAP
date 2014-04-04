@@ -28,7 +28,7 @@
 					url : url,
 					dataType : 'json',
 					type : 'get',
-					success : function(data) {
+					complete : function(data) {
 						console.log(data);
 						Node.one('#container').html(
 							JSON.stringify(data, null, 4));

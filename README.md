@@ -72,6 +72,13 @@ id|+1      @mock=100
 
 在备注里，MOCK标签和普通的备注需要用分号隔开，比如一个参数叫userId，备注信息是"用户ID", mock标签是@mock=123，则在备注中应该填写:`用户ID;@mock=123`
 
+#### MockJS模板的转义
+
+变量名     备注              结果
+escape    @mock="123"      "escape" : "\"123\""
+noEscape  @{mock}=[1,2,3]  "noEscape" : [1,2,3]
+
+明确不需要转义时，只需要写@{mock}即可
 
 ### for RD 之 Console ###
 
