@@ -59,14 +59,14 @@ public class MockMgrImpl implements MockMgr {
 			Map<String, Object> options) throws UnsupportedEncodingException {
 		_num = 1;
 		String originalPattern = pattern;
-		System.out.println("pattern before processed:" + pattern);
+		//System.out.println("pattern before processed:" + pattern);
 		if (pattern.contains("?")) {
 			pattern = pattern.substring(0, pattern.indexOf("?"));
 		}
 		if (pattern.charAt(0) == '/') {
 			pattern = pattern.substring(1);
 		}
-		System.out.println("pattern processed:" + pattern);
+		//System.out.println("pattern processed:" + pattern);
 		List<Action> aList = projectMgr
 				.getMatchedActionList(projectId, pattern);
 		if (aList.size() == 0)
@@ -143,14 +143,14 @@ public class MockMgrImpl implements MockMgr {
 			Map<String, Object> options) throws UnsupportedEncodingException {
 		String originalPattern = pattern;
 		_num = 1;
-		System.out.println("pattern before processed:" + pattern);
+		//System.out.println("pattern before processed:" + pattern);
 		if (pattern.contains("?")) {
 			pattern = pattern.substring(0, pattern.indexOf("?"));
 		}
 		if (pattern.charAt(0) == '/') {
 			pattern = pattern.substring(1);
 		}
-		System.out.println("pattern processed:" + pattern);
+		//System.out.println("pattern processed:" + pattern);
 		List<Action> aList = projectMgr
 				.getMatchedActionList(projectId, pattern);
 		if (aList.size() == 0) {

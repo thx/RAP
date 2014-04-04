@@ -1,4 +1,6 @@
 ### rap v0.8.1 ###
+* [BUG] 修复IO被拦截后，一些快捷方式（如IO.jsonp）无法使用的问题。2014-04-04
+* [BUG] 修复百度tangram baidu.encodeHTML转义不全导致的问题。 2014-04-04
 * [BUG] 修复@行列 提出的MockJS模板转义问题。2014-04-04
 * [BUG] 修复数据导入错误。 2014-04-02
 * [功能] 增加pageTester对[action], {action]的URL语法的支持。 2014-04-02

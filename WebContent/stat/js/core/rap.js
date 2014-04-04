@@ -52,7 +52,11 @@ if (!window.console) {
         return inputStr;
     };
 
-    util.escaper.escapeInH = b.encodeHTML;
+    util.escaper.escapeInH = function(inputStr) {
+       inputStr = b.encodeHTML(inputStr);
+       inputStr = inputStr.replace(/\'/g, "&#39;");
+       return  inputStr;
+    };
 
     util.escaper.escapeInU = encodeURIComponent;
 
@@ -3666,6 +3670,10 @@ if (!window.console) {
          * get edit input element
          */
         function getEditInputHtml(value, width, maxLength) {
+            if (!value) {
+                value = '';
+            }
+            value = util.escaper.escapeInH(value);
             return "<input id='" + ELEMENT_ID.EDIT_INPUT + "' class='edit-input' type='text' value='" + value +
                 "' style='width: " + width +"px' maxlength='" + maxLength + "' onblur='ws.finishEdit();' />";
         }

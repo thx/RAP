@@ -108,6 +108,8 @@
             KISSY.oldAdd = KISSY.add;
 
             KISSY.add('rap_io', function(S, IO) {
+                var oldIO = IO;
+                var key;
                 var fn = KISSY.io = KISSY.IO = KISSY.ajax = function(options) {
                     var oOptions, url;
                     if (arguments[0]) {
@@ -150,6 +152,14 @@
                     }
                     IO.apply(this, arguments);
                 };
+
+                for (key in oldIO) {
+                    if (oldIO.hasOwnProperty(key)) {
+                        fn[key] = oldIO[key];
+                    }
+                }
+                debugger;
+
                 return fn;
             }, {
                 requires: ['ajax']
