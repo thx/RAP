@@ -10,52 +10,55 @@
 <!-- 引入RAP开始 -->
 
 <!-- <script type="text/javascript"
-	src="http://rap.alibaba-inc.com/rap.plugin.js?projectId=79"></script> -->
+    src="http://rap.alibaba-inc.com/rap.plugin.js?projectId=79"></script> -->
 <script type="text/javascript"
-	src="http://etaoux-bj.taobao.ali.com:8080/rap.plugin.js?projectId=79&mode=0"></script>
+    src="http://etaoux-bj.taobao.ali.com:8080/rap.plugin.js?projectId=79&mode=0"></script>
 <!-- 引入RAP结束 -->
 </head>
 <body>
-	<pre id="container">
+    <pre id="container">
         </pre>
 
-	<script>
-		var url = 'complexCase.do';
-		 
-		KISSY.use([ 'node', 'ajax' ], {
-			success : function(S, Node, IO) {
-				IO({
-					url : url,
-					dataType : 'json',
-					type : 'get',
-					complete : function(data) {
-						console.log(data);
-						Node.one('#container').html(
-							JSON.stringify(data, null, 4));
-					}
-				});
-			}
-		});
+    <script>
+        var url = 'complexCase.do';
 
-		
-	/*
-		$.ajax({
-			type : 'GET',
-			url : url,
-			dataType : 'json',
-			success : function(data) {
-				console.log(data);
-				$('#container').html(JSON.stringify(data, null, 4));
-			}
-		});
+        KISSY.use([ 'node', 'ajax' ], {
+            success : function(S, Node, IO) {
+                IO({
+                    url : url,
+                    dataType : 'json',
+                    type : 'get',
+                    complete : function(data) {
+                        console.log(data);
+                        Node.one('#container').html(
+                            JSON.stringify(data, null, 4));
+                    }
+                });
+            }
+        });
 
-		
-	
-		$.get(url, function(data) {
-			console.log('get result', data);
-			$('#container').html(JSON.stringify(data, null, 4));
-		});
-		*/
-	</script>
+        KISSY.use(undefined, function() {
+        });
+
+
+    /*
+        $.ajax({
+            type : 'GET',
+            url : url,
+            dataType : 'json',
+            success : function(data) {
+                console.log(data);
+                $('#container').html(JSON.stringify(data, null, 4));
+            }
+        });
+
+
+
+        $.get(url, function(data) {
+            console.log('get result', data);
+            $('#container').html(JSON.stringify(data, null, 4));
+        });
+        */
+    </script>
 </body>
 </html>

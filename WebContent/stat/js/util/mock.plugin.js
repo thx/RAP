@@ -167,7 +167,9 @@
 
             KISSY.use = function(modules, callback) {
                 var args = arguments;
-                args[0] = replace(modules);
+                if (modules instanceof Array || typeof modules === 'string') {
+                    args[0] = replace(modules);
+                }
                 KISSY.oldUse.apply(this, args);
             };
 
