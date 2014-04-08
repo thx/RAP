@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>$!utils.escapeInH($workspace.project.name) 接口编辑        </title>
+        <title>$!utils.escapeInH($workspace.project.name)文档编辑        </title>
         #includeNewRapStatic
         <link type="text/css" rel="stylesheet" href="${staticRoot}/css/defcontrol.css?_r=$!timeStamp" />
         <link type="text/css" rel="stylesheet" href="${staticRoot}/css/myWorkspace.css?_r=$!timeStamp" />
@@ -32,7 +32,7 @@
                             </ul>
                         </div>
                     </div>
-                    <button id="btnFastSave" type="button" class="btn btn-primary" onclick="ws.quickSave(); return false;"  style="display: none" title="一键保存，方便快捷。建议少量修改无需说明时使用。">
+                    <button id="btnFastSave" type="button" class="btn btn-warning" onclick="ws.quickSave(); return false;"  style="display: none" title="一键保存，方便快捷。建议少量修改无需说明时使用。">
                         <span class="glyphicon glyphicon-flash"></span>
                         一键保存
                     </button>
@@ -193,7 +193,7 @@
         </div>
         #endFloater
 
-        #startFloater("editAFloater" "Manage Action" 600 300)
+        #startFloater("editAFloater" "编辑接口" 600 300)
         <form name="formEditAFloater">
         <div id="floaterEditAFloater" class="myfloater">
             <input type="hidden" id="editAFloater-id" />
@@ -212,10 +212,12 @@
                         <label for="editAFloater-type-1">GET</label>
                         <input type="radio" id="editAFloater-type-2" name="editAFloater-type"  value="2"/>
                         <label for="editAFloater-type-2">POST</label>
+                        <!--
                         <input type="radio" id="editAFloater-type-3" name="editAFloater-type"  value="3"/>
                         <label for="editAFloater-type-3">AJAX GET</label>
                         <input type="radio" id="editAFloater-type-4" name="editAFloater-type"  value="4"/>
                         <label for="editAFloater-type-4">AJAX POST</label>
+                        -->
                     </td>
                 </tr>
                 <tr>
@@ -255,7 +257,7 @@
         </div>
         </form>
         #endFloater
-        #startFloater("editPFloater" "Manage Page" 600 400)
+        #startFloater("editPFloater" "编辑页面" 600 400)
         <form name="formEditPFloater">
             <div class="myfloater">
                 <input type="hidden" id="editPFloater-id" />
@@ -286,7 +288,7 @@
             </div>
         </form>
         #endFloater
-        #startFloater("importJSONFloater" "Import JSON" 600 350)
+        #startFloater("importJSONFloater" "JSON导入" 600 350)
         <form name="formImportJSONFloater">
             <div id="div-importJSON-floater-message" style="display:none;" class="label"></div>
             <div class="myfloater">
@@ -310,7 +312,7 @@
             </div>
         </form>
         #endFloater
-        #startFloater("exportRAPDataFloater" "Import JSON" 600 350)
+        #startFloater("exportRAPDataFloater" "JSON导入" 600 350)
         <form name="formImportJSONFloater">
             <div class="myfloater">
                 <table class="table">
@@ -350,7 +352,7 @@
             util = rap.util;
 
         if (data.projectData.moduleList.length === 0) {
-            data.projectData.moduleList = [{"id":ws.generateId(),"name":"某模块","introduction":"","pageList":[{"moduleId":ws.generateId(),"name":"某页面","introduction":"","id":ws.generateId(),"isIdGenerated":true,"actionList":[{"pageId":ws.generateId(),"name":"某请求","requestType":"1","requestUrl":"","responseTemplate":"","description":"","id":ws.generateId(),"requestParameterList":[{"id":ws.generateId(),"identifier":"reqParam","name":"某请求参数","remark":"","validator":"","dataType":"number","parameterList":[]}],"responseParameterList":[{"id":ws.generateId(),"identifier":"resParam","name":"某响应参数","remark":"","validator":"","dataType":"number","parameterList":[]}]}]}]}];
+            data.projectData.moduleList = [{"id":ws.generateId(),"name":"某模块（点击编辑后双击修改）","introduction":"","pageList":[{"moduleId":ws.generateId(),"name":"某页面","introduction":"","id":ws.generateId(),"isIdGenerated":true,"actionList":[{"pageId":ws.generateId(),"name":"某请求","requestType":"1","requestUrl":"","responseTemplate":"","description":"","id":ws.generateId(),"requestParameterList":[{"id":ws.generateId(),"identifier":"reqParam","name":"某请求参数","remark":"","validator":"","dataType":"number","parameterList":[]}],"responseParameterList":[{"id":ws.generateId(),"identifier":"resParam","name":"某响应参数","remark":"","validator":"","dataType":"number","parameterList":[]}]}]}]}];
         }
 
         ws.init(data, urlObj);

@@ -1199,13 +1199,13 @@ if (!window.console) {
         },
         TEMPLATE = {            // static template
 
-            "REQUEST_BEGIN"                 : "<h2>REQUEST PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
-            "REQUEST_BEGIN_EDIT"            : "<h2>REQUEST PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "REQUEST_BEGIN"                 : "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "REQUEST_BEGIN_EDIT"            : "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "REQUEST_END"                   : "</table>",
             "REQUEST_PARAMETER_ADD_BUTTON"  : "<div><a href=\"#\" class=\"add-link div-add-param-link\" onclick=\"ws.addParam('request'); return false;\">新增请求参数</a></div>",
 
-            "RESPONSE_BEGIN"                : "<br /><h2>RESPONSE PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
-            "RESPONSE_BEGIN_EDIT"           : "<br /><h2>RESPONSE PARAM LIST</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "RESPONSE_BEGIN"                : "<br /><h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "RESPONSE_BEGIN_EDIT"           : "<br /><h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "RESPONSE_END"                  : "</table>",
             "RESPONSE_PARAMETER_ADD_BUTTON" : "<div><a href=\"#\" class=\"add-link div-add-param-link\" onclick=\"ws.addParam('response'); return false;\">新增响应参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" onclick=\"ws.importJSON(); return false;\">导入JSON</a></div>",
 
@@ -2060,7 +2060,7 @@ if (!window.console) {
                 if (obj.isOk) {
                     storeViewState();
                     if (obj.projectData.moduleList.length === 0) {
-                        obj.projectData.moduleList = [{"id":ws.generateId(),"name":"某模块","introduction":"","pageList":[{"moduleId":ws.generateId(),"name":"某页面","introduction":"","id":ws.generateId(),"isIdGenerated":true,"actionList":[{"pageId":ws.generateId(),"name":"某请求","requestType":"1","requestUrl":"","responseTemplate":"","description":"","id":ws.generateId(),"requestParameterList":[{"id":ws.generateId(),"identifier":"reqParam","name":"某请求参数","remark":"","validator":"","dataType":"number","parameterList":[]}],"responseParameterList":[{"id":ws.generateId(),"identifier":"resParam","name":"某响应参数","remark":"","validator":"","dataType":"number","parameterList":[]}]}]}]}];
+                        obj.projectData.moduleList = [{"id":ws.generateId(),"name":"某模块（点击编辑后双击修改）","introduction":"","pageList":[{"moduleId":ws.generateId(),"name":"某页面","introduction":"","id":ws.generateId(),"isIdGenerated":true,"actionList":[{"pageId":ws.generateId(),"name":"某请求","requestType":"1","requestUrl":"","responseTemplate":"","description":"","id":ws.generateId(),"requestParameterList":[{"id":ws.generateId(),"identifier":"reqParam","name":"某请求参数","remark":"","validator":"","dataType":"number","parameterList":[]}],"responseParameterList":[{"id":ws.generateId(),"identifier":"resParam","name":"某响应参数","remark":"","validator":"","dataType":"number","parameterList":[]}]}]}]}];
                     }
                     p.init(obj.projectData);
                     _data.projectDataOriginal = b.object.clone(obj.projectData);
@@ -3493,24 +3493,24 @@ if (!window.console) {
          * get action info html
          */
         function getAInfoHtml(a) {
-            var head = "<h2 style='margin-top:30px;'>ACTION INFO</h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
+            var head = "<h2 style='margin-top:30px;'>接口详情</h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
                 body = "",
                 foot = "</div>";
 
             if (a.name) {
-                body += "<div class='item'><b>Action Name</b>: " + a.name + "(id:" + a.id + ")</div>";
+                body += "<div class='item'><b>接口名称</b>: " + a.name + "(id:" + a.id + ")</div>";
             }
             if (a.requestType) {
-                body += "<div class='item'><b>Request Type</b>: <font color='orange'>" + getRequestTypeStr(a.requestType) + "</font></div>";
+                body += "<div class='item'><b>请求类型</b>: <font color='orange'>" + getRequestTypeStr(a.requestType) + "</font></div>";
             }
             if (a.requestUrl) {
-                body += "<div class='item'><b>Request Url</b>:<font color='blue'> " + a.requestUrl + "</font></div>";
+                body += "<div class='item'><b>请求Url</b>:<font color='blue'> " + a.requestUrl + "</font></div>";
             }
             if (a.responseTemplate) {
-                body += "<div class='item'><b>Response Template</b>: <font color='red'>" + a.responseTemplate + "</font></div>";
+                body += "<div class='item'><b>相关模板</b>: <font color='red'>" + a.responseTemplate + "</font></div>";
             }
             if (a.description) {
-                body += "<div class='item'><b>Description</b>: " + processTextarea(a.description) + "</div>";
+                body += "<div class='item'><b>接口描述</b>: " + processTextarea(a.description) + "</div>";
             }
             if (!body) {
                 body += "no info";

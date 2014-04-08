@@ -158,7 +158,6 @@
                         fn[key] = oldIO[key];
                     }
                 }
-                debugger;
 
                 return fn;
             }, {

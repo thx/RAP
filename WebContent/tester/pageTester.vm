@@ -11,7 +11,8 @@
             <script src="http://a.tbcdn.cn/??s/yui/3.6.0/build/yui/yui-min.js"></script>
             <script src="${staticRoot}/js/util/jsformat.js"></script>
             <script src="${staticRoot}/js/util/structureValidator.js"></script>
-            <script src="http://mockjs.com/dist/mock-min.js"></script>
+            <script src="${staticRoot}/js/util/structureValidator.js"></script>
+            <script src="${staticRoot}/js/util/mock-min.js"></script>
         </head>
         <body>
         <h3>$!utils.escapeInH($page.name)控制台</h3>
