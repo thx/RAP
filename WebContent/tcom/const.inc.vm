@@ -25,56 +25,57 @@
 #set($staticRoot = "$!projectContext/stat")
 
 #set($newUrl = {
-	"home":"$projectContext/org/index.do"
+    "home":"$projectContext/org/index.do"
 })
 
 #set($accountUrl = {
-	"login":"$projectContext/account/login.action",
-	"doLogin":"$projectContext/account/doLogin.action",
-	"doLogout":"$projectContext/account/doLogout.action",
-	"register":"$projectContext/account/register.action",
-	"doRegister":"$projectContext/account/doRegister.action",
-	"myAccount":"$projectContext/account/myAccount.action",
-	"updateProfile":"$projectContext/account/updateProfile.action",
-	"doUpdateProfile":"$projectContext/account/doUpdateProfile.action",
-	"doChangeProfile":"$projectContext/account/doChangeProfile.action",
-	"myHome":"$projectContext/org/index.action"
+    "login":"$projectContext/account/login.action",
+    "doLogin":"$projectContext/account/doLogin.action",
+    "doLogout":"$projectContext/account/doLogout.action",
+    "register":"$projectContext/account/register.action",
+    "doRegister":"$projectContext/account/doRegister.action",
+    "myAccount":"$projectContext/account/myAccount.action",
+    "updateProfile":"$projectContext/account/updateProfile.action",
+    "doUpdateProfile":"$projectContext/account/doUpdateProfile.action",
+    "doChangeProfile":"$projectContext/account/doChangeProfile.action",
+    "myHome":"$projectContext/org/index.action"
 })
 
 #set($projectUrl = {
-	"myProjectList":"$projectContext/project/myProjectList.action",
-	"removeProject":"$projectContext/project/removeProject.action",
-	"addProject":"$projectContext/project/addProject.action",
-	"myProject":"$projectContext/project/myProject.action",
-	"projectDetailAjax":"$projectContext/project/projectDetailAjax.action",
-	"addOrUpdateProject":"$projectContext/project/addOrUpdateProject.action",
-	"allProductlineList":"$projectContext/org/productline.action"
+    "myProjectList":"$projectContext/project/myProjectList.action",
+    "removeProject":"$projectContext/project/removeProject.action",
+    "addProject":"$projectContext/project/addProject.action",
+    "myProject":"$projectContext/project/myProject.action",
+    "projectDetailAjax":"$projectContext/project/projectDetailAjax.action",
+    "addOrUpdateProject":"$projectContext/project/addOrUpdateProject.action",
+    "allProductlineList":"$projectContext/org/productline.action"
 })
 
 #set($workspaceUrl = {
-	"myWorkspace":"$projectContext/workspace/myWorkspace.action",
-	"getModuleHtmlAjax":"$projectContext/workspace/getModuleHtmlAjax.action",
-	"updateCurrentSave":"$projectContext/workspace/updateCurrentSave.action",
-	"updateSave":"$projectContext/workspace/updateSave.action",
-	"querySave":"$projectContext/workspace/querySave.action",
-	"removeSave":"$projectContext/workspace/removeSave.action",
-	"checkIn":"$projectContext/workspace/checkIn.action",
-	"checkOut":"$projectContext/workspace/checkOut.action",
-	"ping":"$projectContext/workspace/ping.action",
-	"queryVersion":"$projectContext/workspace/queryVersion.action",
-	"switchVersion":"$projectContext/workspace/switchVersion.action",
-	"lock":"$projectContext/workspace/lock.action",
+    "myWorkspace":"$projectContext/workspace/myWorkspace.action",
+    "getModuleHtmlAjax":"$projectContext/workspace/getModuleHtmlAjax.action",
+    "updateCurrentSave":"$projectContext/workspace/updateCurrentSave.action",
+    "updateSave":"$projectContext/workspace/updateSave.action",
+    "querySave":"$projectContext/workspace/querySave.action",
+    "removeSave":"$projectContext/workspace/removeSave.action",
+    "checkIn":"$projectContext/workspace/checkIn.action",
+    "checkOut":"$projectContext/workspace/checkOut.action",
+    "ping":"$projectContext/workspace/ping.action",
+    "queryVersion":"$projectContext/workspace/queryVersion.action",
+    "switchVersion":"$projectContext/workspace/switchVersion.action",
+    "lock":"$projectContext/workspace/lock.action",
     "unlock":"$projectContext/workspace/unlock.action",
     "export":"$projectContext/workspace/export.action"
 })
 
 #set($platformUrl = {
-	"home":"$projectContext/platform/home.action",
-	"document":"$projectContext/platform/document.action",
-	"about":"$projectContext/platform/about.action",
+    "home":"$projectContext/platform/home.action",
+    "document":"$projectContext/platform/document.action",
+    "about":"$projectContext/platform/about.action",
     "status":"$projectContext/platform/status.action",
     "help":"$!projectContext/platform/help.action",
-    "test":"$!projectContext/platform/test.action"
+    "test":"$!projectContext/platform/test.action",
+    "doc":"http://thx.alibaba-inc.com/RAP"
 })
 
 
