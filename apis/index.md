@@ -3,10 +3,7 @@ layout: post
 title: API
 ---
 
-{% raw %}
-
-RAP MOCK插件API
---------------------------------------
+## RAP MOCK插件API
 
 RAP提供MOCK服务插件（暂时仅支持Kissy和jQuery），使用方法只需要一步:
 
@@ -20,7 +17,7 @@ RAP提供MOCK服务插件（暂时仅支持Kissy和jQuery），使用方法只�
 mode不同值具体含义:
 - 0 - 不拦截
 - 1 - 拦截全部
-- 2 - 黑名单中的项不拦截
+- 2 - 黑名单中的项不拦截mdd
 - 3 - 仅拦截白名单中的项
 
 ### 您也可以手动设置黑名单、白名单及查看、设置工作模式 ###
@@ -50,8 +47,3 @@ RAP.getMode();
 ```bash
 RAP.setMode(1);
 ```
-
-
-{% endraw %}
-
-test
