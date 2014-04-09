@@ -84,7 +84,7 @@ RAP会通过文档数据自动为您创建MOCK服务并生成动态的模拟数�
 
 默认，RAP会为不同数据类型生成默认的数据，您也可以通过手动编写标签实现更好的MOCK行为控制。例如字段 id 需要自增，您可以使用MockJS语法:
 
-```js
+```bash
 变量名     备注
 id|+1     @mock=100
 
@@ -103,13 +103,13 @@ id|+1     @mock=100
 
 某一个参数叫`userId`，备注信息是 `用户ID`, mock标签是 `@mock=123`，则在备注中应该填写: 
 
-```js
+```bash
 用户ID;@mock=123
 ```
 
 #### MockJS模板的转义
 
-```js
+```bash
 变量名            备注                   结果
 escapeDemo       @mock="123"           "escapeDemo" : "\"123\""
 noEscapeDemo     @{mock}=[1,2,3]       "noEscapeDemo" : [1,2,3]
@@ -143,6 +143,7 @@ RAP提供了 `MOCK插件`（暂时仅支持Kissy和jQuery），使用只需要�
 ```
 
 其中：
+
 - `{{projectId}}`为用户所编辑的接口在RAP中的项目ID
 - `{{mode}}`为RAP路由的工作模式, 默认值为3。
 
