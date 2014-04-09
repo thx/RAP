@@ -17,7 +17,7 @@ title: RAP
 [RAP](http://rap.alibaba-inc.com) 可以方便团队录入、查看、管理和共享这些接口文档，并通过结构化的文档数据，分析并生成自测数据、提供自测控制台等等... 大幅度提升开发效率。
 
 ## 在线Demo
-<iframe width="100%" height="500" src="http://jsfiddle.net/a5Gg3/embedded/result,html,js/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="500" src="http://jsfiddle.net/a5Gg3/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 说明：
 
