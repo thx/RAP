@@ -21,7 +21,7 @@ title: RAP
 
 说明：
 
-- 本Demo 仅限能案例内网使用
+- 本Demo 仅限阿里内网使用
 - 本Demo的数据由 [RAP + [Mockjs](http://mockjs.com/)]自动生成，点击Demo中的 `Result` 标签，即可发现每一次渲染数据都不一样
 - 本Demo 的模板引擎使用的是Crox，详见 [Crox官网](/crox)
 - 本Demo 对应的RAP项目ID 为 `85`，项目地址为：[RAP Demo项目地址](http://rap.alibaba-inc.com/workspace/myWorkspace.action?projectId=85)
