@@ -80,3 +80,81 @@ div#tipDiv {
 	color: Red;
 }
 
+.antialiased {
+    -webkit-font-smoothing: antialiased; /* 1 */
+    -moz-osx-font-smoothing: grayscale; /* 2 */
+}
+
+
+/**
+.navbar-inverse .navbar-brand {
+	font-size: 22px;
+	color: white;
+}
+
+*/
+
+.navbar-inverse {
+	background-color: #af235d;
+	background-image: none;
+	color: white;
+	border-bottom: none;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+	color: #FFF;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+	background-color: #d80066;
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-brand:hover {
+	font-size: 22px;
+	background-color: #af235d;
+	color: white;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+	background-color: #d80066;
+}
+.navbar-nav {
+	margin-left: 40px;
+}
+
+/**
+ * 引入Logo字体图标
+ */
+@font-face {
+    font-family: 'logo';
+    src: url('http://at.alicdn.com/t/font_1390195988_9420388.eot'); /* IE9*/
+    src: url('http://at.alicdn.com/t/font_1390195988_9420388.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('http://at.alicdn.com/t/font_1390195989_0386753.woff') format('woff'), /* chrome、firefox */
+    url('http://at.alicdn.com/t/font_1390195988_7969282.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('http://at.alicdn.com/t/font_1390195989_0668917.svg#svgFontName') format('svg'); /* iOS 4.1- */
+}
+
+.iconlogo,
+.type .iconlogo {
+    font-family: "logo";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    display: inline-block;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.logo-text {
+	display: inline-block;
+	margin-left: 10px;
+}
+.mi-rap {
+	font-size: 48px;
+	/* color: #af235d; */
+	float: left;
+}
+.mi-rap:before {
+    content: '\3434';
+}
