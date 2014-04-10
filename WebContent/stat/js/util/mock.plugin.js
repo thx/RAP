@@ -47,7 +47,7 @@
     }
 
     var enable = true;
-    console.log('Current RAP work mode:', mode, "(0-disabled, 1-intercept all requests, 21-black list, 3-white list)");
+    console.log('Current RAP work mode:', mode, "(0-disabled, 1-intercept all requests, 2-black list, 3-white list)");
     var ens = node.src.match(/(?:\?|&)enable=([^&]+)(?:&|$)/);
     if (ens) {
         enable = ens[1] == 'true';

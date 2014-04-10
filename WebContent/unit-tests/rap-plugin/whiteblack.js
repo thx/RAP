@@ -65,7 +65,7 @@ test('setWhiteList[not ok] in mode 3', function() {
 	RAP.setMode(3);
 	
 	var white = RAP.getWhiteList();
-	RAP.setWhiteList(['/base2']);
+	RAP.setWhiteList(['/notExistsAction']);
 	
 	stop(2);
 	var action = '/base';
@@ -129,7 +129,7 @@ test('setBlackList[not ok] in mode 2', function() {
 	RAP.setMode(2);
 	
 	var black = RAP.getBlackList();
-	RAP.setBlackList(['/base2']);
+	RAP.setBlackList(['/notExistsAction']);
 	
 	stop(2);
 	var action = '/base';
