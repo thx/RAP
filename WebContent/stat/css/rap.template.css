@@ -111,8 +111,8 @@ div#tipDiv {
 
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-brand:hover {
 	font-size: 22px;/* 
-	background-color: #af235d;
-	color: white; */
+	background-color: #af235d;*/
+	color: white; 
 }
 
 /* .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
