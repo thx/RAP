@@ -1,0 +1,268 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width" />
+  <title>快速上手 -  THX</title>
+  <link rel="stylesheet" type="text/css" href="http://g.tbcdn.cn/thx/cube/1.2.0/??cube.css,type.css">
+<link rel="stylesheet" type="text/css" href="/RAP/assets/syntax/github.css">
+<link rel="stylesheet" type="text/css" href="/RAP/assets/base.css">
+</head>
+<body bx-app>
+  
+
+<div id="page">
+  
+<div class="settings">
+<!-- 文字大小 begin -->
+    <label class="type-set-label set-first set-font-small" data-font-size="small" title="较小">
+        <span class="bd">
+            <span class="set-title">较小</span><span class="set-icon set-font-small">A</span>
+        </span>
+    </label>
+    <label class="type-set-label" data-font-size="middle" title="默认">
+        <span class="bd">
+            <span class="set-title">默认</span><span class="set-icon set-font-middle">A</span>
+        </span>
+    </label>
+    <label class="type-set-label" data-font-size="large" title="较大">
+        <span class="bd">
+            <span class="set-title">较大</span><span class="set-icon set-font-large">A</span>
+        </span>
+    </label>
+<!-- 文字大小 end -->
+
+<!-- 昼夜模式 begin -->
+    <label class="type-set-label set-last set-night" data-class="night" title="夜晚模式">
+        <span class="bd">
+            <span class="set-title">夜晚模式</span><i class="set-icon iconfont">&#452;</i>
+        </span>
+    </label>
+<!-- 昼夜模式 end -->
+</div>
+  <div id="content">
+    <div id="content-wrap">
+      <div id="ceiling">
+  <div class="bd justify">
+    <div class="products dib">
+      <a href="/">
+        <i class="iconfont mi-home">&#336;</i>
+      </a>
+      <a href="/magix">
+        <i class="iconlogo mi-magix"></i>
+        <span class="name">Magix</span>
+      </a>
+      <a href="/brix-core">
+        <i class="iconlogo mi-brix"></i>
+        <span class="name">Brix</span>
+      </a>
+      <a href="/crox">
+        <i class="iconlogo mi-crox"></i>
+        <span class="name">Crox</span>
+      </a>
+      <a href="/RAP">
+        <i class="iconlogo mi-rap"></i>
+        <span class="name">RAP</span>
+      </a>
+      <a href="http://mockjs.com">
+        <i class="iconlogo mi-mock"></i>
+        <span class="name">Mock</span>
+      </a>
+      <a href="https://github.com/nuysoft/bisheng">
+        <i class="iconlogo mi-bisheng"></i>
+        <span class="name">Bisheng</span>
+      </a>
+      <a href="/cube">
+        <i class="iconlogo mi-cube"></i>
+        <span class="name">Cube</span>
+      </a>
+      <a href="http://canvax.org">
+        <i class="iconlogo mi-canvax"></i>
+        <span class="name">Canvax</span>
+      </a>
+    </div>
+    <div class="portal dib">
+      <a href="javascript:;" id="J_settingsToggler" title="设置"><i class="iconfont">&#355;</i></a>
+    </div>
+  </div>
+</div>
+
+      <script type="text/x-template" id="J_tocTpl">
+
+<div class="stoc type-toc">
+  <label id="J_tocToggler"><h2><i class="iconfont">&#390;</i>目录</h2></label>
+  {{#each tree}}
+    <ol>
+    {{#each children}}
+      <li class="folded"><a href="#{{id}}" class="j-entry level2">{{text}}</a>
+        {{#if children.length !== 0}}
+        <ol>
+        {{#each children}}
+          <li><a href="#{{id}}" class="j-entry level3">{{text}}</a>
+        {{/each}}
+        </ol>
+        {{/if}}
+      </li>
+    {{/each}}
+    </ol>
+  {{/each}}
+</div>
+
+</script>
+<div id="stoc" bx-name="mosaics/stoc" bx-tpl="#J_tocTpl" bx-config="{ essay: 'article' }"></div>
+
+      <article class="type">
+        <h1>快速上手</h1>
+        <div class="authors">
+          
+        </div>
+        <h2 id="rap视频教程">RAP视频教程</h2><iframe height=498 width=610 src="http://player.youku.com/embed/XNjc3NTY2MzI0" frameborder=0 allowfullscreen></iframe>
+
+<h2 id="rap-接口数据管理">RAP 接口数据管理</h2><h3 id="登录-amp-注册">登录 &amp; 注册</h3><p>目前只支持 <code>域帐号登录</code>，域帐号登录后会 <code>自动完成</code> 新用户注册及登录流程。</p>
+<p>后续我们会补充其它帐号的登录方式（例如：RAP注册用户、微博账号、QQ账号等）</p>
+<h3 id="创建项目">创建项目</h3><ol>
+<li>首先点击上方菜单中的 <code>团队切换</code>，选择自己的团队或子公司。这些是由系统管理员预设的。</li>
+<li>选择合适的 <code>业务线</code>，您也可以在这里管理业务线。</li>
+<li>进入业务线后，可在合适的 <code>分组</code> 下创建自己的项目。您也可以在这里管理自己的分组。</li>
+</ol>
+<h3 id="rap接口文档编辑须知">RAP接口文档编辑须知</h3><h4 id="工作区">工作区</h4><p>完成项目创建后，点击项目链接进入<code>接口文档工作区</code>。</p>
+<p>工作区分为以下两种模式：</p>
+<ul>
+<li><p>查看模式（默认）：查看模式下，会隐藏编辑UI使界面更方便查看，需要进行改动时只需点击右上角的 <code>启用编辑</code> 按钮，进入编辑模式。</p>
+</li>
+<li><p>编辑模式：编辑模式下，可根据界面提示完成接口文档的编辑工作。</p>
+</li>
+</ul>
+<p><strong>首次进入项目系统会自动为您创建默认的第一个模块、页面和请求，请根据需求进行修改。</strong></p>
+<h4 id="接口文档的结构">接口文档的结构</h4><ul>
+<li><code>模块 (Module)</code> 对应工作区不同的Tab，用户可根据喜好进行设置。往往在大项目或接口较多的项目中使用频繁。比如可自己分账户模块、宝贝模块等等...</li>
+<li><code>页面 (Page)</code> 每个模块下有0至多个页面，RAP中的“页面”是逻辑页面，比如单页应用每一个View都可以算做一个页面，具体如何使用用户根据自己喜好设定即可。</li>
+<li><code>请求 (Action)</code> 每个页面下有0至多个请求，RAP中的“请求”是接口文档最小单位，描述了一个WEB请求中的全部信息。</li>
+<li><code>参数 (Parameter)</code> 每个请求中有请求参数列表和响应参数列表，参数是可以嵌套参数的，用以描述复杂的Object嵌套结构。</li>
+</ul>
+<h3 id="文档编辑">文档编辑</h3><p>RAP的文档编辑像Excel编辑一样简单，具体见 <a href="/RAP/resources/video">视频教程</a>。</p>
+<h3 id="完成编辑">完成编辑</h3><ul>
+<li><p><code>保存</code> 完成编辑后，可通过 <code>快捷保存</code> 直接完成保存，也可以通过普通的 <code>保存</code> 提交一些有用的注释信息。</p>
+</li>
+<li><p><code>版本控制</code> RAP的接口文档不同版本之间可以查看和永久切换。</p>
+</li>
+<li><p><code>接口文档导出</code> 您也能通过 <code>导出文档</code> 功能将接口文档以Word文件方式导出（Mac下请修改后缀名为html）。</p>
+</li>
+</ul>
+<h2 id="rap-接口数据的使用和工具">RAP 接口数据的使用和工具</h2><h3 id="前端的模拟数据生成">前端的模拟数据生成</h3><h4 id="引入插件">引入插件</h4><p>RAP会通过文档数据自动为您创建MOCK服务并生成动态的模拟数据。您只需要通过一行代码引入插件，RAP会自动为您拦截在RAP中定义过的请求，具体见本文 <code>RAP MOCK插件使用方法</code> 小节。</p>
+<h4 id="mockjs规则">Mockjs规则</h4><p>默认，RAP会为不同数据类型生成默认的数据，您也可以通过手动编写标签实现更好的MOCK行为控制。例如字段 id 需要自增，您可以使用MockJS语法:</p>
+<div class="highlight"><pre><code class="bash">变量名     备注
+id|+<span class="number">1</span>     @mock=<span class="number">100</span>
+
+// 表示id从<span class="number">100</span>开始，每次加<span class="number">1</span></code></pre></div><p>具体Mock规则如何填写，请访问<a href="http://mockjs.com">MockJS文档</a>，也可参考RAP平台中 <a href="http://rap.alibaba-inc.com/workspace/myWorkspace.action?projectId=79">MockJS对接的例子</a>。</p>
+<h4 id="mock标签的显示与隐藏">Mock标签的显示与隐藏</h4><p>在编辑Mock规则时，请点击 <code>显示Mock标签</code> ，默认Mock信息会被隐藏，以使得接口文档更方便大多数人查看。</p>
+<h4 id="mock标签与备注">Mock标签与备注</h4><p>在备注里，MOCK标签和普通的备注需要用分号隔开，比如：</p>
+<p>某一个参数叫<code>userId</code>，备注信息是 <code>用户ID</code>, mock标签是 <code>@mock=123</code>，则在备注中应该填写:</p>
+<div class="highlight"><pre><code class="bash">用户ID;@mock=<span class="number">123</span></code></pre></div><h4 id="mockjs模板的转义">MockJS模板的转义</h4><div class="highlight"><pre><code class="bash">变量名            备注                   结果
+escapeDemo       @mock=<span class="string">"123"</span>           <span class="string">"escapeDemo"</span> : <span class="string">"\"123\""</span>
+noEscapeDemo     @{mock}=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]       <span class="string">"noEscapeDemo"</span> : [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</code></pre></div><p>明确不需要转义时，只需要写 <strong>@{mock}</strong> 即可</p>
+<h3 id="后端的真实数据自测">后端的真实数据自测</h3><p>RAP会根据接口文档数据自动为您创建控制台，它以页面为单位，您可以在这里方便的自测自己的实际开发的接口。它包含的功能：</p>
+<ol>
+<li>自测功能，自动根据参数提供请求参数输入界面，后端方便自测</li>
+<li>校验功能，对实际后端输出是否符合接口规范做校验，提示缺少、多余的字段</li>
+<li>日志功能，提供日志分析，时间记录等</li>
+</ol>
+<p><strong>注意：后端Console暂时仅支持JSONP，RAP v1.0会完成对同域接口自测的支持。</strong></p>
+<h3 id="qa的自动化接口测试">QA的自动化接口测试</h3><p>RAP开放了Mock规则的API，QA或对此有需求的同学可以通过RAP API去访问和编辑Mock规则，为自动化测试提供便利。</p>
+<h2 id="rap-mock插件使用方法">RAP MOCK插件使用方法</h2><h3 id="插件的引入">插件的引入</h3><p>RAP提供了 <code>MOCK插件</code>（暂时仅支持Kissy和jQuery），使用只需要一步。</p>
+<p>将以下代码写在KISSY或jQuery js代码之后即可：</p>
+<div class="highlight"><pre><code class="xml"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"http://rap.alibaba-inc.com/rap.plugin.js?projectId={{projectId}}&amp;mode={{mode}}"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></pre></div><p>其中：</p>
+<ul>
+<li><code>{{projectId}}</code>为用户所编辑的接口在RAP中的项目ID</li>
+<li><code>{{mode}}</code>为RAP路由的工作模式, 默认值为3。</li>
+</ul>
+<p>mode不同值的具体含义如下:</p>
+<ul>
+<li>0 - 不拦截</li>
+<li>1 - 拦截全部</li>
+<li>2 - 黑名单中的项不拦截</li>
+<li>3 - 仅拦截白名单中的项</li>
+</ul>
+<p><strong>白名单会根据RAP中已经编辑的接口文档，自动配置，RAP中未录入的接口不会做拦截</strong></p>
+<h3 id="插件提供的js-api">插件提供的JS API</h3><p>您也可以通过调用RAP给出的JS API，手动设置黑名单、白名单及查看、设置工作模式</p>
+<h4 id="设置黑名单">设置黑名单</h4><div class="highlight"><pre><code class="bash">RAP.<span class="keyword">set</span>BlackList(arr);</code></pre></div><h4 id="设置白名单">设置白名单</h4><div class="highlight"><pre><code class="bash">RAP.<span class="keyword">set</span>WhiteList(arr);</code></pre></div><p>其中arr可以包含匹配字符串，或正则对象，例：[&#39;test&#39;, /test/g]</p>
+<h4 id="查看当前模式">查看当前模式</h4><div class="highlight"><pre><code class="bash">RAP.getMode();</code></pre></div><h4 id="设置当前模式">设置当前模式</h4><div class="highlight"><pre><code class="bash">RAP.<span class="keyword">set</span>Mode(<span class="number">1</span>);</code></pre></div><h2 id="rap-快捷键">RAP 快捷键</h2><ul>
+<li><code>Alt + F</code> 工作区搜索，候选列表出现时可通过上、下、回车键操作</li>
+<li><code>Ctrl + Enter</code> 位于参数编辑时，根据当前行的参数标识或参数名称自动补全</li>
+<li><code>Tab</code> 位于参数编辑时，自动切换到下一个位置</li>
+<li><code>Shift + Tab</code> 位于参数编辑时，自动切换到上一个位置</li>
+</ul>
+<h2 id="接口文档进阶">接口文档进阶</h2><h3 id="接口文档请求链接语法">接口文档请求链接语法</h3><p><a href="http://www.taobao.com/getItem?[callback]=foo">http://www.taobao.com/getItem?[callback]=foo</a></p>
+<p><code>[callback]</code> 表示参数<code>callback</code>会用作JSONP的回调key，若实际请求为getItem?callback=foo，则返回结果为:foo({...});</p>
+<p><a href="http://www.taobao.com/getREST?{path}=delete">http://www.taobao.com/getREST?{path}=delete</a></p>
+<p><code>{path}</code> 表示参数<code>path</code>会在RAP文档和开发环境进行接口对接时，需要考虑path参数，一般REST API会使用比较多。因为REST不同请求是通过参数区分的，比如getRest?path=delete, getRest?path=update, 而{path}表示两者为不同的接口。</p>
+<h3 id="最外层为数组的接口">最外层为数组的接口</h3><p>需要在接口描述的开头增加一条指令：@type=array_map;@length=1
+表示返回的最外层结构是数组，长度是1。</p>
+
+      </article>
+      <!-- Duoshuo Comment BEGIN -->
+
+<div class="ds-thread" data-thread-key="/RAP/tutorials" data-url="http://thx.alibaba-inc.com/RAP/apis" data-limit="10"></div>
+<!-- Duoshuo Comment END -->
+      <div id="footer">
+  <address><a href="http://ued.alimama.com">MUX</a> &copy; 2014</address>
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz' id='cnzz_stat_icon_1000167811'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1000167811%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+    </div>
+  </div>
+  <div id="nav" class="clearfix">
+    <a href="javascript:void(0)" class="toggler" id="J_toggler">
+      <i class="iconfont">&#271;</i> 导航
+    </a>
+    <a href="/RAP/" class="logo">
+      <i class="iconlogo mi-rap dib"></i> <span class="logo-text dib">RAP</span>
+    </a>
+    <ul class="menu">
+      <li>
+        <a href="https://github.com/thx/RAP" target="_blank" class="entry">
+          <i class="iconfont">&#61464;</i> Github
+        </a>
+      </li>
+      
+      <li>
+        <a href="/RAP/faq" class="entry">
+          <i class="iconfont">&#228;</i> Q&A
+        </a>
+      </li>
+
+      <li>
+        <a href="/RAP/apis" class="entry">
+          <i class="iconfont">&#267;</i> API
+        </a>
+      </li>
+      <li>
+         <a href="/RAP/demos" class="entry">
+           <i class="iconfont">&#277;</i> Demos
+         </a>
+      </li>
+      <li>
+        <a href="/RAP/resources" class="entry">
+          <i class="iconfont">&#248;</i> Resources
+        </a>
+      </li>
+
+      <li>
+        <a href="/RAP/tutorials" class="entry">
+          <i class="iconfont">&#338;</i> Tutorials
+        </a>
+      </li>
+      <li>
+        <a href="/RAP/" class="entry">
+          <i class="iconfont">&#336;</i> Home
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+  <script src="http://g.tbcdn.cn/??kissy/k/1.4.0/seed-min.js,thx/brix-core/3.4.6/brix-min.js"></script>
+
+<script src="/RAP/assets/post.js"></script>
+
+</body>
+</html>

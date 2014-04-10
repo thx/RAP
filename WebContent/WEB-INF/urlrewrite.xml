@@ -5,28 +5,34 @@
 	<rule>
 		<note>
 			mock service
-        </note>
+		</note>
 		<from>^/mock/(\d*?)/(.*)$</from>
 		<to>/mock/createData.action?id=$1&amp;pattern=/${escape:utf8:$2}</to>
+		<set type="response-header" name="Access-Control-Allow-Origin">*</set>
+		<set type="response-header" name="Access-Control-Allow-Headers">Origin, X-Requested-With, Content-Type, Accept</set>
 	</rule>
 	<rule>
 		<note>
 			mockjs service
-        </note>
+		</note>
 		<from>^/mockjs/(\d*?)/(.*)$</from>
 		<to>/mock/createRule.action?id=$1&amp;pattern=/${escape:utf8:$2}</to>
+		<set type="response-header" name="Access-Control-Allow-Origin">*</set>
+		<set type="response-header" name="Access-Control-Allow-Headers">Origin, X-Requested-With, Content-Type, Accept</set>
 	</rule>
 	<rule>
 		<note>
 			mockjs result service
-        </note>
+		</note>
 		<from>^/mockjsdata/(\d*?)/(.*)$</from>
 		<to>/mock/createMockjsData.action?id=$1&amp;pattern=/${escape:utf8:$2}</to>
+		<set type="response-header" name="Access-Control-Allow-Origin">*</set>
+		<set type="response-header" name="Access-Control-Allow-Headers">Origin, X-Requested-With, Content-Type, Accept</set>
 	</rule>
 	<rule>
 		<note>
 			mockjs plugin generator
-        </note>
+		</note>
 		<from>^/rap.plugin.js(.*)$</from>
 		<to type="redirect">/mock/createPluginScript.action$1</to>
 	</rule>

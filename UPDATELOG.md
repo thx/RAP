@@ -1,4 +1,6 @@
 ### rap v0.8.1 ###
+* [功能] 修复奇葩的跨域问题。修改了所有Mock服务的HTTP headers。 2014-04-10
+* [体验] 修复一系列用户体验的小问题。修复KISSY.use(undefined)的插件BUG。2014-04-08
 * [BUG] 修复IO被拦截后，一些快捷方式（如IO.jsonp）无法使用的问题。2014-04-04
 * [BUG] 修复百度tangram baidu.encodeHTML转义不全导致的问题。 2014-04-04
 * [BUG] 修复@行列 提出的MockJS模板转义问题。2014-04-04
