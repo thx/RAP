@@ -357,5 +357,9 @@
 
         ws.init(data, urlObj);
 
+        #if($mock)
+            ws.toggleMockDisplay();
+        #end
+
     </script>
 </html>

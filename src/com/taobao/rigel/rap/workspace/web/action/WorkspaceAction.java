@@ -30,6 +30,16 @@ import com.taobao.rigel.rap.workspace.service.WorkspaceMgr;
 public class WorkspaceAction extends ActionBase {
 
 	private static final long serialVersionUID = 1L;
+	
+	private boolean mock;
+
+	public boolean isMock() {
+		return mock;
+	}
+
+	public void setMock(boolean mock) {
+		this.mock = mock;
+	}
 
 	private int id;
 

@@ -57,16 +57,15 @@ public class MockAction extends ActionBase {
 	}
 
 	public String get_c() {
-		return callbackFilter(_c);
+		return _c;
 	}
 
 	public void set_c(String _c) {
 		this._c = _c;
-		;
 	}
 
 	public String getCallback() {
-		return callbackFilter(callback);
+		return callback;
 	}
 
 	public void setCallback(String callback) {
@@ -103,25 +102,6 @@ public class MockAction extends ActionBase {
 		return pattern;
 	}
 
-	private String callbackFilter(String cb) {
-		if (cb == null) {
-			return "callback";
-		}
-		if (cb.contains("_c=")) {
-			int startIndex = cb.indexOf("_c=") + 3;
-			int endIndex = cb.indexOf("&", startIndex);
-			if (endIndex == -1)
-				endIndex = cb.length();
-			cb = cb.substring(startIndex, endIndex);
-			return cb;
-		}
-		if (cb.contains("&")) {
-			cb = cb.substring(0, cb.indexOf("&"));
-		}
-
-		return cb;
-	}
-
 	/**
 	 * force callback or _c to be the last parameter
 	 * 
@@ -129,13 +109,6 @@ public class MockAction extends ActionBase {
 	 */
 	public void setPattern(String pattern) {
 		this.pattern = pattern;
-		if (pattern != null) {
-			if (pattern.indexOf("callback") != -1) {
-				_c = pattern.substring(pattern.indexOf("callback") + 9);
-			} else if (pattern.indexOf("_c") != -1) {
-				_c = pattern.substring(pattern.indexOf("_c") + 3);
-			}
-		}
 	}
 
 	public String createData() throws UnsupportedEncodingException {
