@@ -21,7 +21,7 @@ title: RAP
 
 说明：
 
-- 本Demo 仅限阿里内网使用
+- 本Demo 暂限阿里内网使用
 - 本Demo的数据由 [RAP + [Mockjs](http://mockjs.com/)]自动生成，点击Demo中的 `Result` 标签，即可发现每一次渲染数据都不一样
 - 本Demo 的模板引擎使用的是Crox，详见 [Crox官网](/crox)
 - 本Demo 对应的RAP项目ID 为 `85`，项目地址为：[RAP Demo项目地址](http://rap.alibaba-inc.com/workspace/myWorkspace.action?projectId=85)
@@ -30,11 +30,11 @@ title: RAP
 ## 相关链接
 
 - [快速上手视频(用前必读)](http://v.youku.com/v_show/id_XNjc3NTY2MzI0.html)
-- [详细介绍](https://github.com/thx/RAP/blob/master/INTRO.md)
-- [文档中心](http://thx.alibaba-inc.com/RAP/)
-- [Github](https://github.com/thx/RAP/blob/master/INTRO.md)
+- [详细介绍](http://thx.github.io/RAP/resources/rap-intro/)
+- [文档中心](http://thx.github.io/RAP/)
+- [Github](https://github.com/thx/RAP)
 - [更新日志](https://github.com/thx/RAP/blob/master/UPDATELOG.md)
 - [进入RAP(暂限阿里内网)](http://rap.alibaba-inc.com)
-- [THX平台](http://thx.alibaba-inc.com)
+- [THX平台](http://thx.github.io)
 
 {% endraw %}
