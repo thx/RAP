@@ -94,7 +94,7 @@ div#tipDiv {
 
 */
 
-.navbar-inverse {
+/* .navbar-inverse {
 	background-color: #af235d;
 	background-image: none;
 	color: white;
@@ -107,17 +107,17 @@ div#tipDiv {
 
 .navbar-inverse .navbar-nav > li > a:hover {
 	background-color: #d80066;
-}
+} */
 
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-brand:hover {
-	font-size: 22px;
+	font-size: 22px;/* 
 	background-color: #af235d;
-	color: white;
+	color: white; */
 }
 
-.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+/* .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
 	background-color: #d80066;
-}
+} */
 .navbar-nav {
 	margin-left: 40px;
 }
