@@ -21,7 +21,8 @@
     if (typeof window.console === 'undefined') {
         window.console = {
             log : function(){},
-            warn : function(){}
+            warn : function(){},
+            info : function(){}
         };
     }
 
@@ -88,7 +89,8 @@
                     oOptions.success = function() {
                         var realData = arguments[0];
                         checkerOptions.context = {
-                            data : realData
+                            data : realData,
+                            url : oOptions.url
                         };
                         // perform real data check
                         ajax.apply(jQuery, [checkerOptions]);
@@ -141,7 +143,8 @@
                             oOptions.success = function() {
                                 var realData = arguments[0];
                                 checkerOptions.context = {
-                                    data : realData
+                                    data : realData,
+                                    url : oOptions.url
                                 };
                                 // perform real data check
                                 IO(checkerOptions);
@@ -222,16 +225,28 @@
         var realDataResult = result.left;
         var rapDataResult = result.right;
         var i;
+        var log = [];
+        var error = false;
 
         if (realDataResult.length === 0 && rapDataResult.length === 0) {
-            console.log('接口结构校验完毕，未发现问题。');
+            log.push('接口结构校验完毕，未发现问题。');
         } else {
+            error = true;
+            if (this.url) {
+                log.push('在校验接口' + this.url + '时发现错误:');
+            }
             for (i = 0; i < realDataResult.length; i++) {
-                validatorResultLog(realDataResult[i]);
+                log.push(validatorResultLog(realDataResult[i]));
             }
             for (i = 0; i < rapDataResult.length; i++) {
-                validatorResultLog(rapDataResult[i], true);
+                log.push(validatorResultLog(rapDataResult[i], true));
             }
+        }
+
+        console.info(log.join('\n'));
+        if (error === true) {
+            console.log('真实数据:');
+            console.dir(this.data);
         }
     }
 
@@ -317,7 +332,7 @@
             eventName = '数据类型与接口文档中的定义不符';
         }
 
-        console.error('参数 ' + item.namespace + "." + item.property + ' ' + eventName);
+        return '参数 ' + item.namespace + "." + item.property + ' ' + eventName;
 
     }
 
