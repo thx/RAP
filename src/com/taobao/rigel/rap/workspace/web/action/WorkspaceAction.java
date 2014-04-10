@@ -428,8 +428,7 @@ public class WorkspaceAction extends ActionBase {
 					.get(ContextManager.KEY_PROJECT_LOCK_LIST);
 			if (projectLockList.get(curUserId) == null) {
 				projectLockList.put(curUserId, getId());
-				System.out.println("user[" + curUserId + "] locked project["
-						+ getId() + "]");
+				//System.out.println("user[" + curUserId + "] locked project["+ getId() + "]");
 			}
 			isOk = true;
 		}

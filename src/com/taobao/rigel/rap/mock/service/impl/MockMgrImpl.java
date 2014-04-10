@@ -15,6 +15,7 @@ import nl.flotsam.xeger.Xeger;
 import com.taobao.rigel.rap.common.ArrayUtils;
 import com.taobao.rigel.rap.common.MockjsRunner;
 import com.taobao.rigel.rap.common.NumberUtils;
+import com.taobao.rigel.rap.common.StringUtils;
 import com.taobao.rigel.rap.mock.service.MockMgr;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Parameter;
@@ -58,14 +59,14 @@ public class MockMgrImpl implements MockMgr {
 			Map<String, Object> options) throws UnsupportedEncodingException {
 		_num = 1;
 		String originalPattern = pattern;
-		System.out.println("pattern before processed:" + pattern);
+		//System.out.println("pattern before processed:" + pattern);
 		if (pattern.contains("?")) {
 			pattern = pattern.substring(0, pattern.indexOf("?"));
 		}
 		if (pattern.charAt(0) == '/') {
 			pattern = pattern.substring(1);
 		}
-		System.out.println("pattern processed:" + pattern);
+		//System.out.println("pattern processed:" + pattern);
 		List<Action> aList = projectMgr
 				.getMatchedActionList(projectId, pattern);
 		if (aList.size() == 0)
@@ -142,14 +143,14 @@ public class MockMgrImpl implements MockMgr {
 			Map<String, Object> options) throws UnsupportedEncodingException {
 		String originalPattern = pattern;
 		_num = 1;
-		System.out.println("pattern before processed:" + pattern);
+		//System.out.println("pattern before processed:" + pattern);
 		if (pattern.contains("?")) {
 			pattern = pattern.substring(0, pattern.indexOf("?"));
 		}
 		if (pattern.charAt(0) == '/') {
 			pattern = pattern.substring(1);
 		}
-		System.out.println("pattern processed:" + pattern);
+		//System.out.println("pattern processed:" + pattern);
 		List<Action> aList = projectMgr
 				.getMatchedActionList(projectId, pattern);
 		if (aList.size() == 0) {
@@ -601,10 +602,15 @@ public class MockMgrImpl implements MockMgr {
 
 	private String mockjsValue(Parameter para, int index) {
 		String[] tags = para.getMockDataTEMP().split(";");
+		boolean escape = true;
 		Map<String, String> tagMap = new HashMap<String, String>();
 		parseTags(tags, tagMap, true);
 		String returnValue = "1";
 		String mockValue = tagMap.get("mock");
+		if (mockValue == null || mockValue.isEmpty()) {
+			mockValue = tagMap.get("{mock}");
+			escape = false;
+		}
 		if (mockValue != null && !mockValue.isEmpty()) {
 			if (mockValue.startsWith("[") && mockValue.endsWith("]")) {
 				return mockValue;
@@ -612,6 +618,9 @@ public class MockMgrImpl implements MockMgr {
 					|| para.getDataType().equals("boolean")) {
 				return mockValue;
 			} else {
+				if (escape) {
+					mockValue = StringUtils.escapeInJ(mockValue);
+				}
 				return "\"" + mockValue + "\"";
 			}
 
@@ -693,6 +702,11 @@ public class MockMgrImpl implements MockMgr {
 					String[] tagArr = tag.split("=");
 					if (tagArr.length > 1) {
 						tagMap.put("mock", tagArr[1]);
+					}
+				} else if (tag.startsWith("@{mock}")) {
+					String[] tagArr = tag.split("=");
+					if (tagArr.length > 1) {
+						tagMap.put("{mock}", tagArr[1]);
 					}
 				}
 			}

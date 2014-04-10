@@ -1,4 +1,12 @@
 ### rap v0.8.1 ###
+* [功能] 修复奇葩的跨域问题。修改了所有Mock服务的HTTP headers。 2014-04-10
+* [体验] 修复一系列用户体验的小问题。修复KISSY.use(undefined)的插件BUG。2014-04-08
+* [BUG] 修复IO被拦截后，一些快捷方式（如IO.jsonp）无法使用的问题。2014-04-04
+* [BUG] 修复百度tangram baidu.encodeHTML转义不全导致的问题。 2014-04-04
+* [BUG] 修复@行列 提出的MockJS模板转义问题。2014-04-04
+* [BUG] 修复数据导入错误。 2014-04-02
+* [功能] 增加pageTester对[action], {action]的URL语法的支持。 2014-04-02
+* [BUG] 修复@行列 提出的KISSY complete的问题。 2014-03-27
 * [功能] 请求链接添加新语法url?[callback]=foo，用以支持自定义的JSONP callback key。 2014-03-24
 * [功能] 请求链接添加新语法url?{action}=update，用以支持REST_API的带参数查询接口的功能。 2014-03-20
 * [BUG] 修复pageTester控制台请求链接带参数时的请求路径错误。 2014-03-20

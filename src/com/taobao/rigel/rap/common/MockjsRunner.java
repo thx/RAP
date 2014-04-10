@@ -18,7 +18,6 @@ public class MockjsRunner {
 	private Scriptable scope;
 	private static String jsCode;
 	public MockjsRunner() {
-		System.out.println("mockjs ROOT:" + MOCKJS_PATH);
 		this.ct = Context.enter();
 		this.scope = ct.initStandardObjects();
 		this.initMockjs(ct, scope);
@@ -68,7 +67,6 @@ public class MockjsRunner {
 	}
 
 	private String doRenderMockJsRule(String mockRule) {
-		System.out.println("mockRule:" + mockRule);
 		try {
 			Object result = ct.evaluateString(scope,
 					"JSON.stringify(Mock.mock(" + mockRule + "))", null, 1,
@@ -85,6 +83,6 @@ public class MockjsRunner {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(MockjsRunner.renderMockjsRule("{'id|1-20': '1', 'b': '@IMG'}"));
+		//System.out.println(MockjsRunner.renderMockjsRule("{'id|1-20': '1', 'b': '@IMG'}"));
 	}
 }
