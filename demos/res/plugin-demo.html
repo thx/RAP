@@ -4,7 +4,7 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title>RAP - jsFiddle demo</title>
+  <title>RAP插件的使用</title>
   
   <style type='text/css'>
     body {background-color: #F2F2F2; font: 14px Helvetica, arial, freesans, clean, sans-serif; }
@@ -20,6 +20,14 @@
 </head>
 <body>
 
+<!-- 引入KISSY -->
+<script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
+<!-- 引入Crox模板引擎 -->
+<script src="http://g.tbcdn.cn/thx/crox/1.2.0/crox-all.js"></script>
+<!-- 引入RAP插件 -->
+<script src="http://rap.alibaba-inc.com/rap.plugin.js?projectId=85"></script>
+
+<!-- 模板 -->
 <div id="tmpl" style="display: none">
     <h2>{{root.year}}年{{root.season}}季度【{{root.name}}】</h2> 
     <table>
@@ -52,14 +60,13 @@
     </tbody>
 </table>
 </div>
+
 <div id="result"></div>
 
-<script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
-<script src="http://g.tbcdn.cn/thx/crox/1.2.0/crox-all.js"></script>
-<script src="http://rap.alibaba-inc.com/rap.plugin.js?projectId=85"></script>
-
+<!-- 获取RAP数据，利用Crox渲染模板 -->
 <script type='text/javascript'>
 KISSY.use('ajax, node', function(S, IO, Node) {
+    // IO将请求转发到RAP系统中，获取模拟数据并渲染HTML
     IO({
         type: 'get',
         url: '/perf/2014.json',
