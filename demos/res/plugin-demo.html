@@ -1,0 +1,84 @@
+{% raw %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>RAP插件的使用</title>
+  
+  <style type='text/css'>
+    body {background-color: #F2F2F2; font: 14px Helvetica, arial, freesans, clean, sans-serif; }
+    h2 {color: #F90; margin-bottom: 40px; }
+    table {margin-top: 20px; }
+    table caption {color: red; font-size: 16px; text-align: left; font-weight: bold; margin-bottom: 10px; }
+    td {padding: 5px 10px; }
+    td:first-child {width: 100px; }
+    td:nth-child(2) {color: #888; }
+    .clearfix:before, .clearfix:after {display: table; content: " "; }
+    .clearfix:after {clear: both; }
+  </style>
+</head>
+<body>
+
+<!-- 引入KISSY -->
+<script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
+<!-- 引入Crox模板引擎 -->
+<script src="http://g.tbcdn.cn/thx/crox/1.2.0/crox-all.js"></script>
+<!-- 引入RAP插件 -->
+<script src="http://rap.alibaba-inc.com/rap.plugin.js?projectId=85"></script>
+
+<!-- 模板 -->
+<div id="tmpl" style="display: none">
+    <h2>{{root.year}}年{{root.season}}季度【{{root.name}}】</h2> 
+    <table>
+    <caption>分</caption>
+    <tbody>
+        <tr><td>你懂的</td><td>{{root.perf}}</td></tr>
+    </tbody>
+</table>
+    
+<table>
+    <caption>ABC</caption>
+    <tbody>
+        <tr><td>你懂的</td><td>{{root.values}}</td></tr>
+    </tbody>
+</table>
+    <table>
+    <caption>理论上</caption>
+    <tbody>
+        <tr><td>每月赏钱</td><td>{{root.month_salary}}</td></tr>
+        <tr><td>你懂得</td><td>{{root.perf}}</td></tr>
+        <tr><td>￥</td><td>{{root.month_salary * root.perf}}</td></tr>
+    </tbody>
+</table>
+
+<table>
+    <caption>实际上</caption>
+    <tbody>
+        <tr><td>擦！扣税</td><td>{{root.percent * 100}}%</td></tr>
+        <tr><td>最后 ￥</td><td>{{(1 - root.percent) * root.month_salary * root.perf}}</td></tr>
+    </tbody>
+</table>
+</div>
+
+<div id="result"></div>
+
+<!-- 获取RAP数据，利用Crox渲染模板 -->
+<script type='text/javascript'>
+KISSY.use('ajax, node', function(S, IO, Node) {
+    // IO将请求转发到RAP系统中，获取模拟数据并渲染HTML
+    IO({
+        type: 'get',
+        url: '/perf/2014.json',
+        dataType: 'jsonp',
+        success: function(data){
+            var tmpl = Node.all('#tmpl').html();
+            var html = Crox.render(tmpl, data);
+            Node.all('#result').html(html);
+        }
+    });
+});
+</script>
+</body>
+</html>
+{% endraw %}
