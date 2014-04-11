@@ -10,3 +10,5 @@ bak
 *.class
 bin/
 target
+node_modules
+_site
