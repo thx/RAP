@@ -4,7 +4,7 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title>RAP插件的使用</title>
+  <title>RAP插件的使用 - 拦截所有</title>
   
   <style type='text/css'>
     body {background-color: #F2F2F2; font: 14px Helvetica, arial, freesans, clean, sans-serif; }
@@ -65,6 +65,7 @@
 
 <!-- 获取RAP数据，利用Crox渲染模板 -->
 <script type='text/javascript'>
+RAP.setMode(1);
 KISSY.use('ajax, node', function(S, IO, Node) {
     // IO将请求转发到RAP系统中，获取模拟数据并渲染HTML
     IO({
