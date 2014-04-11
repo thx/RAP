@@ -957,6 +957,9 @@ if (!window.console) {
      *  is action in module
      */
     p.isActionInModule = function(actionId, moduleId) {
+        if (!moduleId) {
+            return false;
+        }
         var module = p.getModule(moduleId);
         if (!module) return false;
 
@@ -1270,7 +1273,8 @@ if (!window.console) {
     /**
      * initialize run when dom ready
      */
-    ws.init = function(workspaceObj, urlObj) {
+    ws.init = function(workspaceObj, urlObj, actionId) {
+        var me = this;
         _isLocalStorageEnabled = typeof(localStorage) != 'undefined';
         _isMockDisplay = false;
         URL = urlObj;
@@ -1316,6 +1320,10 @@ if (!window.console) {
              * bind page
              */
             bind();
+
+            if (actionId) {
+                me.switchA(actionId);
+            }
 
             /**
              * bind events
@@ -1687,6 +1695,7 @@ if (!window.console) {
             }
         });
     };
+
 
     /**
      * hide save panel

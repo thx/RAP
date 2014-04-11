@@ -32,6 +32,16 @@ public class WorkspaceAction extends ActionBase {
 	private static final long serialVersionUID = 1L;
 	
 	private boolean mock;
+	
+	private int actionId;
+	
+	public int getActionId() {
+		return actionId;
+	}
+	
+	public void setActionId(int actionId) {
+		this.actionId = actionId;
+	}
 
 	public boolean isMock() {
 		return mock;
