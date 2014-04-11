@@ -7,7 +7,7 @@ title: RAP
 
 ## 什么是RAP?
 
-<div style="font-size: 20px; text-align: center; margin-top: 40px; margin-bottom: 40px; color: #af235d">RAP — 随时随地 编辑、查看、使用、校验接口数据</div>
+<div style="font-size: 20px; text-align: center; margin-top: 40px; margin-bottom: 40px; color: #af235d; font-weight: bold;">RAP — 随时随地 编辑、查看、使用、校验接口数据</div>
 
 在前后端分离的开发模式下，我们通常需要定义一份 `接口文档`来规范接口的具体信息。如一个请求的：请求地址、请求类型、请求参数、响应参数、每一个参数的名称、类型、含义、备注等等。 <a href="http://rap.alibaba-inc.com" target="_blank">RAP</a>可以方便团队录入、查看、管理和共享这些接口文档，并通过分析这些结构化的文档数据，生成自测数据、校验真实数据等，提升开发效率。
 
