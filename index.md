@@ -7,7 +7,7 @@ title: RAP
 
 ## 什么是RAP?
 
-<div style="font-size: 20px; text-align: center; margin-top: 40px; margin-bottom: 40px; color: #af235d">RAP — 随时随地 编辑、查看、使用、校验接口数据</div>
+<div style="font-size: 20px; text-align: center; margin-top: 40px; margin-bottom: 40px; color: #af235d; font-weight: bold;">RAP — 随时随地 编辑、查看、使用、校验接口数据</div>
 
 在前后端分离的开发模式下，我们通常需要定义一份 `接口文档`来规范接口的具体信息。如一个请求的：
 
