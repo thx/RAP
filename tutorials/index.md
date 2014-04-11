@@ -9,7 +9,7 @@ title: 快速上手
 
 <iframe height=498 width=610 src="http://player.youku.com/embed/XNjc3NTY2MzI0" frameborder=0 allowfullscreen></iframe>
 
-## RAP 接口数据管理
+## 登录、组织 & 创建项目
 
 ### 登录 & 注册
 
@@ -23,7 +23,7 @@ title: 快速上手
 2. 选择合适的 `业务线`，您也可以在这里管理业务线。
 3. 进入业务线后，可在合适的 `分组` 下创建自己的项目。您也可以在这里管理自己的分组。
 
-### RAP接口文档编辑须知
+## 文档编辑
 
 #### 工作区
 
@@ -44,7 +44,6 @@ title: 快速上手
 - `请求 (Action)` 每个页面下有0至多个请求，RAP中的“请求”是接口文档最小单位，描述了一个WEB请求中的全部信息。
 - `参数 (Parameter)` 每个请求中有请求参数列表和响应参数列表，参数是可以嵌套参数的，用以描述复杂的Object嵌套结构。
 
-### 文档编辑
 
 RAP的文档编辑像Excel编辑一样简单，具体见 [视频教程](/RAP/resources/video)。
 
