@@ -6,7 +6,9 @@ title: Demos
 <ul>
 {% for category in site.categories %}{% if category[0] == 'demos' %}
 {% for post in category[1] reversed %}
-  <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+  <li><a href="{{ site.baseurl }}{{ post.url }}" target="_blank">{{ post.title }}</a></li>
 {% endfor %}
 {% endif %}{% endfor %}
+  <li><a href="{{ site.baseurl }}/demos/res/plugin-demo.html" target="_blank">RAP 插件的使用 - 单独页面版</a></li>
+  <li><a href="http://rap.alibaba-inc.com/workspace/myWorkspace.action?projectId=79&mock=true" target="_blank">MockJS标签DEMO项目</a></li>
 </ul>
