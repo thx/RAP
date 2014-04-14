@@ -13,7 +13,7 @@
 <body>
 
 <!-- 模板 -->
-<textarea id="tmpl" style="display: none">
+<script id="tmpl" type="text/tmpl">
 <table border=1>
     <caption>一个简单列表</caption>
     <thead>
@@ -28,7 +28,7 @@
         {{/each}}
     </tbody>
 </table>
-</textarea>
+</script>
 
 <div id="result">loading...</div>
 
@@ -47,7 +47,7 @@ KISSY.use('ajax, node', function(S, IO, Node) {
         url: '/data/listdata.html',
         dataType: 'json',
         success: function(data){
-            var tmpl = Node.all('#tmpl').val();
+            var tmpl = Node.all('#tmpl').text();
             var html = Crox.render(tmpl, data);
             Node.all('#result').html(html);
         }
