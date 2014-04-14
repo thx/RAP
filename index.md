@@ -9,17 +9,9 @@ title: RAP
 
 <div style="font-size: 20px; text-align: center; margin-top: 40px; margin-bottom: 40px; color: #af235d; font-weight: bold;">RAP — 随时随地 编辑、查看、使用、校验接口数据</div>
 
-在前后端分离的开发模式下，我们通常需要定义一份 `接口文档`来规范接口的具体信息。如一个请求的：
+在前后端分离的开发模式下，我们通常需要定义一份 `接口文档`来规范接口的具体信息。如一个请求的：请求地址、请求类型、请求参数、响应参数、每一个参数的名称、类型、含义、备注等等。 <a href="http://rap.alibaba-inc.com" target="_blank">RAP</a>可以方便团队录入、查看、管理和共享这些接口文档，并通过分析这些结构化的文档数据，生成自测数据、校验真实数据等，提升开发效率。
 
- - 请求地址
- - 请求类型
- - 请求参数
- - 响应参数
- - 每一个参数的名称、类型、含义、备注等
-
-[RAP](http://rap.alibaba-inc.com) 可以方便团队录入、查看、管理和共享这些接口文档，并通过结构化的文档数据，分析并生成自测数据、提供自测控制台等等... 大幅度提升开发效率。
-
-如果您现在就想访问RAP，请点击 [这里](http://rap.alibaba-inc.com)
+如果您现在就想访问RAP，请点击 <a href="http://rap.alibaba-inc.com" target="_blank">这里</a>
 
 ## 为什么使用RAP？
 
@@ -93,3 +85,6 @@ RAP开放了Mock规则的API，QA同学可利用这些API，为自动化测试�
 - [THX平台](http://thx.github.io)
 
 {% endraw %}
+
+
+
