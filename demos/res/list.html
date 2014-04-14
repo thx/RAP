@@ -1,42 +1,41 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Hello RAP</title>
-  <style type="text/css">
-    #result {margin: 40px;}
-    #result li {padding: 10px;}
-  </style>
-</head>
-<body>
+    <head>
+        <meta charset="utf-8">
+        <title>Hello RAP</title>
+        <style type="text/css">
+            #container {margin: 40px;}
+            #container li {padding: 10px;}
+        </style>
+    </head>
+    <body>
+        <script id="tmpl" type="text/tmpl">
+            <ol>
+                {{#each root.list 'o'}}
+                    <li>{{o.desc}}</li>
+                {{/each}}
+            </ol>
+        </script>
 
-<script id="tmpl" type="text/tmpl">
-    <ol>
-        {{#each root.list 'o'}}
-            <li>{{o.desc}}</li>
-        {{/each}}
-    </ol>
-</script>
+        <div id="container">loading...</div>
 
-<div id="result">loading...</div>
+<script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script> <!-- KISSY -->
+<script src="http://g.tbcdn.cn/thx/crox/1.2.0/crox-all.js"></script> <!-- Crox -->
+<script src="http://rap.alibaba-inc.com/rap.plugin.js?projectId=144"></script> <!-- RAP plugin -->
 
-<script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
-<script src="http://g.tbcdn.cn/thx/crox/1.2.0/crox-all.js"></script>
-<script src="http://rap.alibaba-inc.com/rap.plugin.js?projectId=144"></script>
-
-<script type='text/javascript'>
-    KISSY.use('ajax, node', function(S, io, Node) {
-        io({
-            type: 'get',
-            url: '/data/listdata.html',
-            dataType: 'json',
-            success: function(data){
-                var tmpl = Node.all('#tmpl').text();
-                var html = Crox.render(tmpl, data);
-                Node.all('#result').html(html);
-            }
-        });
-    });
-</script>
-</body>
+        <script type='text/javascript'>
+            KISSY.use('ajax, node', function(S, io, Node) {
+                io({
+                    type: 'get',
+                    url: '/data/list.do',
+                    dataType: 'json',
+                    success: function(data){
+                        var tmpl = Node.all('#tmpl').text();
+                        var html = Crox.render(tmpl, data);
+                        Node.all('#container').html(html);
+                    }
+                });
+            });
+        </script>
+    </body>
 </html>

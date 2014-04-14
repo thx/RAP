@@ -29,7 +29,7 @@ var thxPrefix = '/RAP'
 KISSY.use('ajax, node', function(S, IO, Node) {
     IO({
         type: 'get',
-        url: thxPrefix + '/data/listdata.html',
+        url: thxPrefix + '/data/list.do',
         dataType: 'json',
         success: function(data){
             var tmpl = Node.all('#tmpl').text();
