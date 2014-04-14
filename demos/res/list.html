@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>RAP Demo</title>
+  <link rel="stylesheet" type="text/css" href="http://a.tbcdn.cn/apps/e/brix/1.0/brix-min.css">
+  <style type="text/css">
+    td {padding: 5px;}
+    caption {text-align: left; font-size: 20px; margin-bottom: 10px;}
+    #result {margin: 40px;}
+  </style>
+</head>
+<body>
+
+<!-- 模板 -->
+<textarea id="tmpl" style="display: none">
+<table border=1>
+    <caption>RAP数据测试</caption>
+    <tbody>
+        {{#each root.list 'o'}}
+            <tr><td>{{o.id}}</td><td>{{o.name}}</td></tr>
+        {{/each}}
+    </tbody>
+</table>
+</textarea>
+
+<div id="result">loading...</div>
+
+<!-- 引入KISSY -->
+<script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
+<!-- 引入Crox模板引擎 -->
+<script src="http://g.tbcdn.cn/thx/crox/1.2.0/crox-all.js"></script>
+<!-- 引入RAP插件 -->
+<script src="http://rap.alibaba-inc.com/rap.plugin.js?projectId=144"></script>
+
+<!-- 获取RAP数据，利用Crox渲染模板 -->
+<script type='text/javascript'>
+KISSY.use('ajax, node', function(S, IO, Node) {
+    IO({
+        type: 'get',
+        url: '/listdata',
+        dataType: 'jsonp',
+        success: function(data){
+            var tmpl = Node.all('#tmpl').val();
+            console.log(tmpl)
+            var html = Crox.render(tmpl, data);
+            Node.all('#result').html(html);
+        }
+    });
+});
+</script>
+</body>
+</html>
