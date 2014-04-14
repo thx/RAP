@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title>RAP Demo</title>
+  <title>Hello RAP</title>
   <link rel="stylesheet" type="text/css" href="http://a.tbcdn.cn/apps/e/brix/1.0/brix-min.css">
   <style type="text/css">
     td {padding: 5px;}
@@ -15,7 +15,13 @@
 <!-- 模板 -->
 <textarea id="tmpl" style="display: none">
 <table border=1>
-    <caption>RAP数据测试</caption>
+    <caption>一个简单列表</caption>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>desc</th>
+        </tr>
+    </thead>
     <tbody>
         {{#each root.list 'o'}}
             <tr><td>{{o.id}}</td><td>{{o.name}}</td></tr>
