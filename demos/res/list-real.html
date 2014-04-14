@@ -1,45 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
   <title>Hello RAP</title>
-  <link rel="stylesheet" type="text/css" href="http://a.tbcdn.cn/apps/e/brix/1.0/brix-min.css">
   <style type="text/css">
-    td {padding: 5px;}
-    caption {text-align: left; font-size: 20px; margin-bottom: 10px;}
     #result {margin: 40px;}
+    #result li {padding: 10px;}
   </style>
 </head>
 <body>
 
-<!-- 模板 -->
 <script id="tmpl" type="text/tmpl">
-<table border=1>
-    <caption>一个简单列表</caption>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>desc</th>
-        </tr>
-    </thead>
-    <tbody>
+    <ol>
         {{#each root.list 'o'}}
-            <tr><td>{{o.id}}</td><td>{{o.desc}}</td></tr>
+            <li>{{o.desc}}</li>
         {{/each}}
-    </tbody>
-</table>
+    </ol>
 </script>
 
 <div id="result">loading...</div>
 
-<!-- 引入KISSY -->
 <script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
-<!-- 引入Crox模板引擎 -->
 <script src="http://g.tbcdn.cn/thx/crox/1.2.0/crox-all.js"></script>
-<!-- 引入RAP插件 -->
 <!-- <script src="http://rap.alibaba-inc.com/rap.plugin.js?projectId=144"></script> -->
 
-<!-- 获取RAP数据，利用Crox渲染模板 -->
 <script type='text/javascript'>
 var thxPrefix = '/RAP'
 KISSY.use('ajax, node', function(S, IO, Node) {
