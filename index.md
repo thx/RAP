@@ -64,7 +64,7 @@ RAP开放了Mock规则的API，QA同学可利用这些API，为自动化测试�
 </ul>
 
 ## 在线Demo
-<iframe width="100%" height="500" src="http://jsfiddle.net/a5Gg3/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="400" src="http://jsfiddle.net/a5Gg3/1/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 说明：
 
@@ -72,7 +72,7 @@ RAP开放了Mock规则的API，QA同学可利用这些API，为自动化测试�
 - 本Demo的数据由 [RAP + [Mockjs](http://mockjs.com/)]自动生成，点击Demo中的 `Result` 标签，即可发现每一次渲染数据都不一样
 - 本Demo 的模板引擎使用的是Crox，详见 [Crox官网](/crox)
 - 本Demo 对应的RAP项目ID 为 `85`，项目地址为：[RAP Demo项目地址](http://rap.alibaba-inc.com/workspace/myWorkspace.action?projectId=85&mock=true)
-- 本Demo 使用的接口数据是 `/perf/2014.json` 对应的数据
+- 本Demo 使用的接口数据是 `/onlinedemo.do` 对应的数据
 
 ## 相关链接
 
