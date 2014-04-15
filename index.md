@@ -64,7 +64,7 @@ RAP开放了Mock规则的API，QA同学可利用这些API，为自动化测试�
 </ul>
 
 ## 在线Demo
-<iframe width="100%" height="400" src="http://jsfiddle.net/a5Gg3/1/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="400" src="http://jsfiddle.net/a5Gg3/2/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 说明：
 
