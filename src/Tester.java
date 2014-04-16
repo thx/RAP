@@ -1,4 +1,5 @@
-import java.util.Date;
+import com.taobao.rigel.rap.common.StringUtils;
+
 
 
 public class Tester {
@@ -7,7 +8,9 @@ public class Tester {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println(new Date().getTime());
+		String val = "<map class=\"abc\"></map>";
+		
+		System.out.println(StringUtils.escapeInJ(val));
 			
 	}
 
