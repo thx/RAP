@@ -1375,6 +1375,16 @@ if (!window.console) {
         $("#inputSearch").val('');
     };
 
+
+    ws.showPluginCode = function() {
+        ecFloater.show("pluginCodeFloater");
+        b.g('pluginCodeInput').select();
+    };
+
+    ws.closePluginCodeFloater = function() {
+        e.get("pluginCodeFloater").hide();
+    };
+
     ws._getData = function() {
         return p.getData();
     };
