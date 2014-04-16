@@ -64,6 +64,11 @@
                         <span class="glyphicon glyphicon-headphones"></span>
                         Mock
                     </button>
+                    <button id="btnExport" type="button" class="btn btn-default" onclick="ws.showPluginCode(); return false;">
+                        <span class="glyphicon glyphicon-share"></span>
+                        插件代码
+                    </button>
+
                 </div>
             </div>
             <div id="div-debug"></div>
@@ -324,6 +329,18 @@
                 </table>
                 <div class="div-floater-control">
                     <input type="button" class="btn" onclick="ws.closeExportRAPDataFloater();"  value="关闭" />
+                </div>
+            </div>
+        </form>
+        #endFloater
+        #startFloater("pluginCodeFloater" "Mock插件代码" 600 130)
+        <form name="formPluginCodeFloater">
+            <div class="myfloater">
+                <div>
+                    <input id="pluginCodeInput" style="width:550px;margin:8px 0;" type="text" value="&lt;script src=&quot;http://rap.alibaba-inc.com/rap.plugin.js?projectId=$!projectId&quot;&gt;&lt;/script&gt;">
+                </div>
+                <div class="div-floater-control">
+                    <input type="button" class="btn" onclick="ws.closePluginCodeFloater();"  value="关闭" />
                 </div>
             </div>
         </form>

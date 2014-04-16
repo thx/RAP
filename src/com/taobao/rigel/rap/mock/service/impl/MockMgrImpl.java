@@ -59,14 +59,14 @@ public class MockMgrImpl implements MockMgr {
 			Map<String, Object> options) throws UnsupportedEncodingException {
 		_num = 1;
 		String originalPattern = pattern;
-		//System.out.println("pattern before processed:" + pattern);
+		// System.out.println("pattern before processed:" + pattern);
 		if (pattern.contains("?")) {
 			pattern = pattern.substring(0, pattern.indexOf("?"));
 		}
 		if (pattern.charAt(0) == '/') {
 			pattern = pattern.substring(1);
 		}
-		//System.out.println("pattern processed:" + pattern);
+		// System.out.println("pattern processed:" + pattern);
 		List<Action> aList = projectMgr
 				.getMatchedActionList(projectId, pattern);
 		if (aList.size() == 0)
@@ -143,14 +143,14 @@ public class MockMgrImpl implements MockMgr {
 			Map<String, Object> options) throws UnsupportedEncodingException {
 		String originalPattern = pattern;
 		_num = 1;
-		//System.out.println("pattern before processed:" + pattern);
+		// System.out.println("pattern before processed:" + pattern);
 		if (pattern.contains("?")) {
 			pattern = pattern.substring(0, pattern.indexOf("?"));
 		}
 		if (pattern.charAt(0) == '/') {
 			pattern = pattern.substring(1);
 		}
-		//System.out.println("pattern processed:" + pattern);
+		// System.out.println("pattern processed:" + pattern);
 		List<Action> aList = projectMgr
 				.getMatchedActionList(projectId, pattern);
 		if (aList.size() == 0) {
@@ -490,14 +490,16 @@ public class MockMgrImpl implements MockMgr {
 				if (tagIndex == index) {
 					regex = arr[0];
 					Xeger generator = new Xeger(regex);
-					return "\"" + generator.generate() + "\"";
+					return "\"" + StringUtils.escapeInJ(generator.generate())
+							+ "\"";
 				}
 			}
 
 			regex = tagMap.get("regex");
 			if (regex != null && !regex.isEmpty()) {
 				Xeger generator = new Xeger(regex);
-				return "\"" + generator.generate() + "\"";
+				return "\"" + StringUtils.escapeInJ(generator.generate())
+						+ "\"";
 			}
 
 			String value = tagMap.get("value_index");
@@ -519,7 +521,7 @@ public class MockMgrImpl implements MockMgr {
 								+ PHONE_LIB[NumberUtils
 										.randomInt(PHONE_LIB.length)] + "\"";
 					} else {
-						return "\"" + value + "\"";
+						return "\"" + StringUtils.escapeInJ(value) + "\"";
 					}
 				}
 			}
@@ -538,7 +540,7 @@ public class MockMgrImpl implements MockMgr {
 							+ PHONE_LIB[NumberUtils.randomInt(PHONE_LIB.length)]
 							+ "\"";
 				} else {
-					return "\"" + value + "\"";
+					return "\"" + StringUtils.escapeInJ(value) + "\"";
 				}
 			}
 			String format = tagMap.get("format");
@@ -643,44 +645,40 @@ public class MockMgrImpl implements MockMgr {
 		for (String tag : tags) {
 			// tag format validation
 			if (tag.startsWith("@") && tag.contains("=")) {
+				String val = tag.substring(tag.indexOf("=") + 1);
 				if (tag.startsWith("@value")) {
-					String[] valueSplitArr = tag.split("=");
-					String val = null;
-					if (valueSplitArr.length > 1) {
-						val = valueSplitArr[1];
-						if (val.contains("[xx]") && isMocking) {
-							Integer n = _num++ % 31;
-							val = val.replace("[xx]", n >= 10 ? n.toString()
-									: "0" + n);
-						}
-						if (tag.contains("value[")) {
-							tagMap.put(
-									"value_index",
-									val
-											+ "_INDEX_"
-											+ tag.substring(
-													tag.indexOf("[") + 1,
-													tag.indexOf("]")));
-						} else {
-							tagMap.put("value", val);
-						}
+					if (val.contains("[xx]") && isMocking) {
+						Integer n = _num++ % 31;
+						val = val.replace("[xx]", n >= 10 ? n.toString() : "0"
+								+ n);
 					}
-				} else if (tag.startsWith("@format")) {
-					if (tag.contains("format[")) {
+					if (tag.contains("value[")) {
 						tagMap.put(
-								"format_index",
-								tag.split("=")[1]
+								"value_index",
+								val
 										+ "_INDEX_"
 										+ tag.substring(tag.indexOf("[") + 1,
 												tag.indexOf("]")));
 					} else {
-						tagMap.put("format", tag.split("=")[1]);
+						tagMap.put("value", val);
+					}
+
+				} else if (tag.startsWith("@format")) {
+					if (tag.contains("format[")) {
+						tagMap.put(
+								"format_index",
+								val
+										+ "_INDEX_"
+										+ tag.substring(tag.indexOf("[") + 1,
+												tag.indexOf("]")));
+					} else {
+						tagMap.put("format", val);
 					}
 				} else if (tag.startsWith("@length")) {
 					if (tag.contains("length[")) {
 						tagMap.put(
 								"length_index",
-								tag.split("=")[1]
+								val
 										+ "_INDEX_"
 										+ tag.substring(tag.indexOf("[") + 1,
 												tag.indexOf("]")));
@@ -691,23 +689,17 @@ public class MockMgrImpl implements MockMgr {
 					if (tag.contains("regex[")) {
 						tagMap.put(
 								"regex_index",
-								tag.split("=")[1]
+								val
 										+ "_INDEX_"
 										+ tag.substring(tag.indexOf("[") + 1,
 												tag.indexOf("]")));
 					} else {
-						tagMap.put("regex", tag.split("=")[1]);
+						tagMap.put("regex", val);
 					}
 				} else if (tag.startsWith("@mock")) {
-					String[] tagArr = tag.split("=");
-					if (tagArr.length > 1) {
-						tagMap.put("mock", tagArr[1]);
-					}
+					tagMap.put("mock", val);
 				} else if (tag.startsWith("@{mock}")) {
-					String[] tagArr = tag.split("=");
-					if (tagArr.length > 1) {
-						tagMap.put("{mock}", tagArr[1]);
-					}
+					tagMap.put("{mock}", val);
 				}
 			}
 		}
