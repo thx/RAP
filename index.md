@@ -58,8 +58,10 @@ RAP开放了Mock规则的API，QA同学可利用这些API，为自动化测试�
 <ul class="who-are-using">
 <li><img src="/RAP/assets/img/logos-alimama.png"/></li>
 <li><img src="/RAP/assets/img/logos-alipay.png"/></li>
-<li><img src="/RAP/assets/img/logos-aliyun.png"/></li>
 <li><img src="/RAP/assets/img/logos-taobao.png"/></li>
+<li><img src="/RAP/assets/img/logos-aliyun.png"/></li>
+<li><img src="/RAP/assets/img/logos-aligrp.png"/></li>
+<li>一淘搜索部</li>
 <li>商家业务部</li>
 </ul>
 
