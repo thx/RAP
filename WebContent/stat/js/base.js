@@ -594,7 +594,44 @@ $._templates = {
 			  </div>\
 			</div>\
 		</div>\
+	</div>',
+	
+	message: '<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\
+		<div class="modal-dialog">\
+			<div class="modal-content">\
+			  <div class="modal-header">\
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\
+			    <h4 class="modal-title" id="myModalLabel">{{{title}}}</h4>\
+			  </div>\
+	         {{#content}}<div class="modal-body">\
+				{{{content}}}\
+			  </div>\
+	         {{/content}}\
+			  <div class="modal-footer">\
+				<button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">{{closeText}}</button>\
+			  </div>\
+			</div>\
+		</div>\
 	</div>'
+}
+
+$.message = function(config) {
+	config.closeText = config.closeText || '关闭';
+	var html = $.render($._templates['message'], config);
+	var node = $(html).appendTo('body').modal(config).on('hidden.bs.modal', function() {
+		$(this).remove();
+	});
+	if (config.showCallback) {
+		node.on('shown.bs.modal', function() {
+			config.showCallback.call(node, 1);
+		})
+	}
+	
+	if (config.confirmClicked) {
+		node.find('.modal-footer .confirm-btn').on('click', function() {
+			config.confirmClicked.call(node, 1);
+		})
+	}
 }
 
 $.confirm = function(config) {
