@@ -625,8 +625,12 @@ public class MockMgrImpl implements MockMgr {
 				}
 				return "\"" + mockValue + "\"";
 			}
+		} else if (para.getDataType().equals("array<string>")) {
+			return "[\"string1\", \"string2\", \"string3\", \"string4\", \"string5\"]";
 
-		}
+		} else if (para.getDataType().equals("array<number>")) {
+			return "[1, 2, 3, 4, 5]";
+		} 
 		return returnValue;
 	}
 
