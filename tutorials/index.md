@@ -5,9 +5,9 @@ title: 快速上手
 
 {% raw %}
 
-## 视频教程
+## RAP介绍 & 视频教程
 
-<iframe height=498 width=610 src="http://player.youku.com/embed/XNjc3NTY2MzI0" frameborder=0 allowfullscreen></iframe>
+<iframe height=498 width=610 src="http://player.youku.com/embed/XNjk5NjMxODA4" frameborder=0 allowfullscreen></iframe>
 
 ## 创建文档
 

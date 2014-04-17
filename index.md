@@ -13,6 +13,10 @@ title: RAP
 
 如果您现在就想访问RAP，请点击 <a href="http://rap.alibaba-inc.com" target="_blank">这里</a>
 
+## RAP介绍&讲解视频
+
+片源: <a href="http://cloud.video.taobao.com//play/u/11051796/p/1/e/1/t/1/11622279.swf" target="_blank">淘宝视频(推荐)</a> <a href="http://v.youku.com/v_show/id_XNjk5NjMxODA4.html" target="_blank">优酷</a>
+
 ## 为什么使用RAP？
 
 ### 图形化的接口数据编辑
