@@ -9,7 +9,9 @@ $(function() {
         'star': '重要项目',
         'heart': '我关注的项目'
     };
-
+    
+    var PL_ID = null;
+    var CORP_ID = null;
     function getUsers(callback) {
         if ($.local('users')) {
             callback($.local('users'));
@@ -21,215 +23,345 @@ $(function() {
             callback(users);
         }, "JSON");
     }
-
-    function bindEvents() {
-        $('body')
-        .delegate('.box .info, .box .tools .glyphicon-eye-open', 'click', function() {
-            var box = $(this);
-            box = box.parents('.box');
-            var projId = box.data('projid');
-            window.open($.route('workspace.mine') + '?projectId=' + projId);
-        })
-        .delegate('.box-to-add', 'click', function() {
-            var that = this;
-            var groupId = $(this).data('groupid');
-            getUsers(function(users) {
-                $.confirm({
-                    content: $.render($('#create-proj-tmpl').text(), {}),
-                    title: '创建项目',
-                    confirmText: '确认创建',
-                    showCallback: function() {
-                        var that = this;
-                        $(this).find('input[type=text]').focus();
-                        $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
-                            $(this).parent('.picked-user').remove();
-                        });
-                        $(this).find('.accounts-inputer').keyup(function() {
-                            $.autocomplete(that, users);
-                        }).focus(function() {
-                            $.autocomplete(that, users);
-                        });
-                        $('.project-target .team').change(function() {
-                            var corpId = $(this).val();
-                            if (corpId === '') {
-                                return;
-                            }
-                            fillSelectAsync('org.productline.all', {
-                                corpId: corpId
-                            }, $('#option-list-tmpl').text(), '.project-target .productline');
-                        });
-                        $('.project-target .productline').change(function() {
-                            var plId = $(this).val();
-                            if (!plId) {
-                                return;
-                            }
-                            fillSelectAsync('org.group.all', {
-                                productLineId: plId
-                            }, $('#option-list-tmpl').text(), '.project-target .group');
-                        });
-                    },
-                    confirmClicked: function() {
-                        var inputer = $(this).find('input[type=text]');
-                        if (inputer.val().trim() === '') {
-                            inputer.addClass('shake');
-                            inputer.focus();
-                            setTimeout(function() {
-                                inputer && inputer.removeClass('shake');
-                            }, 1000);
-                            return;
-                        }
-                        var grouper = $(this).find('.project-target .group');
-
-                        if (grouper.val().trim() === '') {
-                            var parent = grouper.parents('.project-target');
-                            parent.addClass('shake');
-                            setTimeout(function() {
-                                parent && parent.removeClass('shake');
-                            }, 1000);
-                            return;
-                        }
-
-                        var groupId = grouper.val();
-                        var tmpl = $('#create-proj-success-tmpl').text();
-                        var modal = $(this);
-                        var accounts = $(this).find('.picked-user');
-                        var values = [];
-                        for(var i = 0, l = accounts.length; i < l; i++) {
-                            var current = $(accounts[i]);
-                            values.push(current.data('account') + '(' + current.data('name') + ')');
-                        }
-                        $.post($.route('org.project.create'), {
-                            groupId: groupId,
-                            name: inputer.val(),
-                            desc: $(this).find('textarea.desc').val(),
-                            accounts: values.join(', ')
-                        }, function(data) {
-                            data = data.result;
-                            data.status = data.status || '刚刚创建';
-                            var html = $.render(tmpl, data);
-                            $(that).before(html);
-                            modal.modal('hide');
-                        }, "JSON");
-                    }
-                });
-            });
-        })
-        .delegate('.box .glyphicon-pencil', 'click', function() {
-            var id = $(this).data('id');
-            var box = $(this).parents('.box');
-            var name = box.find('.info .title').html();
-            var desc = box.find('.info .intro').html();
-            var accounts = box.find('.accounts-hidden').val();
-            var splited = accounts.split(',');
-            var pickeds = [];
-            var reg = /(.+)\s*\(([^,]+)\)/;
-            for(var i = 0, l = splited.length; i < l; i++) {
-                var matched = reg.exec(splited[i]);
-                if (matched) {
-                    pickeds.push({
-                        name: matched[2],
-                        account: matched[1]
-                    });
-                }
-            }
-            getUsers(function(users) {
-                $.confirm({
-                    content: $.render($('#update-proj-tmpl').text(), {
-                        name: name,
-                        desc: desc,
-                        users: pickeds
-                    }),
-                    title: '修改项目',
-                    confirmText: '确认修改',
-                    showCallback: function() {
-                        var that = this;
-                        $(this).find('input[type=text]').focus();
-                        $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
-                            $(this).parent('.picked-user').remove();
-                        });
-                        $(this).find('.accounts-inputer').keyup(function() {
-                            $.autocomplete(that, users);
-                        }).focus(function() {
-                            $.autocomplete(that, users);
-                        });
-                    },
-                    confirmClicked: function() {
-                        var inputer = $(this).find('input[type=text]');
-                        if (inputer.val().trim() === '') {
-                            inputer.addClass('shake');
-                            inputer.focus();
-                            setTimeout(function() {
-                                inputer && inputer.removeClass('shake');
-                            }, 1000);
-                            return;
-                        }
-                        var tmpl = $('#create-proj-success-tmpl').text();
-                        var modal = $(this);
-                        var accounts = $(this).find('.picked-user');
-                        var values = [];
-                        for(var i = 0, l = accounts.length; i < l; i++) {
-                            var current = $(accounts[i]);
-                            values.push(current.data('account') + '(' + current.data('name') + ')');
-                        }
-                        $.post($.route('org.project.update'), {
-                            id: id,
-                            name: inputer.val(),
-                            desc: $(this).find('textarea.desc').val(),
-                            accounts: values.join(', ')
-                        }, function(data) {
-                            if (data.code != '200') {
-                                modal.modal('hide');
-                                alert(data.msg);
-                                return;
-                            }
-                            data = data.result;
-                            data.status = data.status || '刚刚更新';
-                            var html = $.render(tmpl, data);
-                            box.replaceWith(html);
-                            modal.modal('hide');
-                        }, "JSON");
-                    }
-                });
-            });
-        })
-        .delegate('.box .glyphicon-export', 'click', function() {
-        	var id = $(this).data('id');
-        	var url = '';
-        	$.message({
-        		 content: '<input type="text" id="rap-plugin-inputer" class="form-control" value="<script src=\'http://rap.alibaba-inc.com/rap.plugin.js?projectId=' + id + '\'></script>" />',
-                 title: '复制RAP插件地址',
-                 showCallback: function() {
-                	 $('#rap-plugin-inputer').focus();
-                 }
-        	});
-        })
-        .delegate('.box .glyphicon-trash', 'click', function() {
-            var id = $(this).data('id');
-            var box = $(this).parents('.box');
+    
+    function handleAddClick() {
+    	var that = this;
+        var groupId = $(this).data('groupid');
+        getUsers(function(users) {
             $.confirm({
-                content: '删除以后不可恢复，请谨慎操作',
-                title: '删除项目',
-                confirmText: '确认删除',
-                confirmClicked: function() {
-                    var modal = $(this);
-                    $.post($.route('org.project.delete'), {
-                        id: id
-                    }, function(data) {
-                        if (data.code == '200') {
-                            box.hide('slow', function() {
-                                box.remove();
-                            });
-                        } else {
-                            alert(data.msg);
+                content: $.render($('#create-proj-tmpl').text(), {}),
+                title: '创建项目',
+                confirmText: '确认创建',
+                showCallback: function() {
+                    var that = this;
+                    $(this).find('input[type=text]').focus();
+                    $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
+                        $(this).parent('.picked-user').remove();
+                    });
+                    $(this).find('.accounts-inputer').keyup(function() {
+                        $.autocomplete(that, users);
+                    }).focus(function() {
+                        $.autocomplete(that, users);
+                    });
+                    $('.project-target .team').change(function() {
+                        var corpId = $(this).val();
+                        if (corpId === '') {
+                        	CORP_ID = '';
+                        	$('.create-new-entity-container').html('');
+                            return;
                         }
+                        var text = $(this).find('[value=' + corpId + ']').text();
+                        
+                        fillSelectAsync('org.productline.all', {
+                            corpId: corpId
+                        }, $('#option-list-tmpl').text(), '.project-target .productline', function() {
+                        	showCreateProductlineBtn(corpId, text);
+                        });
+                    });
+                    $('.project-target .productline').change(function() {
+                        var plId = $(this).val();
+                        if (!plId) {
+                        	PL_ID = '';
+                        	$('.create-new-entity-container').html('');
+                            return;
+                        }
+                        var text = $(this).find('[value=' + plId + ']').text();
+                        fillSelectAsync('org.group.all', {
+                            productLineId: plId
+                        }, $('#option-list-tmpl').text(), '.project-target .group', function() {
+                        	showCreateGroupBtn(plId, text);
+                        });
+                    });
+                },
+                confirmClicked: function() {
+                    var inputer = $(this).find('input[type=text]');
+                    if (inputer.val().trim() === '') {
+                        inputer.addClass('shake');
+                        inputer.focus();
+                        setTimeout(function() {
+                            inputer && inputer.removeClass('shake');
+                        }, 1000);
+                        return;
+                    }
+                    var grouper = $(this).find('.project-target .group');
+
+                    if (grouper.val().trim() === '') {
+                        var parent = grouper.parents('.project-target');
+                        parent.addClass('shake');
+                        setTimeout(function() {
+                            parent && parent.removeClass('shake');
+                        }, 1000);
+                        return;
+                    }
+
+                    var groupId = grouper.val();
+                    var tmpl = $('#create-proj-success-tmpl').text();
+                    var modal = $(this);
+                    var accounts = $(this).find('.picked-user');
+                    var values = [];
+                    for(var i = 0, l = accounts.length; i < l; i++) {
+                        var current = $(accounts[i]);
+                        values.push(current.data('account') + '(' + current.data('name') + ')');
+                    }
+                    $.post($.route('org.project.create'), {
+                        groupId: groupId,
+                        name: inputer.val(),
+                        desc: $(this).find('textarea.desc').val(),
+                        accounts: values.join(', ')
+                    }, function(data) {
+                        data = data.result;
+                        data.status = data.status || '刚刚创建';
+                        var html = $.render(tmpl, data);
+                        $(that).before(html);
                         modal.modal('hide');
                     }, "JSON");
                 }
             });
         });
     }
+    
+    function handleViewProjectClick() {
+    	var box = $(this);
+        box = box.parents('.box');
+        var projId = box.data('projid');
+        window.open($.route('workspace.mine') + '?projectId=' + projId);
+    }
+    
+    function handleEditProjectClick() {
+    	var id = $(this).data('id');
+        var box = $(this).parents('.box');
+        var name = box.find('.info .title').html();
+        var desc = box.find('.info .intro').html();
+        var accounts = box.find('.accounts-hidden').val();
+        var splited = accounts.split(',');
+        var pickeds = [];
+        var reg = /(.+)\s*\(([^,]+)\)/;
+        for(var i = 0, l = splited.length; i < l; i++) {
+            var matched = reg.exec(splited[i]);
+            if (matched) {
+                pickeds.push({
+                    name: matched[2],
+                    account: matched[1]
+                });
+            }
+        }
+        getUsers(function(users) {
+            $.confirm({
+                content: $.render($('#update-proj-tmpl').text(), {
+                    name: name,
+                    desc: desc,
+                    users: pickeds
+                }),
+                title: '修改项目',
+                confirmText: '确认修改',
+                showCallback: function() {
+                    var that = this;
+                    $(this).find('input[type=text]').focus();
+                    $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
+                        $(this).parent('.picked-user').remove();
+                    });
+                    $(this).find('.accounts-inputer').keyup(function() {
+                        $.autocomplete(that, users);
+                    }).focus(function() {
+                        $.autocomplete(that, users);
+                    });
+                },
+                confirmClicked: function() {
+                    var inputer = $(this).find('input[type=text]');
+                    if (inputer.val().trim() === '') {
+                        inputer.addClass('shake');
+                        inputer.focus();
+                        setTimeout(function() {
+                            inputer && inputer.removeClass('shake');
+                        }, 1000);
+                        return;
+                    }
+                    var tmpl = $('#create-proj-success-tmpl').text();
+                    var modal = $(this);
+                    var accounts = $(this).find('.picked-user');
+                    var values = [];
+                    for(var i = 0, l = accounts.length; i < l; i++) {
+                        var current = $(accounts[i]);
+                        values.push(current.data('account') + '(' + current.data('name') + ')');
+                    }
+                    $.post($.route('org.project.update'), {
+                        id: id,
+                        name: inputer.val(),
+                        desc: $(this).find('textarea.desc').val(),
+                        accounts: values.join(', ')
+                    }, function(data) {
+                        if (data.code != '200') {
+                            modal.modal('hide');
+                            alert(data.msg);
+                            return;
+                        }
+                        data = data.result;
+                        data.status = data.status || '刚刚更新';
+                        var html = $.render(tmpl, data);
+                        box.replaceWith(html);
+                        modal.modal('hide');
+                    }, "JSON");
+                }
+            });
+        });
+    }
+    
+    function handleRapPluginClick() {
+    	var id = $(this).data('id');
+    	var url = '';
+    	$.message({
+    		 content: '<input type="text" id="rap-plugin-inputer" class="form-control" value="<script src=\'http://rap.alibaba-inc.com/rap.plugin.js?projectId=' + id + '\'></script>" />',
+             title: '复制RAP插件地址',
+             showCallback: function() {
+            	 $('#rap-plugin-inputer').focus();
+             }
+    	});
+    }
+    
+    function handleCreateProductline() {
+    	$.confirm({
+			content: $.render($('#create-productline').text(), {}),
+			title: '添加产品线',
+			confirmText: '确定',
+			showCallback: function() {
+				$(this).find('input[type=text]').focus();
+			},
+			confirmClicked: function() {
+				var inputer = $(this).find('input[type=text]');
+				if (inputer.val().trim() == '') {
+					inputer.addClass('shake');
+					inputer.focus();
+					setTimeout(function() {
+						inputer && inputer.removeClass('shake');
+					}, 1000);
+					return;
+				}
+				var modal = $(this);
+				var value = inputer.val().trim();
+				$.post($.route('org.productline.create'), {
+					corpId: CORP_ID,
+					name: value
+				}, function(data) {
+					var productlines = data.items;
+					if (!productlines) {
+						alert('创建失败，请稍后再试');
+						return;
+					}
+					var pl = productlines[0];
+					showCreateGroupBtn(pl.id, pl.name)
+					resetGroupSelect();
+					var select = appendOptions('.project-target .productline', pl.id, pl.name);
+					setTimeout(function() {
+						select.find('[value=""]').text('--请选择--');
+						select.val(pl.id);
+					}, 100);
+					modal.modal('hide');
+				}, "JSON")
+			}
+		});
+    }
+    
+    function appendOptions(selector, value, text) {
+    	return $(selector).append('<option value="' + value + '">' + text + '</option>')
+    }
+    
+    function showCreateGroupBtn(id, name) {
+    	PL_ID = id;
+    	$('.create-new-entity-container').hide().html(
+            	'<div class="create-group btn btn-default" style="margin-top: 10px;">为 “' + name + '” 产品线创建新分组</div>').slideDown();
+    }
+    
+    function showCreateProductlineBtn(id, name) {
+    	CORP_ID = id;
+    	$('.create-new-entity-container').hide().html(
+        		'<div class="create-productline btn btn-default" style="margin-top: 10px;">为 “' + name + '” 创建新产品线</div>').slideDown();
+    }
+    
+    function resetGroupSelect() {
+    	$('.project-target .group').html('<option>--请选择分组--</option>')
+    }
+    
+    function handleCreateGroup() {
+    	$.confirm({
+			content: $('#create-group-tmpl').text(),
+			title: '创建分组',
+			confirmText: '确认创建',
+			showCallback: function() {
+				$(this).find('input[type=text]').focus();
+			},
+			confirmClicked: function() {
+				var tmpl = $('#group-tmpl').text();
+				var inputer = $(this).find('input[type=text]');
+				if (inputer.val().trim() == '') {
+					inputer.addClass('shake');
+					inputer.focus();
+					setTimeout(function() {
+						inputer && inputer.removeClass('shake');
+					}, 1000);
+					return;
+				}
+				var modal = $(this);
+				$.post($.route('org.group.create'), {
+					productLineId: PL_ID,
+					name: inputer.val().trim()
+				}, function(data) {
+					var groups = data.groups;
+					if (!groups) {
+						alert('创建失败，请稍后再试');
+						return;
+					}
+					var group = groups[0];
+					var select = $('.project-target .group').append('<option value="' + group.id + '">' + group.name + '</option>');
+					setTimeout(function() {
+						select.find('[value=""]').text('--请选择--');
+						select.val(group.id);
+					}, 100);
+					modal.modal('hide');
+				}, "JSON")
+			}
+		});
+    }
+    
+    function handleDeleteClick() {
+    	var id = $(this).data('id');
+        var box = $(this).parents('.box');
+        $.confirm({
+            content: '删除以后不可恢复，请谨慎操作',
+            title: '删除项目',
+            confirmText: '确认删除',
+            confirmClicked: function() {
+                var modal = $(this);
+                $.post($.route('org.project.delete'), {
+                    id: id
+                }, function(data) {
+                    if (data.code == '200') {
+                        box.hide('slow', function() {
+                            box.remove();
+                        });
+                    } else {
+                        alert(data.msg);
+                    }
+                    modal.modal('hide');
+                }, "JSON");
+            }
+        });
+    }
+    function bindEvents() {
+        $('body')
+        .delegate('.box .info, .box .tools .glyphicon-eye-open', 'click', handleViewProjectClick)
+        .delegate('.box-to-add', 'click', handleAddClick)
+        .delegate('.box .glyphicon-pencil', 'click', handleEditProjectClick)
+        .delegate('.box .glyphicon-export', 'click', handleRapPluginClick)
+        .delegate('.create-productline', 'click', handleCreateProductline)
+		.delegate('.create-group', 'click', handleCreateGroup)
+        .delegate('.box .glyphicon-trash', 'click', handleDeleteClick);
+    }
 
-    function fillSelectAsync(route, params, tmpl, target) {
+    function fillSelectAsync(route, params, tmpl, target, callback) {
+        callback && callback();
+        $(target).html($.render(tmpl, {
+        	items: [{id: '', name: '加载中...'}]
+        }));
         $.get($.route(route), params, function(data) {
             if (data.groups) {
                 data.items = data.groups;

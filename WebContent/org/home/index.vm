@@ -139,18 +139,48 @@
   <div class="form-group" style="margin-bottom:0">
     <label for="" class="col-sm-2 control-label">项目归属</label>
     <div class="col-sm-10 project-target" style="position:relative">
+		<div class="clearfix">
     	<select class="form-control team">
     		<option>--请选择团队--</option>
     		#foreach($corp in $corpList)
           	 <option value="$corp.id">$corp.name</option>
           	#end
     	</select>
-    	<select class="form-control productline">
-    		<option value="">--请选择产品线--</option>
-    	</select>
-    	<select class="form-control group">
-    		<option value="">--请选择分组--</option>
-    	</select>
+		<span>
+    		<select class="form-control productline">
+    			<option value="">--请选择产品线--</option>
+    		</select>
+		</span>
+		<span>
+    		<select class="form-control group">
+    			<option value="">--请选择分组--</option>
+    		</select><br>
+		</span>
+	</div>
+    	<div class="create-new-entity-container">
+		</div>
+	</div>
+  </div>
+</div>
+</script>
+
+<script type="text/tmpl" id="create-group-tmpl">
+<div class="form-horizontal" role="form">
+  <div class="form-group" style="margin-bottom:0">
+    <label for="inputPassword3" class="col-sm-2 control-label">分组名称 <span style="color:red">&#42;</span></label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" style="width:432px;" placeholder="请在此添加分组名称" value=""/>
+    </div>
+  </div>
+</div>
+</script>
+
+<script type="text/tmpl" id="create-productline">
+<div class="form-horizontal" role="form">
+  <div class="form-group" style="margin-bottom:0">
+    <label for="productline-inputer" class="col-sm-2 control-label">名称 <span style="color:red">&#42;</span></label>
+    <div class="col-sm-10">
+      <input type="text" id="productline-inputer" class="form-control" style="width:432px;" placeholder="请在此添加产品线名称" value="{{value}}"/>
     </div>
   </div>
 </div>
