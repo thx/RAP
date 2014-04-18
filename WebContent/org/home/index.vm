@@ -106,6 +106,7 @@
 	  <span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">{{account}} ({{name}})<i class="unpick-btn">&times;</i></span>
 	  {{/users}}
 	  <input class="form-control accounts-inputer" placeholder="添加项目成员"/>
+	  <span class="user-loading">项目成员列表加载中，请稍候~ </span>
       <div class="accounts-con"></div>
 	</div>
   </div>
@@ -133,6 +134,7 @@
 	  <span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">{{account}} ({{name}})<i class="unpick-btn">&times;</i></span>
 	  {{/users}}
 	  <input class="form-control accounts-inputer" placeholder="添加项目成员"/>
+	  <span class="user-loading">项目成员列表加载中，请稍候~ </span>
       <div class="accounts-con"></div>
 	</div>
   </div>
