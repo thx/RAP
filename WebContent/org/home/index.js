@@ -26,97 +26,111 @@ $(function() {
     
     function handleAddClick() {
     	var that = this;
+    	var btn = $(this);
+    	if (btn.data('shown')) {
+    		return;
+    	}
+    	btn.data('shown', 1);
         var groupId = $(this).data('groupid');
-        getUsers(function(users) {
-            $.confirm({
-                content: $.render($('#create-proj-tmpl').text(), {}),
-                title: '创建项目',
-                confirmText: '确认创建',
-                showCallback: function() {
-                    var that = this;
-                    $(this).find('input[type=text]').focus();
-                    $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
-                        $(this).parent('.picked-user').remove();
-                    });
-                    $(this).find('.accounts-inputer').keyup(function() {
-                        $.autocomplete(that, users);
-                    }).focus(function() {
-                        $.autocomplete(that, users);
-                    });
-                    $('.project-target .team').change(function() {
-                        var corpId = $(this).val();
-                        if (corpId === '') {
-                        	CORP_ID = '';
-                        	$('.create-new-entity-container').html('');
-                            return;
-                        }
-                        var text = $(this).find('[value=' + corpId + ']').text();
-                        
-                        fillSelectAsync('org.productline.all', {
-                            corpId: corpId
-                        }, $('#option-list-tmpl').text(), '.project-target .productline', function() {
-                        	showCreateProductlineBtn(corpId, text);
-                        });
-                    });
-                    $('.project-target .productline').change(function() {
-                        var plId = $(this).val();
-                        if (!plId) {
-                        	PL_ID = '';
-                        	$('.create-new-entity-container').html('');
-                            return;
-                        }
-                        var text = $(this).find('[value=' + plId + ']').text();
-                        fillSelectAsync('org.group.all', {
-                            productLineId: plId
-                        }, $('#option-list-tmpl').text(), '.project-target .group', function() {
-                        	showCreateGroupBtn(plId, text);
-                        });
-                    });
-                },
-                confirmClicked: function() {
-                    var inputer = $(this).find('input[type=text]');
-                    if (inputer.val().trim() === '') {
-                        inputer.addClass('shake');
-                        inputer.focus();
-                        setTimeout(function() {
-                            inputer && inputer.removeClass('shake');
-                        }, 1000);
+        
+        $.confirm({
+            content: $.render($('#create-proj-tmpl').text(), {}),
+            title: '创建项目',
+            confirmText: '确认创建',
+            cancelCallback: function() {
+            	btn.data('shown', 0);
+            },
+            showCallback: function() {
+            	btn.data('shown', 0);
+                var that = this;
+                $(this).find('input[type=text]').focus();
+                $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
+                    $(this).parent('.picked-user').remove();
+                });
+                
+                $('.project-target .team').change(function() {
+                    var corpId = $(this).val();
+                    if (corpId === '') {
+                    	CORP_ID = '';
+                    	$('.create-new-entity-container').html('');
                         return;
                     }
-                    var grouper = $(this).find('.project-target .group');
-
-                    if (grouper.val().trim() === '') {
-                        var parent = grouper.parents('.project-target');
-                        parent.addClass('shake');
-                        setTimeout(function() {
-                            parent && parent.removeClass('shake');
-                        }, 1000);
+                    var text = $(this).find('[value=' + corpId + ']').text();
+                    
+                    fillSelectAsync('org.productline.all', {
+                        corpId: corpId
+                    }, $('#option-list-tmpl').text(), '.project-target .productline', function() {
+                    	showCreateProductlineBtn(corpId, text);
+                    });
+                });
+                
+                $('.project-target .productline').change(function() {
+                    var plId = $(this).val();
+                    if (!plId) {
+                    	PL_ID = '';
+                    	$('.create-new-entity-container').html('');
                         return;
                     }
-
-                    var groupId = grouper.val();
-                    var tmpl = $('#create-proj-success-tmpl').text();
-                    var modal = $(this);
-                    var accounts = $(this).find('.picked-user');
-                    var values = [];
-                    for(var i = 0, l = accounts.length; i < l; i++) {
-                        var current = $(accounts[i]);
-                        values.push(current.data('account') + '(' + current.data('name') + ')');
-                    }
-                    $.post($.route('org.project.create'), {
-                        groupId: groupId,
-                        name: inputer.val(),
-                        desc: $(this).find('textarea.desc').val(),
-                        accounts: values.join(', ')
-                    }, function(data) {
-                        data = data.result;
-                        data.status = data.status || '刚刚创建';
-                        var html = $.render(tmpl, data);
-                        $(that).before(html);
-                        modal.modal('hide');
-                    }, "JSON");
+                    var text = $(this).find('[value=' + plId + ']').text();
+                    fillSelectAsync('org.group.all', {
+                        productLineId: plId
+                    }, $('#option-list-tmpl').text(), '.project-target .group', function() {
+                    	showCreateGroupBtn(plId, text);
+                    });
+                });
+                
+                getUsers(function(users) {
+                	$('.user-loading').hide();
+                	$(that).find('.accounts-inputer').keyup(function() {
+                		$.autocomplete(that, users);
+                	}).focus(function() {
+                		$.autocomplete(that, users);
+                	});
+                });
+            },
+            confirmClicked: function() {
+                var inputer = $(this).find('input[type=text]');
+                if (inputer.val().trim() === '') {
+                    inputer.addClass('shake');
+                    inputer.focus();
+                    setTimeout(function() {
+                        inputer && inputer.removeClass('shake');
+                    }, 1000);
+                    return;
                 }
-            });
+                var grouper = $(this).find('.project-target .group');
+
+                if (grouper.val().trim() === '') {
+                    var parent = grouper.parents('.project-target');
+                    parent.addClass('shake');
+                    setTimeout(function() {
+                        parent && parent.removeClass('shake');
+                    }, 1000);
+                    return;
+                }
+
+                var groupId = grouper.val();
+                var tmpl = $('#create-proj-success-tmpl').text();
+                var modal = $(this);
+                var accounts = $(this).find('.picked-user');
+                var values = [];
+                for(var i = 0, l = accounts.length; i < l; i++) {
+                    var current = $(accounts[i]);
+                    values.push(current.data('account') + '(' + current.data('name') + ')');
+                }
+                $.post($.route('org.project.create'), {
+                    groupId: groupId,
+                    name: inputer.val(),
+                    desc: $(this).find('textarea.desc').val(),
+                    accounts: values.join(', ')
+                }, function(data) {
+                    data = data.result;
+                    data.status = data.status || '刚刚创建';
+                    var html = $.render(tmpl, data);
+                    $(that).before(html);
+                    modal.modal('hide');
+                }, "JSON");
+            }
         });
     }
     
@@ -145,64 +159,66 @@ $(function() {
                 });
             }
         }
-        getUsers(function(users) {
-            $.confirm({
-                content: $.render($('#update-proj-tmpl').text(), {
-                    name: name,
-                    desc: desc,
-                    users: pickeds
-                }),
-                title: '修改项目',
-                confirmText: '确认修改',
-                showCallback: function() {
-                    var that = this;
-                    $(this).find('input[type=text]').focus();
-                    $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
-                        $(this).parent('.picked-user').remove();
-                    });
-                    $(this).find('.accounts-inputer').keyup(function() {
-                        $.autocomplete(that, users);
-                    }).focus(function() {
-                        $.autocomplete(that, users);
-                    });
-                },
-                confirmClicked: function() {
-                    var inputer = $(this).find('input[type=text]');
-                    if (inputer.val().trim() === '') {
-                        inputer.addClass('shake');
-                        inputer.focus();
-                        setTimeout(function() {
-                            inputer && inputer.removeClass('shake');
-                        }, 1000);
+        $.confirm({
+            content: $.render($('#update-proj-tmpl').text(), {
+                name: name,
+                desc: desc,
+                users: pickeds
+            }),
+            title: '修改项目',
+            confirmText: '确认修改',
+            showCallback: function() {
+                var that = this;
+                $(this).find('input[type=text]').focus();
+                $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
+                    $(this).parent('.picked-user').remove();
+                });
+
+                getUsers(function(users) {
+                	$('.user-loading').hide();
+                	$(that).find('.accounts-inputer').keyup(function() {
+                		$.autocomplete(that, users);
+                	}).focus(function() {
+                		$.autocomplete(that, users);
+                	});
+                });
+            },
+            confirmClicked: function() {
+                var inputer = $(this).find('input[type=text]');
+                if (inputer.val().trim() === '') {
+                    inputer.addClass('shake');
+                    inputer.focus();
+                    setTimeout(function() {
+                        inputer && inputer.removeClass('shake');
+                    }, 1000);
+                    return;
+                }
+                var tmpl = $('#create-proj-success-tmpl').text();
+                var modal = $(this);
+                var accounts = $(this).find('.picked-user');
+                var values = [];
+                for(var i = 0, l = accounts.length; i < l; i++) {
+                    var current = $(accounts[i]);
+                    values.push(current.data('account') + '(' + current.data('name') + ')');
+                }
+                $.post($.route('org.project.update'), {
+                    id: id,
+                    name: inputer.val(),
+                    desc: $(this).find('textarea.desc').val(),
+                    accounts: values.join(', ')
+                }, function(data) {
+                    if (data.code != '200') {
+                        modal.modal('hide');
+                        alert(data.msg);
                         return;
                     }
-                    var tmpl = $('#create-proj-success-tmpl').text();
-                    var modal = $(this);
-                    var accounts = $(this).find('.picked-user');
-                    var values = [];
-                    for(var i = 0, l = accounts.length; i < l; i++) {
-                        var current = $(accounts[i]);
-                        values.push(current.data('account') + '(' + current.data('name') + ')');
-                    }
-                    $.post($.route('org.project.update'), {
-                        id: id,
-                        name: inputer.val(),
-                        desc: $(this).find('textarea.desc').val(),
-                        accounts: values.join(', ')
-                    }, function(data) {
-                        if (data.code != '200') {
-                            modal.modal('hide');
-                            alert(data.msg);
-                            return;
-                        }
-                        data = data.result;
-                        data.status = data.status || '刚刚更新';
-                        var html = $.render(tmpl, data);
-                        box.replaceWith(html);
-                        modal.modal('hide');
-                    }, "JSON");
-                }
-            });
+                    data = data.result;
+                    data.status = data.status || '刚刚更新';
+                    var html = $.render(tmpl, data);
+                    box.replaceWith(html);
+                    modal.modal('hide');
+                }, "JSON");
+            }
         });
     }
     

@@ -177,6 +177,9 @@
 	width: 142px;
 }
 
+.user-loading {
+	color:#999; margin-left:10px; font-size: 12px;
+}
 .picking-user .picked-user {
 	background-color: #EEE;
 	padding: 6px 14px 8px 6px;

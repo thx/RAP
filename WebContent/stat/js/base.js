@@ -632,6 +632,12 @@ $.message = function(config) {
 			config.confirmClicked.call(node, 1);
 		})
 	}
+	
+	if (config.cancelCallback) {
+		node.find('.modal-footer .cancel-btn').on('click', function() {
+			config.cancelCallback.call(node, 1);
+		})
+	}
 }
 
 $.confirm = function(config) {
@@ -649,6 +655,12 @@ $.confirm = function(config) {
 	if (config.confirmClicked) {
 		node.find('.modal-footer .confirm-btn').on('click', function() {
 			config.confirmClicked.call(node, 1);
+		})
+	}
+	
+	if (config.cancelCallback) {
+		node.find('.modal-footer .cancel-btn').on('click', function() {
+			config.cancelCallback.call(node, 1);
 		})
 	}
 }
