@@ -15,6 +15,7 @@ import nl.flotsam.xeger.Xeger;
 import com.taobao.rigel.rap.common.ArrayUtils;
 import com.taobao.rigel.rap.common.MockjsRunner;
 import com.taobao.rigel.rap.common.NumberUtils;
+import com.taobao.rigel.rap.common.Patterns;
 import com.taobao.rigel.rap.common.StringUtils;
 import com.taobao.rigel.rap.mock.service.MockMgr;
 import com.taobao.rigel.rap.project.bo.Action;
@@ -33,6 +34,8 @@ public class MockMgrImpl implements MockMgr {
 	public void setProjectMgr(ProjectMgr projectMgr) {
 		this.projectMgr = projectMgr;
 	}
+	
+	private Map<String, List<String>> requestParams;
 
 	/**
 	 * random seed
@@ -219,7 +222,7 @@ public class MockMgrImpl implements MockMgr {
 	private Action actionPick(List<Action> actionList, String pattern,
 			Map<String, Object> options) throws UnsupportedEncodingException {
 		Action result = actionList.get(0);
-		Map<String, List<String>> requestParams = getUrlParameters(pattern);
+		requestParams = getUrlParameters(pattern);
 		for (Action action : actionList) {
 			Map<String, List<String>> docActionParams = getUrlParameters(action
 					.getRequestUrl());
@@ -392,7 +395,7 @@ public class MockMgrImpl implements MockMgr {
 		if (para.getParameterList() == null
 				|| para.getParameterList().size() == 0) {
 			json.append(para.getMockJSIdentifier() + ":"
-					+ mockjsValue(para, index));
+					+ StringUtils.chineseToUnicode(mockjsValue(para, index)));
 		} else {
 			// object and array<object>
 			json.append(para.getMockJSIdentifier() + ":");
@@ -613,6 +616,10 @@ public class MockMgrImpl implements MockMgr {
 			mockValue = tagMap.get("{mock}");
 			escape = false;
 		}
+
+		mockValue = processMockValueWithParams(para, mockValue);
+		
+		
 		if (mockValue != null && !mockValue.isEmpty()) {
 			if (mockValue.startsWith("[") && mockValue.endsWith("]")) {
 				return mockValue;
@@ -625,9 +632,37 @@ public class MockMgrImpl implements MockMgr {
 				}
 				return "\"" + mockValue + "\"";
 			}
+		} else if (para.getDataType().equals("array<string>")) {
+			return "[\"string1\", \"string2\", \"string3\", \"string4\", \"string5\"]";
 
-		}
+		} else if (para.getDataType().equals("array<number>")) {
+			return "[1, 2, 3, 4, 5]";
+		} 
 		return returnValue;
+	}
+
+	
+	private String processMockValueWithParams(Parameter para, String mockValue) {
+	
+		Pattern p = Pattern.compile(Patterns.MOCK_TEMPLATE_PATTERN);
+		if (mockValue == null) mockValue = "";
+		Matcher matcher = p.matcher(mockValue);
+		while (matcher.find()) {
+			int c = matcher.groupCount();
+			if (c >= 3) {
+				String toBeReplaced = matcher.group(0);
+				String key = matcher.group(1);
+				String value = matcher.group(2);
+				List<String> param = requestParams.get(key);
+				String realValue = (param != null && param.size() > 0) ? param.get(0) : null;
+				if (realValue != null && !realValue.isEmpty()) {
+					mockValue = mockValue.replace(toBeReplaced, realValue);
+				} else {
+					mockValue = mockValue.replace(toBeReplaced, value);
+				}
+			}
+		}
+		return mockValue;
 	}
 
 	/**
