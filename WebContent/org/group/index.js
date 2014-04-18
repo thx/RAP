@@ -114,64 +114,66 @@ $(function() {
 					})
 				}
 			}
-			getUsers(function(users) {
-				$.confirm({
-					content: $.render($('#create-proj-tmpl').text(), {
-						name: name,
-						desc: desc,
-						users: pickeds
-					}),
-					title: '修改项目',
-					confirmText: '确认修改',
-					showCallback: function() {
-						var that = this;
-						$(this).find('input[type=text]').focus();
-						$(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
-							$(this).parent('.picked-user').remove();
-						});
-						$(this).find('.accounts-inputer').keyup(function() {
+			$.confirm({
+				content: $.render($('#create-proj-tmpl').text(), {
+					name: name,
+					desc: desc,
+					users: pickeds
+				}),
+				title: '修改项目',
+				confirmText: '确认修改',
+				showCallback: function() {
+					var that = this;
+					$(this).find('input[type=text]').focus();
+					$(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
+						$(this).parent('.picked-user').remove();
+					});
+					
+					getUsers(function(users) {
+						$('.user-loading').hide();
+						$(that).find('.accounts-inputer').keyup(function() {
 							$.autocomplete(that, users);
 						}).focus(function() {
 							$.autocomplete(that, users);
 						});
-					},
-					confirmClicked: function() {
-						var inputer = $(this).find('input[type=text]');
-						if (inputer.val().trim() == '') {
-							inputer.addClass('shake');
-							inputer.focus();
-							setTimeout(function() {
-								inputer && inputer.removeClass('shake');
-							}, 1000);
+					});
+				},
+				confirmClicked: function() {
+					var inputer = $(this).find('input[type=text]');
+					if (inputer.val().trim() == '') {
+						inputer.addClass('shake');
+						inputer.focus();
+						setTimeout(function() {
+							inputer && inputer.removeClass('shake');
+						}, 1000);
+						return;
+					}
+					var tmpl = $('#create-proj-success-tmpl').text();
+					var modal = $(this);
+					var accounts = $(this).find('.picked-user');
+					var values = [];
+					for(var i = 0, l = accounts.length; i < l; i++) {
+						var current = $(accounts[i]);
+						values.push(current.data('account') + '(' + current.data('name') + ')')
+					}
+					$.post($.route('org.project.update'), {
+						id: id,
+						name: inputer.val(),
+						desc: $(this).find('textarea.desc').val(),
+						accounts: values.join(', ')
+					}, function(data) {
+						if (data.code != '200') {
+							modal.modal('hide');
+							alert(data.msg);
 							return;
 						}
-						var tmpl = $('#create-proj-success-tmpl').text();
-						var modal = $(this);
-						var accounts = $(this).find('.picked-user');
-						var values = [];
-						for(var i = 0, l = accounts.length; i < l; i++) {
-							var current = $(accounts[i]);
-							values.push(current.data('account') + '(' + current.data('name') + ')')
-						}
-						$.post($.route('org.project.update'), {
-							id: id,
-							name: inputer.val(),
-							desc: $(this).find('textarea.desc').val(),
-							accounts: values.join(', ')
-						}, function(data) {
-							if (data.code != '200') {
-								modal.modal('hide');
-								alert(data.msg);
-								return;
-							}
-							var data = data.result;
-							data.status = data.status || '刚刚更新';
-							var html = $.render(tmpl, data);
-							box.replaceWith(html);
-							modal.modal('hide');
-						}, "JSON")
-					}
-				});
+						var data = data.result;
+						data.status = data.status || '刚刚更新';
+						var html = $.render(tmpl, data);
+						box.replaceWith(html);
+						modal.modal('hide');
+					}, "JSON")
+				}
 			});
 		})
         .delegate('.box .glyphicon-export', 'click', function() {
@@ -212,55 +214,56 @@ $(function() {
 		.delegate('.box-to-add', 'click', function() {
 			var that = this;
 			var groupId = $(this).data('groupid');
-			getUsers(function(users) {
-				$.confirm({
-					content: $.render($('#create-proj-tmpl').text(), {}),
-					title: '创建项目',
-					confirmText: '确认创建',
-					showCallback: function() {
-						var that = this;
-						$(this).find('input[type=text]').focus();
-						$(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
-							$(this).parent('.picked-user').remove();
-						});
-						$(this).find('.accounts-inputer').keyup(function() {
+			$.confirm({
+				content: $.render($('#create-proj-tmpl').text(), {}),
+				title: '创建项目',
+				confirmText: '确认创建',
+				showCallback: function() {
+					var that = this;
+					$(this).find('input[type=text]').focus();
+					$(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
+						$(this).parent('.picked-user').remove();
+					});
+					getUsers(function(users) {
+						$('.user-loading').hide();
+						$(that).find('.accounts-inputer').keyup(function() {
 							$.autocomplete(that, users);
 						}).focus(function() {
 							$.autocomplete(that, users);
 						});
-					},
-					confirmClicked: function() {
-						var inputer = $(this).find('input[type=text]');
-						if (inputer.val().trim() == '') {
-							inputer.addClass('shake');
-							inputer.focus();
-							setTimeout(function() {
-								inputer && inputer.removeClass('shake');
-							}, 1000);
-							return;
-						}
-						var tmpl = $('#create-proj-success-tmpl').text();
-						var modal = $(this);
-						var accounts = $(this).find('.picked-user');
-						var values = [];
-						for(var i = 0, l = accounts.length; i < l; i++) {
-							var current = $(accounts[i]);
-							values.push(current.data('account') + '(' + current.data('name') + ')')
-						}
-						$.post($.route('org.project.create'), {
-							groupId: groupId,
-							name: inputer.val(),
-							desc: $(this).find('textarea.desc').val(),
-							accounts: values.join(', ')
-						}, function(data) {
-							var data = data.result;
-							data.status = data.status || '刚刚创建';
-							var html = $.render(tmpl, data);
-							$(that).before(html);
-							modal.modal('hide');
-						}, "JSON")
+					});
+				},
+				confirmClicked: function() {
+					var inputer = $(this).find('input[type=text]');
+					if (inputer.val().trim() == '') {
+						inputer.addClass('shake');
+						inputer.focus();
+						setTimeout(function() {
+							inputer && inputer.removeClass('shake');
+						}, 1000);
+						return;
 					}
-				});
+					var tmpl = $('#create-proj-success-tmpl').text();
+					var modal = $(this);
+					var accounts = $(this).find('.picked-user');
+					var values = [];
+					for(var i = 0, l = accounts.length; i < l; i++) {
+						var current = $(accounts[i]);
+						values.push(current.data('account') + '(' + current.data('name') + ')')
+					}
+					$.post($.route('org.project.create'), {
+						groupId: groupId,
+						name: inputer.val(),
+						desc: $(this).find('textarea.desc').val(),
+						accounts: values.join(', ')
+					}, function(data) {
+						var data = data.result;
+						data.status = data.status || '刚刚创建';
+						var html = $.render(tmpl, data);
+						$(that).before(html);
+						modal.modal('hide');
+					}, "JSON")
+				}
 			});
 		})
 		.delegate('.save-update-group', 'click', function() {
