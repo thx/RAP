@@ -645,6 +645,7 @@ public class MockMgrImpl implements MockMgr {
 	private String processMockValueWithParams(Parameter para, String mockValue) {
 	
 		Pattern p = Pattern.compile(Patterns.MOCK_TEMPLATE_PATTERN);
+		if (mockValue == null) mockValue = "";
 		Matcher matcher = p.matcher(mockValue);
 		while (matcher.find()) {
 			int c = matcher.groupCount();
