@@ -1,7 +1,4 @@
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.taobao.rigel.rap.common.Patterns;
+import com.taobao.rigel.rap.common.StringUtils;
 
 public class Tester {
 
@@ -9,6 +6,7 @@ public class Tester {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		/**
 		int num = 1;
 		Pattern p = Pattern.compile(Patterns.MOCK_TEMPLATE_PATTERN);
 		Matcher matcher = p.matcher("${page=1008}");
@@ -20,6 +18,9 @@ public class Tester {
 			}
 
 		}
+		*/
+		
+		System.out.println(StringUtils.chineseToUnicode("123测试一下aaa"));
 
 	}
 

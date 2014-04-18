@@ -395,7 +395,7 @@ public class MockMgrImpl implements MockMgr {
 		if (para.getParameterList() == null
 				|| para.getParameterList().size() == 0) {
 			json.append(para.getMockJSIdentifier() + ":"
-					+ mockjsValue(para, index));
+					+ StringUtils.chineseToUnicode(mockjsValue(para, index)));
 		} else {
 			// object and array<object>
 			json.append(para.getMockJSIdentifier() + ":");
@@ -616,7 +616,7 @@ public class MockMgrImpl implements MockMgr {
 			mockValue = tagMap.get("{mock}");
 			escape = false;
 		}
-		
+
 		mockValue = processMockValueWithParams(para, mockValue);
 		
 		
