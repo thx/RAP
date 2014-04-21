@@ -103,6 +103,24 @@ public class GroupAction extends ActionBase {
 		setJson(gson.toJson(result));
 		return SUCCESS;
 	}
+	
+	public String groups() {
+		Gson gson = new Gson();
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<Map<String, Object>> groups = new ArrayList<Map<String, Object>>();
+		List<Group> groupModels = organizationMgr.getGroupList(productLineId);
+		for (Group groupModel : groupModels) {
+			Map<String, Object> group = new HashMap<String, Object>();
+			group.put("id", groupModel.getId());
+			group.put("name", groupModel.getName());
+			groups.add(group);
+		}
+
+		result.put("groups", groups);
+
+		setJson(gson.toJson(result));
+		return SUCCESS;
+	}
 
 	public String create() {
 		Gson gson = new Gson();

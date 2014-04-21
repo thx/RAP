@@ -50,6 +50,10 @@
               <result name="success" type="velocity">/bcom/json.cb.vm</result>
         </action>
         
+        <action name="groups" class="com.taobao.rigel.rap.organization.web.action.GroupAction" method="groups">
+              <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        
         <action name="create" class="com.taobao.rigel.rap.organization.web.action.GroupAction" method="create">
               <result name="success" type="velocity">/bcom/json.cb.vm</result>
         </action>
