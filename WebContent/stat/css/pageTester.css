@@ -199,6 +199,7 @@ position: absolute;
 right: 56px;
 top: -3px;
 z-index: 1000;
+background-color: #F2F2F2;
 }
 
 .trigger {
