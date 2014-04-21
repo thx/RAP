@@ -1,8 +1,30 @@
 body {
 	padding: 0;
 	margin: 8px;
+	padding-bottom: 100px;
 }
 
+.clearfix {
+  *zoom: 1;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+label {
+	margin-bottom: 0;
+}
+label .field {
+	margin-bottom: 0;
+}
 .div-a .head {
 	background-color: Silver;
 	text-align: center;
@@ -60,15 +82,50 @@ body {
 .div-a .name {
 	
 }
-
-.tester-form,.block {
+.nav {
+	margin-bottom: 0px;
+}
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover {
+	background-color: #F2F2F2;
+}
+.tester-form {
+	background-color: #F2F2F2;
+	border: 1px solid #ddd;
+	margin-top: -1px;
+	border-radius: 0 0 3px 3px;
+}
+.block {
 	margin: 12px 0;
 	padding: 8px;
 	border: 1px dashed #DFDFDF;
 }
 
-.item {
+.p8 {
 	padding: 8px;
+}
+.item {
+	padding: 3px 8px; float: left;
+}
+
+.item .name {
+	min-width: 100px; margin-left: 30px;display: inline-block;
+}
+.item .remark {
+	color: #AAA; display: inline-block; margin-left: 3px; cursor: pointer;
+}
+
+.item .remark .detail {
+	display: none;
+	position: absolute;
+	margin-top: 3px;
+	margin-left: 30px;
+	border: 1px solid #CCC;
+	background-color: #FFF;
+	padding: 5px;
+}
+
+.item .remark:hover .detail {
+	display: block;
 }
 
 .identifier {
@@ -110,28 +167,51 @@ input,textarea {
 }
 
 #divResBoard {
-	height: 300px;
-	overflow: hidden;
 }
 
 #divResBoardJson {
-	float: left;
-	width: 810px;
-	margin-right:10px;
-	border-right:1px dashed #DFDFDF;
-	height: 300px;
+	width: 100%;
+	min-height: 400px;
 	overflow-y: auto;
 	word-wrap: break-word;
 	word-break: break-all;
 }
 
 #divResBoardLog {
-	float: left;
-	width: 360px;
-	height: 300px;
+	width: 50%;
+	height: 100px;
 	overflow-y: auto;
 	word-wrap: break-word;
 	word-break: break-all;
+	position: fixed;
+	bottom: 0;
+	border: 1px solid rgb(230, 230, 230);
+	right: 0;
+	padding: 10px;
+	background-color: #F2F2F2;
+	border-top-width: 2px;
+}
+
+#divResBoardLog .triggers {
+position: absolute;
+right: 25px;
+top: -3px;
+z-index: 1000;
+background-color: #F2F2F2;
+}
+
+.trigger {
+border: 2px solid #DDD;
+text-align: center;
+color: #CCC;
+cursor: pointer;
+width: 30px;
+height: 30px;
+font-size: 22px;
+line-height: 26px;
+float: left;
+margin-left: 10px;
+margin-top: 4px;
 }
 
 #divActionList {
@@ -142,6 +222,7 @@ input,textarea {
 }
 
 #divRootSetting {
+	position: fixed; top: 10px; right: 10px; background-color: #FFF; height: 30px;padding: 4px; border-radius: 4px;
 }
 
 #txtActionId {
