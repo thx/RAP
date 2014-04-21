@@ -283,6 +283,7 @@ public class ProjectAction extends ActionBase {
 		result.put("accounts", project.getMemberAccountListStr());
 		result.put("groupId", project.getGroupId());
 		result.put("isManagable", "true");
+		result.put("creator", project.getUser().getUserBaseInfo());
 		setJson(new RapError(gson.toJson(result)).toString());
 		return SUCCESS;
 	}
