@@ -73,7 +73,7 @@ $(function() {
                         return;
                     }
                     var text = $(this).find('[value=' + plId + ']').text();
-                    fillSelectAsync('org.group.all', {
+                    fillSelectAsync('org.home.grouplist', {
                         productLineId: plId
                     }, $('#option-list-tmpl').text(), '.project-target .group', function() {
                     	showCreateGroupBtn(plId, text);

@@ -239,8 +239,9 @@
 
 .groups .status .creator {
 	position: absolute;
-	color: #AAA;
 	font-size: 12px;
-	right: 0;
-	top: 15px;
+	color: #FFF;
+	text-shadow: 0 0 2px rgba(0,0,0,.4);
+	right: 2px;
+	bottom: 0;
 }

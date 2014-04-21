@@ -30,7 +30,7 @@
                 <div class="title">{{name}}</div>
                 <div class="intro">{{desc}}</div>
             </div>
-            <div class="status">{{status}}<span class="creator">{{creator}}</span></div>
+            <div class="status">{{status}}<span class="creator">{{creator.name}}</span></div>
 			{{#important}}
 				<div class="star"><i class="glyphicon glyphicon-star"></i></div>
 			{{/important}}
