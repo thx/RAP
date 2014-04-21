@@ -91,6 +91,7 @@ public class GroupAction extends ActionBase {
 				project.put("status", projectModel.getLastUpdateStr());
 				project.put("accounts", projectModel.getMemberAccountListStr());
 				project.put("isManagable", projectModel.getIsManagable());
+				project.put("creator", projectModel.getUser().getUserBaseInfo());
 				projects.add(project);
 			}
 			group.put("projects", projects);

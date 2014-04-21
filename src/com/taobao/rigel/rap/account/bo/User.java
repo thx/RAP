@@ -2,7 +2,13 @@ package com.taobao.rigel.rap.account.bo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.taobao.rigel.rap.project.bo.Project;
 
@@ -19,6 +25,14 @@ public class User implements java.io.Serializable {
 	private Date lastLoginDate;
 	private int incorrectLoginAttempt;
 	private String realName;
+	
+	public Map<String, Object> getUserBaseInfo() {
+		Map<String, Object> base = new HashMap<String, Object>();
+		base.put("name", this.name);
+		base.put("id", this.id);
+		base.put("email", this.email);
+		return base;
+	}
 	
 	public void setRealName(String realName) {
 		this.realName = realName;
