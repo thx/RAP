@@ -178,7 +178,7 @@ input,textarea {
 }
 
 #divResBoardLog {
-	width: 360px;
+	width: 50%;
 	height: 100px;
 	overflow-y: auto;
 	word-wrap: break-word;
@@ -186,9 +186,7 @@ input,textarea {
 	position: fixed;
 	bottom: 0;
 	border: 1px solid rgb(230, 230, 230);
-	left: 0;
 	right: 0;
-	width: 100%;
 	padding: 10px;
 	background-color: #F2F2F2;
 	border-top-width: 2px;
@@ -196,7 +194,7 @@ input,textarea {
 
 #divResBoardLog .triggers {
 position: absolute;
-right: 56px;
+right: 25px;
 top: -3px;
 z-index: 1000;
 background-color: #F2F2F2;

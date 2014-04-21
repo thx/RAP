@@ -422,11 +422,11 @@
                 	var logContainer = $('#divResBoardLog');
                     $(document).delegate('#up-trigger', 'click', function() {
                     	logContainer.animate({
-                    		'height': '400px'
+                    		'height': 500
                     	});
                     }).delegate('#down-trigger', 'click', function() {
                     	logContainer.animate({
-                    		'height': '100px'
+                    		'height': 100
                     	});
                     }).delegate('#close-trigger', 'click', function() {
                     	logContainer.hide('slow');
