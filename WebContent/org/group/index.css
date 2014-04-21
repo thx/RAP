@@ -237,32 +237,11 @@
 .project-target .productline {width: 30%; float: left; margin-left: 10px;}
 .project-target .group {width: 30%; float: left; margin-left: 10px;}
 
-.project-autocomplete-con {
-	 width: 400px; font-size: 14px; position: absolute; left: 0; top: 35px; background-color: #FFF; border: 1px solid #CCC; z-index: 1000
-}
-.project-autocomplete-con ul {
-	margin-bottom: 0;
-}
-.project-autocomplete-con li {
-	cursor: pointer; padding: 6px 11px; line-height: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-.project-autocomplete-con li:nth-child(odd) {
-	background-color: #F9F9F9;
-}
-.project-autocomplete-con li:hover, .project-autocomplete-con li.active {
-	background-color: #F2F2F2; 
-}
-.search-project-con {
-	width: 400px; display: inline-block; margin-left: 20px; position: relative;
-}
-
-.search-project-con .glyphicon-search {
-	position: absolute; 
-	font-size: 14px;
-	right: 8px;
-	top: 10px;
-	color: #CCC;
-}
-.project-search-inputer {
-	padding-right: 25px;
+.groups .status .creator {
+	position: absolute;
+	font-size: 12px;
+	color: #FFF;
+	text-shadow: 0 0 2px rgba(0,0,0,.4);
+	right: 2px;
+	bottom: 0;
 }

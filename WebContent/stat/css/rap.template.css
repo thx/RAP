@@ -158,3 +158,35 @@ div#tipDiv {
 .mi-rap:before {
     content: '\3434';
 }
+
+
+.project-autocomplete-con {
+	display: none;
+	width: 300px; font-size: 14px; position: absolute; left: 0; top: 35px; background-color: #FFF; border: 1px solid #CCC; z-index: 1000
+}
+.project-autocomplete-con ul {
+	margin-bottom: 0;
+}
+.project-autocomplete-con li {
+	cursor: pointer; padding: 6px 11px; line-height: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.project-autocomplete-con li:nth-child(odd) {
+	background-color: #F9F9F9;
+}
+.project-autocomplete-con li:hover, .project-autocomplete-con li.active {
+	background-color: #F2F2F2; 
+}
+.search-project-con {
+	width: 300px; display: inline-block; margin-left: 40px; position: relative; margin-top: 8px;
+}
+
+.search-project-con .glyphicon-search {
+	position: absolute; 
+	font-size: 14px;
+	right: 8px;
+	top: 10px;
+	color: #CCC;
+}
+.project-search-inputer {
+	padding-right: 25px;
+}

@@ -17,27 +17,11 @@
 		    	</div>
 		    </div>
 	    </div>
-<script type="text/mtpl" id="project-autocomplete-li">
-{{#projects}}
-	<li data-id="{{id}}">{{name}}</li>
-{{/projects}}		
-</script>
 <script type="text/tmpl" id="group-tmpl">
 {{#groups}}
 <div class="group">
     <h3>
         <span class="group-name"><i class="glyphicon glyphicon-{{type}}"></i> {{name}}</span>
-        {{#mine}}
-        <div class="search-project-con">
-        	<span class="glyphicon glyphicon-search"></span>
-        	<input type="text" class="project-search-inputer form-control" autofocus=true placeholder="请在此输入关键字搜索项目"/>
-        	<div class="project-autocomplete-con">
-        		<ul class="list-unstyled">
-
-        		</ul>
-        	</div>
-        </div>
-        {{/mine}}
     </h3>
     <div class="box-con clearfix">
 		{{#projects}}
@@ -46,15 +30,15 @@
                 <div class="title">{{name}}</div>
                 <div class="intro">{{desc}}</div>
             </div>
-            <div class="status">{{status}}</div>
+            <div class="status">{{status}}<span class="creator">{{creator.name}}</span></div>
 			{{#important}}
 				<div class="star"><i class="glyphicon glyphicon-star"></i></div>
 			{{/important}}
 			<div class="tools">
-				<i class="glyphicon glyphicon-pencil" data-id="{{id}}"></i>
+				{{#isManagable}}<i class="glyphicon glyphicon-pencil" data-id="{{id}}"></i>{{/isManagable}}
 				<i class="glyphicon glyphicon-export" data-id="{{id}}" title="复制RAP插件地址"></i>
 				<i class="glyphicon glyphicon-eye-open" data-id="{{id}}"></i>
-				<i class="glyphicon glyphicon-trash" data-id="{{id}}"></i>
+				{{#isManagable}}<i class="glyphicon glyphicon-trash" data-id="{{id}}"></i>{{/isManagable}}
 			</div>
 			<input type="hidden" class="accounts-hidden" value="{{accounts}}"/>
         </div>
@@ -73,7 +57,7 @@
                 <div class="title">{{name}}</div>
                 <div class="intro">{{desc}}</div>
             </div>
-            <div class="status">{{status}}</div>
+            <div class="status">{{status}}<span class="creator">{{creator.name}}</span></div>
 			<div class="tools">
 				<i class="glyphicon glyphicon-pencil" data-id="{{id}}"></i>
 				<i class="glyphicon glyphicon-export" data-id="{{id}}" title="复制RAP插件地址"></i>

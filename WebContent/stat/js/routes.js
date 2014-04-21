@@ -4,7 +4,8 @@
 			home: {
 				'projects': '/org/projects.action',
 				'productlines': '/org/home/productlines.action',
-				'groups': '/org/home/groups.action'
+				'groups': '/org/home/groups.action',
+				'grouplist': '/org/group/groups.action'
 			},
 			group: {
 				'all':    '/org/group/all.action',

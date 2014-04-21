@@ -22,7 +22,8 @@
         window.console = {
             log : function(){},
             warn : function(){},
-            info : function(){}
+            info : function(){},
+            dir : function(){}
         };
     }
 
@@ -68,6 +69,9 @@
                     oldSuccess1 && (oOptions.success = function(data) {
                         if (PREFIX == '/mockjs/') {
                             data = Mock.mock(data);
+                            console.log('请求' + url + '返回的Mock数据:');
+                            console.dir(data);
+
                         }
                         oldSuccess1.apply(this, arguments);
                     });
@@ -76,6 +80,9 @@
                     oldComplete && (oOptions.complete = function(data) {
                         if (PREFIX == '/mockjs/') {
                             data = Mock.mock(data);
+                            console.log('请求' + url + '返回的Mock数据:');
+                            console.dir(data);
+
                         }
                         oldComplete.apply(this, arguments);
                     });
@@ -123,6 +130,8 @@
                             oldSuccess1 && (oOptions.success = function(data) {
                                 if (PREFIX == '/mockjs/') {
                                     data = Mock.mock(data);
+                                    console.log('请求' + url + '返回的Mock数据:');
+                                    console.dir(data);
                                 }
                                 oldSuccess1.apply(this, arguments);
                             });
@@ -130,6 +139,9 @@
                             oldComplete && (oOptions.complete = function(data) {
                                 if (PREFIX == '/mockjs/') {
                                     data = Mock.mock(data);
+                                    console.log('请求' + url + '返回的Mock数据:');
+                                    console.dir(data);
+
                                 }
                                 oldComplete.apply(this, arguments);
                             });
