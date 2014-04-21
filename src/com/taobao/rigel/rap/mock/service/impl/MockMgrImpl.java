@@ -34,7 +34,7 @@ public class MockMgrImpl implements MockMgr {
 	public void setProjectMgr(ProjectMgr projectMgr) {
 		this.projectMgr = projectMgr;
 	}
-	
+
 	private Map<String, List<String>> requestParams;
 
 	/**
@@ -270,6 +270,9 @@ public class MockMgrImpl implements MockMgr {
 			String query = urlParts[1];
 			for (String param : query.split("&")) {
 				String pair[] = param.split("=");
+				if (pair.length == 0) {
+					continue;
+				}
 				String key = URLDecoder.decode(pair[0], "UTF-8");
 				String value = "";
 				if (pair.length > 1) {
@@ -618,8 +621,7 @@ public class MockMgrImpl implements MockMgr {
 		}
 
 		mockValue = processMockValueWithParams(para, mockValue);
-		
-		
+
 		if (mockValue != null && !mockValue.isEmpty()) {
 			if (mockValue.startsWith("[") && mockValue.endsWith("]")) {
 				return mockValue;
@@ -637,15 +639,15 @@ public class MockMgrImpl implements MockMgr {
 
 		} else if (para.getDataType().equals("array<number>")) {
 			return "[1, 2, 3, 4, 5]";
-		} 
+		}
 		return returnValue;
 	}
 
-	
 	private String processMockValueWithParams(Parameter para, String mockValue) {
-	
+
 		Pattern p = Pattern.compile(Patterns.MOCK_TEMPLATE_PATTERN);
-		if (mockValue == null) mockValue = "";
+		if (mockValue == null)
+			mockValue = "";
 		Matcher matcher = p.matcher(mockValue);
 		while (matcher.find()) {
 			int c = matcher.groupCount();
@@ -654,7 +656,8 @@ public class MockMgrImpl implements MockMgr {
 				String key = matcher.group(1);
 				String value = matcher.group(2);
 				List<String> param = requestParams.get(key);
-				String realValue = (param != null && param.size() > 0) ? param.get(0) : null;
+				String realValue = (param != null && param.size() > 0) ? param
+						.get(0) : null;
 				if (realValue != null && !realValue.isEmpty()) {
 					mockValue = mockValue.replace(toBeReplaced, realValue);
 				} else {

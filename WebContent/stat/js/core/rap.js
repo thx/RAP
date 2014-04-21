@@ -1895,6 +1895,40 @@ if (!window.console) {
 
 
     /**
+     * get action response JSON format
+     * array => [{},{},{}]
+     * object => {}
+     *
+     * @return array / object
+     */
+    function getActionStruct(action) {
+        var code = '@type=array_map;';
+        var desc = action.description || "";
+        if (desc.substring(0, 16) === code) {
+            return 'array';
+        } else {
+            return 'object';
+        }
+    }
+
+    /**
+     * @struct  array / object
+     */
+    function setActionStruct(action, struct) {
+        var code = '@type=array_map;';
+        var desc = action.description || "";
+        if (desc.substring(0, 16) === code) {
+            if (struct !== 'array') {
+                action.description = action.description.substring(16);
+            }
+        } else {
+            if (struct === 'array') {
+                action.description = code + desc;
+            }
+        }
+    }
+
+    /**
      * edit action
      */
     ws.editA = function(actionId) {
@@ -1904,9 +1938,18 @@ if (!window.console) {
         b.g("editAFloater-id").value = action.id;
         b.g("editAFloater-name").value = action.name;
         setSelectedValue("editAFloater-type", action.requestType);
+        var struct = getActionStruct(action);
+        setSelectedValue("editAFloater-struct", struct);
+        // hide action struct in description textarea
+        var desc = action.description;
+        var code = '@type=array_map;';
+        if (desc && desc.substring(0, 16) === code) {
+            desc = desc.substring(16);
+        }
+
         b.g("editAFloater-requestUrl").value = action.requestUrl;
         b.g("editAFloater-responseTemplate").value = action.responseTemplate;
-        b.g("editAFloater-description").value = action.description;
+        b.g("editAFloater-description").value = desc;
         e.get("editAFloater").setTitle("模型管理 - 编辑请求");
         ecFloater.show("editAFloater");
     };
@@ -1956,6 +1999,8 @@ if (!window.console) {
         action.requestUrl = b.g("editAFloater-requestUrl").value;
         action.responseTemplate = b.g("editAFloater-responseTemplate").value;
         action.description = b.g("editAFloater-description").value;
+        var struct = getSelectedValue("editAFloater-struct");
+        setActionStruct(action, struct);
 
         // update model
         p.updateAction(action);
@@ -1979,6 +2024,9 @@ if (!window.console) {
         action.requestUrl = b.g("editAFloater-requestUrl").value;
         action.responseTemplate = b.g("editAFloater-responseTemplate").value;
         action.description = b.g("editAFloater-description").value;
+        var struct = getSelectedValue("editAFloater-struct");
+        setActionStruct(action, struct);
+
 
         // update model
         var id = p.addAction(action);
@@ -2990,6 +3038,7 @@ if (!window.console) {
         b.g("editAFloater-description").value = "";
         b.g("editAFloater-pageId").value = "";
         initRadioList("editAFloater-type");
+        initRadioList("editAFloater-struct");
     }
 
     /**
@@ -3544,6 +3593,12 @@ if (!window.console) {
      * @return {string} formatted string
      */
     function processTextarea(txt) {
+        var code = '@type=array_map;';
+        if (txt && txt.substring(0, 16) === code) {
+            txt = txt.substring(16);
+        }
+
+
         var arr = [],
         hasCode = txt.indexOf('@code') > -1,
         i = 0;

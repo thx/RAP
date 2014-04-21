@@ -97,6 +97,7 @@ public class OrganizationAction extends ActionBase {
 			map.put("status", p.getLastUpdateStr());
 			map.put("accounts", p.getMemberAccountListStr());
 			map.put("isManagable", p.getIsManagable());
+			map.put("creator", p.getUser().getUserBaseInfo());
 			projects.add(map);
 		}
 		StringBuilder json = new StringBuilder();
