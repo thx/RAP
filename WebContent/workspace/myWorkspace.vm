@@ -244,6 +244,16 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class="title">响应数据最外层结构</td>
+                    <td class="radio-list clearfix">
+                        <input type="radio" id="editAFloater-struct-2" name="editAFloater-struct"  value="object"/>
+                        <label for="editAFloater-struct-2">对象{}</label>
+                        <input type="radio" id="editAFloater-struct-1" name="editAFloater-struct"  value="array"/>
+                        <label for="editAFloater-struct-1">数组[{}, {}]</label>
+                    </td>
+                </tr>
+
+                <tr>
                     <td colspan="2">
 
                     </td>
