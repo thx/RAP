@@ -7,7 +7,8 @@ $(function() {
     var NAME_MAP = {
         'user': '我的项目',
         'star': '重要项目',
-        'heart': '我关注的项目'
+        'heart': '我关注的项目',
+        'tag': '与我相关的项目'
     };
     
     var PL_ID = null;
@@ -508,11 +509,25 @@ $(function() {
     function render() {
         var tmpl = $('#group-tmpl').text();
         $.get($.route('org.home.projects'), {}, function(data) {
+        	var newGroup = [];
+        	for(var i = 0, l = data.groups.length; i < l; i++) {
+        		if (data.groups[i].type == 'user') {
+        			var group = data.groups[i];
+        			for(var j = 0; j < group.projects.length; j++) {
+        				if (!group.projects[j].isManagable) {
+        					newGroup.push(group.projects[j]);
+        					group.projects.splice(j, 1);
+        					j --;
+        				}
+        			}
+        		}
+        	}
+        	data.groups.push({
+        		type: 'tag',
+        		projects: newGroup
+        	});
             data.groups.forEach(function (group) {
                 group.name = NAME_MAP[group.type] || '其他';
-                if (group.type == 'user') {
-                    group.mine = true;
-                }
             });
             var html = $.render(tmpl, data);
             $(".groups").html(html);

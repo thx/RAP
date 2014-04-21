@@ -19,13 +19,23 @@
             #end
           </ul>
         </li>
-
+	    
         <!-- <li><a href="$projectUrl.myProjectList">我的项目</a></li>
         <li><a href="$projectUrl.allProductlineList">产品线管理</a></li> -->
         #end
         <li><a href="$platformUrl.test">测试</a></li>
         <li><a href="$platformUrl.doc" target="_blank">文档</a></li>
         <li><a href="$platformUrl.home">关于</a></li>
+        <li>
+        	<div class="search-project-con">
+        	<span class="glyphicon glyphicon-search"></span>
+        	<input type="text" class="project-search-inputer form-control" placeholder="请在此输入关键字搜索项目"/>
+        	<div class="project-autocomplete-con">
+        		<ul class="list-unstyled">
+        		</ul>
+        	</div>
+        </div>
+        </li>
         <!--
         <li><a href="$platformUrl.help">帮助</a></li>
         -->
