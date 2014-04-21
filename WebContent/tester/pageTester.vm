@@ -12,12 +12,13 @@
             <script src="${staticRoot}/js/util/jsformat.js"></script>
             <script src="${staticRoot}/js/util/structureValidator.js"></script>
             <script src="${staticRoot}/js/util/mock-min.js"></script>
+            
+            <script src="${staticRoot}/js/base.js"></script>
         </head>
         <body>
-        <h3>$!utils.escapeInH($page.name)控制台</h3>
+        <h3>$!utils.escapeInH($page.name) - 控制台</h3>
         <div id="divRootSetting">
-            <input id="txtRootPath" type="text" style="width:500px;" value=""></input>
-            <span style="color:#666;">* 根路径设置</span>
+            <span style="color:#666;">请求根路径 </span><input id="txtRootPath" type="text" style="width:300px;" value=""></input>
         </div>
         <div id="divActionList" class="demo tabs">
             <div class="nav nav-tabs">
@@ -30,28 +31,34 @@
                  -->
             </div>
             #foreach($action in $page.actionList)
-            <div class="tester-form tab">
+            <div class="tester-form tab" style="display: none;">
                 <form name="form$!velocityCount" class="form" method="post" path="$!action.requestUrl" onsubmit="return false;">
                     <input type="hidden" name="paramIdList" class="paramIdList" value="$!action.remarks" />
-                    <div class="item">
-                        请求标识: <span style="color:#990000;">$action.id</span><br />
-                        请求地址: $!utils.escapeInH($action.requestUrl)
+                    <div class="p8">
+                        <div style="margin-top:5px;">请求标识: <span style="color:#990000;">$action.id</span></div>
+                        <div style="margin-top:5px;">请求地址: $!utils.escapeInH($action.requestUrl)</div>
                     </div>
+                    <div class="clearfix">
                     #foreach($para in $action.requestParameterList)
                     <div class="item">
-                        <input type="text" width="200px" class="field" name="$!para.identifier" />&nbsp; &nbsp;变量名:
-                        <font color='red'>$!para.identifier</font>&nbsp;&nbsp;变量意义:
-                        <font color='gray'>$!para.name</font>&nbsp;&nbsp;备注:
-                        <font color='blue'>$!para.remark</font>
+                        <label><span class="name">$!para.identifier</span><input type="text" style="width:100px" class="field" name="$!para.identifier" /></span>
+                        <span class="remark">
+                        	<span style="font-size: 12px;">说明</span>
+                        	<div class="detail">
+                        		<div>- 变量名：$!para.name</div>
+                        		<div>- 备注：$!para.remark</div>
+                        	</div>
+                        </span>
                     </div>
                     #end
-                    <div class="item">
+                    </div>
+                    <div class="p8">
                         <input type="button" class="btn btn-primary btn-run" value="Run"/>
                     </div>
                 </form>
             </div>
             #end
-            <div class="tester-form tab">
+            <div class="tester-form tab" style="display: none;">
                 <div class="item">
                     <input type="text" value="" id="txtActionId" placeholder="请输入Action ID" />
                 </div>
@@ -63,19 +70,24 @@
                     <input type="button" class="btn btn-danger" value="Modify" id="btnModify" />
                 </div>
             </div>
-            <div class="tester-form tab">
+            <div class="tester-form tab" style="display: none;">
                 <div class="item" id="divResetUrl">请求地址：fe.lzdp.us:8806/rap/mock/reset.action?projectId=$!projectId</div>
                 <div class="item"><input type="button" class="btn btn-danger" value="Reset" id="btnReset" /></div>
             </div>
         </div>
         <div class="block" id="divResBoard">
             <div id="divResBoardJson">ready</div>
-            <div id="divResBoardLog"></div>
+            <div id="divResBoardLog">
+            	<div class="triggers clearfix">
+            		<div class="trigger" id="up-trigger">&#8593;</div>
+            		<div class="trigger" id="down-trigger">&#8595;</div>
+            		<div class="trigger" id="close-trigger">&times;</div>
+            	</div>
+            </div>
             <div class="clear"></div>
         </div>
         <div class="bottom">&nbsp;</div>
         <script>
-
             if (!window.console) {
                 window.console = {
                     log : function() {},
@@ -86,7 +98,11 @@
 
             var RAP_ROOT = 'rap.alibaba-inc.com$!projectContext/mockjs/$!projectId';
             document.getElementById("txtRootPath").value = RAP_ROOT;
-
+	
+            function wrapHref(url) {
+            	return '<a href="' + url + '" target="_blank">' + url + '</a>';
+            }
+            
             YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify', function (Y) {
                 var source = Y.one("#resBoard-template"),
                     TResBoard = Y.Handlebars.compile(source),
@@ -138,7 +154,7 @@
 
                         url = baseUrl + (baseUrl.indexOf('?') === -1 ? '?' : '&') + qArr.join('&');
                         url = url.replace(/[{}]/g, "");
-                        log('request starting, url=' + color(url, LIGHT_GRAY));
+                        log('request starting, url: ' + color(wrapHref(url), LIGHT_GRAY));
                         Y.timeLog['time'] = new Date().getTime();
                         try {
                             Y.jsonp(url, {
@@ -243,6 +259,7 @@
                         Y.all('.tabs .tab').each(function(node) {
                             if (isFirst) {
                                 isFirst = false;
+                                node.setAttribute('style', 'display:block');
                             } else {
                                 node.setAttribute('style', 'display:none');
                             }
@@ -284,7 +301,7 @@
                         obj = Mock.mock(obj);
                     }
 
-                    jsonString = JSON.stringify(obj);
+                    jsonString = JSON.stringify(obj, null, 4);
 
                     var beginTime = Y.timeLog['time'];
                     if (!beginTime) return;
@@ -344,7 +361,7 @@
                     if (btn.hasClass(c)) return;
                     btn.addClass(c);
                     try {
-                        log('request starting, url=' + color(_resetUrl, LIGHT_GRAY));
+                        log('request starting, url: ' + color(wrapHref(_resetUrl), LIGHT_GRAY));
                         Y.timeLog['time'] = new Date().getTime();
                         Y.jsonp(_resetUrl, {
                             on : {
@@ -368,7 +385,8 @@
                     initUrl();
                     Y.one('#divResBoardJson').setHTML(_modifyUrl);
                 });
-
+				
+           
                 Y.one('#btnModify').on('click', function(e) {
                     if (Y.one('#txtActionId').get('value') == '') {
                         alert('请输入ActionId');
@@ -380,7 +398,7 @@
                     btn.addClass(c);
                     initUrl();
                     try {
-                        log('request starting, url=' + color(_modifyUrl, LIGHT_GRAY));
+                        log('request starting, url: ' + color(wrapHref(_modifyUrl), LIGHT_GRAY));
                         Y.timeLog['time'] = new Date().getTime();
                         Y.jsonp(_modifyUrl, {
                             on : {
@@ -399,7 +417,23 @@
                         alert(e);
                     }
                 });
-
+                
+                setTimeout(function() {
+                	var logContainer = $('#divResBoardLog');
+                    $(document).delegate('#up-trigger', 'click', function() {
+                    	logContainer.animate({
+                    		'height': '400px'
+                    	});
+                    }).delegate('#down-trigger', 'click', function() {
+                    	logContainer.animate({
+                    		'height': '100px'
+                    	});
+                    }).delegate('#close-trigger', 'click', function() {
+                    	logContainer.hide('slow');
+                    	$('body').css('padding-bottom', 0);
+                    })
+                }, 500);
+                
                 log('tester ready.');
             });
         </script>
