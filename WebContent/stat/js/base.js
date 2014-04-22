@@ -788,4 +788,31 @@ $(function() {
     
     bindSearchEvents();
 
+});
+
+$(function() {
+	var loginTrigger = $('#login-trigger'),
+		registerTrigger = $('#register-trigger');
+	if (loginTrigger.length == 0) {
+		return;
+	}
+	loginTrigger.click(function() {
+		$('#cancel-register-btn').trigger('click');
+		$(this).addClass('active')
+			.parent().addClass('open')
+			.find('.dropdown-menu').show();
+	})
+	$('#cancel-login-btn').click(function() {
+		$(this).parents('.dropdown-menu').hide().parent().removeClass('open');
+	})
+	
+	registerTrigger.click(function() {
+		$('#cancel-login-btn').trigger('click');
+		$(this).addClass('active')
+			.parent().addClass('open')
+			.find('.dropdown-menu').show();
+	})
+	$('#cancel-register-btn').click(function() {
+		$(this).parents('.dropdown-menu').hide().parent().removeClass('open');
+	})
 })

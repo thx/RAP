@@ -13,7 +13,7 @@
         #if($isLogined)
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">$curCorpName <b class="caret"></b></a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu teams">
             #foreach($corp in $corpList)
              <li><a href="$projectUrl.allProductlineList?id=$corp.id">$corp.name</a></li>
             #end
@@ -43,12 +43,77 @@
       #if ($curUser)
       <div class="pull-right">
           <ul class="nav navbar-nav">
-              <li><a href="$accountUrl.myAccount">$curUser.name</a></li>
+              <li>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">$curUser.name <b class="caret"></b></a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="$newUrl.home">我的主页</a></li>
+                    <li><a href="$accountUrl.myAccount">个人信息</a></li>
+                    <li class="divider"></li>
+                    <li><a href="$accountUrl.doLogout">退出</a></li>
+                </ul>
+              </li>
               <li><a href="$accountUrl.doLogout">注销登录</a> </li>
           </ul>
       </div>
       #elseif(!$loginCtlHidden)
-      <button type="submit" class="btn btn-primary">登录</button>
+<div class="pull-right">
+  <ul class="nav navbar-nav">
+    <li>
+      <a href="javascript:void(0);" class="dropdown-toggle" id="login-trigger">登录</a>
+      <ul class="dropdown-menu dropdown-menu-right">
+          <li>
+              <form name="formMain" class="navbar-form login-form" action="$accountUrl.doLogin" method="post">
+                  <input class="span2 form-control" style="width:200px" type="text" placeholder="用户名" name="account">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="密码" name="password">
+                  <div style="margin-top: 10px;">
+                    <div class="checkbox remember-me">
+                        <label>
+                          <input type="checkbox" name="remember"> 下次自动登录
+                        </label>
+                      </div>
+                  </div>
+                  <div style="margin-top: 10px;">
+                    <button type="submit" class="btn btn-primary" id="login-btn">登录</button>
+                    <button type="button" class="btn btn-default" id="cancel-login-btn" style="margin-left: 10px;">取消</button>
+                  </div>
+                  <!--<button type="button" onclick="window.location.href = '$accountUrl.register'" class="btn">注册</button>-->
+              </form>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <div class="navbar-form">
+                <span class="btn btn-success other-login-btn sso-login">用域账号登录</span>
+            </div>
+          </li>
+      </ul>
+    </li>
+    <li>
+        <a href="javascript:void(0);" class="dropdown-toggle" id="register-trigger">注册</a>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li>
+              <form name="formMain" class="navbar-form register-form" action="$accountUrl.doRegister" method="post">
+                  <input class="span2 form-control" style="width:200px" type="text" placeholder="登录用户名" name="account">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="text" placeholder="中文名" name="name">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="email" placeholder="邮箱" name="email">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="密码" name="password">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="密码确认" name="passwordConfirm">
+                  <div style="margin-top: 10px;">
+                    <button type="submit" class="btn btn-primary" id="register-btn">注册</button>
+                    <button type="button" class="btn btn-default" id="cancel-register-btn" style="margin-left: 10px;">取消</button>
+                  </div>
+                  <!--<button type="button" onclick="window.location.href = '$accountUrl.register'" class="btn">注册</button>-->
+              </form>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <div class="navbar-form">
+                <span class="btn btn-success other-login-btn sso-login">用域账号登录</span>
+            </div>
+          </li>
+      </ul>
+    </li>
+  </ul>
+</div>
       #end
     </div><!-- /.nav-collapse -->
   </div><!-- /.container -->
