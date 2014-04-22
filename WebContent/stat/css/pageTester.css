@@ -107,7 +107,7 @@ label .field {
 }
 
 .item .name {
-	min-width: 100px; margin-left: 30px;display: inline-block;
+	min-width: 120px; display: inline-block; text-align: right; color: #666; padding-right: 4px;
 }
 .item .remark {
 	color: #AAA; display: inline-block; margin-left: 3px; cursor: pointer;
@@ -116,13 +116,31 @@ label .field {
 .item .remark .detail {
 	display: none;
 	position: absolute;
-	margin-top: 3px;
+	min-width: 100px;
+	margin-top: -25px;
 	margin-left: 30px;
 	border: 1px solid #CCC;
 	background-color: #FFF;
-	padding: 5px;
+	padding: 4px;
+	font-size: 12px;
+	border-radius: 3px;
 }
 
+.item .remark .detail:after {
+	position: absolute;
+	top: 10px;
+	left: -4px;
+	background-color: #FFF;
+	content: '';
+	width: 6px;
+	height: 6px;
+	display: inline-block;
+	-webkit-transform: rotateZ(-45deg);
+  	-moz-transform: rotateZ(-45deg);
+  	transform: rotateZ(-45deg);
+	border-top: 1px solid #CCC;
+	border-left: 1px solid #CCC;
+}
 .item .remark:hover .detail {
 	display: block;
 }
@@ -186,18 +204,18 @@ input,textarea {
 	bottom: 0;
 	border: 1px solid rgb(230, 230, 230);
 	right: 0;
-	padding: 10px;
+	padding: 20px 10px 10px;
 	background-color: #F2F2F2;
 	border-top-width: 2px;
 }
 
 #divResBoardLog .triggers {
- 	position: absolute; right: 2px; top: -3px; z-index: 1000; background-color: #F2F2F2;
+ 	position: absolute; right: 2px; top: 0px; z-index: 1000; background-color: #F2F2F2;
 }
 
 .trigger {
-	border: 2px solid #DDD; text-align: center; color: #CCC; cursor: pointer; background-color: #F2F2F2;
-	width: 30px; height: 30px; font-size: 22px; line-height: 26px; float: left; margin-left: 10px; margin-top: 4px;
+	border: 2px solid #DDD; text-align: center; color: #CCC; cursor: pointer; background-color: #FFF;
+	border-radius: 4px; width: 30px; height: 30px; font-size: 22px; line-height: 26px; float: left; margin-left: 10px; margin-top: 4px;
 }
 
 #show-trigger {

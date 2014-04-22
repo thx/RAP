@@ -7,13 +7,22 @@ body {
 .right {float:right;}
 
 
-.dropdown-menu {
+#login-btn, #cancel-login-btn, #register-btn, #cancel-register-btn {
+	width: 93px;
+}
+.remember-me {
+	color: #999;
+}
+.other-login-btn {
+	width: 100%;
+}
+.dropdown-menu.teams {
 	width: 300px;
 }
-.dropdown-menu li {
+.dropdown-menu.teams li {
 	float: left; width: 149px;
 }
-.dropdown-menu li a {
+.dropdown-menu.teams li a {
 	padding: 6px 14px; font-size: 14px;
 }
 
