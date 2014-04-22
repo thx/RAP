@@ -193,32 +193,19 @@ input,textarea {
 }
 
 #divResBoardLog .triggers {
-position: absolute;
-right: 25px;
-top: -3px;
-z-index: 1000;
-background-color: #F2F2F2;
+ 	position: absolute; right: 25px; top: -3px; z-index: 1000; background-color: #F2F2F2;
 }
 
 .trigger {
-border: 2px solid #DDD;
-text-align: center;
-color: #CCC;
-cursor: pointer;
-width: 30px;
-height: 30px;
-font-size: 22px;
-line-height: 26px;
-float: left;
-margin-left: 10px;
-margin-top: 4px;
+	border: 2px solid #DDD; text-align: center; color: #CCC; cursor: pointer; 
+	width: 30px; height: 30px; font-size: 22px; line-height: 26px; float: left; margin-left: 10px; margin-top: 4px;
 }
 
 #divActionList {
 }
 
 #page {
-	padding: 12px 20px 0
+	padding: 12px 20px 0;
 }
 
 #divRootSetting {

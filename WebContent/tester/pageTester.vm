@@ -53,7 +53,8 @@
                     #end
                     </div>
                     <div class="p8">
-                        <input type="button" class="btn btn-primary btn-run" value="Run"/>
+                        <input type="button" class="btn btn-primary btn-run" value="生成模拟数据"/>
+                        <input type="button" class="btn btn-primary btn-run-mockjsrule" style="margin-left:5px;" value="获取Mockjs规则"/>
                     </div>
                 </form>
             </div>
@@ -117,6 +118,68 @@
                 log('tester initializing...');
                 Y.timeLog = {};
                 Y.all('.form').each(function(form) {
+                	form.one('.btn-run-mockjsrule').on('click', function(e) {
+                        Y.one('#divResBoardJson').setHTML('加载中，请稍后...');
+                        var url     = '';
+                        var qArr    = [];
+                        var i       = 0;
+                        var fields  = form.all('.field');
+                        var baseUrl = Y.one('#txtRootPath').get('value');
+                        var baseUrlOrigin = Y.one('#txtRootPath').get('value');
+                        var rapUrl  = RAP_ROOT;
+                        var path    = form.getAttribute('path');
+
+                        if (~path.indexOf('http')) {
+                            path = path.substring(7);
+                            path = path.substring(path.indexOf("/"));
+                        }
+
+                        if (path[0] !== '/') {
+                            path = '/' + path;
+                        }
+
+                        baseUrl += path;
+                        rapUrl += path;
+                        fields.each(function(field) {
+                            var name = field.get('name'),
+                                value = field.get('value');
+                            qArr[i++] = name + '=' + encodeURIComponent(value);
+                        });
+
+                        if (!~baseUrl.indexOf('http://')) {
+                            baseUrl = "http://" + baseUrl;
+                        }
+                        if (!~rapUrl.indexOf('http://')) {
+                            rapUrl = "http://" + rapUrl;
+                        }
+
+                        url = baseUrl + (baseUrl.indexOf('?') === -1 ? '?' : '&') + qArr.join('&');
+                        url = url.replace(/[{}]/g, "");
+                        log('request starting, url: ' + color(wrapHref(url), LIGHT_GRAY));
+                        Y.timeLog['time'] = new Date().getTime();
+                        try {
+                            Y.jsonp(url, {
+                                on : {
+                                    success : function() {
+                                    	var slice = Array.prototype.slice;
+                                    	var args = slice.call(arguments);
+                                    	args.push('rule');
+                                        testResHandler.apply(this, args);
+                                    },
+                                    timeout : function() {
+                                        log(color('timeout', RED) + '... so long time to response!');
+                                    },
+                                    failure : function(e) {
+                                        log(color('error occurred!', RED) + color(', detail:' + e.errors[0].error, LIGHT_GRAY));
+                                    }
+                                },
+                                timeout : 10000,
+                                args : [form]
+                            });
+                        } catch(e) {
+                            alert(e);
+                        }
+                	});
                     form.one('.btn-run').on('click', function(e) {
                         Y.one('#divResBoardJson').setHTML('加载中，请稍后...');
                         var url     = '';
@@ -291,13 +354,25 @@
 
                 });
 
-
+                function sortObj(obj) {
+                	var result = {}, keys = [];
+                	for(var prop in obj) {
+                		if (obj.hasOwnProperty(prop)) {
+                			keys.push(prop);
+                		}
+                	}
+                	keys = keys.sort();
+                	for(var i = 0, l = keys.length; i < l; i++) {
+                		result[keys[i]] = obj[keys[i]];
+                	}
+                	return result;
+                }
                 function testResHandler(response, form, btn) {
                     var jsonString = Y.JSON.stringify(response);
                     var path = Y.one('#txtRootPath').get('value');
                     var obj = eval("(" + jsonString + ")");
-
-                    if (path.indexOf('mockjs') != -1) {
+                    obj = sortObj(obj);
+                    if (btn != 'rule' && path.indexOf('mockjs') != -1) {
                         obj = Mock.mock(obj);
                     }
 
