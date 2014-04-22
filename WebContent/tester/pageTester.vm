@@ -87,7 +87,7 @@
             </div>
             <div class="clear"></div>
         </div>
-        <div class="bottom">&nbsp;</div>
+        <div class="trigger" id="show-trigger">&#8592;</div>
         <script>
             if (!window.console) {
                 window.console = {
@@ -505,7 +505,10 @@
                     	});
                     }).delegate('#close-trigger', 'click', function() {
                     	logContainer.hide('slow');
-                    	$('body').css('padding-bottom', 0);
+                    	$('#show-trigger').show('slow');
+                    }).delegate('#show-trigger', 'click', function() {
+                    	logContainer.show('slow');
+                    	$('#show-trigger').hide('slow');
                     })
                 }, 500);
                 
