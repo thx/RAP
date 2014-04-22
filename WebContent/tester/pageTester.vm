@@ -82,7 +82,7 @@
             	<div class="triggers clearfix">
             		<div class="trigger" id="up-trigger">&#8593;</div>
             		<div class="trigger" id="down-trigger">&#8595;</div>
-            		<div class="trigger" id="close-trigger">&times;</div>
+            		<div class="trigger" id="close-trigger">&#8594;</div>
             	</div>
             </div>
             <div class="clear"></div>
