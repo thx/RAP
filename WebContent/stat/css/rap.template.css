@@ -6,6 +6,17 @@ body {
 .left {float:left;}
 .right {float:right;}
 
+
+.dropdown-menu {
+	width: 300px;
+}
+.dropdown-menu li {
+	float: left; width: 149px;
+}
+.dropdown-menu li a {
+	padding: 6px 14px; font-size: 14px;
+}
+
 .es-prev,.es-next {
 	border: 0;
 	cursor: pointer;
