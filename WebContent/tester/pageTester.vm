@@ -18,7 +18,7 @@
         <body>
         <h3>$!utils.escapeInH($page.name) - 控制台</h3>
         <div id="divRootSetting">
-            <span style="color:#666;">请求根路径 </span><input id="txtRootPath" type="text" style="width:300px;" value=""></input>
+            <label style="color:#666;display: inline; margin-right: 5px;" for="txtRootPath">请求根路径 </label><input id="txtRootPath" type="text" style="width:300px;" value=""></input>
         </div>
         <div id="divActionList" class="demo tabs">
             <div class="nav nav-tabs">
