@@ -7,7 +7,8 @@
 #set($logoutUrlEncoded = $utils.escapeInU($logoutUrl))
 
 ## master page start
-#macro (bodyNewStart)
+#macro (bodyNewStart $hide)
+#if(!$hide)
 <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -121,6 +122,7 @@
     </div><!-- /.nav-collapse -->
   </div><!-- /.container -->
 </div><!-- /.navbar -->
+#end
 <div class="container">
 #end
 
