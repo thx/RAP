@@ -30,7 +30,7 @@
                 <div class="title">{{name}}</div>
                 <div class="intro">{{desc}}</div>
             </div>
-            <div class="status">{{status}}<span class="creator">{{creator.name}}</span></div>
+            <div class="status">{{status}}<span class="creator">@{{creator.name}}</span></div>
 			{{#important}}
 				<div class="star"><i class="glyphicon glyphicon-star"></i></div>
 			{{/important}}
@@ -57,7 +57,7 @@
                 <div class="title">{{name}}</div>
                 <div class="intro">{{desc}}</div>
             </div>
-            <div class="status">{{status}}<span class="creator">{{creator.name}}</span></div>
+            <div class="status">{{status}}<span class="creator">@{{creator.name}}</span></div>
 			<div class="tools">
 				<i class="glyphicon glyphicon-pencil" data-id="{{id}}"></i>
 				<i class="glyphicon glyphicon-export" data-id="{{id}}" title="复制RAP插件地址"></i>

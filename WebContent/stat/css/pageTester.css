@@ -7,6 +7,12 @@ body {
   *zoom: 1;
 }
 
+#divRootSetting {
+	border: 1px solid #CCC;
+}
+#txtRootPath {
+	vertical-align: initial;
+}
 .clearfix:before,
 .clearfix:after {
   display: table;
