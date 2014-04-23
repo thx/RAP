@@ -18,7 +18,7 @@
         <body>
         <h3>$!utils.escapeInH($page.name) - 控制台</h3>
         <div id="divRootSetting">
-            <span style="color:#666;">请求根路径 </span><input id="txtRootPath" type="text" style="width:300px;" value=""></input>
+            <label style="color:#666;display: inline; margin-right: 5px;" for="txtRootPath">请求根路径 </label><input id="txtRootPath" type="text" style="width:300px;" value=""></input>
         </div>
         <div id="divActionList" class="demo tabs">
             <div class="nav nav-tabs">
@@ -80,6 +80,7 @@
             <div id="divResBoardJson">ready</div>
             <div id="divResBoardLog">
                 <div class="triggers clearfix">
+                	<div class="trigger" id="expand-trigger">&#8592;</div>
                     <div class="trigger" id="up-trigger">&#8593;</div>
                     <div class="trigger" id="down-trigger">&#8595;</div>
                     <div class="trigger" id="close-trigger">&#8594;</div>
@@ -354,20 +355,34 @@
                     }());
 
                 });
-
+				
                 function sortObj(obj) {
-                    var result = {}, keys = [];
-                    for(var prop in obj) {
-                        if (obj.hasOwnProperty(prop)) {
-                            keys.push(prop);
+                	if (!obj) {
+                		return obj;
+                	}
+					if (jQuery.isArray(obj)) {
+                		var newArray = [];
+                		for(var k = 0; k < obj.length; k++) {
+                			newArray.push(sortObj(obj[k]));
+                		}
+                		return newArray;
+                	} else if (jQuery.isPlainObject(obj)) {
+                		var result = {}, keys = [];
+                        for(var prop in obj) {
+                            if (obj.hasOwnProperty(prop)) {
+                                keys.push(prop);
+                            }
                         }
-                    }
-                    keys = keys.sort();
-                    for(var i = 0, l = keys.length; i < l; i++) {
-                        result[keys[i]] = obj[keys[i]];
-                    }
-                    return result;
+                        keys = keys.sort();
+                        for(var i = 0, l = keys.length; i < l; i++) {
+                            result[keys[i]] = sortObj(obj[keys[i]]);
+                        }
+                        return result;
+                	} else {
+                		return obj;
+                	}
                 }
+                
 
                 function testResHandler(response, form, btn) {
                     var jsonString = Y.JSON.stringify(response);
@@ -501,6 +516,11 @@
                         logContainer.animate({
                             'height': 500
                         });
+                    }).delegate('#expand-trigger', 'click', function() {
+                        logContainer.animate({
+                            'width': '98%'
+                        });
+                        $('body').css('padding-bottom', '110px');
                     }).delegate('#down-trigger', 'click', function() {
                         logContainer.animate({
                             'height': 100
