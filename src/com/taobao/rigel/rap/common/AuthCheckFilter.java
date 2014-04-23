@@ -36,6 +36,13 @@ public class AuthCheckFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
+		if (SystemConstant.DOMAIN_URL.isEmpty()) {
+			SystemConstant.DOMAIN_URL = request.getServerName();
+			if (request.getServerPort() != 80) {
+				SystemConstant.DOMAIN_URL += ":" + request.getServerPort();
+			}
+			System.out.println("DOMAIN_URL is " + SystemConstant.DOMAIN_URL);
+		}
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		boolean logined = session.getAttribute(ContextManager.KEY_ACCOUNT) != null;
 		

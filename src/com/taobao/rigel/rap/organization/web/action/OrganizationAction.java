@@ -62,7 +62,12 @@ public class OrganizationAction extends ActionBase {
 	}
 
 	public String index() {
-		return SUCCESS;
+		if (isUserLogined()) {
+			return SUCCESS;
+		} else {
+			return "public";
+		}
+		
 	}
 
 	public String group() {

@@ -12,7 +12,7 @@
             <script src="${staticRoot}/js/util/jsformat.js"></script>
             <script src="${staticRoot}/js/util/structureValidator.js"></script>
             <script src="${staticRoot}/js/util/mock-min.js"></script>
-            
+
             <script src="${staticRoot}/js/base.js"></script>
         </head>
         <body>
@@ -43,11 +43,11 @@
                     <div class="item">
                         <label><span class="name">$!para.identifier</span><input type="text" style="width:100px" class="field" name="$!para.identifier" /></span>
                         <span class="remark">
-                        	<span style="font-size: 12px;">说明</span>
-                        	<div class="detail">
-                        		<div>- 变量名：$!para.name</div>
-                        		<div>- 备注：$!para.remark</div>
-                        	</div>
+                            <span style="font-size: 12px;">说明</span>
+                            <div class="detail">
+                                <div>- 变量名：$!para.name</div>
+                                <div>- 备注：$!para.remark</div>
+                            </div>
                         </span>
                     </div>
                     #end
@@ -79,11 +79,11 @@
         <div class="block" id="divResBoard">
             <div id="divResBoardJson">ready</div>
             <div id="divResBoardLog">
-            	<div class="triggers clearfix">
-            		<div class="trigger" id="up-trigger">&#8593;</div>
-            		<div class="trigger" id="down-trigger">&#8595;</div>
-            		<div class="trigger" id="close-trigger">&#8594;</div>
-            	</div>
+                <div class="triggers clearfix">
+                    <div class="trigger" id="up-trigger">&#8593;</div>
+                    <div class="trigger" id="down-trigger">&#8595;</div>
+                    <div class="trigger" id="close-trigger">&#8594;</div>
+                </div>
             </div>
             <div class="clear"></div>
         </div>
@@ -97,13 +97,14 @@
                 };
             }
 
-            var RAP_ROOT = 'rap.alibaba-inc.com$!projectContext/mockjs/$!projectId';
+            var RAP_ROOT = '$consts.DOMAIN_URL$!projectContext/mockjs/$!projectId';
+
             document.getElementById("txtRootPath").value = RAP_ROOT;
-	
+
             function wrapHref(url) {
-            	return '<a href="' + url + '" target="_blank">' + url + '</a>';
+                return '<a href="' + url + '" target="_blank">' + url + '</a>';
             }
-            
+
             YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify', function (Y) {
                 var source = Y.one("#resBoard-template"),
                     TResBoard = Y.Handlebars.compile(source),
@@ -118,7 +119,7 @@
                 log('tester initializing...');
                 Y.timeLog = {};
                 Y.all('.form').each(function(form) {
-                	form.one('.btn-run-mockjsrule').on('click', function(e) {
+                    form.one('.btn-run-mockjsrule').on('click', function(e) {
                         Y.one('#divResBoardJson').setHTML('加载中，请稍后...');
                         var url     = '';
                         var qArr    = [];
@@ -161,9 +162,9 @@
                             Y.jsonp(url, {
                                 on : {
                                     success : function() {
-                                    	var slice = Array.prototype.slice;
-                                    	var args = slice.call(arguments);
-                                    	args.push('rule');
+                                        var slice = Array.prototype.slice;
+                                        var args = slice.call(arguments);
+                                        args.push('rule');
                                         testResHandler.apply(this, args);
                                     },
                                     timeout : function() {
@@ -179,7 +180,7 @@
                         } catch(e) {
                             alert(e);
                         }
-                	});
+                    });
                     form.one('.btn-run').on('click', function(e) {
                         Y.one('#divResBoardJson').setHTML('加载中，请稍后...');
                         var url     = '';
@@ -355,19 +356,19 @@
                 });
 
                 function sortObj(obj) {
-                	var result = {}, keys = [];
-                	for(var prop in obj) {
-                		if (obj.hasOwnProperty(prop)) {
-                			keys.push(prop);
-                		}
-                	}
-                	keys = keys.sort();
-                	for(var i = 0, l = keys.length; i < l; i++) {
-                		result[keys[i]] = obj[keys[i]];
-                	}
-                	return result;
+                    var result = {}, keys = [];
+                    for(var prop in obj) {
+                        if (obj.hasOwnProperty(prop)) {
+                            keys.push(prop);
+                        }
+                    }
+                    keys = keys.sort();
+                    for(var i = 0, l = keys.length; i < l; i++) {
+                        result[keys[i]] = obj[keys[i]];
+                    }
+                    return result;
                 }
-                
+
                 function testResHandler(response, form, btn) {
                     var jsonString = Y.JSON.stringify(response);
                     var path = Y.one('#txtRootPath').get('value');
@@ -461,8 +462,8 @@
                     initUrl();
                     Y.one('#divResBoardJson').setHTML(_modifyUrl);
                 });
-				
-           
+
+
                 Y.one('#btnModify').on('click', function(e) {
                     if (Y.one('#txtActionId').get('value') == '') {
                         alert('请输入ActionId');
@@ -493,26 +494,26 @@
                         alert(e);
                     }
                 });
-                
+
                 setTimeout(function() {
-                	var logContainer = $('#divResBoardLog');
+                    var logContainer = $('#divResBoardLog');
                     $(document).delegate('#up-trigger', 'click', function() {
-                    	logContainer.animate({
-                    		'height': 500
-                    	});
+                        logContainer.animate({
+                            'height': 500
+                        });
                     }).delegate('#down-trigger', 'click', function() {
-                    	logContainer.animate({
-                    		'height': 100
-                    	});
+                        logContainer.animate({
+                            'height': 100
+                        });
                     }).delegate('#close-trigger', 'click', function() {
-                    	logContainer.hide('slow');
-                    	$('#show-trigger').show('slow');
+                        logContainer.hide('slow');
+                        $('#show-trigger').show('slow');
                     }).delegate('#show-trigger', 'click', function() {
-                    	logContainer.show('slow');
-                    	$('#show-trigger').hide('slow');
+                        logContainer.show('slow');
+                        $('#show-trigger').hide('slow');
                     })
                 }, 500);
-                
+
                 log('tester ready.');
             });
         </script>

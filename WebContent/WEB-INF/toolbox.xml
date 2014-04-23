@@ -14,4 +14,9 @@
   	<scope>application</scope>
   	<class> com.taobao.rigel.rap.common.DateUtils</class>
   </tool>
+   <tool>
+  	<key>consts</key>
+  	<scope>application</scope>
+  	<class> com.taobao.rigel.rap.common.SystemConstant</class>
+  </tool>
 </toolbox>

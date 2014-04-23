@@ -1,5 +1,11 @@
 #parse('/tcom/utils.macro.vm')
 
+
+#set($domainUrl = "http://" + $consts.DOMAIN_URL)
+#set($homeUrlEncoded = $utils.escapeInU($domainUrl))
+#set($logoutUrl = $domainUrl + $accountUrl.doLogout)
+#set($logoutUrlEncoded = $utils.escapeInU($logoutUrl))
+
 ## master page start
 #macro (bodyNewStart)
 <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
@@ -9,8 +15,8 @@
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="$newUrl.home">我的主页</a></li>
         #if($isLogined)
+        <li><a href="$newUrl.home">我的主页</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">$curCorpName <b class="caret"></b></a>
           <ul class="dropdown-menu teams">
@@ -19,13 +25,13 @@
             #end
           </ul>
         </li>
-
         <!-- <li><a href="$projectUrl.myProjectList">我的项目</a></li>
         <li><a href="$projectUrl.allProductlineList">产品线管理</a></li> -->
+        #else
+        <li><a href="$platformUrl.home">主页</a></li>
         #end
         <li><a href="$platformUrl.test">测试</a></li>
         <li><a href="$platformUrl.doc" target="_blank">文档</a></li>
-        <li><a href="$platformUrl.home">关于</a></li>
         <li>
             <div class="search-project-con">
             <span class="glyphicon glyphicon-search"></span>
@@ -52,7 +58,7 @@
                     <li><a href="$accountUrl.doLogout">退出</a></li>
                 </ul>
               </li>
-              <li><a href="$accountUrl.doLogout">注销登录</a> </li>
+              <li><a href="https://login.alibaba-inc.com/ssoLogout.htm?APP_NAME=rapauto&BACK_URL=$logoutUrlEncoded">注销</a> </li>
           </ul>
       </div>
       #elseif(!$loginCtlHidden)
@@ -82,7 +88,7 @@
           <li class="divider"></li>
           <li>
             <div class="navbar-form">
-                <span class="btn btn-success other-login-btn sso-login">用域账号登录</span>
+                <a href="https://login.alibaba-inc.com/ssoLogin.htm?APP_NAME=rapauto&BACK_URL=$homeUrlEncoded&CANCEL_CERT=true&CLIENT_VERSION=0.3.9&CONTEXT_PATH=%2F"><span class="btn btn-success other-login-btn sso-login">用域账号登录</span></a>
             </div>
           </li>
       </ul>

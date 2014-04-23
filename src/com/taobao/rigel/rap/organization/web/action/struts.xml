@@ -9,6 +9,7 @@
 
 		<action name="index" class="com.taobao.rigel.rap.organization.web.action.OrganizationAction" method="index">
               <result name="success" type="velocity">/org/home/index.vm</result>
+              <result name="public" type="velocity">/platform/home.vm</result>
         </action>
         
         <action name="projects" class="com.taobao.rigel.rap.organization.web.action.OrganizationAction" method="projects">
