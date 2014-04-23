@@ -614,10 +614,13 @@ $._templates = {
 		</div>\
 	</div>',
 	
-
 	projects: '{{#projects}}\
 		<li data-id="{{id}}">{{name}}</li>\
-	{{/projects}}'
+	{{/projects}}',
+	
+	loginError: '<div class="alert alert-warning fade in" style="padding: 10px; margin-top: 10px; margin-bottom: 10px;">\
+	{{msg}}\
+	    </div>'
 }
 
 $.message = function(config) {
@@ -814,5 +817,23 @@ $(function() {
 	})
 	$('#cancel-register-btn').click(function() {
 		$(this).parents('.dropdown-menu').hide().parent().removeClass('open');
+	})
+	$('#register-btn').click(function(e) {
+		var a = $('#register-password');
+		var b = $('#register-password-confirm');
+		if (a.val() != b.val()) {
+			var node = $($.render($._templates['loginError'], {msg: '密码与确认密码不一致'}));
+			node.hide();
+			b.parents('form').prepend(node);
+			node.slideDown();
+			setTimeout(function() {
+				node.slideUp(function() {
+					node.remove();
+				});
+			}, 2000);
+			e.preventDefault();
+			return;
+		}
+		
 	})
 })
