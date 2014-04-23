@@ -355,20 +355,34 @@
                     }());
 
                 });
-
+				
                 function sortObj(obj) {
-                    var result = {}, keys = [];
-                    for(var prop in obj) {
-                        if (obj.hasOwnProperty(prop)) {
-                            keys.push(prop);
+                	if (!obj) {
+                		return obj;
+                	}
+					if (jQuery.isArray(obj)) {
+                		var newArray = [];
+                		for(var k = 0; k < obj.length; k++) {
+                			newArray.push(sortObj(obj[k]));
+                		}
+                		return newArray;
+                	} else if (jQuery.isPlainObject(obj)) {
+                		var result = {}, keys = [];
+                        for(var prop in obj) {
+                            if (obj.hasOwnProperty(prop)) {
+                                keys.push(prop);
+                            }
                         }
-                    }
-                    keys = keys.sort();
-                    for(var i = 0, l = keys.length; i < l; i++) {
-                        result[keys[i]] = obj[keys[i]];
-                    }
-                    return result;
+                        keys = keys.sort();
+                        for(var i = 0, l = keys.length; i < l; i++) {
+                            result[keys[i]] = sortObj(obj[keys[i]]);
+                        }
+                        return result;
+                	} else {
+                		return obj;
+                	}
                 }
+                
 
                 function testResHandler(response, form, btn) {
                     var jsonString = Y.JSON.stringify(response);
