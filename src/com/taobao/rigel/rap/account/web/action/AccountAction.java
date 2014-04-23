@@ -184,19 +184,19 @@ public class AccountAction extends ActionBase {
 	// doLogout();
 	// return SUCCESS;
 	// }
-	//
-	// public String doRegister() {
-	// User user = new User();
-	// user.setAccount(getAccount());
-	// user.setPassword(getPassword());
-	// user.setName(getName());
-	// user.setEmail(getEmail());
-	// if (super.getAccountMgr().addUser(user)) {
-	// return doLogin();
-	// } else {
-	// return ERROR;
-	// }
-	// }
+
+	public String doRegister() {
+		User user = new User();
+		user.setAccount(getAccount());
+		user.setPassword(getPassword());
+		user.setName(getName());
+		user.setEmail(getEmail());
+		if (super.getAccountMgr().addUser(user)) {
+			return doLogin();
+		} else {
+			return ERROR;
+		}
+	}
 
 	public String myAccount() {
 		if (!isUserLogined()) {
@@ -215,20 +215,13 @@ public class AccountAction extends ActionBase {
 	}
 
 	/**
-	public String updateProfile() {
-		setIsEditMode(true);
-		return SUCCESS;
-	}
-
-	public String doUpdateProfile() {
-		if (!super.getAccountMgr().updateProfile(getCurUserId(), getName(),
-				getEmail(), getPassword(), getNewPassword())) {
-			setIsEditMode(true);
-			setErrMsg("旧密码输入错误");
-		}
-		return SUCCESS;
-	}
-	*/
+	 * public String updateProfile() { setIsEditMode(true); return SUCCESS; }
+	 * 
+	 * public String doUpdateProfile() { if
+	 * (!super.getAccountMgr().updateProfile(getCurUserId(), getName(),
+	 * getEmail(), getPassword(), getNewPassword())) { setIsEditMode(true);
+	 * setErrMsg("旧密码输入错误"); } return SUCCESS; }
+	 */
 
 	public String sendBucSSOToken() {
 		return SUCCESS;

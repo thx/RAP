@@ -10,7 +10,7 @@
         <script src="${staticRoot}/js/util/jsformat.js"></script>
     </head>
     <body class="workspace">
-        #bodyStart(true)
+        #bodyNewStart(true)
         <div id="div-fixed-panel">
             <div class="clearfix">
                 <div id="div-w-message" class="label" style="display:none;">

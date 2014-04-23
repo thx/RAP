@@ -1,45 +1,46 @@
 ﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 #parse('/tcom/template.rap.vm')
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Register New Account        </title>
-		#includeRapStatic
-	</head>
-	<body>
-	    #bodyStart
-		<div id="register">
-			<form name="formMain" method="post" action="$accountUrl.doRegister">
-				<div class="table-container">
-					<div class="item">
-						<div class="left">用户名:</div><div class="right"><input type="text" name="account" /></div>
-						<div class="clear"></div>
-					</div>
-					<div class="item">
-						<div class="left">密码:</div><div class="right"><input type="password" name="password" /></div>
-						<div class="clear"></div>
-					</div>
-					<div class="item">
-						<div class="left">确认密码:</div><div class="right"><input type="password" /></div>
-						<div class="clear"></div>
-					</div>
-					<div class="item">
-						<div class="left">Email:</div><div class="right"><input type="text" name="email" /></div>
-						<div class="clear"></div>
-					</div>
-					<div class="item">
-						<div class="left">名字:</div><div class="right"><input type="text" name="name" /></div>
-						<div class="clear"></div>
-					</div>
-					<div class="item">
-						<div class="control"><input type="submit" value="提交" /></div>
-					</div>
-					<div class="item">
-						<div class="error">$!errMsg</div>
-					</div>
-				</div>
-			</form>
-		</div>
-		#bodyEnd
-	</body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>注册新的RAP账户        </title>
+        #includeRapStatic
+    </head>
+    <body>
+        #bodyNewStart
+        <div id="register">
+            <form name="formMain" method="post" action="$accountUrl.doRegister">
+                <div class="table-container">
+                    <div class="item">
+                        <div class="left">用户名:</div><div class="right"><input type="text" name="account" /></div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="item">
+                        <div class="left">密码:</div><div class="right"><input type="password" name="password" /></div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="item">
+                        <div class="left">确认密码:</div><div class="right"><input type="password" /></div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="item">
+                        <div class="left">Email:</div><div class="right"><input type="text" name="email" /></div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="item">
+                        <div class="left">名字:</div><div class="right"><input type="text" name="name" /></div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="item">
+                        <div class="control"><input class="btn btn-primary" type="submit" value="提交" /></div>
+                    </div>
+                    <div class="item">
+                        <br /><br />
+                        <div class="error label label-important">#if($errMsg)$errMsg#else 用户名已存在，或其它错误。 #end</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        #bodyEnd
+    </body>
 </html>

@@ -1,16 +1,16 @@
 ﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 #parse('/tcom/template.rap.vm')
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Login        </title>
-		#includeRapStatic
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Login        </title>
+        #includeRapStatic
         <style type="text/css">
             .container {width:430px;}
         </style>
-	</head>
-	<body>
-	    #bodyStart
+    </head>
+    <body>
+        #bodyNewStart
         <form name="formMain" action="$accountUrl.doLogin" method="post">
             <input type="hidden" name="returnUrl" value="#if($returnUrlFirstSet)$!utils.escapeInU($returnUrl)#else$!returnUrl#end" />
             <table class="table">
@@ -37,6 +37,6 @@
                 #end
             </table>
         </form>
-		#bodyEnd
-	</body>
+        #bodyEnd
+    </body>
 </html>

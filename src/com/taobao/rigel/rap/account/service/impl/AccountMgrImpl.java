@@ -41,9 +41,13 @@ public class AccountMgrImpl implements AccountMgr {
 	public boolean addUser(User user) {
 		String ps = user.getPassword();
 		if (ps == null) return false;
+		if (this.getUserId(user.getAccount()) > 0) {
+			return false;
+		}
 		
 		// DOUBLE MD5 encryption
 		ps = StringUtils.getDoubleMD5(ps);
+		user.setPassword(ps);
 		return accountDao.addUser(user);
 	}
 
