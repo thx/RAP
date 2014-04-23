@@ -68,8 +68,8 @@
       <ul class="dropdown-menu dropdown-menu-right">
           <li>
               <form name="formMain" class="navbar-form login-form" action="$accountUrl.doLogin" method="post">
-                  <input class="span2 form-control" style="width:200px" type="text" placeholder="用户名" name="account">
-                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="密码" name="password">
+                  <input class="span2 form-control" style="width:200px" type="text" placeholder="用户名" required name="account">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" required placeholder="密码" name="password">
                   <div style="margin-top: 10px;">
                     <div class="checkbox remember-me">
                         <label>
@@ -87,7 +87,9 @@
           <li class="divider"></li>
           <li>
             <div class="navbar-form">
-                <a href="https://login.alibaba-inc.com/ssoLogin.htm?APP_NAME=rapauto&BACK_URL=$homeUrlEncoded&CANCEL_CERT=true&CLIENT_VERSION=0.3.9&CONTEXT_PATH=%2F"><span class="btn btn-success other-login-btn sso-login">用域账号登录</span></a>
+                <a href="https://login.alibaba-inc.com/ssoLogin.htm?APP_NAME=rapauto&BACK_URL=$homeUrlEncoded&CANCEL_CERT=true&CLIENT_VERSION=0.3.9&CONTEXT_PATH=%2F">
+                <span class="btn btn-warning other-login-btn sso-login">用阿里域账号登录</span>
+                </a>
             </div>
           </li>
       </ul>
@@ -97,11 +99,11 @@
         <ul class="dropdown-menu dropdown-menu-right">
           <li>
               <form name="formMain" class="navbar-form register-form" action="$accountUrl.doRegister" method="post">
-                  <input class="span2 form-control" style="width:200px" type="text" placeholder="登录用户名" name="account">
-                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="text" placeholder="中文名" name="name">
-                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="email" placeholder="邮箱" name="email">
-                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="密码" name="password">
-                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="密码确认" name="passwordConfirm">
+                  <input class="span2 form-control" style="width:200px" type="text" placeholder="登录用户名" required name="account">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="text" placeholder="中文名" required name="name">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="email" placeholder="邮箱" required name="email">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="密码" required name="password" id="register-password">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="密码确认" required name="passwordConfirm" id="register-password-confirm">
                   <div style="margin-top: 10px;">
                     <button type="submit" class="btn btn-primary" id="register-btn">注册</button>
                     <button type="button" class="btn btn-default" id="cancel-register-btn" style="margin-left: 10px;">取消</button>
@@ -111,7 +113,9 @@
           <li class="divider"></li>
           <li>
             <div class="navbar-form">
-                <a href="https://login.alibaba-inc.com/ssoLogin.htm?APP_NAME=rapauto&BACK_URL=$homeUrlEncoded&CANCEL_CERT=true&CLIENT_VERSION=0.3.9&CONTEXT_PATH=%2F"><span class="btn btn-success other-login-btn sso-login">用域账号登录</span></a>
+                <a href="https://login.alibaba-inc.com/ssoLogin.htm?APP_NAME=rapauto&BACK_URL=$homeUrlEncoded&CANCEL_CERT=true&CLIENT_VERSION=0.3.9&CONTEXT_PATH=%2F">
+                <span class="btn btn-warning other-login-btn sso-login">用阿里域账号登录</span>
+                </a>
             </div>
           </li>
       </ul>
