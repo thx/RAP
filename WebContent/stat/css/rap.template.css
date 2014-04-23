@@ -10,6 +10,22 @@ body {
 #login-btn, #cancel-login-btn, #register-btn, #cancel-register-btn {
 	width: 93px;
 }
+.sso-login {
+	background-image: -moz-linear-gradient(center top , #ff7101, #ff5a00);
+    background-image: -ms-linear-gradient(top, #ff7101, #ff5a00);
+    background-image: -webkit-linear-gradient(top, #ff7101, #ff5a00);
+    background-image: -o-linear-gradient(top, #ff7101, #ff5a00);
+    background-image: linear-gradient(top, #ff7101, #ff5a00);
+    opacity: .9;
+    background-repeat: repeat-x;
+}
+
+.sso-login:hover {
+	background: #ff5a00;
+	opacity: 1;
+    background-position: 0 -15px;
+}
+
 .remember-me {
 	color: #999;
 }
