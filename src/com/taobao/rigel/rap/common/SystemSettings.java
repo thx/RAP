@@ -10,5 +10,5 @@ public class SystemSettings {
 			.getServletContext().getRealPath("/");
 	public static final String STATIC_ROOT = APP_PATH + "stat" + File.separator;
 
-	public static final String projectContext = "/rap";
+	public static final String projectContext = "";
 }
