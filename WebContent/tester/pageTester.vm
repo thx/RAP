@@ -80,6 +80,7 @@
             <div id="divResBoardJson">ready</div>
             <div id="divResBoardLog">
                 <div class="triggers clearfix">
+                	<div class="trigger" id="expand-trigger">&#8592;</div>
                     <div class="trigger" id="up-trigger">&#8593;</div>
                     <div class="trigger" id="down-trigger">&#8595;</div>
                     <div class="trigger" id="close-trigger">&#8594;</div>
@@ -501,6 +502,11 @@
                         logContainer.animate({
                             'height': 500
                         });
+                    }).delegate('#expand-trigger', 'click', function() {
+                        logContainer.animate({
+                            'width': '98%'
+                        });
+                        $('body').css('padding-bottom', '110px');
                     }).delegate('#down-trigger', 'click', function() {
                         logContainer.animate({
                             'height': 100
