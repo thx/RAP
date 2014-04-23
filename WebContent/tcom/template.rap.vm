@@ -70,13 +70,13 @@
               <form name="formMain" class="navbar-form login-form" action="$accountUrl.doLogin" method="post">
                   <input class="span2 form-control" style="width:200px" type="text" placeholder="用户名" required name="account">
                   <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" required placeholder="密码" name="password">
-                  <div style="margin-top: 10px;">
+                  <!-- <div style="margin-top: 10px; display: none;">
                     <div class="checkbox remember-me">
                         <label>
                           <input type="checkbox" name="remember"> 下次自动登录
                         </label>
                       </div>
-                  </div>
+                  </div> -->
                   <div style="margin-top: 10px;">
                     <button type="submit" class="btn btn-primary" id="login-btn">登录</button>
                     <button type="button" class="btn btn-default" id="cancel-login-btn" style="margin-left: 10px;">取消</button>
