@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.taobao.rigel.rap.common.ActionBase;
+import com.taobao.rigel.rap.common.Logger;
 import com.taobao.rigel.rap.mock.service.MockMgr;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Module;
@@ -112,6 +113,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createData() throws UnsupportedEncodingException {
+		Logger.mock();
 		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
 		String result = mockMgr.generateData(id, pattern, options);
@@ -131,6 +133,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createRule() throws UnsupportedEncodingException {
+		Logger.mock();
 		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
 		String result = mockMgr.generateRule(id, pattern, options);
@@ -159,6 +162,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createPluginScript() {
+		Logger.mock();
 		List<String> list = new ArrayList<String>();
 		Project p = projectMgr.getProject(projectId);
 		if (p != null) {
@@ -175,6 +179,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createMockjsData() throws UnsupportedEncodingException {
+		Logger.mock();
 		String _c = get_c();
 		Map<String, Object> options = new HashMap<String, Object>();
 		String result = mockMgr.generateRuleData(id, pattern, options);

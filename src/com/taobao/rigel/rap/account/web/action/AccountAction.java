@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.ContextManager;
+import com.taobao.rigel.rap.common.Logger;
 
 /**
  * account action
@@ -224,6 +225,15 @@ public class AccountAction extends ActionBase {
 	 */
 
 	public String sendBucSSOToken() {
+		return SUCCESS;
+	}
+	
+	public String logData() {
+		Map<String, Object> obj = new HashMap<String, Object>();
+		obj.put("online", this.getCountOfOnlineUserList());
+		obj.put("mockNumToday", Logger.getMockNumToday());
+		Gson gson = new Gson();
+		setJson(gson.toJson(obj));
 		return SUCCESS;
 	}
 }

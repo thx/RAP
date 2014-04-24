@@ -38,7 +38,8 @@
     "updateProfile":"$projectContext/account/updateProfile.action",
     "doUpdateProfile":"$projectContext/account/doUpdateProfile.action",
     "doChangeProfile":"$projectContext/account/doChangeProfile.action",
-    "myHome":"$projectContext/org/index.action"
+    "myHome":"$projectContext/org/index.action",
+    "logData":"$projectContext/account/logData.action"
 })
 
 #set($projectUrl = {

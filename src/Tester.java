@@ -1,4 +1,6 @@
-import com.taobao.rigel.rap.common.StringUtils;
+import java.util.Date;
+
+import com.taobao.rigel.rap.common.DateUtils;
 
 public class Tester {
 
@@ -6,22 +8,13 @@ public class Tester {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		/**
-		int num = 1;
-		Pattern p = Pattern.compile(Patterns.MOCK_TEMPLATE_PATTERN);
-		Matcher matcher = p.matcher("${page=1008}");
-		while (matcher.find()) {
-			System.out.println("找到的第" + num++ + "组");
-			int c = matcher.groupCount();
-			while (c-- > 0 ? true : false) {
-				System.out.println("[" + c + "] " + matcher.group(c));
-			}
 
-		}
-		*/
-		
-		System.out.println(StringUtils.chineseToUnicode("123测试一下aaa"));
+		Date date = new Date();
+		Date date2 = new Date();
+		System.out.println(DateUtils.compWorkAndCurrByDate(date, date2));
+		date2.setDate(3);
 
+		System.out.println(DateUtils.compWorkAndCurrByDate(date, date2));
 	}
 
 }
