@@ -24,6 +24,7 @@
         	jQuery.oldAjax = jQuery.ajax;
         </script>
         <script src="/rap.plugin.js?projectId=114"></script>
+        <script src="${staticRoot}/js/util/structureValidator.js"></script>
         <script>
         	jQuery.rapAjax = jQuery.ajax;
         	jQuery.ajax = jQuery.oldAjax;
