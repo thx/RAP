@@ -1205,12 +1205,12 @@ if (!window.console) {
             "REQUEST_BEGIN"                 : "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "REQUEST_BEGIN_EDIT"            : "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "REQUEST_END"                   : "</table>",
-            "REQUEST_PARAMETER_ADD_BUTTON"  : "<div><a href=\"#\" class=\"add-link div-add-param-link\" onclick=\"ws.addParam('request'); return false;\">新增请求参数</a></div>",
+            "REQUEST_PARAMETER_ADD_BUTTON"  : "<div class='btns-container'><a href=\"#\" class=\"btn btn-default\" onclick=\"ws.addParam('request'); return false;\">新增请求参数</a></div>",
 
-            "RESPONSE_BEGIN"                : "<br /><h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
-            "RESPONSE_BEGIN_EDIT"           : "<br /><h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "RESPONSE_BEGIN"                : "<h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "RESPONSE_BEGIN_EDIT"           : "<h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "RESPONSE_END"                  : "</table>",
-            "RESPONSE_PARAMETER_ADD_BUTTON" : "<div><a href=\"#\" class=\"add-link div-add-param-link\" onclick=\"ws.addParam('response'); return false;\">新增响应参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" onclick=\"ws.importJSON(); return false;\">导入JSON</a></div>",
+            "RESPONSE_PARAMETER_ADD_BUTTON" : "<div class='btns-container'><a href=\"#\" class=\"btn btn-default\" onclick=\"ws.addParam('response'); return false;\">新增响应参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-success' onclick=\"ws.importJSON(); return false;\">导入JSON</a></div>",
 
             "SAVE_PANEL_BEGIN"              : "<div id=\"div-save-panel\">",
             "SAVE_PANEL_END"                : "</div>",
@@ -3429,7 +3429,7 @@ if (!window.console) {
             str += "<div class=\"more\" ecui=\"type:tree;id:moduleTree" + m.id + "\">";
             str += "<label>" + util.escaper.escapeInH(m.name);
             if (_isEditMode) {
-                str     += "&nbsp;&nbsp;<a href=\"#\" class=\"del-link\" onclick=\"ws.removeM(); return false;\">&nbsp;</a>";
+                str     += "<a href=\"#\" class=\"del-link\" onclick=\"ws.removeM(); return false;\">&nbsp;</a>";
             }
             str += "</label>";
             for (var i = 0; i < pageListNum; i++) {
@@ -3439,25 +3439,25 @@ if (!window.console) {
                 str += "<div class=\"more\">";
                 str += "<label ondblclick=\"ws.editP(" + page.id + "); return false;\">" + util.escaper.escapeInH(page.name);
                 if (_isEditMode) {
-                    str += "<span class=\"div-p-control\">&nbsp;&nbsp;<a href=\"#\" class=\"edit-link\" onclick=\"ws.editP(" +
-                        page.id + "); return false;\">&nbsp;</a><a href=\"#\" class=\"del-link\" onclick=\"ws.removeP(" +
-                        page.id + "); return false;\">&nbsp;</a></span>";
+                    str += "<span class=\"div-p-control\"><a href=\"#\" class=\"edit-link\" onclick=\"ws.editP(" +
+                        page.id + "); return false;\"><i class=\"glyphicon glyphicon-pencil\"></i></a><a href=\"#\" class=\"del-link\" onclick=\"ws.removeP(" +
+                        page.id + "); return false;\"><i class=\"glyphicon glyphicon-trash\"></i></a></span>";
                 }
-                str += "&nbsp;&nbsp;" + (page.isIdGenerated ? '' : '<a class="test-link" href="' + URL.pageTester + '?id=' + page.id + '" target="_blank">&nbsp;</a>');
+                str += (page.isIdGenerated ? '' : '<a class="test-link" href="' + URL.pageTester + '?id=' + page.id + '" target="_blank"><i class="glyphicon glyphicon-step-forward"></i></a>');
                 str += "</label>";
                 for (var j = 0; j < actionListNum; j++) {
                     var action = actionList[j];
                     str += "<div id=\"div-a-tree-node-" + action.id + "\">" + "<a href=\"#\" onclick=\"ws.switchA(" + action.id +
                         "); return false;\" ondblclick=\"ws.editA(" + action.id + "); return false;\">" + util.escaper.escapeInH(action.name) + "</a>";
                     if (_isEditMode) {
-                        str += "&nbsp;&nbsp;<a href=\"#\" class=\"edit-link\" onclick=\"ws.editA(" +
-                            action.id + "); return false;\">&nbsp;<a href=\"#\" class=\"del-link\" onclick=\"ws.removeA(" +
-                            action.id + "); return false;\">&nbsp;</a>";
+                        str += "<a href=\"#\" class=\"edit-link\" onclick=\"ws.editA(" +
+                            action.id + "); return false;\"><i class=\"glyphicon glyphicon-pencil\"></i><a href=\"#\" class=\"del-link\" onclick=\"ws.removeA(" +
+                            action.id + "); return false;\"><i class=\"glyphicon glyphicon-trash\"></i></a>";
                     }
                     str += "</div>";
                 }
                 if (_isEditMode) {
-                    str += "<div><a class=\"add-link\" href=\"#\" onclick=\"ws.addA(" + page.id + "); return false;\">新增请求</a></div>";
+                    str += "<div style='margin-top:10px'><a class=\"btn btn-default\" href=\"#\" onclick=\"ws.addA(" + page.id + "); return false;\"><i class=\"glyphicon glyphicon-plus\" style='margin-right: 5px;'></i>新增请求</a></div>";
                 }
                 str += "</div>";
             }
@@ -3561,24 +3561,23 @@ if (!window.console) {
          * get action info html
          */
         function getAInfoHtml(a) {
-            var head = "<h2 style='margin-top:30px;'>接口详情</h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
+            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id + ")</span> </h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
                 body = "",
                 foot = "</div>";
-
             if (a.name) {
-                body += "<div class='item'><b>接口名称</b>: " + a.name + "(id:" + a.id + ")</div>";
+                body += "<div class='item'><b>接口名称 </b>" + a.name + "</div>";
             }
             if (a.requestType) {
-                body += "<div class='item'><b>请求类型</b>: <font color='orange'>" + getRequestTypeStr(a.requestType) + "</font></div>";
+                body += "<div class='item'><b>请求类型 </b><font color='orange'>" + getRequestTypeStr(a.requestType) + "</font></div>";
             }
             if (a.requestUrl) {
-                body += "<div class='item'><b>请求Url</b>:<font color='blue'> " + a.requestUrl + "</font></div>";
+                body += "<div class='item'><b>请求Url </b><font color='blue'> " + a.requestUrl + "</font></div>";
             }
             if (a.responseTemplate) {
-                body += "<div class='item'><b>相关模板</b>: <font color='red'>" + a.responseTemplate + "</font></div>";
+                body += "<div class='item'><b>相关模板 </b><font color='red'>" + a.responseTemplate + "</font></div>";
             }
             if (a.description) {
-                body += "<div class='item'><b>接口描述</b>: " + processTextarea(a.description) + "</div>";
+                body += "<div class='item'><b>接口描述 </b>" + processTextarea(a.description) + "</div>";
             }
             if (!body) {
                 body += "no info";

@@ -441,6 +441,12 @@
         },
         getPrefix: function(p) {
             return PREFIX;
+        },
+        setProjectId: function(id) {
+        	projectId = id;
+        },
+        getProjectId: function() {
+        	return projectId;
         }
     };
 })();

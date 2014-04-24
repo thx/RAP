@@ -4,6 +4,7 @@
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             <title>RAP - $!utils.escapeInH($page.name)控制台</title>
+            <link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
             <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap.css?_r=$!timeStamp" type="text/css" media="screen">
             <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap-responsive.css?_r=$!timeStamp" type="text/css" media="screen">
             <link rel="stylesheet" href="${staticRoot}/css/rap.template.css?_r=$!timeStamp" type="text/css" media="screen">

@@ -35,6 +35,27 @@ body {
 .dropdown-menu.teams {
 	width: 300px;
 }
+.dropdown-menu.teams:after {
+	position: absolute;
+	top: -6px;
+	left: 40px;
+	background-color: #FFF;
+	content: '';
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	-webkit-transform: rotateZ(45deg);
+  	-moz-transform: rotateZ(45deg);
+  	transform: rotateZ(45deg);
+	border-top: 1px solid rgba(0, 0, 0, .15);
+	border-left: 1px solid rgba(0, 0, 0, .15);
+}
+
+.navbar-nav > li > .dropdown-menu.teams {
+	margin-top: 3px;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
 .dropdown-menu.teams li {
 	float: left; width: 149px;
 }
@@ -55,21 +76,15 @@ body {
 	background-position: 0 -30px
 }
 
-.add-link,.edit-link,.del-link,.test-link {
-	margin-top: 5px;
-	display: inline-block;
-	margin-right: 5px;
-	background: url(img/op-icon.gif) no-repeat;
+.tree-m label {
 	cursor: pointer;
-	padding-left: 18px;
-	text-decoration: none !important;
-	color: #0100FE;
 }
-
-.add-link {
-	background-position: 0 -31px;
+label {
+	margin-bottom: 0;
 }
-
+.btns-container {
+	margin: 10px 18px;
+}
 .add-link-module {
 	margin: 0;
 	position: relative;
@@ -78,13 +93,16 @@ body {
 	height: 15px;
 }
 
+.div-p-control {
+	padding-left: 2px;
+}
 .edit-link {
 	background-position: 0 -256px;
 	padding-top: 1px
 }
 
 .del-link {
-	background-position: 0 -94px;
+	background-position: 0 -95px;
 }
 
 .test-link {
