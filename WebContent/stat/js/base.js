@@ -837,3 +837,79 @@ $(function() {
 		
 	})
 })
+
+$(function() {
+	if (!window.localStorage) {
+		return;
+	}
+	var html = '<div class="helper-tip">\
+		<div class="dialog-item say-hi">\
+			<span class="name">RAP小助手</span>\
+			<div class="content">\
+				<div>哒哒啦~ 我是RAP小助手，欢迎您使用RAP~~~</div>\
+			</div>\
+		</div>\
+		<div class="mask" style="width: 100px; height: 100px;">\
+		</div>\
+		<img src="/stat/img/yellow.png" width="100""/>\
+	</div>';
+	
+	var helpText = '<div>- 不会用RAP？RAP 5分钟介绍视频在 <a href="http://cloud.video.taobao.com//play/u/11051796/p/1/e/1/t/1/11622279.swf" target="_blank">这里</a></div>\
+		<div>- 不会写Mockjs？我们为您准备了 <a href="http://mockjs.com" target="_blank">文档</a> 和 <a href="http://rap.alibaba-inc.com/workspace/myWorkspace.action?projectId=79&mock=true&actionId=828" target="_blank">示例</a></div>\
+		<div>- 遇到RAP的bug了？欢迎到 <a href="https://github.com/thx/RAP/issues/new" target="_blank">这里</a> 提交issue</div>\
+		<div>- 想看看RAP官网文档？请点击 <a href="http://thx.alibaba-inc.com" target="_blank">这里</a></div>\
+		<div>- 其他问题，请直接联系 <a href="mailto:huoyong.msb@taobao.com">@霍雍</a> 或 <a href="mailto:zhifu.wzf@taobao.com">@思竹</a></div>';
+	
+	$(html).appendTo('body');
+	if (window.localStorage.getItem('rap-anim-showed')) {
+		after();
+	} else {
+		before();
+		window.localStorage.setItem('rap-anim-showed', 1);
+	}
+	function before() {
+		var tip = $('.helper-tip');
+		// helper出现
+		tip.delay(1000).show(2000, function() {
+			var hi = $('.say-hi');
+			// 文字出现
+			hi.fadeIn(1000);
+			setTimeout(function() {
+				// 修改文案
+				var content = hi.find('.content');
+				content.html('<div>我懂事，我不打扰您，遇到问题时，点我有惊喜~</div>');
+				setTimeout(function() {
+					// 文字退出
+					hi.fadeOut(1000, function() {
+						// 修改文案
+						content.html(helpText);
+						hi.css('width', '370px');
+						// helper隐藏
+						tip.addClass('anim').addClass('part').hover(function() {
+							hi.stop().clearQueue().fadeIn(500);
+						}, function() {
+							hi.stop().clearQueue().fadeOut(500);
+						});
+					});
+				}, 5000);
+			}, 5000);
+		});
+	}
+	
+	function after() {
+		var tip = $('.helper-tip');
+		tip.show();
+		var hi = $('.say-hi');
+		var content = hi.find('.content');
+		// 修改文案
+		content.html(helpText);
+		hi.css('width', '370px');
+		// helper隐藏
+		tip.addClass('anim').addClass('part').hover(function() {
+			hi.stop().clearQueue().fadeIn(500);
+		}, function() {
+			hi.stop().clearQueue().fadeOut(500);
+		});
+	}
+	
+});
