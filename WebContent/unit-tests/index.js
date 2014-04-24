@@ -15,7 +15,8 @@ var scripts = [
 	'rap-plugin/modes.js',
 	'rap-plugin/whiteblack.js',
 	
-	'errors/rap-plugin-error.js'
+	'errors/rap-plugin-error.js',
+	'errors/bugfix-list.js'
 ];
 
 loadScripts(scripts, function() {

@@ -47,6 +47,16 @@ test('RAP.set/getPrefix', function() {
 	equal(RAP.getPrefix(), old, 'recover ok');
 })
 
+test('RAP.set/getProjectId', function() {
+	var old = RAP.getProjectId();
+	equal(old, 114, 'old is 114');
+	var newProjectId = 121;
+	RAP.setProjectId(newProjectId);
+	equal(RAP.getProjectId(), newProjectId, 'get/set ok, new is ' + newProjectId);
+	RAP.setProjectId(old);
+	equal(RAP.getProjectId(), old, 'recover ok');
+})
+
 // TODO
 // setWhiteList([url]) test
 // setWhiteList([url]) and check test
