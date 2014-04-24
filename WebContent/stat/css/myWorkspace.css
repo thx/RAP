@@ -215,7 +215,8 @@ body {
 
 .div-a h2 {
     width: 648px;
-    margin: 12px 0 0 18px;
+    margin: 24px 0 0 18px;
+    font-size: 20px;
 }
 
 .div-a .head {
@@ -325,6 +326,7 @@ body {
     float: right;
     text-align: center;
     cursor: pointer;
+    border-radius: 2px 2px 0 0;
 }
 
 #div-mt-list .cur {
@@ -499,7 +501,7 @@ body {
 .td-param {
     border: white 1px solid;
     border-collapse: collapse;
-    height: 20px;
+    height: 28px; padding-left: 5px;
 }
 
 .table-a {
@@ -566,6 +568,10 @@ body {
     font-size: 12px;
 }
 
+.item b {
+	display: inline-block;
+	width: 60px;
+}
 .select-dataType {
     background-color: #E6E6E6;
     border: none;
@@ -576,7 +582,8 @@ body {
 }
 
 .action-info {
-    margin-left: 18px;
+    margin-left: 15px;
+    margin-top: 10px;
 }
 
 .head {

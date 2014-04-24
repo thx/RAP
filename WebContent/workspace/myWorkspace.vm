@@ -73,7 +73,7 @@
             </div>
             <div id="div-debug"></div>
             <div id="div-mt-list" class="clearfix"></div>
-            <div id="div-add-p" style="display: none"><a href="#" class="btn" onclick="ws.addP(); return false;">新增页面</a></div>
+            <div id="div-add-p" style="display: none"><a href="#" class="btn btn-default" onclick="ws.addP(); return false;"><i class="glyphicon glyphicon-plus" style="margin-right: 5px"></i>新增页面</a></div>
         </div>
         <div id="div-w">
             <div id="div-m-list"> </div>
@@ -118,7 +118,7 @@
                                     <span class="glyphicon glyphicon-ok"></span>
                                     提交
                                 </button>
-                                <button type="button" class="btn" onclick="ws.cancelSaveVSS(); return false;">
+                                <button type="button" class="btn btn-default" onclick="ws.cancelSaveVSS(); return false;">
                                     <span class="glyphicon glyphicon-remove"></span>
                                     取消
                                 </button>
@@ -189,7 +189,7 @@
                     <span class="glyphicon glyphicon-repeat"></span>
                     切换版本
                 </button>&nbsp;&nbsp;&nbsp;
-                <button type="button"  class="btn" onclick="ws.closeVersionPanel();">
+                <button type="button"  class="btn btn-default" onclick="ws.closeVersionPanel();">
                     <span class="glyphicon glyphicon-remove">
                     </span>
                     取消
@@ -264,7 +264,7 @@
                     <span class="glyphicon glyphicon-ok"></span>
                     确定
                 </button>
-                <button type="button" class="btn" onclick="ws.cancelEditA();">
+                <button type="button" class="btn btn-default" onclick="ws.cancelEditA();">
                     <span class="glyphicon glyphicon-remove"></span>
                     取消
                 </button>
@@ -296,7 +296,7 @@
                     <button type="button" class="btn btn-primary" onclick="ws.doAddOrEditP();">
                         <span class="glyphicon glyphicon-ok"></span>提交
                     </button>
-                    <button type="button" class="btn" onclick="ws.cancelEditP();">
+                    <button type="button" class="btn btn-default" onclick="ws.cancelEditP();">
                         <span class="glyphicon glyphicon-remove"></span>取消
                     </button>
                 </div>
@@ -319,7 +319,7 @@
                         <span class="glyphicon glyphicon-ok"></span>
                         导入
                     </button>
-                    <button type="button" class="btn" onclick="ws.cancelImportJSON();">
+                    <button type="button" class="btn btn-default" onclick="ws.cancelImportJSON();">
                         <span class="glyphicon glyphicon-remove"></span>
                         取消
                     </button>
@@ -338,7 +338,7 @@
                     </tr>
                 </table>
                 <div class="div-floater-control">
-                    <input type="button" class="btn" onclick="ws.closeExportRAPDataFloater();"  value="关闭" />
+                    <input type="button" class="btn btn-default" onclick="ws.closeExportRAPDataFloater();"  value="关闭" />
                 </div>
             </div>
         </form>
@@ -350,7 +350,7 @@
                     <input id="pluginCodeInput" style="width:550px;margin:8px 0;" type="text" value="&lt;script src=&quot;http://rap.alibaba-inc.com/rap.plugin.js?projectId=$!projectId&quot;&gt;&lt;/script&gt;">
                 </div>
                 <div class="div-floater-control">
-                    <input type="button" class="btn" onclick="ws.closePluginCodeFloater();"  value="关闭" />
+                    <input type="button" class="btn btn-default" onclick="ws.closePluginCodeFloater();"  value="关闭" />
                 </div>
             </div>
         </form>

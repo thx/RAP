@@ -55,21 +55,30 @@ body {
 	background-position: 0 -30px
 }
 
+.tree-m label {
+	cursor: pointer;
+}
+label {
+	margin-bottom: 0;
+}
 .add-link,.edit-link,.del-link,.test-link {
 	margin-top: 5px;
 	display: inline-block;
-	margin-right: 5px;
-	background: url(img/op-icon.gif) no-repeat;
+	margin-left: 5px;
 	cursor: pointer;
-	padding-left: 18px;
 	text-decoration: none !important;
-	color: #0100FE;
+	color: #999 !important;
 }
-
+.add-link:hover,.edit-link:hover,.del-link:hover,.test-link:hover {
+	color: #666 !important;
+}
 .add-link {
 	background-position: 0 -31px;
 }
 
+.btns-container {
+	margin: 10px 18px;
+}
 .add-link-module {
 	margin: 0;
 	position: relative;
@@ -78,13 +87,16 @@ body {
 	height: 15px;
 }
 
+.div-p-control {
+	padding-left: 2px;
+}
 .edit-link {
 	background-position: 0 -256px;
 	padding-top: 1px
 }
 
 .del-link {
-	background-position: 0 -94px;
+	background-position: 0 -95px;
 }
 
 .test-link {

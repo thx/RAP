@@ -62,9 +62,9 @@
 .customer-radio-checked {background:url(img/cr_o.jpg) -34px -17px no-repeat}
 .customer-radio-checked-over {background:url(img/cr_o.jpg) -51px -17px no-repeat}
 
-.ec-tree {padding-left:18px;line-height:15px;margin-bottom:5px;cursor:default;}
-.more {background:url(img/elbow-minus-nl.gif) no-repeat;} 
-.more-fold {background:url(img/elbow-end-plus-nl.gif) no-repeat;}
+.ec-tree {padding-left:18px;line-height:16px;margin-bottom:5px;cursor:default;}
+.more {background:url(img/elbow-minus-nl.gif) no-repeat left center;} 
+.more-fold {background:url(img/elbow-end-plus-nl.gif) no-repeat left center;}
 .ec-tree-items {padding-left:15px;line-height:15px;}
 .ec-tree-empty {background:none;color:#000}
 .ec-tree-fold .ec-tree-items {display:none}
