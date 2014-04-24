@@ -3,6 +3,21 @@ body {
     padding:0;
 }
 
+.add-link,.edit-link,.del-link,.test-link {
+	margin-top: 5px;
+	display: inline-block;
+	margin-left: 5px;
+	cursor: pointer;
+	text-decoration: none !important;
+	color: #999 !important;
+}
+.add-link:hover,.edit-link:hover,.del-link:hover,.test-link:hover {
+	color: #666 !important;
+}
+.add-link {
+	background-position: 0 -31px;
+}
+
 .workspace .container {
     width: 90%;
 }
