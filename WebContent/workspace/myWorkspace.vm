@@ -3,7 +3,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>$!utils.escapeInH($workspace.project.name)文档编辑        </title>
+        <title>$!utils.escapeInH($workspace.project.name) - 文档编辑        </title>
+        <link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
         #includeNewRapStatic
         <link type="text/css" rel="stylesheet" href="${staticRoot}/css/defcontrol.css?_r=$!timeStamp" />
         <link type="text/css" rel="stylesheet" href="${staticRoot}/css/myWorkspace.css?_r=$!timeStamp" />

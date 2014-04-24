@@ -3440,7 +3440,7 @@ if (!window.console) {
                 str += "<label ondblclick=\"ws.editP(" + page.id + "); return false;\">" + util.escaper.escapeInH(page.name);
                 if (_isEditMode) {
                     str += "<span class=\"div-p-control\"><a href=\"#\" class=\"edit-link\" onclick=\"ws.editP(" +
-                        page.id + "); return false;\"><i class=\"glyphicon glyphicon-edit\"></i></a><a href=\"#\" class=\"del-link\" onclick=\"ws.removeP(" +
+                        page.id + "); return false;\"><i class=\"glyphicon glyphicon-pencil\"></i></a><a href=\"#\" class=\"del-link\" onclick=\"ws.removeP(" +
                         page.id + "); return false;\"><i class=\"glyphicon glyphicon-trash\"></i></a></span>";
                 }
                 str += (page.isIdGenerated ? '' : '<a class="test-link" href="' + URL.pageTester + '?id=' + page.id + '" target="_blank"><i class="glyphicon glyphicon-step-forward"></i></a>');
@@ -3451,7 +3451,7 @@ if (!window.console) {
                         "); return false;\" ondblclick=\"ws.editA(" + action.id + "); return false;\">" + util.escaper.escapeInH(action.name) + "</a>";
                     if (_isEditMode) {
                         str += "<a href=\"#\" class=\"edit-link\" onclick=\"ws.editA(" +
-                            action.id + "); return false;\"><i class=\"glyphicon glyphicon-edit\"></i><a href=\"#\" class=\"del-link\" onclick=\"ws.removeA(" +
+                            action.id + "); return false;\"><i class=\"glyphicon glyphicon-pencil\"></i><a href=\"#\" class=\"del-link\" onclick=\"ws.removeA(" +
                             action.id + "); return false;\"><i class=\"glyphicon glyphicon-trash\"></i></a>";
                     }
                     str += "</div>";

@@ -4,6 +4,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>欢迎使用RAP        </title>
+		<link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
 		#includeNewRapStatic
 		<link rel="stylesheet" href="./group/index.css?_r=$!timeStamp" type="text/css" media="screen">
 	</head>
