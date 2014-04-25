@@ -106,6 +106,24 @@ noEscapeDemo     @{mock}="123"       "noEscapeDemo" : ""1,2,3"" // 语法错误
 默认所有@mock的值会被转义，若不需要转义，请以 **@{mock}** 代替。
 
 
+#### 根据请求参数来动态生成MockJS模板
+
+例子:
+
+```bash
+@mock=${page}
+```
+
+表示根据请求参数page来决定mockjs模板，若请求参数page=123，则这里会等价于:@mock=123
+
+
+```bash
+@mock=${page=10}
+```
+
+表示在请求参数没有page时，默认等价于@mock=10
+
+
 ### Mock插件
 
 #### 插件的引入
