@@ -353,3 +353,9 @@ div#tipDiv {
 	right: 0;
 	bottom: 0;
 }
+.helper-tip .mask {
+	display: none;
+}
+.helper-tip:hover .mask {
+	display: block;
+}
