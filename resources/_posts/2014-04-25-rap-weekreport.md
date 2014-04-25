@@ -6,7 +6,7 @@ title: RAP精彩集锦（2014-4-21 ~ 2014-4-25）
 {% raw %}
 
 
-# http://rap.alibaba-inc.com
+# [http://rap.alibaba-inc.com](http://rap.alibaba-inc.com)
 
 ## 账户系统大重构 — 为迎接开源社区做准备
 <img src="/RAP/assets/img/weekreport/2014-4-25/1.jpeg"/>
