@@ -4,11 +4,14 @@ title: RAP相关资源
 ---
 
 <ul>
+  <li><a href="http://cloud.video.taobao.com//play/u/11051796/p/1/e/1/t/1/11622279.swf">RAP V0.8发布介绍（淘宝视频）</a></li>
+  <li><a href="http://v.youku.com/v_show/id_XNjk5NjMxODA4.html">RAP V0.8发布介绍（优酷）</a></li>
+</ul>
+
+<ul>
 {% for category in site.categories %}{% if category[0] == 'resources' %}
 {% for post in category[1] reversed %}
   <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
 {% endfor %}
 {% endif %}{% endfor %}
-  <li><a href="http://cloud.video.taobao.com//play/u/11051796/p/1/e/1/t/1/11622279.swf">RAP V0.8发布介绍（淘宝视频）</a></li>
-  <li><a href="http://v.youku.com/v_show/id_XNjk5NjMxODA4.html">RAP V0.8发布介绍（优酷）</a></li>
 </ul>
