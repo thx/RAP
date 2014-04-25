@@ -101,13 +101,15 @@ label {
 }
 
 .add-link-module {
-	margin: 0;
 	position: relative;
-	top: -7px;
-	left: -3px;
-	height: 15px;
+	top: -13px;
+	left: -8px;
 }
 
+.add-link-module .glyphicon {
+	position: absolute;
+	right: 0;
+}
 .div-p-control {
 	padding-left: 2px;
 }

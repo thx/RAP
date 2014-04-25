@@ -271,7 +271,6 @@ body {
 }
 
 .div-a .op {
-    width: 45px;
     background-color: #E6E6E6;
     border-left: none;
 }
@@ -675,6 +674,25 @@ body {
     margin-top: 0; /* for IE */
 }
 
+.ec-tree > .edit-link, .ec-tree > .del-link {
+	visibility: hidden;
+}
+.ec-tree:hover > .edit-link, .ec-tree:hover > .del-link {
+	visibility: visible;
+}
+.div-op-container .del-link {
+	margin-left: 2px;
+}
+.div-op-container .del-link i {
+	color: #d9534f;
+}
+.div-op-container .add-link i {
+	color: #5cb85c;
+}
+
+.div-op-container .del-link, .div-op-container .add-link {
+	margin-top: 0;
+}
 .div-add-param-link {
     margin-left: 12px;
 }

@@ -1218,7 +1218,7 @@ if (!window.console) {
             "VERSION_PANEL_BEGIN"           : "<div id=\"div-version-panel\"><table class='table-version'><tr class='head'><td class='version-op'>OP</td><td class='version'>版本</td><td class='operator'>操作人</td><td class='operation-time'>操作时间</td><td class='version-desc'>描述</td></tr>",
             "VERSION_PANEL_END"             : "</table></div>",
 
-            "MODULE_ADD_BUTTON"             : "<div id=\"div-add-m\"><a href=\"#\" class=\"add-link add-link-module\" onclick=\"ws.addM(); return false;\">&nbsp;</a></div>",
+            "MODULE_ADD_BUTTON"             : "<div id=\"div-add-m\"><a href=\"#\" class=\"add-link add-link-module\" onclick=\"ws.addM(); return false;\"><i class='glyphicon glyphicon-plus'></i></a></div>",
 
             "SEPERATOR"                     : "<div class=\"seperator\"></div>" ,
 
@@ -3429,7 +3429,7 @@ if (!window.console) {
             str += "<div class=\"more\" ecui=\"type:tree;id:moduleTree" + m.id + "\">";
             str += "<label>" + util.escaper.escapeInH(m.name);
             if (_isEditMode) {
-                str     += "<a href=\"#\" class=\"del-link\" onclick=\"ws.removeM(); return false;\">&nbsp;</a>";
+                str     += "<a href=\"#\" class=\"del-link\" onclick=\"ws.removeM(); return false;\"><i class='glyphicon glyphicon-remove'></i></a>";
             }
             str += "</label>";
             for (var i = 0; i < pageListNum; i++) {
@@ -3667,10 +3667,10 @@ if (!window.console) {
             if (_isEditMode) {
             str += getPTDHtml(param.id,
                     "<div id=\"div-param-op-" + param.id + "\" class=\"div-op-container\" style=\"display:none;\">" +
-                    "<a href=\"#\" class=\"del-link\" onclick=\"ws.removeParam(" + param.id + "); return false;\">&nbsp;</a>" +
+                    "<a href=\"#\" class=\"del-link\" onclick=\"ws.removeParam(" + param.id + "); return false;\"><i class='glyphicon glyphicon-remove'></i></a>" +
                     (parameterListNum > 0 || param.dataType == "object" || param.dataType == "array<object>" ?
                      "<a href=\"#\" class=\"add-link\" onclick=\"ws.addParam('child', " +
-                        param.id +  "); return false;\">&nbsp;</a>" : "") + "</div>", "op");
+                        param.id +  "); return false;\"><i class='glyphicon glyphicon-plus'></i></a>" : "") + "</div>", "op");
             }
             str += getPTDHtml(param.id, util.escaper.escapeInH(param.identifier), "identifier", level);
             str += getPTDHtml(param.id, util.escaper.escapeInH(param.name), "name");
