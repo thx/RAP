@@ -834,8 +834,8 @@ $(function() {
 			e.preventDefault();
 			return;
 		}
-		
 	})
+	loginTrigger.trigger('click');
 })
 
 $(function() {
