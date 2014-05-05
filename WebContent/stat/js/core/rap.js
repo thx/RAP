@@ -1132,6 +1132,10 @@ if (!window.console) {
 
     rap.workspace = rap.workspace || {};
 
+    rap.workspace._get = function(key) {
+        return eval(key);
+    };
+
     /******************************************************
      *                                                    *
      * Instructions:                                      *
@@ -2179,12 +2183,14 @@ if (!window.console) {
             try {
                 var obj = eval("(" + response + ")");
                 if (obj.isOk) {
+                    storeViewState();
                     p.init(obj.projectData);
                     _data.projectDataOriginal = b.object.clone(obj.projectData);
                     _data.checkList = obj.checkList;
                     initVersionPanel();
                     switchToViewModeSub();
                     ws.cancelSaveVSS();
+                    recoverViewState();
                     showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVED);
                 } else {
                     showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, obj.errMsg);
