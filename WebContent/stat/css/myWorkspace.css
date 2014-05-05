@@ -1,6 +1,7 @@
 body {
     margin:0;
     padding:0;
+    color: #666;
 }
 
 .add-link,.edit-link,.del-link,.test-link {
@@ -10,6 +11,12 @@ body {
 	cursor: pointer;
 	text-decoration: none !important;
 	color: #999 !important;
+}
+.ec-tree .add-link,
+.ec-tree .edit-link,
+.ec-tree .del-link,
+.ec-tree .test-link {
+	margin-top: 2px;
 }
 .add-link:hover,.edit-link:hover,.del-link:hover,.test-link:hover {
 	color: #666 !important;
