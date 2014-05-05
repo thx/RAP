@@ -15,6 +15,7 @@ var scripts = [
     'rap-plugin/jsapis.js',
     'rap-plugin/modes.js',
     'rap-plugin/whiteblack.js',
+    'rap-plugin/for-seajs.js',
 
     'errors/rap-plugin-error.js',
     'errors/bugfix-list.js'

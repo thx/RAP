@@ -21,6 +21,7 @@
         <script src="../stat/qunit/async.js?_r=$!timeStamp"></script>
         
         <script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script> 
+        <script src="http://seajs.org/dist/sea-debug.js"></script>
         <script>
         	jQuery.oldAjax = jQuery.ajax;
         </script>

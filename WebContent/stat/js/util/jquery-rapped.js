@@ -7,5 +7,6 @@ define('jquery', [], function(require) {
   if (window.wrapJQueryForRAP) {
 	  window.wrapJQueryForRAP($);
   }
+  $.providedByRAP = true;
   return $.noConflict(true);
 });
