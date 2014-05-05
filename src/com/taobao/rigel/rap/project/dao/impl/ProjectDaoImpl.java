@@ -12,6 +12,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.ArrayUtils;
+import com.taobao.rigel.rap.common.StringUtils;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Module;
 import com.taobao.rigel.rap.project.bo.ObjectItem;
@@ -28,13 +29,12 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		curPageNum = curPageNum <= 0 ? 1 : curPageNum;
 		String hqlByUser = "from Project as p left join fetch p.userList as u where p.user.id = :userId or u.id = :userId order by p.id desc";
 		Query query = getSession().createQuery(hqlByUser).setLong("userId",
-						user.getId());
+				user.getId());
 		query = query.setFirstResult(pageSize * (curPageNum - 1));
 		query.setMaxResults(pageSize);
 		return query.list();
 	}
 
-	
 	@Override
 	public int addProject(Project project) {
 		Session session = getSession();
@@ -298,6 +298,14 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Action> getMatchedActionList(int projectId, String pattern) {
+		// process /:id/ cases
+//		boolean urlParalized = false;
+//		String patternOrignial = pattern;
+//		if (pattern.contains(":")) {
+//			urlParalized = true;
+//			pattern = pattern.substring(0, pattern.indexOf(":"));
+//		}
+
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT a.id FROM tb_action a ")
 				.append("JOIN tb_action_and_page ap ON ap.action_id = a.id ")
@@ -314,6 +322,27 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		for (int id : list) {
 			actionList.add(getAction(id));
 		}
+
+		// URL parameters filter
+		/**
+		if (urlParalized) {
+			List<Action> filteredActionList = new ArrayList<Action>();
+			for (Action a : actionList) {
+				String u = a.getRequestUrl();
+				if (u.contains("?")) {
+					u = u.substring(0, u.indexOf("?"));
+				}
+				u = StringUtils.removeParamsInUrl(u);
+				patternOrignial = StringUtils
+						.removeParamsInUrl(patternOrignial);
+				if (u != null && patternOrignial != null
+						&& u.equals(patternOrignial)) {
+					filteredActionList.add(a);
+				}
+			}
+			actionList = filteredActionList;
+		}
+		*/
 		return actionList;
 	}
 
@@ -377,7 +406,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		query.setInteger("id", id);
 		return query.list();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Project> search(String key) {

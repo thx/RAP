@@ -154,6 +154,9 @@ public class MockMgrImpl implements MockMgr {
 			pattern = pattern.substring(1);
 		}
 		// System.out.println("pattern processed:" + pattern);
+		if (pattern.isEmpty()) {
+			return "{\"isOk\":false, \"errMsg\":\"pattern is empty. 路径为空，请检查RAP文档中的请求链接是否正确填写。\"}";
+		}
 		List<Action> aList = projectMgr
 				.getMatchedActionList(projectId, pattern);
 		if (aList.size() == 0) {

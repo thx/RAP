@@ -445,5 +445,9 @@ public class StringUtils {
 		}
 		return false;
 	}
+	
+	public static String removeParamsInUrl(String url) {
+		return url.replaceAll("/:[^/]*", "");
+	}
 
 }

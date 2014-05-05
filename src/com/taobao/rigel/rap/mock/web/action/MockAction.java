@@ -113,6 +113,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createData() throws UnsupportedEncodingException {
+		boolean isJSON = false;
 		Logger.mock();
 		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
@@ -127,12 +128,18 @@ public class MockAction extends ActionBase {
 		} else if (_c != null && !_c.isEmpty()) {
 			setContent(_c + "(" + result + ")");
 		} else {
+			isJSON = true;
 			setContent(result);
 		}
-		return SUCCESS;
+		if (isJSON) {
+			return "json";
+		} else {
+			return SUCCESS;
+		}
 	}
 
 	public String createRule() throws UnsupportedEncodingException {
+		boolean isJSON = false;
 		Logger.mock();
 		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
@@ -146,9 +153,14 @@ public class MockAction extends ActionBase {
 		} else if (_c != null && !_c.isEmpty()) {
 			setContent(_c + "(" + result + ")");
 		} else {
+			isJSON = true;
 			setContent(result);
 		}
-		return SUCCESS;
+		if (isJSON) {
+			return "json";
+		} else {
+			return SUCCESS;
+		}
 	}
 
 	public String modify() {
@@ -179,6 +191,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createMockjsData() throws UnsupportedEncodingException {
+		boolean isJSON = false;
 		Logger.mock();
 		String _c = get_c();
 		Map<String, Object> options = new HashMap<String, Object>();
@@ -192,8 +205,15 @@ public class MockAction extends ActionBase {
 		} else if (_c != null && !_c.isEmpty()) {
 			setContent(_c + "(" + result + ")");
 		} else {
+			isJSON = true;
 			setContent(result);
 		}
-		return SUCCESS;
+		
+		if (isJSON) {
+			return "json";
+		} else {
+			return SUCCESS;
+		}
+
 	}
 }
