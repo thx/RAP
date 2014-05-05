@@ -54,58 +54,70 @@
     if (ens) {
         enable = ens[1] == 'true';
     }
+    
+    function wrapJQuery(jQuery) {
+    	if (jQuery._rap_wrapped) {
+    		return;
+    	}
+    	jQuery._rap_wrapped = true;
+    	
+    	var ajax = jQuery.ajax;
+        jQuery.ajax = function() {
+            var oOptions = arguments[0];
+            var url = oOptions.url;
+            if (route(url) && projectId) {
+                rapUrlConverterJQuery(oOptions);
+                var oldSuccess1 = oOptions.success;
+                oldSuccess1 && (oOptions.success = function(data) {
+                    if (PREFIX == '/mockjs/') {
+                        data = Mock.mock(data);
+                        console.log('请求' + url + '返回的Mock数据:');
+                        console.dir(data);
+
+                    }
+                    oldSuccess1.apply(this, arguments);
+                });
+
+                var oldComplete = oOptions.complete;
+                oldComplete && (oOptions.complete = function(data) {
+                    if (PREFIX == '/mockjs/') {
+                        data = Mock.mock(data);
+                        console.log('请求' + url + '返回的Mock数据:');
+                        console.dir(data);
+
+                    }
+                    oldComplete.apply(this, arguments);
+                });
+            } else if(isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
+                var checkerOptions = {url : oOptions.url};
+                rapUrlConverterJQuery(checkerOptions);
+                checkerOptions.RAP_NOT_TRACK = true;
+                checkerOptions.success = checkerHandler;
+                // real data checking
+                var oldSuccess2 = oOptions.success;
+                oOptions.success = function() {
+                    var realData = arguments[0];
+                    checkerOptions.context = {
+                        data : realData,
+                        url : oOptions.url
+                    };
+                    // perform real data check
+                    ajax.apply(jQuery, [checkerOptions]);
+                    oldSuccess2.apply(this,arguments);
+                };
+            }
+            ajax.apply(this, arguments);
+        };
+    }
+    
+    window.wrapJQueryForRAP = wrapJQuery;
+    
     if (enable) {
         /**
          * jQuery override
          */
         if (window.jQuery) {
-            var ajax = jQuery.ajax;
-            jQuery.ajax = function() {
-                var oOptions = arguments[0];
-                var url = oOptions.url;
-                if (route(url) && projectId) {
-                    rapUrlConverterJQuery(oOptions);
-                    var oldSuccess1 = oOptions.success;
-                    oldSuccess1 && (oOptions.success = function(data) {
-                        if (PREFIX == '/mockjs/') {
-                            data = Mock.mock(data);
-                            console.log('请求' + url + '返回的Mock数据:');
-                            console.dir(data);
-
-                        }
-                        oldSuccess1.apply(this, arguments);
-                    });
-
-                    var oldComplete = oOptions.complete;
-                    oldComplete && (oOptions.complete = function(data) {
-                        if (PREFIX == '/mockjs/') {
-                            data = Mock.mock(data);
-                            console.log('请求' + url + '返回的Mock数据:');
-                            console.dir(data);
-
-                        }
-                        oldComplete.apply(this, arguments);
-                    });
-                } else if(isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
-                    var checkerOptions = {url : oOptions.url};
-                    rapUrlConverterJQuery(checkerOptions);
-                    checkerOptions.RAP_NOT_TRACK = true;
-                    checkerOptions.success = checkerHandler;
-                    // real data checking
-                    var oldSuccess2 = oOptions.success;
-                    oOptions.success = function() {
-                        var realData = arguments[0];
-                        checkerOptions.context = {
-                            data : realData,
-                            url : oOptions.url
-                        };
-                        // perform real data check
-                        ajax.apply(jQuery, [checkerOptions]);
-                        oldSuccess2.apply(this,arguments);
-                    };
-                }
-                ajax.apply(this, arguments);
-            };
+        	wrapJQuery(window.jQuery);
         }
 
 
@@ -208,9 +220,15 @@
             }
 
         }
-
     }
-
+    
+    if (window.define && window.define.cmd) {
+    	var data = seajs.data;
+    	data.alias = data.alias || {};
+    	var path = window.location.protocol + '//' + window.location.host + '/stat/js/util/jquery-rapped.js';
+    	data.alias.jquery = data.alias.jQuery = data.alias.jq = data.alias.jQ = data.alias.$ = path;
+    }
+    
     function replace(modules) {
         var splited = modules;
         if (KISSY.isString(modules)) {

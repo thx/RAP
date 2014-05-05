@@ -857,7 +857,7 @@ $(function() {
 	var helpText = '<div>- 不会用RAP？RAP 5分钟介绍视频在 <a href="http://cloud.video.taobao.com//play/u/11051796/p/1/e/1/t/1/11622279.swf" target="_blank">这里</a></div>\
 		<div>- 不会写Mockjs？我们为您准备了 <a href="http://mockjs.com" target="_blank">文档</a> 和 <a href="http://rap.alibaba-inc.com/workspace/myWorkspace.action?projectId=79&mock=true&actionId=828" target="_blank">示例</a></div>\
 		<div>- 遇到RAP的bug了？欢迎到 <a href="https://github.com/thx/RAP/issues/new" target="_blank">这里</a> 提交issue</div>\
-		<div>- 想看看RAP官网文档？请点击 <a href="http://thx.alibaba-inc.com" target="_blank">这里</a></div>\
+		<div>- 想看看RAP官网文档？请点击 <a href="http://thx.alibaba-inc.com/RAP" target="_blank">这里</a></div>\
 		<div>- 其他问题，请直接联系 <a href="mailto:huoyong.msb@taobao.com">@霍雍</a> 或 <a href="mailto:zhifu.wzf@taobao.com">@思竹</a></div>';
 	
 	$(html).appendTo('body');
