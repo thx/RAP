@@ -221,7 +221,7 @@ body {
 }
 
 .myfloater {
-    padding: 12px;
+    padding: 20px;
     width: 600px;
 }
 
@@ -347,7 +347,7 @@ body {
     float: right;
     text-align: center;
     cursor: pointer;
-    border-radius: 2px 2px 0 0;
+    border-radius: 4px 4px 0 0;
 }
 
 #div-mt-list .cur {
@@ -734,4 +734,46 @@ body .container {
 
 #dropdown-workspace-search .dropdown-menu li a {
 	overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+#pluginCodeInput {
+	display: block;
+	width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.table-version {
+	margin: 0 auto;
+}
+
+.myfloater textarea, .myfloater input[type=text], .myfloater input[type=password] {
+	border: 1px solid #DDD;
+	border-radius: 2px;
+	padding: 5px;
+	outline: none;
+}
+.myfloater textarea {
+	margin-top: 2px;
+	resize: none;
+}
+#floaterEditAFloater input[type=text], #floaterEditAFloater input[type=password] {
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+#floaterEditAFloater .radio-list {
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
