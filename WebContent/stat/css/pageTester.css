@@ -222,7 +222,7 @@ input,textarea {
 }
 
 #show-trigger {
-	display: none; position: fixed; bottom: 10px; right: 10px; display: none;
+	display: none; position: fixed; bottom: 90px; right: 10px; display: none;
 }
 #divActionList {
 }
