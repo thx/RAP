@@ -1,6 +1,7 @@
 package com.taobao.rigel.rap.account.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.dao.AccountDao;
@@ -110,6 +111,21 @@ public class AccountMgrImpl implements AccountMgr {
 	@Override
 	public User getUserByName(String name) {
 		return accountDao.getUserByName(name);
+	}
+
+	@Override
+	public Map<String, String> getUserSettings(long userId) {
+		return accountDao.getUserSettings(userId);
+	}
+
+	@Override
+	public String getUserSetting(long userId, String key) {
+		return accountDao.getUserSetting(userId, key);
+	}
+
+	@Override
+	public void updateUserSetting(long userId, String key, String value) {
+		accountDao.updateUserSetting(userId, key, value);
 	}
 
 }

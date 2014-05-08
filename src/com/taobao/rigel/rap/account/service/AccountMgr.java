@@ -1,6 +1,7 @@
 package com.taobao.rigel.rap.account.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.organization.bo.Corporation;
@@ -117,5 +118,33 @@ public interface AccountMgr {
 	 * @return
 	 */
 	User getUserByName(String name);
+	
+	/**
+	 * get all user settings
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	Map<String, String> getUserSettings(long userId);
+
+	/**
+	 * get user setting by key
+	 * 
+	 * @param userId
+	 * @param key
+	 * @return
+	 */
+	String getUserSetting(long userId, String key);
+
+	/**
+	 * update user setting
+	 * if setting not exists, add it.
+	 * 
+	 * @param userId
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	void updateUserSetting(long userId, String key, String value);
 
 }

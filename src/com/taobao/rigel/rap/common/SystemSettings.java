@@ -11,4 +11,17 @@ public class SystemSettings {
 	public static final String STATIC_ROOT = APP_PATH + "stat" + File.separator;
 
 	public static final String projectContext = "";
+	
+	public static String GET_DEFAULT_USER_SETTINGS (String key) {
+		if (key == null || key.isEmpty()) {
+			return null;
+		}
+		
+		if (key.equals("inform")) {
+			return "";
+		}
+		
+		return null;
+		
+	};
 }
