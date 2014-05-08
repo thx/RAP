@@ -1,7 +1,10 @@
 package com.taobao.rigel.rap.account.dao.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
 
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
@@ -10,6 +13,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.dao.AccountDao;
+import com.taobao.rigel.rap.common.SystemSettings;
 
 public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 
@@ -122,6 +126,62 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 			session.update(user);
 		}
 
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Map<String, String> getUserSettings(long userId) {
+		String sql = "SELECT `key`, `value` FROM tb_user_settings WHERE user_id = :userId";
+		Query query = getSession().createSQLQuery(sql);
+		query.setLong("userId", userId);
+		List result = query.list();
+		Map<String, String> settings = new HashMap<String, String>();
+
+		for (ListIterator iter = result.listIterator(); iter.hasNext(); ) {
+			Object[] row = (Object[])iter.next();
+			settings.put(row[0].toString(), row[1].toString());
+		}
+
+		return settings;
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public String getUserSetting(long userId, String key) {
+		String sql = "SELECT `value` FROM tb_user_settings WHERE user_id = :userId AND `key` = :key";
+		Query query = getSession().createSQLQuery(sql);
+		query.setLong("userId", userId);
+		query.setString("key", key);
+		List result = query.list();
+		if (result.size() > 0) {
+			return result.get(0).toString();
+		}
+		
+		return SystemSettings.GET_DEFAULT_USER_SETTINGS(key);
+	}
+
+	@Override
+	public void updateUserSetting(long userId, String key, String value) {
+		if (getUserSetting(userId, key) == null) {
+			addUserSetting(userId, key, value);
+			return;
+		}
+		
+		String sql = "UPDATE tb_user_settings SET `value` = :value WHERE user_id = :userId AND `key` = :key";
+		Query query = getSession().createSQLQuery(sql);
+		query.setString("value", value);
+		query.setLong("userId", userId);
+		query.setString("key", key);
+		query.executeUpdate();
+	}
+	
+	private void addUserSetting(long userId, String key, String value) {
+		String sql = "INSERT INTO tb_user_settings (user_id, `key`, `value`) VALUES (:userId, :key, :value)";
+		Query query = getSession().createSQLQuery(sql);
+		query.setLong("userId", userId);
+		query.setString("key", key);
+		query.setString("value", value);
+		query.executeUpdate();
 	}
 
 }

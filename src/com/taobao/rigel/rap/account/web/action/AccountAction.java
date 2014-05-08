@@ -9,10 +9,10 @@ import javax.mail.internet.AddressException;
 
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.User;
+import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.ContextManager;
 import com.taobao.rigel.rap.common.Logger;
-import com.taobao.rigel.rap.common.MailUtils;
 
 /**
  * account action
@@ -34,15 +34,27 @@ public class AccountAction extends ActionBase {
 	private String BACK_URL;
 
 	public String test() throws AddressException, InterruptedException {
+		AccountMgr mgr = getAccountMgr();
+		mgr.updateUserSetting(1, "test", "123 567");
+		String r1 = mgr.getUserSetting(1, "test");
+		mgr.updateUserSetting(1, "test2", "abc");
+		String r2 = "";
+		Map<String, String> settings = mgr.getUserSettings(1);
+		for (String s : settings.keySet()) {
+			r2 += s + "|" + settings.get(s) + ",";
+		}
+		setJson(r1 + r2);
+		/**
 		String[] list = new String[2];
 		int i = 1; 
 		list[0] = "huoyong.msb@alibaba-inc.com";
 		list[1] = "zhifu.wzf@alibaba-inc.com";
 		for (; i < 2; i++) {
 		MailUtils.sendMessage(list, "RAP通知消息" + (i++),
-				"this is an informing message!中文测试 hahahahaha");
+				"this is an informing message!中文测试 hahahahaha看看发件人？");
 		Thread.sleep(500);
 		}
+		*/
 		return SUCCESS;
 	}
 

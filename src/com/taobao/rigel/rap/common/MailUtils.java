@@ -22,8 +22,8 @@ public class MailUtils {
 
 		// Sender's email ID needs to be mentioned
 		String from = "rap@alibaba-inc.com";
-		final String username = "";
-		final String password = "";
+		final String username = PRIVATE_CONFIG.mailUserName;
+		final String password = PRIVATE_CONFIG.mailPassword;
 
 		// Get system properties
 		Properties props = System.getProperties();
