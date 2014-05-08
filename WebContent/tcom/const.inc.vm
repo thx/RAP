@@ -35,6 +35,7 @@
     "register":"$projectContext/account/register.action",
     "doRegister":"$projectContext/account/doRegister.action",
     "myAccount":"$projectContext/account/myAccount.action",
+    "mySetting":"$projectContext/account/mySetting.action",
     "updateProfile":"$projectContext/account/updateProfile.action",
     "doUpdateProfile":"$projectContext/account/doUpdateProfile.action",
     "doChangeProfile":"$projectContext/account/doChangeProfile.action",

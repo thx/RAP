@@ -110,6 +110,7 @@ label {
 	position: absolute;
 	right: 0;
 }
+
 .div-p-control {
 	padding-left: 2px;
 }
@@ -200,14 +201,14 @@ div#tipDiv {
 	src: url('http://at.alicdn.com/t/font_1390195988_9420388.eot');
 	/* IE9*/
 	src: url('http://at.alicdn.com/t/font_1390195988_9420388.eot?#iefix')
-		format('embedded-opentype'), /* IE6-IE8 */ 
-     url('http://at.alicdn.com/t/font_1390195989_0386753.woff')
-		format('woff'), /* chrome、firefox */ 
-     url('http://at.alicdn.com/t/font_1390195988_7969282.ttf')
+		format('embedded-opentype'), /* IE6-IE8 */  
+      url('http://at.alicdn.com/t/font_1390195989_0386753.woff')
+		format('woff'), /* chrome、firefox */  
+      url('http://at.alicdn.com/t/font_1390195988_7969282.ttf')
 		format('truetype'),
-		/* chrome、firefox、opera、Safari, Android, iOS 4.2+*/ 
+		/* chrome、firefox、opera、Safari, Android, iOS 4.2+*/  
     
-		url('http://at.alicdn.com/t/font_1390195989_0668917.svg#svgFontName')
+		 url('http://at.alicdn.com/t/font_1390195989_0668917.svg#svgFontName')
 		format('svg'); /* iOS 4.1- */
 }
 
@@ -341,21 +342,90 @@ div#tipDiv {
 	bottom: 0;
 	cursor: pointer;
 }
+
 .helper-tip.anim {
 	-webkit-transition: all .5s;
 	transition: all .5s;
 }
+
 .helper-tip.part {
 	right: -23px;
 	bottom: -33px;
 }
-.helper-tip:hover, .helper-tip.part:hover {
+
+.helper-tip:hover,.helper-tip.part:hover {
 	right: 0;
 	bottom: 0;
 }
+
 .helper-tip .mask {
 	display: none;
 }
+
 .helper-tip:hover .mask {
 	display: block;
+}
+
+.messages-trigger .label {
+	display: none;
+	border-radius: 10px;
+	position: absolute;
+	top: 9px;
+	right: 2px;
+	padding: 2px;
+	width: 18px;
+}
+
+.messages-container .msgs {
+}
+
+.messages-container .close {
+	margin-right: 2px;
+	outline: none;
+	margin-top: -2px;
+}
+
+.messages-dropdown {
+	min-width: 360px;
+	padding-bottom: 60px;
+}
+
+.messages-container ul {
+	list-style: none;
+}
+
+.messages-container ul li {
+	padding: 10px;
+	cursor: pointer;
+	border-bottom: 1px solid #EEE;
+}
+
+.messages-container ul li:last-child {
+	border-bottom: none;
+}
+
+.messages-container ul li:hover {
+	background-color: #FAFAFA;
+}
+
+.messages-container .btns {
+	border-top: 1px solid #CCC;
+	margin-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 8px;
+	text-align: center;
+	background-color: #F2F2F2;
+position: absolute;
+width: 100%;
+bottom: 0;
+border-radius: 0 0 4px 4px;
+}
+
+.messages-container .btns .btn {
+	padding-left: 25px;
+	padding-right: 25px;
+	outline: none;
+}
+.messages-container .btns .close-btn, .messages-container .btns .clear-btn {
+	margin-left: 10px;
 }

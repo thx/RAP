@@ -3,13 +3,14 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
 		<title>Manage Account        </title>
 		#includeNewRapStatic
         <style type="text/css">
             #if ($isEditMode)
             \#table {width:530px;}
             #else
-            \#table {width:430px;}
+            \#table {width:560px;}
             #end
         </style>
 	</head>
@@ -18,7 +19,7 @@
         #if($isEditMode)
         <form name="formUpdateProfile" action="$accountUrl.doUpdateProfile" method="post" onsubmit="return formOnSubmit(this);">
         #end
-            <table id="table" class="table" cellpadding="4px">
+            <table id="table" class="table" cellpadding="4px" style="margin: 0 auto; margin-top: 30px;">
                 <tr>
                     <td>用户名:</td>
                     <td>$!curUser.account</td>
@@ -71,19 +72,19 @@
                     <td>上次登录:</td>
                     <td>$!curUser.lastLoginDateStr</td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td></td>
                     <td>
-                    	<!--
+                    	
                         #if($isEditMode)
                         <input type="submit" value="更新资料" class="btn btn-primary" />
                         <input type="button" value="取消" class="btn" onclick="window.location.href='$accountUrl.myAccount'" />
                         #else
                         <input type="button" value="修改资料" class="btn" onclick="window.location.href='$accountUrl.updateProfile'" />
                         #end
-                        -->
+                        
                     </td>
-                </tr>
+                </tr>-->
                 <tr>
                     <td></td>
                     <td>
