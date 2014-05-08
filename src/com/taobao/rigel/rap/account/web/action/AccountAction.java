@@ -5,11 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.internet.AddressException;
+
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.ContextManager;
 import com.taobao.rigel.rap.common.Logger;
+import com.taobao.rigel.rap.common.MailUtils;
 
 /**
  * account action
@@ -29,6 +32,19 @@ public class AccountAction extends ActionBase {
 	private String email;
 	private String SSO_TOKEN;
 	private String BACK_URL;
+
+	public String test() throws AddressException, InterruptedException {
+		String[] list = new String[2];
+		int i = 1; 
+		list[0] = "huoyong.msb@alibaba-inc.com";
+		list[1] = "zhifu.wzf@alibaba-inc.com";
+		for (; i < 2; i++) {
+		MailUtils.sendMessage(list, "RAP通知消息" + (i++),
+				"this is an informing message!中文测试 hahahahaha");
+		Thread.sleep(500);
+		}
+		return SUCCESS;
+	}
 
 	public String getSSO_TOKEN() {
 		return SSO_TOKEN;
@@ -236,7 +252,7 @@ public class AccountAction extends ActionBase {
 	public String sendBucSSOToken() {
 		return SUCCESS;
 	}
-	
+
 	public String logData() {
 		Map<String, Object> obj = new HashMap<String, Object>();
 		obj.put("online", this.getCountOfOnlineUserList());
