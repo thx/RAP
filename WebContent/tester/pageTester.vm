@@ -52,7 +52,7 @@
                     </div>
                     #end
                     </div>
-                    <div class="p8">
+                    <div class="p8 tools">
                         <input type="button" class="btn btn-primary btn-run" value="生成模拟数据"/>
                         <input type="button" class="btn btn-primary btn-run-mockjsrule" style="margin-left:5px;" value="获取Mockjs规则"/>
                         <input type="button" class="btn btn-primary btn-run-real" style="margin-left:5px;" value="真实接口边界条件测试"/>

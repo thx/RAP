@@ -440,8 +440,7 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
     
     $('.btn-run-real').on('click', function(e) {
     	$(this).toggleClass('active');
-    	
-		$('.real-options').toggle();
+		$(this).parents('.tools').find('.real-options').toggle();
 	});
     
     $('.btn-run-do-real').on('click', function(e) {
