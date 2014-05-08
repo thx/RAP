@@ -913,3 +913,52 @@ $(function() {
 	}
 	
 });
+
+
+$(function() {
+	var con = $('.messages-container');
+	if (con.length == 0) {
+		return;
+	}
+	
+	var btns = '<input type="button" class="btn btn-primary set-btn" value="设置"/>\
+		<input type="button" class="btn btn-warning clear-btn" value="清空"/>\
+		<input type="button" class="btn btn-default close-btn" value="关闭"/>';
+	var tmpl = '<ul class="list-unstyled">\
+			{{#items}}<li>{{{desc}}}<button class="close">&times;</button></li>{{/items}}\
+		</ul>'
+	con.find('.msgs').html($.render(tmpl, {
+		items: [
+		    {desc: 'fdafdasfdafda', id: 1},
+		    {desc: 'fdafdasfdafda', id: 2},
+		    {desc: 'fdafdasfdafda', id: 3},
+		    {desc: 'fdafdasfdafda', id: 4}
+		]
+	}))
+	con.find('.btns').html(btns);
+	con.find('.close-btn').click(function() {
+		$(this).parents('li').toggleClass('open');
+	})
+	con.find('.set-btn').click(function() {
+		window.location.href = '/account/mySetting.action';
+	})
+	con.find('.clear-btn').click(function() {
+		$.confirm({
+			content: '确定要清空所有的提醒消息么？',
+            title: '清空提醒消息',
+            confirmText: '确定',
+            cancelCallback: function() {
+            },
+            confirmClicked: function() {
+            	var modal = $(this);
+            	modal.modal('hide');
+            }
+		})
+	})
+	$('.messages-trigger').click(function(e) {
+		e.preventDefault();
+		$(this).parents('li').toggleClass('open');
+	})
+	
+	$('.messages-trigger .label').show();
+})

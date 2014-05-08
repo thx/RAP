@@ -38,6 +38,11 @@
 			<result name="success" type="velocity">/account/myAccount.vm</result>
 			<result name="error" type="velocity">/account/login.vm</result>
 		</action>
+		<action name="mySetting"
+			class="com.taobao.rigel.rap.account.web.action.AccountAction" method="mySetting">
+			<result name="success" type="velocity">/account/mySetting.vm</result>
+			<result name="error" type="velocity">/account/login.vm</result>
+		</action>
 
 		<!-- <action name="updateProfile" class="com.taobao.rigel.rap.account.web.action.AccountAction" 
 			method="updateProfile"> <result name="success" type="velocity">/account/myAccount.vm</result> 

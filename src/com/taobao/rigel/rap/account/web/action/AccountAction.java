@@ -207,6 +207,15 @@ public class AccountAction extends ActionBase {
 		}
 		return SUCCESS;
 	}
+	
+	public String mySetting() {
+		if (!isUserLogined()) {
+			plsLogin();
+			setRelativeReturnUrl("/account/mySetting.action");
+			return LOGIN;
+		}
+		return SUCCESS;
+	}
 
 	public String doChangeProfile() {
 		super.getAccountMgr().changeProfile(
