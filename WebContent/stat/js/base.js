@@ -956,24 +956,19 @@ $(function() {
 		return '"' + name + '"';
 	}
 	
+	var chMapper = {
+		project: '项目',
+		action: '接口'
+	}
 	data.changelogs.forEach(function(log) {
 		var type = log.type, operate = log.operate;
-		if (type == 'project') {
-			if (operate == 'create') {
-				log.desc = create() + href(log.operator, log.operatorId) + ' 竟然不经过我的同意就擅自在RAP系统里创建了一个自己都不知道名字的项目 ' + wrap(log.to) + '';
-			} else if (operate == 'delete') {
-				log.desc = del() + href(log.operator, log.operatorId) + ' 删除了项目 ' + wrap(log.from) + '';
-			} else if (operate == 'modify') {
-				log.desc = update() + href(log.operator, log.operatorId) + ' 将项目 ' + wrap(log.from) + ' 的名称修改为 ' + wrap(log.to) + '';
-			}
-		} else if (type == 'action') {
-			if (operate == 'create') {
-				log.desc = create() + href(log.operator, log.operatorId) + ' 创建了接口 ' + wrap(log.to) + '';
-			} else if (operate == 'delete') {
-				log.desc = del() + href(log.operator, log.operatorId) + ' 删除了接口 ' + wrap(log.from) + '';
-			} else if (operate == 'modify') {
-				log.desc = update() + href(log.operator, log.operatorId) + ' 将接口 ' + wrap(log.from) + ' 的名称修改为 ' + wrap(log.to) + '';
-			}
+		var cnName = chMapper[type] || '实体';
+		if (operate == 'create') {
+			log.desc = create() + href(log.operator, log.operatorId) + ' 创建了' + cnName + ' ' + wrap(log.to) + '';
+		} else if (operate == 'delete') {
+			log.desc = del() + href(log.operator, log.operatorId) + ' 删除了' + cnName + ' ' + wrap(log.from) + '';
+		} else if (operate == 'modify') {
+			log.desc = update() + href(log.operator, log.operatorId) + ' 将' + cnName + ' ' + wrap(log.from) + ' 的名称修改为 ' + wrap(log.to) + '';
 		}
 	});
 	con.find('.msgs').html($.render(tmpl, data))
