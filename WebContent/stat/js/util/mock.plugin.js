@@ -225,14 +225,7 @@
     if (window.define && window.define.cmd) {
     	var data = seajs.config().data;
     	data.alias = data.alias || {};
-    	var path;
-    	var protocol = window.location.protocol;
-    	if (protocol.indexOf('http') == 0) {
-    		path = protocol + '//' + window.location.host + '/stat/js/util/jquery-rapped.js';
-    	} else {
-    		path = 'http://' + ROOT + '/stat/js/util/jquery-rapped.js';
-    	}
-    	
+    	var path = 'http://' + ROOT + '/stat/js/util/jquery-rapped.js';
     	data.alias.jquery = data.alias.jQuery = data.alias.jq = data.alias.jQ = data.alias.$ = path;
     }
     
