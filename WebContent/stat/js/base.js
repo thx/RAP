@@ -925,16 +925,53 @@ $(function() {
 		<input type="button" class="btn btn-warning clear-btn" value="清空"/>\
 		<input type="button" class="btn btn-default close-btn" value="关闭"/>';
 	var tmpl = '<ul class="list-unstyled">\
-			{{#items}}<li>{{{desc}}}<button class="close">&times;</button></li>{{/items}}\
-		</ul>'
-	con.find('.msgs').html($.render(tmpl, {
-		items: [
-		    {desc: 'fdafdasfdafda', id: 1},
-		    {desc: 'fdafdasfdafda', id: 2},
-		    {desc: 'fdafdasfdafda', id: 3},
-		    {desc: 'fdafdasfdafda', id: 4}
+			{{#changelogs}}<li>{{{desc}}}<button class="close" data-id="{{id}}">&times;</button></li>{{/changelogs}}\
+		</ul>';
+	var label = $('.messages-trigger .label');
+	var data = {
+		changelogs: [
+		    {id: 1, type: 'project', operate: 'modify', id: '123', field: '名称', from: '项目A', to: '项目B', operatorId: 21, operator: '思竹', date: '2014-3-21', detail: 11},
+		    {id: 1, type: 'project', operate: 'delete', id: '123', field: '', from: '测试项目', to: '', operatorId: 21, operator: '思竹', date: '2014-3-21', detail: 11},
+		    {id: 2, type: 'action', operate: 'modify', id: '1223', field: '名称', from: '请求A', to: '请求A+', operatorId: 21, operator: '思竹', date: '2014-3-21', detail: 22},
+		    {id: 3, type: 'action', operate: 'delete', id: '1223', field: '', from: '请求A', to: '', operatorId: 21, operator: '思竹', date: '2014-3-21', detail: 33},
+		    {id: 4, type: 'project', operate: 'create', id: '1234', field: '', from: '', to: '项目BBB', operatorId: 21, operator: '思竹', date: '2014-3-21', detail: 44},
+			{id: 4, type: 'action', operate: 'create', id: '1234', field: '', from: '', to: '请求CCC', operatorId: 21, operator: '思竹', date: '2014-3-21', detail: 44},
 		]
-	}))
+	}
+	
+	function href(text, link) {
+		return '<a href="' + link + '" target="_blank">' + text + '</a>';
+	}
+	function create() {
+		return '<span class="label label-success">增</span> ';
+	}
+	function del() {
+		return '<span class="label label-danger">删</span> ';
+	}
+	function update() {
+		return '<span class="label label-info">改</span> ';
+	}
+	
+	function wrap(name) {
+		return '"' + name + '"';
+	}
+	
+	var chMapper = {
+		project: '项目',
+		action: '接口'
+	}
+	data.changelogs.forEach(function(log) {
+		var type = log.type, operate = log.operate;
+		var cnName = chMapper[type] || '实体';
+		if (operate == 'create') {
+			log.desc = create() + href(log.operator, log.operatorId) + ' 创建了' + cnName + ' ' + wrap(log.to) + '';
+		} else if (operate == 'delete') {
+			log.desc = del() + href(log.operator, log.operatorId) + ' 删除了' + cnName + ' ' + wrap(log.from) + '';
+		} else if (operate == 'modify') {
+			log.desc = update() + href(log.operator, log.operatorId) + ' 将' + cnName + ' ' + wrap(log.from) + ' 的名称修改为 ' + wrap(log.to) + '';
+		}
+	});
+	con.find('.msgs').html($.render(tmpl, data))
 	con.find('.btns').html(btns);
 	con.find('.close-btn').click(function() {
 		$(this).parents('li').toggleClass('open');
@@ -942,6 +979,20 @@ $(function() {
 	con.find('.set-btn').click(function() {
 		window.location.href = '/account/mySetting.action';
 	})
+	
+	function reset() {
+		con.find('.msgs').html('<div style="text-align: center; padding: 10px; font-size: 18px; color: #DEDEDE;">没有消息提醒</div>');
+    	con.parents('li').toggleClass('open');
+    	label.hide();
+	}
+	con.delegate('button.close', 'click', function(e) {
+		$(this).parent().remove();
+		label.text(label.text() - 1);
+		if (label.text() == '0') {
+			reset();
+		}
+	});
+	
 	con.find('.clear-btn').click(function() {
 		$.confirm({
 			content: '确定要清空所有的提醒消息么？',
@@ -952,6 +1003,7 @@ $(function() {
             confirmClicked: function() {
             	var modal = $(this);
             	modal.modal('hide');
+            	reset();
             }
 		})
 	})
@@ -960,5 +1012,5 @@ $(function() {
 		$(this).parents('li').toggleClass('open');
 	})
 	
-	$('.messages-trigger .label').show();
+	label.text(data.changelogs.length).show();
 })

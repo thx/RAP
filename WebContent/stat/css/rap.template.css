@@ -377,12 +377,15 @@ div#tipDiv {
 }
 
 .messages-container .msgs {
+	max-height: 360px;
+	overflow-y: auto;
 }
 
 .messages-container .close {
-	margin-right: 2px;
+	position: absolute;
+	right: 5px;
+	top: 6px;
 	outline: none;
-	margin-top: -2px;
 }
 
 .messages-dropdown {
@@ -395,9 +398,11 @@ div#tipDiv {
 }
 
 .messages-container ul li {
-	padding: 10px;
+	padding: 10px 20px 10px;
 	cursor: pointer;
 	border-bottom: 1px solid #EEE;
+	font-size: 12px;
+	position: relative;
 }
 
 .messages-container ul li:last-child {
@@ -428,4 +433,8 @@ border-radius: 0 0 4px 4px;
 }
 .messages-container .btns .close-btn, .messages-container .btns .clear-btn {
 	margin-left: 10px;
+}
+
+.label {
+	padding: .2em .3em .2em;
 }
