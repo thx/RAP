@@ -9,8 +9,11 @@ import java.util.Map;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.transform.AliasToEntityMapResultTransformer;
+import org.hibernate.transform.Transformers;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.dao.AccountDao;
 import com.taobao.rigel.rap.common.SystemSettings;
@@ -182,6 +185,42 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 		query.setString("key", key);
 		query.setString("value", value);
 		query.executeUpdate();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Notification> getNotificationList(long userId) {
+		String sql = "SELECT * FROM tb_notification WHERE user_id = :userId";
+		Query query = getSession().createSQLQuery(sql);
+		query.setLong("userId", userId);
+		query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+		
+		List result = query.list();
+		return Notification.loadList(result);
+	}
+
+	@Override
+	public void clearNotificationList(long userId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addNotification(Notification notification) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void readNotification(long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void readNotificationList(long userId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

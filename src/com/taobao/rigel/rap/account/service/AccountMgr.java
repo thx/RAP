@@ -3,6 +3,7 @@ package com.taobao.rigel.rap.account.service;
 import java.util.List;
 import java.util.Map;
 
+import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 
@@ -146,5 +147,42 @@ public interface AccountMgr {
 	 * @return
 	 */
 	void updateUserSetting(long userId, String key, String value);
+	
+	/**
+	 * get notifications
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	List<Notification> getNotificationList(long userId);
+
+	/**
+	 * remove user's notifications
+	 * 
+	 * @param userId
+	 */
+	void clearNotificationList(long userId);
+
+	/**
+	 * add new notification
+	 * 
+	 * @param notification
+	 */
+	void addNotification(Notification notification);
+
+	/**
+	 * read notification
+	 * 
+	 * @param id
+	 */
+	void readNotification(long id);
+
+	/**
+	 * read all notifications of specific user
+	 * 
+	 * @param userId
+	 */
+	void readNotificationList(long userId);
+
 
 }

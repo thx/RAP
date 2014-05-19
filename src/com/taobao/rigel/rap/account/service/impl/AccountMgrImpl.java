@@ -3,6 +3,7 @@ package com.taobao.rigel.rap.account.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.dao.AccountDao;
 import com.taobao.rigel.rap.account.service.AccountMgr;
@@ -126,6 +127,31 @@ public class AccountMgrImpl implements AccountMgr {
 	@Override
 	public void updateUserSetting(long userId, String key, String value) {
 		accountDao.updateUserSetting(userId, key, value);
+	}
+
+	@Override
+	public List<Notification> getNotificationList(long userId) {
+		return accountDao.getNotificationList(userId);
+	}
+
+	@Override
+	public void clearNotificationList(long userId) {
+		accountDao.clearNotificationList(userId);
+	}
+
+	@Override
+	public void addNotification(Notification notification) {
+		accountDao.addNotification(notification);
+	}
+
+	@Override
+	public void readNotification(long id) {
+		accountDao.readNotification(id);
+	}
+
+	@Override
+	public void readNotificationList(long userId) {
+		accountDao.readNotificationList(userId);
 	}
 
 }

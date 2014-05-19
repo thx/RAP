@@ -53,6 +53,7 @@ public class AuthCheckFilter implements Filter {
 			SimpleSSOUser user = SimpleUserUtil
 					.findUser((HttpServletRequest) request);
 			if (user != null) {
+				SystemConstant.user = user;
 				String emailPrefix = user.getEmailPrefix();
 				User rapUser = accountMgr.getUser(emailPrefix);
 				if (rapUser == null) {

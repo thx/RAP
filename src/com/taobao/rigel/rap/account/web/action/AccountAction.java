@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.mail.internet.AddressException;
 
 import com.google.gson.Gson;
+import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.ActionBase;
@@ -35,15 +36,20 @@ public class AccountAction extends ActionBase {
 
 	public String test() throws AddressException, InterruptedException {
 		AccountMgr mgr = getAccountMgr();
-		mgr.updateUserSetting(1, "test", "123 567");
-		String r1 = mgr.getUserSetting(1, "test");
-		mgr.updateUserSetting(1, "test2", "abc");
-		String r2 = "";
-		Map<String, String> settings = mgr.getUserSettings(1);
-		for (String s : settings.keySet()) {
-			r2 += s + "|" + settings.get(s) + ",";
-		}
-		setJson(r1 + r2);
+		
+		
+		
+//		List<Notification> list = mgr.getNotificationList(getCurUserId());
+//		setJson(list.toString());
+//		mgr.updateUserSetting(1, "test", "123 567");
+//		String r1 = mgr.getUserSetting(1, "test");
+//		mgr.updateUserSetting(1, "test2", "abc");
+//		String r2 = "";
+//		Map<String, String> settings = mgr.getUserSettings(1);
+//		for (String s : settings.keySet()) {
+//			r2 += s + "|" + settings.get(s) + ",";
+//		}
+//		setJson(r1 + r2);
 		/**
 		String[] list = new String[2];
 		int i = 1; 
@@ -57,7 +63,7 @@ public class AccountAction extends ActionBase {
 		*/
 		return SUCCESS;
 	}
-
+	
 	public String getSSO_TOKEN() {
 		return SSO_TOKEN;
 	}

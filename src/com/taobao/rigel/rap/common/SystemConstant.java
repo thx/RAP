@@ -1,5 +1,7 @@
 package com.taobao.rigel.rap.common;
 
+import com.alibaba.platform.buc.sso.common.dto.SimpleSSOUser;
+
 
 
 public class SystemConstant {
@@ -12,6 +14,8 @@ public class SystemConstant {
 	public static String getDOMAIN_URL() {
 		return DOMAIN_URL;
 	}
+	
+	public static SimpleSSOUser user = null;
 	
 	
 

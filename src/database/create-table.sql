@@ -14,7 +14,7 @@ CREATE TABLE tb_user
 		PRIMARY KEY,
 	account varchar(32) NOT NULL,
 	password varchar(128) NOT NULL,
-	name varchar(16) NOT NULL,
+	name varchar(256) NOT NULL,
 	email varchar(256) NOT NULL,
 	create_date timestamp NOT NULL
 		DEFAULT now(),
@@ -24,7 +24,9 @@ CREATE TABLE tb_user
 		DEFAULT 1,
 	last_login_date datetime NOT NULL,
 	incorrect_login_attempt int(10) NOT NULL COMMENT 'count of incorrect login attempts, will be set to 0 after any succesful login'
-		DEFAULT 0
+		DEFAULT 0,
+	realname varchar(128) NOT NULL
+	DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /** 
@@ -105,6 +107,7 @@ CREATE TABLE tb_project
 	stage int(10) NOT NULL
 		DEFAULT 1,
 	project_data longtext NULL,
+	group_id int(10) NULL,
 	related_ids varchar(128) NOT NULL
 	DEFAULT '',
 
@@ -319,4 +322,70 @@ CREATE TABLE tb_user_settings
 	PRIMARY KEY(user_id, `key`),
 	FOREIGN KEY(user_id) REFERENCES tb_user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE tb_notification
+(
+	id int(10) AUTO_INCREMENT NOT NULL
+		PRIMARY KEY,
+	user_id int(10) NOT NULL,
+	type_id smallint NOT NULL,
+	param1 varchar(128) NULL,
+	param2 varchar(128) NULL,
+	param3 text NULL,
+	create_time timestamp NOT NULL
+		DEFAULT now(),
+		
+	is_read smallint NOT NULL
+		DEFAULT 0,
+	
+	FOREIGN KEY(user_id) REFERENCES tb_user(id)
+)
+
+CREATE TABLE tb_corporation
+(
+	id int(10) AUTO_INCREMENT NOT NULL
+		PRIMARY KEY,
+	name varchar(256) NOT NULL,
+	logo_url varchar(256) NOT NULL,
+	user_id int(10) NOT NULL,
+	
+	FOREIGN KEY(user_id) REFERENCES tb_user(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE tb_production_line
+(
+	id int(10) AUTO_INCREMENT NOT NULL
+		PRIMARY KEY,
+	name varchar(256) NOT NULL,
+	project_num int(10) NOT NULL
+		DEFAULT 0,
+	corporation_id int(10) NOT NULL,	
+	user_id int(10) NOT NULL,
+	
+	FOREIGN KEY(user_id) REFERENCES tb_user(id),	
+	FOREIGN KEY(corporation_id) REFERENCES tb_corporation(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE tb_group
+(
+	id int(10) AUTO_INCREMENT NOT NULL
+		PRIMARY KEY,
+	name varchar(256) NOT NULL,
+	production_line_id int(10) NOT NULL,
+	user_id int(10) NOT NULL,
+	
+	FOREIGN KEY(user_id) REFERENCES tb_user(id),
+	FOREIGN KEY(production_line_id) REFERENCES tb_production_line(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+ALTER TABLE tb_user
+ADD COLUMN realname varchar(128) NOT NULL
+	DEFAULT '';
+
+ALTER TABLE tb_project
+ADD COLUMN update_time timestamp NOT NULL
+		DEFAULT now();
 
