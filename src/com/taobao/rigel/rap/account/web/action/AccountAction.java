@@ -39,17 +39,17 @@ public class AccountAction extends ActionBase {
 		
 		
 		
-//		List<Notification> list = mgr.getNotificationList(getCurUserId());
-//		setJson(list.toString());
-//		mgr.updateUserSetting(1, "test", "123 567");
-//		String r1 = mgr.getUserSetting(1, "test");
-//		mgr.updateUserSetting(1, "test2", "abc");
-//		String r2 = "";
-//		Map<String, String> settings = mgr.getUserSettings(1);
-//		for (String s : settings.keySet()) {
-//			r2 += s + "|" + settings.get(s) + ",";
-//		}
-//		setJson(r1 + r2);
+		List<Notification> list = mgr.getNotificationList(getCurUserId());
+		setJson(list.toString());
+		mgr.updateUserSetting(1, "test", "123 567");
+		String r1 = mgr.getUserSetting(1, "test");
+		mgr.updateUserSetting(1, "test2", "abc");
+		String r2 = "";
+		Map<String, String> settings = mgr.getUserSettings(1);
+		for (String s : settings.keySet()) {
+			r2 += s + "|" + settings.get(s) + ",";
+		}
+		setJson(r1 + r2);
 		/**
 		String[] list = new String[2];
 		int i = 1; 

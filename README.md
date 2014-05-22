@@ -1,10 +1,10 @@
 Rigel Automation Platform
 ===
 
-    @version v0.8.1
-    @author  Bosn(霍雍), wangjeaf(思竹)
-    @weibo   http://weibo.com/bosn, http://github.com/wangjeaf
-    @mail    bosn@outlook.com, wangjeaf@gmail.com
+    @version     v0.8.1
+    @author      RAP: [Bosn(霍雍)](http://weibo.com/bosn), [wangjeaf(思竹)](http://github.com/wangjeaf)
+    @dependency  [MockJS](http://mockjs.com): 墨智, IF-TESTS: 蒋壮
+    @mail        bosn@outlook.com, wangjeaf@gmail.com
 
 什么是RAP?
 --------------------------------------

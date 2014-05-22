@@ -9,7 +9,6 @@ import java.util.Map;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.transform.AliasToEntityMapResultTransformer;
 import org.hibernate.transform.Transformers;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -187,7 +186,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 		query.executeUpdate();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List<Notification> getNotificationList(long userId) {
 		String sql = "SELECT * FROM tb_notification WHERE user_id = :userId";

@@ -49,20 +49,22 @@
       #if ($curUser)
       <div class="pull-right">
           <ul class="nav navbar-nav">
-          	  <li>
+          <!--
+              <li>
                 <a href="#" class="dropdown-toggle messages-trigger">消息<span class="label label-success">4</span></a>
                 <ul class="dropdown-menu dropdown-menu-right messages-dropdown">
                     <li>
-                    	<div class="messages-container">
-                    		<div class="msgs"></div>
-                    		<div class="btns">
-                    			
-                    		</div>
-                    	</div>
+                        <div class="messages-container">
+                            <div class="msgs"></div>
+                            <div class="btns">
+
+                            </div>
+                        </div>
                     </li>
                 </ul>
               </li>
               <li>
+          -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">$curUser.name <b class="caret"></b></a>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li><a href="$newUrl.home">我的主页</a></li>

@@ -3,11 +3,14 @@ package com.taobao.rigel.rap.project.bo;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.common.StringUtils;
 
 public class Action implements java.io.Serializable {
@@ -261,6 +264,21 @@ public class Action implements java.io.Serializable {
 			url = url.substring(url.indexOf("/", 8));
 		}
 		return url;
+	}
+	
+	public static List<Action> loadList(List<Map<String, Object>> result) {
+		List<Action> list = new ArrayList<Action>();
+		for (Map<String, Object> row : result) {
+			Action obj = new Action();
+			obj.setDescription((String)row.get("description"));
+			obj.setId((Integer)row.get("id"));
+			obj.setName((String)row.get("name"));
+			obj.setRemarks((String)row.get("remarks"));
+			obj.setRequestType((String)row.get("request_type"));
+			obj.setRequestUrl((String)row.get("request_url"));
+			list.add(obj);
+		}
+		return list;
 	}
 
 }

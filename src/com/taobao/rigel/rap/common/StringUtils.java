@@ -5,6 +5,8 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 为FE提供各类过滤字符串的接口
@@ -445,9 +447,28 @@ public class StringUtils {
 		}
 		return false;
 	}
-	
+
 	public static String removeParamsInUrl(String url) {
 		return url.replaceAll("/:[^/]*", "");
+	}
+	
+	public static String removeRealParamsInUrl(String url) {
+		return url.replaceAll("/[0-9]*/", "/");
+	}
+
+	/**
+	 * regular expression matcher helper
+	 * 
+	 * @param pattern
+	 *            regular expression
+	 * @param str
+	 *            string to be matched
+	 * @return
+	 */
+	public static boolean regMatch(String pattern, String str) {
+		Pattern p = Pattern.compile(pattern);
+		Matcher matcher = p.matcher(str);
+		return matcher.matches();
 	}
 
 }
