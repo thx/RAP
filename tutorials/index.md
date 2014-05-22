@@ -240,7 +240,7 @@ reg:www.example/biz[0-9]{4}/query
 
 这里MOCK服务会根据正则来匹配正确的接口。
 
-具体例子请参见项目：[RESTful API支持](http://rap.alibaba-inc.com/workspace/myWorkspace.action?projectId=265)
+具体例子请参见项目：[RESTful API支持](http://rap.alibaba-inc.com/workspace/myWorkspace.action?projectId=265&mock=true)
 
 
 
