@@ -110,6 +110,8 @@ CREATE TABLE tb_project
 	group_id int(10) NULL,
 	related_ids varchar(128) NOT NULL
 	DEFAULT '',
+	update_time timestamp NOT NULL
+		DEFAULT now(),
 
 	FOREIGN KEY(user_id) REFERENCES tb_user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -339,7 +341,7 @@ CREATE TABLE tb_notification
 		DEFAULT 0,
 	
 	FOREIGN KEY(user_id) REFERENCES tb_user(id)
-)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE tb_corporation
 (
@@ -378,14 +380,3 @@ CREATE TABLE tb_group
 	FOREIGN KEY(user_id) REFERENCES tb_user(id),
 	FOREIGN KEY(production_line_id) REFERENCES tb_production_line(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-ALTER TABLE tb_user
-ADD COLUMN realname varchar(128) NOT NULL
-	DEFAULT '';
-
-ALTER TABLE tb_project
-ADD COLUMN update_time timestamp NOT NULL
-		DEFAULT now();
-
