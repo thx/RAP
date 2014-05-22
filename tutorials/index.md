@@ -230,12 +230,15 @@ http://www.taobao.com/getREST?{path}=delete
 ```bash
 www.example/data/:id/query
 ```
+这里:id会匹配任意的`数字`
 
 对于复杂的情况，如：www.example.com/biz1432/query 可以使用正则写法：
 
 ```bash
 reg:www.example/biz[0-9]{4}/query
 ```
+
+这里MOCK服务会根据正则来匹配正确的接口。
 
 具体例子请参见项目：[RESTful API支持](http://rap.alibaba-inc.com/workspace/myWorkspace.action?projectId=267)
 
