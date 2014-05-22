@@ -223,7 +223,21 @@ http://www.taobao.com/getREST?{path}=delete
 需要在接口描述的开头增加一条指令：@type=array_map;@length=1
 表示返回的最外层结构是数组，长度是1。
 
+### RESTful API的支持
 
+一些常见的RESTful API，如：www.example.com/data/100/query 请在RAP的请求链接中填写：
+
+```bash
+www.example/data/:id/query
+```
+
+对于复杂的情况，如：www.example.com/biz1432/query 可以使用正则写法：
+
+```bash
+reg:www.example/biz[0-9]{4}/query
+```
+
+具体例子请参见项目：[RESTful API支持](http://rap.alibaba-inc.com/workspace/myWorkspace.action?projectId=267)
 
 
 
