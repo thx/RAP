@@ -3,7 +3,11 @@
     var node = null;
     var blackList = [];
     var whiteList = [#foreach($url in $urlList)#if($velocityCount>1),#end"$url"#end];
+
+
     var ROOT = 'rap.alibaba-inc.com';
+    // [DEBUG]
+    ROOT = 'etaoux-bj.taobao.ali.com:8080';
     var LOST = "LOST";
     var PREFIX = "/mockjs/";
     var EMPTY_ARRAY = "EMPTY_ARRAY";
@@ -54,14 +58,14 @@
     if (ens) {
         enable = ens[1] == 'true';
     }
-    
+
     function wrapJQuery(jQuery) {
-    	if (jQuery._rap_wrapped) {
-    		return;
-    	}
-    	jQuery._rap_wrapped = true;
-    	
-    	var ajax = jQuery.ajax;
+        if (jQuery._rap_wrapped) {
+            return;
+        }
+        jQuery._rap_wrapped = true;
+
+        var ajax = jQuery.ajax;
         jQuery.ajax = function() {
             var oOptions = arguments[0];
             var url = oOptions.url;
@@ -109,15 +113,15 @@
             ajax.apply(this, arguments);
         };
     }
-    
+
     window.wrapJQueryForRAP = wrapJQuery;
-    
+
     if (enable) {
         /**
          * jQuery override
          */
         if (window.jQuery) {
-        	wrapJQuery(window.jQuery);
+            wrapJQuery(window.jQuery);
         }
 
 
@@ -221,14 +225,14 @@
 
         }
     }
-    
+
     if (window.define && window.define.cmd) {
-    	var data = seajs.config().data;
-    	data.alias = data.alias || {};
-    	var path = 'http://' + ROOT + '/stat/js/util/jquery-rapped.js';
-    	data.alias.jquery = data.alias.jQuery = data.alias.jq = data.alias.jQ = data.alias.$ = path;
+        var data = seajs.config().data;
+        data.alias = data.alias || {};
+        var path = 'http://' + ROOT + '/stat/js/util/jquery-rapped.js';
+        data.alias.jquery = data.alias.jQuery = data.alias.jq = data.alias.jQ = data.alias.$ = path;
     }
-    
+
     function replace(modules) {
         var splited = modules;
         if (KISSY.isString(modules)) {
@@ -370,6 +374,9 @@
      * convert url from absolute to relative
      */
     function convertUrlToRelative(url) {
+        if (url instanceof RegExp) {
+            return url;
+        }
         if (!url) {
             throw Error('Illegal url:' + url);
         }
@@ -420,14 +427,32 @@
     }
 
     window.RAP = {
+        initList : function(list) {
+            var PARAM_REG = /\/:[^\/]*/g;
+            var i, n = list.length, item;
+            for (i = 0; i < n; i++) {
+                item = list[i];
+                if (typeof item === 'string') {
+                    if (PARAM_REG.test(item)) {
+                        item = new RegExp(item.replace(PARAM_REG, '/\\d+'));
+                        list[i] = item;
+                    } else if (item.indexOf('reg:') !== -1) {
+                        item = item.replace('reg:', '');
+                        item = new RegExp(item);
+                        list[i] = item;
+                    }
+                }
+            }
+            return list;
+        },
         setBlackList : function(arr) {
             if (arr && arr instanceof Array) {
-                blackList = arr;
+                blackList = this.initList(arr);
             }
         },
         setWhiteList : function(arr) {
             if (arr && arr instanceof Array) {
-                whiteList = arr;
+                whiteList = this.initList(arr);
             }
         },
         getBlackList : function() {
@@ -461,10 +486,12 @@
             return PREFIX;
         },
         setProjectId: function(id) {
-        	projectId = id;
+            projectId = id;
         },
         getProjectId: function() {
-        	return projectId;
+            return projectId;
         }
     };
+
+    RAP.initList(whiteList);
 })();
