@@ -30,7 +30,7 @@
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:/mysql.remote.properties</value>
+				<value>classpath:/mysql.local.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -76,6 +76,7 @@
 		        <value>com/taobao/rigel/rap/project/mapping/Parameter.hbm.xml</value>
 		        <value>com/taobao/rigel/rap/account/mapping/User.hbm.xml</value>
 		        <value>com/taobao/rigel/rap/account/mapping/Role.hbm.xml</value>
+		        <value>com/taobao/rigel/rap/account/mapping/Notification.hbm.xml</value>
 		        <value>com/taobao/rigel/rap/workspace/mapping/Workspace.hbm.xml</value>
 		        <value>com/taobao/rigel/rap/workspace/mapping/Save.hbm.xml</value>
 		        <value>com/taobao/rigel/rap/workspace/mapping/CheckIn.hbm.xml</value>

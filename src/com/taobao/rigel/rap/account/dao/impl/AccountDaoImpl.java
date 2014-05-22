@@ -9,7 +9,6 @@ import java.util.Map;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.transform.Transformers;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.taobao.rigel.rap.account.bo.Notification;
@@ -139,8 +138,8 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 		List result = query.list();
 		Map<String, String> settings = new HashMap<String, String>();
 
-		for (ListIterator iter = result.listIterator(); iter.hasNext(); ) {
-			Object[] row = (Object[])iter.next();
+		for (ListIterator iter = result.listIterator(); iter.hasNext();) {
+			Object[] row = (Object[]) iter.next();
 			settings.put(row[0].toString(), row[1].toString());
 		}
 
@@ -158,7 +157,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 		if (result.size() > 0) {
 			return result.get(0).toString();
 		}
-		
+
 		return SystemSettings.GET_DEFAULT_USER_SETTINGS(key);
 	}
 
@@ -168,7 +167,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 			addUserSetting(userId, key, value);
 			return;
 		}
-		
+
 		String sql = "UPDATE tb_user_settings SET `value` = :value WHERE user_id = :userId AND `key` = :key";
 		Query query = getSession().createSQLQuery(sql);
 		query.setString("value", value);
@@ -176,7 +175,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 		query.setString("key", key);
 		query.executeUpdate();
 	}
-	
+
 	private void addUserSetting(long userId, String key, String value) {
 		String sql = "INSERT INTO tb_user_settings (user_id, `key`, `value`) VALUES (:userId, :key, :value)";
 		Query query = getSession().createSQLQuery(sql);
@@ -186,40 +185,43 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 		query.executeUpdate();
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked" })
 	@Override
 	public List<Notification> getNotificationList(long userId) {
-		String sql = "SELECT * FROM tb_notification WHERE user_id = :userId";
-		Query query = getSession().createSQLQuery(sql);
-		query.setLong("userId", userId);
-		query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
-		
-		List result = query.list();
-		return Notification.loadList(result);
+		String hql = "from Notification n where n.user.id = :userId order by n.createTime desc";
+		Query query = getSession().createQuery(hql).setLong("userId", userId);
+		return query.list();
+	}
+	
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public List<Notification> getUnreadNotificationList(long userId) {
+		String hql = "from Notification n where n.user.id = :userId and read = 0 order by n.createTime desc";
+		Query query = getSession().createQuery(hql).setLong("userId", userId);
+		return query.list();
 	}
 
 	@Override
 	public void clearNotificationList(long userId) {
-		// TODO Auto-generated method stub
-		
+		String hql = "delete Notification where user.id = :userId";
+		getSession().createQuery(hql).setLong("userId", userId).executeUpdate();
 	}
 
 	@Override
 	public void addNotification(Notification notification) {
-		// TODO Auto-generated method stub
-		
+		getSession().save(notification);
 	}
 
 	@Override
 	public void readNotification(long id) {
-		// TODO Auto-generated method stub
-		
+		String hql = "update Notification set read = 1 where id = :id";
+		getSession().createQuery(hql).setLong("id", id).executeUpdate();
 	}
 
 	@Override
 	public void readNotificationList(long userId) {
-		// TODO Auto-generated method stub
-		
+		String hql = "update Notification set read = 1 where user.id = :userId";
+		getSession().createQuery(hql).setLong("userId", userId).executeUpdate();
 	}
 
 }

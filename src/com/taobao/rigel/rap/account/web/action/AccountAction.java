@@ -10,7 +10,6 @@ import javax.mail.internet.AddressException;
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.account.bo.User;
-import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.ContextManager;
 import com.taobao.rigel.rap.common.Logger;
@@ -35,21 +34,28 @@ public class AccountAction extends ActionBase {
 	private String BACK_URL;
 
 	public String test() throws AddressException, InterruptedException {
-		AccountMgr mgr = getAccountMgr();
+//		AccountMgr mgr = getAccountMgr();
+//		
+//		Notification n = new Notification();
+//		n.setParam1("123");
+//		n.setTypeId((short)1);
+//		n.setRead(false);
+//		n.setUser(getCurUser());
+//		mgr.addNotification(n);
+//		
+//		mgr.readNotification(2);
 		
-		
-		
-		List<Notification> list = mgr.getNotificationList(getCurUserId());
-		setJson(list.toString());
-		mgr.updateUserSetting(1, "test", "123 567");
-		String r1 = mgr.getUserSetting(1, "test");
-		mgr.updateUserSetting(1, "test2", "abc");
-		String r2 = "";
-		Map<String, String> settings = mgr.getUserSettings(1);
-		for (String s : settings.keySet()) {
-			r2 += s + "|" + settings.get(s) + ",";
-		}
-		setJson(r1 + r2);
+//		List<Notification> list = mgr.getNotificationList(getCurUserId());
+//		setJson(list.toString());
+//		mgr.updateUserSetting(1, "test", "123 567");
+//		String r1 = mgr.getUserSetting(1, "test");
+//		mgr.updateUserSetting(1, "test2", "abc");
+//		String r2 = "";
+//		Map<String, String> settings = mgr.getUserSettings(1);
+//		for (String s : settings.keySet()) {
+//			r2 += s + "|" + settings.get(s) + ",";
+//		}
+//		setJson(r1 + r2);
 		/**
 		String[] list = new String[2];
 		int i = 1; 
@@ -61,6 +67,69 @@ public class AccountAction extends ActionBase {
 		Thread.sleep(500);
 		}
 		*/
+		return SUCCESS;
+	}
+	
+	public String getNotificationList() {
+		if (!isUserLogined()) {
+			plsLogin();
+			return LOGIN;
+		}
+		List<Notification> list = getAccountMgr().getNotificationList(getCurUserId());
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		for (Notification o : list) {
+			Map<String, Object> m = new HashMap<String, Object>();
+			m.put("id", o.getId());
+			m.put("param1", o.getParam1());
+			m.put("param2", o.getParam1());
+			m.put("param3", o.getParam1());
+			Map<String, Object> user = new HashMap<String, Object>();
+			user.put("name", o.getUser().getName());
+			user.put("id", o.getUser().getId());
+			m.put("user", user);
+			m.put("createTime", o.getCreateTime().getTime());
+			m.put("typeId", o.getTypeId());
+			result.add(m);
+		}
+		Gson gson = new Gson();
+		String json = gson.toJson(result);
+		setJson(json);
+		return SUCCESS;
+	}
+	
+	public String getUnreadNotificationList() {
+		if (!isUserLogined()) {
+			plsLogin();
+			return LOGIN;
+		}
+		List<Notification> list = getAccountMgr().getUnreadNotificationList(getCurUserId());
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		for (Notification o : list) {
+			Map<String, Object> m = new HashMap<String, Object>();
+			m.put("id", o.getId());
+			m.put("param1", o.getParam1());
+			m.put("param2", o.getParam1());
+			m.put("param3", o.getParam1());
+			Map<String, Object> user = new HashMap<String, Object>();
+			user.put("name", o.getUser().getName());
+			user.put("id", o.getUser().getId());
+			m.put("user", user);
+			m.put("createTime", o.getCreateTime().getTime());
+			m.put("typeId", o.getTypeId());
+			result.add(m);
+		}
+		Gson gson = new Gson();
+		String json = gson.toJson(result);
+		setJson(json);
+		return SUCCESS;
+	}
+	
+	public String readAllNotification() {
+		if (!isUserLogined()) {
+			plsLogin();
+			return LOGIN;
+		}
+		getAccountMgr().readNotificationList(getCurUserId());
 		return SUCCESS;
 	}
 	

@@ -184,5 +184,13 @@ public interface AccountMgr {
 	 */
 	void readNotificationList(long userId);
 
+	/**
+	 * get unread notification list
+	 * 
+	 * @param curUserId
+	 * @return
+	 */
+	List<Notification> getUnreadNotificationList(long curUserId);
+
 
 }

@@ -1,5 +1,6 @@
 package com.taobao.rigel.rap.account.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -141,6 +142,8 @@ public class AccountMgrImpl implements AccountMgr {
 
 	@Override
 	public void addNotification(Notification notification) {
+		notification.setCreateTime(new Date());
+		
 		accountDao.addNotification(notification);
 	}
 
@@ -152,6 +155,11 @@ public class AccountMgrImpl implements AccountMgr {
 	@Override
 	public void readNotificationList(long userId) {
 		accountDao.readNotificationList(userId);
+	}
+
+	@Override
+	public List<Notification> getUnreadNotificationList(long curUserId) {
+		return accountDao.getUnreadNotificationList(curUserId);
 	}
 
 }

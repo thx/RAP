@@ -1,9 +1,6 @@
 package com.taobao.rigel.rap.account.bo;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 public class Notification {
 	private long id;
@@ -78,22 +75,17 @@ public class Notification {
 	public void setRead(boolean isRead) {
 		this.isRead = isRead;
 	}
-
-	public static List<Notification> loadList(List<Map<String, Object>> result) {
-		List<Notification> list = new ArrayList<Notification>();
-		for (Map<String, Object> row : result) {
-			Notification obj = new Notification();
-			obj.setId((Long)row.get("id"));
-			obj.setUserId((Long)row.get("user_id"));
-			obj.setTypeId((Short)row.get("type_id"));
-			obj.setParam1((String)row.get("param1"));
-			obj.setParam1((String)row.get("param2"));
-			obj.setParam1((String)row.get("param3"));
-			obj.setCreateTime((Date)row.get("create_time"));
-			obj.setRead((Short)row.get("is_read") == 1);
-			list.add(obj);
-		}
-		return list;
+	
+	private User user;
+	
+	public User getUser() {
+		return user;
 	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+
 
 }
