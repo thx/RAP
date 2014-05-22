@@ -114,7 +114,7 @@
 			if (picked.indexOf(user.account) != -1) {
 				return;
 			}
-			if (user.account.indexOf(val) != -1) {
+			if (user.account.indexOf(val) != -1 || user.name.indexOf(val) != -1) {
 				remained.push(user);
 			}
 		});
