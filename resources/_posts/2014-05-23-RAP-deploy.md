@@ -21,7 +21,7 @@ title: 如何部署RAP服务
 
 ```bash
 git clone git@github.com:thx/RAP.git
-git co release
+git checkout release
 ```
 
 确保您正确的切换到release分支，该分支会去掉一些阿里巴巴公司内网才能正常运作的模块。
