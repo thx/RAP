@@ -38,6 +38,9 @@ git checkout release
 
 请正确配置`src/mysql.local.properties`中的数据库连接地址、用户名和密码。
 
+### 配置context-root
+打开项目属性(Properties), 在Properties -> MyEclipse -> Web -> Web Context-root中，将其修改为/ROOT，以确保RAP部署在tomcat/webapps/ROOT中。
+
 ## 启动项目
 
 完成上述步骤，将RAP配置到Tomcat中启动即可。
