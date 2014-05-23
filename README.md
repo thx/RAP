@@ -1,7 +1,7 @@
 Rigel Automation Platform
 ===
 
-    @版本 v0.9.0
+    @版本 v0.9.0.release
     @作者 Bosn(霍雍), wangjeaf(思竹)
     @依赖 MockJS by 墨智 http://mockjs.com
     @依赖 IF-TEST by 蒋壮 http://iftest.alibaba-inc.com
@@ -15,9 +15,8 @@ Rigel Automation Platform
 - [文档中心](http://thx.alibaba-inc.com/RAP/)
 
 
-其它版本
+Release版和master的区别?
 --------------------------------------
 
-目前RAP使用了公司域账户登录系统，公司外部署无法正常使用。感谢ufologist提供了可外部使用的版本。我们也在加快步伐完善账户系统，期待更多朋友加入到RAP的开源建设过程。
-
-- [https://github.com/ufologist/RAP](https://github.com/ufologist/RAP)
+- 1. 去除阿里专用的SSO模块及登录体系
+- 2. 去除CNZZ统计等特有信息

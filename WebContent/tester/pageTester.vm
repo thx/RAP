@@ -56,11 +56,11 @@
                         <input type="button" class="btn btn-primary btn-run" value="生成模拟数据"/>
                         <input type="button" class="btn btn-primary btn-run-mockjsrule" style="margin-left:5px;" value="获取Mockjs规则"/>
                         <input type="button" class="btn btn-primary btn-run-real" style="margin-left:5px;" value="真实接口边界条件测试"/>
-                    	<span class="real-options" style="display: none; margin-left: 10px;">
-                    		<i class="icon icon-arrow-right"></i>
-                    		<input type="url" placeholder="请在此输入需要测试的真实接口URL" class="real-url form-control" style="margin-left: 5px; width: 400px; margin-bottom: 0; padding-left: 10px; padding-right: 10px;"/>
-                    		<input type="button" class="btn btn-success btn-run-do-real" style="margin-left:5px;" value="开始自动测试"/>
-                   		</span>
+                        <span class="real-options" style="display: none; margin-left: 10px;">
+                            <i class="icon icon-arrow-right"></i>
+                            <input type="url" placeholder="请在此输入需要测试的真实接口URL" class="real-url form-control" style="margin-left: 5px; width: 400px; margin-bottom: 0; padding-left: 10px; padding-right: 10px;"/>
+                            <input type="button" class="btn btn-success btn-run-do-real" style="margin-left:5px;" value="开始自动测试"/>
+                        </span>
                     </div>
                 </form>
             </div>
@@ -86,7 +86,7 @@
             <div id="divResBoardJson">ready</div>
             <div id="divResBoardLog">
                 <div class="triggers clearfix">
-                	<div class="trigger" id="expand-trigger">&#8592;</div>
+                    <div class="trigger" id="expand-trigger">&#8592;</div>
                     <div class="trigger" id="up-trigger">&#8593;</div>
                     <div class="trigger" id="down-trigger">&#8595;</div>
                     <div class="trigger" id="close-trigger">&#8594;</div>
@@ -96,13 +96,10 @@
         </div>
         <div class="trigger" id="show-trigger">&#8592;</div>
         <script>
-        	var RAP_ROOT = '$consts.DOMAIN_URL$!projectContext/mockjs/$!projectId';
-       		document.getElementById("txtRootPath").value = RAP_ROOT;
-       		var PROJECT_ID = $!projectId;
+            var RAP_ROOT = '$consts.DOMAIN_URL$!projectContext/mockjs/$!projectId';
+            document.getElementById("txtRootPath").value = RAP_ROOT;
+            var PROJECT_ID = $!projectId;
         </script>
         <script src="./pageTester.js"></script>
-        <foot>
-        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_5879641'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D5879641%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-        </foot>
     </body>
 </html>

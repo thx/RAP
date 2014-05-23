@@ -8,6 +8,7 @@
         <style type="text/css">
             .container {width:430px;}
         </style>
+        <script type="text/javascript" src="${staticRoot}/js/core/jquery-2.1.0.min.js?_r=$!timeStamp"></script>
     </head>
 #if($returnUrlFirstSet)
     #set($returnUrlEncoded = $!utils.escapeInU($returnUrl))
@@ -38,15 +39,6 @@
                 <tr>
                     <td></td>
                     <td><span class="label label-important">$!errMsg</span></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <div class="navbar-form">
-                            <a href="https://login.alibaba-inc.com/ssoLogin.htm?APP_NAME=rapauto&BACK_URL=$homeUrlEncoded$returnUrlEncoded&CANCEL_CERT=true&CLIENT_VERSION=0.3.9&CONTEXT_PATH=%2F">
-                            <span class="btn btn-warning other-login-btn sso-login">用阿里域账号登录</span>
-                            </a>
-                        </div>
-                    </td>
                 </tr>
                 #end
             </table>

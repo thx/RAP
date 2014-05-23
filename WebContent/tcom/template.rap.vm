@@ -98,15 +98,7 @@
                   <!--<button type="button" onclick="window.location.href = '$accountUrl.register'" class="btn">注册</button>-->
               </form>
           </li>
-          <li class="divider"></li>
-          <li>
-            <div class="navbar-form">
-                <a href="https://login.alibaba-inc.com/ssoLogin.htm?APP_NAME=rapauto&BACK_URL=$homeUrlEncoded&CANCEL_CERT=true&CLIENT_VERSION=0.3.9&CONTEXT_PATH=%2F">
-                <span class="btn btn-warning other-login-btn sso-login">用阿里域账号登录</span>
-                </a>
-            </div>
-          </li>
-      </ul>
+        </ul>
     </li>
     <li>
         <a href="javascript:void(0);" class="dropdown-toggle" id="register-trigger">注册</a>
@@ -124,15 +116,7 @@
                   </div>
               </form>
           </li>
-          <li class="divider"></li>
-          <li>
-            <div class="navbar-form">
-                <a href="https://login.alibaba-inc.com/ssoLogin.htm?APP_NAME=rapauto&BACK_URL=$homeUrlEncoded&CANCEL_CERT=true&CLIENT_VERSION=0.3.9&CONTEXT_PATH=%2F">
-                <span class="btn btn-warning other-login-btn sso-login">用阿里域账号登录</span>
-                </a>
-            </div>
-          </li>
-      </ul>
+    </ul>
     </li>
   </ul>
 </div>
@@ -148,9 +132,7 @@
 #macro (bodyEnd)
     <hr>
     <footer>
-        <p><span id="_logOnline">-</span> 人在使用RAP, 今日Mock服务被调用 <span id="_logMockNumToday">-</span> 次&nbsp;&nbsp;旺旺群支持:582755829
-    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_5879641'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D5879641%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-    </p>
+        <p><span id="_logOnline">-</span> 人在使用RAP, 今日Mock服务被调用 <span id="_logMockNumToday">-</span> 次&nbsp;&nbsp;旺旺群支持:582755829</p>
     </footer>
     <script>
         function _logData() {

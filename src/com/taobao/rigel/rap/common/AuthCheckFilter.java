@@ -12,9 +12,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.alibaba.buc.sso.client.util.SimpleUserUtil;
-import com.alibaba.platform.buc.sso.common.dto.SimpleSSOUser;
-import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
 
 public class AuthCheckFilter implements Filter {
@@ -44,50 +41,12 @@ public class AuthCheckFilter implements Filter {
 			System.out.println("DOMAIN_URL is " + SystemConstant.DOMAIN_URL);
 		}
 		HttpSession session = ((HttpServletRequest) request).getSession();
-		boolean logined = session.getAttribute(ContextManager.KEY_ACCOUNT) != null;
-		
-		SystemConstant.README_PATH = session.getServletContext().getRealPath(File.separator + "README.md");
-		SystemConstant.ROOT = session.getServletContext().getRealPath(File.separator);
 
-		if (!logined) {
-			SimpleSSOUser user = SimpleUserUtil
-					.findUser((HttpServletRequest) request);
-			if (user != null) {
-				SystemConstant.user = user;
-				String emailPrefix = user.getEmailPrefix();
-				User rapUser = accountMgr.getUser(emailPrefix);
-				if (rapUser == null) {
-					// proceed register
-					User newUser = new User();
-					newUser.setAccount(emailPrefix);
-					newUser.setPassword("RESERVED");
-					String name = user.getAliWW();
-					if (name == null || name.isEmpty()) {
-						name = user.getLastName();
-					}
-					newUser.setName(name);
-					newUser.setEmail(user.getEmailAddr());
-					getAccountMgr().addUser(newUser);
-					rapUser = accountMgr.getUser(emailPrefix);
-					if (rapUser == null) {
-						try {
-							throw new Exception("user register failed!");
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				}
-				// proceed login
-				String account = rapUser.getAccount();
-				long userId = rapUser.getId();
-				session.setAttribute(ContextManager.KEY_ACCOUNT, account);
-				session.setAttribute(ContextManager.KEY_USER_ID, userId);
-			}
-
-		}
-
+		SystemConstant.README_PATH = session.getServletContext().getRealPath(
+				File.separator + "README.md");
+		SystemConstant.ROOT = session.getServletContext().getRealPath(
+				File.separator);
 		chain.doFilter(request, response);
-
 	}
 
 	@Override
