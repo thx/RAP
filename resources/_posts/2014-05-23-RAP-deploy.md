@@ -32,6 +32,17 @@ git co release
 
 #### 初始化数据库
 
+执行`src/database/intialize.sql`，该脚本中包含数据库创建、表&结构创建、必要的初始数据创建的全部内容。
+
+#### 配置文件
+
+请正确配置`src/mysql.local.properties`中的数据库连接地址、用户名和密码。
+
+### 启动项目
+
+完成上述步骤，将RAP配置到Tomcat中启动即可。
+
+剩下的就是跟着[RAP文档中心](http://thx.alibaba-inc.com/RAP)首页的教程一步一步开启RAP之旅啦！
 
 
 {% endraw %}
