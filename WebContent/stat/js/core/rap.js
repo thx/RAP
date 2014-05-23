@@ -260,7 +260,7 @@ if (!window.console) {
          * @return {Boolean} 是/否验证通过
          */
         Validate.validForm = function (form) {
-            var list = form.elements;
+            var list = form;
             var r = true;
             for (var i = 0, o; o = list[i]; i++)
             {
