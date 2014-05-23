@@ -52,11 +52,11 @@ git co release
 
 ### 如何增加管理员
 
-在tb_role_and_user中添加一条记录，user_id是管理员的id，role_id是1(超级管理员)或2(管理员)。
+在tb\_role\_and\_user中添加一条记录，user_id是管理员的id，role_id是1(超级管理员)或2(管理员)。
 
 ### 为什么有mysql.local.properties和mysql.remote.properties两个数据库配置文件?
 
-为了方便开发环境和线上部署环境的切换，在src/application.xml中搜索my.local.properties, 修改成remote即可切换到remote模式。
+为了方便开发环境和线上部署环境的切换，在src/application.xml中搜索mysql.local.properties, 修改成remote即可切换到remote模式。
 
 ### 如何获取更新？
 
