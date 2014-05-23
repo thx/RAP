@@ -11,7 +11,7 @@ title: 如何部署RAP服务
 
 1. Eclipse/MyEclipse
 2. JDK 1.6+
-3. MySQL
+3. MySQL 5.6.12+  // 太老的MySQL运行initialize.sql会报多timestamp错误
 4. Tomcat 6.*+
 5. Git
 
