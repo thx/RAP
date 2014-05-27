@@ -8,6 +8,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.baseBrowserLibrary"/>
-	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.InternetExplorer"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
