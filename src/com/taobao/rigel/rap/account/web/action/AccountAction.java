@@ -10,6 +10,7 @@ import javax.mail.internet.AddressException;
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.account.bo.User;
+import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.ContextManager;
 import com.taobao.rigel.rap.common.Logger;
@@ -34,14 +35,14 @@ public class AccountAction extends ActionBase {
 	private String BACK_URL;
 
 	public String test() throws AddressException, InterruptedException {
-//		AccountMgr mgr = getAccountMgr();
-//		
-//		Notification n = new Notification();
-//		n.setParam1("123");
-//		n.setTypeId((short)1);
-//		n.setRead(false);
-//		n.setUser(getCurUser());
-//		mgr.addNotification(n);
+		AccountMgr mgr = getAccountMgr();
+		
+		Notification n = new Notification();
+		n.setParam1("123");
+		n.setTypeId((short)1);
+		n.setRead(false);
+		n.setUser(getCurUser());
+		mgr.addNotification(n);
 //		
 //		mgr.readNotification(2);
 		
@@ -108,12 +109,20 @@ public class AccountAction extends ActionBase {
 			Map<String, Object> m = new HashMap<String, Object>();
 			m.put("id", o.getId());
 			m.put("param1", o.getParam1());
-			m.put("param2", o.getParam1());
-			m.put("param3", o.getParam1());
+			m.put("param2", o.getParam2());
+			m.put("param3", o.getParam3());
+			
 			Map<String, Object> user = new HashMap<String, Object>();
 			user.put("name", o.getUser().getName());
 			user.put("id", o.getUser().getId());
 			m.put("user", user);
+			
+			Map<String, Object> targetUser = new HashMap<String, Object>();
+			targetUser.put("name", o.getTargetUser().getName());
+			targetUser.put("id", o.getTargetUser().getId());
+			
+			m.put("targetUser", targetUser);
+			
 			m.put("createTime", o.getCreateTime().getTime());
 			m.put("createTimeStr", o.getCreateTimeStr());
 			m.put("typeId", o.getTypeId());

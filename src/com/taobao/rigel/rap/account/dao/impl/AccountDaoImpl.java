@@ -227,7 +227,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean notificationExists(Notification notification) {
-		String hql = "from Notification where user.id = :userId and typeId = :typeId and param1 = :param1";
+		String hql = "from Notification where user.id = :userId and typeId = :typeId and param1 = :param1 and is_read = 0";
 		Session session = getSession();
 		Query query = session.createQuery(hql);
 		query.setLong("userId", notification.getUser().getId())

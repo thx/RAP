@@ -386,7 +386,8 @@ public class WorkspaceAction extends ActionBase {
 			notification.setTypeId((short)1);
 			notification.setTargetUser(getCurUser());
 			notification.setUser(user);
-			getAccountMgr().addNotification(notification);
+			if (notification.getUser().getId() != getCurUserId())
+				getAccountMgr().addNotification(notification);
 		}
 
 		Notification notification = new Notification();
@@ -395,7 +396,8 @@ public class WorkspaceAction extends ActionBase {
 		notification.setTypeId((short)1);
 		notification.setTargetUser(getCurUser());
 		notification.setUser(project.getUser());
-		getAccountMgr().addNotification(notification);
+		if (notification.getUser().getId() != getCurUserId())
+			getAccountMgr().addNotification(notification);
 		
 		// generate one check-in of VSS mode submit
 		CheckIn checkIn = new CheckIn();
