@@ -329,10 +329,11 @@ CREATE TABLE tb_notification
 (
 	id int(10) AUTO_INCREMENT NOT NULL
 		PRIMARY KEY,
-	user_id int(10) NOT NULL,
-	type_id smallint NOT NULL, -- 1-project, 
-	param1 varchar(128) NULL,  -- 对应operator
-	param2 varchar(128) NULL,
+	user_id int(10) NOT NULL,      -- 接受通知的用户id
+	target_user_id int(10) NOT NULL, -- 上下文用户id
+	type_id smallint NOT NULL, -- 1-文档修改,2-被加入新项目
+	param1 varchar(128) NULL,  -- 1,2-项目id
+	param2 varchar(128) NULL,  -- 1,2-项目名称
 	param3 text NULL,
 	create_time timestamp NOT NULL
 		DEFAULT now(),
@@ -340,7 +341,8 @@ CREATE TABLE tb_notification
 	is_read smallint NOT NULL
 		DEFAULT 0,
 	
-	FOREIGN KEY(user_id) REFERENCES tb_user(id)
+	FOREIGN KEY(user_id) REFERENCES tb_user(id),
+	FOREIGN KEY(target_user_id) REFERENCES tb_user(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE tb_corporation

@@ -24,3 +24,8 @@ CREATE TABLE tb_notification
 	
 	FOREIGN KEY(user_id) REFERENCES tb_user(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- add target_user_id
+ALTER TABLE tb_notification
+ADD COLUMN target_user_id int(10) NOT NULL

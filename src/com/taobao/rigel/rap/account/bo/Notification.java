@@ -8,12 +8,14 @@ import org.ocpsoft.prettytime.PrettyTime;
 public class Notification {
 	private long id;
 	private long userId;
+	private long targetUserId;
 	private short typeId;
 	private String param1;
 	private String param2;
 	private String param3;
 	private Date createTime;
 	private boolean isRead;
+	
 	
 	public String getCreateTimeStr() {
 		PrettyTime p = new PrettyTime(new Locale("zh"));
@@ -92,6 +94,17 @@ public class Notification {
 	
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	private User targetUser;
+
+
+	public User getTargetUser() {
+		return targetUser;
+	}
+
+	public void setTargetUser(User targetUser) {
+		this.targetUser = targetUser;
 	}
 	
 

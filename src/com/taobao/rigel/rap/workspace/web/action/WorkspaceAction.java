@@ -379,13 +379,24 @@ public class WorkspaceAction extends ActionBase {
 		
 		
 		// notification for doc change
+		for (User user : project.getUserList()) {
+			Notification notification = new Notification();
+			notification.setParam1(new Integer(id).toString());
+			notification.setParam2(project.getName());
+			notification.setTypeId((short)1);
+			notification.setTargetUser(getCurUser());
+			notification.setUser(user);
+			getAccountMgr().addNotification(notification);
+		}
+
 		Notification notification = new Notification();
 		notification.setParam1(new Integer(id).toString());
 		notification.setParam2(project.getName());
 		notification.setTypeId((short)1);
-		notification.setUser(getCurUser());
+		notification.setTargetUser(getCurUser());
+		notification.setUser(project.getUser());
 		getAccountMgr().addNotification(notification);
-
+		
 		// generate one check-in of VSS mode submit
 		CheckIn checkIn = new CheckIn();
 		checkIn.setCreateDate(new Date());

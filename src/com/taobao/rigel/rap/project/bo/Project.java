@@ -471,10 +471,10 @@ public class Project implements java.io.Serializable {
 		}
 	}
 
-	public void addMember(User user) {
+	public boolean addMember(User user) {
 		// if member added is the creator, ignore
 		if (user.getId() == getUser().getId())
-			return;
+			return false;
 		// if member already exists, ignore
 		boolean exist = false;
 		for (User item : getUserList()) {
@@ -482,10 +482,11 @@ public class Project implements java.io.Serializable {
 				exist = true;
 			}
 		}
-		if (exist) return;
+		if (exist) return false;
 		// validation complete, add this user
 		getUserList().add(user);
 		user.getJoinedProjectList().add(this);
+		return true;
 	}
 
 	public void removeMember(User user) {
