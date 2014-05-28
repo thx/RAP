@@ -79,7 +79,16 @@ public class ProjectMgrImpl implements ProjectMgr {
 		for (String account : project.getMemberAccountList()) {
 			User user = accountDao.getUser(account);
 			if (user != null) {
-				project.addMember(user);
+				boolean addSuccess = project.addMember(user);
+				if (addSuccess) {
+					Notification o = new Notification();
+					o.setTypeId((short)2);
+					o.setTargetUser(project.getUser());
+					o.setUser(user);
+					o.setParam1(new Integer(project.getId()).toString());
+					o.setParam2(project.getName());
+					accountMgr.addNotification(o);
+				}
 			}
 		}
 		int result = projectDao.addProject(project);
