@@ -69,7 +69,7 @@
                     <li><a href="$accountUrl.myAccount">个人信息</a></li>
                     <li><a href="$accountUrl.mySetting">个人设置</a></li>
                     <li class="divider"></li>
-                    <li><a href="https://login.alibaba-inc.com/ssoLogout.htm?APP_NAME=rapauto&BACK_URL=$logoutUrlEncoded">退出</a></li>
+                    <li><a href="$accountUrl.doLogout">退出</a></li>
                 </ul>
               </li>
           </ul>
