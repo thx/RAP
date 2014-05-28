@@ -38,6 +38,7 @@
 	#bodyNewStart
 	<!-- Nav tabs -->
 	<div class="settings">
+		<div class="alert alert-success">不要鸡冻，这个功能还木有做完，霍雍和思竹吃饭饭去了</div>
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#home" data-toggle="tab">消息提醒设置</a>
 			</li>

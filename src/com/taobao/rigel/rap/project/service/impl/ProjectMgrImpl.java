@@ -76,22 +76,26 @@ public class ProjectMgrImpl implements ProjectMgr {
 	public int addProject(Project project) {
 		project.setUpdateTime(new Date());
 		project.setCreateDate(new Date());
+		List<User> usersInformed = new ArrayList<User>();
 		for (String account : project.getMemberAccountList()) {
 			User user = accountDao.getUser(account);
 			if (user != null) {
 				boolean addSuccess = project.addMember(user);
 				if (addSuccess) {
-					Notification o = new Notification();
-					o.setTypeId((short)2);
-					o.setTargetUser(project.getUser());
-					o.setUser(user);
-					o.setParam1(new Integer(project.getId()).toString());
-					o.setParam2(project.getName());
-					accountMgr.addNotification(o);
+					usersInformed.add(user);
 				}
 			}
 		}
 		int result = projectDao.addProject(project);
+		for (User u : usersInformed) {
+			Notification o = new Notification();
+			o.setTypeId((short)2);
+			o.setTargetUser(project.getUser());
+			o.setUser(u);
+			o.setParam1(new Integer(result).toString());
+			o.setParam2(project.getName());
+			accountMgr.addNotification(o);
+		}
 
 		Group g = organizationDao.getGroup(project.getGroupId());
 		if (g.getProductionLineId() > 0) {
