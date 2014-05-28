@@ -124,9 +124,9 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		Session session = getSession();
 		// StringBuilder log = new StringBuilder();
 		Gson gson = new Gson();
-
+		
 		Project projectClient = gson.fromJson(projectData, Project.class);
-
+		
 		ObjectItem[] deletedObjectList = gson.fromJson(deletedObjectListData,
 				ObjectItem[].class);
 

@@ -326,7 +326,7 @@ public class ProjectAction extends ActionBase {
 		project.setId(getId());
 		project.setIntroduction(getDesc());
 		project.setName(getName());
-
+		project.setUser(getCurUser());
 		List<String> memberAccountList = new ArrayList<String>();
 		String[] list = getAccounts().split(",");
 		// format: mashengbo(大灰狼堡森), linpanhui(林攀辉),

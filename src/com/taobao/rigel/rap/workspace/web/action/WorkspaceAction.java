@@ -15,6 +15,7 @@ import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 
+import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.ContextManager;
@@ -372,8 +373,32 @@ public class WorkspaceAction extends ActionBase {
 		// update project
 		projectMgr.updateProject(getId(), getProjectData(),
 				getDeletedObjectListData());
+		
+		
 		Project project = projectMgr.getProject(getId());
+		
+		
+		// notification for doc change
+		for (User user : project.getUserList()) {
+			Notification notification = new Notification();
+			notification.setParam1(new Integer(id).toString());
+			notification.setParam2(project.getName());
+			notification.setTypeId((short)1);
+			notification.setTargetUser(getCurUser());
+			notification.setUser(user);
+			if (notification.getUser().getId() != getCurUserId())
+				getAccountMgr().addNotification(notification);
+		}
 
+		Notification notification = new Notification();
+		notification.setParam1(new Integer(id).toString());
+		notification.setParam2(project.getName());
+		notification.setTypeId((short)1);
+		notification.setTargetUser(getCurUser());
+		notification.setUser(project.getUser());
+		if (notification.getUser().getId() != getCurUserId())
+			getAccountMgr().addNotification(notification);
+		
 		// generate one check-in of VSS mode submit
 		CheckIn checkIn = new CheckIn();
 		checkIn.setCreateDate(new Date());

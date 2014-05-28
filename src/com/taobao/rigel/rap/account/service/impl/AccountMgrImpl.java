@@ -143,8 +143,11 @@ public class AccountMgrImpl implements AccountMgr {
 	@Override
 	public void addNotification(Notification notification) {
 		notification.setCreateTime(new Date());
+		notification.setRead(false);
 		
-		accountDao.addNotification(notification);
+		if (!accountDao.notificationExists(notification)) {
+			accountDao.addNotification(notification);
+		}
 	}
 
 	@Override

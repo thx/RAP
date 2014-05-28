@@ -176,4 +176,12 @@ public interface AccountDao {
 	 */
 	List<Notification> getUnreadNotificationList(long curUserId);
 
+	/**
+	 * check if similar notification exists
+	 * 
+	 * @param notification
+	 * @return
+	 */
+	boolean notificationExists(Notification notification);
+
 }

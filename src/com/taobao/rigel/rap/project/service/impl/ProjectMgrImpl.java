@@ -5,8 +5,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.dao.AccountDao;
+import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.ArrayUtils;
 import com.taobao.rigel.rap.organization.bo.Group;
 import com.taobao.rigel.rap.organization.dao.OrganizationDao;
@@ -22,6 +24,15 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 	private ProjectDao projectDao;
 	private OrganizationDao organizationDao;
+	private AccountMgr accountMgr;
+
+	public AccountMgr getAccountMgr() {
+		return accountMgr;
+	}
+
+	public void setAccountMgr(AccountMgr accountMgr) {
+		this.accountMgr = accountMgr;
+	}
 
 	public OrganizationDao getOrganizationDao() {
 		return organizationDao;
@@ -65,13 +76,26 @@ public class ProjectMgrImpl implements ProjectMgr {
 	public int addProject(Project project) {
 		project.setUpdateTime(new Date());
 		project.setCreateDate(new Date());
+		List<User> usersInformed = new ArrayList<User>();
 		for (String account : project.getMemberAccountList()) {
 			User user = accountDao.getUser(account);
 			if (user != null) {
-				project.addMember(user);
+				boolean addSuccess = project.addMember(user);
+				if (addSuccess) {
+					usersInformed.add(user);
+				}
 			}
 		}
 		int result = projectDao.addProject(project);
+		for (User u : usersInformed) {
+			Notification o = new Notification();
+			o.setTypeId((short)2);
+			o.setTargetUser(project.getUser());
+			o.setUser(u);
+			o.setParam1(new Integer(result).toString());
+			o.setParam2(project.getName());
+			accountMgr.addNotification(o);
+		}
 
 		Group g = organizationDao.getGroup(project.getGroupId());
 		if (g.getProductionLineId() > 0) {
@@ -108,7 +132,16 @@ public class ProjectMgrImpl implements ProjectMgr {
 			for (String account : outerProject.getMemberAccountList()) {
 				User user = accountDao.getUser(account);
 				if (user != null) {
-					project.addMember(user);
+					boolean addSuccess = project.addMember(user);
+					if (addSuccess) {
+						Notification o = new Notification();
+						o.setTypeId((short)2);
+						o.setTargetUser(outerProject.getUser());
+						o.setUser(user);
+						o.setParam1(new Integer(outerProject.getId()).toString());
+						o.setParam2(outerProject.getName());
+						accountMgr.addNotification(o);
+					}
 				}
 			}
 

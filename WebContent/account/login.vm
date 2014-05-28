@@ -18,7 +18,7 @@
     <body>
         #bodyNewStart
         <form name="formMain" action="$accountUrl.doLogin" method="post">
-            <input type="hidden" name="returnUrl" value="$returnUrlEncoded" />
+            <input type="hidden" name="returnUrl" value="$!returnUrlEncoded" />
             <table class="table">
                 <tr>
                     <td colspan="2"><h4>登录</h4></td>

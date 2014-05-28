@@ -224,4 +224,26 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 		getSession().createQuery(hql).setLong("userId", userId).executeUpdate();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean notificationExists(Notification notification) {
+		String hql = "from Notification where user.id = :userId and typeId = :typeId and param1 = :param1 and is_read = 0";
+		Session session = getSession();
+		Query query = session.createQuery(hql);
+		query.setLong("userId", notification.getUser().getId())
+			.setShort("typeId", notification.getTypeId())
+			.setString("param1", notification.getParam1());
+		List<Notification> list =(List<Notification>) query.list();
+		int size = list.size();
+		if (size > 0) {
+			for (Notification o : list) {
+				o.setCreateTime(new Date());
+				session.update(o);
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

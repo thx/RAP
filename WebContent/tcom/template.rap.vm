@@ -136,6 +136,11 @@
     </footer>
     <script>
         function _logData() {
+        	if (window.localStorage) {
+        		if (window.localStorage.getItem('stopLogData')) {
+        			return;
+        		}
+        	}
             jQuery.ajax({
                 url     : '$accountUrl.logData',
                 success : function(data){
