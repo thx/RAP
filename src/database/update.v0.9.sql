@@ -1,7 +1,9 @@
--- tb_user.name 由varchar(16) changed to varchar(256)
+-- RAP v0.9 database script
 
-ALTER TABLE tb_user
-ALTER COLUMN name varchar(256) not NULL;
+
+-- tb_user.name from varchar(16) changed to varchar(256)
+
+alter table tb_user modify name varchar(256);
 
 -- new added table for notifications system: tb_notification
 	

@@ -115,6 +115,7 @@ public class AccountAction extends ActionBase {
 			user.put("id", o.getUser().getId());
 			m.put("user", user);
 			m.put("createTime", o.getCreateTime().getTime());
+			m.put("createTimeStr", o.getCreateTimeStr());
 			m.put("typeId", o.getTypeId());
 			result.add(m);
 		}

@@ -1,6 +1,9 @@
 package com.taobao.rigel.rap.account.bo;
 
 import java.util.Date;
+import java.util.Locale;
+
+import org.ocpsoft.prettytime.PrettyTime;
 
 public class Notification {
 	private long id;
@@ -11,6 +14,11 @@ public class Notification {
 	private String param3;
 	private Date createTime;
 	private boolean isRead;
+	
+	public String getCreateTimeStr() {
+		PrettyTime p = new PrettyTime(new Locale("zh"));
+		return p.format(this.createTime);
+	}
 
 	public long getId() {
 		return id;

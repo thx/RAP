@@ -330,8 +330,8 @@ CREATE TABLE tb_notification
 	id int(10) AUTO_INCREMENT NOT NULL
 		PRIMARY KEY,
 	user_id int(10) NOT NULL,
-	type_id smallint NOT NULL,
-	param1 varchar(128) NULL,
+	type_id smallint NOT NULL, -- 1-project, 
+	param1 varchar(128) NULL,  -- 对应operator
 	param2 varchar(128) NULL,
 	param3 text NULL,
 	create_time timestamp NOT NULL
