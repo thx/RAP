@@ -404,11 +404,11 @@ public class MockMgrImpl implements MockMgr {
 
 		if (para.getParameterList() == null
 				|| para.getParameterList().size() == 0) {
-			json.append(para.getMockJSIdentifier() + ":"
+			json.append(processMockValueWithParams(para.getMockJSIdentifier()) + ":"
 					+ StringUtils.chineseToUnicode(mockjsValue(para, index)));
 		} else {
 			// object and array<object>
-			json.append(para.getMockJSIdentifier() + ":");
+			json.append(processMockValueWithParams(para.getMockJSIdentifier()) + ":");
 			String left = "{", right = "}";
 
 			if (isArrayObject) {
@@ -627,7 +627,7 @@ public class MockMgrImpl implements MockMgr {
 			escape = false;
 		}
 
-		mockValue = processMockValueWithParams(para, mockValue);
+		mockValue = processMockValueWithParams(mockValue);
 
 		if (mockValue != null && !mockValue.isEmpty()) {
 			if (mockValue.startsWith("[") && mockValue.endsWith("]")) {
@@ -650,7 +650,7 @@ public class MockMgrImpl implements MockMgr {
 		return returnValue;
 	}
 
-	private String processMockValueWithParams(Parameter para, String mockValue) {
+	private String processMockValueWithParams(String mockValue) {
 
 		Pattern p = Pattern.compile(Patterns.MOCK_TEMPLATE_PATTERN);
 		if (mockValue == null)
