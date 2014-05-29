@@ -4,7 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Login        </title>
-        #includeRapStatic
+        #includeNewRapStatic
         <style type="text/css">
             .container {width:430px;}
         </style>

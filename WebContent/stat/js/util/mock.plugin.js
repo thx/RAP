@@ -7,7 +7,7 @@
 
     var ROOT = 'rap.alibaba-inc.com';
     // [DEBUG]
-    ROOT = 'etaoux-bj.taobao.ali.com:8080';
+    //ROOT = 'etaoux-bj.taobao.ali.com:8080';
     var LOST = "LOST";
     var PREFIX = "/mockjs/";
     var EMPTY_ARRAY = "EMPTY_ARRAY";
