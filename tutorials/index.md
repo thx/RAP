@@ -242,6 +242,14 @@ reg:www.example/biz[0-9]{4}/query
 
 具体例子请参见项目：[RESTful API支持](http://rap.alibaba-inc.com/workspace/myWorkspace.action?projectId=265&mock=true)
 
+## 常见问题
 
+### 如何导入JSON到请求参数
+
+- 1). 给你的数据最外层加一层，比如你现在的数据是{data}，修改为：{"json":{data}}
+- 2). 导入到响应参数; 
+- 3). 新增一个请求参数，在第一列输入json(也就是同名)后`ctrl + enter`来执行一键复制;4). 删掉响应参数里的json参数。
+
+类似的，如果你不想wrap到一个参数里，一样是导入到响应参数，然后需要copy哪个就输入相同的变量名后`ctrl+enter`复制过去就好。
 
 {% endraw %}
