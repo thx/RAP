@@ -2,9 +2,10 @@ Rigel Automation Platform
 ===
 
     @版本 v0.9.0
-    @作者 Bosn(霍雍), wangjeaf(思竹)
-    @依赖 MockJS by 墨智 http://mockjs.com
-    @依赖 IF-TEST by 蒋壮 http://iftest.alibaba-inc.com
+    @作者 马圣博 王致富
+    @指导 李穆 李坤飞
+    @依赖 MockJS by 高云云 http://mockjs.com
+    @依赖 IF-TEST by 王跃乐 http://iftest.alibaba-inc.com （内网链接)
     @邮件 bosn@outlook.com, wangjeaf@gmail.com
 
 什么是RAP?
