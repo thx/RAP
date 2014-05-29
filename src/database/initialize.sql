@@ -329,24 +329,6 @@ CREATE TABLE tb_user_settings
     FOREIGN KEY(user_id) REFERENCES tb_user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE tb_notification
-(
-    id int(10) AUTO_INCREMENT NOT NULL
-        PRIMARY KEY,
-    user_id int(10) NOT NULL,
-    type_id smallint NOT NULL,
-    param1 varchar(128) NULL,
-    param2 varchar(128) NULL,
-    param3 text NULL,
-    create_time timestamp NOT NULL
-        DEFAULT now(),
-
-    is_read smallint NOT NULL
-        DEFAULT 0,
-
-    FOREIGN KEY(user_id) REFERENCES tb_user(id)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE tb_corporation
 (
     id int(10) AUTO_INCREMENT NOT NULL
