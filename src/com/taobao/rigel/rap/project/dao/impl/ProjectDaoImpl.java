@@ -124,9 +124,9 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		Session session = getSession();
 		// StringBuilder log = new StringBuilder();
 		Gson gson = new Gson();
-		
+
 		Project projectClient = gson.fromJson(projectData, Project.class);
-		
+
 		ObjectItem[] deletedObjectList = gson.fromJson(deletedObjectListData,
 				ObjectItem[].class);
 
@@ -294,8 +294,6 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		List<Long> list = query.list();
 		return list.get(0);
 	}
-	
-	
 
 	@Override
 	public List<Action> getMatchedActionList(int projectId, String pattern) {
@@ -303,7 +301,8 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		List<Action> result = new ArrayList<Action>();
 		for (Action action : list) {
 			String url = action.getRequestUrl();
-			if (url != null && !url.isEmpty() && url.charAt(0) != '/') {
+			if (url != null && !url.isEmpty() && url.charAt(0) != '/'
+					&& !url.startsWith("reg:")) {
 				url = "/" + url;
 			}
 			if (url.startsWith("reg:")) { // regular pattern
@@ -312,70 +311,56 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 				}
 			} else if (url.contains(":")) {
 				String urlParamRemoved = StringUtils.removeParamsInUrl(url);
-				String realUrlParamRemoved = StringUtils.removeRealParamsInUrl(pattern);
+				String realUrlParamRemoved = StringUtils
+						.removeRealParamsInUrl(pattern);
 				if (urlParamRemoved.contains(realUrlParamRemoved)) {
 					result.add(action);
 				}
-			} else {  // normal pattern
+			} else { // normal pattern
 				if (url.contains(pattern)) {
 					result.add(action);
 				}
 			}
 		}
-		
-		
+
 		return result;
-		
-		
-		
+
 		// process /:id/ cases
-//		boolean urlParalized = false;
-//		String patternOrignial = pattern;
-//		if (pattern.contains(":")) {
-//			urlParalized = true;
-//			pattern = pattern.substring(0, pattern.indexOf(":"));
-//		}
+		// boolean urlParalized = false;
+		// String patternOrignial = pattern;
+		// if (pattern.contains(":")) {
+		// urlParalized = true;
+		// pattern = pattern.substring(0, pattern.indexOf(":"));
+		// }
 
 		/**
-		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT a.id FROM tb_action a ")
-				.append("JOIN tb_action_and_page ap ON ap.action_id = a.id ")
-				.append("JOIN tb_page p ON p.id = ap.page_id ")
-				.append("JOIN tb_module m ON m.id = p.module_id ")
-				.append("WHERE LOCATE(:pattern, a.request_url) != 0 AND m.project_id = :projectId ");
-
-		String sql = sb.toString();
-		Query query = getSession().createSQLQuery(sql);
-		query.setString("pattern", pattern);
-		query.setInteger("projectId", projectId);
-		List<Integer> list = query.list();
-		List<Action> actionList = new ArrayList<Action>();
-		for (int id : list) {
-			actionList.add(getAction(id));
-		}
-		*/
+		 * StringBuilder sb = new StringBuilder();
+		 * sb.append("SELECT a.id FROM tb_action a ")
+		 * .append("JOIN tb_action_and_page ap ON ap.action_id = a.id ")
+		 * .append("JOIN tb_page p ON p.id = ap.page_id ")
+		 * .append("JOIN tb_module m ON m.id = p.module_id ") .append(
+		 * "WHERE LOCATE(:pattern, a.request_url) != 0 AND m.project_id = :projectId "
+		 * );
+		 * 
+		 * String sql = sb.toString(); Query query =
+		 * getSession().createSQLQuery(sql); query.setString("pattern",
+		 * pattern); query.setInteger("projectId", projectId); List<Integer>
+		 * list = query.list(); List<Action> actionList = new
+		 * ArrayList<Action>(); for (int id : list) {
+		 * actionList.add(getAction(id)); }
+		 */
 
 		// URL parameters filter
 		/**
-		if (urlParalized) {
-			List<Action> filteredActionList = new ArrayList<Action>();
-			for (Action a : actionList) {
-				String u = a.getRequestUrl();
-				if (u.contains("?")) {
-					u = u.substring(0, u.indexOf("?"));
-				}
-				u = StringUtils.removeParamsInUrl(u);
-				patternOrignial = StringUtils
-						.removeParamsInUrl(patternOrignial);
-				if (u != null && patternOrignial != null
-						&& u.equals(patternOrignial)) {
-					filteredActionList.add(a);
-				}
-			}
-			actionList = filteredActionList;
-		}
-		*/
-//		return actionList;
+		 * if (urlParalized) { List<Action> filteredActionList = new
+		 * ArrayList<Action>(); for (Action a : actionList) { String u =
+		 * a.getRequestUrl(); if (u.contains("?")) { u = u.substring(0,
+		 * u.indexOf("?")); } u = StringUtils.removeParamsInUrl(u);
+		 * patternOrignial = StringUtils .removeParamsInUrl(patternOrignial); if
+		 * (u != null && patternOrignial != null && u.equals(patternOrignial)) {
+		 * filteredActionList.add(a); } } actionList = filteredActionList; }
+		 */
+		// return actionList;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -447,7 +432,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		query.setString("key", "%" + key + "%");
 		return query.list();
 	}
-	
+
 	@SuppressWarnings({ "rawtypes" })
 	private List<Action> getActionListOfProject(int projectId) {
 		List<Action> list = new ArrayList<Action>();
@@ -461,11 +446,11 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		sql.append("WHERE p.id = :projectId ");
 		Query query = getSession().createSQLQuery(sql.toString());
 		query.setInteger("projectId", projectId);
-	
+
 		List result = query.list();
 		List<Integer> ids = new ArrayList<Integer>();
 		for (Object r : result) {
-			ids.add((Integer)r);
+			ids.add((Integer) r);
 		}
 		for (Integer id : ids) {
 			list.add(this.getAction(id));
