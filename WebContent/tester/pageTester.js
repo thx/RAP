@@ -288,9 +288,28 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
             return obj;
         }
     }
+    
+    function convertFuncValsToString(obj) {
+    	if (typeof obj !== 'object' || obj === null) {
+    		return;
+    	}
+    	var key, val;
+    	for (key in obj) {
+    		val = obj[key];
+    		if (obj.hasOwnProperty(key)) {
+    			if (typeof val === 'function') {
+    				obj[key] = val.toString();
+    			} else {
+    				convertFuncValsToString(obj[key]);
+    			}
+    		}
+    	}
+    }
+    
 
 
     function testResHandler(response, form, btn) {
+    	convertFuncValsToString(response);
         var jsonString = Y.JSON.stringify(response);
         var path = Y.one('#txtRootPath').get('value');
         var obj = eval("(" + jsonString + ")");
