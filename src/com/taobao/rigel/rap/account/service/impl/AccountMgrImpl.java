@@ -11,12 +11,23 @@ import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.StringUtils;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
+import com.taobao.rigel.rap.project.bo.Project;
+import com.taobao.rigel.rap.project.service.ProjectMgr;
 
 public class AccountMgrImpl implements AccountMgr {
 
 	private AccountDao accountDao;
 	private OrganizationMgr organizationMgr;
-	
+	private ProjectMgr projectMgr;
+
+	public ProjectMgr getProjectMgr() {
+		return projectMgr;
+	}
+
+	public void setProjectMgr(ProjectMgr projectMgr) {
+		this.projectMgr = projectMgr;
+	}
+
 	public OrganizationMgr getOrganizationMgr() {
 		return organizationMgr;
 	}
@@ -28,14 +39,15 @@ public class AccountMgrImpl implements AccountMgr {
 	public AccountDao getAccountDao() {
 		return accountDao;
 	}
-	
+
 	public void setAccountDao(AccountDao accountDao) {
 		this.accountDao = accountDao;
 	}
-	
+
 	@Override
 	public boolean validate(String account, String password) {
-		if (password == null) return false;
+		if (password == null)
+			return false;
 		password = StringUtils.getDoubleMD5(password);
 		return accountDao.validate(account, password);
 	}
@@ -43,11 +55,12 @@ public class AccountMgrImpl implements AccountMgr {
 	@Override
 	public boolean addUser(User user) {
 		String ps = user.getPassword();
-		if (ps == null) return false;
+		if (ps == null)
+			return false;
 		if (this.getUserId(user.getAccount()) > 0) {
 			return false;
 		}
-		
+
 		// DOUBLE MD5 encryption
 		ps = StringUtils.getDoubleMD5(ps);
 		user.setPassword(ps);
@@ -57,7 +70,8 @@ public class AccountMgrImpl implements AccountMgr {
 	@Override
 	public boolean changePassword(String account, String oldPassword,
 			String newPassword) {
-		if (oldPassword == null || newPassword == null) return false;
+		if (oldPassword == null || newPassword == null)
+			return false;
 		oldPassword = StringUtils.getDoubleMD5(oldPassword);
 		newPassword = StringUtils.getDoubleMD5(newPassword);
 		return accountDao.changePassword(account, oldPassword, newPassword);
@@ -82,17 +96,18 @@ public class AccountMgrImpl implements AccountMgr {
 	public void changeProfile(long userId, String profileProperty,
 			String profileValue) {
 		accountDao.changeProfile(userId, profileProperty, profileValue);
-		
+
 	}
 
 	@Override
-	public boolean updateProfile(long userId, String name, String email, String password,
-			String newPassword) {
+	public boolean updateProfile(long userId, String name, String email,
+			String password, String newPassword) {
 		if (password != null) {
 			password = StringUtils.getDoubleMD5(password);
 			newPassword = StringUtils.getDoubleMD5(newPassword);
 		}
-		return accountDao.updateProfile(userId, name, email, password, newPassword);
+		return accountDao.updateProfile(userId, name, email, password,
+				newPassword);
 	}
 
 	@Override
@@ -144,7 +159,7 @@ public class AccountMgrImpl implements AccountMgr {
 	public void addNotification(Notification notification) {
 		notification.setCreateTime(new Date());
 		notification.setRead(false);
-		
+
 		if (!accountDao.notificationExists(notification)) {
 			accountDao.addNotification(notification);
 		}
@@ -163,6 +178,28 @@ public class AccountMgrImpl implements AccountMgr {
 	@Override
 	public List<Notification> getUnreadNotificationList(long curUserId) {
 		return accountDao.getUnreadNotificationList(curUserId);
+	}
+
+	@Override
+	public boolean canUseManageProject(long userId, int projectId) {
+		User user = this.getUser(userId);
+		Project project = projectMgr.getProject(projectId);
+		if (user.isUserInRole("admin")) {
+			return true;
+		}
+		for (Project p : user.getCreatedProjectList()) {
+			if (p.getId() == projectId) {
+				return true;
+			}
+		}
+
+		for (User member : project.getUserList()) {
+			if (member.getId() == user.getId()) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }

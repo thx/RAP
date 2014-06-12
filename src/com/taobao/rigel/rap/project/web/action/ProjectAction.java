@@ -213,7 +213,7 @@ public class ProjectAction extends ActionBase {
 	public String removeProject() {
 		if (!isUserLogined())
 			return LOGIN;
-		if (!getCurUser().canManageProject(getId())) {
+		if (!getAccountMgr().canUseManageProject(getCurUserId(), getId())) {
 			setErrMsg("您没有管理该项目的权限");
 			return ERROR;
 		}
@@ -224,7 +224,7 @@ public class ProjectAction extends ActionBase {
 	public String delete() {
 		if (!isUserLogined())
 			return LOGIN;
-		if (!getCurUser().canManageProject(getId())) {
+		if (!getAccountMgr().canUseManageProject(getCurUserId(), getId())) {
 			setErrMsg("您没有管理该项目的权限");
 			return ERROR;
 		}
@@ -291,7 +291,7 @@ public class ProjectAction extends ActionBase {
 	private String updateProject() {
 		if (!isUserLogined())
 			return LOGIN;
-		if (!getCurUser().canManageProject(getId())) {
+		if (!getAccountMgr().canUseManageProject(getCurUserId(), getId())) {
 			setErrMsg("您没有管理该项目的权限");
 			return ERROR;
 		}
@@ -318,7 +318,7 @@ public class ProjectAction extends ActionBase {
 	public String update() {
 		if (!isUserLogined())
 			return LOGIN;
-		if (!getCurUser().canManageProject(getId())) {
+		if (!getAccountMgr().canUseManageProject(getCurUserId(), getId())) {
 			setErrMsg("您没有管理该项目的权限");
 			return ERROR;
 		}
