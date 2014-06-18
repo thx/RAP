@@ -383,11 +383,17 @@
             data.projectData.moduleList = [{"id":ws.generateId(),"name":"某模块（点击编辑后双击修改）","introduction":"","pageList":[{"moduleId":ws.generateId(),"name":"某页面","introduction":"","id":ws.generateId(),"isIdGenerated":true,"actionList":[{"pageId":ws.generateId(),"name":"某请求","requestType":"1","requestUrl":"","responseTemplate":"","description":"","id":ws.generateId(),"requestParameterList":[{"id":ws.generateId(),"identifier":"reqParam","name":"某请求参数","remark":"","validator":"","dataType":"number","parameterList":[]}],"responseParameterList":[{"id":ws.generateId(),"identifier":"resParam","name":"某响应参数","remark":"","validator":"","dataType":"number","parameterList":[]}]}]}]}];
         }
 
-        ws.init(data, urlObj#if($actionId),$actionId#end);
+        ws.init(data, urlObj#if($actionId),$actionId#end, callbackHandler);
 
-        #if($mock)
-            ws.toggleMockDisplay();
-        #end
+        function callbackHandler() {
+            #if($mock == true)
+                ws.toggleMockDisplay();
+            #else
+            if (window.location.toString().indexOf("mock=") == -1 && window.localStorage && window.localStorage.getItem("_isMockDisplay") === 'true') {
+                ws.toggleMockDisplay();
+            }
+            #end
+        }
 
     </script>
 </html>
