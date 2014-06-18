@@ -9,6 +9,14 @@ public class Notification {
 	private long id;
 	private long userId;
 	private long targetUserId;
+	public long getTargetUserId() {
+		return targetUserId;
+	}
+
+	public void setTargetUserId(long targetUserId) {
+		this.targetUserId = targetUserId;
+	}
+
 	private short typeId;
 	private String param1;
 	private String param2;
