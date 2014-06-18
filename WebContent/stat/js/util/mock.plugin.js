@@ -228,7 +228,7 @@
 
     if (window.seajs && window.define && window.define.cmd) {
     	// 删除已经加载的jquery缓存
-        var cache = seajs.cache;
+        var cache = seajs.cache || {};
         for(var prop in cache) {
         	prop = prop.toLowerCase();
         	if (prop.indexOf('jquery') != -1) {
