@@ -8,9 +8,9 @@ $(function() {
         'user': '我的项目',
         'star': '重要项目',
         'heart': '我关注的项目',
-        'tag': '与我相关的项目'
+        'tag': '我加入的项目'
     };
-    
+
     var PL_ID = null;
     var CORP_ID = null;
     function getUsers(callback) {
@@ -24,69 +24,69 @@ $(function() {
             callback(users);
         }, "JSON");
     }
-    
+
     function handleAddClick() {
-    	var that = this;
-    	var btn = $(this);
-    	if (btn.data('shown')) {
-    		return;
-    	}
-    	btn.data('shown', 1);
+        var that = this;
+        var btn = $(this);
+        if (btn.data('shown')) {
+            return;
+        }
+        btn.data('shown', 1);
         var groupId = $(this).data('groupid');
-        
+
         $.confirm({
             content: $.render($('#create-proj-tmpl').text(), {}),
             title: '创建项目',
             confirmText: '确认创建',
             cancelCallback: function() {
-            	btn.data('shown', 0);
+                btn.data('shown', 0);
             },
             showCallback: function() {
-            	btn.data('shown', 0);
+                btn.data('shown', 0);
                 var that = this;
                 $(this).find('input[type=text]').focus();
                 $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
                     $(this).parent('.picked-user').remove();
                 });
-                
+
                 $('.project-target .team').change(function() {
                     var corpId = $(this).val();
                     if (corpId === '') {
-                    	CORP_ID = '';
-                    	$('.create-new-entity-container').html('');
+                        CORP_ID = '';
+                        $('.create-new-entity-container').html('');
                         return;
                     }
                     var text = $(this).find('[value=' + corpId + ']').text();
-                    
+
                     fillSelectAsync('org.productline.all', {
                         corpId: corpId
                     }, $('#option-list-tmpl').text(), '.project-target .productline', function() {
-                    	showCreateProductlineBtn(corpId, text);
+                        showCreateProductlineBtn(corpId, text);
                     });
                 });
-                
+
                 $('.project-target .productline').change(function() {
                     var plId = $(this).val();
                     if (!plId) {
-                    	PL_ID = '';
-                    	$('.create-new-entity-container').html('');
+                        PL_ID = '';
+                        $('.create-new-entity-container').html('');
                         return;
                     }
                     var text = $(this).find('[value=' + plId + ']').text();
                     fillSelectAsync('org.home.grouplist', {
                         productLineId: plId
                     }, $('#option-list-tmpl').text(), '.project-target .group', function() {
-                    	showCreateGroupBtn(plId, text);
+                        showCreateGroupBtn(plId, text);
                     });
                 });
-                
+
                 getUsers(function(users) {
-                	$('.user-loading').hide();
-                	$(that).find('.accounts-inputer').keyup(function() {
-                		$.autocomplete(that, users);
-                	}).focus(function() {
-                		$.autocomplete(that, users);
-                	});
+                    $('.user-loading').hide();
+                    $(that).find('.accounts-inputer').keyup(function() {
+                        $.autocomplete(that, users);
+                    }).focus(function() {
+                        $.autocomplete(that, users);
+                    });
                 });
             },
             confirmClicked: function() {
@@ -134,16 +134,16 @@ $(function() {
             }
         });
     }
-    
+
     function handleViewProjectClick() {
-    	var box = $(this);
+        var box = $(this);
         box = box.parents('.box');
         var projId = box.data('projid');
         window.open($.route('workspace.mine') + '?projectId=' + projId);
     }
-    
+
     function handleEditProjectClick() {
-    	var id = $(this).data('id');
+        var id = $(this).data('id');
         var box = $(this).parents('.box');
         var name = box.find('.info .title').html();
         var desc = box.find('.info .intro').html();
@@ -176,12 +176,12 @@ $(function() {
                 });
 
                 getUsers(function(users) {
-                	$('.user-loading').hide();
-                	$(that).find('.accounts-inputer').keyup(function() {
-                		$.autocomplete(that, users);
-                	}).focus(function() {
-                		$.autocomplete(that, users);
-                	});
+                    $('.user-loading').hide();
+                    $(that).find('.accounts-inputer').keyup(function() {
+                        $.autocomplete(that, users);
+                    }).focus(function() {
+                        $.autocomplete(that, users);
+                    });
                 });
             },
             confirmClicked: function() {
@@ -222,125 +222,125 @@ $(function() {
             }
         });
     }
-    
+
     function handleRapPluginClick() {
-    	var id = $(this).data('id');
-    	var url = '';
-    	$.message({
-    		 content: '<input type="text" id="rap-plugin-inputer" class="form-control" value="<script src=\'http://rap.alibaba-inc.com/rap.plugin.js?projectId=' + id + '\'></script>" />',
+        var id = $(this).data('id');
+        var url = '';
+        $.message({
+             content: '<input type="text" id="rap-plugin-inputer" class="form-control" value="<script src=\'http://rap.alibaba-inc.com/rap.plugin.js?projectId=' + id + '\'></script>" />',
              title: '复制RAP插件地址',
              showCallback: function() {
-            	 $('#rap-plugin-inputer').focus();
+                 $('#rap-plugin-inputer').focus();
              }
-    	});
+        });
     }
-    
+
     function handleCreateProductline() {
-    	$.confirm({
-			content: $.render($('#create-productline').text(), {}),
-			title: '添加产品线',
-			confirmText: '确定',
-			showCallback: function() {
-				$(this).find('input[type=text]').focus();
-			},
-			confirmClicked: function() {
-				var inputer = $(this).find('input[type=text]');
-				if (inputer.val().trim() == '') {
-					inputer.addClass('shake');
-					inputer.focus();
-					setTimeout(function() {
-						inputer && inputer.removeClass('shake');
-					}, 1000);
-					return;
-				}
-				var modal = $(this);
-				var value = inputer.val().trim();
-				$.post($.route('org.productline.create'), {
-					corpId: CORP_ID,
-					name: value
-				}, function(data) {
-					var productlines = data.items;
-					if (!productlines) {
-						alert('创建失败，请稍后再试');
-						return;
-					}
-					var pl = productlines[0];
-					showCreateGroupBtn(pl.id, pl.name)
-					resetGroupSelect();
-					var select = appendOptions('.project-target .productline', pl.id, pl.name);
-					setTimeout(function() {
-						select.find('[value=""]').text('--请选择--');
-						select.val(pl.id);
-					}, 100);
-					modal.modal('hide');
-				}, "JSON")
-			}
-		});
+        $.confirm({
+            content: $.render($('#create-productline').text(), {}),
+            title: '添加产品线',
+            confirmText: '确定',
+            showCallback: function() {
+                $(this).find('input[type=text]').focus();
+            },
+            confirmClicked: function() {
+                var inputer = $(this).find('input[type=text]');
+                if (inputer.val().trim() === '') {
+                    inputer.addClass('shake');
+                    inputer.focus();
+                    setTimeout(function() {
+                        inputer && inputer.removeClass('shake');
+                    }, 1000);
+                    return;
+                }
+                var modal = $(this);
+                var value = inputer.val().trim();
+                $.post($.route('org.productline.create'), {
+                    corpId: CORP_ID,
+                    name: value
+                }, function(data) {
+                    var productlines = data.items;
+                    if (!productlines) {
+                        alert('创建失败，请稍后再试');
+                        return;
+                    }
+                    var pl = productlines[0];
+                    showCreateGroupBtn(pl.id, pl.name);
+                    resetGroupSelect();
+                    var select = appendOptions('.project-target .productline', pl.id, pl.name);
+                    setTimeout(function() {
+                        select.find('[value=""]').text('--请选择--');
+                        select.val(pl.id);
+                    }, 100);
+                    modal.modal('hide');
+                }, "JSON");
+            }
+        });
     }
-    
+
     function appendOptions(selector, value, text) {
-    	return $(selector).append('<option value="' + value + '">' + text + '</option>')
+        return $(selector).append('<option value="' + value + '">' + text + '</option>');
     }
-    
+
     function showCreateGroupBtn(id, name) {
-    	PL_ID = id;
-    	$('.create-new-entity-container').hide().html(
-            	'<div class="create-group btn btn-default" style="margin-top: 10px;">为 “' + name + '” 产品线创建新分组</div>').slideDown();
+        PL_ID = id;
+        $('.create-new-entity-container').hide().html(
+                '<div class="create-group btn btn-default" style="margin-top: 10px;">为 “' + name + '” 产品线创建新分组</div>').slideDown();
     }
-    
+
     function showCreateProductlineBtn(id, name) {
-    	CORP_ID = id;
-    	$('.create-new-entity-container').hide().html(
-        		'<div class="create-productline btn btn-default" style="margin-top: 10px;">为 “' + name + '” 创建新产品线</div>').slideDown();
+        CORP_ID = id;
+        $('.create-new-entity-container').hide().html(
+                '<div class="create-productline btn btn-default" style="margin-top: 10px;">为 “' + name + '” 创建新产品线</div>').slideDown();
     }
-    
+
     function resetGroupSelect() {
-    	$('.project-target .group').html('<option>--请选择分组--</option>')
+        $('.project-target .group').html('<option>--请选择分组--</option>');
     }
-    
+
     function handleCreateGroup() {
-    	$.confirm({
-			content: $('#create-group-tmpl').text(),
-			title: '创建分组',
-			confirmText: '确认创建',
-			showCallback: function() {
-				$(this).find('input[type=text]').focus();
-			},
-			confirmClicked: function() {
-				var tmpl = $('#group-tmpl').text();
-				var inputer = $(this).find('input[type=text]');
-				if (inputer.val().trim() == '') {
-					inputer.addClass('shake');
-					inputer.focus();
-					setTimeout(function() {
-						inputer && inputer.removeClass('shake');
-					}, 1000);
-					return;
-				}
-				var modal = $(this);
-				$.post($.route('org.group.create'), {
-					productLineId: PL_ID,
-					name: inputer.val().trim()
-				}, function(data) {
-					var groups = data.groups;
-					if (!groups) {
-						alert('创建失败，请稍后再试');
-						return;
-					}
-					var group = groups[0];
-					var select = $('.project-target .group').append('<option value="' + group.id + '">' + group.name + '</option>');
-					setTimeout(function() {
-						select.find('[value=""]').text('--请选择--');
-						select.val(group.id);
-					}, 100);
-					modal.modal('hide');
-				}, "JSON")
-			}
-		});
+        $.confirm({
+            content: $('#create-group-tmpl').text(),
+            title: '创建分组',
+            confirmText: '确认创建',
+            showCallback: function() {
+                $(this).find('input[type=text]').focus();
+            },
+            confirmClicked: function() {
+                var tmpl = $('#group-tmpl').text();
+                var inputer = $(this).find('input[type=text]');
+                if (inputer.val().trim() === '') {
+                    inputer.addClass('shake');
+                    inputer.focus();
+                    setTimeout(function() {
+                        inputer && inputer.removeClass('shake');
+                    }, 1000);
+                    return;
+                }
+                var modal = $(this);
+                $.post($.route('org.group.create'), {
+                    productLineId: PL_ID,
+                    name: inputer.val().trim()
+                }, function(data) {
+                    var groups = data.groups;
+                    if (!groups) {
+                        alert('创建失败，请稍后再试');
+                        return;
+                    }
+                    var group = groups[0];
+                    var select = $('.project-target .group').append('<option value="' + group.id + '">' + group.name + '</option>');
+                    setTimeout(function() {
+                        select.find('[value=""]').text('--请选择--');
+                        select.val(group.id);
+                    }, 100);
+                    modal.modal('hide');
+                }, "JSON");
+            }
+        });
     }
-    
+
     function handleDeleteClick() {
-    	var id = $(this).data('id');
+        var id = $(this).data('id');
         var box = $(this).parents('.box');
         $.confirm({
             content: '删除以后不可恢复，请谨慎操作',
@@ -370,14 +370,14 @@ $(function() {
         .delegate('.box .glyphicon-pencil', 'click', handleEditProjectClick)
         .delegate('.box .glyphicon-export', 'click', handleRapPluginClick)
         .delegate('.create-productline', 'click', handleCreateProductline)
-		.delegate('.create-group', 'click', handleCreateGroup)
+        .delegate('.create-group', 'click', handleCreateGroup)
         .delegate('.box .glyphicon-trash', 'click', handleDeleteClick);
     }
 
     function fillSelectAsync(route, params, tmpl, target, callback) {
         callback && callback();
         $(target).html($.render(tmpl, {
-        	items: [{id: '', name: '加载中...'}]
+            items: [{id: '', name: '加载中...'}]
         }));
         $.get($.route(route), params, function(data) {
             if (data.groups) {
@@ -509,23 +509,23 @@ $(function() {
     function render() {
         var tmpl = $('#group-tmpl').text();
         $.get($.route('org.home.projects'), {}, function(data) {
-        	var newGroup = [];
-        	for(var i = 0, l = data.groups.length; i < l; i++) {
-        		if (data.groups[i].type == 'user') {
-        			var group = data.groups[i];
-        			for(var j = 0; j < group.projects.length; j++) {
-        				if (!group.projects[j].isManagable) {
-        					newGroup.push(group.projects[j]);
-        					group.projects.splice(j, 1);
-        					j --;
-        				}
-        			}
-        		}
-        	}
-        	data.groups.push({
-        		type: 'tag',
-        		projects: newGroup
-        	});
+            var newGroup = [];
+            for(var i = 0, l = data.groups.length; i < l; i++) {
+                if (data.groups[i].type == 'user') {
+                    var group = data.groups[i];
+                    for(var j = 0; j < group.projects.length; j++) {
+                        if (group.projects[j].related) {
+                            newGroup.push(group.projects[j]);
+                            group.projects.splice(j, 1);
+                            j --;
+                        }
+                    }
+                }
+            }
+            data.groups.push({
+                type: 'tag',
+                projects: newGroup
+            });
             data.groups.forEach(function (group) {
                 group.name = NAME_MAP[group.type] || '其他';
             });

@@ -216,6 +216,7 @@ public class User implements java.io.Serializable {
 		return "{\"name\":\"" + this.name + "\",\"id\":" + this.id + "}";
 	}
 
+	/**
 	public boolean canManageProject(int projectId) {
 		if (isUserInRole("admin")) {
 			return true;
@@ -227,6 +228,7 @@ public class User implements java.io.Serializable {
 		}		
 		return false;
 	}
+	*/
 
 	public String getWorkRole() {
 		for (Role r : getRoleList()) {

@@ -19,14 +19,10 @@ public class GroupAction extends ActionBase {
 	private OrganizationMgr organizationMgr;
 	private ProjectMgr projectMgr;
 	private int id;
-	
-	
 
 	public int getId() {
 		return id;
 	}
-
-	
 
 	public void setId(int id) {
 		this.id = id;
@@ -81,9 +77,11 @@ public class GroupAction extends ActionBase {
 					.getProjectListByGroup(groupModel.getId());
 			List<Map<String, Object>> projects = new ArrayList<Map<String, Object>>();
 			for (Project projectModel : projectModelList) {
-				if (getCurUser().isUserInRole("admin") || getCurUser().getId() == projectModel.getUser().getId()) {
+				if (getCurUser().isUserInRole("admin")
+						|| getAccountMgr().canUserManageProject(
+								getCurUser().getId(), projectModel.getId())) {
 					projectModel.setIsManagable(true);
-				} 
+				}
 				Map<String, Object> project = new HashMap<String, Object>();
 				project.put("id", projectModel.getId());
 				project.put("name", projectModel.getName());
@@ -103,7 +101,7 @@ public class GroupAction extends ActionBase {
 		setJson(gson.toJson(result));
 		return SUCCESS;
 	}
-	
+
 	public String groups() {
 		Gson gson = new Gson();
 		Map<String, Object> result = new HashMap<String, Object>();

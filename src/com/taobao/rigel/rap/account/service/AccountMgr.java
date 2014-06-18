@@ -191,6 +191,16 @@ public interface AccountMgr {
 	 * @return
 	 */
 	List<Notification> getUnreadNotificationList(long curUserId);
+	
+	
+	/**
+	 * user access validation
+	 * 
+	 * @param userId
+	 * @param projectId
+	 * @return
+	 */
+	boolean canUserManageProject(long userId, int projectId);
 
 
 }

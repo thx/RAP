@@ -67,7 +67,7 @@ public class OrganizationAction extends ActionBase {
 		} else {
 			return "public";
 		}
-		
+
 	}
 
 	public String group() {
@@ -78,7 +78,8 @@ public class OrganizationAction extends ActionBase {
 	public String productline() {
 		Corporation c = organizationMgr.getCorporation(id);
 		if (c != null) {
-			ContextManager.getSession().put(ContextManager.KEY_CORP_NAME, c.getName());
+			ContextManager.getSession().put(ContextManager.KEY_CORP_NAME,
+					c.getName());
 		}
 		return SUCCESS;
 	}
@@ -92,9 +93,11 @@ public class OrganizationAction extends ActionBase {
 		List<Project> projectList = projectMgr.getProjectList(getCurUser(), 1,
 				(int) totalRecNum);
 		for (Project p : projectList) {
-			if (getCurUser().isUserInRole("admin") || getCurUser().getId() == p.getUser().getId()) {
+			if (getCurUser().isUserInRole("admin")
+					|| getAccountMgr().canUserManageProject(
+							getCurUser().getId(), p.getId())) {
 				p.setIsManagable(true);
-			} 
+			}
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("id", p.getId());
 			map.put("name", p.getName());
@@ -103,6 +106,7 @@ public class OrganizationAction extends ActionBase {
 			map.put("accounts", p.getMemberAccountListStr());
 			map.put("isManagable", p.getIsManagable());
 			map.put("creator", p.getUser().getUserBaseInfo());
+			map.put("related", p.getUser().getId() != getCurUserId());
 			projects.add(map);
 		}
 		StringBuilder json = new StringBuilder();
