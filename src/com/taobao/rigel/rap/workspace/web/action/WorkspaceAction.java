@@ -31,6 +31,16 @@ import com.taobao.rigel.rap.workspace.service.WorkspaceMgr;
 public class WorkspaceAction extends ActionBase {
 
 	private static final long serialVersionUID = 1L;
+	
+	private boolean accessable;
+
+	public boolean isAccessable() {
+		return accessable;
+	}
+
+	public void setAccessable(boolean accessable) {
+		this.accessable = accessable;
+	}
 
 	private boolean mock;
 
@@ -246,6 +256,7 @@ public class WorkspaceAction extends ActionBase {
 		workspace.setProject(projectMgr.getProject(getProjectId()));
 		setWorkspaceJsonString(workspace.toString());
 		setWorkspace(workspace);
+		setAccessable(getAccountMgr().canUserManageProject(getCurUserId(), getProjectId()));
 		return SUCCESS;
 	}
 
@@ -370,7 +381,7 @@ public class WorkspaceAction extends ActionBase {
 			return JSON_ERROR;
 		}
 
-		if (!getAccountMgr().canUseManageProject(getCurUserId(), getId())) {
+		if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
 			setErrMsg("access deny");
 			setIsOk(false);
 			return JSON_ERROR;

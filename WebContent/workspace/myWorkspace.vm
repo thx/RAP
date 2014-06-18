@@ -16,7 +16,7 @@
             <div class="clearfix">
                 <div id="div-w-message" class="label" style="display:none;">
                 </div>
-                <div id="div-control-panel">
+                <div id="div-control-panel" #if(!$accessable)style="display:none;"#end>
                     <div id="div-workspace-search">
                         <input type="text" id="inputSearch" class="form-control" placeholder="工作区搜索">
                         </input>
@@ -67,7 +67,7 @@
                     </button>
                     <button id="btnExport" type="button" class="btn btn-default" onclick="ws.showPluginCode(); return false;">
                         <span class="glyphicon glyphicon-share"></span>
-                        插件代码
+                        FE工具箱
                     </button>
 
                 </div>
@@ -344,15 +344,24 @@
             </div>
         </form>
         #endFloater
-        #startFloater("pluginCodeFloater" "Mock插件代码" 600 130)
+        #startFloater("pluginCodeFloater" "FE工具箱" 600 230)
         <form name="formPluginCodeFloater">
             <div class="myfloater">
+                <div>插件代码</div>
                 <div>
-                    <input id="pluginCodeInput" style="width:550px;margin:8px 0;" type="text" value="&lt;script src=&quot;http://rap.alibaba-inc.com/rap.plugin.js?projectId=$!projectId&quot;&gt;&lt;/script&gt;">
+                    <input disabled="disabled" id="pluginCodeInput" style="width:550px;margin:8px 0;" type="text" value="&lt;script src=&quot;http://rap.alibaba-inc.com/rap.plugin.js?projectId=$!projectId&quot;&gt;&lt;/script&gt;">
+                </div>
+                <div>项目路由</div>
+                <div>
+                    <input id="divRelatedIds" style="width:550px;margin:8px 0;" type="text" value="$!workspace.project.relatedIds" placeholder="例:24,32,56  项目ID逗号隔开">
                 </div>
                 <div class="div-floater-control">
-                    <input type="button" class="btn btn-default" onclick="ws.closePluginCodeFloater();"  value="关闭" />
+                    <input type="button" class="btn btn-default" onclick="ws.closePluginCodeFloater(1);"  value="保存" />
+                    <input type="button" class="btn btn-default" onclick="ws.closePluginCodeFloater();"  value="取消" />
                 </div>
+            </div>
+            <div>
+
             </div>
         </form>
         #endFloater
@@ -373,7 +382,8 @@
                 "ping"              : "$workspaceUrl.ping",
                 "queryVersion"      : "$workspaceUrl.queryVersion",
                 "switchVersion"     : "$workspaceUrl.switchVersion",
-                "pageTester"        : "$testerUrl.pageTester"
+                "pageTester"        : "$testerUrl.pageTester",
+                "updateReleatedIds" : "$projectUrl.updateReleatedIds"
             },
             ws = rap.workspace,
             data = $workspaceJsonString,

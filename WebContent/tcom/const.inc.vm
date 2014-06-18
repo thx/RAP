@@ -50,7 +50,8 @@
     "myProject":"$projectContext/project/myProject.action",
     "projectDetailAjax":"$projectContext/project/projectDetailAjax.action",
     "addOrUpdateProject":"$projectContext/project/addOrUpdateProject.action",
-    "allProductlineList":"$projectContext/org/productline.action"
+    "allProductlineList":"$projectContext/org/productline.action",
+    "updateReleatedIds":"$projectContext/project/updateReleatedIds.action"
 })
 
 #set($workspaceUrl = {

@@ -26,6 +26,37 @@ public class ProjectAction extends ActionBase {
 	private int id;
 
 	private List<Project> searchResult;
+	
+	private String ids;
+
+	public String getIds() {
+		if (ids == null || ids.isEmpty()) {
+			return "";
+		}
+		
+		String[] idList = ids.split(",");
+		String returnVal = "";
+		Integer num = 0;
+		int counter = 0;
+		for (String id : idList) {
+			try {
+				num = Integer.parseInt(id);
+				counter++;
+				if (counter > 1) {
+					returnVal += ",";
+				}
+				returnVal += num.toString();
+			
+			} catch (Exception ex) {
+				
+			}
+		}
+		return returnVal;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
 
 	public List<Project> getSearchResult() {
 		return searchResult;
@@ -213,7 +244,7 @@ public class ProjectAction extends ActionBase {
 	public String removeProject() {
 		if (!isUserLogined())
 			return LOGIN;
-		if (!getAccountMgr().canUseManageProject(getCurUserId(), getId())) {
+		if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
 			setErrMsg("您没有管理该项目的权限");
 			return ERROR;
 		}
@@ -224,7 +255,7 @@ public class ProjectAction extends ActionBase {
 	public String delete() {
 		if (!isUserLogined())
 			return LOGIN;
-		if (!getAccountMgr().canUseManageProject(getCurUserId(), getId())) {
+		if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
 			setErrMsg("您没有管理该项目的权限");
 			return ERROR;
 		}
@@ -291,7 +322,7 @@ public class ProjectAction extends ActionBase {
 	private String updateProject() {
 		if (!isUserLogined())
 			return LOGIN;
-		if (!getAccountMgr().canUseManageProject(getCurUserId(), getId())) {
+		if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
 			setErrMsg("您没有管理该项目的权限");
 			return ERROR;
 		}
@@ -318,7 +349,7 @@ public class ProjectAction extends ActionBase {
 	public String update() {
 		if (!isUserLogined())
 			return LOGIN;
-		if (!getAccountMgr().canUseManageProject(getCurUserId(), getId())) {
+		if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
 			setErrMsg("您没有管理该项目的权限");
 			return ERROR;
 		}
@@ -354,6 +385,21 @@ public class ProjectAction extends ActionBase {
 		result.put("groupId", project.getGroupId());
 		result.put("isManagable", project.getIsManagable());
 		setJson(new RapError(gson.toJson(result)).toString());
+		return SUCCESS;
+	}
+	
+	public String updateReleatedIds() {
+		if (!isUserLogined())
+			return LOGIN;
+		if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
+			setErrMsg("您没有管理该项目的权限");
+			return ERROR;
+		}
+		
+		Project project = projectMgr.getProject(getId());
+		project.setRelatedIds(getIds());
+		projectMgr.updateProject(project);
+		
 		return SUCCESS;
 	}
 

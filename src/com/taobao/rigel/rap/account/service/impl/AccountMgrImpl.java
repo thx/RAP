@@ -189,23 +189,24 @@ public class AccountMgrImpl implements AccountMgr {
 	}
 
 	@Override
-	public boolean canUseManageProject(long userId, int projectId) {
+	public boolean canUserManageProject(long userId, int projectId) {
 		User user = this.getUser(userId);
 		Project project = projectMgr.getProject(projectId);
 		if (user.isUserInRole("admin")) {
 			return true;
 		}
-		for (Project p : user.getCreatedProjectList()) {
-			if (p.getId() == projectId) {
-				return true;
+		if (user.getCreatedProjectList() != null)
+			for (Project p : user.getCreatedProjectList()) {
+				if (p.getId() == projectId) {
+					return true;
+				}
 			}
-		}
-
-		for (User member : project.getUserList()) {
-			if (member.getId() == user.getId()) {
-				return true;
+		if (project.getUserList() != null)
+			for (User member : project.getUserList()) {
+				if (member.getId() == user.getId()) {
+					return true;
+				}
 			}
-		}
 
 		return false;
 	}

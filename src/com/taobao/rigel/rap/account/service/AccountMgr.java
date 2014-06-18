@@ -200,7 +200,7 @@ public interface AccountMgr {
 	 * @param projectId
 	 * @return
 	 */
-	boolean canUseManageProject(long userId, int projectId);
+	boolean canUserManageProject(long userId, int projectId);
 
 
 }
