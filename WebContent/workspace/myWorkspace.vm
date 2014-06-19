@@ -33,48 +33,48 @@
                             </ul>
                         </div>
                     </div>
-                    <button id="btnFastSave" type="button" class="btn btn-warning" onclick="ws.quickSave(); return false;"  style="display: none" title="一键保存，方便快捷。建议少量修改无需说明时使用。">
+                    <button id="btnFastSave" type="button" class="btn btn-warning btn-sm" onclick="ws.quickSave(); return false;"  style="display: none" title="一键保存，方便快捷。建议少量修改无需说明时使用。">
                         <span class="glyphicon glyphicon-flash"></span>
-                        一键保存
+                        秒存
                     </button>
-                    <button id="btnSave" type="button" class="btn btn-default" onclick="ws.switchToViewMode(true); return false;"  style="display: none" title="点击该按钮将提交您所有的更改至服务器，同时解除项目锁定。">
+                    <button id="btnSave" type="button" class="btn btn-default btn-sm" onclick="ws.switchToViewMode(true); return false;"  style="display: none" title="点击该按钮将提交您所有的更改至服务器，同时解除项目锁定。">
                         <span class="glyphicon glyphicon-floppy-disk"></span>
-                        保存
+                        慢存
                     </button>
-                    <button id="btnCancel" type="button" class="btn btn-default" onclick="ws.switchToViewMode(false); return false;"  style="display: none" title="点击该按钮将放弃您所有的更改，同时退出编辑模式，并解除项目锁定。">
+                    <button id="btnCancel" type="button" class="btn btn-default btn-sm" onclick="ws.switchToViewMode(false); return false;"  style="display: none" title="点击该按钮将放弃您所有的更改，同时退出编辑模式，并解除项目锁定。">
                         <span class="glyphicon glyphicon-trash"></span>
                         取消
                     </button>
-                    <button id="btnEdit" type="button" class="btn btn-primary" onclick="ws.switchToEditMode(); return false;" title="进入编辑模式后您才可以修改项目数据，当您进入编辑模式时项目会被锁定，其他用户暂时不能编辑。">
+                    <button id="btnEdit" type="button" class="btn btn-primary btn-sm" onclick="ws.switchToEditMode(); return false;" title="进入编辑模式后您才可以修改项目数据，当您进入编辑模式时项目会被锁定，其他用户暂时不能编辑。">
                         <span class="glyphicon glyphicon-pencil"></span>
                         编辑
                     </button>
-                    <button id="btnVersion" type="button" class="btn btn-default" onclick="ws.version(); return false;" title="点击进入版本管理，在这里您可以查看任何版本或将当前接口文档切换至某个特定版本。">
+                    <button id="btnVersion" type="button" class="btn btn-default btn-sm" onclick="ws.version(); return false;" title="点击进入版本管理，在这里您可以查看任何版本或将当前接口文档切换至某个特定版本。">
                         <span class="glyphicon glyphicon-refresh"></span>
-                        版本管理
+                        版本
                     </button>
-                    <button id="btnExitVersion" type="button" class="btn btn-default" onclick="ws.exitVersion(); return false;" style="display: none;" title="点击后将退出版本查看，回到观看前的场景。">
+                    <button id="btnExitVersion" type="button" class="btn btn-default btn-sm" onclick="ws.exitVersion(); return false;" style="display: none;" title="点击后将退出版本查看，回到观看前的场景。">
                         <span class="glyphicon glyphicon-arrow-left"></span>
                         返回
                     </button>
-                    <button id="btnExport" type="button" class="btn btn-default" onclick="window.open('$!workspaceUrl.export?projectId=$!projectId')">
+                    <button id="btnExport" type="button" class="btn btn-default btn-sm" onclick="window.open('$!workspaceUrl.export?projectId=$!projectId')">
                         <span class="glyphicon glyphicon-file"></span>
-                        导出文档
+                        导出
                     </button>
-                    <button id="btnToggleMockDisplay" type="button" class="btn btn-default" onclick="ws.toggleMockDisplay();" title="为方便文档查看，默认MOCK标签（@mock）等信息是隐藏的，该按钮可以隐藏/显示文档中的MOCK数据信息。">
+                    <button id="btnToggleMockDisplay" type="button" class="btn btn-default btn-sm" onclick="ws.toggleMockDisplay();" title="为方便文档查看，默认MOCK标签（@mock）等信息是隐藏的，该按钮可以隐藏/显示文档中的MOCK数据信息。">
                         <span class="glyphicon glyphicon-headphones"></span>
                         Mock
                     </button>
-                    <button id="btnExport" type="button" class="btn btn-default" onclick="ws.showPluginCode(); return false;">
-                        <span class="glyphicon glyphicon-share"></span>
-                        FE工具箱
+                    <button id="btnExport" type="button" class="btn btn-default btn-sm" onclick="ws.showPluginCode(); return false;">
+                        <span class="glyphicon glyphicon-wrench"></span>
+                        配置
                     </button>
 
                 </div>
             </div>
             <div id="div-debug"></div>
             <div id="div-mt-list" class="clearfix"></div>
-            <div id="div-add-p" style="display: none"><a href="#" class="btn btn-default btn-sm" onclick="ws.addP(); return false;"><i class="glyphicon glyphicon-plus" style="margin-right: 5px"></i>新增页面</a></div>
+            <div id="div-add-p" style="display: none"><a href="#" class="btn btn-default btn-xs" onclick="ws.addP(); return false;"><i class="glyphicon glyphicon-plus" style="margin-right: 5px"></i>新增页面</a></div>
         </div>
         <div id="div-w">
             <div id="div-m-list"> </div>

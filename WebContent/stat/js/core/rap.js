@@ -1209,12 +1209,12 @@ if (!window.console) {
             "REQUEST_BEGIN"                 : "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "REQUEST_BEGIN_EDIT"            : "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "REQUEST_END"                   : "</table>",
-            "REQUEST_PARAMETER_ADD_BUTTON"  : "<div class='btns-container'><a href=\"#\" class=\"btn btn-default btn-xs\" onclick=\"ws.addParam('request'); return false;\"><i class='glyphicon glyphicon-plus'></i>新增请求参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(true); return false;\"><i class='glyphicon glyphicon-transfer'></i>导入JSON</a></div>",
+            "REQUEST_PARAMETER_ADD_BUTTON"  : "<div class='btns-container'><a href=\"#\" class=\"btn btn-default btn-xs\" onclick=\"ws.addParam('request'); return false;\"><i class='glyphicon glyphicon-plus'></i>添加参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(true); return false;\"><i class='glyphicon glyphicon-transfer'></i>导入JSON</a></div>",
 
             "RESPONSE_BEGIN"                : "<h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "RESPONSE_BEGIN_EDIT"           : "<h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "RESPONSE_END"                  : "</table>",
-            "RESPONSE_PARAMETER_ADD_BUTTON" : "<div class='btns-container'><a href=\"#\" class=\"btn btn-default btn-xs\" onclick=\"ws.addParam('response'); return false;\"><i class='glyphicon glyphicon-plus'></i>新增响应参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(); return false;\"><i class='glyphicon glyphicon-transfer'></i>导入JSON</a></div>",
+            "RESPONSE_PARAMETER_ADD_BUTTON" : "<div class='btns-container'><a href=\"#\" class=\"btn btn-default btn-xs\" onclick=\"ws.addParam('response'); return false;\"><i class='glyphicon glyphicon-plus'></i>添加参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(); return false;\"><i class='glyphicon glyphicon-transfer'></i>导入JSON</a></div>",
 
             "SAVE_PANEL_BEGIN"              : "<div id=\"div-save-panel\">",
             "SAVE_PANEL_END"                : "</div>",
@@ -2384,6 +2384,13 @@ if (!window.console) {
 
 
     /**
+     * move or copy action
+     */
+    ws.moveAndCopy = function() {
+        alert("这个功能还没实现... this function has not been implemented yet...");
+    };
+
+    /**
      * complex parameter expand
      */
     ws.paramExpand = function(paramId) {
@@ -3512,7 +3519,7 @@ if (!window.console) {
                     str += "</div>";
                 }
                 if (_isEditMode) {
-                    str += "<div style='margin-top:10px'><a class=\"btn btn-default btn-sm\" href=\"#\" onclick=\"ws.addA(" + page.id + "); return false;\"><i class=\"glyphicon glyphicon-plus\" style='margin-right: 5px;'></i>新增请求</a></div>";
+                    str += "<div style='margin-top:10px'><a class=\"btn btn-default btn-xs\" href=\"#\" onclick=\"ws.addA(" + page.id + "); return false;\"><i class=\"glyphicon glyphicon-plus\" style='margin-right: 5px;'></i>新增请求</a></div>";
                 }
                 str += "</div>";
             }
@@ -3583,6 +3590,11 @@ if (!window.console) {
             sortParams(responseParameterList);
 
             str += getAInfoHtml(a);
+
+            if (_isEditMode) {
+                str += "<div class=\"action-info\"><a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.moveAndCopy(); return false;\"><i class='glyphicon glyphicon-random'></i>移动/复制接口</a></div>";
+            }
+
             if (requestParameterListNum > 0) {
                 str += _isEditMode ? TEMPLATE.REQUEST_BEGIN_EDIT : TEMPLATE.REQUEST_BEGIN;
                 for (i = 0; i < requestParameterListNum; i++) {
@@ -3634,6 +3646,8 @@ if (!window.console) {
             if (a.description) {
                 body += "<div class='item'><b>接口描述 </b>" + processTextarea(a.description) + "</div>";
             }
+
+
             if (!body) {
                 body += "no info";
             }
