@@ -32,14 +32,24 @@ public class WorkspaceAction extends ActionBase {
 
 	private static final long serialVersionUID = 1L;
 	
+	private boolean accessable;
+
+	public boolean isAccessable() {
+		return accessable;
+	}
+
+	public void setAccessable(boolean accessable) {
+		this.accessable = accessable;
+	}
+
 	private boolean mock;
-	
+
 	private int actionId;
-	
+
 	public int getActionId() {
 		return actionId;
 	}
-	
+
 	public void setActionId(int actionId) {
 		this.actionId = actionId;
 	}
@@ -246,6 +256,7 @@ public class WorkspaceAction extends ActionBase {
 		workspace.setProject(projectMgr.getProject(getProjectId()));
 		setWorkspaceJsonString(workspace.toString());
 		setWorkspace(workspace);
+		setAccessable(getAccountMgr().canUserManageProject(getCurUserId(), getProjectId()));
 		return SUCCESS;
 	}
 
@@ -370,20 +381,24 @@ public class WorkspaceAction extends ActionBase {
 			return JSON_ERROR;
 		}
 
+		if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
+			setErrMsg("access deny");
+			setIsOk(false);
+			return JSON_ERROR;
+		}
+
 		// update project
 		projectMgr.updateProject(getId(), getProjectData(),
 				getDeletedObjectListData());
-		
-		
+
 		Project project = projectMgr.getProject(getId());
-		
-		
+
 		// notification for doc change
 		for (User user : project.getUserList()) {
 			Notification notification = new Notification();
 			notification.setParam1(new Integer(id).toString());
 			notification.setParam2(project.getName());
-			notification.setTypeId((short)1);
+			notification.setTypeId((short) 1);
 			notification.setTargetUser(getCurUser());
 			notification.setUser(user);
 			if (notification.getUser().getId() != getCurUserId())
@@ -393,12 +408,12 @@ public class WorkspaceAction extends ActionBase {
 		Notification notification = new Notification();
 		notification.setParam1(new Integer(id).toString());
 		notification.setParam2(project.getName());
-		notification.setTypeId((short)1);
+		notification.setTypeId((short) 1);
 		notification.setTargetUser(getCurUser());
 		notification.setUser(project.getUser());
 		if (notification.getUser().getId() != getCurUserId())
 			getAccountMgr().addNotification(notification);
-		
+
 		// generate one check-in of VSS mode submit
 		CheckIn checkIn = new CheckIn();
 		checkIn.setCreateDate(new Date());
@@ -473,7 +488,8 @@ public class WorkspaceAction extends ActionBase {
 					.get(ContextManager.KEY_PROJECT_LOCK_LIST);
 			if (projectLockList.get(curUserId) == null) {
 				projectLockList.put(curUserId, getId());
-				//System.out.println("user[" + curUserId + "] locked project["+ getId() + "]");
+				// System.out.println("user[" + curUserId + "] locked project["+
+				// getId() + "]");
 			}
 			isOk = true;
 		}

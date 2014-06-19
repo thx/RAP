@@ -105,9 +105,9 @@
         <ul class="dropdown-menu dropdown-menu-right">
           <li>
               <form name="formMain" class="navbar-form register-form" action="$accountUrl.doRegister" method="post">
-                  <input class="span2 form-control" style="width:200px" type="text" placeholder="登录用户名" required name="account">
-                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="text" placeholder="中文名" required name="name">
+                  <input class="span2 form-control" style="width:200px" type="text" placeholder="中文名" required name="name">
                   <input class="span2 form-control" style="width:200px;margin-top:10px;" type="email" placeholder="邮箱" required name="email">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="text" placeholder="登录用户名" required name="account">
                   <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="密码" required name="password" id="register-password">
                   <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="密码确认" required name="passwordConfirm" id="register-password-confirm">
                   <div style="margin-top: 10px;">
@@ -136,11 +136,11 @@
     </footer>
     <script>
         function _logData() {
-        	if (window.localStorage) {
-        		if (window.localStorage.getItem('stopLogData')) {
-        			return;
-        		}
-        	}
+            if (window.localStorage) {
+                if (window.localStorage.getItem('stopLogData')) {
+                    return;
+                }
+            }
             jQuery.ajax({
                 url     : '$accountUrl.logData',
                 success : function(data){

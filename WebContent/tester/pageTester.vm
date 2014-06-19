@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE html>
 #parse('/tcom/const.inc.vm')
 <html>
         <head>
@@ -28,7 +28,7 @@
             <!--
                 <li><a href="#">MODIFY</a></li>
                 <li><a href="#">RESET</a></li>
-                 -->
+             -->
             </div>
             #foreach($action in $page.actionList)
             <div class="tester-form tab" style="display: none;">

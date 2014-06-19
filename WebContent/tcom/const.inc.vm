@@ -14,7 +14,7 @@
 #set($dateFormat = 'yyyy-MM-dd')
 
 ## 时间戳
-#set($timeStamp = '20140506.v0.8.1')
+#set($timeStamp = '20140618.v0.9.1')
 
 ##----------------------页面请求action地址-------------------------------
 ## 配置工程的上下文路径
@@ -50,7 +50,8 @@
     "myProject":"$projectContext/project/myProject.action",
     "projectDetailAjax":"$projectContext/project/projectDetailAjax.action",
     "addOrUpdateProject":"$projectContext/project/addOrUpdateProject.action",
-    "allProductlineList":"$projectContext/org/productline.action"
+    "allProductlineList":"$projectContext/org/productline.action",
+    "updateReleatedIds":"$projectContext/project/updateReleatedIds.action"
 })
 
 #set($workspaceUrl = {

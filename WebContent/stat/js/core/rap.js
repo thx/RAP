@@ -1209,7 +1209,7 @@ if (!window.console) {
             "REQUEST_BEGIN"                 : "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "REQUEST_BEGIN_EDIT"            : "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "REQUEST_END"                   : "</table>",
-            "REQUEST_PARAMETER_ADD_BUTTON"  : "<div class='btns-container'><a href=\"#\" class=\"btn btn-default\" onclick=\"ws.addParam('request'); return false;\">新增请求参数</a></div>",
+            "REQUEST_PARAMETER_ADD_BUTTON"  : "<div class='btns-container'><a href=\"#\" class=\"btn btn-default\" onclick=\"ws.addParam('request'); return false;\">新增请求参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-success' onclick=\"ws.importJSON(true); return false;\">导入JSON</a></div>",
 
             "RESPONSE_BEGIN"                : "<h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "RESPONSE_BEGIN_EDIT"           : "<h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
@@ -1279,6 +1279,10 @@ if (!window.console) {
      */
     ws.init = function(workspaceObj, urlObj, actionId) {
         var me = this;
+        var cb = arguments[arguments.length - 1];
+        if (!cb || typeof cb !== 'function') {
+            cb = function(){};
+        }
         _isLocalStorageEnabled = typeof(localStorage) != 'undefined';
         _isMockDisplay = false;
         URL = urlObj;
@@ -1337,6 +1341,9 @@ if (!window.console) {
             ecui.ui.Tree.prototype.onclick = function (event) {
                 return event.target == this.getBase();
             };
+
+            // callback invokation
+            cb();
         });
 
 
@@ -1385,8 +1392,41 @@ if (!window.console) {
         b.g('pluginCodeInput').select();
     };
 
-    ws.closePluginCodeFloater = function() {
+    ws.closePluginCodeFloater = function(save) {
+        /**
+         * related id filter
+         */
+        function filter(ids) {
+            if (!ids) {
+                return "";
+            }
+            ids = ids.split(',');
+            var arr = [];
+            var id;
+            var key;
+            for (key in ids) {
+                if (!isNaN(+ids[key])) {
+                    arr.push(ids[key]);
+                }
+            }
+            return arr.join(',');
+        }
         e.get("pluginCodeFloater").hide();
+        if (save) {
+            var ele = $('#divRelatedIds');
+            var val = filter(ele.val());
+            var q = "id=" + p.getId() + "&ids=" + val;
+            ele.val(val);
+            showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVING);
+            b.ajax.post(URL.updateReleatedIds, q, function(xhr, response) {
+                try {
+                    var obj = eval("(" + response + ")");
+                    showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVED);
+                } catch(e) {
+                    showMessage(CONST.ERROR, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
+                }
+            });
+        }
     };
 
     ws._getData = function() {
@@ -2106,8 +2146,9 @@ if (!window.console) {
          ecui.get('importJSONFloater').hide();
      };
 
-     ws.importJSON = function() {
+     ws.importJSON = function(doesImportToRequest) {
         ecFloater.show("importJSONFloater");
+        this._doesImportToRequest = !!doesImportToRequest;
      };
 
     /**
@@ -2367,6 +2408,9 @@ if (!window.console) {
         }
         var html = b.g('btnToggleMockDisplay').innerHTML;
         _isMockDisplay = !_isMockDisplay;
+        if (typeof window.localStorage !== 'undefined') {
+            localStorage.setItem('_isMockDisplay', _isMockDisplay);
+        }
         ws.switchA(_curActionId, true);
     };
 
@@ -3189,9 +3233,14 @@ if (!window.console) {
      */
     function processJSONImport(f, k, pId, notFirst) {
         var id, param, item;
+        var doesImportToRequest = ws._doesImportToRequest;
         if (notFirst) {
             if (!pId) {
-                id = p.addResponseParameter(_curActionId);
+                if (doesImportToRequest === true) {
+                    id = p.addRequestParameter(_curActionId);
+                } else {
+                    id = p.addResponseParameter(_curActionId);
+                }
                 param = p.getParameter(id);
                 param.identifier = k;
             } else {

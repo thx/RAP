@@ -5,6 +5,11 @@ Rigel Automation Platform
     @作者 Bosn(霍雍), wangjeaf(思竹)
     @依赖 MockJS by 墨智 http://mockjs.com
     @依赖 IF-TEST by 蒋壮 http://iftest.alibaba-inc.com
+    @版本 v0.9.0
+    @作者 马圣博 王致富
+    @指导 李穆 李坤飞
+    @依赖 MockJS by 高云云 http://mockjs.com
+    @依赖 IF-TEST by 王跃乐 http://iftest.alibaba-inc.com （内网链接)
     @邮件 bosn@outlook.com, wangjeaf@gmail.com
 
 什么是RAP?
@@ -20,3 +25,5 @@ Release版和master的区别?
 
 - 1. 去除阿里专用的SSO模块及登录体系
 - 2. 去除CNZZ统计等特有信息
+
+- [RAP部署文档](http://thx.alibaba-inc.com/RAP/resources/RAP-deploy/)

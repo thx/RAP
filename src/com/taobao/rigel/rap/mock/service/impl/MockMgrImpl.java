@@ -616,7 +616,12 @@ public class MockMgrImpl implements MockMgr {
 	}
 
 	private String mockjsValue(Parameter para, int index) {
-		String[] tags = para.getMockDataTEMP().split(";");
+		String mockData =  para.getMockDataTEMP();
+		String[] tags = mockData.split(";");
+		if (mockData.contains("@mock=")) {
+			tags = new String[1];
+			tags[0] = mockData.substring(mockData.indexOf("@mock="));
+		}
 		boolean escape = true;
 		Map<String, String> tagMap = new HashMap<String, String>();
 		parseTags(tags, tagMap, true);

@@ -6,7 +6,7 @@
 <script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.0.js"></script>
 <!-- 引入RAP开始 -->
-<script src="http://etaoux-bj.taobao.ali.com:8080/rap.plugin.js?projectId=65"></script>
+<script src="http://etaoux-bj.taobao.ali.com:8080/rap.plugin.js?projectId=79&mode=0"></script>
 <!-- 引入RAP结束 -->
 </head>
 <body>
@@ -15,7 +15,7 @@
         KISSY.use([ 'node', 'ajax' ], {
             success : function(S, Node, IO) {
                 IO({
-                    url : '/test3',
+                    url : '/simple.do',
                     dataType : 'json',
                     type : 'get',
                     success : function(data) {

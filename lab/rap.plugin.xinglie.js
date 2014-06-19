@@ -1,13 +1,13 @@
-/*! rap.plugin Mar.10th 2014 */
+/*! rap.plugin May.30th 2014 by 行列 */
 (function() {
     var node = null;
     var blackList = [];
-    var whiteList = [#foreach($url in $urlList)#if($velocityCount>1),#end"$url"#end];
+    var whiteList = ["/api/dspfilter/zonesizes", "/api/dspfilter/distypes", "/api/dspfilter/screens", "/api/dspfilter/sitetypes", "/api/dspfilter/pagelist", "/api/dspfilter/urls", "/api/dspsettle/account/balance", "/api/dspsettle/account/list", "/api/log", "/api/dspsettle/account/anotice"];
 
 
     var ROOT = 'rap.alibaba-inc.com';
     // [DEBUG]
-    //ROOT = 'etaoux-bj.taobao.ali.com:8080';
+    // ROOT = 'etaoux-bj.taobao.ali.com:8080';
     var LOST = "LOST";
     var PREFIX = "/mockjs/";
     var EMPTY_ARRAY = "EMPTY_ARRAY";
@@ -24,10 +24,10 @@
     // console handler
     if (typeof window.console === 'undefined') {
         window.console = {
-            log : function(){},
-            warn : function(){},
-            info : function(){},
-            dir : function(){}
+            log: function() {},
+            warn: function() {},
+            info: function() {},
+            dir: function() {}
         };
     }
 
@@ -59,7 +59,7 @@
         enable = ens[1] == 'true';
     }
 
-    function wrapJQuery(jQuery) {
+    /*function wrapJQuery(jQuery) {
         if (jQuery._rap_wrapped) {
             return;
         }
@@ -92,8 +92,10 @@
                     }
                     oldComplete.apply(this, arguments);
                 });
-            } else if(isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
-                var checkerOptions = {url : oOptions.url};
+            } else if (isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
+                var checkerOptions = {
+                    url: oOptions.url
+                };
                 rapUrlConverterJQuery(checkerOptions);
                 checkerOptions.RAP_NOT_TRACK = true;
                 checkerOptions.success = checkerHandler;
@@ -102,33 +104,389 @@
                 oOptions.success = function() {
                     var realData = arguments[0];
                     checkerOptions.context = {
-                        data : realData,
-                        url : oOptions.url
+                        data: realData,
+                        url: oOptions.url
                     };
                     // perform real data check
                     ajax.apply(jQuery, [checkerOptions]);
-                    oldSuccess2.apply(this,arguments);
+                    oldSuccess2.apply(this, arguments);
                 };
             }
             ajax.apply(this, arguments);
         };
     }
 
-    window.wrapJQueryForRAP = wrapJQuery;
+    window.wrapJQueryForRAP = wrapJQuery;*/
+    // ************************************************************************************************
+    var guid = +new Date();
+    var JSONP = function(url, callback) {
+        var me = this;
+        var script = document.createElement('script');
+        var key = 'jsonp' + guid++;
+        var success;
+        window[key] = function(data) {
+            callback(data);
+            delete window[key];
+            success = true;
+        };
+        script.onload = script.onreadystatechange = script.onerror = function() {
+            setTimeout(function() {
+                script.parentNode.removeChild(script);
+                if (!success) {
+                    callback('script error');
+                    delete window[key];
+                }
+            }, 0);
+        };
+        script.src = url + '&_c=' + key;
+        document.body.appendChild(script);
+    };
+    var isFunction = function(f) {
+        return Object.prototype.toString.call(f) == '[object Function]';
+    };
+    var parseURLParamsArray = function(url) {
+        var q = url ? url.indexOf("?") : -1;
+        if (q == -1) return [];
 
+        var search = url.substr(q + 1);
+        var h = search.lastIndexOf("#");
+        if (h != -1) search = search.substr(0, h);
+
+        if (!search) return [];
+
+        return parseURLEncodedTextArray(search);
+    };
+
+    var parseURLEncodedTextArray = function(text) {
+        var maxValueLength = 25000;
+
+        var params = [];
+
+        // Unescape '+' characters that are used to encode a space.
+        // See section 2.2.in RFC 3986: http://www.ietf.org/rfc/rfc3986.txt
+        text = text.replace(/\+/g, " ");
+
+        var args = text.split("&");
+        for (var i = 0; i < args.length; ++i) {
+            try {
+                var parts = args[i].split("=");
+                if (parts.length == 2) {
+                    if (parts[1].length > maxValueLength) parts[1] = this.$STR("LargeData");
+
+                    params.push({
+                        name: decodeURIComponent(parts[0]),
+                        value: [decodeURIComponent(parts[1])]
+                    });
+                } else params.push({
+                    name: decodeURIComponent(parts[0]),
+                    value: [""]
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        params.sort(function(a, b) {
+            return a.name <= b.name ? -1 : 1;
+        });
+
+        return params;
+    }
+
+
+    // ************************************************************************************************
+    // XMLHttpRequestWrapper
+
+    var XMLHttpRequestWrapper = function(activeXObject) {
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+        // XMLHttpRequestWrapper internal variables
+
+        var xhrRequest = typeof activeXObject != "undefined" ? activeXObject : new _XMLHttpRequest(),
+
+            self = this,
+
+            reqType,
+            reqUrl,
+            reqStartTS;
+
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+        // XMLHttpRequestWrapper internal methods
+
+        var updateSelfPropertiesIgnore = {
+            abort: 1,
+            channel: 1,
+            getAllResponseHeaders: 1,
+            getInterface: 1,
+            getResponseHeader: 1,
+            mozBackgroundRequest: 1,
+            multipart: 1,
+            onreadystatechange: 1,
+            open: 1,
+            send: 1,
+            setRequestHeader: 1
+        };
+
+        var updateSelfProperties = function() {
+            if (supportsXHRIterator) {
+                for (var propName in xhrRequest) {
+                    if (propName in updateSelfPropertiesIgnore) continue;
+
+                    try {
+                        var propValue = xhrRequest[propName];
+
+                        if (propValue && !isFunction(propValue)) self[propName] = propValue;
+                    } catch (E) {
+                        //console.log(propName, E.message);
+                    }
+                }
+            } else {
+                // will fail to read these xhrRequest properties if the request is not completed
+                if (xhrRequest.readyState == 4) {
+                    self.status = xhrRequest.status;
+                    self.statusText = xhrRequest.statusText;
+                    self.responseText = xhrRequest.responseText;
+                    self.responseXML = xhrRequest.responseXML;
+                }
+            }
+        };
+
+        var updateXHRPropertiesIgnore = {
+            channel: 1,
+            onreadystatechange: 1,
+            readyState: 1,
+            responseBody: 1,
+            responseText: 1,
+            responseXML: 1,
+            status: 1,
+            statusText: 1,
+            upload: 1
+        };
+
+        var updateXHRProperties = function() {
+            for (var propName in self) {
+                if (propName in updateXHRPropertiesIgnore) continue;
+
+                try {
+                    var propValue = self[propName];
+
+                    if (propValue && !xhrRequest[propName]) {
+                        xhrRequest[propName] = propValue;
+                    }
+                } catch (E) {
+                    //console.log(propName, E.message);
+                }
+            }
+        };
+
+
+        var handleStateChange = function() {
+            //Firebug.Console.log(["onreadystatechange", xhrRequest.readyState, xhrRequest.readyState == 4 && xhrRequest.status]);
+
+            self.readyState = xhrRequest.readyState;
+
+            if (xhrRequest.readyState == 4) {
+                updateSelfProperties();
+
+                xhrRequest.onreadystatechange = function() {};
+            }
+
+            //Firebug.Console.log(spy.url + ": " + xhrRequest.readyState);
+
+            self.onreadystatechange();
+        };
+
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+        // XMLHttpRequestWrapper public properties and handlers
+
+        this.readyState = 0;
+
+        this.onreadystatechange = function() {};
+
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+        // XMLHttpRequestWrapper public methods
+
+        this.open = function(method, url, async, user, password) {
+            //Firebug.Console.log("xhrRequest open");
+
+            updateSelfProperties();
+            if (route(url) && projectId) {
+                url = convertUrlToRelative(url);
+                url = "http://" + ROOT + PREFIX + projectId + url;
+                console.log(url);
+                this.$useJSONP = true;
+                this.$url = url;
+                return;
+            }
+
+            try {
+                // xhrRequest.open.apply may not be available in IE
+                if (supportsApply) xhrRequest.open.apply(xhrRequest, arguments);
+                else xhrRequest.open(method, url, async, user, password);
+            } catch (e) {}
+
+            xhrRequest.onreadystatechange = handleStateChange;
+
+        };
+
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+        this.send = function(data) {
+            if (this.$useJSONP) {
+                var me = this;
+                JSONP(me.$url, function(data) {
+                    console.log(data);
+                    if (data !== 'script error') {
+                        data = JSON.stringify(Mock.mock(data));
+                    }
+                    me.status = 200;
+                    me.readyState = 4;
+                    me.responseText = data;
+                    me.responseXML = data;
+                    me.onreadystatechange();
+                });
+                return;
+            }
+            //Firebug.Console.log("xhrRequest send");
+
+
+            updateXHRProperties();
+
+            try {
+                xhrRequest.send(data);
+            } catch (e) {
+                // TODO: xxxpedro XHR throws or not?
+                //throw e;
+            } finally {
+                updateSelfProperties();
+            }
+        };
+
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+        this.setRequestHeader = function(header, value) {
+            if (this.$useJSONP) return;
+            return xhrRequest.setRequestHeader(header, value);
+        };
+
+
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+        this.abort = function() {
+            if (this.$useJSONP) return;
+            xhrRequest.abort();
+            updateSelfProperties();
+        };
+
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+        this.getResponseHeader = function(header) {
+            return xhrRequest.getResponseHeader(header);
+        };
+
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+        this.getAllResponseHeaders = function() {
+            return xhrRequest.getAllResponseHeaders();
+        };
+
+        /**/
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+        // Clone XHR object
+
+        // xhrRequest.open.apply not available in IE and will throw an error in
+        // IE6 by simply reading xhrRequest.open so we must sniff it
+        var supportsApply = !isIE6 && xhrRequest && xhrRequest.open && typeof xhrRequest.open.apply != "undefined";
+
+        var numberOfXHRProperties = 0;
+        for (var propName in xhrRequest) {
+            numberOfXHRProperties++;
+
+            if (propName in updateSelfPropertiesIgnore) continue;
+
+            try {
+                var propValue = xhrRequest[propName];
+
+                if (isFunction(propValue)) {
+                    if (typeof self[propName] == "undefined") {
+                        this[propName] = (function(name, xhr) {
+
+                            return supportsApply ?
+                            // if the browser supports apply
+
+                            function() {
+                                return xhr[name].apply(xhr, arguments);
+                            } : function(a, b, c, d, e) {
+                                return xhr[name](a, b, c, d, e);
+                            };
+
+                        })(propName, xhrRequest);
+                    }
+                } else this[propName] = propValue;
+            } catch (E) {
+                //console.log(propName, E.message);
+            }
+        }
+
+        // IE6 does not support for (var prop in XHR)
+        var supportsXHRIterator = numberOfXHRProperties > 0;
+
+        /**/
+
+        return this;
+    };
+
+    // ************************************************************************************************
+    // ActiveXObject Wrapper (IE6 only)
+
+    var _ActiveXObject;
+    var isIE6 = /msie 6/i.test(navigator.appVersion);
+
+    if (isIE6) {
+        _ActiveXObject = window.ActiveXObject;
+
+        var xhrObjects = " MSXML2.XMLHTTP.5.0 MSXML2.XMLHTTP.4.0 MSXML2.XMLHTTP.3.0 MSXML2.XMLHTTP Microsoft.XMLHTTP ";
+
+        window.ActiveXObject = function(name) {
+            var error = null;
+
+            try {
+                var activeXObject = new _ActiveXObject(name);
+            } catch (e) {
+                error = e;
+            } finally {
+                if (!error) {
+                    if (xhrObjects.indexOf(" " + name + " ") != -1) return new XMLHttpRequestWrapper(activeXObject);
+                    else return activeXObject;
+                } else throw error.message;
+            }
+        };
+    }
+
+    // ************************************************************************************************
+
+    // Register the XMLHttpRequestWrapper for non-IE6 browsers
+    if (!isIE6) {
+        var _XMLHttpRequest = XMLHttpRequest;
+        window.XMLHttpRequest = function() {
+            return new XMLHttpRequestWrapper();
+        };
+    }
+
+
+    // ************************************************************************************************
     if (enable) {
         /**
          * jQuery override
          */
-        if (window.jQuery) {
+        /*if (window.jQuery) {
             wrapJQuery(window.jQuery);
-        }
+        }*/
 
 
         /**
          * kissy override
          */
-        if (window.KISSY) {
+        /*if (window.KISSY) {
             KISSY.oldUse = KISSY.use;
             KISSY.oldAdd = KISSY.add;
 
@@ -161,8 +519,10 @@
                                 }
                                 oldComplete.apply(this, arguments);
                             });
-                        } else if(isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
-                            var checkerOptions = {url:oOptions.url};
+                        } else if (isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
+                            var checkerOptions = {
+                                url: oOptions.url
+                            };
                             rapUrlConverterKissy(checkerOptions);
                             checkerOptions.RAP_NOT_TRACK = true;
                             checkerOptions.success = checkerHandler;
@@ -171,12 +531,12 @@
                             oOptions.success = function() {
                                 var realData = arguments[0];
                                 checkerOptions.context = {
-                                    data : realData,
-                                    url : oOptions.url
+                                    data: realData,
+                                    url: oOptions.url
                                 };
                                 // perform real data check
                                 IO(checkerOptions);
-                                oldSuccess2.apply(this,arguments);
+                                oldSuccess2.apply(this, arguments);
                             };
 
                         }
@@ -207,7 +567,7 @@
             KISSY.add = function(name, fn, options) {
                 if (options && options.requires) {
 
-                    for(var i = 0, l = options.requires.length; i < l; i++) {
+                    for (var i = 0, l = options.requires.length; i < l; i++) {
                         var current = options.requires[i].toLowerCase();
 
                         if (current == 'io' || current == 'ajax') {
@@ -223,10 +583,10 @@
                 KISSY.use('rap_io', function() {});
             }
 
-        }
+        }*/
     }
 
-    if (window.seajs && window.define && window.define.cmd) {
+    /*if (window.define && window.define.cmd) {
         var data = seajs.config().data;
         data.alias = data.alias || {};
         var path = 'http://' + ROOT + '/stat/js/util/jquery-rapped.js';
@@ -247,7 +607,7 @@
         }
         return splited.join(',');
     }
-
+*/
 
     function checkerHandler(mockData) {
         if (PREFIX == '/mockjs/') {
@@ -288,7 +648,8 @@
      * is in white list
      *
      */
-     function isInWhiteList(url) {
+
+    function isInWhiteList(url) {
         var i;
         var o;
         for (i = 0; i < whiteList.length; i++) {
@@ -300,7 +661,7 @@
             }
         }
         return false;
-     }
+    }
 
 
     /**
@@ -309,6 +670,7 @@
      * @param {string} url
      * @return {boolean} true if route to RAP MOCK, other wise do nothing.
      */
+
     function route(url, ignoreMode) {
         var i;
         var o;
@@ -373,6 +735,7 @@
     /**
      * convert url from absolute to relative
      */
+
     function convertUrlToRelative(url) {
         if (url instanceof RegExp) {
             return url;
@@ -395,6 +758,7 @@
      * convert url to rap mock url (KISSY version)
      * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
      */
+
     function rapUrlConverterKissy(options) {
         var url = options.url;
         if (!options || typeof options !== 'object') {
@@ -413,6 +777,7 @@
      * convert url to rap mock url (jQuery version)
      * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
      */
+
     function rapUrlConverterJQuery(options) {
         var url = options.url;
         if (!options || typeof options !== 'object') {
@@ -427,9 +792,10 @@
     }
 
     window.RAP = {
-        initList : function(list) {
+        initList: function(list) {
             var PARAM_REG = /\/:[^\/]*/g;
-            var i, n = list.length, item;
+            var i, n = list.length,
+                item;
             for (i = 0; i < n; i++) {
                 item = list[i];
                 if (typeof item === 'string') {
@@ -445,26 +811,26 @@
             }
             return list;
         },
-        setBlackList : function(arr) {
+        setBlackList: function(arr) {
             if (arr && arr instanceof Array) {
                 blackList = this.initList(arr);
             }
         },
-        setWhiteList : function(arr) {
+        setWhiteList: function(arr) {
             if (arr && arr instanceof Array) {
                 whiteList = this.initList(arr);
             }
         },
-        getBlackList : function() {
+        getBlackList: function() {
             return blackList;
         },
-        getWhiteList : function() {
+        getWhiteList: function() {
             return whiteList;
         },
-        getMode : function() {
+        getMode: function() {
             return mode;
         },
-        setMode : function(m) {
+        setMode: function(m) {
             m = +m;
             if (m in modeList) {
                 mode = m;
@@ -473,10 +839,10 @@
                 console.warn('Illegal mode id. Please check.');
             }
         },
-        setHost : function(h) {
+        setHost: function(h) {
             ROOT = h;
         },
-        getHost : function() {
+        getHost: function() {
             return ROOT;
         },
         setPrefix: function(p) {
