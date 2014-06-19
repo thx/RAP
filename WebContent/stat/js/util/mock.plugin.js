@@ -227,6 +227,32 @@
     }
 
     if (window.seajs && window.define && window.define.cmd) {
+    
+		!function() {
+			var oldSeajsUse = seajs.use;
+			var initialized = false;
+			seajs.use = function() {
+				var handler = arguments[arguments.length - 1];
+				arguments[arguments.length - 1] = function() {
+					if (!initialized) {
+						for (var i = 0; i < arguments.length; i++) {
+							if (arguments[i] && typeof arguments[i] === 'function' && arguments[i].prototype &&
+								arguments[i].prototype.jquery
+								) {
+								wrapJQueryForRAP(arguments[i]);
+							}
+						}
+						
+						initialized = true;
+					}
+					handler.apply(this, arguments);
+				};
+				oldSeajsUse.apply(seajs, arguments);
+			}
+		}();
+		
+		
+        
         var data = seajs.config().data;
         data.alias = data.alias || {};
         var path = 'http://' + ROOT + '/stat/js/util/jquery-rapped.js';
