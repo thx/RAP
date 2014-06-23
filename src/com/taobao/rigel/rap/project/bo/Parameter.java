@@ -94,6 +94,9 @@ public class Parameter implements java.io.Serializable {
 	private String dataType;
 
 	public String getDataType() {
+		if (this.dataType == null || this.dataType.trim().isEmpty()) {
+			return "";
+		}
 		return dataType;
 	}
 

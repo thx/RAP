@@ -67,10 +67,8 @@ public class MockMgrImpl implements MockMgr {
 			pattern = pattern.substring(0, pattern.indexOf("?"));
 		}
 		/**
-		if (pattern.charAt(0) == '/') {
-			pattern = pattern.substring(1);
-		}
-		*/
+		 * if (pattern.charAt(0) == '/') { pattern = pattern.substring(1); }
+		 */
 		// System.out.println("pattern processed:" + pattern);
 		List<Action> aList = projectMgr
 				.getMatchedActionList(projectId, pattern);
@@ -153,10 +151,8 @@ public class MockMgrImpl implements MockMgr {
 			pattern = pattern.substring(0, pattern.indexOf("?"));
 		}
 		/**
-		if (pattern.charAt(0) == '/') {
-			pattern = pattern.substring(1);
-		}
-		*/
+		 * if (pattern.charAt(0) == '/') { pattern = pattern.substring(1); }
+		 */
 		// System.out.println("pattern processed:" + pattern);
 		if (pattern.isEmpty()) {
 			return "{\"isOk\":false, \"errMsg\":\"pattern is empty. 路径为空，请检查RAP文档中的请求链接是否正确填写。\"}";
@@ -404,11 +400,13 @@ public class MockMgrImpl implements MockMgr {
 
 		if (para.getParameterList() == null
 				|| para.getParameterList().size() == 0) {
-			json.append(processMockValueWithParams(para.getMockJSIdentifier()) + ":"
+			json.append(processMockValueWithParams(para.getMockJSIdentifier())
+					+ ":"
 					+ StringUtils.chineseToUnicode(mockjsValue(para, index)));
 		} else {
 			// object and array<object>
-			json.append(processMockValueWithParams(para.getMockJSIdentifier()) + ":");
+			json.append(processMockValueWithParams(para.getMockJSIdentifier())
+					+ ":");
 			String left = "{", right = "}";
 
 			if (isArrayObject) {
@@ -616,7 +614,7 @@ public class MockMgrImpl implements MockMgr {
 	}
 
 	private String mockjsValue(Parameter para, int index) {
-		String mockData =  para.getMockDataTEMP();
+		String mockData = para.getMockDataTEMP();
 		String[] tags = mockData.split(";");
 		if (mockData.contains("@mock=")) {
 			tags = new String[1];
@@ -627,9 +625,35 @@ public class MockMgrImpl implements MockMgr {
 		parseTags(tags, tagMap, true);
 		String returnValue = "1";
 		String mockValue = tagMap.get("mock");
+		if (mockValue == null && mockData.contains("@mock=")) {
+			mockValue = "";
+		}
 		if (mockValue == null || mockValue.isEmpty()) {
-			mockValue = tagMap.get("{mock}");
-			escape = false;
+			String unescapeMockValue = tagMap.get("{mock}");
+			if (mockValue != null && !mockValue.isEmpty()) {
+				escape = false;
+				mockValue = unescapeMockValue;
+			}
+		}
+		
+		// default mock template generation
+		if (mockValue == null) {
+			if (para.getDataType().isEmpty()) {
+				return "1";
+			} else if (para.getDataType().equals("number")) {
+				return NumberUtils.randomByFormat("xxxxx");
+			} else if (para.getDataType().equals("boolean")) {
+				return new Boolean(NumberUtils.randomInt(10) > 5 ? true : false).toString();
+			} else if (para.getDataType().equals("string")) {
+				Xeger generator = new Xeger("测试内容[0-9a-z]{4}");
+				return "\"" + generator.generate() + "\"";
+			} else if (para.getDataType().equals("array<boolean>")) {
+				return "[true, false]";
+			} else if (para.getDataType().equals("array<object>")) {
+				return "[]";
+			} else if (para.getDataType().equals("object")) {
+				return "{}";
+			}
 		}
 
 		mockValue = processMockValueWithParams(mockValue);
@@ -646,6 +670,9 @@ public class MockMgrImpl implements MockMgr {
 				}
 				return "\"" + mockValue + "\"";
 			}
+		} else if (mockValue != null && mockValue.isEmpty()
+				&& para.getDataType().equals("string")) {
+			return "\"\"";
 		} else if (para.getDataType().equals("array<string>")) {
 			return "[\"string1\", \"string2\", \"string3\", \"string4\", \"string5\"]";
 
@@ -658,8 +685,9 @@ public class MockMgrImpl implements MockMgr {
 	private String processMockValueWithParams(String mockValue) {
 
 		Pattern p = Pattern.compile(Patterns.MOCK_TEMPLATE_PATTERN);
-		if (mockValue == null)
+		if (mockValue == null) {
 			mockValue = "";
+		}
 		Matcher matcher = p.matcher(mockValue);
 		while (matcher.find()) {
 			int c = matcher.groupCount();
