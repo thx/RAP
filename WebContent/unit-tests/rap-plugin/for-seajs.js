@@ -35,7 +35,7 @@ test('Seajs+jQuery: basic check', function() {
 		ok(jq('body')[0] == document.body, 'jQ is loaded by seajs');
 	})
 	
-	seajs.use(['a','b','c','d']);
+	seajs.use(['a','b','c','d'], function(a,b,c,d){});
 });
 
 
@@ -60,5 +60,5 @@ test('Seajs+jQuery: get rap data', function() {
 	    });
 	})
 	
-	seajs.use('e');
+	seajs.use('e', function() {});
 })
