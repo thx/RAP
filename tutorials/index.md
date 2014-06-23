@@ -266,4 +266,38 @@ reg:www.example/biz[0-9]{4}/query
 
 当请求项目A的MOCK数据时，若在A中找不到，则会去ID为23的项目找，若依然找不到会去ID为35的项目中，一直到ID为38的项目依然找不到则无结果返回。
 
+### 我使用的AngularJS如何使用RAP插件？
+
+感谢@义宇 同学给出AngularJS的方案：
+
+Angularjs插件貌似不能通过覆盖全局来达到RAP插入的效果，只能在新建的Angular模块中进行配置
+
+下面的代码，是 @义宇 在使用Angularjs+RAP时开发的插件代码，发给需要的用户参考下吧。
+
+注意：下面的代码，只支持RAP的白名单模式。
+
+```javascript
+	app.config(function($httpProvider) {
+    var interceptor = {
+        request: function(config) {
+            var url = config.url;
+            var urls = RAP.getWhiteList();
+            if (url.substr(0, 1) == '/') {
+                if (window.location.search.indexOf('mock=1') != -1 && urls.indexOf(url) != -1) {
+                    config.url = 'http://rap.alibaba-inc.com/mockjsdata/257' + url;
+                } else {
+                    config.withCredentials = true;
+                    config.url = 'http://opensearch.console.aliyun.com' + url;
+                }
+            }
+            return config;
+        }
+    };
+   
+    $httpProvider.interceptors.push(function() {
+        return interceptor;
+    });
+}); 
+
+```
 {% endraw %}
