@@ -282,14 +282,11 @@ Angularjs插件貌似不能通过覆盖全局来达到RAP插入的效果，只�
         request: function(config) {
             var url = config.url;
             var urls = RAP.getWhiteList();
-            if (url.substr(0, 1) == '/') {
-                if (window.location.search.indexOf('mock=1') != -1 && urls.indexOf(url) != -1) {
-                    config.url = 'http://rap.alibaba-inc.com/mockjsdata/257' + url;
-                } else {
-                    config.withCredentials = true;
-                    config.url = 'http://opensearch.console.aliyun.com' + url;
-                }
+           
+            if (urls.indexOf(url) != -1) {
+                config.url = 'http://rap.alibaba-inc.com/mockjsdata/257' + url;
             }
+
             return config;
         }
     };
