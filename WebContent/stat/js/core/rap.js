@@ -3595,20 +3595,20 @@ if (!window.console) {
                 str += "<div class=\"action-info\"><a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.moveAndCopy(); return false;\"><i class='glyphicon glyphicon-random'></i>移动/复制接口</a></div>";
             }
 
-            if (requestParameterListNum > 0) {
+            //if (requestParameterListNum > 0) {
                 str += _isEditMode ? TEMPLATE.REQUEST_BEGIN_EDIT : TEMPLATE.REQUEST_BEGIN;
                 for (i = 0; i < requestParameterListNum; i++) {
                     p = requestParameterList[i];
                     str += getPTRHtml(p);
                 }
                 str += TEMPLATE.REQUEST_END;
-            }
+            //}
 
             if (_isEditMode) {
                 str += TEMPLATE.REQUEST_PARAMETER_ADD_BUTTON;
             }
 
-            if (responseParameterListNum > 0) {
+            //if (responseParameterListNum > 0) {
 
                 str += _isEditMode ? TEMPLATE.RESPONSE_BEGIN_EDIT : TEMPLATE.RESPONSE_BEGIN;
                 for (i = 0; i < responseParameterListNum; i++) {
@@ -3616,7 +3616,7 @@ if (!window.console) {
                     str += getPTRHtml(p);
                 }
                 str += TEMPLATE.RESPONSE_END;
-            }
+            //}
             if (_isEditMode) {
                 str += TEMPLATE.RESPONSE_PARAMETER_ADD_BUTTON;
             }
