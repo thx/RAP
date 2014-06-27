@@ -30,7 +30,7 @@
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:/mysql.remote.properties</value>
+				<value>classpath:/mysql.local.properties</value>
 			</list>
 		</property>
 	</bean>
