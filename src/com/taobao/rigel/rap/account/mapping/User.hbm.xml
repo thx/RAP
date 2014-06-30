@@ -16,7 +16,7 @@
               <comment>是否启用提示</comment>
           </column>
 	  </property>
-	  <property name="createDate" type="date">
+	  <property name="createDate" type="date" insert="false">
           <column name="create_date">
               <comment>创建时间</comment>
           </column>
