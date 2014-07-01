@@ -1,11 +1,11 @@
-Rigel Automation Platform
+Rigel API Platform
 ===
 
-    @版本 v0.9.0
-    @作者 Bosn Wangjeaf
-    @指导 李牧 行列
-    @依赖 MockJS by 墨智 http://mockjs.com
-    @邮件 bosn@outlook.com, wangjeaf@gmail.com
+What is RAP?
+--------------------------------------
+
+In pattern when front-end & back-end developer splited, we usually define a `interface doc` in which defines details of WEB APIs. eg-> request's url, how many params, param's name and type, etc. `RAP` make your team edit `interface doc` so convenient, and help you generate `mock data service`, `auto test service` and `back end tools` by analyzing doc data. RAP make your work fast and efficient, make API doc robust and managable.
+
 
 什么是RAP?
 --------------------------------------
@@ -14,3 +14,14 @@ Rigel Automation Platform
 
 - [文档中心](http://thx.alibaba-inc.com/RAP/)
 - [RAP部署文档](http://thx.alibaba-inc.com/RAP/resources/RAP-deploy/)
+
+
+
+About
+--------------------------------------
+
+    @version    v0.9.0
+    @author     Bosn Wangjeaf
+    @director   李牧 行列
+    @dependency MockJS by 墨智 http://mockjs.com
+    @contact    bosn@outlook.com, wangjeaf@gmail.com
