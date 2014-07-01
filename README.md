@@ -12,6 +12,7 @@ RAP's feature
 - `Robust GUI tool` Fantastic user expeirience, you'll love manage your API doc in RAP.
 - `Fantastic mock service` When document defined, all mock services will be working perfectly. With MockJS, it can fullfill your requirement no matter how complex your business logic is.
 - `Large user groups` Validated by many large projects. RAP is used by 200+ large projects in Alibaba corporation and other famous companys. RAP grow up with these projects, this ensure it can fullfill your business logic and process detail issues perfectly.
+- `Free and professional tech support`, RAP is free, and your request will be responsed in 24 hours. Most cases, in 1 hour.
 
 什么是RAP?
 --------------------------------------
