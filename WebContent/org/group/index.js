@@ -179,8 +179,9 @@ $(function() {
         .delegate('.box .glyphicon-export', 'click', function() {
         	var id = $(this).data('id');
         	var url = '';
+        	var host = location && location.host ? location.host : 'rap.alibaba-inc.com';
         	$.message({
-        		 content: '<input type="text" id="rap-plugin-inputer" class="form-control" value="<script src=\'http://rap.alibaba-inc.com/rap.plugin.js?projectId=' + id + '\'></script>" />',
+        		 content: '<input type="text" id="rap-plugin-inputer" class="form-control" value="<script src=\'http://' + host + '/rap.plugin.js?projectId=' + id + '\'></script>" />',
                  title: '复制RAP插件地址',
                  showCallback: function() {
                 	 $('#rap-plugin-inputer').focus();

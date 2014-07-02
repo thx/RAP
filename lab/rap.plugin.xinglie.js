@@ -4,7 +4,6 @@
     var blackList = [];
     var whiteList = ["/api/dspfilter/zonesizes", "/api/dspfilter/distypes", "/api/dspfilter/screens", "/api/dspfilter/sitetypes", "/api/dspfilter/pagelist", "/api/dspfilter/urls", "/api/dspsettle/account/balance", "/api/dspsettle/account/list", "/api/log", "/api/dspsettle/account/anotice"];
 
-
     var ROOT = 'rap.alibaba-inc.com';
     // [DEBUG]
     // ROOT = 'etaoux-bj.taobao.ali.com:8080';

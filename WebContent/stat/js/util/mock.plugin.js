@@ -5,9 +5,10 @@
     var whiteList = [#foreach($url in $urlList)#if($velocityCount>1),#end"$url"#end];
 
 
-    var ROOT = 'rap.alibaba-inc.com';
-    // [DEBUG]
-    //ROOT = 'etaoux-bj.taobao.ali.com:8080';
+    var src = $(document.scripts[document.scripts.length - 1]).attr('src');
+    var ROOT = url_domain(src);
+    console.log('RAP mock server ROOT is ', ROOT);
+
     var LOST = "LOST";
     var PREFIX = "/mockjs/";
     var EMPTY_ARRAY = "EMPTY_ARRAY";
@@ -520,4 +521,12 @@
     };
 
     RAP.initList(whiteList);
+    
+    // utilities
+    
+    function url_domain(data) {
+    	var a = document.createElement('a');
+	         a.href = data;
+	  return a.host;
+	}
 })();

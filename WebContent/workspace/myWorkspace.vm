@@ -349,7 +349,7 @@
             <div class="myfloater">
                 <div>插件代码</div>
                 <div>
-                    <input disabled="disabled" id="pluginCodeInput" style="width:550px;margin:8px 0;" type="text" value="&lt;script src=&quot;http://rap.alibaba-inc.com/rap.plugin.js?projectId=$!projectId&quot;&gt;&lt;/script&gt;">
+                    <input disabled="disabled" id="pluginCodeInput" style="width:550px;margin:8px 0;" type="text" value="&lt;script src=&quot;http://$!consts.DOMAIN_URL/rap.plugin.js?projectId=$!projectId&quot;&gt;&lt;/script&gt;">
                 </div>
                 <div>项目路由</div>
                 <div>
