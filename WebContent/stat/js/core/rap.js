@@ -1918,7 +1918,7 @@ if (!window.console) {
         var txt = ele.value;
         try {
             if (typeof JSON === 'undefined') {
-                alert('您用的啥浏览器啊？连JSON转换都不支持也～～～请考虑用新浏览器试试？谢谢啦，mua~~~!');
+                alert('您用的啥浏览器啊？连JSON转换都不支持也...请使用IE9+/Chrome/FF试试看？');
                 return;
             }
             var data = eval("(" + txt + ")");
@@ -2388,7 +2388,16 @@ if (!window.console) {
      */
     ws.moveAndCopy = function() {
         alert("这个功能还没实现... this function has not been implemented yet...");
+        ecFloater.show("actionOpFloater");
     };
+
+    /**
+     * close actionOpFloater
+     */
+    ws.closeActionOpFloater = function() {
+        ecui.get("actionOpFloater").hide();
+    };
+
 
     /**
      * complex parameter expand
@@ -3238,8 +3247,8 @@ if (!window.console) {
      * @param {number}  pid parameter id
      * @param {boolean} notFirst
      */
-    function processJSONImport(f, k, pId, notFirst) {
-        var id, param, item;
+    function processJSONImport(f, k, pId, notFirst, arrContext) {
+        var id, param;
         var doesImportToRequest = ws._doesImportToRequest;
         if (notFirst) {
             if (!pId) {
@@ -3257,11 +3266,13 @@ if (!window.console) {
             }
         }
         var key;
-        var f2; // child of f2
+        var f2; // child of f
+        var i;
+        var mValues; // mock @order values
         if (f instanceof Array && f.length) {
             if (notFirst) {
-                item = f[0];
                 f2 = f[0];
+
                 if (typeof f2 === 'string') {
                     param.dataType = 'array<string>';
                     param.remark = '@mock=' + f;
@@ -3273,10 +3284,26 @@ if (!window.console) {
                     param.remark = '@mock=' + f;
                 } else if (f !== null && typeof f2 === 'object') {
                     param.dataType = 'array<object>';
-                    for (key in item) {
-                        processJSONImport(item[key], key, notFirst ? id : null, true);
+                    for (key in f2) {
+                        processJSONImport(f2[key], key, notFirst ? id : undefined, true, f.length > 1 ? f : undefined);
                     }
                 }
+
+                // process @order for import array data
+                if (typeof f2 in {'number' : undefined, 'boolean' : undefined } && f.length > 1) {
+                    mValues = [f2];
+                    for (i = 1; i < f.length; i++) {
+                        mValues.push(f[i]);
+                    }
+                    param.remark = '@mock=$order(' + mValues.join(',') + ')';
+                } else if (typeof f2 === 'string' && f.length > 1) {
+                    mValues = ['"' + f2 + '"'];
+                    for (i = 1; i < f.length; i++) {
+                        mValues.push('"' + f[i] + '"');
+                    }
+                    param.remark = '@mock=$order(' + mValues.join(',') + ')';
+                }
+
             }
         } else if (typeof f === 'string') {
             if(param) {
@@ -3296,11 +3323,39 @@ if (!window.console) {
         } else if (typeof f === 'undefined') {
         } else if (f === null) {
         } else if (typeof f === 'object') {
+            var oldKey;
+            var oldItem;
+
             param && (param.dataType = 'object');
-            for (key in f) {
+
+            Object.keys(f).forEach(function(key) {
+                oldKey = key;
+                oldItem = f[key];
+                if (f[key] && f[key] instanceof Array && f[key].length > 1) {
+                    key = key + '|' + f[key].length;
+                    delete f[oldKey] ;
+                    f[key] = oldItem;
+                }
                 processJSONImport(f[key], key, notFirst ? id : null, true);
-            }
+
+            });
         }
+
+        if (arrContext && typeof f in {'number' : undefined, 'boolean' : undefined}) {
+            // process @order for import array data for array<object>
+            mValues = [f];
+            for (i = 1; i < arrContext.length; i++) {
+                mValues.push(arrContext[i][k]);
+            }
+            param.remark = '@mock=$order(' + mValues.join(',') + ')';
+        } else if (arrContext && typeof f === 'string') {
+            mValues = ['"' + f + '"'];
+            for (i = 1; i < arrContext.length; i++) {
+                mValues.push('"' + arrContext[i][k] + '"');
+            }
+            param.remark = '@mock=$order(' + mValues.join(',') + ')';
+        }
+
      }
 
 

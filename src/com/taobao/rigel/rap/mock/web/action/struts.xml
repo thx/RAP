@@ -42,6 +42,18 @@
 				<param name="location">/bcom/contentWithoutEscape.cb.vm</param>
 			</result>
 		</action>
+
+		<action name="createRuleByActionData" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+			method="createRuleByActionData">
+			<result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
+			</result>
+			<result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+			</result>
+			<result name="json" type="rapVelocityResult">
+				<param name="contentType">application/json</param>
+				<param name="location">/bcom/contentWithoutEscape.cb.vm</param>
+			</result>
+		</action>
 		<action name="createMockjsData" class="com.taobao.rigel.rap.mock.web.action.MockAction"
 			method="createMockjsData">
 			<result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
