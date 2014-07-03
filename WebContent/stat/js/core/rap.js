@@ -2388,7 +2388,16 @@ if (!window.console) {
      */
     ws.moveAndCopy = function() {
         alert("这个功能还没实现... this function has not been implemented yet...");
+        ecFloater.show("actionOpFloater");
     };
+
+    /**
+     * close actionOpFloater
+     */
+    ws.closeActionOpFloater = function() {
+        ecui.get("actionOpFloater").hide();
+    };
+
 
     /**
      * complex parameter expand
@@ -3281,10 +3290,16 @@ if (!window.console) {
                 }
 
                 // process @order for import array data
-                if (typeof f2 in { 'string' : undefined, 'number' : undefined, 'boolean' : undefined } && f.length > 1) {
+                if (typeof f2 in {'number' : undefined, 'boolean' : undefined } && f.length > 1) {
                     mValues = [f2];
                     for (i = 1; i < f.length; i++) {
                         mValues.push(f[i]);
+                    }
+                    param.remark = '@mock=@order(' + mValues.join(',') + ')';
+                } else if (typeof f2 === 'string' && f.length > 1) {
+                    mValues = ['"' + f2 + '"'];
+                    for (i = 1; i < f.length; i++) {
+                        mValues.push('"' + f[i] + '"');
                     }
                     param.remark = '@mock=@order(' + mValues.join(',') + ')';
                 }
@@ -3326,11 +3341,17 @@ if (!window.console) {
             });
         }
 
-        if (arrContext && typeof f in {'string' : undefined, 'number' : undefined, 'boolean' : undefined}) {
+        if (arrContext && typeof f in {'number' : undefined, 'boolean' : undefined}) {
             // process @order for import array data for array<object>
             mValues = [f];
             for (i = 1; i < arrContext.length; i++) {
                 mValues.push(arrContext[i][k]);
+            }
+            param.remark = '@mock=@order(' + mValues.join(',') + ')';
+        } else if (arrContext && typeof f === 'string') {
+            mValues = ['"' + f + '"'];
+            for (i = 1; i < arrContext.length; i++) {
+                mValues.push('"' + arrContext[i][k] + '"');
             }
             param.remark = '@mock=@order(' + mValues.join(',') + ')';
         }

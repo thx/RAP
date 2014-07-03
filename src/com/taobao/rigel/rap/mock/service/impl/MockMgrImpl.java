@@ -661,6 +661,8 @@ public class MockMgrImpl implements MockMgr {
 		if (mockValue != null && !mockValue.isEmpty()) {
 			if (mockValue.startsWith("[") && mockValue.endsWith("]")) {
 				return mockValue;
+			} else if (mockValue.startsWith("@order")) {
+				return "\"" + StringUtils.escapeInJ(mockValue) + "\"";
 			} else if (para.getDataType().equals("number")
 					|| para.getDataType().equals("boolean")) {
 				return mockValue;

@@ -162,6 +162,31 @@ public class MockAction extends ActionBase {
 			return SUCCESS;
 		}
 	}
+	
+	public String createRuleByActionData() throws UnsupportedEncodingException {
+		boolean isJSON = false;
+		Logger.mock();
+		Map<String, Object> options = new HashMap<String, Object>();
+		String _c = get_c();
+		String result = mockMgr.generateRule(id, pattern, options);
+		if (options.get("callback") != null) {
+			_c = (String) options.get("callback");
+			callback = (String) options.get("callback");
+		}
+		if (callback != null && !callback.isEmpty()) {
+			setContent(callback + "(" + result + ")");
+		} else if (_c != null && !_c.isEmpty()) {
+			setContent(_c + "(" + result + ")");
+		} else {
+			isJSON = true;
+			setContent(result);
+		}
+		if (isJSON) {
+			return "json";
+		} else {
+			return SUCCESS;
+		}
+	}
 
 	public String modify() {
 		setNum(mockMgr.modify(actionId, mockData));
