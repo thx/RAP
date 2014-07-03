@@ -672,7 +672,7 @@ public class MockMgrImpl implements MockMgr {
 				.append("		return arr[o.index++ % arr.length];")
 				.append("	}")
 				.append("	if (!window.__rap__context__) {")
-				.append("		window__rap__context__ = {};")
+				.append("		window.__rap__context__ = {};")
 				.append("	}")
 				.append("	var orderCmd = \"" + StringUtils.escapeInJ(mockValue) + "\";")
 				.append("	var orderArr = eval('[' + orderCmd.substring(7, orderCmd.length - 1) + ']');")
