@@ -26,6 +26,7 @@ import com.taobao.rigel.rap.project.service.ProjectMgr;
 public class MockMgrImpl implements MockMgr {
 	private ProjectDao projectDao;
 	private ProjectMgr projectMgr;
+	private int uid = 10000;
 
 	public ProjectMgr getProjectMgr() {
 		return projectMgr;
@@ -661,6 +662,31 @@ public class MockMgrImpl implements MockMgr {
 		if (mockValue != null && !mockValue.isEmpty()) {
 			if (mockValue.startsWith("[") && mockValue.endsWith("]")) {
 				return mockValue;
+			} else if (mockValue.startsWith("$order")) {
+				StringBuilder orderCmdFunc = new StringBuilder();
+				orderCmdFunc
+				.append("function() {")
+				.append("	function geneVal(key) {")
+				.append("		var o = __rap__context__[key];")
+				.append("		var arr = o.arr;")
+				.append("		return arr[o.index++ % arr.length];")
+				.append("	}")
+				.append("	if (!window.__rap__context__) {")
+				.append("		window__rap__context__ = {};")
+				.append("	}")
+				.append("	var orderCmd = \"" + StringUtils.escapeInJ(mockValue) + "\";")
+				.append("	var orderArr = eval('[' + orderCmd.substring(7, orderCmd.length - 1) + ']');")
+				.append("	var key = '" + (uid++) + "';")
+				.append("	if (!__rap__context__[key]) {")
+				.append("		__rap__context__[key] = {")
+				.append("			arr : orderArr,")
+				.append("			index : 0")
+				.append("		};")
+				.append("	}")
+				.append("	return geneVal(key);")
+				.append("}");
+				
+				return orderCmdFunc.toString();
 			} else if (mockValue.startsWith("@order")) {
 				return "\"" + StringUtils.escapeInJ(mockValue) + "\"";
 			} else if (para.getDataType().equals("number")

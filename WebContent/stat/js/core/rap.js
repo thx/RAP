@@ -1918,7 +1918,7 @@ if (!window.console) {
         var txt = ele.value;
         try {
             if (typeof JSON === 'undefined') {
-                alert('您用的啥浏览器啊？连JSON转换都不支持也～～～请考虑用新浏览器试试？谢谢啦，mua~~~!');
+                alert('您用的啥浏览器啊？连JSON转换都不支持也...请使用IE9+/Chrome/FF试试看？');
                 return;
             }
             var data = eval("(" + txt + ")");
@@ -3295,13 +3295,13 @@ if (!window.console) {
                     for (i = 1; i < f.length; i++) {
                         mValues.push(f[i]);
                     }
-                    param.remark = '@mock=@order(' + mValues.join(',') + ')';
+                    param.remark = '@mock=$order(' + mValues.join(',') + ')';
                 } else if (typeof f2 === 'string' && f.length > 1) {
                     mValues = ['"' + f2 + '"'];
                     for (i = 1; i < f.length; i++) {
                         mValues.push('"' + f[i] + '"');
                     }
-                    param.remark = '@mock=@order(' + mValues.join(',') + ')';
+                    param.remark = '@mock=$order(' + mValues.join(',') + ')';
                 }
 
             }
@@ -3347,13 +3347,13 @@ if (!window.console) {
             for (i = 1; i < arrContext.length; i++) {
                 mValues.push(arrContext[i][k]);
             }
-            param.remark = '@mock=@order(' + mValues.join(',') + ')';
+            param.remark = '@mock=$order(' + mValues.join(',') + ')';
         } else if (arrContext && typeof f === 'string') {
             mValues = ['"' + f + '"'];
             for (i = 1; i < arrContext.length; i++) {
                 mValues.push('"' + arrContext[i][k] + '"');
             }
-            param.remark = '@mock=@order(' + mValues.join(',') + ')';
+            param.remark = '@mock=$order(' + mValues.join(',') + ')';
         }
 
      }
