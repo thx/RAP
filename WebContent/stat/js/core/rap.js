@@ -3238,7 +3238,7 @@ if (!window.console) {
      * @param {number}  pid parameter id
      * @param {boolean} notFirst
      */
-    function processJSONImport(f, k, pId, notFirst) {
+    function processJSONImport(f, k, pId, notFirst, arrContext) {
         var id, param;
         var doesImportToRequest = ws._doesImportToRequest;
         if (notFirst) {
@@ -3276,12 +3276,12 @@ if (!window.console) {
                 } else if (f !== null && typeof f2 === 'object') {
                     param.dataType = 'array<object>';
                     for (key in f2) {
-                        processJSONImport(f2[key], key, notFirst ? id : null, true);
+                        processJSONImport(f2[key], key, notFirst ? id : undefined, true, f.length > 1 ? f : undefined);
                     }
                 }
 
                 // process @order for import array data
-                if (typeof f2 in {'string' : null, 'number' : null, 'boolean' : null} && f.length > 1) {
+                if (typeof f2 in { 'string' : undefined, 'number' : undefined, 'boolean' : undefined } && f.length > 1) {
                     mValues = [f2];
                     for (i = 1; i < f.length; i++) {
                         mValues.push(f[i]);
@@ -3308,9 +3308,10 @@ if (!window.console) {
         } else if (typeof f === 'undefined') {
         } else if (f === null) {
         } else if (typeof f === 'object') {
-            param && (param.dataType = 'object');
             var oldKey;
             var oldItem;
+
+            param && (param.dataType = 'object');
 
             Object.keys(f).forEach(function(key) {
                 oldKey = key;
@@ -3324,6 +3325,16 @@ if (!window.console) {
 
             });
         }
+
+        if (arrContext && typeof f in {'string' : undefined, 'number' : undefined, 'boolean' : undefined}) {
+            // process @order for import array data for array<object>
+            mValues = [f];
+            for (i = 1; i < arrContext.length; i++) {
+                mValues.push(arrContext[i][k]);
+            }
+            param.remark = '@mock=@order(' + mValues.join(',') + ')';
+        }
+
      }
 
 
