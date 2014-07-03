@@ -3239,7 +3239,7 @@ if (!window.console) {
      * @param {boolean} notFirst
      */
     function processJSONImport(f, k, pId, notFirst) {
-        var id, param, item;
+        var id, param;
         var doesImportToRequest = ws._doesImportToRequest;
         if (notFirst) {
             if (!pId) {
@@ -3257,11 +3257,13 @@ if (!window.console) {
             }
         }
         var key;
-        var f2; // child of f2
+        var f2; // child of f
+        var i;
+        var mValues; // mock @order values
         if (f instanceof Array && f.length) {
             if (notFirst) {
-                item = f[0];
                 f2 = f[0];
+
                 if (typeof f2 === 'string') {
                     param.dataType = 'array<string>';
                     param.remark = '@mock=' + f;
@@ -3273,10 +3275,20 @@ if (!window.console) {
                     param.remark = '@mock=' + f;
                 } else if (f !== null && typeof f2 === 'object') {
                     param.dataType = 'array<object>';
-                    for (key in item) {
-                        processJSONImport(item[key], key, notFirst ? id : null, true);
+                    for (key in f2) {
+                        processJSONImport(f2[key], key, notFirst ? id : null, true);
                     }
                 }
+
+                // process @order for import array data
+                if (typeof f2 in {'string' : null, 'number' : null, 'boolean' : null} && f.length > 1) {
+                    mValues = [f2];
+                    for (i = 1; i < f.length; i++) {
+                        mValues.push(f[i]);
+                    }
+                    param.remark = '@mock=@order(' + mValues.join(',') + ')';
+                }
+
             }
         } else if (typeof f === 'string') {
             if(param) {
@@ -3297,9 +3309,20 @@ if (!window.console) {
         } else if (f === null) {
         } else if (typeof f === 'object') {
             param && (param.dataType = 'object');
-            for (key in f) {
+            var oldKey;
+            var oldItem;
+
+            Object.keys(f).forEach(function(key) {
+                oldKey = key;
+                oldItem = f[key];
+                if (f[key] && f[key] instanceof Array && f[key].length > 1) {
+                    key = key + '|' + f[key].length;
+                    delete f[oldKey] ;
+                    f[key] = oldItem;
+                }
                 processJSONImport(f[key], key, notFirst ? id : null, true);
-            }
+
+            });
         }
      }
 
