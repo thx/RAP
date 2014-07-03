@@ -53,9 +53,9 @@
                     #end
                     </div>
                     <div class="p8 tools">
-                        <input type="button" class="btn btn-primary btn-run" value="生成模拟数据"/>
-                        <input type="button" class="btn btn-primary btn-run-mockjsrule" style="margin-left:5px;" value="获取Mockjs规则"/>
-                        <input type="button" class="btn btn-primary btn-run-real" style="margin-left:5px;" value="真实接口边界条件测试"/>
+                        <input type="button" class="btn btn-primary btn-run" value="生成MockJS数据"/>
+                        <input type="button" class="btn btn-primary btn-run-mockjsrule" style="margin-left:5px;" value="生成MockJS模板"/>
+                        <input type="button" class="btn btn-primary btn-run-real" style="margin-left:5px;display:none;" value="真实接口边界条件测试"/>
                         <span class="real-options" style="display: none; margin-left: 10px;">
                             <i class="icon icon-arrow-right"></i>
                             <input type="url" placeholder="请在此输入需要测试的真实接口URL" class="real-url form-control" style="margin-left: 5px; width: 400px; margin-bottom: 0; padding-left: 10px; padding-right: 10px;"/>
