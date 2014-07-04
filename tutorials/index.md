@@ -301,13 +301,17 @@ Angularjs插件貌似不能通过覆盖全局来达到RAP插入的效果，只�
 ### 有办法让RAP服务直接返回MockJS数据，而不是MockJS模板吗？
 
 可以的，只要将请求路径中的/mockjs/修改为/mockjsdata/即可，例如：
+
 ```
 http://rap.alibaba-inc.com/mockjs/79/rap_mockjs_rules_demo.do?
 ```
+
 将返回MockJS模板，而
+
 ```
 http://rap.alibaba-inc.com/mockjsdata/79/rap_mockjs_rules_demo.do?
 ```
+
 会返回MockJS数据。
 
 {% endraw %}
