@@ -2387,9 +2387,40 @@ if (!window.console) {
      * move or copy action
      */
     ws.moveAndCopy = function() {
-        alert("这个功能还没实现... this function has not been implemented yet...");
+        // alert("这个功能还没实现... this function has not been implemented yet...");
+        function initActionOpFloater() {
+            setSelectedValue("actionOpFloater-op", 'move');
+            $('#actionOpFloater-title').html(p.getAction(_curActionId).name);
+
+            // loading tabs(modules) select options
+            function initSelect1() {
+                $('#actionOpFloater-tab').html('');
+                var mList = p.getData().moduleList;
+                var i, n = mList.length, m;
+                for (i = 0; i < n; i++) {
+                    m = mList[i];
+                    $('#actionOpFloater-tab').append($("<option/>").attr("value", m.id).text(m.name));
+                }
+                $('#actionOpFloater-tab').val(_curModuleId);
+            }
+
+            initSelect1();
+            ws.actionOpFloaterSelectChanged();
+        }
         ecFloater.show("actionOpFloater");
+        initActionOpFloater();
     };
+
+    ws.actionOpFloaterSelectChanged = function() {
+        $('#actionOpFloater-page').html('');
+        var pList = p.getPageList(+$('#actionOpFloater-tab').val());
+        var i, n = pList.length, page;
+        for (i = 0; i < n; i++) {
+            page = pList[i];
+            $('#actionOpFloater-page').append($("<option/>").attr("value", page.id).text(page.name));
+        }
+    };
+
 
     /**
      * close actionOpFloater

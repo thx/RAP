@@ -367,36 +367,40 @@
         #endFloater
 
         #startFloater("actionOpFloater" "文档操作" 600 230)
-        <form name="formPluginCodeFloater">
-            <div class="myfloater">
-                <div>您将对目前的接口<span id="actionOpFloater-title"></span>做何操作？</div>
-                <div>选择操作类型</div>
-                <div>
-                    <input type="radio" id="actionOpFloater-op-move" name="radioVersion" value="move" checked="checked" />
-                    <label for="actionOpFloater-op-move">移动</label>
-                    <input type="radio" id="actionOpFloater-op-复制" name="radioVersion"  value="copy" />
-                    <label for="actionOpFloater-op-copy">复制</label>
-                    <input type="radio" id="actionOpFloater-op-mount" name="radioVersion"  value="mount" />
-                    <label for="actionOpFloater-op-mount">挂载</label>
-                <div>选择目标位置</div>
-                <div>
-                    <select id="actionOpFloater-tab">
-                    </select>
-                    <select id="actionOpFloater-page">
-                    </select>
+        <div class="myfloater">
+            <form role="form">
+                <div class="form-group">
+                    <label >您将对接口:&nbsp;<span id="actionOpFloater-title"></span>&nbsp;做何操作？</label>
+                    <div>
+                        <label class="radio-inline">
+                            <input type="radio" id="actionOpFloater-op-move" name="actionOpFloater-op" value="move" checked="checked" /> 移动
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="actionOpFloater-op-copy" name="actionOpFloater-op"  value="copy" /> 复制
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="actionOpFloater-op-mount" name="actionOpFloater-op"  value="mount" /> 挂载
+                        </label>
+                    </div>
                 </div>
-                <div class="div-floater-control">
+                <div class="form-group">
+                    <label>选择目标位置</label>
+                    <ul class="list-inline">
+                        <li>
+                            <select id="actionOpFloater-tab" onchange="ws.actionOpFloaterSelectChanged();" class="form-control"></select>
+                        </li>
+                        <li>
+                            <select id="actionOpFloater-page" class="form-control"></select>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group">
                     <input type="button" class="btn btn-default" onclick="ws.closeActionOpFloater(true);"  value="保存" />
                     <input type="button" class="btn btn-default" onclick="ws.closeActionOpFloater();"  value="取消" />
                 </div>
-            </div>
-            <div>
-
-            </div>
-        </form>
+            </form>
+        </div>
         #endFloater
-
-
     </body>
     <script type="text/javascript">
         var urlObj = {
