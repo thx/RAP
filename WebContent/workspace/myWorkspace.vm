@@ -395,7 +395,7 @@
                     </ul>
                 </div>
                 <div class="form-group">
-                    <input type="button" class="btn btn-default" onclick="ws.closeActionOpFloater(true);"  value="保存" />
+                    <input type="button" class="btn btn-success" onclick="ws.closeActionOpFloater(true);"  value="确定" />
                     <input type="button" class="btn btn-default" onclick="ws.closeActionOpFloater();"  value="取消" />
                 </div>
             </form>

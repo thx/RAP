@@ -644,10 +644,17 @@ if (!window.console) {
     /**
      * add new action
      */
-    p.addAction = function(obj) {
+    p.addAction = function(obj, addExisted) {
+        var oldId = obj.id;
         obj.id = generateId();
-        obj.requestParameterList = [];
-        obj.responseParameterList = [];
+        if (!addExisted || addExisted === 'mount') {
+            obj.requestParameterList = [];
+            obj.responseParameterList = [];
+            if (addExisted === 'mount') {
+                obj.requestType = '99';
+                obj.responseTemplate = '{{mountId}}' + oldId;
+            }
+        }
         this.getPage(obj.pageId).actionList.push(obj);
         return obj.id;
     };
@@ -2425,7 +2432,13 @@ if (!window.console) {
     /**
      * close actionOpFloater
      */
-    ws.closeActionOpFloater = function() {
+    ws.closeActionOpFloater = function(userConfirm) {
+        if (userConfirm) {
+            var targetMID = +$('#actionOpFloater-tab').val();   // target module id
+            var targetPID = +$('#actionOpFloater-page').val();  // target page id
+            var opType = getSelectedValue('actionOpFloater-op');
+            actionOperate(targetMID, targetPID, opType);
+        }
         ecui.get("actionOpFloater").hide();
     };
 
@@ -3891,6 +3904,39 @@ if (!window.console) {
             s =  s.replace(/\\'/g, "'");
             s = s.replace();
             return s;
+        }
+
+        /**
+         * action operation
+         *
+         * @param {number} mid target module id
+         * @param {number} pid target page id
+         * @param {string} t   type is one of ["move", "copy", "mount"]
+         */
+        function actionOperate(mid, pid, t) {
+            console.log('action operation request with params, {mid:' + mid + ', pid:' + pid + ', op:' + t + "}.");
+            var curMid = _curModuleId;
+            var curAid = _curActionId;
+            var action = p.getAction(curAid);
+
+            if (t === 'move') {
+                p.removeAction(curAid);
+                _curActionId = p.addAction(action, true);
+            } else if (t === 'copy') {
+                _curActionId = p.addAction(action, true);
+            } else if (t === 'mount') {
+                _curActionId = p.addAction(action, 'mount');
+            }
+
+            // update the current model tree
+            updateCurMTree();
+
+            // hide floater
+            ws.cancelEditA();
+
+            // switch to this new added action
+            this.switchA(_curActionId);
+
         }
 
 

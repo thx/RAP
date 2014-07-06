@@ -181,8 +181,8 @@ CREATE TABLE tb_action
 	description text NULL,
 
     /* request block */
-	request_type int NOT NULL
-		DEFAULT 1,
+	request_type int NOT NULL 
+		DEFAULT 1,  /** request_type = 99, mount type **/
 	request_url text NULL,
 
 	/* response block */
