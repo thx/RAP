@@ -9,6 +9,12 @@ if (!window.console) {
     };
 }
 
+
+// deep copy
+function deepCopy(o) {
+    return jQuery.extend(true, {}, o);
+}
+
 /********************************************************
  *                                                      *
  *         ##util module begin                          *
@@ -662,16 +668,22 @@ if (!window.console) {
     /**
      * add new action
      */
-    p.addAction = function(obj, addExisted) {
+    p.addAction = function(obj, addExisted, isCopy) {
+        obj = deepCopy(obj);
+        if (isCopy) {
+            obj.name += '-副本';
+        }
         var oldId = obj.id;
         obj.id = generateId();
         if (!addExisted || addExisted === 'mount') {
             obj.requestParameterList = [];
             obj.responseParameterList = [];
+            /**
             if (addExisted === 'mount') {
                 obj.requestType = '99';
                 obj.responseTemplate = '{{mountId}}' + oldId;
             }
+            */
         }
         this.getPage(obj.pageId).actionList.push(obj);
         return obj.id;
@@ -1002,6 +1014,29 @@ if (!window.console) {
             }
         }
 
+        return false;
+    };
+
+    /**
+     * clear enough...
+     * @param {number} actionId action id
+     * @param {number} pageId page id
+     * @return {bolean} true is action is under the page specified
+     */
+    p.isActionInPage = function(actionId, pageId) {
+        var p = this.getPage(pageId);
+
+        if (p) {
+            var aList = p.actionList,
+                n = aList.length,
+                i = 0;
+            for (; i < n; i++) {
+                if (+aList[i].id === +actionId) {
+                    return true;
+                }
+            }
+
+        }
         return false;
     };
 
@@ -1472,7 +1507,7 @@ if (!window.console) {
     /**
      * switch module
      */
-    ws.switchM = function(id, defaultActionId) {
+    ws.switchM = function(id, defaultActionId, preventDefaultSwitch) {
         if (id === undefined) {
             console.error('ws.switchM(undefined)');
             return;
@@ -1505,7 +1540,7 @@ if (!window.console) {
 
         if (validDefaultActionId) {
             ws.switchA(defaultActionId);
-        } else {
+        } else if (!preventDefaultSwitch) {
             // jump to the first action
             switchToCurA();
         }
@@ -2442,7 +2477,6 @@ if (!window.console) {
      * move or copy action
      */
     ws.moveAndCopy = function() {
-        // alert("这个功能还没实现... this function has not been implemented yet...");
         function initActionOpFloater() {
             setSelectedValue("actionOpFloater-op", 'move');
             $('#actionOpFloater-title').html(p.getAction(_curActionId).name);
@@ -2467,12 +2501,19 @@ if (!window.console) {
     };
 
     ws.actionOpFloaterSelectChanged = function() {
+        var empty = true;
         $('#actionOpFloater-page').html('');
         var pList = p.getPageList(+$('#actionOpFloater-tab').val());
         var i, n = pList.length, page;
         for (i = 0; i < n; i++) {
             page = pList[i];
-            $('#actionOpFloater-page').append($("<option/>").attr("value", page.id).text(page.name));
+            if (!p.isActionInPage(_curActionId, page.id)) {
+                $('#actionOpFloater-page').append($("<option/>").attr("value", page.id).text(page.name));
+                empty = false;
+            }
+        }
+        if (empty) {
+            $('#actionOpFloater-page').append($("<option/>").attr("value", -1).text('木有可移动的页面'));
         }
     };
 
@@ -2485,7 +2526,12 @@ if (!window.console) {
             var targetMID = +$('#actionOpFloater-tab').val();   // target module id
             var targetPID = +$('#actionOpFloater-page').val();  // target page id
             var opType = getSelectedValue('actionOpFloater-op');
-            actionOperate(targetMID, targetPID, opType);
+            if (targetMID && targetMID > 0 && targetPID && targetPID > 0) {
+                actionOperate(targetMID, targetPID, opType);
+            } else {
+                alert('请选择目标位置哦~');
+                return;
+            }
         }
         ecui.get("actionOpFloater").hide();
     };
@@ -3307,15 +3353,19 @@ if (!window.console) {
    /**
     * update current module tree
     */
-   function updateCurMTree() {
+   function updateCurMTree(refreshOnly) {
         var module = p.getModule(_curModuleId);
         if (module === null) return;
-        storeViewState();
+        if (!refreshOnly) {
+            storeViewState();
+        }
         b.dom.remove(b.g("div-tree-" + _curModuleId));
         b.g("div-m-" + _curModuleId).innerHTML = getMTreeHtml(module) + b.g("div-m-" + _curModuleId).innerHTML;
         e.init(b.g("div-m-" + _curModuleId));
-        switchToCurA();
-        recoverViewState();
+        if (!refreshOnly) {
+            switchToCurA();
+            recoverViewState();
+        }
     }
 
    /**
@@ -3976,11 +4026,14 @@ if (!window.console) {
             var curAid = _curActionId;
             var action = p.getAction(curAid);
 
+            action.pageId = pid;
+
             if (t === 'move') {
                 p.removeAction(curAid);
+                putObjectIntoDeletedPool("Action", curAid);
                 _curActionId = p.addAction(action, true);
             } else if (t === 'copy') {
-                _curActionId = p.addAction(action, true);
+                _curActionId = p.addAction(action, true, true);
             }
             /**
             else if (t === 'mount') {
@@ -3988,14 +4041,23 @@ if (!window.console) {
             }
             */
 
-            // update the current model tree
-            updateCurMTree();
 
             // hide floater
             ws.cancelEditA();
 
+            // update before view moved to target tab
+            updateCurMTree(true);
+
+            /// switch th this new added action's module
+            ws.switchM(p.getModuleIdByActionId(_curActionId), undefined, true);
+
             // switch to this new added action
-            this.switchA(_curActionId);
+            ws.switchA(_curActionId);
+
+            // update the current model tree
+            updateCurMTree();
+
+
 
         }
 
@@ -4018,15 +4080,15 @@ if (!window.console) {
         function getDataTypeEditSelectHtml(id, type) {
             var str = "",
                 typeList = [
-            '',
-            'number',
-            'string',
-            'object',
-            'boolean',
-            'array<number>',
-            'array<string>',
-            'array<object>',
-            'array<boolean>'
+                        '',
+                        'number',
+                        'string',
+                        'object',
+                        'boolean',
+                        'array<number>',
+                        'array<string>',
+                        'array<object>',
+                        'array<boolean>'
                     ],
                 typeListNum = typeList.length;
 
