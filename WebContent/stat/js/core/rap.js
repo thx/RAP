@@ -409,6 +409,24 @@ if (!window.console) {
         return _data.moduleList;
     };
 
+
+    /**
+     * get module id by action id
+     * @param {number} action id
+     * @return {number} module id, undefined if not found
+     */
+    p.getModuleIdByActionId = function(acitonId) {
+        var list = _data.moduleList,
+            n = list.length,
+            i = 0, m;
+        for (; i < n; i++) {
+            m = list[i];
+            if (p.isActionInModule(acitonId, m.id)) {
+                return m.id;
+            }
+        }
+    };
+
     /**
      * get module by id
      */
@@ -1334,11 +1352,7 @@ if (!window.console) {
             /**
              * bind page
              */
-            bind();
-
-            if (actionId) {
-                me.switchA(actionId);
-            }
+            bind(undefined, actionId);
 
             /**
              * bind events
@@ -1436,6 +1450,17 @@ if (!window.console) {
         }
     };
 
+    ws.openActionUrlFloater = function(actionId) {
+        ecFloater.show("actionUrlFloater");
+        $('#actionUrlFloater-input').val(URL.myWorkspace + '?projectId=' + p.getId() + '&actionId=' + actionId);
+        $('#actionUrlFloater-input').select();
+    };
+
+
+    ws.closeActionUrlFloater = function() {
+        e.get('actionUrlFloater').hide();
+    };
+
     ws._getData = function() {
         return p.getData();
     };
@@ -1447,7 +1472,14 @@ if (!window.console) {
     /**
      * switch module
      */
-    ws.switchM = function(id) {
+    ws.switchM = function(id, defaultActionId) {
+        if (id === undefined) {
+            console.error('ws.switchM(undefined)');
+            return;
+        }
+
+        var validDefaultActionId = defaultActionId && p.isActionInModule(defaultActionId, id);
+
         if (id < 0) {
             setEmptyView(true);
             return;
@@ -1471,8 +1503,12 @@ if (!window.console) {
 
         _curModuleId = id;
 
-        // jump to the first action
-        switchToCurA();
+        if (validDefaultActionId) {
+            ws.switchA(defaultActionId);
+        } else {
+            // jump to the first action
+            switchToCurA();
+        }
     };
 
     /**
@@ -1483,11 +1519,23 @@ if (!window.console) {
      *                         when target action id equals to current action id
      */
     ws.switchA = function(actionId, forceRefresh) {
-        if (!forceRefresh) {
-            if (!p.isActionInModule(actionId, _curModuleId)) return;
-        }
         var action = p.getAction(actionId);
         if (action === null) return;
+
+        if (!forceRefresh) {
+            if (!p.isActionInModule(actionId, _curModuleId)) {
+                console.error('invalid invoke: ws.switchA(', actionId, ",", forceRefresh, ")");
+                return;
+                /**
+                var mid = p.getModuleIdByActionId(actionId);
+                if (mid !== undefined) {
+                    ws.switchM(mid);
+                } else {
+                    return;
+                }
+                */
+            }
+        }
         getDiv(_curModuleId, "a").innerHTML = getAHtml(action);
         renderA();
 
@@ -2875,7 +2923,7 @@ if (!window.console) {
     /**
      * initialize modules
      */
-    function initModules() {
+    function initModules(defaultActionId) {
         // binding modules
         var div1 = b.g("div-m-list"),
             div2 = b.g("div-mt-list"),
@@ -2913,6 +2961,15 @@ if (!window.console) {
 
         div1.innerHTML = str1;
         div2.innerHTML = str2;
+
+        if (defaultActionId) {
+            var defaultModuleId = p.getModuleIdByActionId(defaultActionId);
+            if (defaultModuleId) {
+                ws.switchM(defaultModuleId, defaultActionId);
+                renderModuleTreeList();
+                return;
+            }
+        }
 
         ws.switchM(_curModuleId);
         renderModuleTreeList();
@@ -2966,7 +3023,7 @@ if (!window.console) {
     /**
      * page binding
      */
-    function bind(ignoreProcessStateCheck) {
+    function bind(ignoreProcessStateCheck, defaultActionId) {
         if (!ignoreProcessStateCheck && !processing()) return;
         showMessage(CONST.LOADING, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.LOADING);
         // initialize properties
@@ -2994,7 +3051,7 @@ if (!window.console) {
             initSavePanel();
         }
         initVersionPanel();
-        initModules();
+        initModules(defaultActionId);
         showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.MODULE_LOAD);
         processed();
     }
@@ -3727,7 +3784,7 @@ if (!window.console) {
          * get action info html
          */
         function getAInfoHtml(a) {
-            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id + ")</span> </h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
+            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id + ") <a href=\"#\" onclick=\"ws.openActionUrlFloater(" + a.id + ");return false;\">URL</a></span> </h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
                 body = "",
                 foot = "</div>";
             if (a.name) {
@@ -3924,9 +3981,12 @@ if (!window.console) {
                 _curActionId = p.addAction(action, true);
             } else if (t === 'copy') {
                 _curActionId = p.addAction(action, true);
-            } else if (t === 'mount') {
+            }
+            /**
+            else if (t === 'mount') {
                 _curActionId = p.addAction(action, 'mount');
             }
+            */
 
             // update the current model tree
             updateCurMTree();
