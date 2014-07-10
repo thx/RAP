@@ -12,9 +12,15 @@
 <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
   <div class="container">
     <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#global-navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
       <a class="navbar-brand" href="http://rap.alibaba-inc.com"><i class="iconlogo mi-rap"></i> <span class="logo-text">RAP v0.9</span></a>
     </div>
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse"  id="global-navbar">
       <ul class="nav navbar-nav">
         #if($isLogined)
         <li><a href="$newUrl.home">我的主页</a></li>
