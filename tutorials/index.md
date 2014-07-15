@@ -185,6 +185,11 @@ RAP.getMode();
 ```bash
 RAP.setMode(1);
 ```
+### NodeJS插件
+
+[插件地址](https://www.npmjs.org/package/rap-node-plugin)
+
+具体文档、安装方法请查看该链接。
 
 ## 后端接口控制台
 
