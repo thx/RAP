@@ -14,6 +14,24 @@ RAP's feature
 - `Large user groups` Validated by many large projects. RAP is used by 200+ large projects in Alibaba corporation and other famous companys. RAP grow up with these projects, this ensure it can fullfill your business logic and process detail issues perfectly.
 - `Free and professional tech support`, RAP is free, and your request will be responsed in 24 hours. Most cases, in 1 hour.
 
+
+Contributors List
+--------------------------------------
+
+`@nunnly`, `@xinglie`
+
+Thx a lot for improving RAP!
+
+About
+--------------------------------------
+
+    @version    v0.9.2
+    @author     Bosn Wangjeaf
+    @director   李牧 行列
+    @dependency MockJS by 墨智 http://mockjs.com
+    @contact    bosn@outlook.com, wangjeaf@gmail.com
+
+
 什么是RAP?
 --------------------------------------
 
@@ -31,11 +49,3 @@ RAP的特色
 - `庞大的用户群` RAP在阿里巴巴有200多个大型项目在使用，也有许多著名的公司、开源人士在使用。RAP跟随这些业务的成行而成长，专注细节，把握质量，经得住考验。
 - `免费 + 专业的技术支持` RAP是免费的，而且你的技术咨询都讲在24小时内得到答复。大多数情况，在1小时内会得到答复。
 
-About
---------------------------------------
-
-    @version    v0.9.2
-    @author     Bosn Wangjeaf
-    @director   李牧 行列
-    @dependency MockJS by 墨智 http://mockjs.com
-    @contact    bosn@outlook.com, wangjeaf@gmail.com

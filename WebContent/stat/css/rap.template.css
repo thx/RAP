@@ -43,8 +43,7 @@ body {
 	width: 300px;
 }
 
-.dropdown-menu.teams:after {
-	position: absolute;
+.dropdown-menu.teams:before {
 	top: -6px;
 	left: 40px;
 	background-color: #FFF;
@@ -57,8 +56,13 @@ body {
 	transform: rotateZ(45deg);
 	border-top: 1px solid rgba(0, 0, 0, .15);
 	border-left: 1px solid rgba(0, 0, 0, .15);
+	position: absolute;
 }
-
+.dropdown-menu.teams:after{
+	content: '';
+	height:0px;overflow: hidden;
+	display: block;clear:both;
+}
 .navbar-nav>li>.dropdown-menu.teams {
 	margin-top: 3px;
 	border-top-left-radius: 4px;
