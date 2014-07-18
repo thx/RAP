@@ -4,7 +4,7 @@
     var blackList = [];
     var whiteList = ["/api/dspfilter/zonesizes", "/api/dspfilter/distypes", "/api/dspfilter/screens", "/api/dspfilter/sitetypes", "/api/dspfilter/pagelist", "/api/dspfilter/urls", "/api/dspsettle/account/balance", "/api/dspsettle/account/list", "/api/log", "/api/dspsettle/account/anotice"];
 
-    var ROOT = 'rap.alibaba-inc.com';
+    var ROOT = 'DOMAIN';
     // [DEBUG]
     // ROOT = 'etaoux-bj.taobao.ali.com:8080';
     var LOST = "LOST";
@@ -755,7 +755,7 @@
 
     /**
      * convert url to rap mock url (KISSY version)
-     * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
+     * example: www.baidu.com/a => domain/mock/106/a
      */
 
     function rapUrlConverterKissy(options) {
@@ -774,7 +774,7 @@
 
     /**
      * convert url to rap mock url (jQuery version)
-     * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
+     * example: www.baidu.com/a => domain/mock/106/a
      */
 
     function rapUrlConverterJQuery(options) {

@@ -10,6 +10,11 @@ public class SystemConstant {
 	public static String README_PATH = "";
 	public static String ROOT = "";
 	public static String DOMAIN_URL = "";
+	public static final String ALI_LOGIN_URL = "";
+
+	public static String getAliLoginUrl() {
+		return ALI_LOGIN_URL;
+	}
 
 	public static String getDOMAIN_URL() {
 		return DOMAIN_URL;

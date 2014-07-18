@@ -21,7 +21,7 @@ public class MailUtils {
 		}
 
 		// Sender's email ID needs to be mentioned
-		String from = "rap@alibaba-inc.com";
+		String from = "rap@domain.com";
 		final String username = PRIVATE_CONFIG.mailUserName;
 		final String password = PRIVATE_CONFIG.mailPassword;
 
@@ -29,7 +29,7 @@ public class MailUtils {
 		Properties props = System.getProperties();
 
 		// Setup mail server
-		props.put("mail.smtp.host", "smtp-inc.alibaba-inc.com");
+		props.put("mail.smtp.host", "smtp-inc.domain.com");
 		props.put("mail.smtp.port", "25");
 		props.put("mail.smtp.auth", "true");
 

@@ -337,6 +337,9 @@
      * @return {boolean} true if route to RAP MOCK, other wise do nothing.
      */
     function route(url, ignoreMode) {
+    	if (url && url.indexOf('?') !== -1) {
+            url = url.substring(0, url.indexOf('?'))
+        } 
         var i;
         var o;
         var blackMode;
@@ -420,7 +423,7 @@
 
     /**
      * convert url to rap mock url (KISSY version)
-     * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
+     * example: www.baidu.com/a => domain.com/mock/106/a
      */
     function rapUrlConverterKissy(options) {
         var url = options.url;
@@ -438,7 +441,7 @@
 
     /**
      * convert url to rap mock url (jQuery version)
-     * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
+     * example: www.baidu.com/a => domain.com/mock/106/a
      */
     function rapUrlConverterJQuery(options) {
         var url = options.url;
@@ -517,6 +520,9 @@
         },
         getProjectId: function() {
             return projectId;
+        },
+        router: function(url) {
+        	return route(url);
         }
     };
 

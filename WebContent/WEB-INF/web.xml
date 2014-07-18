@@ -25,7 +25,7 @@
 		</init-param>
 		<init-param>
 			<param-name>SSO_SERVER_URL</param-name>
-			<param-value>https://login.alibaba-inc.com</param-value>
+			<param-value>[TODO]:這裡寫LOGIN_URL</param-value>
 		</init-param>
 		<init-param>
 			<param-name>CLIENT_KEY</param-name>
