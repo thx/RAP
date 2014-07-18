@@ -226,7 +226,7 @@ $(function() {
     function handleRapPluginClick() {
         var id = $(this).data('id');
         var url = '';
-        var host = location && location.host ? location.host : 'rap.alibaba-inc.com';
+        var host = location && location.host ? location.host : '/';
         $.message({
              content: '<input type="text" id="rap-plugin-inputer" class="form-control" value="<script src=\'http://' + host + '/rap.plugin.js?projectId=' + id + '\'></script>" />',
              title: '复制RAP插件地址',

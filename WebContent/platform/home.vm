@@ -61,8 +61,8 @@
             </div>
             <div class="extra">
                 <h1>相关链接</h1>
-                <p>对于RAP平台的任何问题，欢迎邮件至<a href="mailto:zhifu.wzf@alibaba-inc.com">思竹</a> 或 <a href="mailto:huoyong.msb@taobao.com">霍雍</a></p>
-                <p>RAP是THX平台中的产品，想了解THX更多内容，请访问：<a href="http://thx.alibaba-inc.com" target="_blank">http://thx.alibaba-inc.com</a></p>
+                <p>对于RAP平台的任何问题，欢迎邮件至<a href="mailto:zhifu.wzf@taobao.com">思竹</a> 或 <a href="mailto:huoyong.msb@taobao.com">霍雍</a></p>
+                <p>RAP是THX平台中的产品，想了解THX更多内容，请访问：<a href="http://thx.github.io" target="_blank">http://thx.github.io</a></p>
                 <p>RAP Github Repo: <a href="http://github.com/thx/RAP" target="_blank">http://github.com/thx/RAP</a></p>
             </div>
             <!-- feature block end -->

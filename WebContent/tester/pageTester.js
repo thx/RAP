@@ -288,38 +288,36 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
             return obj;
         }
     }
-    
-    function convertFuncValsToString(obj) {
-    	if (typeof obj !== 'object' || obj === null) {
-    		return;
-    	}
-    	var key, val;
-    	for (key in obj) {
-    		val = obj[key];
-    		if (obj.hasOwnProperty(key)) {
-    			if (typeof val === 'function') {
-    				obj[key] = val.toString();
-    			} else {
-    				convertFuncValsToString(obj[key]);
-    			}
-    		}
-    	}
-    }
-    
-
 
     function testResHandler(response, form, btn) {
-    	convertFuncValsToString(response);
-        var jsonString = Y.JSON.stringify(response);
+        var obj = response;
+        var jsonString;
+      
+
         var path = Y.one('#txtRootPath').get('value');
-        var obj = eval("(" + jsonString + ")");
         obj = sortObj(obj);
         if (btn != 'rule' && path.indexOf('mockjs') != -1) {
             obj = Mock.mock(obj);
         }
+        
+        function JSONstringifyWithFuncs(obj) {
+            Object.prototype.toJSON = function() {
+            var sobj = {}, i;
+            for (i in this) 
+                if (this.hasOwnProperty(i))
+                    sobj[i] = typeof this[i] == 'function' ?
+                        this[i].toString() : this[i];
 
-        jsonString = JSON.stringify(obj, null, 4);
+                return sobj;
+            };
 
+            var str = JSON.stringify(obj);
+            delete Object.prototype.toJSON;
+            return str;
+        }
+
+        jsonString = JSONstringifyWithFuncs(obj);
+        
         var beginTime = Y.timeLog.time;
         if (!beginTime) return;
         var endTime = new Date().getTime();

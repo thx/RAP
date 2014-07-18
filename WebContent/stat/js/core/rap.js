@@ -9,6 +9,12 @@ if (!window.console) {
     };
 }
 
+
+// deep copy
+function deepCopy(o) {
+    return jQuery.extend(true, {}, o);
+}
+
 /********************************************************
  *                                                      *
  *         ##util module begin                          *
@@ -409,6 +415,24 @@ if (!window.console) {
         return _data.moduleList;
     };
 
+
+    /**
+     * get module id by action id
+     * @param {number} action id
+     * @return {number} module id, undefined if not found
+     */
+    p.getModuleIdByActionId = function(acitonId) {
+        var list = _data.moduleList,
+            n = list.length,
+            i = 0, m;
+        for (; i < n; i++) {
+            m = list[i];
+            if (p.isActionInModule(acitonId, m.id)) {
+                return m.id;
+            }
+        }
+    };
+
     /**
      * get module by id
      */
@@ -644,10 +668,23 @@ if (!window.console) {
     /**
      * add new action
      */
-    p.addAction = function(obj) {
+    p.addAction = function(obj, addExisted, isCopy) {
+        obj = deepCopy(obj);
+        if (isCopy) {
+            obj.name += '-副本';
+        }
+        var oldId = obj.id;
         obj.id = generateId();
-        obj.requestParameterList = [];
-        obj.responseParameterList = [];
+        if (!addExisted || addExisted === 'mount') {
+            obj.requestParameterList = [];
+            obj.responseParameterList = [];
+            /**
+            if (addExisted === 'mount') {
+                obj.requestType = '99';
+                obj.responseTemplate = '{{mountId}}' + oldId;
+            }
+            */
+        }
         this.getPage(obj.pageId).actionList.push(obj);
         return obj.id;
     };
@@ -977,6 +1014,29 @@ if (!window.console) {
             }
         }
 
+        return false;
+    };
+
+    /**
+     * clear enough...
+     * @param {number} actionId action id
+     * @param {number} pageId page id
+     * @return {bolean} true is action is under the page specified
+     */
+    p.isActionInPage = function(actionId, pageId) {
+        var p = this.getPage(pageId);
+
+        if (p) {
+            var aList = p.actionList,
+                n = aList.length,
+                i = 0;
+            for (; i < n; i++) {
+                if (+aList[i].id === +actionId) {
+                    return true;
+                }
+            }
+
+        }
         return false;
     };
 
@@ -1327,11 +1387,7 @@ if (!window.console) {
             /**
              * bind page
              */
-            bind();
-
-            if (actionId) {
-                me.switchA(actionId);
-            }
+            bind(undefined, actionId);
 
             /**
              * bind events
@@ -1429,6 +1485,17 @@ if (!window.console) {
         }
     };
 
+    ws.openActionUrlFloater = function(actionId) {
+        ecFloater.show("actionUrlFloater");
+        $('#actionUrlFloater-input').val(URL.myWorkspace + '?projectId=' + p.getId() + '&actionId=' + actionId);
+        $('#actionUrlFloater-input').select();
+    };
+
+
+    ws.closeActionUrlFloater = function() {
+        e.get('actionUrlFloater').hide();
+    };
+
     ws._getData = function() {
         return p.getData();
     };
@@ -1440,7 +1507,14 @@ if (!window.console) {
     /**
      * switch module
      */
-    ws.switchM = function(id) {
+    ws.switchM = function(id, defaultActionId, preventDefaultSwitch) {
+        if (id === undefined) {
+            console.error('ws.switchM(undefined)');
+            return;
+        }
+
+        var validDefaultActionId = defaultActionId && p.isActionInModule(defaultActionId, id);
+
         if (id < 0) {
             setEmptyView(true);
             return;
@@ -1464,8 +1538,12 @@ if (!window.console) {
 
         _curModuleId = id;
 
-        // jump to the first action
-        switchToCurA();
+        if (validDefaultActionId) {
+            ws.switchA(defaultActionId);
+        } else if (!preventDefaultSwitch) {
+            // jump to the first action
+            switchToCurA();
+        }
     };
 
     /**
@@ -1476,11 +1554,23 @@ if (!window.console) {
      *                         when target action id equals to current action id
      */
     ws.switchA = function(actionId, forceRefresh) {
-        if (!forceRefresh) {
-            if (!p.isActionInModule(actionId, _curModuleId)) return;
-        }
         var action = p.getAction(actionId);
         if (action === null) return;
+
+        if (!forceRefresh) {
+            if (!p.isActionInModule(actionId, _curModuleId)) {
+                console.error('invalid invoke: ws.switchA(', actionId, ",", forceRefresh, ")");
+                return;
+                /**
+                var mid = p.getModuleIdByActionId(actionId);
+                if (mid !== undefined) {
+                    ws.switchM(mid);
+                } else {
+                    return;
+                }
+                */
+            }
+        }
         getDiv(_curModuleId, "a").innerHTML = getAHtml(action);
         renderA();
 
@@ -1918,7 +2008,7 @@ if (!window.console) {
         var txt = ele.value;
         try {
             if (typeof JSON === 'undefined') {
-                alert('您用的啥浏览器啊？连JSON转换都不支持也～～～请考虑用新浏览器试试？谢谢啦，mua~~~!');
+                alert('您用的啥浏览器啊？连JSON转换都不支持也...请使用IE9+/Chrome/FF试试看？');
                 return;
             }
             var data = eval("(" + txt + ")");
@@ -2387,8 +2477,65 @@ if (!window.console) {
      * move or copy action
      */
     ws.moveAndCopy = function() {
-        alert("这个功能还没实现... this function has not been implemented yet...");
+        function initActionOpFloater() {
+            setSelectedValue("actionOpFloater-op", 'move');
+            $('#actionOpFloater-title').html(p.getAction(_curActionId).name);
+
+            // loading tabs(modules) select options
+            function initSelect1() {
+                $('#actionOpFloater-tab').html('');
+                var mList = p.getData().moduleList;
+                var i, n = mList.length, m;
+                for (i = 0; i < n; i++) {
+                    m = mList[i];
+                    $('#actionOpFloater-tab').append($("<option/>").attr("value", m.id).text(m.name));
+                }
+                $('#actionOpFloater-tab').val(_curModuleId);
+            }
+
+            initSelect1();
+            ws.actionOpFloaterSelectChanged();
+        }
+        ecFloater.show("actionOpFloater");
+        initActionOpFloater();
     };
+
+    ws.actionOpFloaterSelectChanged = function() {
+        var empty = true;
+        $('#actionOpFloater-page').html('');
+        var pList = p.getPageList(+$('#actionOpFloater-tab').val());
+        var i, n = pList.length, page;
+        for (i = 0; i < n; i++) {
+            page = pList[i];
+            if (!p.isActionInPage(_curActionId, page.id)) {
+                $('#actionOpFloater-page').append($("<option/>").attr("value", page.id).text(page.name));
+                empty = false;
+            }
+        }
+        if (empty) {
+            $('#actionOpFloater-page').append($("<option/>").attr("value", -1).text('木有可移动的页面'));
+        }
+    };
+
+
+    /**
+     * close actionOpFloater
+     */
+    ws.closeActionOpFloater = function(userConfirm) {
+        if (userConfirm) {
+            var targetMID = +$('#actionOpFloater-tab').val();   // target module id
+            var targetPID = +$('#actionOpFloater-page').val();  // target page id
+            var opType = getSelectedValue('actionOpFloater-op');
+            if (targetMID && targetMID > 0 && targetPID && targetPID > 0) {
+                actionOperate(targetMID, targetPID, opType);
+            } else {
+                alert('请选择目标位置哦~');
+                return;
+            }
+        }
+        ecui.get("actionOpFloater").hide();
+    };
+
 
     /**
      * complex parameter expand
@@ -2822,7 +2969,7 @@ if (!window.console) {
     /**
      * initialize modules
      */
-    function initModules() {
+    function initModules(defaultActionId) {
         // binding modules
         var div1 = b.g("div-m-list"),
             div2 = b.g("div-mt-list"),
@@ -2860,6 +3007,15 @@ if (!window.console) {
 
         div1.innerHTML = str1;
         div2.innerHTML = str2;
+
+        if (defaultActionId) {
+            var defaultModuleId = p.getModuleIdByActionId(defaultActionId);
+            if (defaultModuleId) {
+                ws.switchM(defaultModuleId, defaultActionId);
+                renderModuleTreeList();
+                return;
+            }
+        }
 
         ws.switchM(_curModuleId);
         renderModuleTreeList();
@@ -2913,7 +3069,7 @@ if (!window.console) {
     /**
      * page binding
      */
-    function bind(ignoreProcessStateCheck) {
+    function bind(ignoreProcessStateCheck, defaultActionId) {
         if (!ignoreProcessStateCheck && !processing()) return;
         showMessage(CONST.LOADING, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.LOADING);
         // initialize properties
@@ -2941,7 +3097,7 @@ if (!window.console) {
             initSavePanel();
         }
         initVersionPanel();
-        initModules();
+        initModules(defaultActionId);
         showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.MODULE_LOAD);
         processed();
     }
@@ -3197,15 +3353,19 @@ if (!window.console) {
    /**
     * update current module tree
     */
-   function updateCurMTree() {
+   function updateCurMTree(refreshOnly) {
         var module = p.getModule(_curModuleId);
         if (module === null) return;
-        storeViewState();
+        if (!refreshOnly) {
+            storeViewState();
+        }
         b.dom.remove(b.g("div-tree-" + _curModuleId));
         b.g("div-m-" + _curModuleId).innerHTML = getMTreeHtml(module) + b.g("div-m-" + _curModuleId).innerHTML;
         e.init(b.g("div-m-" + _curModuleId));
-        switchToCurA();
-        recoverViewState();
+        if (!refreshOnly) {
+            switchToCurA();
+            recoverViewState();
+        }
     }
 
    /**
@@ -3238,8 +3398,8 @@ if (!window.console) {
      * @param {number}  pid parameter id
      * @param {boolean} notFirst
      */
-    function processJSONImport(f, k, pId, notFirst) {
-        var id, param, item;
+    function processJSONImport(f, k, pId, notFirst, arrContext) {
+        var id, param;
         var doesImportToRequest = ws._doesImportToRequest;
         if (notFirst) {
             if (!pId) {
@@ -3257,11 +3417,13 @@ if (!window.console) {
             }
         }
         var key;
-        var f2; // child of f2
+        var f2; // child of f
+        var i;
+        var mValues; // mock @order values
         if (f instanceof Array && f.length) {
             if (notFirst) {
-                item = f[0];
                 f2 = f[0];
+
                 if (typeof f2 === 'string') {
                     param.dataType = 'array<string>';
                     param.remark = '@mock=' + f;
@@ -3273,10 +3435,26 @@ if (!window.console) {
                     param.remark = '@mock=' + f;
                 } else if (f !== null && typeof f2 === 'object') {
                     param.dataType = 'array<object>';
-                    for (key in item) {
-                        processJSONImport(item[key], key, notFirst ? id : null, true);
+                    for (key in f2) {
+                        processJSONImport(f2[key], key, notFirst ? id : undefined, true, f.length > 1 ? f : undefined);
                     }
                 }
+
+                // process @order for import array data
+                if (typeof f2 in {'number' : undefined, 'boolean' : undefined } && f.length > 1) {
+                    mValues = [f2];
+                    for (i = 1; i < f.length; i++) {
+                        mValues.push(f[i]);
+                    }
+                    param.remark = '@mock=$order(' + mValues.join(',') + ')';
+                } else if (typeof f2 === 'string' && f.length > 1) {
+                    mValues = ['"' + f2 + '"'];
+                    for (i = 1; i < f.length; i++) {
+                        mValues.push('"' + f[i] + '"');
+                    }
+                    param.remark = '@mock=$order(' + mValues.join(',') + ')';
+                }
+
             }
         } else if (typeof f === 'string') {
             if(param) {
@@ -3296,11 +3474,39 @@ if (!window.console) {
         } else if (typeof f === 'undefined') {
         } else if (f === null) {
         } else if (typeof f === 'object') {
+            var oldKey;
+            var oldItem;
+
             param && (param.dataType = 'object');
-            for (key in f) {
+
+            Object.keys(f).forEach(function(key) {
+                oldKey = key;
+                oldItem = f[key];
+                if (f[key] && f[key] instanceof Array && f[key].length > 1) {
+                    key = key + '|' + f[key].length;
+                    delete f[oldKey] ;
+                    f[key] = oldItem;
+                }
                 processJSONImport(f[key], key, notFirst ? id : null, true);
-            }
+
+            });
         }
+
+        if (arrContext && typeof f in {'number' : undefined, 'boolean' : undefined}) {
+            // process @order for import array data for array<object>
+            mValues = [f];
+            for (i = 1; i < arrContext.length; i++) {
+                mValues.push(arrContext[i][k]);
+            }
+            param.remark = '@mock=$order(' + mValues.join(',') + ')';
+        } else if (arrContext && typeof f === 'string') {
+            mValues = ['"' + f + '"'];
+            for (i = 1; i < arrContext.length; i++) {
+                mValues.push('"' + arrContext[i][k] + '"');
+            }
+            param.remark = '@mock=$order(' + mValues.join(',') + ')';
+        }
+
      }
 
 
@@ -3628,7 +3834,7 @@ if (!window.console) {
          * get action info html
          */
         function getAInfoHtml(a) {
-            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id + ")</span> </h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
+            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id + ") <a href=\"#\" onclick=\"ws.openActionUrlFloater(" + a.id + ");return false;\">URL</a></span> </h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
                 body = "",
                 foot = "</div>";
             if (a.name) {
@@ -3807,6 +4013,54 @@ if (!window.console) {
             return s;
         }
 
+        /**
+         * action operation
+         *
+         * @param {number} mid target module id
+         * @param {number} pid target page id
+         * @param {string} t   type is one of ["move", "copy", "mount"]
+         */
+        function actionOperate(mid, pid, t) {
+            console.log('action operation request with params, {mid:' + mid + ', pid:' + pid + ', op:' + t + "}.");
+            var curMid = _curModuleId;
+            var curAid = _curActionId;
+            var action = p.getAction(curAid);
+
+            action.pageId = pid;
+
+            if (t === 'move') {
+                p.removeAction(curAid);
+                putObjectIntoDeletedPool("Action", curAid);
+                _curActionId = p.addAction(action, true);
+            } else if (t === 'copy') {
+                _curActionId = p.addAction(action, true, true);
+            }
+            /**
+            else if (t === 'mount') {
+                _curActionId = p.addAction(action, 'mount');
+            }
+            */
+
+
+            // hide floater
+            ws.cancelEditA();
+
+            // update before view moved to target tab
+            updateCurMTree(true);
+
+            /// switch th this new added action's module
+            ws.switchM(p.getModuleIdByActionId(_curActionId), undefined, true);
+
+            // switch to this new added action
+            ws.switchA(_curActionId);
+
+            // update the current model tree
+            updateCurMTree();
+
+
+
+        }
+
 
         /**
          * get edit input element
@@ -3826,15 +4080,15 @@ if (!window.console) {
         function getDataTypeEditSelectHtml(id, type) {
             var str = "",
                 typeList = [
-            '',
-            'number',
-            'string',
-            'object',
-            'boolean',
-            'array<number>',
-            'array<string>',
-            'array<object>',
-            'array<boolean>'
+                        '',
+                        'number',
+                        'string',
+                        'object',
+                        'boolean',
+                        'array<number>',
+                        'array<string>',
+                        'array<object>',
+                        'array<boolean>'
                     ],
                 typeListNum = typeList.length;
 

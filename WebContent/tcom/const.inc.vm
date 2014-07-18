@@ -78,7 +78,7 @@
     "status":"$projectContext/platform/status.action",
     "help":"$!projectContext/platform/help.action",
     "test":"$!projectContext/platform/test.action",
-    "doc":"http://thx.alibaba-inc.com/RAP"
+    "doc":"http://thx.github.io/RAP"
 })
 
 

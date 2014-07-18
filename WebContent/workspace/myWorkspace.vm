@@ -365,7 +365,56 @@
             </div>
         </form>
         #endFloater
+        #startFloater("actionUrlFloater" "请求链接" 600 180)
+        <form name="fformActionUrlFloater">
+            <div class="myfloater">
+                <div>
+                    <input disabled="disabled" id="actionUrlFloater-input" style="width:550px;margin:8px 0;" type="text" value="">
+                </div>
+                <div class="div-floater-control">
+                    <input type="button" class="btn btn-default" onclick="ws.closeActionUrlFloater();"  value="关闭" />
+                </div>
+            </div>
+        </form>
+        #endFloater
 
+        #startFloater("actionOpFloater" "文档操作" 600 230)
+        <div class="myfloater">
+            <form role="form">
+                <div class="form-group">
+                    <label >您将对接口:&nbsp;<span id="actionOpFloater-title"></span>&nbsp;做何操作？</label>
+                    <div>
+                        <label class="radio-inline">
+                            <input type="radio" id="actionOpFloater-op-move" name="actionOpFloater-op" value="move" checked="checked" /> 移动
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="actionOpFloater-op-copy" name="actionOpFloater-op"  value="copy" /> 复制
+                        </label>
+                        <!--
+                        <label class="radio-inline">
+                            <input type="radio" id="actionOpFloater-op-mount" name="actionOpFloater-op"  value="mount" /> 挂载
+                        </label>
+                        -->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>选择目标位置</label>
+                    <ul class="list-inline">
+                        <li>
+                            <select id="actionOpFloater-tab" onchange="ws.actionOpFloaterSelectChanged();" class="form-control"></select>
+                        </li>
+                        <li>
+                            <select id="actionOpFloater-page" class="form-control"></select>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <input type="button" class="btn btn-success" onclick="ws.closeActionOpFloater(true);"  value="确定" />
+                    <input type="button" class="btn btn-default" onclick="ws.closeActionOpFloater();"  value="取消" />
+                </div>
+            </form>
+        </div>
+        #endFloater
     </body>
     <script type="text/javascript">
         var urlObj = {
@@ -383,7 +432,8 @@
                 "queryVersion"      : "$workspaceUrl.queryVersion",
                 "switchVersion"     : "$workspaceUrl.switchVersion",
                 "pageTester"        : "$testerUrl.pageTester",
-                "updateReleatedIds" : "$projectUrl.updateReleatedIds"
+                "updateReleatedIds" : "$projectUrl.updateReleatedIds",
+                "myWorkspace"       : "http://$!consts.DOMAIN_URL$workspaceUrl.myWorkspace"
             },
             ws = rap.workspace,
             data = $workspaceJsonString,

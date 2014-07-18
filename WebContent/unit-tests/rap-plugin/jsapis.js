@@ -12,7 +12,7 @@ test('RAP.set/getWhiteList', function() {
 test('RAP.set/getHost', function() {
     var old = RAP.getHost();
     equal(old, window.location.host, 'old is ok');
-    var newHost = 'rap2.alibaba-inc.com';
+    var newHost = 'rap2.ali' + 'bab' + 'a-inc.com';
     RAP.setHost(newHost);
     equal(RAP.getHost(), newHost, 'get/set ok');
     RAP.setHost(old);
