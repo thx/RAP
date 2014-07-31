@@ -3910,9 +3910,9 @@ function deepCopy(o) {
                 case 2:
                     return "post";
                 case 3:
-                    return "get(ajax)";
+                    return "put";
                 case 4:
-                    return "post(ajax)";
+                    return "delete";
                 default: return "unknown";
             }
         }
