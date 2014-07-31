@@ -12,13 +12,13 @@
         var a = [];
         var d = this.data;
 
-
         a.push('# ' + d.name + ' [' + d.requestUrl + ']');
         a.push(d.description);
         a.push('');
         a.push('+ Response 200 (application/json)');
         a.push('');
         a.push(JSON.stringify(d.responseParameterList), null, 4);
+
         return a.join('\n');
     };
 

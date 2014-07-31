@@ -111,7 +111,7 @@
                     oldSuccess2.apply(this,arguments);
                 };
             }
-            ajax.apply(this, arguments);
+           return  ajax.apply(this, arguments);
         };
     }
 
