@@ -65,7 +65,7 @@ public class Parameter implements java.io.Serializable {
 	public String getMockIdentifier() {
 		String rv = "";
 		if (identifier == null || identifier.isEmpty()) {
-			return "emptyIdentifier";
+			return "\"emptyIdentifier\"";
 		}
 
 		rv = identifier;
@@ -81,7 +81,7 @@ public class Parameter implements java.io.Serializable {
 	public String getMockJSIdentifier() {
 		String rv = "";
 		if (identifier == null || identifier.isEmpty()) {
-			return "emptyIdentifier";
+			return "\"emptyIdentifier\"";
 		}
 		rv = identifier;
 		return "\"" + rv + "\"";
