@@ -71,4 +71,7 @@
 
 	<!-- platform mock mapping -->
 	<include file="com/taobao/rigel/rap/mock/web/action/struts.xml" />
+	
+	<!-- API mock mapping -->
+	<include file="com/taobao/rigel/rap/api/web/action/struts.xml" />
 </struts>

@@ -27,6 +27,7 @@
 	<import resource="classpath:/com/taobao/rigel/rap/account/applicationContext.xml" />
 	<import resource="classpath:/com/taobao/rigel/rap/mock/applicationContext.xml" />
 	<import resource="classpath:/com/taobao/rigel/rap/organization/applicationContext.xml" />
+	<import resource="classpath:/com/taobao/rigel/rap/api/applicationContext.xml" />
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
