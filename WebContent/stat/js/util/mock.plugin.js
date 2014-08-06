@@ -40,6 +40,15 @@
     if (ms) {
         projectId = ms[1];
     }
+    
+    var seajs;
+	ms = node.src.match(/(?:\?|&)seajs=([^&]+)(?:&|$)/);
+    if (ms) {
+        seajs = ms[1];
+    }
+	
+    
+    
     var modePattern = node.src.match(/(?:\?|&)mode=([^&]+)(?:&|$)/);
     if (modePattern) {
         mode = +modePattern[1];
@@ -227,7 +236,7 @@
         }
     }
 
-    if (window.seajs && window.define && window.define.cmd) {
+    if (window.seajs && window.define && window.define.cmd && seajs != 'false') {
     
 		!function() {
 			var oldSeajsUse = seajs.use;
