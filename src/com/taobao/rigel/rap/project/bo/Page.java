@@ -114,13 +114,13 @@ public class Page implements java.io.Serializable {
 		return stringBuilder.toString();
 	}	
 	
-	public String toString(Project.toStringType type) {
+	public String toString(Project.TO_STRING_TYPE type) {
 		StringBuilder stringBuilder = new StringBuilder();		
 		
 		stringBuilder.append("{\"id\":" + getId() + ",");
 		stringBuilder.append("\"introduction\":\"" + StringUtils.escapeInJ(getIntroduction()) + "\",");
 		stringBuilder.append("\"name\":\"" + StringUtils.escapeInJ(getName()) + "\"");
-		if (type == Project.toStringType.TO_PAGE) {
+		if (type == Project.TO_STRING_TYPE.TO_PAGE) {
 			stringBuilder.append("}");
 		} else {
 			stringBuilder.append(",\"actionList\":");	

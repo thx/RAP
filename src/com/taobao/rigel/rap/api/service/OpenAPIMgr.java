@@ -1,5 +1,7 @@
 package com.taobao.rigel.rap.api.service;
 
+import com.taobao.rigel.rap.project.bo.Action;
+
 public interface OpenAPIMgr {
 
 	/**
@@ -7,16 +9,17 @@ public interface OpenAPIMgr {
 	 * 
 	 * @param projectId
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	String getModelJSON(int projectId) throws Exception;
-	
+	Object getModel(int projectId) throws Exception;
+
 	/**
 	 * get JSON Schema text of action
 	 * 
 	 * @param actionId
+	 * @param type
 	 * @return
 	 */
-	String getActionJSONSchema(int actionId);
-	
+	Object getSchema(int actionId, Action.TYPE type);
+
 }

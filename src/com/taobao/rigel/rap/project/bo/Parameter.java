@@ -77,7 +77,7 @@ public class Parameter implements java.io.Serializable {
 		}
 		return "\"" + rv + "\"";
 	}
-	
+
 	public String getMockJSIdentifier() {
 		String rv = "";
 		if (identifier == null || identifier.isEmpty()) {
@@ -209,6 +209,11 @@ public class Parameter implements java.io.Serializable {
 		stringBuilder.append("\"dataType\":\""
 				+ StringUtils.escapeInJ(getDataType()) + "\"}");
 		return stringBuilder.toString();
+	}
+
+	public String getJSONSchemaDataType() {
+		// [TODO]
+		return this.dataType;
 	}
 
 }

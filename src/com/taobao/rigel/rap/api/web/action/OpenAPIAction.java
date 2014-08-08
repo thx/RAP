@@ -6,6 +6,7 @@ import java.util.Map;
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.api.service.OpenAPIMgr;
 import com.taobao.rigel.rap.common.ActionBase;
+import com.taobao.rigel.rap.project.bo.Action;
 
 public class OpenAPIAction extends ActionBase {
 
@@ -31,11 +32,33 @@ public class OpenAPIAction extends ActionBase {
 		this.projectId = projectId;
 	}
 
+	private int actionId;
+
+	public int getActionId() {
+		return this.actionId;
+	}
+
+	public void setActionId(int actionId) {
+		this.actionId = actionId;
+	}
+
 	public String queryModel() throws Exception {
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Gson g = new Gson();
-		resultMap.put("modelJSON", openAPIMgr.getModelJSON(projectId));
+		resultMap.put("model", openAPIMgr.getModel(projectId));
+		resultMap.put("code", 200);
+		resultMap.put("msg", "");
+		String resultJson = g.toJson(resultMap);
+		setJson(resultJson);
+		return SUCCESS;
+	}
+
+	public String querySchema() {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Gson g = new Gson();
+		resultMap.put("schema",
+				openAPIMgr.getSchema(actionId, Action.TYPE.RESPONSE));
 		resultMap.put("code", 200);
 		resultMap.put("msg", "");
 		String resultJson = g.toJson(resultMap);

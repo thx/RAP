@@ -259,4 +259,9 @@ public class ProjectMgrImpl implements ProjectMgr {
 	public List<Project> search(String key) {
 		return projectDao.search(key);
 	}
+
+	@Override
+	public Action getAction(int id) {
+		return projectDao.getAction(id);
+	}
 }

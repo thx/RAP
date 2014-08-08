@@ -64,7 +64,7 @@ public class WorkspaceDaoImpl extends HibernateDaoSupport implements WorkspaceDa
 		Workspace workspace = new Workspace();
 		workspace.setUser((User)session.load(User.class, userId));
 		workspace.setProject(project);
-		workspace.setProjectData(project.toString(Project.toStringType.TO_PARAMETER));
+		workspace.setProjectData(project.toString(Project.TO_STRING_TYPE.TO_PARAMETER));
 		workspace.setProjectDataOriginal(workspace.getProjectData());
 		workspace.setUpdateDate(new Date());
 		int id = (Integer)session.save(workspace);

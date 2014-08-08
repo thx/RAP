@@ -50,9 +50,9 @@ public class Project implements java.io.Serializable {
 		this.relatedIds = relatedIds;
 	}
 
-	public enum toStringType {TO_MODULE, TO_PAGE, TO_ACTION, TO_PARAMETER};
+	public enum TO_STRING_TYPE {TO_MODULE, TO_PAGE, TO_ACTION, TO_PARAMETER};
 	
-	public enum StageType {DESIGNING, DEVELOPING, DEBUGING};	
+	public enum STAGE_TYPE {DESIGNING, DEVELOPING, DEBUGING};	
 	
 	public int getWorkspaceModeInt() {
 		return workspaceModeInt;
@@ -214,7 +214,7 @@ public class Project implements java.io.Serializable {
 		this.version = version;
 	}		
 	
-	public String toString(toStringType type) {
+	public String toString(TO_STRING_TYPE type) {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("{\"createDateStr\":\"" + getCreateDateStr() + "\",");
 		stringBuilder.append("\"user\":" + getUser() + ",");

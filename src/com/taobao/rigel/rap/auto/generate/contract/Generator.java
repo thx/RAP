@@ -2,7 +2,7 @@ package com.taobao.rigel.rap.auto.generate.contract;
 
 import com.taobao.rigel.rap.auto.generate.bo.GenerateUtils.GeneratorType;
 import com.taobao.rigel.rap.auto.generate.bo.GenerateUtils.TargetObjectType;
-import com.taobao.rigel.rap.project.bo.Project.StageType;
+import com.taobao.rigel.rap.project.bo.Project.STAGE_TYPE;
 
 /**
  * generator interface, all generator class should
@@ -17,7 +17,7 @@ public interface Generator {
 	 * @param stage
 	 * @return
 	 */
-	boolean isAvailable(StageType stage);
+	boolean isAvailable(STAGE_TYPE stage);
 	
 	/**
 	 * get generator type

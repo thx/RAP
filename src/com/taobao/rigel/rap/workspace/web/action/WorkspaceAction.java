@@ -366,7 +366,7 @@ public class WorkspaceAction extends ActionBase {
 				check.getProjectData(), "[]");
 		Project project = projectMgr.getProject(check.getProject().getId());
 		String projectData = project
-				.toString(Project.toStringType.TO_PARAMETER);
+				.toString(Project.TO_STRING_TYPE.TO_PARAMETER);
 		setJson("{\"projectData\":" + projectData + ", \"isOk\":true}");
 		project.setProjectData(projectData);
 		projectMgr.updateProject(project);
@@ -420,7 +420,7 @@ public class WorkspaceAction extends ActionBase {
 		checkIn.setDescription(getDescription());
 		checkIn.setProject(project);
 		checkIn.setProjectData(project
-				.toString(Project.toStringType.TO_PARAMETER));
+				.toString(Project.TO_STRING_TYPE.TO_PARAMETER));
 		checkIn.setTag(getTag());
 		checkIn.setUser(curUser);
 		checkIn.setVersion(project.getVersion());
