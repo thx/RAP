@@ -28,6 +28,7 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
     Y.all('.form').each(function(form) {
         form.one('.btn-run-mockjsrule').on('click', function(e) {
             Y.one('#divResBoardJson').setHTML('加载中，请稍后...');
+
             var url     = '';
             var qArr    = [];
             var i       = 0;
@@ -154,6 +155,7 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
                                                 log('参数 ' + color(item.namespace + "." + item.property, RED) + ' ' + eventName, ERROR);
 
                                             }
+
                                             var jsonString = Y.JSON.stringify(response);
                                             var path = Y.one('#txtRootPath').get('value');
                                             var obj = eval("(" + jsonString + ")");
@@ -299,24 +301,14 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
         if (btn != 'rule' && path.indexOf('mockjs') != -1) {
             obj = Mock.mock(obj);
         }
-        
-        function JSONstringifyWithFuncs(obj) {
-            Object.prototype.toJSON = function() {
-            var sobj = {}, i;
-            for (i in this) 
-                if (this.hasOwnProperty(i))
-                    sobj[i] = typeof this[i] == 'function' ?
-                        this[i].toString() : this[i];
-
-                return sobj;
-            };
-
-            var str = JSON.stringify(obj);
-            delete Object.prototype.toJSON;
-            return str;
-        }
-
-        jsonString = JSONstringifyWithFuncs(obj);
+    
+        jsonString = JSON.stringify(obj, function(key, val) {
+            if (typeof val === 'function') {
+                return "<mockjs custom function handler>";
+            } else {
+                return val;
+            }
+        });
         
         var beginTime = Y.timeLog.time;
         if (!beginTime) return;
