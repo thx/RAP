@@ -16,7 +16,7 @@ test('KISSY.use("rap_io"), to see KISSY.io|KISSY.IO|KISSY.ajax', function() {
 	        url: action,
 	        dataType:'json',
 	        success: function(data) {
-	        	equal(data.a, 1, 'get data ok by KISSY.use("io")');
+	        	equal(typeof data.a, 'number', 'get data ok by KISSY.use("io")');
 	        	start();
 	        }
 		})
@@ -35,7 +35,7 @@ test('get data from KISSY.use("io")', function() {
 	        url: action,
 	        dataType:'json',
 	        success: function(data) {
-	        	equal(data.a, 1, 'get data ok by KISSY.use("io")');
+	        	equal(typeof data.a, 'number', 'get data ok by KISSY.use("io")');
 	        	start();
 	        }
 		})
@@ -50,7 +50,7 @@ test('get data from KISSY.use("ajax")', function() {
 	        url: action,
 	        dataType:'json',
 	        success: function(data) {
-	        	equal(data.a, 1, 'get data ok by KISSY.use("ajax")');
+	        	equal(typeof data.a, 'number', 'get data ok by KISSY.use("ajax")');
 	        	start();
 	        }
 		})
@@ -64,8 +64,8 @@ test('get Data from KISSY.io', function() {
 		url: action,
 		dataType:'json',
 		success: function(data) {
-			equal(data.a, 1, 'KISSY.io get data ok: a');
-			equal(data.b, 1, 'KISSY.io get data ok: b');
+			equal(typeof data.a, 'number', 'KISSY.io get data ok: a');
+			equal(typeof data.b, 'string', 'KISSY.io get data ok: b');
 			ok(KISSY.isObject(data.c), 'c is object');
 			start();
 		}
@@ -80,8 +80,8 @@ test('get Data from KISSY.ajax', function() {
 		url: action,
 		dataType:'json',
 		success: function(data) {
-			equal(data.a, 1, 'KISSY.ajax get data ok: a');
-			equal(data.b, 1, 'KISSY.ajax get data ok: b');
+			equal(typeof data.a, 'number', 'KISSY.ajax get data ok: a');
+			equal(typeof data.b, 'string', 'KISSY.ajax get data ok: b');
 			ok(KISSY.isObject(data.c), 'c is object');
 			start();
 		}
@@ -100,7 +100,7 @@ test('KISSY.use("io", {success: function(S, IO) {}})', function() {
 	        url: action,
 	        dataType:'json',
 	        success: function(data) {
-	        	equal(data.a, 1, 'get data ok');
+	        	equal(typeof data.a, 'number', 'get data ok');
 	        	start();
 	        }
 		})
@@ -120,7 +120,7 @@ test('KISSY.use("ajax", {success: function(S, IO) {}})', function() {
 	        url: action,
 	        dataType:'json',
 	        success: function(data) {
-	        	equal(data.a, 1, 'get data ok');
+	        	equal(typeof data.a, 'number', 'get data ok');
 	        	start();
 	        }
 		})

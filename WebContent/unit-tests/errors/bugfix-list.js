@@ -40,7 +40,7 @@ test('paramMockJsTemplate fix', function() {
 	        success: function(data) {
 	        	console.log(data);
 	        	equal(data.result, 'page is 1008, num is okokok', 'data origin: page is 1008, num is okokok');
-	        	equal(data.result2, 1, 'data origin: 1')
+	        	equal(data.result2, '', 'data origin: 1')
 	        	start(1);
 	        	
 	        	IO({
@@ -101,11 +101,11 @@ test('copyFunc fix', function() {
 	        	}
 	        	for(var prop in a.item) {
 	        		ok(prop in b.item, 'b.item has ' + prop + ' too');
-	        		equal(a.item[prop], b.item[prop], 'value is the same.')
+	        		equal(typeof a.item[prop], typeof b.item[prop], 'value type is the same.')
 	        	}
 	        	for(var prop in b.item) {
 	        		ok(prop in a.item, 'a.item has ' + prop + ' too');
-	        		equal(a.item[prop], b.item[prop], 'value is the same.')
+	        		equal(typeof a.item[prop], typeof b.item[prop], 'value type is the same.')
 	        	}
 	        	start();
 	        }
