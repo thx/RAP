@@ -13,3 +13,4 @@ target
 node_modules
 _site
 buc.sso*.jar
+out
