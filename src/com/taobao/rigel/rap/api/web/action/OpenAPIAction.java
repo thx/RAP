@@ -10,59 +10,69 @@ import com.taobao.rigel.rap.project.bo.Action;
 
 public class OpenAPIAction extends ActionBase {
 
-	private static final long serialVersionUID = -1786553279434025468L;
+    private static final long serialVersionUID = -1786553279434025468L;
 
-	private OpenAPIMgr openAPIMgr;
+    private OpenAPIMgr openAPIMgr;
 
-	public OpenAPIMgr getOpenAPIMgr() {
-		return openAPIMgr;
-	}
+    public OpenAPIMgr getOpenAPIMgr() {
+        return openAPIMgr;
+    }
 
-	public void setOpenAPIMgr(OpenAPIMgr openAPIMgr) {
-		this.openAPIMgr = openAPIMgr;
-	}
+    public void setOpenAPIMgr(OpenAPIMgr openAPIMgr) {
+        this.openAPIMgr = openAPIMgr;
+    }
 
-	private int projectId;
+    private int projectId;
 
-	public int getProjectId() {
-		return projectId;
-	}
+    public int getProjectId() {
+        return projectId;
+    }
 
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
-	}
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
 
-	private int actionId;
+    private int actionId;
 
-	public int getActionId() {
-		return this.actionId;
-	}
+    public int getActionId() {
+        return this.actionId;
+    }
 
-	public void setActionId(int actionId) {
-		this.actionId = actionId;
-	}
+    public void setActionId(int actionId) {
+        this.actionId = actionId;
+    }
 
-	public String queryModel() throws Exception {
+    private String type;
 
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		Gson g = new Gson();
-		resultMap.put("model", openAPIMgr.getModel(projectId));
-		resultMap.put("code", 200);
-		resultMap.put("msg", "");
-		String resultJson = g.toJson(resultMap);
-		setJson(resultJson);
-		return SUCCESS;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public String querySchema() {
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		Gson g = new Gson();
-		resultMap.put("schema",
-				openAPIMgr.getSchema(actionId, Action.TYPE.RESPONSE));
-		resultMap.put("code", 200);
-		resultMap.put("msg", "");
-		String resultJson = g.toJson(resultMap);
-		setJson(resultJson);
-		return SUCCESS;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String queryModel() throws Exception {
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Gson g = new Gson();
+        resultMap.put("model", openAPIMgr.getModel(projectId));
+        resultMap.put("code", 200);
+        resultMap.put("msg", "");
+        String resultJson = g.toJson(resultMap);
+        setJson(resultJson);
+        return SUCCESS;
+    }
+
+    public String querySchema() {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Gson g = new Gson();
+        resultMap.put("schema",
+                openAPIMgr.getSchema(actionId, (type != null && type.equals("request") ? Action.TYPE.REQUEST : Action.TYPE.RESPONSE)));
+        resultMap.put("code", 200);
+        resultMap.put("msg", "");
+        String resultJson = g.toJson(resultMap);
+        setJson(resultJson);
+        return SUCCESS;
+    }
 }
