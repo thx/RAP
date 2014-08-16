@@ -1,14 +1,24 @@
 /*! rap.plugin Mar.10th 2014 */
 (function() {
+	
+	// utilities
+	function url_domain(data) {
+	    var a = document.createElement('a');
+	    a.href = data;
+	    return a.host;
+	}
+	
+	
     var node = null;
     var blackList = [];
     var whiteList = [#foreach($url in $urlList)#if($velocityCount>1),#end"$url"#end];
 
-
     var src = $(document.scripts[document.scripts.length - 1]).attr('src');
     var ROOT = url_domain(src);
     console.log('RAP mock server ROOT is ', ROOT);
-
+    
+    // [DEBUG]
+    //ROOT = 'etaoux-bj.taobao.ali.com:8080';
     var LOST = "LOST";
     var PREFIX = "/mockjs/";
     var EMPTY_ARRAY = "EMPTY_ARRAY";
@@ -40,6 +50,13 @@
     if (ms) {
         projectId = ms[1];
     }
+	
+	var seajsEnabled;
+	ms = node.src.match(/(?:\?|&)seajs=([^&]+)(?:&|$)/);
+    if (ms) {
+    	seajsEnabled = ms[1];
+    }
+	
     var modePattern = node.src.match(/(?:\?|&)mode=([^&]+)(?:&|$)/);
     if (modePattern) {
         mode = +modePattern[1];
@@ -111,7 +128,7 @@
                     oldSuccess2.apply(this,arguments);
                 };
             }
-            ajax.apply(this, arguments);
+            return ajax.apply(this, arguments);
         };
     }
 
@@ -227,7 +244,7 @@
         }
     }
 
-    if (window.seajs && window.define && window.define.cmd) {
+    if (window.seajs && window.seajs.use && window.define && window.define.cmd && seajsEnabled != 'false') {
     
 		!function() {
 			var oldSeajsUse = seajs.use;
@@ -337,7 +354,7 @@
      * @return {boolean} true if route to RAP MOCK, other wise do nothing.
      */
     function route(url, ignoreMode) {
-    	if (url && url.indexOf('?') !== -1) {
+		if (url && url.indexOf('?') !== -1) {
             url = url.substring(0, url.indexOf('?'))
         } 
         var i;
@@ -423,7 +440,7 @@
 
     /**
      * convert url to rap mock url (KISSY version)
-     * example: www.baidu.com/a => domain.com/mock/106/a
+     * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
      */
     function rapUrlConverterKissy(options) {
         var url = options.url;
@@ -441,7 +458,7 @@
 
     /**
      * convert url to rap mock url (jQuery version)
-     * example: www.baidu.com/a => domain.com/mock/106/a
+     * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
      */
     function rapUrlConverterJQuery(options) {
         var url = options.url;
@@ -527,12 +544,4 @@
     };
 
     RAP.initList(whiteList);
-    
-    // utilities
-    
-    function url_domain(data) {
-    	var a = document.createElement('a');
-	         a.href = data;
-	  return a.host;
-	}
 })();

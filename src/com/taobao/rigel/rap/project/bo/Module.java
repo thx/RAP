@@ -112,7 +112,7 @@ public class Module implements java.io.Serializable {
 		return stringBuilder.toString();
 	}
 	
-	public String toString(Project.toStringType type) {
+	public String toString(Project.TO_STRING_TYPE type) {
 		
 		StringBuilder stringBuilder = new StringBuilder();		
 		

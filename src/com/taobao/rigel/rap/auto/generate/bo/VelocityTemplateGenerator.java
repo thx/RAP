@@ -6,13 +6,13 @@ import com.taobao.rigel.rap.auto.generate.contract.Generator;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Parameter;
-import com.taobao.rigel.rap.project.bo.Project.StageType;
+import com.taobao.rigel.rap.project.bo.Project.STAGE_TYPE;
 
 public class VelocityTemplateGenerator implements Generator {
 	private Page page;
 	
 	@Override
-	public boolean isAvailable(StageType stage) {
+	public boolean isAvailable(STAGE_TYPE stage) {
 		/**
 		 * will be available on all stages
 		 */

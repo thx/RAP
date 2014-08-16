@@ -435,7 +435,7 @@ public class ProjectAction extends ActionBase {
 			return ERROR;
 		}
 		setProject(projectMgr.getProject(getId()));
-		setJson(getProject().toString(Project.toStringType.TO_PAGE));
+		setJson(getProject().toString(Project.TO_STRING_TYPE.TO_PAGE));
 		return SUCCESS;
 	}
 

@@ -3,19 +3,19 @@ package com.taobao.rigel.rap.project.bo;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.common.StringUtils;
 
 public class Action implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	public enum TYPE {REQUEST, RESPONSE};
 
 	private int id;
 

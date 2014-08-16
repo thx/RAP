@@ -200,8 +200,21 @@ public class MockAction extends ActionBase {
 
 	public String createPluginScript() {
 		Logger.mock();
+		Map<String, Boolean> _circleRefProtector = new HashMap<String, Boolean>();
 		List<String> list = new ArrayList<String>();
 		Project p = projectMgr.getProject(projectId);
+		loadWhiteList(p, list, _circleRefProtector);
+		urlList = list;
+		return SUCCESS;
+	}
+	
+	private void loadWhiteList(Project p, List<String> list, Map<String, Boolean> map) {
+		// prevent circle reference
+		if (map.get(p.getId() + "")) {
+			return;
+		} else {
+			map.put(p.getId() + "", true);
+		}
 		if (p != null) {
 			for (Module m : p.getModuleList()) {
 				for (Page page : m.getPageList()) {
@@ -211,8 +224,17 @@ public class MockAction extends ActionBase {
 				}
 			}
 		}
-		urlList = list;
-		return SUCCESS;
+		
+		String relatedIds = p.getRelatedIds();
+		if (relatedIds != null && !relatedIds.isEmpty()) {
+			String[] relatedIdsArr = relatedIds.split(",");
+			for (String relatedId : relatedIdsArr) {
+				int rId = Integer.parseInt(relatedId);
+				Project rP = projectMgr.getProject(rId);
+				if (rP != null && rP.getId() > 0)
+					loadWhiteList(rP, list, map);
+			}
+		}
 	}
 
 	public String createMockjsData() throws UnsupportedEncodingException {

@@ -103,7 +103,7 @@ public interface ProjectMgr {
 	 * @param page
 	 */
 	void loadParamIdListForPage(Page page);
-	
+
 	/**
 	 * get matched action list based on URL pattern
 	 * 
@@ -115,6 +115,7 @@ public interface ProjectMgr {
 
 	/**
 	 * get project list by group id
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -127,4 +128,12 @@ public interface ProjectMgr {
 	 * @return
 	 */
 	List<Project> search(String key);
+
+	/**
+	 * get action
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Action getAction(int id);
 }

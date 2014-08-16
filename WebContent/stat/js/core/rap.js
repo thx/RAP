@@ -3910,9 +3910,9 @@ function deepCopy(o) {
                 case 2:
                     return "post";
                 case 3:
-                    return "get(ajax)";
+                    return "put";
                 case 4:
-                    return "post(ajax)";
+                    return "delete";
                 default: return "unknown";
             }
         }
@@ -3989,6 +3989,9 @@ function deepCopy(o) {
             }
             if (!r) return '';
             // 感谢@逸才 提供正则表达式
+            if (~r.indexOf('@mock')) {
+                return r.substring(0, r.indexOf('@mock'));
+            }
             return r.replace(/[\s;]?@\w+=[^;]+[ ;]?/g, '');
         }
 

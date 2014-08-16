@@ -34,7 +34,7 @@ test('KISSY.add using IO', function() {
 	        url: '/base',
 	        dataType:'json',
 	        success: function(data) {
-	        	equal(data.a, 1, 'get data ok');
+	        	equal(typeof data.a, 'number', 'get data ok');
 	        	start();
 	        }
 		})
