@@ -203,14 +203,16 @@ public class MockAction extends ActionBase {
 		Map<String, Boolean> _circleRefProtector = new HashMap<String, Boolean>();
 		List<String> list = new ArrayList<String>();
 		Project p = projectMgr.getProject(projectId);
+
 		loadWhiteList(p, list, _circleRefProtector);
 		urlList = list;
 		return SUCCESS;
 	}
 	
 	private void loadWhiteList(Project p, List<String> list, Map<String, Boolean> map) {
+        System.out.println("loading white list, p=" + p + ", list=" + list + ", map=" + map);
 		// prevent circle reference
-		if (map.get(p.getId() + "")) {
+		if (p == null || map.get(p.getId() + "") != null) {
 			return;
 		} else {
 			map.put(p.getId() + "", true);
