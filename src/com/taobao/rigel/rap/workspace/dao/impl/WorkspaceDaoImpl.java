@@ -22,21 +22,21 @@ import com.taobao.rigel.rap.workspace.dao.WorkspaceDao;
 public class WorkspaceDaoImpl extends HibernateDaoSupport implements WorkspaceDao {
 
 	private AccountDao accountDao;
-	
+
 	public AccountDao getAccountDao() {
 		return accountDao;
 	}
-	
+
 	public void setAccountDao(AccountDao accountDao) {
 		this.accountDao = accountDao;
 	}
 	
 	private ProjectDao projectDao;
-	
+
 	public ProjectDao getProjectDao() {
 		return projectDao;
 	}
-	
+
 	public void setProjectDao(ProjectDao projectDao) {
 		this.projectDao = projectDao;
 	}
@@ -119,6 +119,15 @@ public class WorkspaceDaoImpl extends HibernateDaoSupport implements WorkspaceDa
 	public CheckIn getVersion(int versionId) {
 		return (CheckIn) getSession().load(CheckIn.class, versionId);
 	}
+
+    @Override
+    public CheckIn getVersion(int projectId, String version) {
+        Session session  = getSession();
+        Query query = session.createQuery("from CheckIn obj where obj.project.id = :projectId and obj.version = :version");
+        query.setInteger("projectId", projectId);
+        query.setString("version", version);
+        return (CheckIn) query.uniqueResult();
+    }
 
 	@Override
 	public void prepareForVersionSwitch(CheckIn check) {

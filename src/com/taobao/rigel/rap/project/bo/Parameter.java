@@ -78,6 +78,22 @@ public class Parameter implements java.io.Serializable {
 		return "\"" + rv + "\"";
 	}
 
+    public String getIdentifierWithoutMockjsRule() {
+        String rv = "";
+        if (identifier == null || identifier.isEmpty()) {
+            return "\"emptyIdentifier\"";
+        }
+
+        rv = identifier;
+        if (rv != null && !rv.isEmpty()) {
+            int index = rv.indexOf("|");
+            if (index > -1) {
+                rv = rv.substring(0, index);
+            }
+        }
+        return rv;
+    }
+
 	public String getMockJSIdentifier() {
 		String rv = "";
 		if (identifier == null || identifier.isEmpty()) {
@@ -211,9 +227,20 @@ public class Parameter implements java.io.Serializable {
 		return stringBuilder.toString();
 	}
 
+    public String getRemarkWithoutMockjsRule() {
+        if (remark != null && remark.contains("@mock=")) {
+            return remark.substring(0, remark.indexOf("@mock="));
+        } else {
+            return remark;
+        }
+    }
+
 	public String getJSONSchemaDataType() {
-		// [TODO]
+		if (dataType != null && dataType.contains("array")) {
+            return "array";
+        }
 		return this.dataType;
 	}
+
 
 }

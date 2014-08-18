@@ -52,6 +52,8 @@ public interface ProjectMgr {
 	 */
 	Project getProject(int id);
 
+    Project getProject(int id, String ver);
+
 	/**
 	 * get module by id
 	 * 
@@ -136,4 +138,6 @@ public interface ProjectMgr {
 	 * @return
 	 */
 	Action getAction(int id);
+
+    Action getAction(int id, String ver, int projectId);
 }

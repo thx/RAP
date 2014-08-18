@@ -52,11 +52,21 @@ public class OpenAPIAction extends ActionBase {
         this.type = type;
     }
 
+    private String ver;
+
+    public String getVer() {
+        return ver;
+    }
+
+    public void setVer(String ver) {
+        this.ver = ver;
+    }
+
     public String queryModel() throws Exception {
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
         Gson g = new Gson();
-        resultMap.put("model", openAPIMgr.getModel(projectId));
+        resultMap.put("model", openAPIMgr.getModel(projectId, ver));
         resultMap.put("code", 200);
         resultMap.put("msg", "");
         String resultJson = g.toJson(resultMap);
@@ -68,8 +78,9 @@ public class OpenAPIAction extends ActionBase {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         Gson g = new Gson();
         resultMap.put("schema",
-                openAPIMgr.getSchema(actionId, (type != null && type.equals("request") ? Action.TYPE.REQUEST : Action.TYPE.RESPONSE)));
-        resultMap.put("code", 200);
+                openAPIMgr.getSchema(actionId, (type != null && type.equals("request") ? Action.TYPE.REQUEST : Action.TYPE.RESPONSE), ver, projectId));
+        resultMap.put("code",
+                200);
         resultMap.put("msg", "");
         String resultJson = g.toJson(resultMap);
         setJson(resultJson);

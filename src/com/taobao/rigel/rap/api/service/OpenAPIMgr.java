@@ -8,18 +8,20 @@ public interface OpenAPIMgr {
 	 * get model JSON text
 	 * 
 	 * @param projectId
+     * @param ver optional
 	 * @return
 	 * @throws Exception
 	 */
-	Object getModel(int projectId) throws Exception;
+	Object getModel(int projectId, String ver) throws Exception;
 
 	/**
 	 * get JSON Schema text of action
 	 * 
 	 * @param actionId
 	 * @param type
+     * @param ver optional
 	 * @return
 	 */
-	Object getSchema(int actionId, Action.TYPE type);
+	Object getSchema(int actionId, Action.TYPE type, String ver, int projectId);
 
 }

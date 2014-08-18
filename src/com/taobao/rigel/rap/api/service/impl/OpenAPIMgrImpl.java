@@ -27,8 +27,13 @@ public class OpenAPIMgrImpl implements OpenAPIMgr {
 	}
 
 	@Override
-	public Object getModel(int projectId) throws Exception {
-		Project project = projectMgr.getProject(projectId);
+	public Object getModel(int projectId, String ver) throws Exception {
+        Project project;
+        if (ver != null && !ver.isEmpty()) {
+            project = projectMgr.getProject(projectId, ver);
+        } else {
+            project = projectMgr.getProject(projectId);
+        }
 		if (project == null || project.getId() == 0) {
 			throw new Exception("Illegal project id");
 		}
@@ -81,22 +86,28 @@ public class OpenAPIMgrImpl implements OpenAPIMgr {
 	}
 
 	@Override
-	public Object getSchema(int actionId, Action.TYPE type) {
-		Action action = projectMgr.getAction(actionId);
+	public Object getSchema(int actionId, Action.TYPE type, String ver, int projectId) {
+		Action action;
+        if (ver != null && !ver.isEmpty() && projectId > 0) {
+            action = projectMgr.getAction(actionId, ver, projectId);
+        } else {
+            action = projectMgr.getAction(actionId);
+        }
 		Map<String, Object> schema = new HashMap<String, Object>();
 
 		Set<Parameter> pSet = type == Action.TYPE.REQUEST ? action
 				.getRequestParameterList() : action.getResponseParameterList();
 
 		schema.put("type", "object");
-		schema.put("$schema", "http://json-schema.org/draft-03/schema");
+		schema.put("$schema", "http://json-schema.org/draft-04/schema");
+        schema.put("type", "object");
 		schema.put("id", actionId);
 		schema.put("required", "false");
 
 		Map<String, Object> properties = new HashMap<String, Object>();
 
 		for (Parameter p : pSet) {
-			properties.put(p.getIdentifier(), generateJSONSchema(p));
+			properties.put(p.getIdentifierWithoutMockjsRule(), generateJSONSchema(p));
 		}
 
 		schema.put("properties", properties);
@@ -109,12 +120,31 @@ public class OpenAPIMgrImpl implements OpenAPIMgr {
 		pMap.put("id", p.getId());
 		pMap.put("type", p.getJSONSchemaDataType());
 		pMap.put("required", false);
+        pMap.put("title", p.getName());
+        pMap.put("description", p.getRemarkWithoutMockjsRule());
+        String remark = p.getRemark();
+        String format = "MOCKJS";
+        if (remark != null && remark.contains("@mock=function")) {
+            format = "MOCKJS_FUNC";
+        }
+        String identifier = p.getIdentifier();
+        if (identifier != null && identifier.contains("|") && identifier.indexOf("|") != identifier.length() - 1) {
+            format += "|" + identifier.substring(identifier.indexOf("|") + 1);
+        } else {
+            format += "|";
+        }
+        if (remark != null && remark.contains("@mock=")) {
+            format += "|" + remark.substring(remark.indexOf("@mock=") + 6);
+        } else {
+            format += "|";
+        }
+        pMap.put("format", format);
 		Set<Parameter> children = p.getParameterList();
 		if (children != null && children.size() > 0) {
 			Map<String, Object> properties = new HashMap<String, Object>();
 			for (Parameter child : children) {
 				properties
-						.put(child.getIdentifier(), generateJSONSchema(child));
+						.put(child.getIdentifierWithoutMockjsRule(), generateJSONSchema(child));
 			}
 			pMap.put("properties", properties);
 		}

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.taobao.rigel.rap.workspace.bo.CheckIn;
+import com.taobao.rigel.rap.workspace.dao.WorkspaceDao;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -23,7 +25,7 @@ import com.taobao.rigel.rap.project.dao.ProjectDao;
 
 public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
 	@Override
 	public List<Project> getProjectList(User user, int curPageNum, int pageSize) {
 		curPageNum = curPageNum <= 0 ? 1 : curPageNum;
@@ -433,7 +435,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		return query.list();
 	}
 
-	@SuppressWarnings({ "rawtypes" })
+    @SuppressWarnings({ "rawtypes" })
 	private List<Action> getActionListOfProject(int projectId) {
 		List<Action> list = new ArrayList<Action>();
 		StringBuilder sql = new StringBuilder();

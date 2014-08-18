@@ -24,5 +24,7 @@ public interface WorkspaceDao {
 
 	CheckIn getVersion(int versionId);
 
+    CheckIn getVersion(int projectId, String version);
+
 	void prepareForVersionSwitch(CheckIn check);
 }
