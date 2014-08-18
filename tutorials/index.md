@@ -253,6 +253,63 @@ reg:www.example/biz[0-9]{4}/query
 
 具体例子请参见项目：[RESTful API支持](http://rap.alibaba-inc.com/workspace/myWorkspace.action?projectId=265&mock=true)
 
+
+## 开放API
+
+### API1：返回RAP项目的模型数据，到接口层级。
+
+#### 路径和请求参数
+
+```javascript
+http://{domain}/queryModel.do?projectId={projectId}&ver={ver}
+```
+
+`{projectId}`为项目ID
+`{ver}`为版本号，不传默认返回当前版本
+
+#### 响应数据结构
+
+返回的对象有3个字段，分别是：
+`model` - 细化到action层级的项目模型信息
+`code` - 错误码，正确返回200
+`msg` - 错误消息，正确返回空字符串
+
+#### EXAMPLE
+
+链接：`http://rap.domain.com/api/querySchema.do?actionId=1460&type=request`
+
+```json
+{"model":{"moduleList":[{"id":518,"pageList":[{"id":738,"interfaceList":[{"id":2024,"desc":"","reqUrl":"a","name":"某请求","reqType":"1"},{"id":2025,"desc":"","reqUrl":"bbb","name":"bbb","reqType":"1"}],"name":"某页面","intro":""}],"name":"某模块（点击编辑后双击修改）","intro":""}],"id":429,"name":"临时项目一会儿删掉不要动","ver":"0.0.0.4","intro":""},"code":200,"msg":""}
+```
+
+### API2：返回具体一个接口的JSON Schema接口详情
+
+#### 路径和请求参数
+
+```javascript
+http://{domain}/querySchema.do?actionId={actionId}&ver={ver}&projectId={projectId}&type={type}
+```
+
+其中
+`{actionId}`为接口的ID
+`{ver}`和`{projectId}`均为可选参数，同时出现表示指定某一版本的接口。
+`{type}`值为request时表示返回请求参数的schema，其它值或不传默认返回响应参数的schema
+
+#### 响应数据结构
+
+返回的对象有3个字段，分别是：
+`model` - 细化到action层级的项目模型信息
+`code` - 错误码，正确返回200
+`msg` - 错误消息，正确返回空字符串
+
+#### EXAMPLE
+
+链接：`http://rap.domain.com/api/querySchema.do?projectId=429&actionId=2024&ver=0.0.0.2`
+
+```json
+{"schema":{"id":2024,"$schema":"http://json-schema.org/draft-04/schema","properties":{"resParam":{"id":38393,"title":"某响应参数","description":"","format":"MOCKJS||","required":false,"type":"number"},"a":{"id":38392,"title":"","description":"","format":"MOCKJS||","required":false,"type":""}},"required":"false","type":"object"},"code":200,"msg":""}
+```
+
 ## 常见问题
 
 ### 如何导入JSON到请求参数
