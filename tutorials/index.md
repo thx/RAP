@@ -270,9 +270,9 @@ http://{domain}/queryModel.do?projectId={projectId}&ver={ver}
 #### 响应数据结构
 
 返回的对象有3个字段，分别是：
-`model` - 细化到action层级的项目模型信息
-`code` - 错误码，正确返回200
-`msg` - 错误消息，正确返回空字符串
+* `model` - 细化到action层级的项目模型信息
+* `code` - 错误码，正确返回200
+* `msg` - 错误消息，正确返回空字符串
 
 #### EXAMPLE
 
@@ -298,9 +298,9 @@ http://{domain}/querySchema.do?actionId={actionId}&ver={ver}&projectId={projectI
 #### 响应数据结构
 
 返回的对象有3个字段，分别是：
-`model` - 细化到action层级的项目模型信息
-`code` - 错误码，正确返回200
-`msg` - 错误消息，正确返回空字符串
+* `schema` - 接口的JSON SCHEMA(v4标准)
+* `code` - 错误码，正确返回200
+* `msg` - 错误消息，正确返回空字符串
 
 #### EXAMPLE
 
