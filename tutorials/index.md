@@ -264,15 +264,16 @@ reg:www.example/biz[0-9]{4}/query
 http://{domain}/queryModel.do?projectId={projectId}&ver={ver}
 ```
 
-`{projectId}`为项目ID
-`{ver}`为版本号，不传默认返回当前版本
+- `{projectId}`为项目ID
+- `{ver}`为版本号，不传默认返回当前版本
 
 #### 响应数据结构
 
 返回的对象有3个字段，分别是：
-* `model` - 细化到action层级的项目模型信息
-* `code` - 错误码，正确返回200
-* `msg` - 错误消息，正确返回空字符串
+
+- `model` - 细化到action层级的项目模型信息
+- `code` - 错误码，正确返回200
+- `msg` - 错误消息，正确返回空字符串
 
 #### EXAMPLE
 
@@ -291,16 +292,18 @@ http://{domain}/querySchema.do?actionId={actionId}&ver={ver}&projectId={projectI
 ```
 
 其中
-`{actionId}`为接口的ID
-`{ver}`和`{projectId}`均为可选参数，同时出现表示指定某一版本的接口。
-`{type}`值为request时表示返回请求参数的schema，其它值或不传默认返回响应参数的schema
+
+- `{actionId}`为接口的ID
+- `{ver}`和`{projectId}`均为可选参数，同时出现表示指定某一版本的接口。
+- `{type}`值为request时表示返回请求参数的schema，其它值或不传默认返回响应参数的schema
 
 #### 响应数据结构
 
 返回的对象有3个字段，分别是：
-* `schema` - 接口的JSON SCHEMA(v4标准)
-* `code` - 错误码，正确返回200
-* `msg` - 错误消息，正确返回空字符串
+
+- `schema` - 接口的JSON SCHEMA(v4标准)
+- `code` - 错误码，正确返回200
+- `msg` - 错误消息，正确返回空字符串
 
 #### EXAMPLE
 
