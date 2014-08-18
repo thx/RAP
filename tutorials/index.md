@@ -277,7 +277,7 @@ http://{domain}/queryModel.do?projectId={projectId}&ver={ver}
 
 #### EXAMPLE
 
-链接：`http://rap.domain.com/api/querySchema.do?actionId=1460&type=request`
+链接：`http://rap.domain.com/api/queryModel.do?projectId=423&ver=0.0.0.2`
 
 ```json
 {"model":{"moduleList":[{"id":518,"pageList":[{"id":738,"interfaceList":[{"id":2024,"desc":"","reqUrl":"a","name":"某请求","reqType":"1"},{"id":2025,"desc":"","reqUrl":"bbb","name":"bbb","reqType":"1"}],"name":"某页面","intro":""}],"name":"某模块（点击编辑后双击修改）","intro":""}],"id":429,"name":"临时项目一会儿删掉不要动","ver":"0.0.0.4","intro":""},"code":200,"msg":""}
