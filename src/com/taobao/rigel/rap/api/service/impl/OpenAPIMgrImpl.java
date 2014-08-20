@@ -102,7 +102,6 @@ public class OpenAPIMgrImpl implements OpenAPIMgr {
 		schema.put("$schema", "http://json-schema.org/draft-04/schema");
         schema.put("type", "object");
 		schema.put("id", actionId);
-		schema.put("required", "false");
 
 		Map<String, Object> properties = new HashMap<String, Object>();
 
@@ -119,7 +118,6 @@ public class OpenAPIMgrImpl implements OpenAPIMgr {
 		Map<String, Object> pMap = new HashMap<String, Object>();
 		pMap.put("id", p.getId());
 		pMap.put("type", p.getJSONSchemaDataType());
-		pMap.put("required", false);
         pMap.put("title", p.getName());
         pMap.put("description", p.getRemarkWithoutMockjsRule());
         String remark = p.getRemark();
