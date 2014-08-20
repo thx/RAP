@@ -13,7 +13,7 @@
     var blackList = [];
     var whiteList = [#foreach($url in $urlList)#if($velocityCount>1),#end"$url"#end];
 
-    var src = $(document.scripts[document.scripts.length - 1]).attr('src');
+    var src = (document.scripts[document.scripts.length - 1]).getAttribute('src');
     var ROOT = url_domain(src);
     console.log('RAP mock server ROOT is ', ROOT);
     
