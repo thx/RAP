@@ -7,6 +7,8 @@ import com.google.gson.Gson;
 import com.taobao.rigel.rap.api.service.OpenAPIMgr;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.project.bo.Action;
+import com.taobao.rigel.rap.project.bo.Project;
+import com.taobao.rigel.rap.project.service.ProjectMgr;
 
 public class OpenAPIAction extends ActionBase {
 
@@ -14,12 +16,14 @@ public class OpenAPIAction extends ActionBase {
 
     private OpenAPIMgr openAPIMgr;
 
-    public OpenAPIMgr getOpenAPIMgr() {
-        return openAPIMgr;
-    }
-
     public void setOpenAPIMgr(OpenAPIMgr openAPIMgr) {
         this.openAPIMgr = openAPIMgr;
+    }
+
+    private ProjectMgr projectMgr;
+
+    public void setProjectMgr(ProjectMgr projectMgr) {
+        this.projectMgr = projectMgr;
     }
 
     private int projectId;
@@ -82,6 +86,17 @@ public class OpenAPIAction extends ActionBase {
         resultMap.put("code",
                 200);
         resultMap.put("msg", "");
+        String resultJson = g.toJson(resultMap);
+        setJson(resultJson);
+        return SUCCESS;
+    }
+
+    public String queryRAPModel() {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Gson g = new Gson();
+        resultMap.put("modelJSON", projectMgr.getProject(projectId).toString(Project.TO_STRING_TYPE.TO_PARAMETER));
+        resultMap.put("code", 200);
+        resultMap.put("msg", 0);
         String resultJson = g.toJson(resultMap);
         setJson(resultJson);
         return SUCCESS;

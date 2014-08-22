@@ -14,5 +14,9 @@
 			class="com.taobao.rigel.rap.api.web.action.OpenAPIAction" method="querySchema">
 			<result name="success" type="velocity">/bcom/json.cb.vm</result>
 		</action>
+        <action name="queryRAPModel"
+                class="com.taobao.rigel.rap.api.web.action.OpenAPIAction" method="queryRAPModel">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
 	</package>
 </struts>
