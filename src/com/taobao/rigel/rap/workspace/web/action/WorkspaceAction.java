@@ -3,11 +3,9 @@ package com.taobao.rigel.rap.workspace.web.action;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
+import com.taobao.rigel.rap.common.SystemConstant;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -453,6 +451,9 @@ public class WorkspaceAction extends ActionBase {
 		// unlock the workspace
 		unlock();
 
+        // update doc
+        projectMgr.updateDoc(id);
+
 		return SUCCESS;
 	}
 
@@ -569,5 +570,21 @@ public class WorkspaceAction extends ActionBase {
 		}
 		return null;
 	}
+
+    public String __init__() {
+        // prevent repeated intialization of servcie
+
+        if (SystemConstant.serviceInitialized) {
+            return SUCCESS;
+        }
+
+        SystemConstant.serviceInitialized = true;
+
+        List<Project> list = projectMgr.getProjectList();
+        for (Project p : list) {
+            projectMgr.updateDoc(p.getId());
+        }
+        return SUCCESS;
+    }
 
 }

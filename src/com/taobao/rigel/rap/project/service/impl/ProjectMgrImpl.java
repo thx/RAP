@@ -11,6 +11,8 @@ import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.dao.AccountDao;
 import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.ArrayUtils;
+import com.taobao.rigel.rap.common.HTTPUtils;
+import com.taobao.rigel.rap.common.SystemConstant;
 import com.taobao.rigel.rap.organization.bo.Group;
 import com.taobao.rigel.rap.organization.dao.OrganizationDao;
 import com.taobao.rigel.rap.project.bo.Action;
@@ -288,5 +290,19 @@ public class ProjectMgrImpl implements ProjectMgr {
         Gson gson = new Gson();
         Project p = gson.fromJson(check.getProjectData(), Project.class);
         return p.findAction(id);
+    }
+
+    @Override
+    public void updateDoc(int projectId) {
+        try {
+            HTTPUtils.sendGet("http://" + SystemConstant.NODE_SERVER + "/api/generateDoc?projectId=" + projectId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Project> getProjectList() {
+        return projectDao.getProjectList();
     }
 }

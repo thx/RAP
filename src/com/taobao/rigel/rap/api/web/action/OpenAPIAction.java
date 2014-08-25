@@ -1,11 +1,14 @@
 package com.taobao.rigel.rap.api.web.action;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.api.service.OpenAPIMgr;
 import com.taobao.rigel.rap.common.ActionBase;
+import com.taobao.rigel.rap.mock.service.MockMgr;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
@@ -24,6 +27,12 @@ public class OpenAPIAction extends ActionBase {
 
     public void setProjectMgr(ProjectMgr projectMgr) {
         this.projectMgr = projectMgr;
+    }
+
+    private MockMgr mockMgr;
+
+    public void setMockMgr(MockMgr mockMgr) {
+        this.mockMgr = mockMgr;
     }
 
     private int projectId;
@@ -91,10 +100,20 @@ public class OpenAPIAction extends ActionBase {
         return SUCCESS;
     }
 
-    public String queryRAPModel() {
+    public String queryRAPModel() throws UnsupportedEncodingException {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         Gson g = new Gson();
-        resultMap.put("modelJSON", projectMgr.getProject(projectId).toString(Project.TO_STRING_TYPE.TO_PARAMETER));
+        Project p = projectMgr.getProject(projectId);
+        List<Action> aList = p.getAllAction();
+        Map<Integer, Object> mockDataMap = new HashMap<Integer, Object>();
+
+        for (Action a : aList) {
+            mockDataMap.put(a.getId(), mockMgr.generateRule(a.getId(), null, null));
+        }
+
+
+        resultMap.put("modelJSON", p.toString(Project.TO_STRING_TYPE.TO_PARAMETER));
+        resultMap.put("mockjsMap", mockDataMap);
         resultMap.put("code", 200);
         resultMap.put("msg", 0);
         String resultJson = g.toJson(resultMap);
