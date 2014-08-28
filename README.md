@@ -1,6 +1,9 @@
 RAP
 ===
 
+RAP is a GUI web interface structure management system. In RAP, you can define the URL, response/request detail format, etc. By analyzing these data, RAP provides MOCK service, test service, etc. RAP also supplys lots of enterpise-level management tools, help enterprise and team work efficiently.
+
+
 What is RAP?
 --------------------------------------
 
@@ -25,12 +28,15 @@ Thx a lot for improving RAP!
 About
 --------------------------------------
 
-    @version    v0.9.2
-    @author     Bosn Wangjeaf
-    @director   李牧 行列
-    @dependency MockJS by 墨智 http://mockjs.com
-    @contact    bosn@outlook.com, wangjeaf@gmail.com
+    @version     v0.10.0
+    @author      Bosn Wangjeaf
+    @director    李牧 行列
+    @dependency  MockJS by 墨智 http://mockjs.com
+    @contact     bosn@outlook.com, wangjeaf@gmail.com
 
+
+
+RAP是一个GUI的WEB接口接哦股管理工具。在RAP中，您可定义接口的URL、请求&响应细节格式等等。通过分析这些数据，RAP提供MOCK服务、测试服务等自动化工具。RAP同时提供大量企业级功能，帮助企业和团队高效的工作。
 
 什么是RAP?
 --------------------------------------
