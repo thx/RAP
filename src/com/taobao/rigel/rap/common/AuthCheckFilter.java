@@ -36,6 +36,11 @@ public class AuthCheckFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
+        String visitorLog = SystemVisitorLog.count(request.getRemoteAddr());
+        if (visitorLog != null && !visitorLog.isEmpty()) {
+            System.out.println(visitorLog);
+        }
+
 		if (SystemConstant.DOMAIN_URL.isEmpty()) {
 			SystemConstant.DOMAIN_URL = request.getServerName();
 			if (request.getServerPort() != 80) {

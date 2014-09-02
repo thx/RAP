@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.Logger;
+import com.taobao.rigel.rap.common.SystemVisitorLog;
 import com.taobao.rigel.rap.mock.service.MockMgr;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Module;
@@ -113,6 +114,12 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createData() throws UnsupportedEncodingException {
+        if (this.isUserLogined()) {
+            String visitLog = SystemVisitorLog.count(this.getCurUser());
+            if (visitLog != null && !visitLog.isEmpty()) {
+                System.out.println(visitLog);
+            }
+        }
 		boolean isJSON = false;
 		Logger.mock();
 		Map<String, Object> options = new HashMap<String, Object>();
@@ -139,6 +146,12 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createRule() throws UnsupportedEncodingException {
+        if (this.isUserLogined()) {
+            String visitLog = SystemVisitorLog.count(this.getCurUser());
+            if (visitLog != null && !visitLog.isEmpty()) {
+                System.out.println(visitLog);
+            }
+        }
 		boolean isJSON = false;
 		Logger.mock();
 		Map<String, Object> options = new HashMap<String, Object>();
@@ -240,6 +253,12 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createMockjsData() throws UnsupportedEncodingException {
+        if (this.isUserLogined()) {
+            String visitLog = SystemVisitorLog.count(this.getCurUser());
+            if (visitLog != null && !visitLog.isEmpty()) {
+                System.out.println(visitLog);
+            }
+        }
 		boolean isJSON = false;
 		Logger.mock();
 		String _c = get_c();
