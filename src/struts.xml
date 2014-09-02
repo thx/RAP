@@ -4,8 +4,6 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-
-	<constant name="struts.devMode" value="false" />
 	<constant name="struts.action.extension" value="action,do" />
 	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
 	<package name="rap-default" extends="struts-default">
@@ -22,13 +20,9 @@
 				<interceptor-ref name="prepare" />
 				<interceptor-ref name="i18n" />
 				<interceptor-ref name="chain" />
-				<interceptor-ref name="debugging" />
 				<interceptor-ref name="model-driven" />
-				<interceptor-ref name="fileUpload" />
 				<interceptor-ref name="static-params" />
-				<interceptor-ref name="params">
-					<param name="excludeParams">__cas__st__,__cas__id__,.*xwork\.MethodAccessor\.denyMethodExecution.*,.*java.lang.Runtime@getRuntime.*</param>
-				</interceptor-ref>
+				<interceptor-ref name="params"/>
 				<interceptor-ref name="conversionError" />
 				<interceptor-ref name="validation">
 					<param name="excludeMethods">input,back,cancel,browse</param>
