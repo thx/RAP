@@ -140,4 +140,13 @@ public interface ProjectMgr {
 	Action getAction(int id);
 
     Action getAction(int id, String ver, int projectId);
+
+    /**
+     * update doc
+     *
+     * @param project id
+     */
+    void updateDoc(int projectId);
+
+    List<Project> getProjectList();
 }

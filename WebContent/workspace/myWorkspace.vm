@@ -61,6 +61,7 @@
                         <span class="glyphicon glyphicon-file"></span>
                         导出
                     </button>
+
                     <button id="btnToggleMockDisplay" type="button" class="btn btn-default btn-sm" onclick="ws.toggleMockDisplay();" title="为方便文档查看，默认MOCK标签（@mock）等信息是隐藏的，该按钮可以隐藏/显示文档中的MOCK数据信息。">
                         <span class="glyphicon glyphicon-headphones"></span>
                         Mock
@@ -69,6 +70,7 @@
                         <span class="glyphicon glyphicon-wrench"></span>
                         配置
                     </button>
+                    <a href="/doc/${projectId}" class="btn btn-default" target="_blank">Docs</a>
 
                 </div>
             </div>

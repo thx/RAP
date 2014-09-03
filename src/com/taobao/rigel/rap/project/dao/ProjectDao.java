@@ -124,5 +124,7 @@ public interface ProjectDao {
 	 */
 	List<Project> search(String key);
 
+    List<Project> getProjectList();
+
 
 }

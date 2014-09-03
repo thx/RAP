@@ -16,10 +16,11 @@ import com.alibaba.buc.sso.client.util.SimpleUserUtil;
 import com.alibaba.platform.buc.sso.common.dto.SimpleSSOUser;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class AuthCheckFilter implements Filter {
 	AccountMgr accountMgr;
-
 	public AccountMgr getAccountMgr() {
 		return accountMgr;
 	}
@@ -36,15 +37,17 @@ public class AuthCheckFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
+        SystemVisitorLog.count(request.getRemoteAddr());
+
 		if (SystemConstant.DOMAIN_URL.isEmpty()) {
 			SystemConstant.DOMAIN_URL = request.getServerName();
 			if (request.getServerPort() != 80) {
 				SystemConstant.DOMAIN_URL += ":" + request.getServerPort();
 			}
-			System.out.println("DOMAIN_URL is " + SystemConstant.DOMAIN_URL);
 		}
 		HttpSession session = ((HttpServletRequest) request).getSession();
-		boolean logined = session.getAttribute(ContextManager.KEY_ACCOUNT) != null;
+        Object userAccount = session.getAttribute(ContextManager.KEY_ACCOUNT);
+		boolean logined = userAccount != null;
 		
 		SystemConstant.README_PATH = session.getServletContext().getRealPath(File.separator + "README.md");
 		SystemConstant.ROOT = session.getServletContext().getRealPath(File.separator);
@@ -84,7 +87,11 @@ public class AuthCheckFilter implements Filter {
 				session.setAttribute(ContextManager.KEY_USER_ID, userId);
 			}
 
-		}
+		} else {
+            User logUser = new User();
+            logUser.setAccount((String)userAccount);
+            SystemVisitorLog.count(logUser);
+        }
 
 		chain.doFilter(request, response);
 

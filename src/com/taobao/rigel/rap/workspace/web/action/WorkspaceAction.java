@@ -3,11 +3,11 @@ package com.taobao.rigel.rap.workspace.web.action;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
+import com.taobao.rigel.rap.common.SystemConstant;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -245,6 +245,8 @@ public class WorkspaceAction extends ActionBase {
 		this.isLocked = isLocked;
 	}
 
+    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getFormatterLogger(WorkspaceAction.class.getName());
+
 	public String myWorkspace() {
 		if (!isUserLogined()) {
 			plsLogin();
@@ -391,28 +393,7 @@ public class WorkspaceAction extends ActionBase {
 		projectMgr.updateProject(getId(), getProjectData(),
 				getDeletedObjectListData());
 
-		Project project = projectMgr.getProject(getId());
-
-		// notification for doc change
-		for (User user : project.getUserList()) {
-			Notification notification = new Notification();
-			notification.setParam1(new Integer(id).toString());
-			notification.setParam2(project.getName());
-			notification.setTypeId((short) 1);
-			notification.setTargetUser(getCurUser());
-			notification.setUser(user);
-			if (notification.getUser().getId() != getCurUserId())
-				getAccountMgr().addNotification(notification);
-		}
-
-		Notification notification = new Notification();
-		notification.setParam1(new Integer(id).toString());
-		notification.setParam2(project.getName());
-		notification.setTypeId((short) 1);
-		notification.setTargetUser(getCurUser());
-		notification.setUser(project.getUser());
-		if (notification.getUser().getId() != getCurUserId())
-			getAccountMgr().addNotification(notification);
+		project = projectMgr.getProject(getId());
 
 		// generate one check-in of VSS mode submit
 		CheckIn checkIn = new CheckIn();
@@ -452,6 +433,47 @@ public class WorkspaceAction extends ActionBase {
 
 		// unlock the workspace
 		unlock();
+
+        // notification for doc change
+        for (User user : project.getUserList()) {
+            Notification notification = new Notification();
+            notification.setParam1(new Integer(id).toString());
+            notification.setParam2(project.getName());
+            notification.setTypeId((short) 1);
+            notification.setTargetUser(getCurUser());
+            notification.setUser(user);
+            if (notification.getUser().getId() != getCurUserId())
+                getAccountMgr().addNotification(notification);
+        }
+
+        Notification notification = new Notification();
+        notification.setParam1(new Integer(id).toString());
+        notification.setParam2(project.getName());
+        notification.setTypeId((short) 1);
+        notification.setTargetUser(getCurUser());
+        notification.setUser(project.getUser());
+        if (notification.getUser().getId() != getCurUserId())
+            getAccountMgr().addNotification(notification);
+
+        Callable<String> taskSub = new Callable<String>() {
+
+            @Override
+            public String call() throws Exception {
+                try {
+                    // async update doc
+                    projectMgr.updateDoc(id);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+                return null;
+            }
+        };
+
+        FutureTask<String> futureTask = new FutureTask<String>(taskSub);
+        Thread asyncThread = new Thread(futureTask);
+        asyncThread.start();
+        logger.info("Future task CHECK_IN running...");
 
 		return SUCCESS;
 	}
@@ -511,8 +533,7 @@ public class WorkspaceAction extends ActionBase {
 			long userId = super.getCurUserId();
 			int projectId = (Integer) projectLockList.get(userId);
 			projectLockList.remove(userId);
-			System.out.println("user[" + userId + "] unlock project["
-					+ projectId + "]");
+			logger.info("user[%d] unlock project[%d]", userId, projectId);
 		}
 		return SUCCESS;
 	}
@@ -569,5 +590,21 @@ public class WorkspaceAction extends ActionBase {
 		}
 		return null;
 	}
+
+    public String __init__() {
+        // prevent repeated intialization of servcie
+
+        if (SystemConstant.serviceInitialized) {
+            return SUCCESS;
+        }
+
+        SystemConstant.serviceInitialized = true;
+
+        List<Project> list = projectMgr.getProjectList();
+        for (Project p : list) {
+            projectMgr.updateDoc(p.getId());
+        }
+        return SUCCESS;
+    }
 
 }

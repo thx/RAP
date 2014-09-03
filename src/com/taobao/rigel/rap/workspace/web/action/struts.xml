@@ -26,6 +26,11 @@
 			method="ping">
 			<result name="success" type="velocity">/bcom/json.cb.vm</result>
 		</action>
+        <action name="__init__"
+                class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
+                method="__init__">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
 
 		<action name="queryVersion"
 			class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"

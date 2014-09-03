@@ -15,6 +15,7 @@ import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 
+
 public class MockAction extends ActionBase {
 
 	private static final long serialVersionUID = 1L;
@@ -28,7 +29,6 @@ public class MockAction extends ActionBase {
 	private String _c;
 	private ProjectMgr projectMgr;
 	private List<String> urlList;
-
 	public List<String> getUrlList() {
 		return urlList;
 	}
@@ -210,7 +210,6 @@ public class MockAction extends ActionBase {
 	}
 	
 	private void loadWhiteList(Project p, List<String> list, Map<String, Boolean> map) {
-        System.out.println("loading white list, p=" + p + ", list=" + list + ", map=" + map);
 		// prevent circle reference
 		if (p == null || map.get(p.getId() + "") != null) {
 			return;

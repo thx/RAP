@@ -36,6 +36,12 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		query.setMaxResults(pageSize);
 		return query.list();
 	}
+    @Override
+    public List<Project> getProjectList() {
+        String hqlByUser = "from Project";
+        Query query = getSession().createQuery(hqlByUser);
+        return query.list();
+    }
 
 	@Override
 	public int addProject(Project project) {
