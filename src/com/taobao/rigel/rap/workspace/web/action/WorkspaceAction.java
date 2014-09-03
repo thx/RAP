@@ -245,6 +245,8 @@ public class WorkspaceAction extends ActionBase {
 		this.isLocked = isLocked;
 	}
 
+    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getFormatterLogger(WorkspaceAction.class.getName());
+
 	public String myWorkspace() {
 		if (!isUserLogined()) {
 			plsLogin();
@@ -471,7 +473,7 @@ public class WorkspaceAction extends ActionBase {
         FutureTask<String> futureTask = new FutureTask<String>(taskSub);
         Thread asyncThread = new Thread(futureTask);
         asyncThread.start();
-        System.out.println("Future task CHECK_IN running...");
+        logger.info("Future task CHECK_IN running...");
 
 		return SUCCESS;
 	}
@@ -531,8 +533,7 @@ public class WorkspaceAction extends ActionBase {
 			long userId = super.getCurUserId();
 			int projectId = (Integer) projectLockList.get(userId);
 			projectLockList.remove(userId);
-			System.out.println("user[" + userId + "] unlock project["
-					+ projectId + "]");
+			logger.info("user[%d] unlock project[%d]", userId, projectId);
 		}
 		return SUCCESS;
 	}

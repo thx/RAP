@@ -1,5 +1,9 @@
 package com.taobao.rigel.rap.common;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.*;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -9,6 +13,7 @@ import java.net.URL;
  * Created by Bosn on 14-8-25.
  */
 public class HTTPUtils {
+    private final static org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(HTTPUtils.class.getName());
     // HTTP GET request
     public static void sendGet(String url) throws Exception {
         String USER_AGENT = "Mozilla/5.0";
@@ -23,8 +28,8 @@ public class HTTPUtils {
         con.setRequestProperty("User-Agent", USER_AGENT);
 
         int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
+        logger.info("\nSending 'GET' request to URL : " + url);
+        logger.info("Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));

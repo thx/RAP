@@ -8,8 +8,13 @@ import org.apache.commons.io.IOUtils;
 
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.SystemConstant;
+import org.apache.commons.logging.Log;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PlatformAction extends ActionBase {
+
+    private static final Logger logger = LogManager.getFormatterLogger(PlatformAction.class.getName());
 
 	private static final long serialVersionUID = 1L;
 
