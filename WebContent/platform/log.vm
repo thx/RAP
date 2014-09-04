@@ -9,7 +9,6 @@
         <script src="${staticRoot}/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
     </head>
     <body>
-
         <div class="container">
             <h3>RAP Data</h3>
             <!-- Nav tabs -->
@@ -20,7 +19,7 @@
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
-                <div class="tab-pane fade #if($tabIndex==0)active#end" id="statistics">
+                <div class="tab-pane fade #if($tabIndex==0)in active#end" id="statistics">
                     <table class="table table-hover" style="width:300px;">
                         <thead>
                         <tr>
@@ -40,7 +39,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="tab-pane fade #if($tabIndex==1)active#end" id="ipLog">
+                <div class="tab-pane fade #if($tabIndex==1)in active#end" id="ipLog">
                     <table class="table table-hover" style="width:300px;">
                         <thead>
                         <tr>
@@ -60,7 +59,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="tab-pane fade #if($tabIndex==2)active#end" id="userLog">
+                <div class="tab-pane fade #if($tabIndex==2)in active#end" id="userLog">
                     <table class="table table-hover" style="width:300px;">
                         <thead>
                         <tr>

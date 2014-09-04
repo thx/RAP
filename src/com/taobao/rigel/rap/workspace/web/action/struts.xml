@@ -10,7 +10,6 @@
 		<action name="myWorkspace"
 			class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
 			method="myWorkspace">
-			<result name="error" type="velocity">/account/login.vm</result>
 			<result name="success" type="velocity">/workspace/myWorkspace.vm</result>
 		</action><!-- <action name="updateCurrentSave" class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction" 
 			method="updateCurrentSave"> <result name="success" type="velocity">/bcom/isOk.cb.vm</result> 

@@ -254,8 +254,14 @@ public class WorkspaceAction extends ActionBase {
 					+ projectId);
 			return LOGIN;
 		}
+        Project p = projectMgr.getProject(getProjectId());
+        if (p == null || p.getId() <= 0) {
+            setErrMsg("该项目不存在或已被删除，会不会是亲这个链接保存的太久了呢？0  .0");
+            logger.error("Unexpected project id=%d", getProjectId());
+            return ERROR;
+        }
 		Workspace workspace = new Workspace();
-		workspace.setProject(projectMgr.getProject(getProjectId()));
+		workspace.setProject(p);
 		setWorkspaceJsonString(workspace.toString());
 		setWorkspace(workspace);
 		setAccessable(getAccountMgr().canUserManageProject(getCurUserId(), getProjectId()));
