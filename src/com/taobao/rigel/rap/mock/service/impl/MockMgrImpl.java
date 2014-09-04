@@ -142,29 +142,45 @@ public class MockMgrImpl implements MockMgr {
 		return MockjsRunner.renderMockjsRule(result);
 	}
 
+    public String generateRuleData(int actionId) throws UnsupportedEncodingException {
+        String result = generateRule(actionId, null, null);
+        return MockjsRunner.renderMockjsRule(result);
+    }
+
 	@Override
 	public String generateRule(int projectId, String pattern,
-			Map<String, Object> options) throws UnsupportedEncodingException {
-		String originalPattern = pattern;
-		_num = 1;
-		// System.out.println("pattern before processed:" + pattern);
-		if (pattern.contains("?")) {
-			pattern = pattern.substring(0, pattern.indexOf("?"));
-		}
-		/**
-		 * if (pattern.charAt(0) == '/') { pattern = pattern.substring(1); }
-		 */
-		// System.out.println("pattern processed:" + pattern);
-		if (pattern.isEmpty()) {
-			return "{\"isOk\":false, \"errMsg\":\"pattern is empty. 路径为空，请检查RAP文档中的请求链接是否正确填写。\"}";
-		}
-		List<Action> aList = projectMgr
-				.getMatchedActionList(projectId, pattern);
-		if (aList.size() == 0) {
-			return "{\"isOk\":false, \"errMsg\":\"no matched action\"}";
-		}
+                                            Map<String, Object> options) throws UnsupportedEncodingException {
+        String originalPattern = pattern;
+        int actionId = 0;
+        Action action;
 
-		Action action = actionPick(aList, originalPattern, options);
+        if (pattern == null && options == null) {
+            actionId = projectId;
+        }
+        _num = 1;
+
+        if (actionId > 0) {
+            action = projectMgr.getAction(actionId);
+        } else {
+            // System.out.println("pattern before processed:" + pattern);
+            if (pattern.contains("?")) {
+                pattern = pattern.substring(0, pattern.indexOf("?"));
+            }
+            /**
+             * if (pattern.charAt(0) == '/') { pattern = pattern.substring(1); }
+             */
+            // System.out.println("pattern processed:" + pattern);
+            if (pattern.isEmpty()) {
+                return "{\"isOk\":false, \"errMsg\":\"pattern is empty. 路径为空，请检查RAP文档中的请求链接是否正确填写。\"}";
+            }
+            List<Action> aList = projectMgr
+                    .getMatchedActionList(projectId, pattern);
+            if (aList.size() == 0) {
+                return "{\"isOk\":false, \"errMsg\":\"no matched action\"}";
+            }
+
+            action = actionPick(aList, originalPattern, options);
+        }
 
 		String desc = action.getDescription();
 		Set<Parameter> pList = action.getResponseParameterList();
@@ -663,30 +679,35 @@ public class MockMgrImpl implements MockMgr {
 			if (mockValue.startsWith("[") && mockValue.endsWith("]")) {
 				return mockValue;
 			} else if (mockValue.startsWith("$order")) {
-				StringBuilder orderCmdFunc = new StringBuilder();
-				orderCmdFunc
-				.append("function() {")
-				.append("	function geneVal(key) {")
-				.append("		var o = __rap__context__[key];")
-				.append("		var arr = o.arr;")
-				.append("		return arr[o.index++ % arr.length];")
-				.append("	}")
-				.append("	if (!window.__rap__context__) {")
-				.append("		window.__rap__context__ = {};")
-				.append("	}")
-				.append("	var orderCmd = \"" + StringUtils.escapeInJ(mockValue) + "\";")
-				.append("	var orderArr = eval('[' + orderCmd.substring(7, orderCmd.length - 1) + ']');")
-				.append("	var key = '" + (uid++) + "';")
-				.append("	if (!__rap__context__[key]) {")
-				.append("		__rap__context__[key] = {")
-				.append("			arr : orderArr,")
-				.append("			index : 0")
-				.append("		};")
-				.append("	}")
-				.append("	return geneVal(key);")
-				.append("}");
-				
-				return orderCmdFunc.toString();
+                if (para.getDataType().contains("array")) {
+                    return "[" + mockValue.substring(7, mockValue.length() - 1) + "]";
+                } else {
+                    StringBuilder orderCmdFunc = new StringBuilder();
+                    orderCmdFunc
+                            .append("function() {")
+                            .append("   var window = function(){return this;}();")
+                            .append("	function geneVal(key) {")
+                            .append("		var o = __rap__context__[key];")
+                            .append("		var arr = o.arr;")
+                            .append("		return arr[o.index++ % arr.length];")
+                            .append("	}")
+                            .append("	if (!window.__rap__context__) {")
+                            .append("		window.__rap__context__ = {};")
+                            .append("	}")
+                            .append("	var orderCmd = \"" + StringUtils.escapeInJ(mockValue) + "\";")
+                            .append("	var orderArr = eval('[' + orderCmd.substring(7, orderCmd.length - 1) + ']');")
+                            .append("	var key = '" + (uid++) + "';")
+                            .append("	if (!__rap__context__[key]) {")
+                            .append("		__rap__context__[key] = {")
+                            .append("			arr : orderArr,")
+                            .append("			index : 0")
+                            .append("		};")
+                            .append("	}")
+                            .append("	return geneVal(key);")
+                            .append("}");
+
+                    return orderCmdFunc.toString();
+                }
 			} else if (mockValue.startsWith("@order")) {
 				return "\"" + StringUtils.escapeInJ(mockValue) + "\"";
 			} else if (para.getDataType().equals("number")

@@ -61,6 +61,13 @@ public class ActionBase extends ActionSupport {
 		this.pager = pager;
 	}
 
+    /**
+     * void setter for cache aprams
+     * @param seed
+     */
+    public void setSeed(int seed) {
+    }
+
 	protected void initPager() {
 		if (getPager() == null) {
 			setPager(new Pager());

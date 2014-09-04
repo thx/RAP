@@ -9,7 +9,9 @@ public class SystemConstant {
 	public static String README_PATH = "";
 	public static String ROOT = "";
 	public static String DOMAIN_URL = "";
-	public static final String ALI_LOGIN_URL = "";
+	public static final String ALI_LOGIN_URL = "login" + "." + "ali" + "baba" + "-" + "inc.com";
+    public static final String NODE_SERVER = "localhost:8827";
+    public static boolean serviceInitialized = false;
 
 	public static String getAliLoginUrl() {
 		return ALI_LOGIN_URL;

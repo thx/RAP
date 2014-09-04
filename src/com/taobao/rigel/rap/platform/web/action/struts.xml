@@ -22,5 +22,8 @@
         <action name="test" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="test">
         	<result name="success" type="velocity">/platform/test.vm</result>
         </action>
+        <action name="log" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="log">
+            <result name="success" type="velocity">/platform/log.vm</result>
+        </action>
 	</package>
 </struts>

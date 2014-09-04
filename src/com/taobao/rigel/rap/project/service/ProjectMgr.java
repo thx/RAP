@@ -52,6 +52,8 @@ public interface ProjectMgr {
 	 */
 	Project getProject(int id);
 
+    Project getProject(int id, String ver);
+
 	/**
 	 * get module by id
 	 * 
@@ -136,4 +138,27 @@ public interface ProjectMgr {
 	 * @return
 	 */
 	Action getAction(int id);
+
+    Action getAction(int id, String ver, int projectId);
+
+    /**
+     * update doc
+     *
+     * @param project id
+     */
+    void updateDoc(int projectId);
+
+    List<Project> getProjectList();
+
+    long getProjectNum();
+
+    long getModuleNum();
+
+    long getPageNum();
+
+    long getActionNum();
+
+    long getParametertNum();
+
+    long getCheckInNum();
 }

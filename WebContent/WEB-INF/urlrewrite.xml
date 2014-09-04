@@ -36,4 +36,11 @@
 		<from>^/rap.plugin.js(.*)$</from>
 		<to type="redirect">/mock/createPluginScript.action$1</to>
 	</rule>
+    <rule>
+        <note>
+            node doc service
+        </note>
+        <from>^/doc/(\d*)$</from>
+        <to type="proxy">http://localhost:8827/doc/$1.html</to>
+    </rule>
 </urlrewrite>

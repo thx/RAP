@@ -62,4 +62,13 @@ public interface MockMgr {
 	 */
 	public String generateRuleData(int id, String pattern,
 			Map<String, Object> options) throws UnsupportedEncodingException;
+
+    /**
+     * generate mockjs data by Action ID
+     *
+     * @param actionId
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    public String generateRuleData(int actionId) throws UnsupportedEncodingException;
 }

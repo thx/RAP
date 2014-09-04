@@ -1269,12 +1269,12 @@ function deepCopy(o) {
             "REQUEST_BEGIN"                 : "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "REQUEST_BEGIN_EDIT"            : "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "REQUEST_END"                   : "</table>",
-            "REQUEST_PARAMETER_ADD_BUTTON"  : "<div class='btns-container'><a href=\"#\" class=\"btn btn-default btn-xs\" onclick=\"ws.addParam('request'); return false;\"><i class='glyphicon glyphicon-plus'></i>添加参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(true); return false;\"><i class='glyphicon glyphicon-transfer'></i>导入JSON</a></div>",
+            "REQUEST_PARAMETER_ADD_BUTTON"  : "<div class='btns-container'><a href=\"#\" class=\"btn btn-info btn-xs\" onclick=\"ws.addParam('request'); return false;\"><i class='glyphicon glyphicon-plus'></i>添加参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(true); return false;\"><i class='glyphicon glyphicon-transfer'></i>导入JSON</a></div>",
 
             "RESPONSE_BEGIN"                : "<h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "RESPONSE_BEGIN_EDIT"           : "<h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
             "RESPONSE_END"                  : "</table>",
-            "RESPONSE_PARAMETER_ADD_BUTTON" : "<div class='btns-container'><a href=\"#\" class=\"btn btn-default btn-xs\" onclick=\"ws.addParam('response'); return false;\"><i class='glyphicon glyphicon-plus'></i>添加参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(); return false;\"><i class='glyphicon glyphicon-transfer'></i>导入JSON</a></div>",
+            "RESPONSE_PARAMETER_ADD_BUTTON" : "<div class='btns-container'><a href=\"#\" class=\"btn btn-info btn-xs\" onclick=\"ws.addParam('response'); return false;\"><i class='glyphicon glyphicon-plus'></i>添加参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(); return false;\"><i class='glyphicon glyphicon-transfer'></i>导入JSON</a></div>",
 
             "SAVE_PANEL_BEGIN"              : "<div id=\"div-save-panel\">",
             "SAVE_PANEL_END"                : "</div>",
@@ -1282,7 +1282,7 @@ function deepCopy(o) {
             "VERSION_PANEL_BEGIN"           : "<div id=\"div-version-panel\"><table class='table-version'><tr class='head'><td class='version-op'>OP</td><td class='version'>版本</td><td class='operator'>操作人</td><td class='operation-time'>操作时间</td><td class='version-desc'>描述</td></tr>",
             "VERSION_PANEL_END"             : "</table></div>",
 
-            "MODULE_ADD_BUTTON"             : "<div id=\"div-add-m\"><a href=\"#\" class=\"add-link add-link-module\" onclick=\"ws.addM(); return false;\"><i class='glyphicon glyphicon-plus'></i></a></div>",
+            "MODULE_ADD_BUTTON"             : "<div id=\"div-add-m\"><a href=\"#\" class=\"add-link add-link-module\" onclick=\"ws.addM(); return false;\"><i class='glyphicon glyphicon-plus' style='color:#5bc0de'></i></a></div>",
 
             "SEPERATOR"                     : "<div class=\"seperator\"></div>" ,
 
@@ -2665,7 +2665,6 @@ function deepCopy(o) {
     function setButtonsViewState(state) {
         if (state == CONST.EDIT) {
             // to edit view
-        b.hide("btnExport");
             b.hide("btnEdit");
             b.hide("btnVersion");
             b.show("btnSave");
@@ -2675,7 +2674,6 @@ function deepCopy(o) {
             b.hide("btnExitVersion");
         } else if (state == CONST.NORMAL) {
             // to normal view
-        b.show("btnExport");
             b.show("btnEdit");
             b.show("btnVersion");
             b.hide("btnSave");
@@ -2685,7 +2683,6 @@ function deepCopy(o) {
             b.hide("btnExitVersion");
         } else if (state == CONST.VERSION) {
             // to version view
-        b.hide("btnExport");
             b.hide("btnEdit");
             b.show("btnVersion");
             b.hide("btnSave");
@@ -3482,7 +3479,8 @@ function deepCopy(o) {
             Object.keys(f).forEach(function(key) {
                 oldKey = key;
                 oldItem = f[key];
-                if (f[key] && f[key] instanceof Array && f[key].length > 1) {
+                if (f[key] && f[key] instanceof Array && f[key].length > 1 
+                    && f[key][0] instanceof Object && f[key][0] !== null) {
                     key = key + '|' + f[key].length;
                     delete f[oldKey] ;
                     f[key] = oldItem;
@@ -3697,7 +3695,7 @@ function deepCopy(o) {
             str += "<div class=\"more\" ecui=\"type:tree;id:moduleTree" + m.id + "\">";
             str += "<label>" + util.escaper.escapeInH(m.name);
             if (_isEditMode) {
-                str     += "<a href=\"#\" class=\"del-link\" onclick=\"ws.removeM(); return false;\"><i class='glyphicon glyphicon-remove'></i></a>";
+                str     += "<a href=\"#\" class=\"del-link\" onclick=\"ws.removeM(); return false;\"><i class='glyphicon glyphicon-remove' style='color:#d9534f'></i></a>";
             }
             str += "</label>";
             for (var i = 0; i < pageListNum; i++) {
@@ -3725,7 +3723,7 @@ function deepCopy(o) {
                     str += "</div>";
                 }
                 if (_isEditMode) {
-                    str += "<div style='margin-top:10px'><a class=\"btn btn-default btn-xs\" href=\"#\" onclick=\"ws.addA(" + page.id + "); return false;\"><i class=\"glyphicon glyphicon-plus\" style='margin-right: 5px;'></i>新增请求</a></div>";
+                    str += "<div style='margin-top:10px'><a class=\"btn btn-info btn-xs\" href=\"#\" onclick=\"ws.addA(" + page.id + "); return false;\"><i class=\"glyphicon glyphicon-plus\" style='margin-right: 5px;'></i>添加接口</a></div>";
                 }
                 str += "</div>";
             }

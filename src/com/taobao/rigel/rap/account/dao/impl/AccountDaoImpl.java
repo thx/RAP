@@ -29,6 +29,13 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 		}
 	}
 
+    @Override
+    public long getUsertNum() {
+        String sql = "SELECT COUNT(*) FROM tb_user";
+        Query query = getSession().createSQLQuery(sql);
+        return Long.parseLong(query.uniqueResult().toString());
+    }
+
 	@Override
 	public boolean addUser(User user) {
 		user.setLastLoginDate(new Date());

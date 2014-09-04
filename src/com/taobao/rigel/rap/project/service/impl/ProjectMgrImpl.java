@@ -5,11 +5,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.dao.AccountDao;
 import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.ArrayUtils;
+import com.taobao.rigel.rap.common.HTTPUtils;
+import com.taobao.rigel.rap.common.SystemConstant;
 import com.taobao.rigel.rap.organization.bo.Group;
 import com.taobao.rigel.rap.organization.dao.OrganizationDao;
 import com.taobao.rigel.rap.project.bo.Action;
@@ -19,14 +22,21 @@ import com.taobao.rigel.rap.project.bo.Parameter;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.dao.ProjectDao;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
+import com.taobao.rigel.rap.workspace.bo.CheckIn;
+import com.taobao.rigel.rap.workspace.dao.WorkspaceDao;
 
 public class ProjectMgrImpl implements ProjectMgr {
 
 	private ProjectDao projectDao;
 	private OrganizationDao organizationDao;
 	private AccountMgr accountMgr;
+    private WorkspaceDao workspaceDao;
 
-	public AccountMgr getAccountMgr() {
+    public void setWorkspaceDao(WorkspaceDao workspaceDao) {
+        this.workspaceDao = workspaceDao;
+    }
+
+    public AccountMgr getAccountMgr() {
 		return accountMgr;
 	}
 
@@ -169,7 +179,16 @@ public class ProjectMgrImpl implements ProjectMgr {
 		return projectDao.getProject(id);
 	}
 
-	@Override
+    @Override
+    public Project getProject(int id, String ver) {
+        CheckIn check = workspaceDao.getVersion(id, ver);
+        String projectData = check.getProjectData();
+
+        Gson gson = new Gson();
+        return gson.fromJson(projectData, Project.class);
+    }
+
+    @Override
 	public Module getModule(int id) {
 		return projectDao.getModule(id);
 	}
@@ -264,4 +283,56 @@ public class ProjectMgrImpl implements ProjectMgr {
 	public Action getAction(int id) {
 		return projectDao.getAction(id);
 	}
+
+    @Override
+    public Action getAction(int id, String ver, int projectId) {
+        CheckIn check = workspaceDao.getVersion(projectId, ver);
+        Gson gson = new Gson();
+        Project p = gson.fromJson(check.getProjectData(), Project.class);
+        return p.findAction(id);
+    }
+
+    @Override
+    public void updateDoc(int projectId) {
+        try {
+            HTTPUtils.sendGet("http://" + SystemConstant.NODE_SERVER + "/api/generateDoc?projectId=" + projectId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Project> getProjectList() {
+        return projectDao.getProjectList();
+    }
+
+    @Override
+    public long getProjectNum() {
+        return projectDao.getProjectListNum();
+    }
+
+    @Override
+    public long getModuleNum() {
+        return projectDao.getModuleNum();
+    }
+
+    @Override
+    public long getPageNum() {
+        return projectDao.getPageNum();
+    }
+
+    @Override
+    public long getActionNum() {
+        return projectDao.getActionNum();
+    }
+
+    @Override
+    public long getParametertNum() {
+        return projectDao.getParametertNum();
+    }
+
+    @Override
+    public long getCheckInNum() {
+        return projectDao.getCheckInNum();
+    }
 }

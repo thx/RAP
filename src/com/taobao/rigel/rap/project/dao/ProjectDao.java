@@ -123,4 +123,20 @@ public interface ProjectDao {
 	 * @return
 	 */
 	List<Project> search(String key);
+
+    List<Project> getProjectList();
+
+    long getProjectListNum();
+
+    long getModuleNum();
+
+    long getPageNum();
+
+    long getActionNum();
+
+    long getParametertNum();
+
+    long getCheckInNum();
+
+
 }

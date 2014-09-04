@@ -498,4 +498,16 @@ public class Project implements java.io.Serializable {
 		PrettyTime p = new PrettyTime(new Locale("zh"));
 		return p.format(this.updateTime) + "更新";
 	}
+
+    public List<Action> getAllAction() {
+        List<Action> list = new ArrayList<Action>();
+        for (Module m : this.moduleList) {
+            for (Page p : m.getPageList()) {
+                for (Action a : p.getActionList()) {
+                    list.add(a);
+                }
+            }
+        }
+        return list;
+    }
 }
