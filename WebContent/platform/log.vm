@@ -10,12 +10,12 @@
     </head>
     <body>
         <div class="container">
-            <h3>RAP Data</h3>
+            <h3>RAP系统的实时数据</h3>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li #if($tabIndex==0)class="active"#end><a href="#statistics" role="tab" data-toggle="tab">Statistics</a></li>
-                <li #if($tabIndex==1)class="active"#end><a href="#ipLog" role="tab" data-toggle="tab">IP Log</a></li>
-                <li #if($tabIndex==2)class="active"#end><a href="#userLog" role="tab" data-toggle="tab">User Log</a></li>
+                <li #if($tabIndex==0)class="active"#end><a href="#statistics" role="tab" data-toggle="tab">RAP统计</a></li>
+                <li #if($tabIndex==1)class="active"#end><a href="#ipLog" role="tab" data-toggle="tab">今日访问 group by IP</a></li>
+                <li #if($tabIndex==2)class="active"#end><a href="#userLog" role="tab" data-toggle="tab">今日访问 group by 用户</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
@@ -80,6 +80,7 @@
                     </table>
                 </div>
             </div>
+            <div class="alert alert-info" role="alert">@霍雍 还在努力完善ing...欢迎加入旺旺群 (582755829) 与我们一同探讨接口自动化！了解最新进展请进入<a href="http://github.com/thx/RAP/issues" target="_blank">GitHub</a></div>
         </div>
     </body>
 </html>

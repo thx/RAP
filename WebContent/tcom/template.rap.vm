@@ -37,8 +37,10 @@
         #else
         <li><a href="$platformUrl.home">主页</a></li>
         #end
-        <li><a href="$platformUrl.test">测试</a></li>
+
         <li><a href="$platformUrl.doc" target="_blank">文档</a></li>
+        <li><a href="$platformUrl.test">测试</a></li>
+        <li><a href="$platformUrl.log" target="_blank">数据</a></li>
         #if($isLogined)
         <li>
             <div class="search-project-con">

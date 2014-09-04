@@ -14,7 +14,7 @@
 #set($dateFormat = 'yyyy-MM-dd')
 
 ## 时间戳
-#set($timeStamp = '20140618.v0.9.1')
+#set($timeStamp = '20140904.v0.11.dev2')
 
 ##----------------------页面请求action地址-------------------------------
 ## 配置工程的上下文路径
@@ -78,7 +78,8 @@
     "status":"$projectContext/platform/status.action",
     "help":"$!projectContext/platform/help.action",
     "test":"$!projectContext/platform/test.action",
-    "doc":"http://thx.github.io/RAP"
+    "doc":"http://thx.github.io/RAP",
+    "log":"$!projectContext/platform/log.do"
 })
 
 
