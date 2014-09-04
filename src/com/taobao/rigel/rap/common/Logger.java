@@ -1,6 +1,8 @@
 package com.taobao.rigel.rap.common;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class Logger {
 	static int mockNum = 0;
@@ -20,4 +22,12 @@ public class Logger {
 	public static int getMockNumToday() {
 		return mockNum;
 	}
+
+    public static List<Item> getIpLog() {
+        return SystemVisitorLog.getIpLog();
+    }
+
+    public static List<Item> getUserLog() {
+        return SystemVisitorLog.getUserLog();
+    }
 }

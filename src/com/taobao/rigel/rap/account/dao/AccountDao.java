@@ -184,4 +184,6 @@ public interface AccountDao {
 	 */
 	boolean notificationExists(Notification notification);
 
+    long getUsertNum();
+
 }

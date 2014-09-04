@@ -126,5 +126,17 @@ public interface ProjectDao {
 
     List<Project> getProjectList();
 
+    long getProjectListNum();
+
+    long getModuleNum();
+
+    long getPageNum();
+
+    long getActionNum();
+
+    long getParametertNum();
+
+    long getCheckInNum();
+
 
 }

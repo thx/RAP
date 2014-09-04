@@ -211,4 +211,9 @@ public class AccountMgrImpl implements AccountMgr {
 		return false;
 	}
 
+    @Override
+    public long getUserNum() {
+        return accountDao.getUsertNum();
+    }
+
 }

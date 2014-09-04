@@ -149,4 +149,16 @@ public interface ProjectMgr {
     void updateDoc(int projectId);
 
     List<Project> getProjectList();
+
+    long getProjectNum();
+
+    long getModuleNum();
+
+    long getPageNum();
+
+    long getActionNum();
+
+    long getParametertNum();
+
+    long getCheckInNum();
 }

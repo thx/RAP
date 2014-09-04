@@ -254,8 +254,14 @@ public class WorkspaceAction extends ActionBase {
 					+ projectId);
 			return LOGIN;
 		}
+        Project p = projectMgr.getProject(getProjectId());
+        if (p == null || p.getId() <= 0) {
+            setErrMsg("该项目不存在或已被删除，会不会是亲这个链接保存的太久了呢？0  .0");
+            logger.error("Unexpected project id=%d", getProjectId());
+            return ERROR;
+        }
 		Workspace workspace = new Workspace();
-		workspace.setProject(projectMgr.getProject(getProjectId()));
+		workspace.setProject(p);
 		setWorkspaceJsonString(workspace.toString());
 		setWorkspace(workspace);
 		setAccessable(getAccountMgr().canUserManageProject(getCurUserId(), getProjectId()));
@@ -380,12 +386,14 @@ public class WorkspaceAction extends ActionBase {
 		if (curUser == null) {
 			setErrMsg(LOGIN_WARN_MSG);
 			setIsOk(false);
+            logger.error("Unlogined user trying to checkin and failed.");
 			return JSON_ERROR;
 		}
 
 		if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
 			setErrMsg("access deny");
 			setIsOk(false);
+            logger.error("User %s trying to checkedin project(id=$d) and denied.", getCurAccount(), getId());
 			return JSON_ERROR;
 		}
 

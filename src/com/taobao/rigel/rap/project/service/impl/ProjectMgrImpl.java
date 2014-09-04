@@ -305,4 +305,34 @@ public class ProjectMgrImpl implements ProjectMgr {
     public List<Project> getProjectList() {
         return projectDao.getProjectList();
     }
+
+    @Override
+    public long getProjectNum() {
+        return projectDao.getProjectListNum();
+    }
+
+    @Override
+    public long getModuleNum() {
+        return projectDao.getModuleNum();
+    }
+
+    @Override
+    public long getPageNum() {
+        return projectDao.getPageNum();
+    }
+
+    @Override
+    public long getActionNum() {
+        return projectDao.getActionNum();
+    }
+
+    @Override
+    public long getParametertNum() {
+        return projectDao.getParametertNum();
+    }
+
+    @Override
+    public long getCheckInNum() {
+        return projectDao.getCheckInNum();
+    }
 }
