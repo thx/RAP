@@ -202,5 +202,7 @@ public interface AccountMgr {
 	 */
 	boolean canUserManageProject(long userId, int projectId);
 
+    long getUserNum();
+
 
 }

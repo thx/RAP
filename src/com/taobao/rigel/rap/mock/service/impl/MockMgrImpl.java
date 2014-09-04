@@ -679,31 +679,35 @@ public class MockMgrImpl implements MockMgr {
 			if (mockValue.startsWith("[") && mockValue.endsWith("]")) {
 				return mockValue;
 			} else if (mockValue.startsWith("$order")) {
-				StringBuilder orderCmdFunc = new StringBuilder();
-				orderCmdFunc
-				.append("function() {")
-                .append("   var window = function(){return this;}();")
-				.append("	function geneVal(key) {")
-				.append("		var o = __rap__context__[key];")
-				.append("		var arr = o.arr;")
-				.append("		return arr[o.index++ % arr.length];")
-				.append("	}")
-				.append("	if (!window.__rap__context__) {")
-				.append("		window.__rap__context__ = {};")
-				.append("	}")
-				.append("	var orderCmd = \"" + StringUtils.escapeInJ(mockValue) + "\";")
-				.append("	var orderArr = eval('[' + orderCmd.substring(7, orderCmd.length - 1) + ']');")
-				.append("	var key = '" + (uid++) + "';")
-				.append("	if (!__rap__context__[key]) {")
-				.append("		__rap__context__[key] = {")
-				.append("			arr : orderArr,")
-				.append("			index : 0")
-				.append("		};")
-				.append("	}")
-				.append("	return geneVal(key);")
-				.append("}");
-				
-				return orderCmdFunc.toString();
+                if (para.getDataType().contains("array")) {
+                    return "[" + mockValue.substring(7, mockValue.length() - 1) + "]";
+                } else {
+                    StringBuilder orderCmdFunc = new StringBuilder();
+                    orderCmdFunc
+                            .append("function() {")
+                            .append("   var window = function(){return this;}();")
+                            .append("	function geneVal(key) {")
+                            .append("		var o = __rap__context__[key];")
+                            .append("		var arr = o.arr;")
+                            .append("		return arr[o.index++ % arr.length];")
+                            .append("	}")
+                            .append("	if (!window.__rap__context__) {")
+                            .append("		window.__rap__context__ = {};")
+                            .append("	}")
+                            .append("	var orderCmd = \"" + StringUtils.escapeInJ(mockValue) + "\";")
+                            .append("	var orderArr = eval('[' + orderCmd.substring(7, orderCmd.length - 1) + ']');")
+                            .append("	var key = '" + (uid++) + "';")
+                            .append("	if (!__rap__context__[key]) {")
+                            .append("		__rap__context__[key] = {")
+                            .append("			arr : orderArr,")
+                            .append("			index : 0")
+                            .append("		};")
+                            .append("	}")
+                            .append("	return geneVal(key);")
+                            .append("}");
+
+                    return orderCmdFunc.toString();
+                }
 			} else if (mockValue.startsWith("@order")) {
 				return "\"" + StringUtils.escapeInJ(mockValue) + "\"";
 			} else if (para.getDataType().equals("number")

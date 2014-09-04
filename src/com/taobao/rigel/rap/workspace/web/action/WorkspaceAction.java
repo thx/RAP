@@ -380,12 +380,14 @@ public class WorkspaceAction extends ActionBase {
 		if (curUser == null) {
 			setErrMsg(LOGIN_WARN_MSG);
 			setIsOk(false);
+            logger.error("Unlogined user trying to checkin and failed.");
 			return JSON_ERROR;
 		}
 
 		if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
 			setErrMsg("access deny");
 			setIsOk(false);
+            logger.error("User %s trying to checkedin project(id=$d) and denied.", getCurAccount(), getId());
 			return JSON_ERROR;
 		}
 

@@ -110,6 +110,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		return (Page) getSession().get(Page.class, id);
 	}
 
+
 	@Override
 	public Action getAction(int id) {
 		return (Action) getSession().get(Action.class, id);
@@ -302,6 +303,48 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		List<Long> list = query.list();
 		return list.get(0);
 	}
+
+    @Override
+    public long getProjectListNum() {
+        String sql = "SELECT COUNT(*) FROM tb_project";
+        Query query = getSession().createSQLQuery(sql);
+        return Long.parseLong(query.uniqueResult().toString());
+    }
+
+    @Override
+    public long getModuleNum() {
+        String sql = "SELECT COUNT(*) FROM tb_module";
+        Query query = getSession().createSQLQuery(sql);
+        return Long.parseLong(query.uniqueResult().toString());
+    }
+
+    @Override
+    public long getPageNum() {
+        String sql = "SELECT COUNT(*) FROM tb_page";
+        Query query = getSession().createSQLQuery(sql);
+        return Long.parseLong(query.uniqueResult().toString());
+    }
+
+    @Override
+    public long getActionNum() {
+        String sql = "SELECT COUNT(*) FROM tb_action";
+        Query query = getSession().createSQLQuery(sql);
+        return Long.parseLong(query.uniqueResult().toString());
+    }
+
+    @Override
+    public long getParametertNum() {
+        String sql = "SELECT COUNT(*) FROM tb_parameter";
+        Query query = getSession().createSQLQuery(sql);
+        return Long.parseLong(query.uniqueResult().toString());
+    }
+
+    @Override
+    public long getCheckInNum() {
+        String sql = "SELECT COUNT(*) FROM tb_check_in";
+        Query query = getSession().createSQLQuery(sql);
+        return Long.parseLong(query.uniqueResult().toString());
+    }
 
 	@Override
 	public List<Action> getMatchedActionList(int projectId, String pattern) {

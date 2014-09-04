@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>RAP Log        </title>
+        #parse('/tcom/const.inc.vm')
+        <link rel="stylesheet" href="${staticRoot}/bootstrap-3.2.0-dist/css/bootstrap.css" type="text/css" media="screen">
+        <script type="text/javascript" src="${staticRoot}/js/core/jquery-2.1.0.min.js"></script>
+        <script src="${staticRoot}/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+
+        <div class="container">
+            <h3>RAP Data</h3>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li #if($tabIndex==0)class="active"#end><a href="#statistics" role="tab" data-toggle="tab">Statistics</a></li>
+                <li #if($tabIndex==1)class="active"#end><a href="#ipLog" role="tab" data-toggle="tab">IP Log</a></li>
+                <li #if($tabIndex==2)class="active"#end><a href="#userLog" role="tab" data-toggle="tab">User Log</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane fade #if($tabIndex==0)active#end" id="statistics">
+                    <table class="table table-hover" style="width:300px;">
+                        <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Key</td>
+                            <td>Count</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            #foreach($item in $modelLog)
+                            <tr>
+                                <td>$velocityCount</td>
+                                <td>$item.key</td>
+                                <td>$item.value</td>
+                            </tr>
+                            #end
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade #if($tabIndex==1)active#end" id="ipLog">
+                    <table class="table table-hover" style="width:300px;">
+                        <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>IP</td>
+                            <td>Count</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            #foreach($item in $logger.ipLog)
+                            <tr>
+                                <td>$velocityCount</td>
+                                <td>$item.key</td>
+                                <td>$item.value</td>
+                            </tr>
+                            #end
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade #if($tabIndex==2)active#end" id="userLog">
+                    <table class="table table-hover" style="width:300px;">
+                        <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Account</td>
+                            <td>Count</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            #foreach($item in $logger.userLog)
+                            <tr>
+                                <td>$velocityCount</td>
+                                <td>$item.key</td>
+                                <td>$item.value</td>
+                            </tr>
+                            #end
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

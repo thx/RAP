@@ -3482,7 +3482,8 @@ function deepCopy(o) {
             Object.keys(f).forEach(function(key) {
                 oldKey = key;
                 oldItem = f[key];
-                if (f[key] && f[key] instanceof Array && f[key].length > 1) {
+                if (f[key] && f[key] instanceof Array && f[key].length > 1 
+                    && f[key][0] instanceof Object && f[key][0] !== null) {
                     key = key + '|' + f[key].length;
                     delete f[oldKey] ;
                     f[key] = oldItem;
