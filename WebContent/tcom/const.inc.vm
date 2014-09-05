@@ -79,7 +79,8 @@
     "help":"$!projectContext/platform/help.action",
     "test":"$!projectContext/platform/test.action",
     "doc":"http://thx.github.io/RAP",
-    "log":"$!projectContext/platform/log.do"
+    "log":"$!projectContext/platform/log.do",
+    "realtimeUpdate":"$!projectContext/platform/realtimeUpdate.do"
 })
 
 

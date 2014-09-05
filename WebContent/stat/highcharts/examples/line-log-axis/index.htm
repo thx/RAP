@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Highcharts Example</title>
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<style type="text/css">
+${demo.css}
+		</style>
+		<script type="text/javascript">
+$(function () {
+    $('#container').highcharts({
+
+        title: {
+            text: 'Logarithmic axis demo'
+        },
+
+        xAxis: {
+            tickInterval: 1
+        },
+
+        yAxis: {
+            type: 'logarithmic',
+            minorTickInterval: 0.1
+        },
+
+        tooltip: {
+            headerFormat: '<b>{series.name}</b><br />',
+            pointFormat: 'x = {point.x}, y = {point.y}'
+        },
+
+        series: [{
+            data: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512],
+            pointStart: 1
+        }]
+    });
+});
+		</script>
+	</head>
+	<body>
+<script src="../../js/highcharts.js"></script>
+<script src="../../js/modules/exporting.js"></script>
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+	</body>
+</html>

@@ -37,7 +37,20 @@ public class AuthCheckFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-        SystemVisitorLog.count(request.getRemoteAddr());
+
+        String url = null;
+
+        if (request instanceof HttpServletRequest) {
+            url = ((HttpServletRequest)request).getRequestURL().toString();
+        }
+
+        ((HttpServletRequest)request).getRequestURL().toString();
+
+        // all requests count into realtime charts
+        SystemVisitorLog.count();
+
+        if (URLUtils.shouldLog(url))
+            SystemVisitorLog.count(request.getRemoteAddr());
 
 		if (SystemConstant.DOMAIN_URL.isEmpty()) {
 			SystemConstant.DOMAIN_URL = request.getServerName();
@@ -88,9 +101,11 @@ public class AuthCheckFilter implements Filter {
 			}
 
 		} else {
-            User logUser = new User();
-            logUser.setAccount((String)userAccount);
-            SystemVisitorLog.count(logUser);
+            if (URLUtils.shouldLog(url)) {
+                User logUser = new User();
+                logUser.setAccount((String) userAccount);
+                SystemVisitorLog.count(logUser);
+            }
         }
 
 		chain.doFilter(request, response);

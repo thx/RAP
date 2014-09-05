@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Highcharts Example</title>
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<style type="text/css">
+${demo.css}
+		</style>
+		<script type="text/javascript">
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'pie',
+            options3d: {
+                enabled: true,
+                alpha: 45
+            }
+        },
+        title: {
+            text: 'Contents of Highsoft\'s weekly fruit delivery'
+        },
+        subtitle: {
+            text: '3D donut in Highcharts'
+        },
+        plotOptions: {
+            pie: {
+                innerSize: 100,
+                depth: 45
+            }
+        },
+        series: [{
+            name: 'Delivered amount',
+            data: [
+                ['Bananas', 8],
+                ['Kiwi', 3],
+                ['Mixed nuts', 1],
+                ['Oranges', 6],
+                ['Apples', 8],
+                ['Pears', 4],
+                ['Clementines', 4],
+                ['Reddish (bag)', 1],
+                ['Grapes (bunch)', 1]
+            ]
+        }]
+    });
+});
+		</script>
+	</head>
+	<body>
+
+<script src="../../js/highcharts.js"></script>
+<script src="../../js/highcharts-3d.js"></script>
+<script src="../../js/modules/exporting.js"></script>
+
+<div id="container" style="height: 400px"></div>
+	</body>
+</html>
