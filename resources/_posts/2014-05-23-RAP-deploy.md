@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 如何部署RAP服务
+title: RAP部署手册
 ---
 
 {% raw %}
