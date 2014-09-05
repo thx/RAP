@@ -34,6 +34,8 @@ git checkout release
 
 执行`src/database/intialize.sql`，该脚本中包含数据库创建、表&结构创建、必要的初始数据创建的全部内容。
 
+注意！该文件在release分支，路径是[https://github.com/thx/RAP/blob/release/src/database/initialize.sql](https://github.com/thx/RAP/blob/release/src/database/initialize.sql)
+
 ### 配置文件
 
 请正确配置`src/mysql.local.properties`中的数据库连接地址、用户名和密码。
