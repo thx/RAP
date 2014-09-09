@@ -1,56 +1,45 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-#parse('/tcom/template.rap.vm')
+﻿<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Login        </title>
+        #parse('/tcom/template.rap.vm')
         #includeNewRapStatic
+        #if($returnUrlFirstSet)
+            #set($returnUrlEncoded = $!utils.escapeInU($returnUrl))
+        #else
+            #set($returnUrlEncoded = $returnUrl)
+        #end
         <style type="text/css">
-            .container {width:430px;}
+
         </style>
     </head>
-#if($returnUrlFirstSet)
-    #set($returnUrlEncoded = $!utils.escapeInU($returnUrl))
-#else
-    #set($returnUrlEncoded = $returnUrl)
-#end
     <body>
+        <div class="container">
         #bodyNewStart
-        <form name="formMain" action="$accountUrl.doLogin" method="post">
+        <form name="formMain" role="form" action="$accountUrl.doLogin" method="post">
             <input type="hidden" name="returnUrl" value="$!returnUrlEncoded" />
-            <table class="table">
-                <tr>
-                    <td colspan="2"><h4>登录</h4></td>
-                </tr>
-                <tr>
-                    <td>用户名:</td>
-                    <td><input name="account" type="text" value="$!account" width="120px" /></td>
-                </tr>
-                <tr>
-                    <td>密&nbsp;&nbsp;&nbsp;&nbsp;码:</td>
-                    <td><input name="password" type="password" value="" width="120px" /></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" class="btn btn-primary" value="登录" /></td>
-                </tr>
-                #if ($errMsg && $errMsg != "")
-                <tr>
-                    <td></td>
-                    <td><span class="label label-important">$!errMsg</span></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <div class="navbar-form">
-                            <a href="https://$consts.aliLoginUrl/ssoLogin.htm?APP_NAME=rapauto&BACK_URL=$!homeUrlEncoded$!returnUrlEncoded&CANCEL_CERT=true&CLIENT_VERSION=0.3.9&CONTEXT_PATH=%2F">
-                            <span class="btn btn-warning other-login-btn sso-login">用阿里域账号登录</span>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                #end
-            </table>
+            <div class="form-group">
+                <label for="accountInput">登录</label>
+                <input name="account" class="form-control" type="text" value="$!account"  placeholder="请输入账户" />
+            </div>
+            <div class="form-group">
+                <label for="passwordInput">密码</label>
+                <input name="password" class="form-control" type="password" value="" placeholder="请输入密码" />
+            </div>
+            #if ($errMsg && $errMsg != "")
+            <div class="form-group">
+                <div class="alert alert-danger">
+                $!errMsg
+                </div>
+            </div>
+            #end
+            <input type="submit" class="btn btn-default" value="登录" />&nbsp;&nbsp;
+            <a href="https://$consts.aliLoginUrl/ssoLogin.htm?APP_NAME=rapauto&BACK_URL=$!homeUrlEncoded$!returnUrlEncoded&CANCEL_CERT=true&CLIENT_VERSION=0.3.9&CONTEXT_PATH=%2F">
+                <span class="btn btn-warning">域账号登录</span>
+            </a>
         </form>
         #bodyEnd
+        </div>
     </body>
 </html>

@@ -1,5 +1,4 @@
 #parse('/tcom/const.inc.vm')
-
 ## 分页
 #macro (pager $curPagerNum $pagerSize $totalNum $url)
 	<p class="list-page" id="list-page-p">
@@ -95,7 +94,6 @@
 	<script type="text/javascript">document.getElementById('list-page-p').innerHTML = '不存在记录';</script>
 	#end
 #end
-
 #macro (table $lstConfigs $data $options)
 #*	
  *	表格控件
@@ -261,8 +259,6 @@
    });
 </script>
 #end
-
-
 #**
  * @desc : 适用于数据确定的下拉列表、单选组、多选组，数据类型为List型
  * @param {String} name 表单项name属性值
@@ -291,7 +287,6 @@
 		#end
 	#end
 #end
-
 #**
  * @desc : 层级下拉框 
  * @param {String} fName 下拉框fName属性值
@@ -315,7 +310,6 @@
     #end
 </select>
 #end
-
 #**
  * @desc : 层级下拉框(数据源无序)
  * @param {String} fName 下拉框fName属性值
@@ -371,7 +365,6 @@ baidu.dom.ready(function (){
 });
 </script>
 #end
-
 #**
  * @desc : 统一引入错误提示
  *#
@@ -386,8 +379,6 @@ baidu.dom.ready(function (){
     </div>
     #end
 #end
-
-
 #**
  * @desc : 单日历
  * @param {String} name 表单项name属性值
@@ -405,8 +396,7 @@ baidu.dom.ready(function (){
 		value="$!value"
 	/>
  #end
-
- #**
+#**
  * @desc : 双日历
  * @param {String} name 表单项name属性值
  * @param {String} value 默认时间
@@ -429,8 +419,6 @@ baidu.dom.ready(function (){
 		#end
 		/>
 #end
-
-
 #**
 * @desc : 浮动层开头部分代码
 * @param {String} ecId ecui控件Id，在ecFloater.show(ecId)调用使用
@@ -442,7 +430,6 @@ baidu.dom.ready(function (){
 * 浮动层里面的HTML代码
 * #endFloater
 *#
-
 #macro (startFloater $ecId $title $width $height)
     <div ecui="
         type:form;
@@ -460,8 +447,6 @@ baidu.dom.ready(function (){
         </div>
     </div>
 #end
-
-	
 #**
 * @desc : 初始本地存储模块
 * @param {String} ecId 可选，默认为localStorage。ecui控件Id，用户获取ecui本地存储控件。
@@ -473,7 +458,6 @@ baidu.dom.ready(function (){
     #end
     <div ecui="type:Storage;swf:${staticRoot}/flash/Storage.swf;id:$!{ecId}" style="width:1px;height:1px;"></div>
 #end
-
 #**
 * @desc : 提交查询表单时本地保存内容
 * @param {String} ecId 可选，默认为localStorage。ecui控件Id，用户获取ecui本地存储控件。
@@ -485,7 +469,6 @@ baidu.dom.ready(function (){
     #end
    this.localDataId.value = ecui.get('$!ecId').save(this);
 #end
-
 #**
  * @desc : navBar 方案制作导航条 
  *#
@@ -519,7 +502,6 @@ baidu.dom.ready(function (){
  <iframe class="navmask" frameborder="0"></iframe>
  <div class="navbarblock"></div>
 #end
-
 #**
  * @desc : includeNewRapStatic 新版统一引入静态资源 
  *#
@@ -528,7 +510,6 @@ baidu.dom.ready(function (){
 <link rel="stylesheet" href="${staticRoot}/bootstrap3/css/bootstrap-theme.css?_r=$!timeStamp" type="text/css" media="screen">
 <link rel="stylesheet" href="${staticRoot}/css/rap.template.css?_r=$!timeStamp" type="text/css" media="screen">
 <link rel="stylesheet" href="${staticRoot}/js/ui/floater/css/floater.css?_r=$!timeStamp" type="text/css">
-
 <script type="text/javascript" src="${staticRoot}/js/core/jquery-2.1.0.min.js?_r=$!timeStamp"></script>
 <script type="text/javascript" src="${staticRoot}/js/core/tangram-1.2.1.js?_r=$!timeStamp"></script>
 <script type="text/javascript" src="${staticRoot}/js/core/tangram-fix.js?_r=$!timeStamp"></script>
@@ -539,8 +520,6 @@ baidu.dom.ready(function (){
 <script type="text/javascript" src="${staticRoot}/js/ui/floater/js/floater.js?_r=$!timeStamp"></script>
 <script type="text/javascript" src="${staticRoot}/js/core/rap.js?_r=$!timeStamp"></script>
 #end
-
-
 #**
  * @desc : includeRapStatic 统一引入静态资源 
  *#
