@@ -183,7 +183,7 @@
                 }
             },
             title: {
-                text: '实时服务器访问情况'
+                text: '实时服务器QPS'
             },
             xAxis: {
                 type: 'datetime',

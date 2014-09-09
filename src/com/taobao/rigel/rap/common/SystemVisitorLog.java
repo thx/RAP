@@ -131,6 +131,7 @@ public class SystemVisitorLog {
     public static void clear() {
         ipMap.clear();
         userMap.clear();
+        realtimeMap.clear();
     }
 
     public static void debug(String msg) {
