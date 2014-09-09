@@ -69,12 +69,12 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                              <span class="glyphicon glyphicon-th-large"></span>
-                            更多 <span class="caret"></span>
+                            更多功能 <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li>
                                 <a href="#" onclick="window.open('$!workspaceUrl.export?projectId=$!projectId');return false;">
-                                    <span class="glyphicon glyphicon-file"></span>&nbsp;导出Word文档
+                                    <span class="glyphicon glyphicon-file"></span>&nbsp;导出Word
                                 </a>
                             </li>
                             <li>
@@ -83,6 +83,22 @@
                                 Online Docs
                                 </a>
                             </li>
+                            <li>
+                                <a href="http://thx.github.io/RAP/resources/rap-shortcuts/"  target="_blank">
+                                    <span class="glyphicon glyphicon-flash"></span>
+                                    快捷键
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://thx.github.io/RAP/tutorials/"  target="_blank">
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    帮助/教程
+                                </a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&touid=%E9%9C%8D%E9%9B%8D&siteid=cntaobao&status=2&charset=utf-8"><img border="0" src="http://amos.alicdn.com/realonline.aw?v=2&uid=%E9%9C%8D%E9%9B%8D&site=cntaobao&s=2&charset=utf-8" alt="RAP支持" />在线客服</a>
+                            </li>
+
                         </ul>
                     </div>
                 </div>

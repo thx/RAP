@@ -1,5 +1,6 @@
 package com.taobao.rigel.rap.common;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +61,10 @@ public class ActionBase extends ActionSupport {
 	public void setPager(Pager pager) {
 		this.pager = pager;
 	}
+
+    public Long getServerTime() {
+        return new Date().getTime();
+    }
 
     /**
      * void setter for cache aprams

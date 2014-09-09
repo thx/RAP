@@ -2,85 +2,143 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>RAP Log        </title>
-        #parse('/tcom/const.inc.vm')
-        <link rel="stylesheet" href="${staticRoot}/bootstrap-3.2.0-dist/css/bootstrap.css" type="text/css" media="screen">
-        <script type="text/javascript" src="${staticRoot}/js/core/jquery-2.1.0.min.js"></script>
-        <script src="${staticRoot}/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+        <title>RAP Dashboard</title>
+        #parse('/tcom/template.rap.vm')
+        #includeNewRapStatic
+        <script type="text/javascript" src="${staticRoot}/highcharts/js/highcharts.js"></script>
+        <script type="text/javascript" src="${staticRoot}/js/util/dateFormat.min.js"></script>
+        <script type="text/javascript" src="log.js"></script>
+        <style type="text/css">
+            .tab-pane {
+                width: 570px;
+                height: 350px;
+                overflow
+            }
+            #realtime {
+                margin-bottom: 15px;
+                height: 250px;
+            }
+            #debug {display:none;}
+            #debug .content {
+                width: 1140px;
+                word-break: break-all;
+            }
+        </style>
     </head>
     <body>
+        #bodyNewStart
         <div class="container">
-            <h3>RAP系统的实时数据</h3>
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li #if($tabIndex==0)class="active"#end><a href="#statistics" role="tab" data-toggle="tab">RAP统计</a></li>
-                <li #if($tabIndex==1)class="active"#end><a href="#ipLog" role="tab" data-toggle="tab">今日访问 group by IP</a></li>
-                <li #if($tabIndex==2)class="active"#end><a href="#userLog" role="tab" data-toggle="tab">今日访问 group by 用户</a></li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div class="tab-pane fade #if($tabIndex==0)in active#end" id="statistics">
-                    <table class="table table-hover" style="width:300px;">
-                        <thead>
-                        <tr>
-                            <td>#</td>
-                            <td>Key</td>
-                            <td>Count</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            #foreach($item in $modelLog)
-                            <tr>
-                                <td>$velocityCount</td>
-                                <td>$item.key</td>
-                                <td>$item.value</td>
-                            </tr>
-                            #end
-                        </tbody>
-                    </table>
-                </div>
-                <div class="tab-pane fade #if($tabIndex==1)in active#end" id="ipLog">
-                    <table class="table table-hover" style="width:300px;">
-                        <thead>
-                        <tr>
-                            <td>#</td>
-                            <td>IP</td>
-                            <td>Count</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            #foreach($item in $logger.ipLog)
-                            <tr>
-                                <td>$velocityCount</td>
-                                <td>$item.key</td>
-                                <td>$item.value</td>
-                            </tr>
-                            #end
-                        </tbody>
-                    </table>
-                </div>
-                <div class="tab-pane fade #if($tabIndex==2)in active#end" id="userLog">
-                    <table class="table table-hover" style="width:300px;">
-                        <thead>
-                        <tr>
-                            <td>#</td>
-                            <td>Account</td>
-                            <td>Count</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            #foreach($item in $logger.userLog)
-                            <tr>
-                                <td>$velocityCount</td>
-                                <td>$item.key</td>
-                                <td>$item.value</td>
-                            </tr>
-                            #end
-                        </tbody>
-                    </table>
+            <h2><span class="glyphicon glyphicon-dashboard"></span>&nbsp;RAP Dashboard</h2>
+            <div id="debug" class="row">
+                <div class="col-md-12">
+                    <h3>DEBUG INFO</h3>
+                    <div class="content">$realtimeJSON</div>
                 </div>
             </div>
-            <div class="alert alert-info" role="alert">@霍雍 还在努力完善ing...欢迎加入旺旺群 (582755829) 与我们一同探讨接口自动化！了解最新进展请进入<a href="http://github.com/thx/RAP/issues" target="_blank">GitHub</a></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3><span class="glyphicon glyphicon-time"></span>&nbsp;实时数据</h3>
+                    <div id="realtime">loading...</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3><span class="glyphicon glyphicon-signal"></span>&nbsp;趋势数据</h3>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#userTrend" role="tab" data-toggle="tab">用户量趋势</a></li>
+                        <li><a href="#checkInTrend" role="tab" data-toggle="tab">文档提交数趋势</a></li>
+                        <li><a href="#projectTrend" role="tab" data-toggle="tab">项目数趋势</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="userTrend"></div>
+                        <div class="tab-pane fade" id="checkInTrend"></div>
+                        <div class="tab-pane fade" id="projectTrend"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3><span class="glyphicon glyphicon-th"></span>&nbsp;统计数据</h3>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#team" role="tab" data-toggle="tab">团队接口数统计</a></li>
+                        <li><a href="#statistics" role="tab" data-toggle="tab">系统统计</a></li>
+                        <li><a href="#ipLog" role="tab" data-toggle="tab" class="tip" title="数据不包含css/js/html/图片/font等静态文件请求、日志请求"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;今日活跃IP</a></li>
+                        <li><a href="#userLog" role="tab" data-toggle="tab" class="tip" title="数据不包含css/js/html/图片/font等静态文件请求、日志请求"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;今日活跃用户</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="team"></div>
+                        <div class="tab-pane fade" id="statistics">
+                            <table class="table table-hover" style="width:300px;">
+                                <thead>
+                                <tr>
+                                    <td>#</td>
+                                    <td>Key</td>
+                                    <td>Count</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    #foreach($item in $modelLog)
+                                    <tr>
+                                        <td>$velocityCount</td>
+                                        <td>$item.key</td>
+                                        <td>$item.value</td>
+                                    </tr>
+                                    #end
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="ipLog">
+                            <table class="table table-hover" style="width:300px;">
+                                <thead>
+                                <tr>
+                                    <td>#</td>
+                                    <td>IP</td>
+                                    <td>Count</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    #foreach($item in $logger.ipLog)
+                                    <tr>
+                                        <td>$velocityCount</td>
+                                        <td>$item.key</td>
+                                        <td>$item.value</td>
+                                    </tr>
+                                    #end
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="userLog">
+                            <table class="table table-hover" style="width:300px;">
+                                <thead>
+                                <tr>
+                                    <td>#</td>
+                                    <td>Account</td>
+                                    <td>Count</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    #foreach($item in $logger.userLog)
+                                    <tr>
+                                        <td>$velocityCount</td>
+                                        <td>$item.key</td>
+                                        <td>$item.value</td>
+                                    </tr>
+                                    #end
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        #bodyEnd
+        <script>
+            loadTrends($trendsJSON);
+            loadStatistics($statisticsJSON);
+            loadRealtime($realtimeJSON, '$platformUrl.realtimeUpdate', '$serverTime');
+            $('.tip').tooltip();
+        </script>
     </body>
 </html>

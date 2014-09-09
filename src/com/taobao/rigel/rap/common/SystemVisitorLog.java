@@ -11,8 +11,10 @@ import java.util.*;
 public class SystemVisitorLog {
     private static Map<String, Long> ipMap = new HashMap<String, Long>();
     private static Map<String, Long> userMap = new HashMap<String, Long>();
-    private static final org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(SystemVisitorLog.class.getName());
+    private static Map<Long, Integer> realtimeMap = new HashMap<Long, Integer>();
+    private static final int REALTIME_TIME_SPAN = 60;
 
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(SystemVisitorLog.class.getName());
 
     public static List<Item> getIpLog() {
         return getLogMap(ipMap);
@@ -20,6 +22,38 @@ public class SystemVisitorLog {
 
     public static List<Item> getUserLog() {
         return getLogMap(userMap);
+    }
+
+    public static List<Map<String, Object>> getRealtimeMap(Long limitTime) {
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+        if (limitTime == null) {
+            limitTime = Long.MIN_VALUE;
+        }
+
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.MILLISECOND, 0);
+        c.add(Calendar.SECOND, -REALTIME_TIME_SPAN);
+        Long timeStart = c.getTimeInMillis();
+
+
+        for (int i = 0; i < REALTIME_TIME_SPAN; i++) {
+            Map<String, Object> item = new HashMap<String, Object>();
+            Long time = timeStart + 1000 * i;
+
+            if (time <= limitTime) {
+                continue;
+            }
+
+            Integer count = realtimeMap.get(time);
+            if (count == null) {
+                count = 0;
+            }
+            item.put("time", time);
+            item.put("count", count);
+            result.add(item);
+        }
+
+        return result;
     }
 
     private static List<Item> getLogMap(Map<String, Long> map) {
@@ -42,6 +76,21 @@ public class SystemVisitorLog {
         return list;
     }
 
+    public static void count() {
+
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.MILLISECOND, 0);
+
+        Integer nowCount = realtimeMap.get(c.getTimeInMillis());
+
+        if (nowCount == null) {
+            nowCount = 0;
+        }
+
+        nowCount++;
+
+        realtimeMap.put(c.getTimeInMillis(), nowCount);
+    }
 
     public static void count(String ip) {
         Long ipCount = ipMap.get(ip);
@@ -82,6 +131,10 @@ public class SystemVisitorLog {
     public static void clear() {
         ipMap.clear();
         userMap.clear();
+    }
+
+    public static void debug(String msg) {
+        logger.info("[DEBUG]" + msg);
     }
 
 }
