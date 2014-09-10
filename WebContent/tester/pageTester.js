@@ -10,8 +10,6 @@ function wrapHref(url) {
     return '<a href="' + url + '" target="_blank">' + url + '</a>';
 }
 
-
-
 YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify', function (Y) {
     var source = Y.one("#resBoard-template"),
         TResBoard = Y.Handlebars.compile(source),
@@ -203,65 +201,6 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
             }
         });
 
-
-        // initialize tabs
-        (function() {
-            var activeTabIndex = 0,
-                isFirst = true;
-
-            function clearTabsState() {
-                Y.all('.tabs .nav li').each(function(node) {
-                    node.setAttribute('class', '');
-                });
-                Y.all('.tabs .tab').each(function(node) {
-                    node.setAttribute('style', 'display:none');
-                });
-            }
-
-            function showTab(index) {
-                Y.all('.tabs .tab').get(0)[index].setAttribute('style', '');
-            }
-
-            Y.all('.tabs .nav li').each(function(node) {
-                if (isFirst) {
-                    node.setAttribute('class', 'active');
-                    isFirst = false;
-                }
-            });
-            isFirst = true;
-            Y.all('.tabs .tab').each(function(node) {
-                if (isFirst) {
-                    isFirst = false;
-                    node.setAttribute('style', 'display:block');
-                } else {
-                    node.setAttribute('style', 'display:none');
-                }
-            });
-            var i = 0;
-            Y.all('.tabs .nav li a').each(function(node) {
-                node.on('click', (function(i) {
-                    return function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        clearTabsState();
-                        var li = e.target.ancestor('li');
-                        li.setAttribute('class', 'active');
-                        showTab(i);
-                    };
-                })(i++));
-            });
-
-            // initialize navigator
-            Y.all('.nav-list li a').each(function(node) {
-                var path = node.getAttribute('href'),
-                    isCur = location.href.indexOf(path) > -1 ? true : false;
-                if (isCur) {
-                    node.ancestor('li').setAttribute('class', 'active');
-                }
-            });
-
-        }());
-
     });
 
     function sortObj(obj) {
@@ -340,21 +279,14 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
         return '<span style="color:' + c + ';">' + t + '</span>';
     }
 
-    function initResetTab() {
-        Y.one('#divResetUrl').setHTML('请求地址: ' + _resetUrl);
-    }
-
     function initUrl() {
         var path = Y.one('#txtRootPath').get('value'),
             root = '';
         if (path.indexOf('/') != -1) {
             root = 'http://' + path.substring(0, path.indexOf('/'));
         }
-        _resetUrl = root + '/rap/mock/reset.action?projectId=' + PROJECT_ID;
-        _modifyUrl = root + '/rap/mock/modify.action?actionId=' + Y.one('#txtActionId').get('value') +
-            '&mockData=' + encodeURIComponent(Y.one('#textareaModifyScript').get('value'));
+
         _rootUrl = root;
-        initResetTab();
     }
 
 
@@ -362,68 +294,6 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
 
     Y.one('#txtRootPath').on('change', initUrl);
 
-    Y.one('#btnReset').on('click', function(e) {
-        var btn = Y.one('#btnReset'),
-            c = 'disabled';
-        if (btn.hasClass(c)) return;
-        btn.addClass(c);
-        try {
-            log('request starting, url: ' + color(wrapHref(_resetUrl), LIGHT_GRAY));
-            Y.timeLog.time = new Date().getTime();
-            Y.jsonp(_resetUrl, {
-                on : {
-                    success : testResHandler,
-                    timeout : function() {
-                        log(color('timeout', RED) + '... so long time to response!');
-                    },
-                    failure : function(e) {
-                        log(color('error occurred!', RED) + color(', detail:' + e.errors[0].error, LIGHT_GRAY));
-                    }
-                },
-                timeout : 10000,
-                args : [null, btn]
-            });
-        } catch(ex) {
-            alert(ex);
-        }
-    });
-
-    Y.one('#btnShowScript').on('click', function() {
-        initUrl();
-        Y.one('#divResBoardJson').setHTML(_modifyUrl);
-    });
-
-
-    Y.one('#btnModify').on('click', function(e) {
-        if (Y.one('#txtActionId').get('value') === '') {
-            alert('请输入ActionId');
-            return;
-        }
-        var btn = Y.one('#btnModify'),
-            c = 'disabled';
-        if (btn.hasClass(c)) return;
-        btn.addClass(c);
-        initUrl();
-        try {
-            log('request starting, url: ' + color(wrapHref(_modifyUrl), LIGHT_GRAY));
-            Y.timeLog.time = new Date().getTime();
-            Y.jsonp(_modifyUrl, {
-                on : {
-                    success : testResHandler,
-                    timeout : function() {
-                        log(color('timeout', RED) + '... so long time to response!');
-                    },
-                    failure : function(e) {
-                        log(color('error occurred!', RED) + color(', detail:' + e.errors[0].error, LIGHT_GRAY));
-                    }
-                },
-                timeout : 10000,
-                args : [null, btn]
-            });
-        } catch(ex) {
-            alert(ex);
-        }
-    });
 
     setTimeout(function() {
         var logContainer = $('#divResBoardLog');

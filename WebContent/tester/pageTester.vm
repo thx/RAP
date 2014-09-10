@@ -1,108 +1,94 @@
 ﻿<!DOCTYPE html>
-#parse('/tcom/const.inc.vm')
 <html>
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>RAP - $!utils.escapeInH($page.name)控制台</title>
-            <link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
-            <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap.css?_r=$!timeStamp" type="text/css" media="screen">
-            <link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap-responsive.css?_r=$!timeStamp" type="text/css" media="screen">
-            <link rel="stylesheet" href="${staticRoot}/css/rap.template.css?_r=$!timeStamp" type="text/css" media="screen">
-            <link type="text/css" rel="stylesheet" href="${staticRoot}/css/pageTester.css?_r=$!timeStamp" />
-            <script src="http://a.tbcdn.cn/??s/yui/3.6.0/build/yui/yui-min.js"></script>
-            <script src="${staticRoot}/js/util/jsformat.js"></script>
-            <script src="${staticRoot}/js/util/structureValidator.js"></script>
-            <script src="${staticRoot}/js/util/mock-min.js"></script>
-            <script src="${staticRoot}/js/base.js"></script>
-        </head>
-        <body>
-        <h3>$!utils.escapeInH($page.name) - 控制台</h3>
-        <div id="divRootSetting">
-            <label style="color:#666;display: inline; margin-right: 5px;" for="txtRootPath">请求根路径 </label><input id="txtRootPath" type="text" style="width:300px;" value=""></input>
-        </div>
-        <div id="divActionList" class="demo tabs">
-            <div class="nav nav-tabs">
-            #foreach($action in $page.actionList)
-                <li><a href="#">$!utils.escapeInH($action.name)</a></li>
-            #end
-            <!--
-                <li><a href="#">MODIFY</a></li>
-                <li><a href="#">RESET</a></li>
-             -->
+    #parse('/tcom/template.rap.vm')
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>RAP - $!utils.escapeInH($page.name)控制台</title>
+        <link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
+
+        #includeNewRapStatic
+        <link type="text/css" rel="stylesheet" href="${staticRoot}/css/pageTester.css?_r=$!timeStamp" />
+        <script src="http://a.tbcdn.cn/??s/yui/3.6.0/build/yui/yui-min.js"></script>
+        <script src="${staticRoot}/js/util/jsformat.js"></script>
+        <script src="${staticRoot}/js/util/structureValidator.js"></script>
+        <script src="${staticRoot}/js/util/mock-min.js"></script>
+    </head>
+    <body>
+    #bodyNewStart
+        <div class="container">
+            <h3>
+                <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;
+                $!utils.escapeInH($page.name) 页面控制台
+            </h3>
+            <div id="divRootSetting">
+                <label style="color:#666;display: inline; margin-right: 5px;" for="txtRootPath">
+                    请求根路径
+                </label>
+                <input class="form-control" id="txtRootPath" type="text" style="width:300px;" value="" />
             </div>
-            #foreach($action in $page.actionList)
-            <div class="tester-form tab" style="display: none;">
-                <form name="form$!velocityCount" class="form" method="post" path="$!action.requestUrl" onsubmit="return false;">
-                    <input type="hidden" name="paramIdList" class="paramIdList" value="$!action.remarks" />
-                    <div class="p8">
-                        <div style="margin-top:5px;">请求标识: <span style="color:#990000;">$action.id</span></div>
-                        <div style="margin-top:5px;">请求地址: $!utils.escapeInH($action.requestUrl)</div>
-                    </div>
-                    <div class="clearfix">
-                    #foreach($para in $action.requestParameterList)
-                    <div class="item">
-                        <label><span class="name">$!para.identifier</span><input type="text" style="width:100px" class="field" name="$!para.identifier" /></span>
-                        <span class="remark">
-                            <span style="font-size: 12px;">说明</span>
-                            <div class="detail">
-                                <div>- 变量名：$!para.name</div>
-                                <div>- 备注：$!para.remark</div>
-                            </div>
-                        </span>
-                    </div>
+            <div id="divActionList" class="demo tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    #foreach($action in $page.actionList)
+                        <li#if($velocityCount==1) class="active"#end>
+                            <a href="#action${action.id}" role="tab" data-toggle="tab">$!utils.escapeInH($action.name)</a>
+                        </li>
                     #end
+                </ul>
+                <div class="tab-content">
+                #foreach($action in $page.actionList)
+                    <div class="tab-pane fade#if($velocityCount==1) in active#end" id="action$action.id">
+                        <form name="form$!velocityCount" class="form" method="post" path="$!action.requestUrl" onsubmit="return false;">
+                            <input type="hidden" name="paramIdList" class="paramIdList" value="$!action.remarks" />
+                            <div class="p8">
+                                <div style="margin-top:5px;">请求标识: <span style="color:#990000;">$action.id</span></div>
+                                <div style="margin-top:5px;">请求地址: $!utils.escapeInH($action.requestUrl)</div>
+                            </div>
+                            <div class="clearfix">
+                                #foreach($para in $action.requestParameterList)
+                                    <div>
+                                        <span class="name">$!para.identifier</span><input type="text" style="width:100px" class="field" name="$!para.identifier" /></span>
+                                        <span class="remark">
+                                            <span style="font-size: 12px;">说明</span>
+                                            <div class="detail">
+                                                <div>- 变量名：$!para.name</div>
+                                                <div>- 备注：$!para.remark</div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                #end
+                            </div>
+                            <div class="p8 tools">
+                                <input type="button" class="btn btn-primary btn-xs btn-run" value="MockJS数据"/>
+                                <input type="button" class="btn btn-default btn-xs btn-run-mockjsrule" style="margin-left:5px;" value="MockJS模板"/>
+                            </div>
+                        </form>
                     </div>
-                    <div class="p8 tools">
-                        <input type="button" class="btn btn-primary btn-run" value="生成MockJS数据"/>
-                        <input type="button" class="btn btn-primary btn-run-mockjsrule" style="margin-left:5px;" value="生成MockJS模板"/>
-                        <input type="button" class="btn btn-primary btn-run-real" style="margin-left:5px;display:none;" value="真实接口边界条件测试"/>
-                        <span class="real-options" style="display: none; margin-left: 10px;">
-                            <i class="icon icon-arrow-right"></i>
-                            <input type="url" placeholder="请在此输入需要测试的真实接口URL" class="real-url form-control" style="margin-left: 5px; width: 400px; margin-bottom: 0; padding-left: 10px; padding-right: 10px;"/>
-                            <input type="button" class="btn btn-success btn-run-do-real" style="margin-left:5px;" value="开始自动测试"/>
-                        </span>
+                #end
+                </div>
+            </div>
+            <div class="block" id="divResBoard">
+                <div id="divResBoardJson">ready</div>
+                <div id="divResBoardLog">
+                    <div class="triggers clearfix">
+                        <div class="trigger" id="expand-trigger">&#8592;</div>
+                        <div class="trigger" id="up-trigger">&#8593;</div>
+                        <div class="trigger" id="down-trigger">&#8595;</div>
+                        <div class="trigger" id="close-trigger">&#8594;</div>
                     </div>
-                </form>
-            </div>
-            #end
-            <div class="tester-form tab" style="display: none;">
-                <div class="item">
-                    <input type="text" value="" id="txtActionId" placeholder="请输入Action ID" />
                 </div>
-                <div class="item">
-                    <textarea id="textareaModifyScript" placeholder="请输入脚本"></textarea>
-                </div>
-                <div class="item">
-                    <input type="button" class="btn btn-primary" value="生成请求" id="btnShowScript" />
-                    <input type="button" class="btn btn-danger" value="Modify" id="btnModify" />
-                </div>
+                <div class="clear"></div>
             </div>
-            <div class="tester-form tab" style="display: none;">
-                <div class="item" id="divResetUrl">请求地址：fe.lzdp.us:8806/rap/mock/reset.action?projectId=$!projectId</div>
-                <div class="item"><input type="button" class="btn btn-danger" value="Reset" id="btnReset" /></div>
-            </div>
+            <div class="trigger" id="show-trigger">&#8592;</div>
+            <script>
+                var RAP_ROOT = '$consts.DOMAIN_URL$!projectContext/mockjs/$!projectId';
+                document.getElementById("txtRootPath").value = RAP_ROOT;
+                var PROJECT_ID = $!projectId;
+            </script>
+            <script src="./pageTester.js"></script>
         </div>
-        <div class="block" id="divResBoard">
-            <div id="divResBoardJson">ready</div>
-            <div id="divResBoardLog">
-                <div class="triggers clearfix">
-                    <div class="trigger" id="expand-trigger">&#8592;</div>
-                    <div class="trigger" id="up-trigger">&#8593;</div>
-                    <div class="trigger" id="down-trigger">&#8595;</div>
-                    <div class="trigger" id="close-trigger">&#8594;</div>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-        <div class="trigger" id="show-trigger">&#8592;</div>
-        <script>
-            var RAP_ROOT = '$consts.DOMAIN_URL$!projectContext/mockjs/$!projectId';
-            document.getElementById("txtRootPath").value = RAP_ROOT;
-            var PROJECT_ID = $!projectId;
-        </script>
-        <script src="./pageTester.js"></script>
-        <foot>
+    #bodyEnd
+    <foot>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_5879641'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D5879641%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-        </foot>
+    </foot>
     </body>
 </html>
