@@ -25,10 +25,6 @@ body {
 	background-position: 0 -31px;
 }
 
-.workspace .container {
-    width: 90%;
-}
-
 .air {
     margin-top: 5px
 }
@@ -183,6 +179,10 @@ body {
     background: #FAFBFC
 }
 
+.read-only #div-w {
+    margin-top:56px;
+}
+
 
 #div-fixed-panel {
     position: fixed;
@@ -200,7 +200,6 @@ body {
     background-color: #F2F2F2;
     border: 1px solid #DDD;
     border-radius: 0 0 12px 12px;
-    padding-top: 20px;
 }
 
 .tree-m {
@@ -208,6 +207,8 @@ body {
     overflow-y: auto;
     overflow-x: auto;
     float: left;
+    margin-top: 8px;
+
 }
 
 .tree-m .cur a {
@@ -381,7 +382,7 @@ body {
 
 #div-w {
     position: relative;
-    margin-top: 76px;
+    margin-top: 90px;
 }
 
 #div-w-message {
@@ -710,22 +711,16 @@ body {
 .container .label {
     line-height: 20px;
 }
-body .container {
-    margin:auto;
-    width:80%;
-}
 
 #div-workspace-search {
     position: relative;
     display: inline-block;
-    width: 300px;
+    width: 200px;
+    float: left;
 }
 
 #div-workspace-search .glyphicon-search {
 	position: absolute; right: 8px; top: 10px; color: #999;
-}
-#inputSearch {
-	padding-right: 25px;
 }
 
 #dropdown-workspace-search .dropdown-menu {
