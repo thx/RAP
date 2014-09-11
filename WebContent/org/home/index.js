@@ -4,6 +4,10 @@ $(function() {
     //  console.log(data.isOk);
     //}, 'JSON');
 
+    if (!-[1,]) { // IE 6-8
+        $('#browserCheckAlert').show();
+    }
+
     var NAME_MAP = {
         'user': '我的项目',
         'star': '重要项目',

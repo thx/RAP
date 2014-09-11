@@ -10,9 +10,13 @@
 	</head>
 	<body>
 	    #bodyNewStart
+        <div id="browserCheckAlert" class="alert alert-warning alert-dismissible" role="alert" style="display:none;">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <strong>Warning!</strong> 建议使用IE9+/Chrome/Firefox访问RAP，其它浏览器可能不支持某些特性，我们也不会对其兼容性进行维护。
+        </div>
 	    <div class="page home">
 		    <div class="groups-con content">
-		    	<h2>Dashboard</h2>
+		    	<h2>我的主页</h2>
 		    	<div class="groups">
 		    		<div class="loading">加载中，请稍候</div>
 		    	</div>
