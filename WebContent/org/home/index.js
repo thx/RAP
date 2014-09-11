@@ -52,7 +52,7 @@ $(function() {
                 $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
                     $(this).parent('.picked-user').remove();
                 });
-
+                $('.tip').tooltip();
                 $('.project-target .team').change(function() {
                     var corpId = $(this).val();
                     if (corpId === '') {
@@ -178,7 +178,7 @@ $(function() {
                 $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
                     $(this).parent('.picked-user').remove();
                 });
-
+                $('.tip').tooltip();
                 getUsers(function(users) {
                     $('.user-loading').hide();
                     $(that).find('.accounts-inputer').keyup(function() {
@@ -543,4 +543,6 @@ $(function() {
     }
 
     render();
+    $('.tip').tooltip();
+
 });
