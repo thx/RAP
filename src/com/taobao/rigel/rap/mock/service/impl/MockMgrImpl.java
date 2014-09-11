@@ -88,14 +88,10 @@ public class MockMgrImpl implements MockMgr {
 
 		_num = 1;
 		String originalPattern = pattern;
-		// System.out.println("pattern before processed:" + pattern);
 		if (pattern.contains("?")) {
 			pattern = pattern.substring(0, pattern.indexOf("?"));
 		}
-		/**
-		 * if (pattern.charAt(0) == '/') { pattern = pattern.substring(1); }
-		 */
-		// System.out.println("pattern processed:" + pattern);
+
 		List<Action> aList = projectMgr
 				.getMatchedActionList(projectId, pattern);
 		if (aList.size() == 0)
@@ -175,7 +171,6 @@ public class MockMgrImpl implements MockMgr {
 	@Override
 	public String generateRule(int projectId, String pattern,
                                             Map<String, Object> options) throws UnsupportedEncodingException {
-        System.out.print("pattern is:" + pattern);
         if (!isPatternLegal(pattern)) {
             return ERROR_PATTERN;
         }
@@ -191,14 +186,9 @@ public class MockMgrImpl implements MockMgr {
         if (actionId > 0) {
             action = projectMgr.getAction(actionId);
         } else {
-            // System.out.println("pattern before processed:" + pattern);
             if (pattern.contains("?")) {
                 pattern = pattern.substring(0, pattern.indexOf("?"));
             }
-            /**
-             * if (pattern.charAt(0) == '/') { pattern = pattern.substring(1); }
-             */
-            // System.out.println("pattern processed:" + pattern);
             if (pattern.isEmpty()) {
                 return "{\"isOk\":false, \"errMsg\":\"pattern is empty. 路径为空，请检查RAP文档中的请求链接是否正确填写。\"}";
             }
