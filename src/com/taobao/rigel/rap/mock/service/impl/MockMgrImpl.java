@@ -739,8 +739,9 @@ public class MockMgrImpl implements MockMgr {
                 }
 			} else if (mockValue.startsWith("@order")) {
 				return "\"" + StringUtils.escapeInJ(mockValue) + "\"";
-			} else if (para.getDataType().equals("number")
-					|| para.getDataType().equals("boolean")) {
+			} else if ((para.getDataType().equals("number")
+					|| para.getDataType().equals("boolean"))
+                    && !mockValue.startsWith("@")) {
 				return mockValue;
 			} else {
 				if (escape) {
