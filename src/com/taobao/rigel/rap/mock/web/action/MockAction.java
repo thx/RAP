@@ -143,6 +143,7 @@ public class MockAction extends ActionBase {
 		Logger.mock();
 		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
+
 		String result = mockMgr.generateRule(id, pattern, options);
 		if (options.get("callback") != null) {
 			_c = (String) options.get("callback");
