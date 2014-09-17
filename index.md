@@ -70,11 +70,9 @@ RAP开放了Mock规则的API，QA同学可利用这些API，为自动化测试�
 <li><img src="/RAP/assets/img/logos-taobao.png"/></li>
 <li><img src="/RAP/assets/img/logos-aliyun.png"/></li>
 <li><img src="/RAP/assets/img/logos-aligrp.png"/></li>
-<li>携程</li>
-<li>浦东软件园--汇智软件</li>
 </ul>
 
-阿里20个BU以及携程、浦东软件园--汇智软件、部分开源社区人士等都在使用RAP！截止2014年9月17日仅阿里内部的RAP就拥有718名工程师用户，承载275个业务项目，定义了1661个接口，文档提交次数超过8000次。
+目前阿里`20`个BU以及携程、浦东软件园--汇智软件、部分开源社区人士等都在使用RAP！截止`2014年9月17日`仅阿里内部的RAP就拥有`718`名工程师用户，承载`275`个业务项目，定义了`1661`个接口，文档提交次数超过`8000`次。
 
 ## 在线Demo
 <iframe width="100%" height="400" src="http://jsfiddle.net/a5Gg3/2/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
