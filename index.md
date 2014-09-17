@@ -11,10 +11,9 @@ title: RAP
 
 在前后端分离的开发模式下，我们通常需要定义一份 `接口文档`来规范接口的具体信息。如一个请求的：请求地址、请求类型、请求参数、响应参数、每一个参数的名称、类型、含义、备注等等。 <a href="http://rap.alibaba-inc.com" target="_blank">RAP</a>可以方便团队录入、查看、管理和共享这些接口文档，并通过分析这些结构化的文档数据，生成自测数据、校验真实数据等，提升开发效率。
 
-如果您是阿里员工，现在就想访问RAP，请点击 <a href="http://rap.alibaba-inc.com" target="_blank">这里</a>
-
-如果您是外网用户，想部署自己的RAP服务，请点击 <a href="http://thx.github.io/RAP/resources/RAP-deploy/" target="_blank">这里</a>
-
+* 如果您是阿里员工，现在就想访问RAP，请点击 <a href="http://rap.alibaba-inc.com" target="_blank">这里</a>
+* 如果您是外网用户，想部署自己的RAP服务，请点击 <a href="http://thx.github.io/RAP/resources/RAP-deploy/" target="_blank">这里</a>
+* 如果您在使用或部署RAP时遇到问题，请在<a href="http://github.com/thx/RAP/issues" target="_blank">这里</a>反馈
 
 ## RAP介绍&讲解视频
 
