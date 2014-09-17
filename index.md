@@ -11,7 +11,10 @@ title: RAP
 
 在前后端分离的开发模式下，我们通常需要定义一份 `接口文档`来规范接口的具体信息。如一个请求的：请求地址、请求类型、请求参数、响应参数、每一个参数的名称、类型、含义、备注等等。 <a href="http://rap.alibaba-inc.com" target="_blank">RAP</a>可以方便团队录入、查看、管理和共享这些接口文档，并通过分析这些结构化的文档数据，生成自测数据、校验真实数据等，提升开发效率。
 
-如果您现在就想访问RAP，请点击 <a href="http://rap.alibaba-inc.com" target="_blank">这里</a>
+如果您是阿里员工，现在就想访问RAP，请点击 <a href="http://rap.alibaba-inc.com" target="_blank">这里</a>
+
+如果您是外网用户，想部署自己的RAP服务，请点击 <a href="http://thx.github.io/RAP/resources/RAP-deploy/" target="_blank">这里</a>
+
 
 ## RAP介绍&讲解视频
 
@@ -67,9 +70,11 @@ RAP开放了Mock规则的API，QA同学可利用这些API，为自动化测试�
 <li><img src="/RAP/assets/img/logos-taobao.png"/></li>
 <li><img src="/RAP/assets/img/logos-aliyun.png"/></li>
 <li><img src="/RAP/assets/img/logos-aligrp.png"/></li>
-<li>一淘搜索部</li>
-<li>商家业务部</li>
+<li>携程</li>
+<li>浦东软件园--汇智软件</li>
 </ul>
+
+阿里20个BU以及携程、浦东软件园--汇智软件、部分开源社区人士等都在使用RAP！截止2014年9月17日仅阿里内部的RAP就拥有718名工程师用户，承载275个业务项目，定义了1661个接口，文档提交次数超过8000次。
 
 ## 在线Demo
 <iframe width="100%" height="400" src="http://jsfiddle.net/a5Gg3/2/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
