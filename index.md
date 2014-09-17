@@ -7,21 +7,21 @@ title: RAP
 
 ## 什么是RAP?
 
-<div style="font-size: 20px; text-align: center; margin-top: 40px; margin-bottom: 40px; color: #af235d; font-weight: bold;">RAP — 随时随地 编辑、查看、使用、校验接口数据</div>
+<div style="font-size: 20px; text-align: center; margin-top: 40px; margin-bottom: 40px; color: #af235d; font-weight: bold;">RAP — 接口管理&自动化工具</div>
 
-在前后端分离的开发模式下，我们通常需要定义一份 `接口文档`来规范接口的具体信息。如一个请求的：请求地址、请求类型、请求参数、响应参数、每一个参数的名称、类型、含义、备注等等。 <a href="http://rap.alibaba-inc.com" target="_blank">RAP</a>可以方便团队录入、查看、管理和共享这些接口文档，并通过分析这些结构化的文档数据，生成自测数据、校验真实数据等，提升开发效率。
+在前后端分离的开发模式下，我们通常需要定义一份 `接口文档`来规范接口的具体信息。如一个请求的请求地址、请求类型、请求参数、响应参数、每一个参数的名称、类型、含义、备注等等。 RAP可以方便团队录入、查看、管理和共享这些接口文档，并通过分析这些结构化的文档数据，生成MOCK数据、校验真实接口、提供一系列的自动化工具来提升工作效率。
 
-* 如果您是阿里员工，现在就想访问RAP，请点击 <a href="http://rap.alibaba-inc.com" target="_blank">这里</a>
-* 如果您是外网用户，想部署自己的RAP服务，请点击 <a href="http://thx.github.io/RAP/resources/RAP-deploy/" target="_blank">这里</a>
-* 如果您在使用或部署RAP时遇到问题，请在<a href="http://github.com/thx/RAP/issues" target="_blank">这里</a>反馈
+* 访问阿里内网部署的RAP请点 <a href="http://rap.alibaba-inc.com" target="_blank">这里</a>
+* 想部署自己的RAP服务器，请点击 <a href="http://thx.github.io/RAP/resources/RAP-deploy/" target="_blank">这里</a>
+* 使用或部署RAP时遇到问题，请在<a href="http://github.com/thx/RAP/issues" target="_blank">这里</a>反馈
 
-## RAP介绍&讲解视频
+## 上手并了解RAP只需5分钟!
 
 <iframe height=498 width=610 src="http://player.youku.com/embed/XNjk5NjMxODA4" frameborder=0 allowfullscreen></iframe>
 
 片源: <a href="http://cloud.video.taobao.com//play/u/11051796/p/1/e/1/t/1/11622279.swf" target="_blank">淘宝视频(推荐)</a> <a href="http://v.youku.com/v_show/id_XNjk5NjMxODA4.html" target="_blank">优酷</a>
 
-## 为什么使用RAP？
+## 为什么使用RAP管理接口文档？
 
 ### 图形化的接口数据编辑
 
@@ -35,6 +35,10 @@ RAP将接口数据结构化的存储在服务器中，在接口数据快捷编�
 ### 简单高效的模拟数据生成
 
 通过引入插件，`一行代码`即可将整个Web系统的异步请求导入RAP，享用 `RAP + Mockjs` 提供的多样化的模拟数据。
+
+### 结构化的版本对比
+
+和目前市场上的其它接口工具不同，RAP在文档的编写&提交&校验时，通过GUI来保证结构的正确性。在出现版本问题时，不会出现诡异的纯文本DIFF，而是基于RAP文档结构去比较并处理版本冲突。所以RAP在处理复杂接口的问题上具有先天的优势。
 
 ### 全周期的接口数据支持
 
@@ -85,16 +89,6 @@ RAP开放了Mock规则的API，QA同学可利用这些API，为自动化测试�
 - 本Demo 使用的接口数据是 `/onlinedemo.do` 对应的数据，接口配置截图如下：
 
 <img src="/RAP/assets/img/rap-config.png"/>
-
-## 相关链接
-
-- [快速上手视频(用前必读)](http://v.youku.com/v_show/id_XNjc3NTY2MzI0.html)
-- [详细介绍](http://thx.github.io/RAP/resources/rap-intro/)
-- [文档中心](http://thx.github.io/RAP/)
-- [Github](https://github.com/thx/RAP)
-- [更新日志](https://github.com/thx/RAP/blob/master/UPDATELOG.md)
-- [进入RAP(暂限阿里内网)](http://rap.alibaba-inc.com)
-- [THX平台](http://thx.github.io)
 
 {% endraw %}
 
