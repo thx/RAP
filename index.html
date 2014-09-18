@@ -19,7 +19,7 @@
 
     <!-- Custom Fonts -->
     <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="css/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="css/css.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,23 +38,25 @@
         <ul class="sidebar-nav">
             <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
             <li class="sidebar-brand">
-                <a href="#top">Start Bootstrap</a>
-            </li>
-            <li>
-                <a href="#top">Home</a>
+                <a href="#top">RAP</a>
             </li>
             <li>
                 <a href="#about">About</a>
             </li>
             <li>
-                <a href="#services">Services</a>
+                <a href="#services">Features</a>
             </li>
             <li>
-                <a href="#portfolio">Portfolio</a>
+                <a href="#portfolio">Scenes</a>
             </li>
+            <li>
+                <a href="#data">Data</a>
+            </li>
+
             <li>
                 <a href="#contact">Contact</a>
             </li>
+
         </ul>
     </nav>
 
@@ -65,7 +67,7 @@
             <h3>Faster than faster</h3>
             <br>
             <a href="#about" class="btn btn-dark btn-lg">More</a>
-            <a href="index_zh.html" class="btn btn-dark btn-lg">中文</a>
+            <a href="index.html" class="btn btn-dark btn-lg">中文</a>
         </div>
     </header>
 
@@ -74,8 +76,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Stylish Portfolio is the perfect theme for your next project!</h2>
-                    <p class="lead">This theme features some wonderful photography courtesy of <a target="_blank" href="http://join.deathtothestockphoto.com/">Death to the Stock Photo</a>.</p>
+                    <h2>RAP是一个可视化接口管理工具</h2>
+                    <p class="lead">通过分析接口结构，动态生成模拟数据，校验真实接口正确性，<br />围绕接口定义，通过一系列自动化工具提升我们的协作效率。</p>
                 </div>
             </div>
             <!-- /.row -->
@@ -89,7 +91,7 @@
         <div class="container">
             <div class="row text-center">
                 <div class="col-lg-10 col-lg-offset-1">
-                    <h2>Our Services</h2>
+                    <h2>主要功能</h2>
                     <hr class="small">
                     <div class="row">
                         <div class="col-md-3 col-sm-6">
@@ -99,10 +101,10 @@
                                 <i class="fa fa-cloud fa-stack-1x text-primary"></i>
                             </span>
                                 <h4>
-                                    <strong>Service Name</strong>
+                                    <strong>轻松编辑与分享</strong>
                                 </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <a href="#" class="btn btn-light">Learn More</a>
+                                <p>可视化编辑，完善的版本控制，各种格式的导入导出。让前后端约定接口的工作变得十分简单</p>
+                                <a href="https://github.com/thx/RAP/wiki" class="btn btn-light" target="_blank">了解更多</a>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
@@ -112,10 +114,10 @@
                                 <i class="fa fa-compass fa-stack-1x text-primary"></i>
                             </span>
                                 <h4>
-                                    <strong>Service Name</strong>
+                                    <strong>Mock服务</strong>
                                 </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <a href="#" class="btn btn-light">Learn More</a>
+                                <p>RAP会自动根据接口文档生成MOCK接口，这些接口会自动生成模拟数据，支持复杂的生成逻辑。</p>
+                                <a href="https://github.com/thx/RAP/wiki" target="_blank" class="btn btn-light">了解更多</a>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
@@ -125,10 +127,10 @@
                                 <i class="fa fa-flask fa-stack-1x text-primary"></i>
                             </span>
                                 <h4>
-                                    <strong>Service Name</strong>
+                                    <strong>自动化工具集</strong>
                                 </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <a href="#" class="btn btn-light">Learn More</a>
+                                <p>除了RAP开发团队提供的各种自动化工具，通过Blueprint API的引入，我们不断支持更多新工具。</p>
+                                <a href="https://github.com/thx/RAP/wiki" target="_blank" class="btn btn-light">了解更多</a>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
@@ -138,10 +140,10 @@
                                 <i class="fa fa-shield fa-stack-1x text-primary"></i>
                             </span>
                                 <h4>
-                                    <strong>Service Name</strong>
+                                    <strong>实力的保障</strong>
                                 </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <a href="#" class="btn btn-light">Learn More</a>
+                                <p>已服务于阿里20个部门，历经4年积累大量经验，可适应各种复杂的业务场景。技术支持迅速专业。</p>
+                                <a href="https://github.com/thx/RAP/wiki" target="_blank" class="btn btn-light">了解更多</a>
                             </div>
                         </div>
                     </div>
@@ -157,7 +159,7 @@
     <!-- Callout -->
     <aside class="callout">
         <div class="text-vertical-center">
-            <h1>Vertically Centered Text</h1>
+            <h1>一直被模仿，从未被超越</h1>
         </div>
     </aside>
 
@@ -166,40 +168,42 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1 text-center">
-                    <h2>Our Work</h2>
+                    <h2>可视化编辑，用户体验至上</h2>
                     <hr class="small">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="portfolio-item">
-                                <a href="#">
-                                    <img class="img-portfolio img-responsive" src="img/portfolio-1.jpg">
+                                <a href="#" onclick="return false;">
+                                    <img class="img-portfolio img-responsive" src="img/scene1.png">
                                 </a>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="portfolio-item">
-                                <a href="#">
-                                    <img class="img-portfolio img-responsive" src="img/portfolio-2.jpg">
+                                <a href="#" onclick="return false;">
+                                    <img class="img-portfolio img-responsive" src="img/scene2.png">
                                 </a>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="portfolio-item">
-                                <a href="#">
-                                    <img class="img-portfolio img-responsive" src="img/portfolio-3.jpg">
+                                <a href="#" onclick="return false;">
+                                    <img class="img-portfolio img-responsive" src="img/scene3.png">
                                 </a>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="portfolio-item">
-                                <a href="#">
-                                    <img class="img-portfolio img-responsive" src="img/portfolio-4.jpg">
+                                <a href="#" onclick="return false;">
+                                    <img class="img-portfolio img-responsive" src="img/scene4.png">
                                 </a>
                             </div>
                         </div>
                     </div>
                     <!-- /.row (nested) -->
+                    <!--
                     <a href="#" class="btn btn-dark">View More Items</a>
+                    -->
                 </div>
                 <!-- /.col-lg-10 -->
             </div>
@@ -208,40 +212,80 @@
         <!-- /.container -->
     </section>
 
+    <!-- Portfolio -->
+    <section id="data" class="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h2>RAP的使用数据</h2>
+                    <hr class="small">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="portfolio-item">
+                                <a href="#" onclick="return false;">
+                                    <img class="img-portfolio img-responsive" src="img/data1.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="portfolio-item">
+                                <a href="#" onclick="return false;">
+                                    <img class="img-portfolio img-responsive" src="img/data2.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="portfolio-item">
+                                <a href="#" onclick="return false;">
+                                    <img class="img-portfolio img-responsive" src="img/data3.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="portfolio-item">
+                                <a href="#" onclick="return false;">
+                                    <img class="img-portfolio img-responsive" src="img/data4.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                    <!--
+                    <a href="#" class="btn btn-dark">View More Items</a>
+                    -->
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+
     <!-- Call to Action -->
-    <aside class="call-to-action bg-primary">
+    <aside class="call-to-action bg-primary" id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h3>The buttons below are impossible to resist.</h3>
-                    <a href="#" class="btn btn-lg btn-light">Click Me!</a>
-                    <a href="#" class="btn btn-lg btn-dark">Look at Me!</a>
+                    <h3>更重要的是，RAP是开源且免费的!</h3>
+                    <a href="http://github.com/thx/RAP" class="btn btn-lg btn-light">GitHub</a>
+                    <a href="http://github.com/thx/RAP/issues" class="btn btn-lg btn-dark">反馈问题</a>
                 </div>
             </div>
         </div>
     </aside>
-
-    <!-- Map -->
-    <section id="contact" class="map">
-        <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
-        <br />
-        <small>
-            <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
-        </small>
-        </iframe>
-    </section>
 
     <!-- Footer -->
     <footer>
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1 text-center">
-                    <h4><strong>Start Bootstrap</strong>
+                    <h4><strong>阿里妈妈MUX出品</strong>
                     </h4>
-                    <p>3481 Melrose Place<br>Beverly Hills, CA 90210</p>
+                    <p><a href="http://thx.github.io">更多前端工具</a></p>
                     <ul class="list-unstyled">
-                        <li><i class="fa fa-phone fa-fw"></i> (123) 456-7890</li>
-                        <li><i class="fa fa-envelope-o fa-fw"></i>  <a href="mailto:name@example.com">name@example.com</a>
+                        <li><i class="fa fa-github fa-fw"></i> <a href="http://github.com/thx/RAP" target="_blank">GitHub</a></li>
+                        <li><i class="fa fa-envelope-o fa-fw"></i>  <a href="mailto:bosn@outlook.com">bosn@outlook.com</a>
                         </li>
                     </ul>
                     <br>
@@ -257,7 +301,7 @@
                         </li>
                     </ul>
                     <hr class="small">
-                    <p class="text-muted">Copyright &copy; Your Website 2014</p>
+                    <p class="text-muted">Copyright &copy; Alimama MUX 2014</p>
                 </div>
             </div>
         </div>
