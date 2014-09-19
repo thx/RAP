@@ -21,19 +21,19 @@
             <input type="hidden" name="returnUrl" value="$!returnUrlEncoded" />
             <table class="table">
                 <tr>
-                    <td colspan="2"><h4>登录</h4></td>
+                    <td colspan="2"><h4>Login</h4></td>
                 </tr>
                 <tr>
-                    <td>用户名:</td>
+                    <td>User Name:</td>
                     <td><input name="account" type="text" value="$!account" width="120px" /></td>
                 </tr>
                 <tr>
-                    <td>密&nbsp;&nbsp;&nbsp;&nbsp;码:</td>
+                    <td>Password</td>
                     <td><input name="password" type="password" value="" width="120px" /></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" class="btn btn-primary" value="登录" /></td>
+                    <td><input type="submit" class="btn btn-primary" value="Login" /></td>
                 </tr>
                 #if ($errMsg && $errMsg != "")
                 <tr>

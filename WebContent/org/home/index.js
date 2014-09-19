@@ -5,10 +5,10 @@ $(function() {
     //}, 'JSON');
 
     var NAME_MAP = {
-        'user': '我的项目',
-        'star': '重要项目',
-        'heart': '我关注的项目',
-        'tag': '我加入的项目'
+        'user': 'My project',
+        'star': 'Important project',
+        'heart': 'Followed project',
+        'tag': 'Joined project'
     };
 
     var PL_ID = null;
@@ -36,8 +36,8 @@ $(function() {
 
         $.confirm({
             content: $.render($('#create-proj-tmpl').text(), {}),
-            title: '创建项目',
-            confirmText: '确认创建',
+            title: 'create project',
+            confirmText: 'confirm',
             cancelCallback: function() {
                 btn.data('shown', 0);
             },
@@ -126,7 +126,7 @@ $(function() {
                     accounts: values.join(', ')
                 }, function(data) {
                     data = data.result;
-                    data.status = data.status || '刚刚创建';
+                    data.status = data.status || 'just now';
                     var html = $.render(tmpl, data);
                     $(that).before(html);
                     modal.modal('hide');
@@ -166,8 +166,8 @@ $(function() {
                 desc: desc,
                 users: pickeds
             }),
-            title: '修改项目',
-            confirmText: '确认修改',
+            title: 'alter project',
+            confirmText: 'confirm',
             showCallback: function() {
                 var that = this;
                 $(this).find('input[type=text]').focus();
@@ -214,7 +214,7 @@ $(function() {
                         return;
                     }
                     data = data.result;
-                    data.status = data.status || '刚刚更新';
+                    data.status = data.status || 'just now';
                     var html = $.render(tmpl, data);
                     box.replaceWith(html);
                     modal.modal('hide');
@@ -229,7 +229,7 @@ $(function() {
         var host = location && location.host ? location.host : '/';
         $.message({
              content: '<input type="text" id="rap-plugin-inputer" class="form-control" value="<script src=\'http://' + host + '/rap.plugin.js?projectId=' + id + '\'></script>" />',
-             title: '复制RAP插件地址',
+             title: 'copy RAP plugin address',
              showCallback: function() {
                  $('#rap-plugin-inputer').focus();
              }
@@ -239,7 +239,7 @@ $(function() {
     function handleCreateProductline() {
         $.confirm({
             content: $.render($('#create-productline').text(), {}),
-            title: '添加产品线',
+            title: 'ddd production line',
             confirmText: '确定',
             showCallback: function() {
                 $(this).find('input[type=text]').focus();
@@ -262,7 +262,7 @@ $(function() {
                 }, function(data) {
                     var productlines = data.items;
                     if (!productlines) {
-                        alert('创建失败，请稍后再试');
+                        alert('create failed, please try laster');
                         return;
                     }
                     var pl = productlines[0];
@@ -286,24 +286,24 @@ $(function() {
     function showCreateGroupBtn(id, name) {
         PL_ID = id;
         $('.create-new-entity-container').hide().html(
-                '<div class="create-group btn btn-default" style="margin-top: 10px;">为 “' + name + '” 产品线创建新分组</div>').slideDown();
+                '<div class="create-group btn btn-default" style="margin-top: 10px;">create group for ' + name + ' </div>').slideDown();
     }
 
     function showCreateProductlineBtn(id, name) {
         CORP_ID = id;
         $('.create-new-entity-container').hide().html(
-                '<div class="create-productline btn btn-default" style="margin-top: 10px;">为 “' + name + '” 创建新产品线</div>').slideDown();
+                '<div class="create-productline btn btn-default" style="margin-top: 10px;">create production line for ' + name + '</div>').slideDown();
     }
 
     function resetGroupSelect() {
-        $('.project-target .group').html('<option>--请选择分组--</option>');
+        $('.project-target .group').html('<option>--Please choose group--</option>');
     }
 
     function handleCreateGroup() {
         $.confirm({
             content: $('#create-group-tmpl').text(),
-            title: '创建分组',
-            confirmText: '确认创建',
+            title: 'create group',
+            confirmText: 'confirm',
             showCallback: function() {
                 $(this).find('input[type=text]').focus();
             },
@@ -325,13 +325,13 @@ $(function() {
                 }, function(data) {
                     var groups = data.groups;
                     if (!groups) {
-                        alert('创建失败，请稍后再试');
+                        alert('create failed, try again later');
                         return;
                     }
                     var group = groups[0];
                     var select = $('.project-target .group').append('<option value="' + group.id + '">' + group.name + '</option>');
                     setTimeout(function() {
-                        select.find('[value=""]').text('--请选择--');
+                        select.find('[value=""]').text('--choose--');
                         select.val(group.id);
                     }, 100);
                     modal.modal('hide');
@@ -344,9 +344,9 @@ $(function() {
         var id = $(this).data('id');
         var box = $(this).parents('.box');
         $.confirm({
-            content: '删除以后不可恢复，请谨慎操作',
-            title: '删除项目',
-            confirmText: '确认删除',
+            content: 'deleted items can not be recovered, are you sure?',
+            title: 'delete project',
+            confirmText: 'confirm',
             confirmClicked: function() {
                 var modal = $(this);
                 $.post($.route('org.project.delete'), {
@@ -378,16 +378,16 @@ $(function() {
     function fillSelectAsync(route, params, tmpl, target, callback) {
         callback && callback();
         $(target).html($.render(tmpl, {
-            items: [{id: '', name: '加载中...'}]
+            items: [{id: '', name: 'loading...'}]
         }));
         $.get($.route(route), params, function(data) {
             if (data.groups) {
                 data.items = data.groups;
             }
             if (data.items.length === 0) {
-                data.items = [{id: '', name: '--无查询结果--'}];
+                data.items = [{id: '', name: '--no result--'}];
             } else {
-                data.items.unshift({id: '', name: '--请选择--'});
+                data.items.unshift({id: '', name: '--choose--'});
             }
 
             var html = $.render(tmpl, data);
@@ -431,7 +431,7 @@ $(function() {
                 }
                 jqThis.data('searching', 0);
                 if (data && data.length === 0) {
-                    data = [{id: '-1', name: '没有找到 "' + val + '" 对应的项目，o(╯□╰)o'}];
+                    data = [{id: '-1', name: 'Can not find  "' + val + '" related projects，o(╯□╰)o'}];
                 }
                 ul.html($.render($('#project-autocomplete-li').text(), {
                     projects: data
@@ -528,7 +528,7 @@ $(function() {
                 projects: newGroup
             });
             data.groups.forEach(function (group) {
-                group.name = NAME_MAP[group.type] || '其他';
+                group.name = NAME_MAP[group.type] || 'other';
             });
             var html = $.render(tmpl, data);
             $(".groups").html(html);

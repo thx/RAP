@@ -227,16 +227,16 @@ function deepCopy(o) {
             return true;
         }
 
-        Validate.ERR_SUBMIT = "数据无法向服务器提交";
-        Validate.AFFIRM_REMOVE = "真的要删除它吗？";
-        Validate.ERR_REQUIRED = "#{0}不能为空";
-        Validate.ERR_LEAST_LETTER = "#{0}至少需要包含#{1}字节";
-        Validate.ERR_MOST_LETTER = "#{0}最多只能包含#{1}字节";
-        Validate.ERR_LEAST_CHAR = "#{0}至少需要包含#{1}字符";
-        Validate.ERR_MOST_CHAR = "#{0}最多只能包含#{1}字符";
-        Validate.ERR_MINIMUL = "#{0}必须大于#{1}";
-        Validate.ERR_MAXIMUL = "#{0}必须小于#{1}";
-        Validate.ERR_INVAILD = "#{0}无效";
+        Validate.ERR_SUBMIT = "Server not responsed.";
+        Validate.AFFIRM_REMOVE = "Are you sure to delete?";
+        Validate.ERR_REQUIRED = "#{0} can't be empty.";
+        Validate.ERR_LEAST_LETTER = "#{0} at least #{1} chars";
+        Validate.ERR_MOST_LETTER = "#{0} can have #{1} chars at most";
+        Validate.ERR_LEAST_CHAR = "#{0} must have #{1} chars at lease";
+        Validate.ERR_MOST_CHAR = "#{0} can contain #{1} chars at most";
+        Validate.ERR_MINIMUL = "#{0} should larger than #{1}";
+        Validate.ERR_MAXIMUL = "#{0} should less than #{1}";
+        Validate.ERR_INVAILD = "#{0} invalid";
 
         /**
          * 验证整个区域内的元素
@@ -671,7 +671,7 @@ function deepCopy(o) {
     p.addAction = function(obj, addExisted, isCopy) {
         obj = deepCopy(obj);
         if (isCopy) {
-            obj.name += '-副本';
+            obj.name += '-copy';
         }
         var oldId = obj.id;
         obj.id = generateId();
@@ -1233,60 +1233,60 @@ function deepCopy(o) {
         _isMockDisplay,                 // will mock labels displayed, default:false
         URL      = null,                // url object, contains all url required
         MESSAGE = {
-            "CONFIRM_COVER"                     : "是否确定覆盖旧的内容?",
-            "CONFIRM_SAVE"                      : "是否确认保存?",
-            "CONFIRM_CANCEL"                    : "是否确定取消?",
-            "CONFIRM_CHECKIN"                   : "是否确定提交?",
-            "CONFIRM_CHECKOUT"                  : "是否确定获取?",
-            "CHECK_LOCK_CONFLICKTION"           : "正在为您检查工作区锁定状态...",
-            "CHECK_LOCK_CONFLICKTION_COMPLETED" : "您已成功切换至编辑状态，该项目已被您锁定。",
-            "CHOOSE_AT_FIRST"                   : "请先选择您要操作的选项.",
-            "SAVE_LIST_MAX_LENGTH_OVERFLOW"     : "您的存档空间已满，请删除不必要的存档，或覆盖旧的存档。",
-            "CONFIRM_DELETE"                    : "您是否确认删除?",
-            "LOADING"                           : "加载中...",
-            "LOAD"                              : "已完成加载",
-            "MODULE_LOADING"                    : "正在加载项目模块...",
-            "MODULE_LOAD"                       : "项目模块加载完成",
-            "VERSION_LOADING"                   : "正在请求版本信息...",
-            "VERSION_LOAD"                      : "版本信息已加载",
-            "VERSION_EXIT"                      : "已退出版本观看模式",
-            "VERSION_SWITCHING"                 : "正在为您切换版本...",
-            "VERSION_SWITCHED"                  : "版本切换成功",
-            "VERSION_SWITCH_ERROR"              : "版本切换中发生错误，已恢复至切换前",
-            "SAVING"                            : "正在保存...",
-            "SAVED"                             : "保存成功",
-            "DELETING"                          : "正在删除...",
-            "DELETED"                           : "删除成功",
-            "PROCESSING"                        : "正在处理中,请稍后...",
-            "PROCESSED"                         : "处理成功",
-            "ERROR"                             : "出现错误，请稍后重试。",
-            "DO_NOT_DOUBLE_CLICK"               : "您的请求正在处理，请勿重复点击。",
-            "FATAL_ERROR"                       : "发生严重错误，请联系维护人员并保留现场。",
-            "SESSION_DELAY_ERROR"               : "Session延时发生异常，建议您立即保存工作区并联系维护人员."
+            "CONFIRM_COVER"                     : "Are you sure to cover old data?",
+            "CONFIRM_SAVE"                      : "Sure to save?",
+            "CONFIRM_CANCEL"                    : "Sure to cancel?",
+            "CONFIRM_CHECKIN"                   : "Sure to submit?",
+            "CONFIRM_CHECKOUT"                  : "Sure to checkout?",
+            "CHECK_LOCK_CONFLICKTION"           : "Checking lock status...",
+            "CHECK_LOCK_CONFLICKTION_COMPLETED" : "Successfully switch to edit view, project has been locked by you.",
+            "CHOOSE_AT_FIRST"                   : "Please choose your option.",
+            "SAVE_LIST_MAX_LENGTH_OVERFLOW"     : "Not enough space.",
+            "CONFIRM_DELETE"                    : "Sure to delete?",
+            "LOADING"                           : "Loading...",
+            "LOAD"                              : "Loaded.",
+            "MODULE_LOADING"                    : "Loading modules...",
+            "MODULE_LOAD"                       : "Modules loaded.",
+            "VERSION_LOADING"                   : "Requesting version data...",
+            "VERSION_LOAD"                      : "Version data loaded.",
+            "VERSION_EXIT"                      : "Version view exited.",
+            "VERSION_SWITCHING"                 : "Swithcing version...",
+            "VERSION_SWITCHED"                  : "Version switched.",
+            "VERSION_SWITCH_ERROR"              : "Version switch errored, recovered to view before.",
+            "SAVING"                            : "Saving...",
+            "SAVED"                             : "Save successful",
+            "DELETING"                          : "Deleting...",
+            "DELETED"                           : "Deleted.",
+            "PROCESSING"                        : "Loaidng...",
+            "PROCESSED"                         : "Process successfully",
+            "ERROR"                             : "Error occurred, please try laster!",
+            "DO_NOT_DOUBLE_CLICK"               : "Your request is being processed, please don't repeatedly submit.",
+            "FATAL_ERROR"                       : "Fatal error.",
+            "SESSION_DELAY_ERROR"               : "Session Fatal error."
         },
         TEMPLATE = {            // static template
 
-            "REQUEST_BEGIN"                 : "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
-            "REQUEST_BEGIN_EDIT"            : "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "REQUEST_BEGIN"                 : "<h2>Request Param List</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">Variable Name</td><td class=\"head-name\">Meaning</td><td class=\"head-type\">Data Type</td><td class=\"head-remark\">Remarks</td></tr>",
+            "REQUEST_BEGIN_EDIT"            : "<h2>Request Param List</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">Variable Name</td><td class=\"head-name\">Meaning</td><td class=\"head-type\">Data Type</td><td class=\"head-remark\">Remark</td></tr>",
             "REQUEST_END"                   : "</table>",
-            "REQUEST_PARAMETER_ADD_BUTTON"  : "<div class='btns-container'><a href=\"#\" class=\"btn btn-info btn-xs\" onclick=\"ws.addParam('request'); return false;\"><i class='glyphicon glyphicon-plus'></i>添加参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(true); return false;\"><i class='glyphicon glyphicon-transfer'></i>导入JSON</a></div>",
+            "REQUEST_PARAMETER_ADD_BUTTON"  : "<div class='btns-container'><a href=\"#\" class=\"btn btn-info btn-xs\" onclick=\"ws.addParam('request'); return false;\"><i class='glyphicon glyphicon-plus'></i>Add Param</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(true); return false;\"><i class='glyphicon glyphicon-transfer'></i>Import JSON</a></div>",
 
-            "RESPONSE_BEGIN"                : "<h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
-            "RESPONSE_BEGIN_EDIT"           : "<h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "RESPONSE_BEGIN"                : "<h2>Response Param List</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">Variable Name</td><td class=\"head-name\">Meaning</td><td class=\"head-type\">Data Type</td><td class=\"head-remark\">Remark</td></tr>",
+            "RESPONSE_BEGIN_EDIT"           : "<h2>Response Param List</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">Variable Name</td><td class=\"head-name\">meaning</td><td class=\"head-type\">Data Type</td><td class=\"head-remark\">Remark</td></tr>",
             "RESPONSE_END"                  : "</table>",
-            "RESPONSE_PARAMETER_ADD_BUTTON" : "<div class='btns-container'><a href=\"#\" class=\"btn btn-info btn-xs\" onclick=\"ws.addParam('response'); return false;\"><i class='glyphicon glyphicon-plus'></i>添加参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(); return false;\"><i class='glyphicon glyphicon-transfer'></i>导入JSON</a></div>",
+            "RESPONSE_PARAMETER_ADD_BUTTON" : "<div class='btns-container'><a href=\"#\" class=\"btn btn-info btn-xs\" onclick=\"ws.addParam('response'); return false;\"><i class='glyphicon glyphicon-plus'></i>Add Param</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(); return false;\"><i class='glyphicon glyphicon-transfer'></i>Import JSON</a></div>",
 
             "SAVE_PANEL_BEGIN"              : "<div id=\"div-save-panel\">",
             "SAVE_PANEL_END"                : "</div>",
 
-            "VERSION_PANEL_BEGIN"           : "<div id=\"div-version-panel\"><table class='table-version'><tr class='head'><td class='version-op'>OP</td><td class='version'>版本</td><td class='operator'>操作人</td><td class='operation-time'>操作时间</td><td class='version-desc'>描述</td></tr>",
+            "VERSION_PANEL_BEGIN"           : "<div id=\"div-version-panel\"><table class='table-version'><tr class='head'><td class='version-op'>OP</td><td class='version'>Version</td><td class='operator'>Operator</td><td class='operation-time'>Operate Time</td><td class='version-desc'>DESC</td></tr>",
             "VERSION_PANEL_END"             : "</table></div>",
 
             "MODULE_ADD_BUTTON"             : "<div id=\"div-add-m\"><a href=\"#\" class=\"add-link add-link-module\" onclick=\"ws.addM(); return false;\"><i class='glyphicon glyphicon-plus' style='color:#5bc0de'></i></a></div>",
 
             "SEPERATOR"                     : "<div class=\"seperator\"></div>" ,
 
-            "NO_DATA_CHECKED"               : "<div class='log-item'><font color='gray'>没有可获取或更新的数据</font></div>"
+            "NO_DATA_CHECKED"               : "<div class='log-item'><font color='gray'>No Data</font></div>"
         },
         CONFIG = {
             "SAVE_LIST_MAX_LENGTH"       : 10,
@@ -1380,7 +1380,7 @@ function deepCopy(o) {
                     if (_isLocalStorageEnabled) {
                         localStorage.setItem('_data', b.json.stringify(_data));
                     }
-                    return "现在退出所有修改都将丢失，确认退出？";
+                    return "All change not submit will be lost, are you sure?";
                 }
             };
 
@@ -1794,7 +1794,7 @@ function deepCopy(o) {
      */
     ws.version = function() {
         if (!processing()) return;
-        e.get(ELEMENT_ID.VERSION_PANEL).setTitle("版本管理");
+        e.get(ELEMENT_ID.VERSION_PANEL).setTitle("Version Control");
         ecFloater.show(ELEMENT_ID.VERSION_PANEL);
         setSelectedValue("radioCheckIn", -1);
         var panelDiv = b.g("div-version-panel");
@@ -1944,7 +1944,7 @@ function deepCopy(o) {
             case "mt":
                 el = getDiv(editContext.id, editContext.key);
                 if (newValue === '') {
-                    newValue = '未命名';
+                    newValue = 'Unamed';
                 }
                 p.setModuleName(editContext.id, newValue);
                 updateCurMTree();
@@ -2008,7 +2008,7 @@ function deepCopy(o) {
         var txt = ele.value;
         try {
             if (typeof JSON === 'undefined') {
-                alert('您用的啥浏览器啊？连JSON转换都不支持也...请使用IE9+/Chrome/FF试试看？');
+                alert('Please try IE9+/chrome/firefox');
                 return;
             }
             var data = eval("(" + txt + ")");
@@ -2022,7 +2022,7 @@ function deepCopy(o) {
             this.switchA(_curActionId);
             this.cancelImportJSON();
          } catch (e) {
-            showMessage(CONST.ERROR, ELEMENT_ID.IMPORT_JSON_MESSAGE, 'JSON解析错误: ' + e.message);
+            showMessage(CONST.ERROR, ELEMENT_ID.IMPORT_JSON_MESSAGE, 'JSON parse error: ' + e.message);
          }
      };
 
@@ -2084,7 +2084,7 @@ function deepCopy(o) {
         b.g("editAFloater-requestUrl").value = action.requestUrl;
         b.g("editAFloater-responseTemplate").value = action.responseTemplate;
         b.g("editAFloater-description").value = desc;
-        e.get("editAFloater").setTitle("模型管理 - 编辑请求");
+        e.get("editAFloater").setTitle("Model Manage - Action Edit");
         ecFloater.show("editAFloater");
     };
 
@@ -2098,7 +2098,7 @@ function deepCopy(o) {
         b.g("editPFloater-id").value = page.id;
         b.g("editPFloater-name").value = page.name;
         b.g("editPFloater-introduction").value = page.introduction;
-        e.get("editAFloater").setTitle("模型管理 - 编辑页面");
+        e.get("editAFloater").setTitle("Model Manage - Page Edit");
         ecFloater.show("editPFloater");
     };
 
@@ -2108,7 +2108,7 @@ function deepCopy(o) {
     ws.addA = function(pageId) {
         initEditAFloater();
         b.g("editAFloater-pageId").value = pageId;
-        e.get("editAFloater").setTitle("模型管理 - 添加新请求");
+        e.get("editAFloater").setTitle("Model Manage - Add Action");
         ecFloater.show("editAFloater");
     };
 
@@ -2117,7 +2117,7 @@ function deepCopy(o) {
      */
     ws.addP = function() {
         initEditPFloater();
-        e.get("editPFloater").setTitle("模型管理 - 添加新页面");
+        e.get("editPFloater").setTitle("Model Manage - Add Page");
         ecFloater.show("editPFloater");
     };
 
@@ -2262,7 +2262,7 @@ function deepCopy(o) {
                 if (obj.isOk) {
                     storeViewState();
                     if (obj.projectData.moduleList.length === 0) {
-                        obj.projectData.moduleList = [{"id":ws.generateId(),"name":"某模块（点击编辑后双击修改）","introduction":"","pageList":[{"moduleId":ws.generateId(),"name":"某页面","introduction":"","id":ws.generateId(),"isIdGenerated":true,"actionList":[{"pageId":ws.generateId(),"name":"某请求","requestType":"1","requestUrl":"","responseTemplate":"","description":"","id":ws.generateId(),"requestParameterList":[{"id":ws.generateId(),"identifier":"reqParam","name":"某请求参数","remark":"","validator":"","dataType":"number","parameterList":[]}],"responseParameterList":[{"id":ws.generateId(),"identifier":"resParam","name":"某响应参数","remark":"","validator":"","dataType":"number","parameterList":[]}]}]}]}];
+                        obj.projectData.moduleList = [{"id":ws.generateId(),"name":"Some Tab(Dbl Click)","introduction":"","pageList":[{"moduleId":ws.generateId(),"name":"Some Page","introduction":"","id":ws.generateId(),"isIdGenerated":true,"actionList":[{"pageId":ws.generateId(),"name":"Some Action","requestType":"1","requestUrl":"","responseTemplate":"","description":"","id":ws.generateId(),"requestParameterList":[{"id":ws.generateId(),"identifier":"reqParam","name":"Some Parameter","remark":"","validator":"","dataType":"number","parameterList":[]}],"responseParameterList":[{"id":ws.generateId(),"identifier":"resParam","name":"Same Param","remark":"","validator":"","dataType":"number","parameterList":[]}]}]}]}];
                     }
                     p.init(obj.projectData);
                     _data.projectDataOriginal = b.object.clone(obj.projectData);
@@ -2427,7 +2427,7 @@ function deepCopy(o) {
      * switch version
      */
     ws.switchVersion = function() {
-    if (!confirm('确定要恢复到另一版本吗？')) return;
+    if (!confirm('Sure to switch to another version?')) return;
         var versionId = getSelectedValue("radioCheckIn");
         if (!versionId) {
             showMessage(CONST.WARN, ELEMENT_ID.VERSION_PANEL_MESSAGE, MESSAGE.CHOOSE_AT_FIRST);
@@ -2513,7 +2513,7 @@ function deepCopy(o) {
             }
         }
         if (empty) {
-            $('#actionOpFloater-page').append($("<option/>").attr("value", -1).text('木有可移动的页面'));
+            $('#actionOpFloater-page').append($("<option/>").attr("value", -1).text('No destination page.'));
         }
     };
 
@@ -2529,7 +2529,7 @@ function deepCopy(o) {
             if (targetMID && targetMID > 0 && targetPID && targetPID > 0) {
                 actionOperate(targetMID, targetPID, opType);
             } else {
-                alert('请选择目标位置哦~');
+                alert('Please choose target position.');
                 return;
             }
         }
@@ -3258,7 +3258,7 @@ function deepCopy(o) {
         //b.g("txtTag").value = "";
         b.g("txtDescription").value = "";
         b.g("divVersion").innerHTML = p.getVersion() + " -> " + versionUpgrade(p.getVersion(), 4);
-        e.get("saveVSSFloater").setTitle("提交您的修改");
+        e.get("saveVSSFloater").setTitle("Submit your change");
         ecFloater.show("saveVSSFloater");
         initRadioList("radioVersion");
         setSelectedValue("radioVersion", 4);
@@ -3723,7 +3723,7 @@ function deepCopy(o) {
                     str += "</div>";
                 }
                 if (_isEditMode) {
-                    str += "<div style='margin-top:10px'><a class=\"btn btn-info btn-xs\" href=\"#\" onclick=\"ws.addA(" + page.id + "); return false;\"><i class=\"glyphicon glyphicon-plus\" style='margin-right: 5px;'></i>添加接口</a></div>";
+                    str += "<div style='margin-top:10px'><a class=\"btn btn-info btn-xs\" href=\"#\" onclick=\"ws.addA(" + page.id + "); return false;\"><i class=\"glyphicon glyphicon-plus\" style='margin-right: 5px;'></i>Add Action</a></div>";
                 }
                 str += "</div>";
             }
@@ -3796,7 +3796,7 @@ function deepCopy(o) {
             str += getAInfoHtml(a);
 
             if (_isEditMode) {
-                str += "<div class=\"action-info\"><a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.moveAndCopy(); return false;\"><i class='glyphicon glyphicon-random'></i>移动/复制接口</a></div>";
+                str += "<div class=\"action-info\"><a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.moveAndCopy(); return false;\"><i class='glyphicon glyphicon-random'></i>Move/Copy Action</a></div>";
             }
 
             //if (requestParameterListNum > 0) {
@@ -3832,23 +3832,23 @@ function deepCopy(o) {
          * get action info html
          */
         function getAInfoHtml(a) {
-            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id + ") <a href=\"#\" onclick=\"ws.openActionUrlFloater(" + a.id + ");return false;\">URL</a></span> </h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
+            var head = "<h2 style='margin-top:20px;'>Action Detail <span style='font-size: 14px; color: #999;'>(id: " + a.id + ") <a href=\"#\" onclick=\"ws.openActionUrlFloater(" + a.id + ");return false;\">URL</a></span> </h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
                 body = "",
                 foot = "</div>";
             if (a.name) {
-                body += "<div class='item'><b>接口名称 </b>" + a.name + "</div>";
+                body += "<div class='item'><b>Action Name </b>" + a.name + "</div>";
             }
             if (a.requestType) {
-                body += "<div class='item'><b>请求类型 </b><font color='orange'>" + getRequestTypeStr(a.requestType) + "</font></div>";
+                body += "<div class='item'><b>Action Type </b><font color='orange'>" + getRequestTypeStr(a.requestType) + "</font></div>";
             }
             if (a.requestUrl) {
-                body += "<div class='item'><b>请求Url </b><font color='blue'> " + a.requestUrl + "</font></div>";
+                body += "<div class='item'><b>Action Url </b><font color='blue'> " + a.requestUrl + "</font></div>";
             }
             if (a.responseTemplate) {
-                body += "<div class='item'><b>相关模板 </b><font color='red'>" + a.responseTemplate + "</font></div>";
+                body += "<div class='item'><b>Releated Templ </b><font color='red'>" + a.responseTemplate + "</font></div>";
             }
             if (a.description) {
-                body += "<div class='item'><b>接口描述 </b>" + processTextarea(a.description) + "</div>";
+                body += "<div class='item'><b>Description </b>" + processTextarea(a.description) + "</div>";
             }
 
 
@@ -3878,7 +3878,7 @@ function deepCopy(o) {
         var t1 = hasCode ? txt.replace(/(@code|@end)/gmi, '') : txt;
         var reg = /@code([\s\S]*?)@end/gm;
 
-        arr[i++] = '<a class="div-a-desc-expander" href="#" onclick="this.innerHTML = this.innerHTML == \'展开\' ? \'收缩\' : \'展开\';baidu.each(baidu.dom.query(\'.description-area\'), function(ele){baidu.dom.toggle(ele);});baidu.each(baidu.dom.query(\'.description-area-partial\'), function(ele){baidu.dom.toggle(ele)}); return false;">展开</a>';
+        arr[i++] = '<a class="div-a-desc-expander" href="#" onclick="this.innerHTML = this.innerHTML == \'+\' ? \'-\' : \'+\';baidu.each(baidu.dom.query(\'.description-area\'), function(ele){baidu.dom.toggle(ele);});baidu.each(baidu.dom.query(\'.description-area-partial\'), function(ele){baidu.dom.toggle(ele)}); return false;">+</a>';
         arr[i++] = '<div class="description-area-partial">';
         arr[i++] = t1.substring(0, 100);
         arr[i++] = '...</div>';
@@ -4155,8 +4155,8 @@ function deepCopy(o) {
             var str = "",
                 isNew = (save === null);
             str += "<div class='item'><input name='radio-save' type='radio' value='' group='save-panel' " +
-                (isNew ? "" : "id='" + PREFIX.SAVE + save.id + "'") + "/>" + (isNew ? "新增存档" : "存档:" +
-                save.id + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更新时间: " + save.updateDate) + "</div>";
+                (isNew ? "" : "id='" + PREFIX.SAVE + save.id + "'") + "/>" + (isNew ? "Add Save" : "Save:" +
+                save.id + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Update time: " + save.updateDate) + "</div>";
             return str;
         }
 

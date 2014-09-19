@@ -1,1 +1,1 @@
-translating in progress 5%
+translating in progress 60%

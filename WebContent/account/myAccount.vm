@@ -21,11 +21,11 @@
         #end
             <table id="table" class="table" cellpadding="4px" style="margin: 0 auto; margin-top: 30px;">
                 <tr>
-                    <td>用户名:</td>
+                    <td>Account:</td>
                     <td>$!curUser.account</td>
                 </tr>
                 <tr>
-                    <td>名字:</td>
+                    <td>Name:</td>
                     <td>
                         #if($isEditMode)
                         <input name="name" minLen="2" maxLen="10" message="名字有效长度2-10" class="text-input" value="$!curUser.name" type="text" />
@@ -46,45 +46,32 @@
                 </tr>
                 #if($isEditMode)
                 <tr>
-                    <td>旧密码:</td>
+                    <td>Old password:</td>
                     <td>
-                        <input id="oldPassword" name="password" class="text-input" type="password" placeholder="请输入旧密码" /><font color="silver">* 若无需修改请忽略</font>
+                        <input id="oldPassword" name="password" class="text-input" type="password" placeholder="Please input old password" /><font color="silver">* If you don't want to change the password, just ignore this field.</font>
                     </td>
                 </tr>
                 <tr>
-                    <td>新密码:</td>
-                    <td><input id="newPassword" name="newPassword" class="text-input" type="password" placeholder="请输入新密码" /></td>
+                    <td>New password:</td>
+                    <td><input id="newPassword" name="newPassword" class="text-input" type="password" placeholder="Please input new password" /></td>
                 </tr>
                 <tr>
-                    <td>确认密码:</td>
-                    <td><input id="confirmNewPassword" class="text-input" type="password" placeholder="请再次输入新密码" /></td>
+                    <td>Confirm new password:</td>
+                    <td><input id="confirmNewPassword" class="text-input" type="password" placeholder="Please confirm new password" /></td>
                 </tr>
                 #end
                 <tr>
-                    <td>角色:</td>
+                    <td>Role:</td>
                     <td>$!curUser.roleListStr</td>
                 </tr>
                 <tr>
-                    <td>注册时间:</td>
+                    <td>Register Date:</td>
                     <td>$!curUser.createDateStr</td>
                 </tr>
                 <tr>
-                    <td>上次登录:</td>
+                    <td>Last Login:</td>
                     <td>$!curUser.lastLoginDateStr</td>
                 </tr>
-                <!--<tr>
-                    <td></td>
-                    <td>
-                    	
-                        #if($isEditMode)
-                        <input type="submit" value="更新资料" class="btn btn-primary" />
-                        <input type="button" value="取消" class="btn" onclick="window.location.href='$accountUrl.myAccount'" />
-                        #else
-                        <input type="button" value="修改资料" class="btn" onclick="window.location.href='$accountUrl.updateProfile'" />
-                        #end
-                        
-                    </td>
-                </tr>-->
                 <tr>
                     <td></td>
                     <td>

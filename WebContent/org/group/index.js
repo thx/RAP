@@ -10,7 +10,7 @@ $(function() {
 	
 	var plId = $.getLoc('plid');
 	if (!plId) {
-		alert('亲，没有产品线ID，这不可能吧。。。')
+		alert('Production Line ID illegal.')
 		return;
 	}
 	
@@ -41,9 +41,9 @@ $(function() {
 			}
 			var id = $(this).data('id');
 			$.confirm({
-				content: '删除以后不能恢复，请谨慎操作',
-				title: '您确定要删除此分组吗？',
-				confirmText: '删除分组',
+				content: 'Deleted items can not be recovered, do you confirm to delete?',
+				title: 'Group delete confirm',
+				confirmText: 'delete group',
 				confirmClicked: function() {
 					var modal = $(this);
 					$.post($.route('org.group.delete'), {
@@ -61,8 +61,8 @@ $(function() {
 		.delegate('.create-group', 'click', function() {
 			$.confirm({
 				content: $('#create-group-tmpl').text(),
-				title: '创建分组',
-				confirmText: '确认创建',
+				title: 'create group',
+				confirmText: 'confirm create',
 				showCallback: function() {
 					$(this).find('input[type=text]').focus();
 				},
@@ -120,8 +120,8 @@ $(function() {
 					desc: desc,
 					users: pickeds
 				}),
-				title: '修改项目',
-				confirmText: '确认修改',
+				title: 'Alter project',
+				confirmText: 'Confirm alter',
 				showCallback: function() {
 					var that = this;
 					$(this).find('input[type=text]').focus();
@@ -168,7 +168,7 @@ $(function() {
 							return;
 						}
 						var data = data.result;
-						data.status = data.status || '刚刚更新';
+						data.status = data.status || 'just now';
 						var html = $.render(tmpl, data);
 						box.replaceWith(html);
 						modal.modal('hide');
@@ -182,7 +182,7 @@ $(function() {
         	var host = location && location.host ? location.host : '/';
         	$.message({
         		 content: '<input type="text" id="rap-plugin-inputer" class="form-control" value="<script src=\'http://' + host + '/rap.plugin.js?projectId=' + id + '\'></script>" />',
-                 title: '复制RAP插件地址',
+                 title: 'Copy RAP plugin address',
                  showCallback: function() {
                 	 $('#rap-plugin-inputer').focus();
                  }
@@ -192,9 +192,9 @@ $(function() {
 			var id = $(this).data('id');
 			var box = $(this).parents('.box');
 			$.confirm({
-				content: '删除以后不可恢复，请谨慎操作',
-				title: '删除项目',
-				confirmText: '确认删除',
+				content: 'Deleted items can not be recovered, do you confirm?',
+				title: 'delete project',
+				confirmText: 'confirm deletion',
 				confirmClicked: function() {
 					var modal = $(this);
 					$.post($.route('org.project.delete'), {
@@ -217,8 +217,8 @@ $(function() {
 			var groupId = $(this).data('groupid');
 			$.confirm({
 				content: $.render($('#create-proj-tmpl').text(), {}),
-				title: '创建项目',
-				confirmText: '确认创建',
+				title: 'crete project',
+				confirmText: 'confirm creation',
 				showCallback: function() {
 					var that = this;
 					$(this).find('input[type=text]').focus();
@@ -259,7 +259,7 @@ $(function() {
 						accounts: values.join(', ')
 					}, function(data) {
 						var data = data.result;
-						data.status = data.status || '刚刚创建';
+						data.status = data.status || 'just now';
 						var html = $.render(tmpl, data);
 						$(that).before(html);
 						modal.modal('hide');

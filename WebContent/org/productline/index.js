@@ -2,7 +2,7 @@ $(function() {
 	
 	var corpId = $.getLoc('id');
 	if (!corpId) {
-		alert('亲，没有团队ID，这不可能吧。。。')
+		alert('Illegal id')
 		return;
 	}
 	function render(data) {
@@ -13,8 +13,8 @@ $(function() {
 	function createProductline() {
 		$.confirm({
 			content: $.render($('#create-productline').text(), {}),
-			title: '添加产品线',
-			confirmText: '确定',
+			title: 'Add production line',
+			confirmText: 'Sure',
 			showCallback: function() {
 				$(this).find('input[type=text]').focus();
 			},
@@ -49,8 +49,8 @@ $(function() {
 		var name = jqThis.parents('.pl-item').find('.name').text();
 		$.confirm({
 			content: $.render($('#create-productline').text(), {value: name}),
-			title: '更新产品线',
-			confirmText: '确定',
+			title: 'update production line',
+			confirmText: 'confirm',
 			showCallback: function() {
 				$(this).find('input[type=text]').focus();
 			},
@@ -82,9 +82,9 @@ $(function() {
 		var id = jqThis.data('id');
 		var name = jqThis.parents('.pl-item').find('.name').text();
 		$.confirm({
-			content: '删除以后不能恢复，请谨慎操作',
-			title: '您确定要删除产品线 ' + name + ' 吗？',
-			confirmText: '确定删除',
+			content: 'deleted items can not be recovered, are you sure?',
+			title: 'Are you sure to delete ' + name + ' ?',
+			confirmText: 'confirm',
 			confirmClicked: function() {
 				var modal = $(this);
 				$.post($.route('org.productline.delete'), {

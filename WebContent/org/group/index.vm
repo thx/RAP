@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>欢迎使用RAP        </title>
+		<title>Welcome to RAP        </title>
 		<link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
 		#includeNewRapStatic
 		<link rel="stylesheet" href="./group/index.css?_r=$!timeStamp" type="text/css" media="screen">
@@ -14,10 +14,10 @@
 		    <div class="groups-con content">
 		    	<h2>$!utils.escapeInH($productLine.name)</h2>
 		    	<div>
-		    		<span class="btn btn-primary create-group"><i class="glyphicon glyphicon-plus"></i> 创建分组</span>
+		    		<span class="btn btn-primary create-group"><i class="glyphicon glyphicon-plus"></i> Create group</span>
 		    	</div>
 		    	<div class="groups">
-		    		<div class="loading">加载中，请稍候</div>
+		    		<div class="loading">Loading...</div>
 		    	</div>
 		    </div>
 	    </div>
@@ -29,10 +29,10 @@
         <span class="group-name">{{name}}</span>
         <span class="modify-con">
             <input type="text" name="name" class="form-control modify-name" value="" />
-            <span class="btn btn-success save-update-group" data-id="{{id}}">保存</span> <span class="btn btn-default cancel-edit">取消</span> 
+            <span class="btn btn-success save-update-group" data-id="{{id}}">Save</span> <span class="btn btn-default cancel-edit">Cancel</span> 
         </span>
-        <span class="btn btn-hover btn-default update-group" data-id="{{id}}"><i class="glyphicon glyphicon-edit"></i> 修改名称</span> 
-        <span class="btn btn-hover btn-default delete-group" data-id="{{id}}"><i class="glyphicon glyphicon-trash"></i> 删除这个分组</span>
+        <span class="btn btn-hover btn-default update-group" data-id="{{id}}"><i class="glyphicon glyphicon-edit"></i> Alter name</span> 
+        <span class="btn btn-hover btn-default delete-group" data-id="{{id}}"><i class="glyphicon glyphicon-trash"></i> Delete this group</span>
     </h3>
     <div class="box-con clearfix">
 		{{#projects}}
@@ -47,7 +47,7 @@
 			{{/important}}
 			<div class="tools">
 				{{#isManagable}}<i class="glyphicon glyphicon-pencil" data-id="{{id}}"></i>{{/isManagable}}
-				<i class="glyphicon glyphicon-export" data-id="{{id}}" title="复制RAP插件地址"></i>
+				<i class="glyphicon glyphicon-export" data-id="{{id}}" title="Copy RAP plugin address"></i>
 				<i class="glyphicon glyphicon-eye-open" data-id="{{id}}"></i>
 				{{#isManagable}}<i class="glyphicon glyphicon-trash" data-id="{{id}}"></i>{{/isManagable}}
 			</div>
@@ -70,7 +70,7 @@
             <div class="status">{{status}}<span class="creator">@{{creator.name}}</span></div>
 			<div class="tools">
 				<i class="glyphicon glyphicon-pencil" data-id="{{id}}"></i>
-				<i class="glyphicon glyphicon-export" data-id="{{id}}" title="复制RAP插件地址"></i>
+				<i class="glyphicon glyphicon-export" data-id="{{id}}" title="Copy RAP plugin addresses."></i>
 				<i class="glyphicon glyphicon-eye-open" data-id="{{id}}"></i>
 				<i class="glyphicon glyphicon-trash" data-id="{{id}}"></i>
 			</div>
@@ -81,9 +81,9 @@
 	    <script type="text/tmpl" id="create-group-tmpl">
 <div class="form-horizontal" role="form">
   <div class="form-group" style="margin-bottom:0">
-    <label for="inputPassword3" class="col-sm-2 control-label">分组名称 <span style="color:red">&#42;</span></label>
+    <label for="inputPassword3" class="col-sm-2 control-label">Group Name <span style="color:red">&#42;</span></label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" style="width:432px;" placeholder="请在此添加分组名称" value=""/>
+      <input type="text" class="form-control" style="width:432px;" placeholder="Please add group name here" value=""/>
     </div>
   </div>
 </div>
@@ -91,25 +91,25 @@
 	    <script type="text/tmpl" id="create-proj-tmpl">
 <div class="form-horizontal" role="form">
   <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">项目名称 <span style="color:red">&#42;</span></label>
+    <label for="inputPassword3" class="col-sm-2 control-label">Project name <span style="color:red">&#42;</span></label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" style="width:432px;" placeholder="请在此编辑项目名称" value="{{name}}"/>
+      <input type="text" class="form-control" style="width:432px;" placeholder="Please edit project name here." value="{{name}}"/>
     </div>
   </div>
  <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">项目描述</label>
+    <label for="inputPassword3" class="col-sm-2 control-label">Project description</label>
     <div class="col-sm-10">
-      <textarea class="form-control desc" style="width:432px;resize:vertical;" placeholder="请在此编辑项目描述">{{desc}}</textarea>
+      <textarea class="form-control desc" style="width:432px;resize:vertical;" placeholder="Please edit project description here.">{{desc}}</textarea>
     </div>
   </div>
 <div class="form-group" style="margin-bottom:0">
-    <label for="inputPassword3" class="col-sm-2 control-label">项目成员</label>
+    <label for="inputPassword3" class="col-sm-2 control-label">Project Member</label>
     <div class="col-sm-10 picking-user" style="position:relative">
 	  {{#users}}
 	  <span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">{{account}} ({{name}})<i class="unpick-btn">&times;</i></span>
 	  {{/users}}
-	  <input class="form-control accounts-inputer" placeholder="添加项目成员"/>
-      <span class="user-loading">项目成员列表加载中，请稍候~ </span>
+	  <input class="form-control accounts-inputer" placeholder="Add project members"/>
+      <span class="user-loading">Loading...</span>
       <div class="accounts-con"></div>
 	</div>
   </div>
@@ -119,7 +119,7 @@
 	<ul class="autocompleter">
 		{{#users}}
 			<li data-account="{{account}}" data-name="{{name}}" {{^block}}title="{{account}} ({{name}})"{{/block}}{{#block}} data-block="true"{{/block}}>
-				{{#block}}没有更多匹配数据{{/block}}
+				{{#block}}No more matched data{{/block}}
 				{{^block}}{{account}} ({{name}}){{/block}}
 			</li>
 		{{/users}}

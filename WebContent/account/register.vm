@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>注册新的RAP账户        </title>
+        <title>New user register       </title>
         #includeRapStatic
     </head>
     <body>
@@ -12,15 +12,15 @@
             <form name="formMain" method="post" action="$accountUrl.doRegister">
                 <div class="table-container">
                     <div class="item">
-                        <div class="left">用户名:</div><div class="right"><input placeholder="用户名" type="text" name="account" /></div>
+                        <div class="left">User Name:</div><div class="right"><input placeholder="User Name" type="text" name="account" /></div>
                         <div class="clear"></div>
                     </div>
                     <div class="item">
-                        <div class="left">密码:</div><div class="right"><input type="password" placeholder="密码" name="password" /></div>
+                        <div class="left">Password:</div><div class="right"><input type="password" placeholder="Password" name="password" /></div>
                         <div class="clear"></div>
                     </div>
                     <div class="item">
-                        <div class="left">确认密码:</div><div class="right"><input type="password" placeholder="密码确认" /></div>
+                        <div class="left">Password Confirm:</div><div class="right"><input type="password" placeholder="Password Confirm" /></div>
                         <div class="clear"></div>
                     </div>
                     <div class="item">
@@ -28,15 +28,15 @@
                         <div class="clear"></div>
                     </div>
                     <div class="item">
-                        <div class="left">名字:</div><div class="right"><input type="text" name="name" placeholder="中文名" /></div>
+                        <div class="left">Name:</div><div class="right"><input type="text" name="name" placeholder="Real Name" /></div>
                         <div class="clear"></div>
                     </div>
                     <div class="item">
-                        <div class="control"><input class="btn btn-primary" type="submit" value="提交" /></div>
+                        <div class="control"><input class="btn btn-primary" type="submit" value="Submit" /></div>
                     </div>
                     <div class="item">
                         <br /><br />
-                        <div class="error label label-important">#if($errMsg)$errMsg#else 用户名已存在，或其它错误。 #end</div>
+                        <div class="error label label-important">#if($errMsg)$errMsg#else Error Occurred #end</div>
                     </div>
                 </div>
             </form>

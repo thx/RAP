@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse"  id="global-navbar">
       <ul class="nav navbar-nav">
         #if($isLogined)
-        <li><a href="$newUrl.home">我的主页</a></li>
+        <li><a href="$newUrl.home">My Home</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">$curCorpName <b class="caret"></b></a>
           <ul class="dropdown-menu teams">
@@ -32,20 +32,19 @@
             #end
           </ul>
         </li>
-        <!-- <li><a href="$projectUrl.myProjectList">我的项目</a></li>
-        <li><a href="$projectUrl.allProductlineList">产品线管理</a></li> -->
+        <li><a href="$projectUrl.allProductlineList">Production Line Manage</a></li> -->
         #else
-        <li><a href="$platformUrl.home">主页</a></li>
+        <li><a href="$platformUrl.home">Home</a></li>
         #end
 
-        <li><a href="$platformUrl.doc" target="_blank">文档</a></li>
-        <li><a href="$platformUrl.test">测试</a></li>
-        <li><a href="$platformUrl.log">数据<span style="color:#CC0000;"> (new)</span></a></li>
+        <li><a href="$platformUrl.doc" target="_blank">Doc</a></li>
+        <li><a href="$platformUrl.test">Test</a></li>
+        <li><a href="$platformUrl.log">Data<span style="color:#CC0000;"> (new)</span></a></li>
         #if($isLogined)
         <li>
             <div class="search-project-con">
             <span class="glyphicon glyphicon-search"></span>
-            <input type="text" class="project-search-inputer form-control" placeholder="请在此输入关键字搜索项目"/>
+            <input type="text" class="project-search-inputer form-control" placeholder="Project Name Search"/>
             <div class="project-autocomplete-con">
                 <ul class="list-unstyled">
                 </ul>
@@ -58,7 +57,7 @@
       <div class="pull-right">
           <ul class="nav navbar-nav">
               <li>
-                <a href="#" class="dropdown-toggle messages-trigger">消息<span class="label label-success">4</span></a>
+                <a href="#" class="dropdown-toggle messages-trigger">Message<span class="label label-success">4</span></a>
                 <ul class="dropdown-menu dropdown-menu-right messages-dropdown">
                     <li>
                         <div class="messages-container">
@@ -73,11 +72,11 @@
               <li>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">$curUser.name <b class="caret"></b></a>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="$newUrl.home">我的主页</a></li>
-                    <li><a href="$accountUrl.myAccount">个人信息</a></li>
-                    <li><a href="$accountUrl.mySetting">个人设置</a></li>
+                    <li><a href="$newUrl.home">My Home</a></li>
+                    <li><a href="$accountUrl.myAccount">Personal Info</a></li>
+                    <li><a href="$accountUrl.mySetting">Settings</a></li>
                     <li class="divider"></li>
-                    <li><a href="$accountUrl.doLogout">退出</a></li>
+                    <li><a href="$accountUrl.doLogout">Log Out</a></li>
                 </ul>
               </li>
           </ul>
@@ -86,7 +85,7 @@
 <div class="pull-right">
   <ul class="nav navbar-nav">
     <li>
-      <a href="javascript:void(0);" class="dropdown-toggle" id="login-trigger">登录</a>
+      <a href="javascript:void(0);" class="dropdown-toggle" id="login-trigger">Login</a>
       <ul class="dropdown-menu dropdown-menu-right">
           <li>
               <form name="formMain" class="navbar-form login-form" action="$accountUrl.doLogin" method="post">
@@ -95,32 +94,32 @@
                   <!-- <div style="margin-top: 10px; display: none;">
                     <div class="checkbox remember-me">
                         <label>
-                          <input type="checkbox" name="remember"> 下次自动登录
+                          <input type="checkbox" name="remember"> Auto Login Next Time
                         </label>
                       </div>
                   </div> -->
                   <div style="margin-top: 10px;">
-                    <button type="submit" class="btn btn-primary" id="login-btn">登录</button>
-                    <button type="button" class="btn btn-default" id="cancel-login-btn" style="margin-left: 10px;">取消</button>
+                    <button type="submit" class="btn btn-primary" id="login-btn">Login</button>
+                    <button type="button" class="btn btn-default" id="cancel-login-btn" style="margin-left: 10px;">Cancel</button>
                   </div>
-                  <!--<button type="button" onclick="window.location.href = '$accountUrl.register'" class="btn">注册</button>-->
+                  <!--<button type="button" onclick="window.location.href = '$accountUrl.register'" class="btn">Register</button>-->
               </form>
           </li>
         </ul>
     </li>
     <li>
-        <a href="javascript:void(0);" class="dropdown-toggle" id="register-trigger">注册</a>
+        <a href="javascript:void(0);" class="dropdown-toggle" id="register-trigger">Register</a>
         <ul class="dropdown-menu dropdown-menu-right">
           <li>
               <form name="formMain" class="navbar-form register-form" action="$accountUrl.doRegister" method="post">
-                  <input class="span2 form-control" style="width:200px" type="text" placeholder="中文名" required name="name">
-                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="email" placeholder="邮箱" required name="email">
-                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="text" placeholder="登录用户名" required name="account">
-                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="密码" required name="password" id="register-password">
-                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="密码确认" required name="passwordConfirm" id="register-password-confirm">
+                  <input class="span2 form-control" style="width:200px" type="text" placeholder="Real Name" required name="name">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="email" placeholder="Mail" required name="email">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="text" placeholder="Account" required name="account">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="Password" required name="password" id="register-password">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="Confirm Password" required name="passwordConfirm" id="register-password-confirm">
                   <div style="margin-top: 10px;">
-                    <button type="submit" class="btn btn-primary" id="register-btn">注册</button>
-                    <button type="button" class="btn btn-default" id="cancel-register-btn" style="margin-left: 10px;">取消</button>
+                    <button type="submit" class="btn btn-primary" id="register-btn">Register</button>
+                    <button type="button" class="btn btn-default" id="cancel-register-btn" style="margin-left: 10px;">Cancel</button>
                   </div>
               </form>
           </li>
@@ -140,7 +139,7 @@
 #macro (bodyEnd)
     <hr>
     <footer>
-        <p><span id="_logOnline">-</span> 人在使用RAP, 今日Mock服务被调用 <span id="_logMockNumToday">-</span> 次&nbsp;&nbsp;旺旺群支持:582755829</p>
+        <p><span id="_logOnline">-</span> users using RAP, Mock service usage today: <span id="_logMockNumToday">-</span> </p>
     </footer>
     <script>
         function _logData() {
