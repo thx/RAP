@@ -120,9 +120,18 @@
 			if (picked.indexOf(user.account) != -1) {
 				return;
 			}
-			if (user.account.indexOf(val) != -1 || user.name.indexOf(val) != -1) {
-				remained.push(user);
-			}
+
+			if (user.account && user.account.indexOf(val) != -1) {
+                remained.push(user);
+            } else if (user.name && user.name.indexOf(val) != -1) {
+                remained.push(user);
+			} else if (user.realName && user.realName.indexOf(val) != -1) {
+                remained.push(user);
+            } else if (user.realNamePinyin && user.realNamePinyin.indexOf(val) != -1) {
+                remained.push(user);
+            } else if (user.namePinyin && user.namePinyin.indexOf(val) != -1) {
+                remained.push(user);
+            }
 		});
 		if (remained.length == 0) {
 			remained.push({block:true})

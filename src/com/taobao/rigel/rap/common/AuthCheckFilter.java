@@ -1,23 +1,15 @@
 package com.taobao.rigel.rap.common;
 
-import java.io.File;
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import com.alibaba.buc.sso.client.util.SimpleUserUtil;
 import com.alibaba.platform.buc.sso.common.dto.SimpleSSOUser;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 
 public class AuthCheckFilter implements Filter {
 	AccountMgr accountMgr;
@@ -68,6 +60,9 @@ public class AuthCheckFilter implements Filter {
 		if (!logined) {
 			SimpleSSOUser user = SimpleUserUtil
 					.findUser((HttpServletRequest) request);
+
+
+
 			if (user != null) {
 				SystemConstant.user = user;
 				String emailPrefix = user.getEmailPrefix();
@@ -77,12 +72,14 @@ public class AuthCheckFilter implements Filter {
 					User newUser = new User();
 					newUser.setAccount(emailPrefix);
 					newUser.setPassword("RESERVED");
-					String name = user.getAliWW();
+					String name = user.getNickNameCn();
 					if (name == null || name.isEmpty()) {
 						name = user.getLastName();
 					}
 					newUser.setName(name);
 					newUser.setEmail(user.getEmailAddr());
+                    newUser.setRealname(user.getLastName());
+                    newUser.setEmpId(user.getEmpId());
 					getAccountMgr().addUser(newUser);
 					rapUser = accountMgr.getUser(emailPrefix);
 					if (rapUser == null) {

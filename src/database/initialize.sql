@@ -31,7 +31,8 @@ CREATE TABLE tb_user
 	incorrect_login_attempt int(10) NOT NULL COMMENT 'count of incorrect login attempts, will be set to 0 after any succesful login'
 		DEFAULT 0,
 	realname varchar(128) NOT NULL
-	DEFAULT ''
+	  DEFAULT '',
+	empId VARCHAR(45)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /**

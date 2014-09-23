@@ -216,4 +216,8 @@ public class AccountMgrImpl implements AccountMgr {
         return accountDao.getUsertNum();
     }
 
+    public void updateUser(User user) {
+        accountDao.updateUser(user);
+    }
+
 }

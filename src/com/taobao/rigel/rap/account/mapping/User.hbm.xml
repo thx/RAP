@@ -8,7 +8,13 @@
 	  	<generator class="native" />
 	  </id>
 	  <property name="name" />
+      <property name="empId">
+          <column name="emp_id" not-null="false">
+              <comment>工号</comment>
+          </column>
+      </property>
 	  <property name="account" />
+      <property name="realname" />
 	  <property name="password" />
 	  <property name="email" />
 	  <property name="isHintEnabled">

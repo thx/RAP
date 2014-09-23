@@ -84,14 +84,16 @@
                                 Online Docs
                                 </a>
                             </li>
+                            <!--
                             <li>
                                 <a href="http://thx.github.io/RAP/resources/rap-shortcuts/"  target="_blank">
                                     <span class="glyphicon glyphicon-flash"></span>
                                     快捷键
                                 </a>
                             </li>
+                            -->
                             <li>
-                                <a href="http://thx.github.io/RAP/tutorials/"  target="_blank">
+                                <a href="http://github.com/thx/RAP/wiki/"  target="_blank">
                                     <span class="glyphicon glyphicon-list-alt"></span>
                                     帮助/教程
                                 </a>

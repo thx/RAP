@@ -119,6 +119,10 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 		return true;
 	}
 
+    public void updateUser(User user) {
+        getSession().update(user);
+    }
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getUserList() {

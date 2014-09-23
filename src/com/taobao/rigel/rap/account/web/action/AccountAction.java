@@ -14,6 +14,7 @@ import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.ContextManager;
 import com.taobao.rigel.rap.common.Logger;
+import com.taobao.rigel.rap.common.Pinyin4jUtil;
 
 /**
  * account action
@@ -138,7 +139,10 @@ public class AccountAction extends ActionBase {
 			o.put("name", user.getName());
 			o.put("role", user.getRoleListStr());
 			o.put("account", user.getAccount());
-			o.put("realName", user.getRealName());
+			o.put("realName", user.getRealname());
+            o.put("empId", user.getEmpId());
+            o.put("namePinyin", Pinyin4jUtil.calculatePinyinArrStr(user.getName()));
+            o.put("realNamePinyin", Pinyin4jUtil.calculatePinyinArrStr(user.getRealname()));
 			result.add(o);
 		}
 		setJson("{\"users\":" + gson.toJson(result) + "}");
