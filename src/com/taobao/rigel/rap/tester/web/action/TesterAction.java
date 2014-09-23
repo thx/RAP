@@ -57,6 +57,7 @@ public class TesterAction extends ActionBase {
 	 * @return
 	 */
 	public String ___init___() throws Exception {
+        /**
         List<User> list = getAccountMgr().getUserList();
         int count = 1000;
         for (User u : list) {
@@ -82,6 +83,7 @@ public class TesterAction extends ActionBase {
 
             }
         }
+         */
 
 		return SUCCESS;
 	}

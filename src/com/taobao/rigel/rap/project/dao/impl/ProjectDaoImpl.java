@@ -33,7 +33,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         sql
         .append("SELECT project_id ")
         .append("FROM tb_project_and_user ")
-        .append("WHERE user_id = 50 ")
+        .append("WHERE user_id = :userId ")
         .append("UNION ")
         .append("SELECT id ")
         .append("FROM tb_project ")

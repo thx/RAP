@@ -11,7 +11,7 @@
 ## 精确到天
 #set($dateFormat = 'yyyy-MM-dd')
 ## 时间戳
-#set($timeStamp = '20140904.v0.11.dev2')
+#set($timeStamp = '20140923.v0.11.dev')
 ##----------------------页面请求action地址-------------------------------
 ## 配置工程的上下文路径
 #set($projectContext = "$!link.getContextPath()")
@@ -68,7 +68,7 @@
     "status":"$projectContext/platform/status.action",
     "help":"$!projectContext/platform/help.action",
     "test":"$!projectContext/platform/test.action",
-    "doc":"http://thx.github.io/RAP",
+    "doc":"https://github.com/thx/RAP/wiki/home_cn",
     "log":"$!projectContext/platform/log.do",
     "realtimeUpdate":"$!projectContext/platform/realtimeUpdate.do"
 })
