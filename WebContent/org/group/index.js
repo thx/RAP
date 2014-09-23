@@ -116,8 +116,8 @@ $(function() {
 			}
 			$.confirm({
 				content: $.render($('#create-proj-tmpl').text(), {
-					name: name,
-					desc: desc,
+                    name: name ? name.replace(/"/g, "") : "",
+                    desc: desc,
 					users: pickeds
 				}),
 				title: '修改项目',

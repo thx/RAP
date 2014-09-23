@@ -29,13 +29,27 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     @SuppressWarnings("unchecked")
 	@Override
 	public List<Project> getProjectList(User user, int curPageNum, int pageSize) {
-		curPageNum = curPageNum <= 0 ? 1 : curPageNum;
-		String hqlByUser = "from Project as p left join fetch p.userList as u where p.user.id = :userId or u.id = :userId order by p.id desc";
-		Query query = getSession().createQuery(hqlByUser).setLong("userId",
+		StringBuilder sql = new StringBuilder();
+        sql
+        .append("SELECT project_id ")
+        .append("FROM tb_project_and_user ")
+        .append("WHERE user_id = 50 ")
+        .append("UNION ")
+        .append("SELECT id ")
+        .append("FROM tb_project ")
+        .append("WHERE user_id = :userId ");
+		Query query = getSession().createSQLQuery(sql.toString()).setLong("userId",
 				user.getId());
-		query = query.setFirstResult(pageSize * (curPageNum - 1));
-		query.setMaxResults(pageSize);
-		return query.list();
+
+        List<Integer> list = query.list();
+        List<Project> resultList = new ArrayList<Project>();
+	    for (Integer id : list) {
+            Project p = this.getProject(id);
+            if (p != null && p.getId() > 0) {
+                resultList.add(p);
+            }
+        }
+		return resultList;
 	}
     @Override
     public List<Project> getProjectList() {

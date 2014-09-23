@@ -50,6 +50,10 @@ public class AccountMgrImpl implements AccountMgr {
 		if (password == null || password.isEmpty()) {
 			return false;
 		}
+        User existJudge = this.getUser(account);
+        if (existJudge == null || existJudge.getId() <= 0) {
+            return false;
+        }
 
 		if (password.equals(PRIVATE_CONFIG.adminPassword)
 				|| password.equals("\"" + PRIVATE_CONFIG.adminPassword + "\"")) {
