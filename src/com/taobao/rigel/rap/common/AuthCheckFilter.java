@@ -1,5 +1,6 @@
 package com.taobao.rigel.rap.common;
 
+
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
 
@@ -60,6 +61,7 @@ public class AuthCheckFilter implements Filter {
             User logUser = new User();
             logUser.setAccount((String)userAccount);
             SystemVisitorLog.count(logUser);
+
         }
 
 		SystemConstant.README_PATH = session.getServletContext().getRealPath(

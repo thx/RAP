@@ -2,39 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="073dcdd8-2723-4115-8f52-bd7cf3d634cc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/lib/pinyin4j-2.5.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DATABASE_CHANGE_v0.11.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/Pinyin4jUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/tester/bo/SSOUser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/tester/bo/SSOUserRes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/web/action/AccountAction.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/web/action/AccountAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/dao/AccountDao.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/dao/AccountDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/dao/impl/AccountDaoImpl.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/dao/impl/AccountDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/service/AccountMgr.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/service/AccountMgr.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/service/impl/AccountMgrImpl.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/service/impl/AccountMgrImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/AuthCheckFilter.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/AuthCheckFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/HTTPUtils.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/HTTPUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/mock/service/impl/MockMgrImpl.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/mock/service/impl/MockMgrImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/web/action/OrganizationAction.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/web/action/OrganizationAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/dao/impl/ProjectDaoImpl.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/dao/impl/ProjectDaoImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/tester/web/action/TesterAction.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/tester/web/action/TesterAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/mapping/User.hbm.xml" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/mapping/User.hbm.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/bo/User.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/bo/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/workspace/web/action/WorkspaceAction.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/workspace/web/action/WorkspaceAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/tcom/const.inc.vm" afterPath="$PROJECT_DIR$/WebContent/tcom/const.inc.vm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/demo/mock.plugin/index.htm" afterPath="$PROJECT_DIR$/WebContent/demo/mock.plugin/index.htm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/org/group/index.js" afterPath="$PROJECT_DIR$/WebContent/org/group/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/org/home/index.js" afterPath="$PROJECT_DIR$/WebContent/org/home/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/org/group/index.vm" afterPath="$PROJECT_DIR$/WebContent/org/group/index.vm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/org/home/index.vm" afterPath="$PROJECT_DIR$/WebContent/org/home/index.vm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/database/initialize.sql" afterPath="$PROJECT_DIR$/src/database/initialize.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/stat/js/util/mock.plugin.js" afterPath="$PROJECT_DIR$/WebContent/stat/js/util/mock.plugin.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/workspace/myWorkspace.vm" afterPath="$PROJECT_DIR$/WebContent/workspace/myWorkspace.vm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mysql.local.properties" afterPath="$PROJECT_DIR$/src/mysql.local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/stat/js/routes.js" afterPath="$PROJECT_DIR$/WebContent/stat/js/routes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/tcom/template.rap.vm" afterPath="$PROJECT_DIR$/WebContent/tcom/template.rap.vm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="RAP.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -91,8 +62,8 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties converted="true" />
     <breakpoint_rules converted="true" />
+    <ui_properties converted="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -100,11 +71,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="mysql.local.properties" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="mysql.local.properties" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mysql.local.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.10250569" vertical-offset="0" max-vertical-offset="439">
-              <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
+              <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -113,8 +84,30 @@
       <file leaf-file-name="initialize.sql" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/database/initialize.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.2" vertical-offset="165" max-vertical-offset="6195">
-              <caret line="35" column="37" selection-start-line="35" selection-start-column="37" selection-end-line="35" selection-end-column="37" />
+            <state vertical-scroll-proportion="-5.4" vertical-offset="240" max-vertical-offset="6195">
+              <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthCheckFilter.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/common/AuthCheckFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4366812" vertical-offset="0" max-vertical-offset="1215">
+              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-11.4" vertical-offset="0" max-vertical-offset="375">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -137,9 +130,10 @@
         <option value="$PROJECT_DIR$/WebContent/account/login.vm" />
         <option value="$PROJECT_DIR$/WebContent/tcom/template.rap.vm" />
         <option value="$PROJECT_DIR$/src/applicationContext.xml" />
-        <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/AuthCheckFilter.java" />
-        <option value="$PROJECT_DIR$/src/database/initialize.sql" />
         <option value="$PROJECT_DIR$/src/mysql.local.properties" />
+        <option value="$PROJECT_DIR$/src/database/initialize.sql" />
+        <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/AuthCheckFilter.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -495,41 +489,6 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
-      <option name="BCName" value="" />
-      <option name="IOSSimulatorSdkPath" value="" />
-      <option name="adlOptions" value="" />
-      <option name="airProgramParameters" value="" />
-      <option name="appDescriptorForEmulator" value="Android" />
-      <option name="debugTransport" value="USB" />
-      <option name="debuggerSdkRaw" value="BC SDK" />
-      <option name="emulator" value="NexusOne" />
-      <option name="emulatorAdlOptions" value="" />
-      <option name="fastPackaging" value="true" />
-      <option name="fullScreenHeight" value="0" />
-      <option name="fullScreenWidth" value="0" />
-      <option name="launchUrl" value="false" />
-      <option name="launcherParameters">
-        <LauncherParameters>
-          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
-          <option name="launcherType" value="OSDefault" />
-          <option name="newPlayerInstance" value="false" />
-          <option name="playerPath" value="FlashPlayerDebugger.exe" />
-        </LauncherParameters>
-      </option>
-      <option name="mobileRunTarget" value="Emulator" />
-      <option name="moduleName" value="" />
-      <option name="overriddenMainClass" value="" />
-      <option name="overriddenOutputFileName" value="" />
-      <option name="overrideMainClass" value="false" />
-      <option name="runTrusted" value="true" />
-      <option name="screenDpi" value="0" />
-      <option name="screenHeight" value="0" />
-      <option name="screenWidth" value="0" />
-      <option name="url" value="http://" />
-      <option name="usbDebugPort" value="7936" />
-      <method />
-    </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.42" ALTERNATIVE_JRE_ENABLED="false" ALTERNATIVE_JRE_PATH="C:/Program Files/Java/jdk1.7.0_45">
       <option name="OPEN_IN_BROWSER_URL" value="http://etaoux-bj.taobao.ali.com:8080/" />
       <option name="START_JAVASCRIPT_DEBUGGER" value="true" />
@@ -596,6 +555,41 @@
           <option name="PROGRAM_PARAMETERS" value="" />
         </SHUTDOWN>
       </ConfigurationWrapper>
+      <method />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
       <method />
     </configuration>
     <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
@@ -763,11 +757,12 @@
       <workItem from="1408157717489" duration="121000" />
       <workItem from="1411524812708" duration="404000" />
       <workItem from="1411525311161" duration="274000" />
+      <workItem from="1411525650843" duration="49000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3930000" />
+    <option name="totallyTimeSpent" value="3979000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="807" extended-state="6" />
@@ -786,7 +781,6 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32867134" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -802,6 +796,7 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32867134" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -829,6 +824,22 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/mysql.local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="240">
+          <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/database/initialize.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="525" max-vertical-offset="6255">
+          <caret line="35" column="19" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/mysql.local.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="240">
@@ -950,14 +961,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/common/AuthCheckFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="1185">
-          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/common/Pinyin4jUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1091703" vertical-offset="0" max-vertical-offset="2955">
@@ -966,19 +969,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/database/initialize.sql">
+    <entry file="file://$PROJECT_DIR$/src/mysql.local.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.2" vertical-offset="165" max-vertical-offset="6195">
-          <caret line="35" column="37" selection-start-line="35" selection-start-column="37" selection-end-line="35" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
+          <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mysql.local.properties">
+    <entry file="file://$PROJECT_DIR$/src/database/initialize.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.10250569" vertical-offset="0" max-vertical-offset="439">
-          <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+        <state vertical-scroll-proportion="-5.4" vertical-offset="240" max-vertical-offset="6195">
+          <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.4" vertical-offset="0" max-vertical-offset="375">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/common/AuthCheckFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4366812" vertical-offset="0" max-vertical-offset="1215">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

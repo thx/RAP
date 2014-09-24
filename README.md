@@ -17,4 +17,3 @@ In RAP, you can define the URL, response/request detail format, etc. By analyzin
 ## Contributors List 贡献者
 
 `@nunnly`, `@xinglie`
-

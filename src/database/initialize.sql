@@ -32,7 +32,7 @@ CREATE TABLE tb_user
 		DEFAULT 0,
 	realname varchar(128) NOT NULL
 	  DEFAULT '',
-	empId VARCHAR(45)
+	emp_id VARCHAR(45)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /**
