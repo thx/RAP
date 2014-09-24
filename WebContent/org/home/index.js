@@ -166,7 +166,7 @@ $(function() {
         }
         $.confirm({
             content: $.render($('#update-proj-tmpl').text(), {
-                name: name,
+                name: name ? name.replace(/"/g, "") : "",
                 desc: desc,
                 users: pickeds
             }),

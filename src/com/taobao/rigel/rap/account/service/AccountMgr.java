@@ -204,5 +204,7 @@ public interface AccountMgr {
 
     long getUserNum();
 
+    public void updateUser(User user);
+
 
 }

@@ -15,7 +15,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-      <a class="navbar-brand" href="/"><i class="iconlogo mi-rap"></i> <span class="logo-text">RAP v0.9</span></a>
+      <a class="navbar-brand" href="/"><i class="iconlogo mi-rap"></i> <span class="logo-text">RAP v0.10</span></a>
     </div>
     <div class="collapse navbar-collapse"  id="global-navbar">
       <ul class="nav navbar-nav">

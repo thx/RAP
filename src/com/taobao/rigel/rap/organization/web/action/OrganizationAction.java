@@ -89,9 +89,9 @@ public class OrganizationAction extends ActionBase {
 			return LOGIN;
 		Gson gson = new Gson();
 		List<Map<String, Object>> projects = new ArrayList<Map<String, Object>>();
-		long totalRecNum = projectMgr.getProjectListNum(getCurUser());
+		// long totalRecNum = projectMgr.getProjectListNum(getCurUser());
 		List<Project> projectList = projectMgr.getProjectList(getCurUser(), 1,
-				(int) totalRecNum);
+				Integer.MAX_VALUE);
 		for (Project p : projectList) {
 			if (getCurUser().isUserInRole("admin")
 					|| getAccountMgr().canUserManageProject(

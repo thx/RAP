@@ -1,14 +1,17 @@
 package com.taobao.rigel.rap.tester.web.action;
 
-import java.util.List;
-
+import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.User;
-import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.ActionBase;
-import com.taobao.rigel.rap.common.StringUtils;
+import com.taobao.rigel.rap.common.HTTPUtils;
+import com.taobao.rigel.rap.common.SystemVisitorLog;
 import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
-import com.opensymphony.xwork2.ActionSupport;
+import com.taobao.rigel.rap.tester.bo.SSOUserRes;
+
+import java.util.List;
+import java.util.Map;
+
 
 public class TesterAction extends ActionBase {
 
@@ -53,16 +56,35 @@ public class TesterAction extends ActionBase {
 	 * used for system configuration when new version deployed
 	 * @return
 	 */
-	public String ___init___() {
+	public String ___init___() throws Exception {
         /**
-		List<User> userList = getAccountMgr().getUserList();
-		for (User user : userList) {
-			String password = user.getPassword();
-			password = StringUtils.getMD5(password);
-			password = StringUtils.getMD5(password);
-			getAccountMgr()._updatePassword(user.getAccount(), password);
-		}
+        List<User> list = getAccountMgr().getUserList();
+        int count = 1000;
+        for (User u : list) {
+            if (count-- <=0) {
+                break;
+            }
+            String account = u.getAccount();
+            String res = HTTPUtils.sendGet("");
+            Gson gson  = new Gson();
+            SSOUserRes json = gson.fromJson(res, SSOUserRes.class);
+            if (json.content == null)
+                System.out.println("not Ali employee");
+            else {
+                System.out.println("empId:" + json.content.empId);
+                if (json.content.nickNameCn != null && !json.content.nickNameCn.isEmpty()) {
+                    u.setName(json.content.nickNameCn);
+                } else {
+                    u.setName(json.content.lastName);
+                }
+                u.setRealname(json.content.lastName);
+                u.setEmpId(json.content.empId);
+                getAccountMgr().updateUser(u);
+
+            }
+        }
          */
+
 		return SUCCESS;
 	}
 }

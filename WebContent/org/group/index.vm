@@ -93,13 +93,13 @@
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">项目名称 <span style="color:red">&#42;</span></label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" style="width:432px;" placeholder="请在此编辑项目名称" value="{{name}}"/>
+      <input type="text" class="form-control" style="width:432px;" placeholder="请在此编辑项目名称" value="{{{name}}}"/>
     </div>
   </div>
  <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">项目描述</label>
     <div class="col-sm-10">
-      <textarea class="form-control desc" style="width:432px;resize:vertical;" placeholder="请在此编辑项目描述">{{desc}}</textarea>
+      <textarea class="form-control desc" style="width:432px;resize:vertical;" placeholder="请在此编辑项目描述">{{{desc}}}</textarea>
     </div>
   </div>
 <div class="form-group" style="margin-bottom:0">

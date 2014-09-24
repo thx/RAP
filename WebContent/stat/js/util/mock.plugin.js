@@ -87,7 +87,8 @@
         jQuery.ajax = function() {
             var oOptions = arguments[0];
             var url = oOptions.url;
-            if (route(url) && projectId) {
+            var routePassed = route(url) && projectId;
+            if (routePassed) {
                 rapUrlConverterJQuery(oOptions);
                 var oldSuccess1 = oOptions.success;
                 oldSuccess1 && (oOptions.success = function(data) {
@@ -128,7 +129,28 @@
                     oldSuccess2.apply(this,arguments);
                 };
             }
-            return ajax.apply(this, arguments);
+            var rv = ajax.apply(this, arguments);
+            if (routePassed) {
+                var oldDone = rv.done;
+                oldDone && (rv.done = function(data) {
+                    var oldCb = arguments[0];
+                    var args = arguments;
+                    if (oldCb) {
+                        args[0] = function(data) {
+                            if (PREFIX == '/mockjs/') {
+                                data = Mock.mock(data);
+                                console.log('请求' + url + '返回的Mock数据:');
+                                console.dir(data);
+                            }
+                            oldCb.apply(this, arguments);
+                        };
+                    }
+                    oldDone.apply(this, args);
+                });
+            }
+
+
+            return rv;
         };
     }
 

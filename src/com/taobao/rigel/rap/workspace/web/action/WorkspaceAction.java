@@ -469,7 +469,7 @@ public class WorkspaceAction extends ActionBase {
             public String call() throws Exception {
                 try {
                     // async update doc
-                    projectMgr.updateDoc(id);
+                    // projectMgr.updateDoc(id);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
