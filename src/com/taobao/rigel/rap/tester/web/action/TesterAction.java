@@ -4,16 +4,16 @@ import java.util.List;
 
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
+import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.StringUtils;
 import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class TesterAction extends ActionSupport {
+public class TesterAction extends ActionBase {
 
 	private static final long serialVersionUID = 1L;
 	private ProjectMgr projectMgr;
-	private AccountMgr accountMgr;
 	private int id;
 	private Page page;
 	private int projectId;
@@ -32,14 +32,6 @@ public class TesterAction extends ActionSupport {
 
 	public void setProjectMgr(ProjectMgr projectMgr) {
 		this.projectMgr = projectMgr;
-	}
-
-	public AccountMgr getAccountMgr() {
-		return accountMgr;
-	}
-
-	public void setAccountMgr(AccountMgr accountMgr) {
-		this.accountMgr = accountMgr;
 	}
 
 	public int getId() {
@@ -62,13 +54,15 @@ public class TesterAction extends ActionSupport {
 	 * @return
 	 */
 	public String ___init___() {
-		List<User> userList = accountMgr.getUserList();
+        /**
+		List<User> userList = getAccountMgr().getUserList();
 		for (User user : userList) {
 			String password = user.getPassword();
 			password = StringUtils.getMD5(password);
 			password = StringUtils.getMD5(password);
-			accountMgr._updatePassword(user.getAccount(), password);
+			getAccountMgr()._updatePassword(user.getAccount(), password);
 		}
+         */
 		return SUCCESS;
 	}
 }

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE html>
 #parse('/tcom/template.rap.vm')
 <html>
     <head>
@@ -6,17 +6,18 @@
         <title>$!utils.escapeInH($workspace.project.name) - 文档编辑        </title>
         <link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
         #includeNewRapStatic
-        <link type="text/css" rel="stylesheet" href="${staticRoot}/css/defcontrol.css?_r=$!timeStamp" />
-        <link type="text/css" rel="stylesheet" href="${staticRoot}/css/myWorkspace.css?_r=$!timeStamp" />
+        <link type="text/css" rel="stylesheet" href="${staticRoot}/css/defcontrol.css" />
+        <link type="text/css" rel="stylesheet" href="myWorkspace.css?_r=$!timeStamp" />
         <script src="${staticRoot}/js/util/jsformat.js"></script>
     </head>
-    <body class="workspace">
+    <body class="workspace #if(!$accessable)read-only#end">
         #bodyNewStart(true)
         <div id="div-fixed-panel">
             <div class="clearfix">
+                #if($accessable)
                 <div id="div-w-message" class="label" style="display:none;">
                 </div>
-                <div id="div-control-panel" #if(!$accessable)style="display:none;"#end>
+                <div id="div-control-panel">
                     <div id="div-workspace-search">
                         <input type="text" id="inputSearch" class="form-control" placeholder="工作区搜索">
                         </input>
@@ -102,6 +103,7 @@
                         </ul>
                     </div>
                 </div>
+                #end
             </div>
             <div id="div-debug"></div>
             <div id="div-mt-list" class="clearfix"></div>

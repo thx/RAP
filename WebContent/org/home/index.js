@@ -4,6 +4,10 @@ $(function() {
     //  console.log(data.isOk);
     //}, 'JSON');
 
+    if (!-[1,]) { // IE 6-8
+        $('#browserCheckAlert').show();
+    }
+
     var NAME_MAP = {
         'user': '我的项目',
         'star': '重要项目',
@@ -48,7 +52,7 @@ $(function() {
                 $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
                     $(this).parent('.picked-user').remove();
                 });
-
+                $('.tip').tooltip();
                 $('.project-target .team').change(function() {
                     var corpId = $(this).val();
                     if (corpId === '') {
@@ -174,7 +178,7 @@ $(function() {
                 $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
                     $(this).parent('.picked-user').remove();
                 });
-
+                $('.tip').tooltip();
                 getUsers(function(users) {
                     $('.user-loading').hide();
                     $(that).find('.accounts-inputer').keyup(function() {
@@ -539,4 +543,6 @@ $(function() {
     }
 
     render();
+    $('.tip').tooltip();
+
 });

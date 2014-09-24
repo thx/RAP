@@ -1,11 +1,8 @@
 #parse('/tcom/utils.macro.vm')
-
-
 #set($domainUrl = "http://" + $consts.DOMAIN_URL)
 #set($homeUrlEncoded = $utils.escapeInU($domainUrl))
 #set($logoutUrl = $domainUrl + $accountUrl.doLogout)
 #set($logoutUrlEncoded = $utils.escapeInU($logoutUrl))
-
 ## master page start
 #macro (bodyNewStart $hide)
 #if(!$hide)
@@ -23,7 +20,7 @@
     <div class="collapse navbar-collapse"  id="global-navbar">
       <ul class="nav navbar-nav">
         #if($isLogined)
-        <li><a href="$newUrl.home">我的主页</a></li>
+        <li><a href="$newUrl.home">主页</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">$curCorpName <b class="caret"></b></a>
           <ul class="dropdown-menu teams">
@@ -45,7 +42,7 @@
         <li>
             <div class="search-project-con">
             <span class="glyphicon glyphicon-search"></span>
-            <input type="text" class="project-search-inputer form-control" placeholder="请在此输入关键字搜索项目"/>
+            <input type="text" class="project-search-inputer form-control" placeholder="搜索项目名称"/>
             <div class="project-autocomplete-con">
                 <ul class="list-unstyled">
                 </ul>
@@ -135,7 +132,6 @@
 #end
 <div class="container">
 #end
-
 ## master page end
 #macro (bodyEnd)
     <hr>

@@ -113,30 +113,8 @@ public class PlatformAction extends ActionBase {
 		return SUCCESS;
 	}
 
-	public String document() {
-		return SUCCESS;
-	}
-
-	public String about() {
-		return SUCCESS;
-	}
-
-	public String status() {
-		return SUCCESS;
-	}
 
 	public String test() {
-		return SUCCESS;
-	}
-
-	public String help() throws IOException {
-		FileInputStream inputStream = new FileInputStream(SystemConstant.README_PATH);
-		InputStreamReader reader = new InputStreamReader(inputStream, "UTF8");
-	    try {
-	        text = IOUtils.toString(reader);
-	    } finally {
-	        inputStream.close();
-	    }
 		return SUCCESS;
 	}
 

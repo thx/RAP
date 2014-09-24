@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 #parse('/tcom/template.rap.vm')
 <html>
 	<head>
@@ -10,9 +10,13 @@
 	</head>
 	<body>
 	    #bodyNewStart
+        <div id="browserCheckAlert" class="alert alert-warning alert-dismissible" role="alert" style="display:none;">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <strong>Warning!</strong> 建议使用IE9+/Chrome/Firefox访问RAP，其它浏览器可能不支持某些特性，我们也不会对其兼容性进行维护。
+        </div>
 	    <div class="page home">
 		    <div class="groups-con content">
-		    	<h2>Dashboard</h2>
+		    	<h2>我的主页</h2>
 		    	<div class="groups">
 		    		<div class="loading">加载中，请稍候</div>
 		    	</div>
@@ -92,6 +96,7 @@
 	  {{/users}}
 	  <input class="form-control accounts-inputer" placeholder="添加项目成员"/>
 	  <span class="user-loading">项目成员列表加载中，请稍候~ </span>
+	  <span class="glyphicon glyphicon-question-sign tip" title="如果该用户没有登录/注册过RAP，系统中就没有TA的信息。请TA先登录一下RAP吧。匹配时请可以输入TA的花名或帐号(域帐号)">找不到TA?</span>
       <div class="accounts-con"></div>
 	</div>
   </div>
@@ -119,7 +124,8 @@
 	  <span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">{{account}} ({{name}})<i class="unpick-btn">&times;</i></span>
 	  {{/users}}
 	  <input class="form-control accounts-inputer" placeholder="添加项目成员"/>
-	  <span class="user-loading">项目成员列表加载中，请稍候~ </span>
+	  <span class="user-loading">项目成员列表加载中，请稍候~ </span
+	  ><span class="glyphicon glyphicon-question-sign tip" title="如果该用户没有登录/注册过RAP，系统中就没有TA的信息。请TA先登录一下RAP吧。匹配时请可以输入TA的花名或帐号(域帐号)">找不到TA?</span>
       <div class="accounts-con"></div>
 	</div>
   </div>

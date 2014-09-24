@@ -27,6 +27,7 @@ public class MockMgrImpl implements MockMgr {
 	private ProjectDao projectDao;
 	private ProjectMgr projectMgr;
 	private int uid = 10000;
+    private final String ERROR_PATTERN = "{\"isOk\":false,\"msg\":\"路径为空，请查看是否接口未填写URL.\"}";
 
 	public ProjectMgr getProjectMgr() {
 		return projectMgr;
@@ -37,6 +38,25 @@ public class MockMgrImpl implements MockMgr {
 	}
 
 	private Map<String, List<String>> requestParams;
+
+    private boolean isPatternLegal(String pattern) {
+        if (pattern == null || pattern.isEmpty()) {
+            return false;
+        }
+
+        String path = pattern;
+        if (path.indexOf("/") == 0) {
+            path = path.substring(1);
+        }
+        if (path.contains("?")) {
+            path = path.substring(0, path.indexOf("?"));
+        }
+        if (path.isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }
 
 	/**
 	 * random seed
@@ -61,6 +81,11 @@ public class MockMgrImpl implements MockMgr {
 	@Override
 	public String generateData(int projectId, String pattern,
 			Map<String, Object> options) throws UnsupportedEncodingException {
+
+        if (!isPatternLegal(pattern)) {
+            return ERROR_PATTERN;
+        }
+
 		_num = 1;
 		String originalPattern = pattern;
 		// System.out.println("pattern before processed:" + pattern);
@@ -150,6 +175,10 @@ public class MockMgrImpl implements MockMgr {
 	@Override
 	public String generateRule(int projectId, String pattern,
                                             Map<String, Object> options) throws UnsupportedEncodingException {
+        System.out.print("pattern is:" + pattern);
+        if (!isPatternLegal(pattern)) {
+            return ERROR_PATTERN;
+        }
         String originalPattern = pattern;
         int actionId = 0;
         Action action;
@@ -710,8 +739,9 @@ public class MockMgrImpl implements MockMgr {
                 }
 			} else if (mockValue.startsWith("@order")) {
 				return "\"" + StringUtils.escapeInJ(mockValue) + "\"";
-			} else if (para.getDataType().equals("number")
-					|| para.getDataType().equals("boolean")) {
+			} else if ((para.getDataType().equals("number")
+					|| para.getDataType().equals("boolean"))
+                    && !mockValue.startsWith("@")) {
 				return mockValue;
 			} else {
 				if (escape) {
