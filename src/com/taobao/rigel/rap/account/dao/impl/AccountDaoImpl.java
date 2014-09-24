@@ -40,6 +40,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 	public boolean addUser(User user) {
 		user.setLastLoginDate(new Date());
 		user.setCreateDate(new Date());
+        user.setRealname("");
 		getSession().save(user);
 		return true;
 	}
