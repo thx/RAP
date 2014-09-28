@@ -684,8 +684,28 @@ function deepCopy(o) {
                 obj.responseTemplate = '{{mountId}}' + oldId;
             }
             */
+        } else {
+            // recursively update identifier
+            var i;
+            for (i = 0; i < obj.requestParameterList.length; i++) {
+                recurUpdateParamId(obj.requestParameterList[i]);
+            }
+            for (i = 0; i < obj.responseParameterList.length; i++) {
+                recurUpdateParamId(obj.responseParameterList[i]);
+            }
         }
         this.getPage(obj.pageId).actionList.push(obj);
+
+        function recurUpdateParamId(param) {
+            param.id = generateId();
+            if (param.parameterList) {
+                for (var i = 0; i < param.parameterList.length; i++) {
+                    recurUpdateParamId(param.parameterList[i]);
+                }
+            }
+        }
+
+
         return obj.id;
     };
 
@@ -2507,10 +2527,10 @@ function deepCopy(o) {
         var i, n = pList.length, page;
         for (i = 0; i < n; i++) {
             page = pList[i];
-            if (!p.isActionInPage(_curActionId, page.id)) {
-                $('#actionOpFloater-page').append($("<option/>").attr("value", page.id).text(page.name));
-                empty = false;
-            }
+            //if (!p.isActionInPage(_curActionId, page.id)) {
+            $('#actionOpFloater-page').append($("<option/>").attr("value", page.id).text(page.name));
+            empty = false;
+            //}
         }
         if (empty) {
             $('#actionOpFloater-page').append($("<option/>").attr("value", -1).text('木有可移动的页面'));
