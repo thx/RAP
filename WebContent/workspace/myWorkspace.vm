@@ -14,7 +14,7 @@
         #bodyNewStart(true)
         <div id="div-fixed-panel">
             <div class="clearfix">
-                #if($accessable)
+
                 <div id="div-w-message" class="label" style="display:none;">
                 </div>
                 <div id="div-control-panel">
@@ -46,14 +46,17 @@
                         <span class="glyphicon glyphicon-trash"></span>
                         取消
                     </button>
+                    #if($accessable)
                     <button id="btnEdit" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" onclick="ws.switchToEditMode(); return false;" title="锁定并进入文档编辑状态">
                         <span class="glyphicon glyphicon-pencil"></span>
                         编辑
                     </button>
+
                     <button id="btnVersion" type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" onclick="ws.version(); return false;" title="查看或切换到历史版本">
                         <span class="glyphicon glyphicon-refresh"></span>
                         版本
                     </button>
+                    #end
                     <button id="btnExitVersion" type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" onclick="ws.exitVersion(); return false;" style="display: none;" title="退出版本查看">
                         <span class="glyphicon glyphicon-arrow-left"></span>
                         返回
@@ -63,10 +66,12 @@
                         <span class="glyphicon glyphicon-headphones"></span>
                         Mock
                     </button>
+                    #if($accessable)
                     <button id="btnExport" type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" onclick="ws.showPluginCode(); return false;" title="配置项目路由，获取插件代码等...">
                         <span class="glyphicon glyphicon-wrench"></span>
                         配置
                     </button>
+                    #end
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                              <span class="glyphicon glyphicon-th-large"></span>
@@ -105,7 +110,7 @@
                         </ul>
                     </div>
                 </div>
-                #end
+
             </div>
             <div id="div-debug"></div>
             <div id="div-mt-list" class="clearfix"></div>
