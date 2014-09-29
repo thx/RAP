@@ -110,20 +110,21 @@ public class SystemVisitorLog {
     }
 
     public static void count(User user) {
+        String name = user.getName();
         String account = user.getAccount();
-        Long userCount = userMap.get(account);
+        Long userCount = userMap.get(name);
         if (userCount == null) {
-            userMap.put(account, 0L);
-            logger.info("New logined visitor %s", account);
+            userMap.put(name, 0L);
+            logger.info("New logined visitor %s(%s)", name, account);
             return;
         }
 
         userCount++;
         logger.debug("user log counter after ++:" + userCount);
-        userMap.put(account, userCount);
+        userMap.put(name, userCount);
 
         if ((userCount + 1) % 100 == 0) {
-            logger.info("Logined visitor %s visit %d times.", account, userCount);
+            logger.info("Logined visitor %s(%s) visit %d times.", name, account, userCount);
         }
     }
 

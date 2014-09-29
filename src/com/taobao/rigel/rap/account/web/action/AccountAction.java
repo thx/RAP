@@ -245,10 +245,15 @@ public class AccountAction extends ActionBase {
 	public String doLogin() {
 		if (super.getAccountMgr().validate(getAccount(), getPassword())) {
 			Map session = ContextManager.getSession();
-			String account = getAccount();
-			long userId = super.getAccountMgr().getUserId(account);
-			session.put(ContextManager.KEY_ACCOUNT, account);
-			session.put(ContextManager.KEY_USER_ID, userId);
+			User user = getAccountMgr().getUser(getAccount());
+            if (user != null && user.getId() > 0) {
+                session.put(ContextManager.KEY_ACCOUNT, user.getAccount());
+                session.put(ContextManager.KEY_USER_ID, user.getId());
+                session.put(ContextManager.KEY_NAME, user.getName());
+            } else {
+                setErrMsg("用户不存在或密码错误");
+                return ERROR;
+            }
 			if (getReturnUrl() != null && !getReturnUrl().trim().equals("")) {
 				return "redirect";
 			}

@@ -52,6 +52,7 @@ public class AuthCheckFilter implements Filter {
 		}
 		HttpSession session = ((HttpServletRequest) request).getSession();
         Object userAccount = session.getAttribute(ContextManager.KEY_ACCOUNT);
+        Object userName = session.getAttribute(ContextManager.KEY_NAME);
 		boolean logined = userAccount != null;
 		
 		SystemConstant.README_PATH = session.getServletContext().getRealPath(File.separator + "README.md");
@@ -95,12 +96,14 @@ public class AuthCheckFilter implements Filter {
 				long userId = rapUser.getId();
 				session.setAttribute(ContextManager.KEY_ACCOUNT, account);
 				session.setAttribute(ContextManager.KEY_USER_ID, userId);
+                session.setAttribute(ContextManager.KEY_NAME, rapUser.getName());
 			}
 
 		} else {
             if (URLUtils.shouldLog(url)) {
                 User logUser = new User();
-                logUser.setAccount((String) userAccount);
+                logUser.setAccount((String)userAccount);
+                logUser.setName((String)userName);
                 SystemVisitorLog.count(logUser);
             }
         }
