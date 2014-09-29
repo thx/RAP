@@ -695,7 +695,8 @@ public class MockMgrImpl implements MockMgr {
 		mockValue = processMockValueWithParams(mockValue);
 
 		if (mockValue != null && !mockValue.isEmpty()) {
-			if (mockValue.startsWith("[") && mockValue.endsWith("]")) {
+			if ((mockValue.startsWith("[") && mockValue.endsWith("]"))
+                    || mockValue.startsWith("function")) {
 				return mockValue;
 			} else if (mockValue.startsWith("$order")) {
                 if (para.getDataType().contains("array")) {
