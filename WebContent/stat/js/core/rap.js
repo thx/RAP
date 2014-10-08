@@ -3450,6 +3450,9 @@ function deepCopy(o) {
                 } else if (typeof f2 === 'boolean') {
                     param.dataType = 'array<boolean>';
                     param.remark = '@mock=' + f;
+                } else if (f2 instanceof Array) {
+                    param.dataType = 'array';
+                    param.remark = '@mock=' + JSON.stringify(f);
                 } else if (f !== null && typeof f2 === 'object') {
                     param.dataType = 'array<object>';
                     for (key in f2) {
@@ -3500,7 +3503,8 @@ function deepCopy(o) {
                 oldKey = key;
                 oldItem = f[key];
                 if (f[key] && f[key] instanceof Array && f[key].length > 1 
-                    && f[key][0] instanceof Object && f[key][0] !== null) {
+                    && f[key][0] instanceof Object && f[key][0] !== null
+                    && !(f[key][0] instanceof Array)) {
                     key = key + '|' + f[key].length;
                     delete f[oldKey] ;
                     f[key] = oldItem;
@@ -4109,7 +4113,8 @@ function deepCopy(o) {
                         'array<number>',
                         'array<string>',
                         'array<object>',
-                        'array<boolean>'
+                        'array<boolean>',
+                        'array'
                     ],
                 typeListNum = typeList.length;
 
