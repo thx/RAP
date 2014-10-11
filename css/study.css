@@ -66,6 +66,12 @@ body {
   background-color: #428bca;
 }
 
+.nav-sidebar span {
+    color: #000;
+    margin: 20px;
+    font-weight: bold;
+}
+
 
 /*
  * Main content

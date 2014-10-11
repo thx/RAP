@@ -14,9 +14,11 @@
             'title' : '基础',
             'contents' : [
                 {
-                    'title' : '登录'
+                    'title' : '登录',
+                    'url'   : 'http://cloud.video.taobao.com//play/u/1018757965/p/2/e/1/t/1/17661220.swf'
                 }, {
-                    'title' : '创建项目'
+                    'title' : '创建项目',
+                    'url'   : 'http://cloud.video.taobao.com//play/u/1018757965/p/1/e/1/t/1/17661402.swf'
                 }, {
                     'title' : '管理组织结构'
                 }

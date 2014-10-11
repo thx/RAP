@@ -21,13 +21,15 @@
         // initialize DOM
         if (j === undefined) {
             if (_isOpening) {
+                _html += '<li class="divider"></li>';
                 _html += '</ul>';
                 _isOpening = false;
             }
             _html += '<ul class="nav nav-sidebar">';
+            _html += '<li><span>' + item.title + '</span></li>';
             _isOpening = true;
         } else {
-            _html += ' <li><a href="#" onclick="alert(\'' + item.id + '\');">' + item.title + '</a></li>';
+            _html += ' <li><a href="#" onclick="window.switchView(\'' + item.id + '\');">' + item.title + '</a></li>';
         }
     });
 
@@ -41,12 +43,33 @@
         for (i = 0; i < data.length; i++) {
             parent = data[i];
 
-            cb(parent, i);
+            if (cb(parent, i) === true) return;
 
             for (j = 0; j < parent.contents.length; j++) {
                 child = parent.contents[j];
-                cb(child, i, j);
+                if (cb(child, i, j) === true) return;
             }
+
         }
     }
+
+    function loadFlash(url) {
+        var flashvars = {};
+        var params = {};
+        var attributes = {};
+        swfobject.embedSWF(url, "divPlayer", "100%", "600", "9.0.0", false, flashvars, params, attributes);
+    }
+
+    g.switchView = function(id) {
+        iterator(function(item) {
+            if (item.id === id) {
+                if (item.url)
+                    loadFlash(item.url);
+                else
+                    alert('视频上传中，敬请期待...');
+                return true;
+            }
+        });
+    };
+    g.switchView(DIV_KEY_PREFIX + '0_0');
 }(this);

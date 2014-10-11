@@ -46,6 +46,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar" id="sidebar">
+          <!--
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Overview</a></li>
             <li><a href="#">登录</a></li>
@@ -64,11 +65,11 @@
             <li><a href="">接口移动和复制</a></li>
             <li><a href="">RESTful API</a></li>
           </ul>
+          -->
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-          <div class="row placeholders" style="width:100%;height:560px;">
-                <script src='http://api.video.taobao.com//video/getPlayerJS'  ></script ><script src='http://api.video.taobao.com//video/embedVideo?vid=11622279&uid=11051796&tid=1&autoplay=false'  ></script >
+          <div class="row placeholders" style="width:100%;height:560px;" id="divPlayer">
           </div>
 
           <h2 class="sub-header"></h2>
@@ -80,6 +81,7 @@
       </div>
     </div>
     <script src="js/jquery-1.11.0.js"></script>
+    <script src="js/swfobject.js"></script>
     <script src="js/study.data.js"></script>
     <script src="js/study.js"></script>
 </body>
