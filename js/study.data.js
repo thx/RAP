@@ -46,7 +46,7 @@
                     'url'   : 'http://cloud.video.taobao.com//play/u/11051796/p/2/e/1/t/1/17772031.swf'
                 }, {
                     'title' : 'MOCK工具进阶',
-                    'url'   : ''
+                    'url'   : 'http://cloud.video.taobao.com//play/u/11051796/p/2/e/1/t/1/17778250.swf'
                 }, {
                     'title' : '项目间共享MOCK数据',
                     'url'   : 'http://cloud.video.taobao.com//play/u/11051796/p/2/e/1/t/1/17775467.swf'
