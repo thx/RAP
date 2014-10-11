@@ -120,11 +120,13 @@
                                 </thead>
                                 <tbody>
                                     #foreach($item in $logger.userLog)
-                                    <tr>
-                                        <td>$velocityCount</td>
-                                        <td>$item.key</td>
-                                        <td>$item.value</td>
-                                    </tr>
+                                        #if($item.key)
+                                            <tr>
+                                                <td>$velocityCount</td>
+                                                <td>$item.key</td>
+                                                <td>$item.value</td>
+                                            </tr>
+                                        #end
                                     #end
                                 </tbody>
                             </table>

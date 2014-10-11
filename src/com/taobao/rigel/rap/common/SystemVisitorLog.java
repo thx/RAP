@@ -64,7 +64,8 @@ public class SystemVisitorLog {
             item.setKey(key);
             item.setValue(map.get(key).toString());
             list.add(item);
-            if (list.size() > MAX_LOG_LENGTH) break;
+
+            if (list.size() >= MAX_LOG_LENGTH) break;
         }
 
         Collections.sort(list, new Comparator<Item>() {
