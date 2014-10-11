@@ -32,16 +32,6 @@
     var modeList = [0, 1, 2, 3];
     var projectId = 0;
 
-    // console handler
-    if (typeof window.console === 'undefined') {
-        window.console = {
-            log : function(){},
-            warn : function(){},
-            info : function(){},
-            dir : function(){}
-        };
-    }
-
     if (!node) {
         var nodes = document.getElementsByTagName('script');
         node = nodes[nodes.length - 1];
