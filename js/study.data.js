@@ -31,6 +31,10 @@
                     'title' : '文档编辑入门',
                     'url'   : 'http://cloud.video.taobao.com//play/u/11051796/p/2/e/1/t/1/17768437.swf'
                 }, {
+                    'title' : '参数或接口的复制与移动',
+                    'url'   : 'http://cloud.video.taobao.com//play/u/11051796/p/2/e/1/t/1/17779340.swf'
+                }, {
+
                     'title' : '版本控制',
                     'url'   : 'http://cloud.video.taobao.com//play/u/11051796/p/2/e/1/t/1/17768638.swf'
                 }, {
