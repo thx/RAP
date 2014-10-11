@@ -37,7 +37,9 @@
 
         <li><a href="$platformUrl.doc" target="_blank">文档</a></li>
         <li><a href="$platformUrl.test">测试</a></li>
-        <li><a href="$platformUrl.log">数据<span style="color:#CC0000;"> (new)</span></a></li>
+        <li><a href="$platformUrl.log">数据</a></li>
+        <li><a href="$platformUrl.study" target="_blank">教程<span style="color:yellow;"> (new)</span></a></li>
+
         #if($isLogined)
         <li>
             <div class="search-project-con">

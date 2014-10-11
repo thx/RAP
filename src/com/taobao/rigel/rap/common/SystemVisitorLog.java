@@ -12,6 +12,7 @@ public class SystemVisitorLog {
     private static Map<String, Long> ipMap = new HashMap<String, Long>();
     private static Map<String, Long> userMap = new HashMap<String, Long>();
     private static Map<Long, Integer> realtimeMap = new HashMap<Long, Integer>();
+    private static final int MAX_LOG_LENGTH = 10;
     private static final int REALTIME_TIME_SPAN = 60;
 
     private static final org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(SystemVisitorLog.class.getName());
@@ -63,7 +64,7 @@ public class SystemVisitorLog {
             item.setKey(key);
             item.setValue(map.get(key).toString());
             list.add(item);
-            if (list.size() > 100) break;
+            if (list.size() > MAX_LOG_LENGTH) break;
         }
 
         Collections.sort(list, new Comparator<Item>() {

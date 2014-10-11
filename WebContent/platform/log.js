@@ -81,6 +81,7 @@
                 categories: categories
             },
             yAxis: {
+                allowDecimals: false,
                 title: {
                     text: toTitle(key) + '数'
                 },
@@ -190,6 +191,7 @@
                 tickPixelInterval: 150
             },
             yAxis: {
+                allowDecimals: false,
                 title: {
                     text: 'Value'
                 },

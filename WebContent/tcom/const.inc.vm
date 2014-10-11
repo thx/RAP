@@ -69,6 +69,7 @@
     "help":"$!projectContext/platform/help.action",
     "test":"$!projectContext/platform/test.action",
     "doc":"https://github.com/thx/RAP/wiki/home_cn",
+    "study":"http://thx.github.io/RAP/study.html",
     "log":"$!projectContext/platform/log.do",
     "realtimeUpdate":"$!projectContext/platform/realtimeUpdate.do"
 })
