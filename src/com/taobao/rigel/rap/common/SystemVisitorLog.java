@@ -11,6 +11,7 @@ import java.util.*;
 public class SystemVisitorLog {
     private static Map<String, Long> ipMap = new HashMap<String, Long>();
     private static Map<String, Long> userMap = new HashMap<String, Long>();
+    private static List<Map<String, String>> mockMapList = new ArrayList<Map<String, String>>();
     private static Map<Long, Integer> realtimeMap = new HashMap<Long, Integer>();
     private static final int MAX_LOG_LENGTH = 10;
     private static final int REALTIME_TIME_SPAN = 60;
@@ -18,12 +19,22 @@ public class SystemVisitorLog {
     private static final org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(SystemVisitorLog.class.getName());
 
     public static List<Item> getIpLog() {
-        return getLogMap(ipMap);
+        return getLogMap(ipMap, MAX_LOG_LENGTH);
     }
 
     public static List<Item> getUserLog() {
-        return getLogMap(userMap);
+        return getLogMap(userMap, MAX_LOG_LENGTH);
     }
+
+    public static List<Item> getAllIpLog() {
+        return getLogMap(ipMap, 0);
+    }
+
+    public static List<Item> getAllUserLog() {
+        return getLogMap(userMap, 0);
+    }
+
+    public static List<Map<String, String>> getMockMapList() {return mockMapList;}
 
     public static List<Map<String, Object>> getRealtimeMap(Long limitTime) {
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
@@ -57,7 +68,10 @@ public class SystemVisitorLog {
         return result;
     }
 
-    private static List<Item> getLogMap(Map<String, Long> map) {
+    private static List<Item> getLogMap(Map<String, Long> map, long max) {
+        if (max <= 0) {
+            max = Long.MAX_VALUE;
+        }
         List<Item> list = new ArrayList<Item>();
         for (String key : map.keySet()) {
             Item item = new Item();
@@ -65,7 +79,7 @@ public class SystemVisitorLog {
             item.setValue(map.get(key).toString());
             list.add(item);
 
-            if (list.size() >= MAX_LOG_LENGTH) break;
+            if (list.size() >= max) break;
         }
 
         Collections.sort(list, new Comparator<Item>() {
@@ -128,6 +142,10 @@ public class SystemVisitorLog {
         if ((userCount + 1) % 100 == 0) {
             logger.info("Logined visitor %s(%s) visit %d times.", name, account, userCount);
         }
+    }
+
+    public static void count(Map<String, String> mockLog) {
+        mockMapList.add(mockLog);
     }
 
 

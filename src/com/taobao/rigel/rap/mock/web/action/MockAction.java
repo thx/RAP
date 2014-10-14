@@ -7,13 +7,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.taobao.rigel.rap.common.ActionBase;
+import com.taobao.rigel.rap.common.ContextManager;
 import com.taobao.rigel.rap.common.Logger;
+import com.taobao.rigel.rap.common.SystemVisitorLog;
 import com.taobao.rigel.rap.mock.service.MockMgr;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Module;
 import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
+import org.apache.logging.log4j.LogManager;
 
 
 public class MockAction extends ActionBase {
@@ -29,9 +32,18 @@ public class MockAction extends ActionBase {
 	private String _c;
 	private ProjectMgr projectMgr;
 	private List<String> urlList;
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(MockAction.class.getName());
 	public List<String> getUrlList() {
 		return urlList;
 	}
+
+    private void logMock(String methodName) {
+        Map<String, String> log = new HashMap<String, String>();
+        log.put("methodName", methodName);
+        log.put("userAccount", getCurAccount());
+        log.put("pattern", pattern);
+        SystemVisitorLog.count(log);
+    }
 
 	public void setUrlList(List<String> urlList) {
 		this.urlList = urlList;
@@ -113,6 +125,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createData() throws UnsupportedEncodingException {
+        logMock("createData");
 		boolean isJSON = false;
 		Logger.mock();
 		Map<String, Object> options = new HashMap<String, Object>();
@@ -139,6 +152,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createRule() throws UnsupportedEncodingException {
+        logMock("createRule");
 		boolean isJSON = false;
 		Logger.mock();
 		Map<String, Object> options = new HashMap<String, Object>();
@@ -165,6 +179,7 @@ public class MockAction extends ActionBase {
 	}
 	
 	public String createRuleByActionData() throws UnsupportedEncodingException {
+        logMock("createRuleByActionData");
 		boolean isJSON = false;
 		Logger.mock();
 		Map<String, Object> options = new HashMap<String, Object>();
@@ -200,6 +215,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createPluginScript() {
+        logMock("createPluginScript");
 		Logger.mock();
 		Map<String, Boolean> _circleRefProtector = new HashMap<String, Boolean>();
 		List<String> list = new ArrayList<String>();
@@ -242,6 +258,7 @@ public class MockAction extends ActionBase {
 	public String createMockjsData() throws UnsupportedEncodingException {
 		boolean isJSON = false;
 		Logger.mock();
+        logMock("createMockjsData");
 		String _c = get_c();
 		Map<String, Object> options = new HashMap<String, Object>();
 		String result = mockMgr.generateRuleData(id, pattern, options);

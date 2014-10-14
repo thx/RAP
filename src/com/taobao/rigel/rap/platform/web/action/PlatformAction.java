@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.google.gson.Gson;
+import com.opensymphony.xwork2.ActionContext;
 import com.taobao.rigel.rap.common.Item;
 import com.taobao.rigel.rap.common.SystemVisitorLog;
 import com.taobao.rigel.rap.platform.service.DataMgr;
@@ -113,7 +114,6 @@ public class PlatformAction extends ActionBase {
 		return SUCCESS;
 	}
 
-
 	public String test() {
 		return SUCCESS;
 	}
@@ -141,6 +141,16 @@ public class PlatformAction extends ActionBase {
 
     public String realtimeUpdate() {
         setJson(getRealtimeJSONByTime(time));
+        return SUCCESS;
+    }
+
+    public String monitor() {
+        Map<String, Object> logs = new HashMap<String, Object>();
+        logs.put("ipLog", SystemVisitorLog.getAllIpLog());
+        logs.put("userLog", SystemVisitorLog.getAllUserLog());
+        logs.put("mockLog", SystemVisitorLog.getMockMapList());
+        Gson gson = new Gson();
+        setJson(gson.toJson(logs));
         return SUCCESS;
     }
 }
