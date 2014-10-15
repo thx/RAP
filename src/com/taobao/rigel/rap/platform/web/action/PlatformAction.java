@@ -78,6 +78,12 @@ public class PlatformAction extends ActionBase {
     private ProjectMgr projectMgr;
     private List<Item> modelLog = new ArrayList<Item>();
 
+    private Map<String, Item> modelLogMap = new HashMap<String, Item>();
+
+    public Map<String, Item> getModelLogMap() {
+        return modelLogMap;
+    }
+
     public List<Item> getModelLog() {
         return modelLog;
     }
@@ -127,14 +133,23 @@ public class PlatformAction extends ActionBase {
         //modelLog.add(new Item("页面数", new Long(projectMgr.getPageNum()).toString()));
         //modelLog.add(new Item("参数数", new Long(projectMgr.getParametertNum()).toString()));
         modelLog.add(new Item("文档提交数", new Long(projectMgr.getCheckInNum()).toString()));
+        modelLog.add(new Item("MOCK服务调用次数", new Long(projectMgr.getMockNumInTotal()).toString(), "该信息自2014年10月底开始记录"));
+
+        for (Item item : modelLog) {
+            modelLogMap.put(item.getKey(), item);
+        }
 
         // trends data
         trends.put("user", dataMgr.getUserTrendByMonth());
         trends.put("project", dataMgr.getProjectTrendByMonth());
         trends.put("checkIn", dataMgr.getCheckInTrendByMonth());
 
+
+
         // statistics data
         statistics.put("actionNumByTeam", dataMgr.getActionNumByTeam());
+        statistics.put("mockNumByProject", dataMgr.getMockNumByProject());
+        statistics.put("mockNumByProjectToday", SystemVisitorLog.getMockNumByProjectToday(projectMgr));
 
         return SUCCESS;
     }

@@ -14,6 +14,10 @@
 			class="com.taobao.rigel.rap.tester.web.action.TesterAction" method="___init___">
 			<result name="success" type="velocity">/bcom/isOk.cb.vm</result>
 		</action>
+        <action name="test"
+                class="com.taobao.rigel.rap.tester.web.action.TesterAction" method="test">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
 	</package>
 
 </struts>

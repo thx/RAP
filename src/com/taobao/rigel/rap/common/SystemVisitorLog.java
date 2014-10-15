@@ -1,6 +1,8 @@
 package com.taobao.rigel.rap.common;
 
 import com.taobao.rigel.rap.account.bo.User;
+import com.taobao.rigel.rap.project.bo.Project;
+import com.taobao.rigel.rap.project.service.ProjectMgr;
 import org.apache.logging.log4j.*;
 
 import java.util.*;
@@ -12,9 +14,36 @@ public class SystemVisitorLog {
     private static Map<String, Long> ipMap = new HashMap<String, Long>();
     private static Map<String, Long> userMap = new HashMap<String, Long>();
     private static List<Map<String, String>> mockMapList = new ArrayList<Map<String, String>>();
+    private static Map<Integer, Integer> mockMap = new HashMap<Integer, Integer>();
     private static Map<Long, Integer> realtimeMap = new HashMap<Long, Integer>();
     private static final int MAX_LOG_LENGTH = 10;
     private static final int REALTIME_TIME_SPAN = 60;
+    private static int mockTotalNum = 0;
+    private static Date mockTotalNumDate = new Date();
+
+    public static void mock(int projectId, String methodName, String pattern, String account, ProjectMgr projectMgr) {
+        Date now = new Date();
+        if (!DateUtils.compWorkAndCurrByDate(mockTotalNumDate, now)) {
+            // clear real time log data per night
+            SystemVisitorLog.clear(projectMgr);
+        }
+        mockTotalNum++;
+        Integer mockNum = mockMap.get(projectId);
+        if (mockNum == null) {
+            mockNum = 0;
+        }
+        mockMap.put(projectId, mockNum + 1);
+
+        Map<String, String> mockInfo = new HashMap<String, String>();
+        mockInfo.put("methodName", methodName);
+        mockInfo.put("userAccount", account);
+        mockInfo.put("pattern", pattern);
+        mockMapList.add(mockInfo);
+    }
+
+    public static int getMockNumToday() {
+        return mockTotalNum;
+    }
 
     private static final org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(SystemVisitorLog.class.getName());
 
@@ -68,9 +97,9 @@ public class SystemVisitorLog {
         return result;
     }
 
-    private static List<Item> getLogMap(Map<String, Long> map, long max) {
+    private static List<Item> getLogMap(Map<String, Long> map, int max) {
         if (max <= 0) {
-            max = Long.MAX_VALUE;
+            max = Integer.MAX_VALUE;
         }
         List<Item> list = new ArrayList<Item>();
         for (String key : map.keySet()) {
@@ -78,18 +107,16 @@ public class SystemVisitorLog {
             item.setKey(key);
             item.setValue(map.get(key).toString());
             list.add(item);
-
-            if (list.size() >= max) break;
         }
 
         Collections.sort(list, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
-                return Integer.parseInt(o2.getValue()) - Integer.parseInt(o1.getValue());
+            return Integer.parseInt(o2.getValue()) - Integer.parseInt(o1.getValue());
             }
         });
 
-        return list;
+        return list.subList(0, max >= list.size() ? list.size() : max);
     }
 
     public static void count() {
@@ -148,15 +175,61 @@ public class SystemVisitorLog {
         mockMapList.add(mockLog);
     }
 
+    public static void clear(ProjectMgr projectMgr) {
+        new SystemVisitorLog().beforeClear(projectMgr);
 
-    public static void clear() {
+        mockTotalNum = 0;
+        mockTotalNumDate = new Date();
         ipMap.clear();
         userMap.clear();
         realtimeMap.clear();
+        mockMapList.clear();
+        mockMap.clear();
+    }
+
+    public void beforeClear(ProjectMgr projectMgr) {
+        /**
+         * log mock info into database
+         */
+        for (Integer projectId : mockMap.keySet()) {
+            Project p = projectMgr.getProject(projectId);
+            if (p != null) {
+                int mockNum = p.getMockNum();
+                mockNum += mockMap.get(projectId);
+                p.setMockNum(mockNum);
+                projectMgr.updateProject(p);
+            }
+
+        }
     }
 
     public static void debug(String msg) {
         logger.info("[DEBUG]" + msg);
+    }
+
+    public static List<Map<String, Object>> getMockNumByProjectToday(ProjectMgr projectMgr) {
+        List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
+        for (Integer id : mockMap.keySet()) {
+            if (id == null) continue;
+            Project p = projectMgr.getProject(id);
+            if (p == null) continue;
+            String name = p.getName();
+            Map<String, Object> row = new HashMap<String, Object>();
+            row.put("id", id);
+            row.put("mockNum", mockMap.get(id));
+            row.put("name", name);
+            results.add(row);
+        }
+        Collections.sort(results, new Comparator<Map<String, Object>>() {
+            @Override
+            public int compare(Map<String, Object> o1, Map<String, Object> o2) {
+                return (Integer)o2.get("mockNum") - (Integer)o1.get("mockNum");
+            }
+        });
+        if (results.size() > 5) {
+            results = results.subList(0, 5);
+        }
+        return results;
     }
 
 }

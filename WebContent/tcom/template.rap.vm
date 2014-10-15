@@ -171,6 +171,11 @@
                     data = JSON.parse(data);
                     $('#_logOnline').html(data.online);
                     $('#_logMockNumToday').html(data.mockNumToday);
+                    var ele = $('#mockDataInDashboard');
+                    if (ele.length) {
+                        var startMockNum = +ele.attr('data-start');
+                        ele.html(startMockNum + (+data.mockNumToday));
+                    }
                     setTimeout(_logData, 2000);
                 }
             });

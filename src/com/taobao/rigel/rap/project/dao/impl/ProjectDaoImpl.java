@@ -348,6 +348,15 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     }
 
     @Override
+    public long getMockNumInTotal() {
+        String sql = "SELECT SUM(mock_num) FROM tb_project";
+        Query query = getSession().createSQLQuery(sql);
+        return Long.parseLong(query.uniqueResult().toString());
+    }
+
+
+
+    @Override
     public long getParametertNum() {
         String sql = "SELECT COUNT(*) FROM tb_parameter";
         Query query = getSession().createSQLQuery(sql);
@@ -523,5 +532,12 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		}
 		return list;
 	}
+
+    @Override
+    public List<Project> selectMockNumTopNProjectList(int limit) {
+        String hqlByUser = "from Project order by mockNum desc";
+        Query query = getSession().createQuery(hqlByUser);
+        return query.setMaxResults(limit).list();
+    }
 
 }

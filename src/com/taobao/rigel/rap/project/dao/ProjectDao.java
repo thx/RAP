@@ -138,5 +138,7 @@ public interface ProjectDao {
 
     long getCheckInNum();
 
+    long getMockNumInTotal();
 
+    List<Project> selectMockNumTopNProjectList(int limit);
 }

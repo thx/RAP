@@ -335,4 +335,12 @@ public class ProjectMgrImpl implements ProjectMgr {
     public long getCheckInNum() {
         return projectDao.getCheckInNum();
     }
+
+    @Override
+    public long getMockNumInTotal() {return projectDao.getMockNumInTotal();}
+
+    @Override
+    public List<Project> selectMockNumTopNProjectList(int limit) {
+        return projectDao.selectMockNumTopNProjectList(limit);
+    }
 }

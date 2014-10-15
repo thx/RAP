@@ -33,8 +33,17 @@ public class Project implements java.io.Serializable {
 	private int workspaceModeInt;
 	private String relatedIds = "";
 	private int groupId;
-	
-	public int getGroupId() {
+    private int mockNum;
+
+    public void setMockNum(int mockNum) {
+        this.mockNum = mockNum;
+    }
+
+    public int getMockNum() {
+        return mockNum;
+    }
+
+    public int getGroupId() {
 		return groupId;
 	}
 
