@@ -85,7 +85,7 @@
                         <li><a href="#userLog" role="tab" data-toggle="tab" class="tip" title="数据不包含css/js/html/图片/font等静态文件请求、日志请求"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;活跃用户</a></li>
                     </ul>
                     <!-- Tab panes -->
-                    <div class="tab-content">
+                    <div class="tab-content" style="height:400px;">
                         <div class="tab-pane fade in active" id="mockByProjectTop5Today"></div>
                         <div class="tab-pane fade" id="ipLog">
                             <table class="table table-hover" style="width:300px;">

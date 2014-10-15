@@ -201,7 +201,7 @@
                 }
             },
             title: {
-                text: '今日Mock调用TOP5'
+                text: 'Mock调用TOP5'
             },
             series: [{
                 name : 'Mock服务调用次数',
@@ -247,7 +247,7 @@
                 }
             },
             title: {
-                text: '各项目Mock服务调用次数'
+                text: '今日Mock调用TOP5'
             },
             series: [{
                 name : 'Mock服务调用次数',
