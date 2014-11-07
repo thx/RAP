@@ -3,43 +3,27 @@
 <head>
 <meta charset="utf-8" />
 <title>RAP Example</title>
-<script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.0.js"></script>
 <!-- 引入RAP开始 -->
-<script src="http://etaoux-bj.taobao.ali.com:8439/rap.plugin.js?projectId=189"></script>
+<script src="http://etaoux-bj.taobao.ali.com:8080/rap.plugin.js?projectId=8"></script>
 <!-- 引入RAP结束 -->
 </head>
 <body>
     <pre id="container"></pre>
     <script>
-        /**
-        KISSY.use([ 'node', 'ajax' ], {
-            success : function(S, Node, IO) {
-                IO({
-                    url : '/jsonImport',
-                    dataType : 'json',
-                    type : 'get',
-                    success : function(data) {
-                        Node.one('#container').html(JSON.stringify(data, null, 4));
-                    }
-                });
-            }
-        });
-         */
 
-        $.get("/jsonImport").done(function(res) {
-            $('#container').html(JSON.stringify(res, null, 4));
-        });
-/**
 
-$.ajax({
-  url:'ajax/vaultList.json',
-  data:{id:1},
-  success:function(json){
-    console.log(json);
-  }
-});
-*/
+
+        $.ajax({
+          url:'outer.json',
+          data : {
+            id : 375
+          },
+          success:function(json){
+            console.log(json);
+          }
+        });
+
     </script>
 </body>
 </html>
