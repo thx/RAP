@@ -185,7 +185,9 @@ public class ProjectMgrImpl implements ProjectMgr {
         String projectData = check.getProjectData();
 
         Gson gson = new Gson();
-        return gson.fromJson(projectData, Project.class);
+        Project p = gson.fromJson(projectData, Project.class);
+        p.setVersion(check.getVersion());
+        return p;
     }
 
     @Override
