@@ -1466,6 +1466,8 @@ function deepCopy(o) {
     ws.showPluginCode = function() {
         ecFloater.show("pluginCodeFloater");
         b.g('pluginCodeInput').select();
+        var ele = document.getElementById('pluginCodeInput');
+        ele.selectionEnd = ele.value.length;
     };
 
     ws.closePluginCodeFloater = function(save) {
@@ -1508,7 +1510,9 @@ function deepCopy(o) {
     ws.openActionUrlFloater = function(actionId) {
         ecFloater.show("actionUrlFloater");
         $('#actionUrlFloater-input').val(URL.myWorkspace + '?projectId=' + p.getId() + '&actionId=' + actionId);
-        $('#actionUrlFloater-input').select();
+        $('#actionUrlFloater-input').focus().select();
+        var ele = $('#actionUrlFloater-input')[0];
+        ele.selectionEnd = ele.value.length;
     };
 
 
@@ -3856,7 +3860,7 @@ function deepCopy(o) {
          * get action info html
          */
         function getAInfoHtml(a) {
-            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id + ") <a href=\"#\" onclick=\"ws.openActionUrlFloater(" + a.id + ");return false;\">URL</a></span> </h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
+            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id + ") <a href=\"#\" onclick=\"ws.openActionUrlFloater(" + a.id + ");return false;\">复制URL</a></span> </h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
                 body = "",
                 foot = "</div>";
             if (a.name) {

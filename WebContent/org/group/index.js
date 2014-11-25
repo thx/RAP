@@ -184,7 +184,9 @@ $(function() {
         		 content: '<input type="text" id="rap-plugin-inputer" class="form-control" value="<script src=\'http://' + host + '/rap.plugin.js?projectId=' + id + '\'></script>" />',
                  title: '复制RAP插件地址',
                  showCallback: function() {
-                	 $('#rap-plugin-inputer').focus();
+                	 var ele = $('#rap-plugin-inputer')[0];
+                     ele.focus();
+                     ele.selectionEnd = ele.value.length;
                  }
         	});
         })
