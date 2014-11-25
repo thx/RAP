@@ -76,6 +76,18 @@
         var ajax = jQuery.ajax;
         jQuery.ajax = function() {
             var oOptions = arguments[0];
+
+            // process ajax(url, options) condition
+            if (typeof arguments[0] === 'string' &&
+                typeof arguments[1] === 'object' &&
+                arguments[1].url === undefined) {
+
+                oOptions = arguments[1];
+                oOptions.url = arguments[0];
+                arguments[0] = oOptions;
+
+            }
+
             var url = oOptions.url;
             var routePassed = route(url) && projectId;
             if (routePassed) {
