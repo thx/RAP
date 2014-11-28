@@ -118,8 +118,9 @@ CREATE TABLE tb_project
 	group_id int(10) NULL,
 	related_ids varchar(128) NOT NULL
 	DEFAULT '',
-	update_time timestamp NOT NULL
-		DEFAULT now(),
+	update_time datetime NOT NULL,
+	mock_num int NOT NULL
+	  DEFAULT 0,
 
 	FOREIGN KEY(user_id) REFERENCES tb_user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
