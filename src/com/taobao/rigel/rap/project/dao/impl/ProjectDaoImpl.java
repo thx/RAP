@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.sun.tools.javac.jvm.Items;
+import com.taobao.rigel.rap.common.CacheUtils;
 import com.taobao.rigel.rap.workspace.bo.CheckIn;
 import com.taobao.rigel.rap.workspace.dao.WorkspaceDao;
 import org.hibernate.ObjectNotFoundException;
@@ -193,6 +194,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 						continue;
 					}
 					actionServer.update(action);
+                    CacheUtils.removeCacheByActionId(action.getId());
 					for (Parameter parameter : action.getRequestParameterList()) {
 						Parameter parameterServer = projectServer
 								.findParameter(parameter.getId(), true);

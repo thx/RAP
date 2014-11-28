@@ -483,6 +483,9 @@ public class WorkspaceAction extends ActionBase {
         asyncThread.start();
         logger.info("Future task CHECK_IN running...");
 
+
+
+
 		return SUCCESS;
 	}
 

@@ -50,7 +50,7 @@ public class CacheUtils {
      * remove rule cache
      * @param actionId
      */
-    public static void removeRuleCache(int actionId) {
+    private static void removeRuleCache(int actionId) {
         if (cachedRules.containsKey(actionId)) {
             cachedRules.remove(actionId);
             rulesFrequency.remove(actionId);
@@ -61,5 +61,9 @@ public class CacheUtils {
 
     public static long getCachedRuleSize() {
         return cachedRuleSize;
+    }
+
+    public static void removeCacheByActionId(int id) {
+        removeRuleCache(id);
     }
 }
