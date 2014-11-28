@@ -42,7 +42,8 @@ public interface MockMgr {
 	/**
 	 * generate mockjs rule
 	 * 
-	 * @param id
+	 * @param id projectId,  if both pattern and options are null,
+     *           this id means actionId(used for OpenAPI)
 	 * @param pattern
 	 * @param options
 	 * @return
