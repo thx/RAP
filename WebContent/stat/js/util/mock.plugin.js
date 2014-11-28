@@ -86,6 +86,11 @@
                 oOptions.url = arguments[0];
                 arguments[0] = oOptions;
 
+            } else if(typeof arguments[0] === 'string' &&
+                typeof arguments[1] === undefined) {
+                oOptions = arguments[0] = {
+                    url : arguments[0]
+                };
             }
 
             var url = oOptions.url;
