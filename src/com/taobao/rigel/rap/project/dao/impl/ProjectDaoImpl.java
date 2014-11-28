@@ -351,10 +351,9 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     public long getMockNumInTotal() {
         String sql = "SELECT SUM(mock_num) FROM tb_project";
         Query query = getSession().createSQLQuery(sql);
-        return Long.parseLong(query.uniqueResult().toString());
+        Object queryResult = query.uniqueResult();
+        return queryResult != null ? Long.parseLong(queryResult.toString()) : 0;
     }
-
-
 
     @Override
     public long getParametertNum() {
