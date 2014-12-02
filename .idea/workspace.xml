@@ -7,80 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="073dcdd8-2723-4115-8f52-bd7cf3d634cc" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/3d-column-interactive/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/3d-column-null-values/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/3d-column-stacking-grouping/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/3d-pie-donut/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/3d-pie/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/3d-scatter-draggable/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/area-basic/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/area-inverted/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/area-missing/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/area-negative/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/area-stacked-percent/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/area-stacked/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/arearange-line/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/arearange/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/areaspline/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/bar-basic/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/bar-negative-stack/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/bar-stacked/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/box-plot/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/bubble-3d/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/bubble/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/column-basic/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/column-drilldown/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/column-negative/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/column-parsed/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/column-placement/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/column-rotated-labels/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/column-stacked-and-grouped/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/column-stacked-percent/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/column-stacked/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/columnrange/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/combo-dual-axes/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/combo-meteogram/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/combo-multi-axes/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/combo-regression/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/combo/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/dynamic-click-to-add/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/dynamic-master-detail/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/dynamic-update/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/error-bar/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/funnel/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/gauge-clock/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/gauge-dual/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/gauge-solid/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/gauge-speedometer/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/gauge-vu-meter/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/heatmap-canvas/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/heatmap/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/line-ajax/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/line-basic/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/line-labels/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/line-log-axis/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/line-time-series/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/pie-basic/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/pie-donut/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/pie-drilldown/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/pie-gradient/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/pie-legend/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/pie-monochrome/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/pie-semi-circle/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/polar-spider/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/polar-wind-rose/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/polar/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/pyramid/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/renderer/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/scatter/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/sparkline/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/spline-inverted/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/spline-irregular-time/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/spline-plot-bands/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/spline-symbols/index.htm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/examples/waterfall/index.htm" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/demo/mock.plugin/data.json" afterPath="$PROJECT_DIR$/WebContent/demo/mock.plugin/data.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/demo/mock.plugin/index.htm" afterPath="$PROJECT_DIR$/WebContent/demo/mock.plugin/index.htm" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="RAP.iws" />
@@ -150,7 +76,7 @@
       <file leaf-file-name="mysql.local.properties" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/mysql.local.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.34168565" vertical-offset="0" max-vertical-offset="439">
+            <state vertical-scroll-proportion="0.22255193" vertical-offset="0" max-vertical-offset="674">
               <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
             </state>
@@ -223,8 +149,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -281,6 +205,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -799,12 +725,16 @@
       <workItem from="1411884649725" duration="320000" />
       <workItem from="1415240501072" duration="605000" />
       <workItem from="1415251548156" duration="243000" />
-      <workItem from="1415321962886" duration="1008000" />
+      <workItem from="1415321962886" duration="1437000" />
+      <workItem from="1415347380039" duration="3000" />
+      <workItem from="1415499509812" duration="599000" />
+      <workItem from="1415667459358" duration="20000" />
+      <workItem from="1416274604698" duration="34000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15227000" />
+    <option name="totallyTimeSpent" value="16312000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="807" extended-state="6" />
@@ -823,7 +753,6 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32867134" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -839,6 +768,7 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32867134" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -866,10 +796,34 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/mysql.remote.properties">
+    <entry file="file://$PROJECT_DIR$/src/mysql.local.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="225">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="240">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mysql.local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mysql.local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="240">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mysql.local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="240">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -878,7 +832,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="225">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mysql.remote.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="225">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1131,7 +1091,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.22058824" vertical-offset="0" max-vertical-offset="476">
           <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1139,13 +1098,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.28361344" vertical-offset="600" max-vertical-offset="1935">
           <caret line="31" column="40" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/mysql.local.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34168565" vertical-offset="0" max-vertical-offset="439">
+        <state vertical-scroll-proportion="0.22255193" vertical-offset="0" max-vertical-offset="674">
           <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
