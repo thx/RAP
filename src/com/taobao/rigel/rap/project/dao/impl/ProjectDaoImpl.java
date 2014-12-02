@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.sun.tools.javac.jvm.Items;
+import com.taobao.rigel.rap.common.CacheUtils;
 import com.taobao.rigel.rap.workspace.bo.CheckIn;
 import com.taobao.rigel.rap.workspace.dao.WorkspaceDao;
 import org.hibernate.ObjectNotFoundException;
@@ -193,6 +194,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 						continue;
 					}
 					actionServer.update(action);
+                    CacheUtils.removeCacheByActionId(action.getId());
 					for (Parameter parameter : action.getRequestParameterList()) {
 						Parameter parameterServer = projectServer
 								.findParameter(parameter.getId(), true);
@@ -345,6 +347,14 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         String sql = "SELECT COUNT(*) FROM tb_action";
         Query query = getSession().createSQLQuery(sql);
         return Long.parseLong(query.uniqueResult().toString());
+    }
+
+    @Override
+    public long getMockNumInTotal() {
+        String sql = "SELECT SUM(mock_num) FROM tb_project";
+        Query query = getSession().createSQLQuery(sql);
+        Object queryResult = query.uniqueResult();
+        return queryResult != null ? Long.parseLong(queryResult.toString()) : 0;
     }
 
     @Override
@@ -523,5 +533,12 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		}
 		return list;
 	}
+
+    @Override
+    public List<Project> selectMockNumTopNProjectList(int limit) {
+        String hqlByUser = "from Project order by mockNum desc";
+        Query query = getSession().createQuery(hqlByUser);
+        return query.setMaxResults(limit).list();
+    }
 
 }

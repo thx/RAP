@@ -22,6 +22,6 @@
 	<tool>
 		<key>logger</key>
 		<scope>application</scope>
-		<class> com.taobao.rigel.rap.common.Logger</class>
+		<class> com.taobao.rigel.rap.common.SystemVisitorLog</class>
 	</tool>
 </toolbox>

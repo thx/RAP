@@ -185,7 +185,9 @@ public class ProjectMgrImpl implements ProjectMgr {
         String projectData = check.getProjectData();
 
         Gson gson = new Gson();
-        return gson.fromJson(projectData, Project.class);
+        Project p = gson.fromJson(projectData, Project.class);
+        p.setVersion(check.getVersion());
+        return p;
     }
 
     @Override
@@ -334,5 +336,13 @@ public class ProjectMgrImpl implements ProjectMgr {
     @Override
     public long getCheckInNum() {
         return projectDao.getCheckInNum();
+    }
+
+    @Override
+    public long getMockNumInTotal() {return projectDao.getMockNumInTotal();}
+
+    @Override
+    public List<Project> selectMockNumTopNProjectList(int limit) {
+        return projectDao.selectMockNumTopNProjectList(limit);
     }
 }

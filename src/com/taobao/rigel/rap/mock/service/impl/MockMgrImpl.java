@@ -10,13 +10,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.taobao.rigel.rap.common.*;
 import nl.flotsam.xeger.Xeger;
 
-import com.taobao.rigel.rap.common.ArrayUtils;
-import com.taobao.rigel.rap.common.MockjsRunner;
-import com.taobao.rigel.rap.common.NumberUtils;
-import com.taobao.rigel.rap.common.Patterns;
-import com.taobao.rigel.rap.common.StringUtils;
 import com.taobao.rigel.rap.mock.service.MockMgr;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Parameter;
@@ -183,7 +179,7 @@ public class MockMgrImpl implements MockMgr {
         }
         _num = 1;
 
-        if (actionId > 0) {
+        if (actionId > 0) {  // from OPENApi, invoked by params(id, null, null)
             action = projectMgr.getAction(actionId);
         } else {
             if (pattern.contains("?")) {
@@ -199,6 +195,11 @@ public class MockMgrImpl implements MockMgr {
             }
 
             action = actionPick(aList, originalPattern, options);
+            String ruleCache = CacheUtils.getRuleCache(action, originalPattern);
+            if (ruleCache != null) {
+                return ruleCache;
+            }
+
         }
 
 		String desc = action.getDescription();
@@ -255,7 +256,9 @@ public class MockMgrImpl implements MockMgr {
 		}
 		json.append(right);
 		String result = json.toString();
-		return resultFilter(result);
+		result = resultFilter(result);
+        CacheUtils.setRuleCache(action.getId(), result);
+        return result;
 	}
 
 	private Action actionPick(List<Action> actionList, String pattern,
@@ -695,7 +698,8 @@ public class MockMgrImpl implements MockMgr {
 		mockValue = processMockValueWithParams(mockValue);
 
 		if (mockValue != null && !mockValue.isEmpty()) {
-			if (mockValue.startsWith("[") && mockValue.endsWith("]")) {
+			if ((mockValue.startsWith("[") && mockValue.endsWith("]"))
+                    || mockValue.startsWith("function")) {
 				return mockValue;
 			} else if (mockValue.startsWith("$order")) {
                 if (para.getDataType().contains("array")) {

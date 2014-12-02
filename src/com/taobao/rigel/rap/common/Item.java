@@ -6,6 +6,7 @@ package com.taobao.rigel.rap.common;
 public class Item {
     private String key;
     private String value;
+    private String title;
 
     public Item() {
 
@@ -14,6 +15,12 @@ public class Item {
     public Item(String key, String value) {
         this.key = key;
         this.value = value;
+    }
+
+    public Item(String key, String value, String title) {
+        this.key = key;
+        this.value = value;
+        this.title = title;
     }
 
     public String getKey() {
@@ -30,5 +37,13 @@ public class Item {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

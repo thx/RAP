@@ -51,6 +51,13 @@ public class TesterAction extends ActionBase {
 		projectId = page.getModule().getProject().getId();
 		return SUCCESS;
 	}
+
+    public String test() {
+        SystemVisitorLog.clear(projectMgr);
+        System.out.println("Clear complete!");
+        setJson("clear complete");
+        return SUCCESS;
+    }
 	
 	/**
 	 * used for system configuration when new version deployed

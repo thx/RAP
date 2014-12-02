@@ -32,16 +32,6 @@
     var modeList = [0, 1, 2, 3];
     var projectId = 0;
 
-    // console handler
-    if (typeof window.console === 'undefined') {
-        window.console = {
-            log : function(){},
-            warn : function(){},
-            info : function(){},
-            dir : function(){}
-        };
-    }
-
     if (!node) {
         var nodes = document.getElementsByTagName('script');
         node = nodes[nodes.length - 1];
@@ -86,6 +76,23 @@
         var ajax = jQuery.ajax;
         jQuery.ajax = function() {
             var oOptions = arguments[0];
+
+            // process ajax(url, options) condition
+            if (typeof arguments[0] === 'string' &&
+                typeof arguments[1] === 'object' &&
+                arguments[1].url === undefined) {
+
+                oOptions = arguments[1];
+                oOptions.url = arguments[0];
+                arguments[0] = oOptions;
+
+            } else if(typeof arguments[0] === 'string' &&
+                typeof arguments[1] === undefined) {
+                oOptions = arguments[0] = {
+                    url : arguments[0]
+                };
+            }
+
             var url = oOptions.url;
             var routePassed = route(url) && projectId;
             if (routePassed) {
@@ -462,7 +469,7 @@
 
     /**
      * convert url to rap mock url (KISSY version)
-     * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
+     * example: www.baidu.com/a => {domain}/mock/106/a
      */
     function rapUrlConverterKissy(options) {
         var url = options.url;
@@ -480,7 +487,7 @@
 
     /**
      * convert url to rap mock url (jQuery version)
-     * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
+     * example: www.baidu.com/a => {domain}/mock/106/a
      */
     function rapUrlConverterJQuery(options) {
         var url = options.url;

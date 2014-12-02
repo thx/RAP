@@ -15,7 +15,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-      <a class="navbar-brand" href="/"><i class="iconlogo mi-rap"></i> <span class="logo-text">RAP v0.10</span></a>
+      <a class="navbar-brand" href="/"><i class="iconlogo mi-rap"></i> <span class="logo-text">RAP v0.11</span></a>
     </div>
     <div class="collapse navbar-collapse"  id="global-navbar">
       <ul class="nav navbar-nav">
@@ -36,8 +36,12 @@
         #end
 
         <li><a href="$platformUrl.doc" target="_blank">文档</a></li>
-        <!--<li><a href="$platformUrl.test">测试</a></li>-->
-        <li><a href="$platformUrl.log">数据<span style="color:#CC0000;"> (new)</span></a></li>
+        <!--<li><a href="$platformUrl.test">测试</a></li>   外网不可见 -->
+        <li><a href="$platformUrl.log">数据</a></li>
+        <li><a href="$platformUrl.study" target="_blank">教程
+           <!-- <span style="color:yellow;"> (new)</span> -->
+        </a></li>
+
         #if($isLogined)
         <li>
             <div class="search-project-con">
@@ -151,6 +155,11 @@
                     data = JSON.parse(data);
                     $('#_logOnline').html(data.online);
                     $('#_logMockNumToday').html(data.mockNumToday);
+                    var ele = $('#mockDataInDashboard');
+                    if (ele.length) {
+                        var startMockNum = +ele.attr('data-start');
+                        ele.html(startMockNum + (+data.mockNumToday));
+                    }
                     setTimeout(_logData, 2000);
                 }
             });

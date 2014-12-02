@@ -15,4 +15,6 @@ public interface DataMgr {
     List<Map<String, Object>> getCheckInTrendByMonth();
 
     List<Map<String, Object>> getActionNumByTeam();
+
+    List<Map<String, Object>> getMockNumByProject();
 }

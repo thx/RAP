@@ -161,4 +161,8 @@ public interface ProjectMgr {
     long getParametertNum();
 
     long getCheckInNum();
+
+    long getMockNumInTotal();
+
+    List<Project> selectMockNumTopNProjectList(int limit);
 }

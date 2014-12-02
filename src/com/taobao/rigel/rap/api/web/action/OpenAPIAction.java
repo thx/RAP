@@ -75,14 +75,41 @@ public class OpenAPIAction extends ActionBase {
         this.ver = ver;
     }
 
-    public String queryModel() throws Exception {
+    private String _c;
 
+    private String callback;
+
+    public String get_c() {
+        return _c;
+    }
+
+    public void set_c(String _c) {
+        this._c = _c;
+    }
+
+    public void setCallback(String callback) {
+        this.callback = callback;
+    }
+
+    public String getCallback() {
+        return callback;
+    }
+
+    public String queryModel() throws Exception {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         Gson g = new Gson();
         resultMap.put("model", openAPIMgr.getModel(projectId, ver));
         resultMap.put("code", 200);
         resultMap.put("msg", "");
         String resultJson = g.toJson(resultMap);
+
+        // JSONP SUPPORTED
+        if (callback != null && !callback.isEmpty()) {
+            resultJson = (callback + "(" + resultJson + ")");
+        } else if (_c != null && !_c.isEmpty()) {
+            resultJson = (_c + "(" + resultJson + ")");
+        }
+
         setJson(resultJson);
         return SUCCESS;
     }
@@ -96,6 +123,14 @@ public class OpenAPIAction extends ActionBase {
                 200);
         resultMap.put("msg", "");
         String resultJson = g.toJson(resultMap);
+
+        // JSONP SUPPORTED
+        if (callback != null && !callback.isEmpty()) {
+            resultJson = (callback + "(" + resultJson + ")");
+        } else if (_c != null && !_c.isEmpty()) {
+            resultJson = (_c + "(" + resultJson + ")");
+        }
+
         setJson(resultJson);
         return SUCCESS;
     }
@@ -111,12 +146,19 @@ public class OpenAPIAction extends ActionBase {
             mockDataMap.put(a.getId(), mockMgr.generateRule(a.getId(), null, null));
         }
 
-
         resultMap.put("modelJSON", p.toString(Project.TO_STRING_TYPE.TO_PARAMETER));
         resultMap.put("mockjsMap", mockDataMap);
         resultMap.put("code", 200);
         resultMap.put("msg", 0);
         String resultJson = g.toJson(resultMap);
+
+        // JSONP SUPPORTED
+        if (callback != null && !callback.isEmpty()) {
+            resultJson = (callback + "(" + resultJson + ")");
+        } else if (_c != null && !_c.isEmpty()) {
+            resultJson = (_c + "(" + resultJson + ")");
+        }
+
         setJson(resultJson);
         return SUCCESS;
     }

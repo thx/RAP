@@ -52,6 +52,7 @@ public class AuthCheckFilter implements Filter {
 		HttpSession session = ((HttpServletRequest) request).getSession();
 
         Object userAccount = session.getAttribute(ContextManager.KEY_ACCOUNT);
+        Object userName = session.getAttribute(ContextManager.KEY_NAME);
 		boolean logined = userAccount != null;
 		
 		SystemConstant.README_PATH = session.getServletContext().getRealPath(File.separator + "README.md");
@@ -61,7 +62,6 @@ public class AuthCheckFilter implements Filter {
             User logUser = new User();
             logUser.setAccount((String)userAccount);
             SystemVisitorLog.count(logUser);
-
         }
 
 		SystemConstant.README_PATH = session.getServletContext().getRealPath(

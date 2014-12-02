@@ -69,6 +69,10 @@
 
 
         $('#' + key + 'Trend').highcharts({
+            chart: {
+                width: 570,
+                height: 350
+            },
             title: {
                 text: toTitle(key) + '数变化趋势',
                 x: -20 //center
@@ -81,6 +85,7 @@
                 categories: categories
             },
             yAxis: {
+                allowDecimals: false,
                 title: {
                     text: toTitle(key) + '数'
                 },
@@ -105,6 +110,8 @@
 
     function loadStatistics(data) {
         var chartData = [];
+
+        // render action use pie charts
         var teamData = data.actionNumByTeam;
 
         var i = 0, n = teamData.length, item;
@@ -155,6 +162,98 @@
                 data: chartData
             }]
         });
+
+        // render mock data column chart
+        var mockData = data.mockNumByProject;
+        var mockChartData = [];
+        var categories = [];
+
+        i = 0;
+        n = mockData.length;
+
+        for (; i < n; i++) {
+            item = mockData[i];
+            mockChartData.push({
+                name : item.name,
+                y : item.mockNum
+            });
+            categories.push(item.name);
+        }
+
+        $('#mockByProjectTop5').highcharts({
+            chart: {
+                type: 'column',
+                margin: 75,
+                options3d: {
+                    enabled: true,
+                    alpha: 15,
+                    beta: 15,
+                    depth: 50,
+                    viewDistance: 25
+                }
+            },
+            xAxis: {
+                categories: categories
+            },
+            plotOptions: {
+                column: {
+                    depth: 25
+                }
+            },
+            title: {
+                text: 'Mock调用TOP5'
+            },
+            series: [{
+                name : 'Mock服务调用次数',
+                data: mockChartData
+            }]
+        });
+
+        // render mock data column chart
+        var mockDataToday = data.mockNumByProjectToday;
+        var mockChartDataToday = [];
+        var categoriesToday = [];
+
+        i = 0;
+        n = mockDataToday.length;
+
+        for (; i < n; i++) {
+            item = mockDataToday[i];
+            mockChartDataToday.push({
+                name : item.name,
+                y : item.mockNum
+            });
+            categoriesToday.push(item.name);
+        }
+
+        $('#mockByProjectTop5Today').highcharts({
+            chart: {
+                type: 'column',
+                margin: 75,
+                options3d: {
+                    enabled: true,
+                    alpha: 15,
+                    beta: 15,
+                    depth: 50,
+                    viewDistance: 25
+                }
+            },
+            xAxis: {
+                categories: categoriesToday
+            },
+            plotOptions: {
+                column: {
+                    depth: 25
+                }
+            },
+            title: {
+                text: '今日Mock调用TOP5'
+            },
+            series: [{
+                name : 'Mock服务调用次数',
+                data: mockChartDataToday
+            }]
+        });
     }
 
     function loadRealtime(startData, updateUrl, serverTime) {
@@ -190,6 +289,7 @@
                 tickPixelInterval: 150
             },
             yAxis: {
+                allowDecimals: false,
                 title: {
                     text: 'Value'
                 },

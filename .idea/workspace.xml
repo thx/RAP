@@ -7,7 +7,58 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="073dcdd8-2723-4115-8f52-bd7cf3d634cc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/CacheUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/stat/js/util/console-compability.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/platform/monitor.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/platform/monitor.vm" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/status.taobao" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/stat/highcharts/index.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/Logger.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/web/action/AccountAction.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/web/action/AccountAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/dao/impl/AccountDaoImpl.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/dao/impl/AccountDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/AuthCheckFilter.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/AuthCheckFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/ContextManager.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/ContextManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DATABASE_CHANGE_v0.11.md" afterPath="$PROJECT_DIR$/DATABASE_CHANGE_v0.11.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/platform/dao/DataDao.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/platform/dao/DataDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/platform/service/DataMgr.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/platform/service/DataMgr.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/platform/service/impl/DataMgrImpl.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/platform/service/impl/DataMgrImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/Item.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/Item.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/mock/web/action/MockAction.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/mock/web/action/MockAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/mock/service/MockMgr.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/mock/service/MockMgr.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/mock/service/impl/MockMgrImpl.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/mock/service/impl/MockMgrImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/api/web/action/OpenAPIAction.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/api/web/action/OpenAPIAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/platform/web/action/PlatformAction.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/platform/web/action/PlatformAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/mapping/Project.hbm.xml" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/mapping/Project.hbm.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/bo/Project.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/bo/Project.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/dao/ProjectDao.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/dao/ProjectDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/dao/impl/ProjectDaoImpl.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/dao/impl/ProjectDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/service/ProjectMgr.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/service/ProjectMgr.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/service/impl/ProjectMgrImpl.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/service/impl/ProjectMgrImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/SystemConstant.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/SystemConstant.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/SystemVisitorLog.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/SystemVisitorLog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/tester/web/action/TesterAction.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/tester/web/action/TesterAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/workspace/web/action/WorkspaceAction.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/workspace/web/action/WorkspaceAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/applicationContext.xml" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/applicationContext.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/platform/applicationContext.xml" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/platform/applicationContext.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/tcom/const.inc.vm" afterPath="$PROJECT_DIR$/WebContent/tcom/const.inc.vm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/mock/createPluginScript.vm" afterPath="$PROJECT_DIR$/WebContent/mock/createPluginScript.vm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/demo/mock.plugin/index.htm" afterPath="$PROJECT_DIR$/WebContent/demo/mock.plugin/index.htm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/org/group/index.js" afterPath="$PROJECT_DIR$/WebContent/org/group/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/org/home/index.js" afterPath="$PROJECT_DIR$/WebContent/org/home/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/database/initialize.sql" afterPath="$PROJECT_DIR$/src/database/initialize.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/platform/log.js" afterPath="$PROJECT_DIR$/WebContent/platform/log.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/platform/log.vm" afterPath="$PROJECT_DIR$/WebContent/platform/log.vm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/stat/js/util/mock.plugin.js" afterPath="$PROJECT_DIR$/WebContent/stat/js/util/mock.plugin.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/workspace/myWorkspace.css" afterPath="$PROJECT_DIR$/WebContent/workspace/myWorkspace.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/workspace/myWorkspace.vm" afterPath="$PROJECT_DIR$/WebContent/workspace/myWorkspace.vm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mysql.local.properties" afterPath="$PROJECT_DIR$/src/mysql.local.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/stat/js/core/rap.js" afterPath="$PROJECT_DIR$/WebContent/stat/js/core/rap.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/database/scripts.sql" afterPath="$PROJECT_DIR$/src/database/scripts.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/platform/web/action/struts.xml" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/platform/web/action/struts.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/tester/web/action/struts.xml" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/tester/web/action/struts.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/tcom/template.rap.vm" afterPath="$PROJECT_DIR$/WebContent/tcom/template.rap.vm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/toolbox.xml" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/toolbox.xml" />
     </list>
     <ignored path="RAP.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -64,8 +115,8 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <breakpoint_rules converted="true" />
     <ui_properties converted="true" />
+    <breakpoint_rules converted="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -76,8 +127,18 @@
       <file leaf-file-name="mysql.local.properties" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/mysql.local.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.22255193" vertical-offset="0" max-vertical-offset="674">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.2631579" vertical-offset="0" max-vertical-offset="225">
+              <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="applicationContext.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/applicationContext.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="1935">
+              <caret line="40" column="50" selection-start-line="40" selection-start-column="50" selection-end-line="40" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -106,8 +167,8 @@
         <option value="$PROJECT_DIR$/WebContent/demo/mock.plugin/data.json" />
         <option value="$PROJECT_DIR$/WebContent/demo/mock.plugin/index.htm" />
         <option value="$PROJECT_DIR$/src/applicationContext.xml" />
-        <option value="$PROJECT_DIR$/src/mysql.local.properties" />
         <option value="$PROJECT_DIR$/src/mysql.remote.properties" />
+        <option value="$PROJECT_DIR$/src/mysql.local.properties" />
       </list>
     </option>
   </component>
@@ -121,7 +182,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="807" />
+    <option name="height" value="811" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -149,6 +210,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -205,8 +268,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -219,7 +280,7 @@
     <property name="recentsLimit" value="5" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/rap-release.userlibraries" />
@@ -446,6 +507,41 @@
       <patterns />
       <method />
     </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+      <method />
+    </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.42" ALTERNATIVE_JRE_ENABLED="false" ALTERNATIVE_JRE_PATH="C:/Program Files/Java/jdk1.7.0_45">
       <option name="OPEN_IN_BROWSER_URL" value="http://etaoux-bj.taobao.ali.com:8080/" />
       <option name="START_JAVASCRIPT_DEBUGGER" value="true" />
@@ -512,41 +608,6 @@
           <option name="PROGRAM_PARAMETERS" value="" />
         </SHUTDOWN>
       </ConfigurationWrapper>
-      <method />
-    </configuration>
-    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
-      <option name="BCName" value="" />
-      <option name="IOSSimulatorSdkPath" value="" />
-      <option name="adlOptions" value="" />
-      <option name="airProgramParameters" value="" />
-      <option name="appDescriptorForEmulator" value="Android" />
-      <option name="debugTransport" value="USB" />
-      <option name="debuggerSdkRaw" value="BC SDK" />
-      <option name="emulator" value="NexusOne" />
-      <option name="emulatorAdlOptions" value="" />
-      <option name="fastPackaging" value="true" />
-      <option name="fullScreenHeight" value="0" />
-      <option name="fullScreenWidth" value="0" />
-      <option name="launchUrl" value="false" />
-      <option name="launcherParameters">
-        <LauncherParameters>
-          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
-          <option name="launcherType" value="OSDefault" />
-          <option name="newPlayerInstance" value="false" />
-          <option name="playerPath" value="FlashPlayerDebugger.exe" />
-        </LauncherParameters>
-      </option>
-      <option name="mobileRunTarget" value="Emulator" />
-      <option name="moduleName" value="" />
-      <option name="overriddenMainClass" value="" />
-      <option name="overriddenOutputFileName" value="" />
-      <option name="overrideMainClass" value="false" />
-      <option name="runTrusted" value="true" />
-      <option name="screenDpi" value="0" />
-      <option name="screenHeight" value="0" />
-      <option name="screenWidth" value="0" />
-      <option name="url" value="http://" />
-      <option name="usbDebugPort" value="7936" />
       <method />
     </configuration>
     <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
@@ -730,14 +791,15 @@
       <workItem from="1415499509812" duration="599000" />
       <workItem from="1415667459358" duration="20000" />
       <workItem from="1416274604698" duration="34000" />
+      <workItem from="1417501724963" duration="397000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16312000" />
+    <option name="totallyTimeSpent" value="16709000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="807" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="811" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -753,6 +815,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32823366" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -760,7 +823,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296146" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18597998" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2769231" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.705146" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992464" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -768,7 +831,6 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32867134" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -796,6 +858,14 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/mysql.local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="225">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/mysql.local.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="240">
@@ -1096,15 +1166,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/applicationContext.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.28361344" vertical-offset="600" max-vertical-offset="1935">
-          <caret line="31" column="40" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="1935">
+          <caret line="40" column="50" selection-start-line="40" selection-start-column="50" selection-end-line="40" selection-end-column="50" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/mysql.local.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22255193" vertical-offset="0" max-vertical-offset="674">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.2631579" vertical-offset="0" max-vertical-offset="225">
+          <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
           <folding />
         </state>
       </provider>

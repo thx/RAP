@@ -1,6 +1,6 @@
 
 # RAP
-
+![](https://sourcegraph.com/api/repos/github.com/thx/RAP/.counters/views-24h.png)
 * [Official Site 官网](http://thx.github.io/RAP)
 * [Wiki](http://github.com/thx/RAP/wiki)
 
