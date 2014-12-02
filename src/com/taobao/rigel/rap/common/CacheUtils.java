@@ -1,4 +1,6 @@
 package com.taobao.rigel.rap.common;
+import com.taobao.rigel.rap.project.bo.Action;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,10 +17,20 @@ public class CacheUtils {
     /**
      * get cached Mock rule
      *
-     * @param actionId
+     * @param action
+     * @param pattern
      * @return
      */
-    public static String getRuleCache(int actionId) {
+    public static String getRuleCache(Action action, String pattern) {
+        int actionId = action.getId();
+        String requestUrl = action.getRequestUrl();
+        if (requestUrl == null) {
+            requestUrl = "";
+        }
+        if (pattern.contains("noCache=true") || requestUrl.contains("{")
+                || requestUrl.contains("noCache=true")) {
+            return null;
+        }
         String cache = cachedRules.get(actionId);
         if (cache != null) {
             Long fre = rulesFrequency.get(actionId);
