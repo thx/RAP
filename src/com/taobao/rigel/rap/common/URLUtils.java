@@ -53,4 +53,29 @@ public class URLUtils {
     public static boolean shouldLog(String url) {
         return !(isStaticUrl(url) || isLogUrl(url));
     }
+
+    public static boolean isRelativeUrlExactlyMatch(String url1, String url2) {
+        if (url1 == url2) return true;
+        if (url1 == null || url2 == null) return false;
+        return getRelativeUrl(url1).equals(getRelativeUrl(url2));
+    }
+
+    private static String getRelativeUrl(String url) {
+        if (url == null || url.isEmpty()) {
+            return "";
+        }
+        if (url.contains("https://")) {
+            url = url.substring(url.indexOf("/", 7));
+        } else if (url.contains("http://")) {
+            url = url.substring(url.indexOf("/", 8));
+        }
+        if (url.contains("?")) {
+            url = url.substring(0, url.indexOf("?"));
+        }
+        if (url.charAt(0) != '/') {
+            url = '/' + url;
+
+        }
+        return url;
+    }
 }
