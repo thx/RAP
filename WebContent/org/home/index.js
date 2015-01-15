@@ -143,7 +143,7 @@ $(function() {
         var box = $(this);
         box = box.parents('.box');
         var projId = box.data('projid');
-        window.open($.route('workspace.mine') + '?projectId=' + projId);
+        window.location = ($.route('workspace.mine') + '?projectId=' + projId);
     }
 
     function handleEditProjectClick() {
