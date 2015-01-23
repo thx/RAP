@@ -17,6 +17,7 @@
 	    <div class="page home">
 		    <div class="groups-con content">
 		    	<h2>我的主页</h2>
+                <!--
                 <div><a id="rap_ad" href="http://iftest.alibaba-inc.com/index.htm?projectId=26&case_ui_id=case_6379" target="_blank"></a></div>
 		    	<script>
                     !function() {
@@ -35,6 +36,7 @@
                         $('#rap_ad').html(adContent[index]);
                     }();
 		    	</script>
+		    	-->
                 <div class="groups">
 		    		<div class="loading">加载中，请稍候</div>
 		    	</div>
