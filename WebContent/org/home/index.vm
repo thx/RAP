@@ -17,7 +17,27 @@
 	    <div class="page home">
 		    <div class="groups-con content">
 		    	<h2>我的主页</h2>
-		    	<div class="groups">
+                <!--
+                <div><a id="rap_ad" href="http://iftest.alibaba-inc.com/index.htm?projectId=26&case_ui_id=case_6379" target="_blank"></a></div>
+		    	<script>
+                    !function() {
+                        var adContent = [
+                            '  RAP的gg们，测试mm求偶遇在if-test接口测试平台！',
+                            '想早点回家滚床单吗？基于RAP  If-test接口测试平台在等你试用啊！',
+                            'RAP把妹了哦—— If-test接口测试平台！接口质量尽在掌控！'
+                        ];
+                        var seed = Math.round(Math.random()* 100);
+                        var index = 0;
+                        if (seed < 30) {
+                            index = 1;
+                        } else if (seed > 70) {
+                            index = 2;
+                        }
+                        $('#rap_ad').html(adContent[index]);
+                    }();
+		    	</script>
+		    	-->
+                <div class="groups">
 		    		<div class="loading">加载中，请稍候</div>
 		    	</div>
 		    </div>

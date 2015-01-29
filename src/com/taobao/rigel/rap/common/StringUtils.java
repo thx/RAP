@@ -453,7 +453,19 @@ public class StringUtils {
 	}
 	
 	public static String removeRealParamsInUrl(String url) {
-		return url.replaceAll("/[0-9]*/", "/");
+		url =  url.replaceAll("/[0-9]*/", "/");
+        String lastPart = url.substring(url.lastIndexOf("/") + 1);
+        if (lastPart != null) {
+            try {
+                Integer num = Integer.parseInt(lastPart);
+                if (num != null) {
+                    url = url.substring(0, url.lastIndexOf("/"));
+                }
+            } catch (Exception ex) {
+                
+            }
+        }
+        return url;
 	}
 
 	/**

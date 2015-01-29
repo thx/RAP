@@ -264,6 +264,12 @@ public class MockMgrImpl implements MockMgr {
 	private Action actionPick(List<Action> actionList, String pattern,
 			Map<String, Object> options) throws UnsupportedEncodingException {
 		Action result = actionList.get(0);
+        for (Action action : actionList) {
+            if (URLUtils.isRelativeUrlExactlyMatch(pattern, action.getRequestUrl())) {
+                result = action;
+                break;
+            }
+        }
 		requestParams = getUrlParameters(pattern);
 		for (Action action : actionList) {
 			Map<String, List<String>> docActionParams = getUrlParameters(action

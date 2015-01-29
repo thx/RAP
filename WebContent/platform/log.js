@@ -62,6 +62,9 @@
 
             sum += data[i].num;
             serie.data.push(sum);
+            if (typeof data[i].date === 'string') {
+                data[i].date = new Date(data[i].date);
+            }
             categories[i] = $.format.date(data[i].date, 'yyyy-MM');
 
         }
