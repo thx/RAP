@@ -84,7 +84,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/doc/${projectId}" onclick="alert('Node服务还在部署...该功能暂不可用T  .T');return false;"  target="_blank">
+                                <a href="/doc/${projectId}" target="_blank">
                                 <span class="glyphicon glyphicon-new-window"></span>
                                 Online Docs
                                 </a>

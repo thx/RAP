@@ -41,6 +41,6 @@
             node doc service
         </note>
         <from>^/doc/(\d*)$</from>
-        <to type="proxy">http://localhost:8827/doc/$1.html</to>
+        <to type="proxy">http://localhost:7429/doc/$1.html</to>
     </rule>
 </urlrewrite>
