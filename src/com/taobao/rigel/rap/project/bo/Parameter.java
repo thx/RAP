@@ -79,9 +79,9 @@ public class Parameter implements java.io.Serializable {
 	}
 
     public String getIdentifierWithoutMockjsRule() {
-        String rv = "";
+        String rv;
         if (identifier == null || identifier.isEmpty()) {
-            return "\"emptyIdentifier\"";
+            return "emptyIdentifier";
         }
 
         rv = identifier;
