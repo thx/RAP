@@ -27,7 +27,17 @@ public class Action implements java.io.Serializable {
 		this.id = id;
 	}
 
-	private String name;
+    private int disableCache;
+
+    public int getDisableCache() {
+        return disableCache;
+    }
+
+    public void setDisableCache(int disableCache) {
+        this.disableCache = disableCache;
+    }
+
+    private String name;
 
 	public String getName() {
 		return name;

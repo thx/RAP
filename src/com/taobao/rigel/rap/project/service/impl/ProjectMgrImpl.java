@@ -345,4 +345,27 @@ public class ProjectMgrImpl implements ProjectMgr {
     public List<Project> selectMockNumTopNProjectList(int limit) {
         return projectDao.selectMockNumTopNProjectList(limit);
     }
+
+    @Override
+    public void updateCache(int projectId) {
+        Project project = getProject(projectId);
+        for (Module module : project.getModuleList()) {
+            for (Page page : module.getPageList()) {
+                for (Action action : page.getActionList()) {
+                    updateActionCache(action);
+                }
+            }
+        }
+    }
+
+    private void updateActionCache(Action action) {
+        action.setDisableCache(0);
+        for (Parameter param : action.getResponseParameterList()) {
+            String rules = param.getMockJsRules();
+            if (rules != null && rules.contains("${") && rules.contains("}")) {
+                action.setDisableCache(1);
+                break;
+            }
+        }
+    }
 }

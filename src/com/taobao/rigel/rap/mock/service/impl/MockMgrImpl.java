@@ -195,9 +195,11 @@ public class MockMgrImpl implements MockMgr {
             }
 
             action = actionPick(aList, originalPattern, options);
-            String ruleCache = CacheUtils.getRuleCache(action, originalPattern);
-            if (ruleCache != null) {
-                return ruleCache;
+            if (action.getDisableCache() == 0) {
+                String ruleCache = CacheUtils.getRuleCache(action, originalPattern);
+                if (ruleCache != null) {
+                    return ruleCache;
+                }
             }
 
         }

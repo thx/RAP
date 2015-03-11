@@ -235,6 +235,15 @@ public class Parameter implements java.io.Serializable {
         }
     }
 
+    public String getMockJsRules() {
+        if (remark == null || remark.isEmpty() || (!remark.contains("@mock="))) {
+            return null;
+        }
+        return remark.substring(remark.indexOf("@mock=") + 6);
+
+    }
+
+
 	public String getJSONSchemaDataType() {
 		if (dataType != null && dataType.contains("array")) {
             return "array";

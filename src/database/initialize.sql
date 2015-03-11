@@ -194,6 +194,9 @@ CREATE TABLE tb_action
 		DEFAULT 1,  /** request_type = 99, mount type **/
 	request_url text NULL,
 
+	disable_cache TINYINT NOT NULL
+    DEFAULT 0,
+
 	/* response block */
 	response_template text NULL /* front end template path */
 
