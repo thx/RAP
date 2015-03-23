@@ -60,6 +60,17 @@ public class URLUtils {
         return getRelativeUrl(url1).equals(getRelativeUrl(url2));
     }
 
+    public static String getDomain(String url) {
+        if (url == null || !url.startsWith("http://")) {
+            return "";
+        }
+        url = url.substring(7);
+        if (url.indexOf("/") != -1) {
+            url = url.substring(0, url.indexOf("/"));
+        }
+        return url;
+    }
+
     private static String getRelativeUrl(String url) {
         if (url == null || url.isEmpty()) {
             return "";

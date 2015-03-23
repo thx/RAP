@@ -35,8 +35,10 @@ public class AuthCheckFilter implements Filter {
         if (request instanceof HttpServletRequest) {
             url = ((HttpServletRequest)request).getRequestURL().toString();
         }
-
-        ((HttpServletRequest)request).getRequestURL().toString();
+        String domain = URLUtils.getDomain(url);
+        if (domain != "") {
+            SystemConstant.setDOMAIN_URL(domain);
+        }
 
         // all requests count into realtime charts
         SystemVisitorLog.count();
