@@ -446,7 +446,7 @@ public class MockMgrImpl implements MockMgr {
 		int ARRAY_LENGTH = 1;
 
 		if (para.getParameterList() == null
-				|| para.getParameterList().size() == 0) {
+				|| para.getParameterList().size() == 0 || para.hasMockJSData()) {
 			json.append(processMockValueWithParams(para.getMockJSIdentifier())
 					+ ":"
 					+ StringUtils.chineseToUnicode(mockjsValue(para, index)));

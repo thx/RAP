@@ -251,5 +251,9 @@ public class Parameter implements java.io.Serializable {
 		return this.dataType;
 	}
 
+    public boolean hasMockJSData() {
+        return this.getMockJsRules() != null;
+    }
+
 
 }
