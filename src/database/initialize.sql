@@ -103,7 +103,7 @@ CREATE TABLE tb_project
 (
 	id int(10) AUTO_INCREMENT NOT NULL
 		PRIMARY KEY,
-	version nvarchar(128) NOT NULL
+	`version` varchar(128) NOT NULL
 		DEFAULT '0.0.0.1',
 	name varchar(128) NOT NULL,
 	create_date timestamp NOT NULL
