@@ -1,9 +1,13 @@
 ### Database Change v0.11.1
-增加了tb_module.name的长度，防止过长模块名报错
+1. 增加了tb_module.name的长度，防止过长模块名报错
+2. 增加tb_action.disable_cache字段用于自动化禁用cache处理
 
 ```sql
 ALTER TABLE `rap_db`.`tb_module` CHANGE COLUMN `name` `name` VARCHAR(128) NOT NULL  ;
+ALTER TABLE `rap_db`.`tb_action` ADD COLUMN disable_cache TINYINT NOT NULL DEFAULT 0;
 ```
+
+
 
 ### Database Change v0.11.0
 
