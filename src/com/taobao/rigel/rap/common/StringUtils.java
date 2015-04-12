@@ -462,7 +462,7 @@ public class StringUtils {
                     url = url.substring(0, url.lastIndexOf("/"));
                 }
             } catch (Exception ex) {
-                
+
             }
         }
         return url;

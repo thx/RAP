@@ -469,7 +469,9 @@ public class WorkspaceAction extends ActionBase {
             public String call() throws Exception {
                 try {
                     // async update doc
-                    // projectMgr.updateDoc(id);
+                    projectMgr.updateDoc(id);
+                    // async update disableCache
+                    projectMgr.updateCache(id);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

@@ -195,9 +195,11 @@ public class MockMgrImpl implements MockMgr {
             }
 
             action = actionPick(aList, originalPattern, options);
-            String ruleCache = CacheUtils.getRuleCache(action, originalPattern);
-            if (ruleCache != null) {
-                return ruleCache;
+            if (action.getDisableCache() == 0) {
+                String ruleCache = CacheUtils.getRuleCache(action, originalPattern);
+                if (ruleCache != null) {
+                    return ruleCache;
+                }
             }
 
         }
@@ -444,7 +446,7 @@ public class MockMgrImpl implements MockMgr {
 		int ARRAY_LENGTH = 1;
 
 		if (para.getParameterList() == null
-				|| para.getParameterList().size() == 0) {
+				|| para.getParameterList().size() == 0 || para.hasMockJSData()) {
 			json.append(processMockValueWithParams(para.getMockJSIdentifier())
 					+ ":"
 					+ StringUtils.chineseToUnicode(mockjsValue(para, index)));
@@ -675,7 +677,7 @@ public class MockMgrImpl implements MockMgr {
 		}
 		if (mockValue == null || mockValue.isEmpty()) {
 			String unescapeMockValue = tagMap.get("{mock}");
-			if (mockValue != null && !mockValue.isEmpty()) {
+			if (unescapeMockValue != null && !unescapeMockValue.isEmpty()) {
 				escape = false;
 				mockValue = unescapeMockValue;
 			}
@@ -747,7 +749,13 @@ public class MockMgrImpl implements MockMgr {
 				if (escape) {
 					mockValue = StringUtils.escapeInJ(mockValue);
 				}
-				return "\"" + mockValue + "\"";
+                if (mockValue.startsWith("\\\"") && mockValue.endsWith("\\\"")) {
+                    return mockValue.substring(1, mockValue.length() - 2) + "\"";
+                } else if (!escape) {
+                    return mockValue;
+                } else {
+                    return "\"" + mockValue + "\"";
+                }
 			}
 		} else if (mockValue != null && mockValue.isEmpty()
 				&& para.getDataType().equals("string")) {

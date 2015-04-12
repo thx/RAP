@@ -165,4 +165,11 @@ public interface ProjectMgr {
     long getMockNumInTotal();
 
     List<Project> selectMockNumTopNProjectList(int limit);
+
+    /**
+     * update Action.disableCache
+     *
+     * @param projectId
+     */
+    void updateCache(int projectId);
 }

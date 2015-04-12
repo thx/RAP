@@ -103,7 +103,7 @@ CREATE TABLE tb_project
 (
 	id int(10) AUTO_INCREMENT NOT NULL
 		PRIMARY KEY,
-	version nvarchar(128) NOT NULL
+	`version` varchar(128) NOT NULL
 		DEFAULT '0.0.0.1',
 	name varchar(128) NOT NULL,
 	create_date timestamp NOT NULL
@@ -193,6 +193,9 @@ CREATE TABLE tb_action
 	request_type int NOT NULL
 		DEFAULT 1,  /** request_type = 99, mount type **/
 	request_url text NULL,
+
+	disable_cache TINYINT NOT NULL
+    DEFAULT 0,
 
 	/* response block */
 	response_template text NULL /* front end template path */
