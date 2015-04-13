@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.SystemVisitorLog;
 import com.taobao.rigel.rap.mock.service.MockMgr;
@@ -209,6 +210,20 @@ public class MockAction extends ActionBase {
 
 		loadWhiteList(p, list, _circleRefProtector);
 		urlList = list;
+		return SUCCESS;
+	}
+
+	public String getWhiteList() {
+		Map<String, Boolean> _circleRefProtector = new HashMap<String, Boolean>();
+		List<String> list = new ArrayList<String>();
+		Project p = projectMgr.getProject(projectId);
+
+		loadWhiteList(p, list, _circleRefProtector);
+		urlList = list;
+		Gson g = new Gson();
+		String json = g.toJson(urlList);
+		setJson(json);
+
 		return SUCCESS;
 	}
 	

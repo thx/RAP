@@ -1,4 +1,11 @@
-/*! rap.plugin Mar.10th 2014 */
+/**
+ * RAP plugin for browsers
+ * Functions: 1). IO mock data, 2). IO format check, 3). route manage
+ * Supports: 1). jQuery, 2). KISSY
+ *
+ * @createDate Mar. 10th 2014
+ * @updateDate Apr. 13th 2015
+ */
 (function() {
 	
 	// utilities
@@ -16,9 +23,7 @@
     var src = (document.scripts[document.scripts.length - 1]).getAttribute('src');
     var ROOT = url_domain(src);
     console.log('RAP mock server ROOT is ', ROOT);
-    
-    // [DEBUG]
-    //ROOT = 'etaoux-bj.taobao.ali.com:8080';
+
     var LOST = "LOST";
     var PREFIX = "/mockjs/";
     var EMPTY_ARRAY = "EMPTY_ARRAY";
