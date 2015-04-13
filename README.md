@@ -8,7 +8,7 @@ In RAP, you can define the URL, response/request detail format, etc. By analyzin
  
 ## About 关于
 
-    @version     v0.11.0
+    @version     v0.11.1 (Apr. 12 2015 updated)
     @author      @bosn @wangjeaf
     @director    @limu @xinglie
     @dependency  MockJS(@nuysoft)
