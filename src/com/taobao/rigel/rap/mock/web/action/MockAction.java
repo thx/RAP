@@ -28,9 +28,12 @@ public class MockAction extends ActionBase {
 	private int projectId;
 	private String content;
 	private String callback;
+	private boolean enable = true;
 	private String _c;
 	private ProjectMgr projectMgr;
 	private List<String> urlList;
+	private boolean seajs;
+	private String mode;
     private static final org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(MockAction.class.getName());
 	public List<String> getUrlList() {
 		return urlList;
@@ -42,6 +45,34 @@ public class MockAction extends ActionBase {
 
 	public ProjectMgr getProjectMgr() {
 		return projectMgr;
+	}
+
+	public int getProjectId() {
+		return projectId;
+	}
+
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
+	public void setSeajs(boolean seajs) {
+		this.seajs = seajs;
+	}
+
+	public boolean isSeajs() {
+		return seajs;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 
 	public void setProjectMgr(ProjectMgr projectMgr) {
