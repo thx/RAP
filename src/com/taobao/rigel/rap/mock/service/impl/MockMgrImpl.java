@@ -170,6 +170,7 @@ public class MockMgrImpl implements MockMgr {
         if (!isPatternLegal(pattern)) {
             return ERROR_PATTERN;
         }
+		String method = options.get("method").toString();
         String originalPattern = pattern;
         int actionId = 0;
         Action action;
@@ -265,14 +266,32 @@ public class MockMgrImpl implements MockMgr {
 
 	private Action actionPick(List<Action> actionList, String pattern,
 			Map<String, Object> options) throws UnsupportedEncodingException {
-		Action result = actionList.get(0);
+
+
+		List<Action> filteredActionList = new ArrayList<Action>();
+
+		// pattern match
         for (Action action : actionList) {
             if (URLUtils.isRelativeUrlExactlyMatch(pattern, action.getRequestUrl())) {
-                result = action;
-                break;
+                filteredActionList.add(action);
             }
         }
+
+		actionList = filteredActionList;
+		Action result = actionList.get(0);
+
+		// request method match
+		for (Action action : actionList) {
+			if (options.get("method") != null &&
+					action.getMethod().equals(options.get("method").toString())) {
+				result = action;
+				break;
+			}
+		}
+
 		requestParams = getUrlParameters(pattern);
+
+		// schema match
 		for (Action action : actionList) {
 			Map<String, List<String>> docActionParams = getUrlParameters(action
 					.getRequestUrl());

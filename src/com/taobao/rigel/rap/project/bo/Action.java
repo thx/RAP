@@ -69,6 +69,18 @@ public class Action implements java.io.Serializable {
 		this.requestType = requestType;
 	}
 
+	public String getMethod() {
+		if (this.requestType.equals("2")) {
+			return "POST";
+		} else if (this.requestType.equals("3")) {
+			return "PUT";
+		} else if (this.requestType.equals("4")) {
+			return "DELETE";
+		} else {
+			return "GET"; // in default
+		}
+	}
+
 	private String requestUrl;
 
 	public String getRequestUrl() {

@@ -16,6 +16,9 @@ import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 import org.apache.logging.log4j.LogManager;
+import org.apache.struts2.ServletActionContext;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 public class MockAction extends ActionBase {
@@ -37,6 +40,9 @@ public class MockAction extends ActionBase {
     private static final org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(MockAction.class.getName());
 	public List<String> getUrlList() {
 		return urlList;
+	}
+	private String getMethod() {
+		return ServletActionContext.getRequest().getMethod();
 	}
 
 	public void setUrlList(List<String> urlList) {
@@ -177,6 +183,7 @@ public class MockAction extends ActionBase {
         SystemVisitorLog.mock(id, "createRule", pattern, getCurAccount(), projectMgr);
 		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
+		options.put("method", getMethod());
 
 		String result = mockMgr.generateRule(id, pattern, options);
 		if (options.get("callback") != null) {
@@ -292,6 +299,7 @@ public class MockAction extends ActionBase {
         SystemVisitorLog.mock(id, "createMockjsData", pattern, getCurAccount(), projectMgr);
 		String _c = get_c();
 		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("method", getMethod());
 		String result = mockMgr.generateRuleData(id, pattern, options);
 		if (options.get("callback") != null) {
 			_c = (String) options.get("callback");
