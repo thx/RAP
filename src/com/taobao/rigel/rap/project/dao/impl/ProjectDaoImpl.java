@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.taobao.rigel.rap.common.CacheUtils;
+import com.taobao.rigel.rap.common.URLUtils;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -383,10 +384,11 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 					result.add(action);
 				}
 			} else if (url.contains(":")) {
-				String urlParamRemoved = StringUtils.removeParamsInUrl(url);
-				String realUrlParamRemoved = StringUtils
+				String urlParamRemoved = URLUtils.removeParamsInUrl(url);
+				String realUrlParamRemoved = URLUtils
 						.removeRealParamsInUrl(pattern);
-				if (urlParamRemoved.contains(realUrlParamRemoved)) {
+				if (urlParamRemoved.contains(realUrlParamRemoved) ||
+						realUrlParamRemoved.contains(urlParamRemoved)) {
 					result.add(action);
 				}
 			} else { // normal pattern

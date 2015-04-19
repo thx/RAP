@@ -89,4 +89,34 @@ public class URLUtils {
         }
         return url;
     }
+
+    public static String removeParamsInUrl(String url) {
+        String result =  url.replaceAll("/:[^/]*", "");
+        if (!result.startsWith("/")) {
+            result = "/" + result;
+        }
+        return result;
+    }
+
+    public static String removeRealParamsInUrl(String url) {
+        url =  url.replaceAll("/[0-9]*", "");
+        String lastPart = url.substring(url.lastIndexOf("/") + 1);
+        if (lastPart != null) {
+            try {
+                Integer num = Integer.parseInt(lastPart);
+                if (num != null) {
+                    url = url.substring(0, url.lastIndexOf("/"));
+                }
+            } catch (Exception ex) {
+
+            }
+        }
+
+        String result = url;
+        if (!result.startsWith("/")) {
+            result = "/" + result;
+        }
+        return result;
+    }
+
 }
