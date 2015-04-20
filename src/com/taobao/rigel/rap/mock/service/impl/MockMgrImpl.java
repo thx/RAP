@@ -170,6 +170,7 @@ public class MockMgrImpl implements MockMgr {
         if (!isPatternLegal(pattern)) {
             return ERROR_PATTERN;
         }
+		String method = options.get("method").toString();
         String originalPattern = pattern;
         int actionId = 0;
         Action action;
@@ -179,7 +180,7 @@ public class MockMgrImpl implements MockMgr {
         }
         _num = 1;
 
-        if (actionId > 0) {  // from OPENApi, invoked by params(id, null, null)
+        if (actionId > 0) {  // from OPenAPI, invoked by params(id, null, null)
             action = projectMgr.getAction(actionId);
         } else {
             if (pattern.contains("?")) {
@@ -195,6 +196,10 @@ public class MockMgrImpl implements MockMgr {
             }
 
             action = actionPick(aList, originalPattern, options);
+			if (action == null) {
+				return "{\"isOk\":false, \"errMsg\":\"no matched action\"}";
+			}
+
             if (action.getDisableCache() == 0) {
                 String ruleCache = CacheUtils.getRuleCache(action, originalPattern);
                 if (ruleCache != null) {
@@ -265,14 +270,39 @@ public class MockMgrImpl implements MockMgr {
 
 	private Action actionPick(List<Action> actionList, String pattern,
 			Map<String, Object> options) throws UnsupportedEncodingException {
-		Action result = actionList.get(0);
+
+
+		List<Action> filteredActionList = new ArrayList<Action>();
+
+		// pattern match
         for (Action action : actionList) {
             if (URLUtils.isRelativeUrlExactlyMatch(pattern, action.getRequestUrl())) {
-                result = action;
-                break;
+                filteredActionList.add(action);
             }
         }
+
+		if (!filteredActionList.isEmpty()) {
+			actionList = filteredActionList;
+		}
+
+		if (actionList == null || actionList.isEmpty()) {
+			return null;
+		}
+
+		Action result = actionList.get(0);
+
+		// request method match
+		for (Action action : actionList) {
+			if (options.get("method") != null &&
+					action.getMethod().equals(options.get("method").toString())) {
+				result = action;
+				break;
+			}
+		}
+
 		requestParams = getUrlParameters(pattern);
+
+		// schema match
 		for (Action action : actionList) {
 			Map<String, List<String>> docActionParams = getUrlParameters(action
 					.getRequestUrl());

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.SystemVisitorLog;
 import com.taobao.rigel.rap.mock.service.MockMgr;
@@ -15,6 +16,9 @@ import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 import org.apache.logging.log4j.LogManager;
+import org.apache.struts2.ServletActionContext;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 public class MockAction extends ActionBase {
@@ -27,12 +31,18 @@ public class MockAction extends ActionBase {
 	private int projectId;
 	private String content;
 	private String callback;
+	private boolean enable = true;
 	private String _c;
 	private ProjectMgr projectMgr;
 	private List<String> urlList;
+	private boolean seajs;
+	private String mode;
     private static final org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(MockAction.class.getName());
 	public List<String> getUrlList() {
 		return urlList;
+	}
+	private String getMethod() {
+		return ServletActionContext.getRequest().getMethod();
 	}
 
 	public void setUrlList(List<String> urlList) {
@@ -41,6 +51,34 @@ public class MockAction extends ActionBase {
 
 	public ProjectMgr getProjectMgr() {
 		return projectMgr;
+	}
+
+	public int getProjectId() {
+		return projectId;
+	}
+
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
+	public void setSeajs(boolean seajs) {
+		this.seajs = seajs;
+	}
+
+	public boolean isSeajs() {
+		return seajs;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 
 	public void setProjectMgr(ProjectMgr projectMgr) {
@@ -145,6 +183,7 @@ public class MockAction extends ActionBase {
         SystemVisitorLog.mock(id, "createRule", pattern, getCurAccount(), projectMgr);
 		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
+		options.put("method", getMethod());
 
 		String result = mockMgr.generateRule(id, pattern, options);
 		if (options.get("callback") != null) {
@@ -211,6 +250,20 @@ public class MockAction extends ActionBase {
 		urlList = list;
 		return SUCCESS;
 	}
+
+	public String getWhiteList() {
+		Map<String, Boolean> _circleRefProtector = new HashMap<String, Boolean>();
+		List<String> list = new ArrayList<String>();
+		Project p = projectMgr.getProject(projectId);
+
+		loadWhiteList(p, list, _circleRefProtector);
+		urlList = list;
+		Gson g = new Gson();
+		String json = g.toJson(urlList);
+		setJson(json);
+
+		return SUCCESS;
+	}
 	
 	private void loadWhiteList(Project p, List<String> list, Map<String, Boolean> map) {
 		// prevent circle reference
@@ -246,6 +299,7 @@ public class MockAction extends ActionBase {
         SystemVisitorLog.mock(id, "createMockjsData", pattern, getCurAccount(), projectMgr);
 		String _c = get_c();
 		Map<String, Object> options = new HashMap<String, Object>();
+		options.put("method", getMethod());
 		String result = mockMgr.generateRuleData(id, pattern, options);
 		if (options.get("callback") != null) {
 			_c = (String) options.get("callback");

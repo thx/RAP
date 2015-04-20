@@ -1,13 +1,13 @@
-/*! mockjs 23-06-2014 15:57:37 */
+/*! mockjs 13-04-2015 14:32:27 */
 /*! src/mock-prefix.js */
 /*!
-    Mock - 模拟请求 & 模拟数据
-    https://github.com/nuysoft/Mock
-    墨智 mozhi.gyy@taobao.com nuysoft@gmail.com
-*/
+ Mock - 模拟请求 & 模拟数据
+ https://github.com/nuysoft/Mock
+ 墨智 nuysoft@gmail.com
+ */
 (function(undefined) {
     var Mock = {
-        version: "0.1.5",
+        version: "0.1.9",
         _mocked: {}
     };
     /*! src/util.js */
@@ -285,28 +285,28 @@
                 format = format || "yyyy-MM-dd HH:mm:ss";
                 var date = new Date();
                 switch (unit) {
-                  case "year":
-                    date.setMonth(0);
+                    case "year":
+                        date.setMonth(0);
 
-                  case "month":
-                    date.setDate(1);
+                    case "month":
+                        date.setDate(1);
 
-                  case "week":
-                  case "day":
-                    date.setHours(0);
+                    case "week":
+                    case "day":
+                        date.setHours(0);
 
-                  case "hour":
-                    date.setMinutes(0);
+                    case "hour":
+                        date.setMinutes(0);
 
-                  case "minute":
-                    date.setSeconds(0);
+                    case "minute":
+                        date.setSeconds(0);
 
-                  case "second":
-                    date.setMilliseconds(0);
+                    case "second":
+                        date.setMilliseconds(0);
                 }
                 switch (unit) {
-                  case "week":
-                    date.setDate(date.getDate() - date.getDay());
+                    case "week":
+                        date.setDate(date.getDate() - date.getDay());
                 }
                 return this.format(date, format);
             }
@@ -607,15 +607,26 @@
             first: function() {
                 var names = [ "James", "John", "Robert", "Michael", "William", "David", "Richard", "Charles", "Joseph", "Thomas", "Christopher", "Daniel", "Paul", "Mark", "Donald", "George", "Kenneth", "Steven", "Edward", "Brian", "Ronald", "Anthony", "Kevin", "Jason", "Matthew", "Gary", "Timothy", "Jose", "Larry", "Jeffrey", "Frank", "Scott", "Eric" ].concat([ "Mary", "Patricia", "Linda", "Barbara", "Elizabeth", "Jennifer", "Maria", "Susan", "Margaret", "Dorothy", "Lisa", "Nancy", "Karen", "Betty", "Helen", "Sandra", "Donna", "Carol", "Ruth", "Sharon", "Michelle", "Laura", "Sarah", "Kimberly", "Deborah", "Jessica", "Shirley", "Cynthia", "Angela", "Melissa", "Brenda", "Amy", "Anna" ]);
                 return this.pick(names);
-                return this.capitalize(this.word());
             },
             last: function() {
                 var names = [ "Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson", "Martinez", "Anderson", "Taylor", "Thomas", "Hernandez", "Moore", "Martin", "Jackson", "Thompson", "White", "Lopez", "Lee", "Gonzalez", "Harris", "Clark", "Lewis", "Robinson", "Walker", "Perez", "Hall", "Young", "Allen" ];
                 return this.pick(names);
-                return this.capitalize(this.word());
             },
             name: function(middle) {
                 return this.first() + " " + (middle ? this.first() + " " : "") + this.last();
+            },
+            chineseName: function(count) {
+                var familyNames = "赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜戚谢邹喻柏水窦章云苏潘葛奚范彭郎鲁韦昌马苗凤花方俞任袁柳酆鲍史唐".split("");
+                var names = "贵福生龙元全国胜学祥才发武新利清飞彬富顺信子杰涛昌成康星光天达安岩中茂进林有坚和彪博绍功松善厚庆磊民友裕河哲江超浩亮政谦亨奇固之轮翰朗伯宏言若鸣朋斌梁栋维启克伦翔旭鹏月莺媛艳瑞凡佳嘉琼勤珍贞莉桂娣叶璧璐娅琦晶妍茜秋珊莎锦黛青倩婷姣婉娴瑾颖露瑶怡婵雁蓓".split("");
+                if (typeof count !== "number") {
+                    count = Math.random() > .66 ? 2 : 3;
+                }
+                var familyName = this.pick(familyNames);
+                var name = "";
+                for (var i = 0; i < count; i++) {
+                    name += this.pick(names);
+                }
+                return familyName + name;
             }
         });
         Random.extend({
@@ -627,7 +638,6 @@
             },
             email: function(domain) {
                 return this.character("lower") + "." + this.last().toLowerCase() + "@" + this.last().toLowerCase() + "." + this.tld();
-                return this.word() + "@" + (domain || this.domain());
             },
             ip: function() {
                 return this.natural(0, 255) + "." + this.natural(0, 255) + "." + this.natural(0, 255) + "." + this.natural(0, 255);
@@ -883,14 +893,6 @@
                     if (placeholders.length === 1 && ph === result && typeof phed !== typeof result) {
                         result = phed;
                         break;
-                        if (Util.isNumeric(phed)) {
-                            result = parseFloat(phed, 10);
-                            break;
-                        }
-                        if (/^(true|false)$/.test(phed)) {
-                            result = phed === "true" ? true : phed === "false" ? false : phed;
-                            break;
-                        }
                     }
                     result = result.replace(ph, phed);
                 }
@@ -934,13 +936,13 @@
             }
             var handle = Random[key] || Random[lkey] || Random[okey];
             switch (Util.type(handle)) {
-              case "array":
-                return Random.pick(handle);
+                case "array":
+                    return Random.pick(handle);
 
-              case "function":
-                var re = handle.apply(Random, params);
-                if (re === undefined) re = "";
-                return re;
+                case "function":
+                    var re = handle.apply(Random, params);
+                    if (re === undefined) re = "";
+                    return re;
             }
         }
     });
@@ -1054,7 +1056,10 @@
     if (typeof module === "object" && module.exports) {
         module.exports = Mock;
     } else if (typeof define === "function" && define.amd) {
-        define(function() {
+        define("mock", [], function() {
+            return Mock;
+        });
+        define("mockjs", [], function() {
             return Mock;
         });
     } else if (typeof define === "function" && define.cmd) {
@@ -1065,7 +1070,7 @@
     this.Mock = Mock;
     this.Random = Random;
     if (typeof KISSY != "undefined") {
-        Util.each([ "mock", "components/mock/", "mock/dist/mock", "gallery/Mock/0.1.1/", "gallery/Mock/0.1.2/", "gallery/Mock/0.1.3/" ], function register(name) {
+        Util.each([ "mock", "components/mock/", "mock/dist/mock", "gallery/Mock/0.1.9/" ], function register(name) {
             KISSY.add(name, function(S) {
                 Mock.mockjax(S);
                 return Mock;
