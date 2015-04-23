@@ -1,23 +1,24 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-#parse('/tcom/template.rap.vm')
+﻿<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Login        </title>
+        #parse('/tcom/template.rap.vm')
         #includeNewRapStatic
+        #if($returnUrlFirstSet)
+            #set($returnUrlEncoded = $!utils.escapeInU($returnUrl))
+        #else
+            #set($returnUrlEncoded = $returnUrl)
+        #end
         <style type="text/css">
-            .container {width:430px;}
+
         </style>
         <script type="text/javascript" src="${staticRoot}/js/core/jquery-2.1.0.min.js?_r=$!timeStamp"></script>
     </head>
-#if($returnUrlFirstSet)
-    #set($returnUrlEncoded = $!utils.escapeInU($returnUrl))
-#else
-    #set($returnUrlEncoded = $returnUrl)
-#end
     <body>
+        <div class="container">
         #bodyNewStart
-        <form name="formMain" action="$accountUrl.doLogin" method="post">
+        <form name="formMain" role="form" action="$accountUrl.doLogin" method="post">
             <input type="hidden" name="returnUrl" value="$!returnUrlEncoded" />
             <table class="table">
                 <tr>
@@ -44,5 +45,6 @@
             </table>
         </form>
         #bodyEnd
+        </div>
     </body>
 </html>

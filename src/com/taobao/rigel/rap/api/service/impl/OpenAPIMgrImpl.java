@@ -121,22 +121,22 @@ public class OpenAPIMgrImpl implements OpenAPIMgr {
         pMap.put("title", p.getName());
         pMap.put("description", p.getRemarkWithoutMockjsRule());
         String remark = p.getRemark();
-        String format = "MOCKJS";
+        String format = "";
         if (remark != null && remark.contains("@mock=function")) {
-            format = "MOCKJS_FUNC";
+            format = "";
         }
         String identifier = p.getIdentifier();
         if (identifier != null && identifier.contains("|") && identifier.indexOf("|") != identifier.length() - 1) {
-            format += "|" + identifier.substring(identifier.indexOf("|") + 1);
+            format += "" + identifier.substring(identifier.indexOf("|") + 1);
         } else {
-            format += "|";
+            format += "";
         }
         if (remark != null && remark.contains("@mock=")) {
             format += "|" + remark.substring(remark.indexOf("@mock=") + 6);
         } else {
             format += "|";
         }
-        pMap.put("format", format);
+        pMap.put("iftest", format);
 		Set<Parameter> children = p.getParameterList();
 		if (children != null && children.size() > 0) {
 			Map<String, Object> properties = new HashMap<String, Object>();

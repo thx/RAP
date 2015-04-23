@@ -24,21 +24,30 @@ public class User implements java.io.Serializable {
 	private boolean isLockedOut;
 	private Date lastLoginDate;
 	private int incorrectLoginAttempt;
-	private String realName;
-	
-	public Map<String, Object> getUserBaseInfo() {
+	private String realname;
+    private String empId;
+
+    public String getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(String empId) {
+        this.empId = empId;
+    }
+
+    public Map<String, Object> getUserBaseInfo() {
 		Map<String, Object> base = new HashMap<String, Object>();
 		base.put("name", this.name);
 		base.put("id", this.id);
 		base.put("email", this.email);
 		return base;
 	}
-	
-	public void setRealName(String realName) {
-		this.realName = realName;
-	}
 
-	public long getId() {
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public long getId() {
 		return this.id;
 	}
 	
@@ -239,7 +248,7 @@ public class User implements java.io.Serializable {
 		return "";
 	}
 
-	public String getRealName() {
-		return this.realName;
+	public String getRealname() {
+		return this.realname;
 	}
 }

@@ -107,7 +107,7 @@ public class ActionBase extends ActionSupport {
 			name = nameObj.toString();
 		}
 		if (name == null || name.isEmpty()) {
-			return "团队切换";
+			return "团队";
 		}
 		return name;
 	}

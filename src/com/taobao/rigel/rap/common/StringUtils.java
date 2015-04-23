@@ -448,14 +448,6 @@ public class StringUtils {
 		return false;
 	}
 
-	public static String removeParamsInUrl(String url) {
-		return url.replaceAll("/:[^/]*", "");
-	}
-	
-	public static String removeRealParamsInUrl(String url) {
-		return url.replaceAll("/[0-9]*/", "/");
-	}
-
 	/**
 	 * regular expression matcher helper
 	 * 

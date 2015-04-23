@@ -15,7 +15,7 @@ import java.net.URL;
 public class HTTPUtils {
     private final static org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(HTTPUtils.class.getName());
     // HTTP GET request
-    public static void sendGet(String url) throws Exception {
+    public static String sendGet(String url) throws Exception {
         String USER_AGENT = "Mozilla/5.0";
 
         URL obj = new URL(url);
@@ -26,13 +26,15 @@ public class HTTPUtils {
 
         //add request header
         con.setRequestProperty("User-Agent", USER_AGENT);
+        con.setRequestProperty("Accept-Charset", "utf-8");
+        con.setRequestProperty("contentType", "utf-8");
 
         int responseCode = con.getResponseCode();
         logger.info("\nSending 'GET' request to URL : " + url);
         logger.info("Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
+                new InputStreamReader(con.getInputStream(), "UTF-8"));
         String inputLine;
         StringBuffer response = new StringBuffer();
 
@@ -42,8 +44,11 @@ public class HTTPUtils {
         in.close();
 
         //print result
-        System.out.println(response.toString());
+        //System.out.println(response.toString());
+        return response.toString();
 
     }
+
+
 
 }

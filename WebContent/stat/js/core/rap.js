@@ -684,8 +684,28 @@ function deepCopy(o) {
                 obj.responseTemplate = '{{mountId}}' + oldId;
             }
             */
+        } else {
+            // recursively update identifier
+            var i;
+            for (i = 0; i < obj.requestParameterList.length; i++) {
+                recurUpdateParamId(obj.requestParameterList[i]);
+            }
+            for (i = 0; i < obj.responseParameterList.length; i++) {
+                recurUpdateParamId(obj.responseParameterList[i]);
+            }
         }
         this.getPage(obj.pageId).actionList.push(obj);
+
+        function recurUpdateParamId(param) {
+            param.id = generateId();
+            if (param.parameterList) {
+                for (var i = 0; i < param.parameterList.length; i++) {
+                    recurUpdateParamId(param.parameterList[i]);
+                }
+            }
+        }
+
+
         return obj.id;
     };
 
@@ -1446,6 +1466,8 @@ function deepCopy(o) {
     ws.showPluginCode = function() {
         ecFloater.show("pluginCodeFloater");
         b.g('pluginCodeInput').select();
+        var ele = document.getElementById('pluginCodeInput');
+        ele.selectionEnd = ele.value.length;
     };
 
     ws.closePluginCodeFloater = function(save) {
@@ -1488,7 +1510,9 @@ function deepCopy(o) {
     ws.openActionUrlFloater = function(actionId) {
         ecFloater.show("actionUrlFloater");
         $('#actionUrlFloater-input').val(URL.myWorkspace + '?projectId=' + p.getId() + '&actionId=' + actionId);
-        $('#actionUrlFloater-input').select();
+        $('#actionUrlFloater-input').focus().select();
+        var ele = $('#actionUrlFloater-input')[0];
+        ele.selectionEnd = ele.value.length;
     };
 
 
@@ -2507,10 +2531,10 @@ function deepCopy(o) {
         var i, n = pList.length, page;
         for (i = 0; i < n; i++) {
             page = pList[i];
-            if (!p.isActionInPage(_curActionId, page.id)) {
-                $('#actionOpFloater-page').append($("<option/>").attr("value", page.id).text(page.name));
-                empty = false;
-            }
+            //if (!p.isActionInPage(_curActionId, page.id)) {
+            $('#actionOpFloater-page').append($("<option/>").attr("value", page.id).text(page.name));
+            empty = false;
+            //}
         }
         if (empty) {
             $('#actionOpFloater-page').append($("<option/>").attr("value", -1).text('No destination page.'));
@@ -3430,6 +3454,9 @@ function deepCopy(o) {
                 } else if (typeof f2 === 'boolean') {
                     param.dataType = 'array<boolean>';
                     param.remark = '@mock=' + f;
+                } else if (f2 instanceof Array) {
+                    param.dataType = 'array';
+                    param.remark = '@mock=' + JSON.stringify(f);
                 } else if (f !== null && typeof f2 === 'object') {
                     param.dataType = 'array<object>';
                     for (key in f2) {
@@ -3480,7 +3507,8 @@ function deepCopy(o) {
                 oldKey = key;
                 oldItem = f[key];
                 if (f[key] && f[key] instanceof Array && f[key].length > 1 
-                    && f[key][0] instanceof Object && f[key][0] !== null) {
+                    && f[key][0] instanceof Object && f[key][0] !== null
+                    && !(f[key][0] instanceof Array)) {
                     key = key + '|' + f[key].length;
                     delete f[oldKey] ;
                     f[key] = oldItem;
@@ -3832,7 +3860,7 @@ function deepCopy(o) {
          * get action info html
          */
         function getAInfoHtml(a) {
-            var head = "<h2 style='margin-top:20px;'>Action Detail <span style='font-size: 14px; color: #999;'>(id: " + a.id + ") <a href=\"#\" onclick=\"ws.openActionUrlFloater(" + a.id + ");return false;\">URL</a></span> </h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
+            var head = "<h2 style='margin-top:20px;'>API DETAILS <span style='font-size: 14px; color: #999;'>(id: " + a.id + ") <a href=\"#\" onclick=\"ws.openActionUrlFloater(" + a.id + ");return false;\">Copy URL</a></span> </h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
                 body = "",
                 foot = "</div>";
             if (a.name) {
@@ -4089,7 +4117,8 @@ function deepCopy(o) {
                         'array<number>',
                         'array<string>',
                         'array<object>',
-                        'array<boolean>'
+                        'array<boolean>',
+                        'array'
                     ],
                 typeListNum = typeList.length;
 

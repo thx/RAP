@@ -15,4 +15,5 @@ public interface DataDao {
     List<Map<String, Object>> getCheckInTrendByMonth();
 
     List<Map<String, Object>> getActionNumByTeam();
+
 }

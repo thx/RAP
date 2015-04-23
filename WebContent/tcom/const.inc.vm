@@ -6,28 +6,21 @@
 ## 引号
 #set($dQuote = '"')
 #set($sQuote = "'")
-
 ## 精确到秒
 #set($timeFormat = 'yyyy-MM-dd HH:mm:ss')
-
 ## 精确到天
 #set($dateFormat = 'yyyy-MM-dd')
-
 ## 时间戳
-#set($timeStamp = '20140904.v0.11.dev2')
-
+#set($timeStamp = '20140923.v0.11.dev')
 ##----------------------页面请求action地址-------------------------------
 ## 配置工程的上下文路径
 #set($projectContext = "$!link.getContextPath()")
 ##set($projectContext = "$!link.getContextPath()/rap")
-
 ## 配置静态资源请求的路径
 #set($staticRoot = "$!projectContext/stat")
-
 #set($newUrl = {
     "home":"$projectContext/org/index.do"
 })
-
 #set($accountUrl = {
     "login":"$projectContext/account/login.action",
     "doLogin":"$projectContext/account/doLogin.action",
@@ -42,7 +35,6 @@
     "myHome":"$projectContext/org/index.action",
     "logData":"$projectContext/account/logData.action"
 })
-
 #set($projectUrl = {
     "myProjectList":"$projectContext/project/myProjectList.action",
     "removeProject":"$projectContext/project/removeProject.action",
@@ -53,7 +45,6 @@
     "allProductlineList":"$projectContext/org/productline.action",
     "updateReleatedIds":"$projectContext/project/updateReleatedIds.action"
 })
-
 #set($workspaceUrl = {
     "myWorkspace":"$projectContext/workspace/myWorkspace.action",
     "getModuleHtmlAjax":"$projectContext/workspace/getModuleHtmlAjax.action",
@@ -70,7 +61,6 @@
     "unlock":"$projectContext/workspace/unlock.action",
     "export":"$projectContext/workspace/export.action"
 })
-
 #set($platformUrl = {
     "home":"$projectContext/platform/home.action",
     "document":"$projectContext/platform/document.action",
@@ -78,12 +68,11 @@
     "status":"$projectContext/platform/status.action",
     "help":"$!projectContext/platform/help.action",
     "test":"$!projectContext/platform/test.action",
-    "doc":"http://thx.github.io/RAP",
+    "doc":"https://github.com/thx/RAP/wiki/home_cn",
+    "study":"http://thx.github.io/RAP/study.html",
     "log":"$!projectContext/platform/log.do",
     "realtimeUpdate":"$!projectContext/platform/realtimeUpdate.do"
 })
-
-
 #set($testerUrl = {
     "pageTester":"$projectContext/tester/pageTester.action"
 })

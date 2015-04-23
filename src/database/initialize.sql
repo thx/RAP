@@ -31,7 +31,10 @@ CREATE TABLE tb_user
 	incorrect_login_attempt int(10) NOT NULL COMMENT 'count of incorrect login attempts, will be set to 0 after any succesful login'
 		DEFAULT 0,
 	realname varchar(128) NOT NULL
-	DEFAULT ''
+	  DEFAULT '',
+	emp_id VARCHAR(45),
+	mock_num int(10) NOT NULL
+	  DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /**
@@ -100,7 +103,7 @@ CREATE TABLE tb_project
 (
 	id int(10) AUTO_INCREMENT NOT NULL
 		PRIMARY KEY,
-	version nvarchar(128) NOT NULL
+	`version` varchar(128) NOT NULL
 		DEFAULT '0.0.0.1',
 	name varchar(128) NOT NULL,
 	create_date timestamp NOT NULL
@@ -115,8 +118,9 @@ CREATE TABLE tb_project
 	group_id int(10) NULL,
 	related_ids varchar(128) NOT NULL
 	DEFAULT '',
-	update_time timestamp NOT NULL
-		DEFAULT now(),
+	update_time datetime NOT NULL,
+	mock_num int NOT NULL
+	  DEFAULT 0,
 
 	FOREIGN KEY(user_id) REFERENCES tb_user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -189,6 +193,9 @@ CREATE TABLE tb_action
 	request_type int NOT NULL
 		DEFAULT 1,  /** request_type = 99, mount type **/
 	request_url text NULL,
+
+	disable_cache TINYINT NOT NULL
+    DEFAULT 0,
 
 	/* response block */
 	response_template text NULL /* front end template path */

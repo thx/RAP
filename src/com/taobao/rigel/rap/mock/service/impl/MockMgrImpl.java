@@ -10,13 +10,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.taobao.rigel.rap.common.*;
 import nl.flotsam.xeger.Xeger;
 
-import com.taobao.rigel.rap.common.ArrayUtils;
-import com.taobao.rigel.rap.common.MockjsRunner;
-import com.taobao.rigel.rap.common.NumberUtils;
-import com.taobao.rigel.rap.common.Patterns;
-import com.taobao.rigel.rap.common.StringUtils;
 import com.taobao.rigel.rap.mock.service.MockMgr;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Parameter;
@@ -27,6 +23,7 @@ public class MockMgrImpl implements MockMgr {
 	private ProjectDao projectDao;
 	private ProjectMgr projectMgr;
 	private int uid = 10000;
+    private final String ERROR_PATTERN = "{\"isOk\":false,\"msg\":\"路径为空，请查看是否接口未填写URL.\"}";
 
 	public ProjectMgr getProjectMgr() {
 		return projectMgr;
@@ -37,6 +34,25 @@ public class MockMgrImpl implements MockMgr {
 	}
 
 	private Map<String, List<String>> requestParams;
+
+    private boolean isPatternLegal(String pattern) {
+        if (pattern == null || pattern.isEmpty()) {
+            return false;
+        }
+
+        String path = pattern;
+        if (path.indexOf("/") == 0) {
+            path = path.substring(1);
+        }
+        if (path.contains("?")) {
+            path = path.substring(0, path.indexOf("?"));
+        }
+        if (path.isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }
 
 	/**
 	 * random seed
@@ -61,16 +77,17 @@ public class MockMgrImpl implements MockMgr {
 	@Override
 	public String generateData(int projectId, String pattern,
 			Map<String, Object> options) throws UnsupportedEncodingException {
+
+        if (!isPatternLegal(pattern)) {
+            return ERROR_PATTERN;
+        }
+
 		_num = 1;
 		String originalPattern = pattern;
-		// System.out.println("pattern before processed:" + pattern);
 		if (pattern.contains("?")) {
 			pattern = pattern.substring(0, pattern.indexOf("?"));
 		}
-		/**
-		 * if (pattern.charAt(0) == '/') { pattern = pattern.substring(1); }
-		 */
-		// System.out.println("pattern processed:" + pattern);
+
 		List<Action> aList = projectMgr
 				.getMatchedActionList(projectId, pattern);
 		if (aList.size() == 0)
@@ -150,6 +167,10 @@ public class MockMgrImpl implements MockMgr {
 	@Override
 	public String generateRule(int projectId, String pattern,
                                             Map<String, Object> options) throws UnsupportedEncodingException {
+        if (!isPatternLegal(pattern)) {
+            return ERROR_PATTERN;
+        }
+		String method = options.get("method").toString();
         String originalPattern = pattern;
         int actionId = 0;
         Action action;
@@ -159,17 +180,12 @@ public class MockMgrImpl implements MockMgr {
         }
         _num = 1;
 
-        if (actionId > 0) {
+        if (actionId > 0) {  // from OPenAPI, invoked by params(id, null, null)
             action = projectMgr.getAction(actionId);
         } else {
-            // System.out.println("pattern before processed:" + pattern);
             if (pattern.contains("?")) {
                 pattern = pattern.substring(0, pattern.indexOf("?"));
             }
-            /**
-             * if (pattern.charAt(0) == '/') { pattern = pattern.substring(1); }
-             */
-            // System.out.println("pattern processed:" + pattern);
             if (pattern.isEmpty()) {
                 return "{\"isOk\":false, \"errMsg\":\"pattern is empty. 路径为空，请检查RAP文档中的请求链接是否正确填写。\"}";
             }
@@ -180,6 +196,17 @@ public class MockMgrImpl implements MockMgr {
             }
 
             action = actionPick(aList, originalPattern, options);
+			if (action == null) {
+				return "{\"isOk\":false, \"errMsg\":\"no matched action\"}";
+			}
+
+            if (action.getDisableCache() == 0) {
+                String ruleCache = CacheUtils.getRuleCache(action, originalPattern);
+                if (ruleCache != null) {
+                    return ruleCache;
+                }
+            }
+
         }
 
 		String desc = action.getDescription();
@@ -236,13 +263,46 @@ public class MockMgrImpl implements MockMgr {
 		}
 		json.append(right);
 		String result = json.toString();
-		return resultFilter(result);
+		result = resultFilter(result);
+        CacheUtils.setRuleCache(action.getId(), result);
+        return result;
 	}
 
 	private Action actionPick(List<Action> actionList, String pattern,
 			Map<String, Object> options) throws UnsupportedEncodingException {
+
+
+		List<Action> filteredActionList = new ArrayList<Action>();
+
+		// pattern match
+        for (Action action : actionList) {
+            if (URLUtils.isRelativeUrlExactlyMatch(pattern, action.getRequestUrl())) {
+                filteredActionList.add(action);
+            }
+        }
+
+		if (!filteredActionList.isEmpty()) {
+			actionList = filteredActionList;
+		}
+
+		if (actionList == null || actionList.isEmpty()) {
+			return null;
+		}
+
 		Action result = actionList.get(0);
+
+		// request method match
+		for (Action action : actionList) {
+			if (options.get("method") != null &&
+					action.getMethod().equals(options.get("method").toString())) {
+				result = action;
+				break;
+			}
+		}
+
 		requestParams = getUrlParameters(pattern);
+
+		// schema match
 		for (Action action : actionList) {
 			Map<String, List<String>> docActionParams = getUrlParameters(action
 					.getRequestUrl());
@@ -416,7 +476,7 @@ public class MockMgrImpl implements MockMgr {
 		int ARRAY_LENGTH = 1;
 
 		if (para.getParameterList() == null
-				|| para.getParameterList().size() == 0) {
+				|| para.getParameterList().size() == 0 || para.hasMockJSData()) {
 			json.append(processMockValueWithParams(para.getMockJSIdentifier())
 					+ ":"
 					+ StringUtils.chineseToUnicode(mockjsValue(para, index)));
@@ -647,7 +707,7 @@ public class MockMgrImpl implements MockMgr {
 		}
 		if (mockValue == null || mockValue.isEmpty()) {
 			String unescapeMockValue = tagMap.get("{mock}");
-			if (mockValue != null && !mockValue.isEmpty()) {
+			if (unescapeMockValue != null && !unescapeMockValue.isEmpty()) {
 				escape = false;
 				mockValue = unescapeMockValue;
 			}
@@ -676,7 +736,8 @@ public class MockMgrImpl implements MockMgr {
 		mockValue = processMockValueWithParams(mockValue);
 
 		if (mockValue != null && !mockValue.isEmpty()) {
-			if (mockValue.startsWith("[") && mockValue.endsWith("]")) {
+			if ((mockValue.startsWith("[") && mockValue.endsWith("]"))
+                    || mockValue.startsWith("function")) {
 				return mockValue;
 			} else if (mockValue.startsWith("$order")) {
                 if (para.getDataType().contains("array")) {
@@ -710,14 +771,21 @@ public class MockMgrImpl implements MockMgr {
                 }
 			} else if (mockValue.startsWith("@order")) {
 				return "\"" + StringUtils.escapeInJ(mockValue) + "\"";
-			} else if (para.getDataType().equals("number")
-					|| para.getDataType().equals("boolean")) {
+			} else if ((para.getDataType().equals("number")
+					|| para.getDataType().equals("boolean"))
+                    && !mockValue.startsWith("@")) {
 				return mockValue;
 			} else {
 				if (escape) {
 					mockValue = StringUtils.escapeInJ(mockValue);
 				}
-				return "\"" + mockValue + "\"";
+                if (mockValue.startsWith("\\\"") && mockValue.endsWith("\\\"")) {
+                    return mockValue.substring(1, mockValue.length() - 2) + "\"";
+                } else if (!escape) {
+                    return mockValue;
+                } else {
+                    return "\"" + mockValue + "\"";
+                }
 			}
 		} else if (mockValue != null && mockValue.isEmpty()
 				&& para.getDataType().equals("string")) {

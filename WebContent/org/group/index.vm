@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 #parse('/tcom/template.rap.vm')
 <html>
 	<head>
@@ -93,13 +93,13 @@
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">Project name <span style="color:red">&#42;</span></label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" style="width:432px;" placeholder="Please edit project name here." value="{{name}}"/>
+      <input type="text" class="form-control" style="width:432px;" placeholder="Please edit project name here." value="{{{name}}}"/>
     </div>
   </div>
  <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">Project description</label>
     <div class="col-sm-10">
-      <textarea class="form-control desc" style="width:432px;resize:vertical;" placeholder="Please edit project description here.">{{desc}}</textarea>
+        <textarea class="form-control desc" style="width:432px;resize:vertical;" placeholder="Please edit project description here.">{{{desc}}}</textarea>
     </div>
   </div>
 <div class="form-group" style="margin-bottom:0">

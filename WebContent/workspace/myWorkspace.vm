@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE html>
 #parse('/tcom/template.rap.vm')
 <html>
     <head>
@@ -6,17 +6,18 @@
         <title>$!utils.escapeInH($workspace.project.name) - Doc Edit        </title>
         <link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
         #includeNewRapStatic
-        <link type="text/css" rel="stylesheet" href="${staticRoot}/css/defcontrol.css?_r=$!timeStamp" />
-        <link type="text/css" rel="stylesheet" href="${staticRoot}/css/myWorkspace.css?_r=$!timeStamp" />
+        <link type="text/css" rel="stylesheet" href="${staticRoot}/css/defcontrol.css" />
+        <link type="text/css" rel="stylesheet" href="myWorkspace.css?_r=$!timeStamp" />
         <script src="${staticRoot}/js/util/jsformat.js"></script>
     </head>
-    <body class="workspace">
+    <body class="workspace #if(!$accessable)read-only#end">
         #bodyNewStart(true)
         <div id="div-fixed-panel">
             <div class="clearfix">
+
                 <div id="div-w-message" class="label" style="display:none;">
                 </div>
-                <div id="div-control-panel" #if(!$accessable)style="display:none;"#end>
+                <div id="div-control-panel">
                     <div id="div-workspace-search">
                         <input type="text" id="inputSearch" class="form-control" placeholder="Workspace Search">
                         </input>
@@ -45,15 +46,18 @@
                         <span class="glyphicon glyphicon-trash"></span>
                         Cancel
                     </button>
+                    #if($accessable)
                     <button id="btnEdit" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" onclick="ws.switchToEditMode(); return false;" title="Enter edit view and lock the project.">
                         <span class="glyphicon glyphicon-pencil"></span>
                        Edit 
                     </button>
-                    <button id="btnVersion" type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" onclick="ws.version(); return false;" title="Version controls.">
+
+                    <button id="btnVersion" type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" onclick="ws.version(); return false;" title="Version control">
                         <span class="glyphicon glyphicon-refresh"></span>
                         Version
                     </button>
-                    <button id="btnExitVersion" type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" onclick="ws.exitVersion(); return false;" style="display: none;" title="Exit Versions">
+                    #end
+                    <button id="btnExitVersion" type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" onclick="ws.exitVersion(); return false;" style="display: none;" title="Exit version control">
                         <span class="glyphicon glyphicon-arrow-left"></span>
                         Exit
                     </button>
@@ -62,10 +66,12 @@
                         <span class="glyphicon glyphicon-headphones"></span>
                         Mock
                     </button>
-                    <button id="btnExport" type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" onclick="ws.showPluginCode(); return false;" title="Config project routers.">
+                    #if($accessable)
+                    <button id="btnExport" type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" onclick="ws.showPluginCode(); return false;" title="Config project router, abtain plugin code...">
                         <span class="glyphicon glyphicon-wrench"></span>
                        Config 
                     </button>
+                    #end
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                              <span class="glyphicon glyphicon-th-large"></span>
@@ -78,19 +84,21 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/doc/${projectId}"  target="_blank">
+                                <a href="/doc/${projectId}" target="_blank">
                                 <span class="glyphicon glyphicon-new-window"></span>
                                 Online Docs
                                 </a>
                             </li>
+                            <!--
                             <li>
                                 <a href="http://thx.github.io/RAP/resources/rap-shortcuts/"  target="_blank">
                                     <span class="glyphicon glyphicon-flash"></span>
                                     Shortcuts
                                 </a>
                             </li>
+                            -->
                             <li>
-                                <a href="http://thx.github.io/RAP/tutorials/"  target="_blank">
+                                <a href="https://github.com/thx/RAP/wiki/user_manual_cn"  target="_blank">
                                     <span class="glyphicon glyphicon-list-alt"></span>
                                     Help/Tutorials
                                 </a>
@@ -98,6 +106,7 @@
                         </ul>
                     </div>
                 </div>
+
             </div>
             <div id="div-debug"></div>
             <div id="div-mt-list" class="clearfix"></div>

@@ -1,8 +1,3 @@
-body {
-	padding: 0;
-	margin: 8px;
-}
-
 .clearfix {
   *zoom: 1;
 }
@@ -28,7 +23,6 @@ label .field {
 	margin-bottom: 0;
 }
 .div-a .head {
-	background-color: Silver;
 	text-align: center;
 }
 
@@ -57,7 +51,6 @@ label .field {
 }
 
 .div-a .head {
-	background-color: Silver;
 	text-align: center;
 }
 
@@ -91,7 +84,6 @@ label .field {
 	background-color: #F2F2F2;
 }
 .tester-form {
-	background-color: #F2F2F2;
 	border: 1px solid #ddd;
 	margin-top: -1px;
 	border-radius: 0 0 3px 3px;
@@ -105,18 +97,16 @@ label .field {
 .p8 {
 	padding: 8px;
 }
-.item {
-	padding: 3px 8px; float: left;
-}
 
-.item .name {
+
+.tab-pane .name {
 	min-width: 120px; display: inline-block; text-align: right; color: #666; padding-right: 4px;
 }
-.item .remark {
+.tab-pane .remark {
 	color: #AAA; display: inline-block; margin-left: 3px; cursor: pointer;
 }
 
-.item .remark .detail {
+.tab-pane .remark .detail {
 	display: none;
 	position: absolute;
 	min-width: 100px;
@@ -129,7 +119,7 @@ label .field {
 	border-radius: 3px;
 }
 
-.item .remark .detail:after {
+.tab-pane .remark .detail:after {
 	position: absolute;
 	top: 10px;
 	left: -4px;
@@ -144,7 +134,7 @@ label .field {
 	border-top: 1px solid #CCC;
 	border-left: 1px solid #CCC;
 }
-.item .remark:hover .detail {
+.tab-pane .remark:hover .detail {
 	display: block;
 }
 
@@ -224,6 +214,7 @@ input,textarea {
 #show-trigger {
 	display: none; position: fixed; bottom: 90px; right: 10px; display: none;
 }
+
 #divActionList {
 }
 
@@ -232,13 +223,5 @@ input,textarea {
 }
 
 #divRootSetting {
-	position: fixed; top: 10px; right: 10px; background-color: #FFF; height: 30px;padding: 4px; border-radius: 4px;
-}
-
-#txtActionId {
-	width:400px;
-}
-#textareaModifyScript {
-	width: 800px;
-	height: 150px;
+	position: fixed; top: 70px; right: 10px; background-color: #FFF; height: 30px;padding: 4px; border-radius: 4px;
 }

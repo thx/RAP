@@ -1,24 +1,17 @@
-/*! rap.plugin Mar.10th 2014 */
-(function() {
-	
-	// utilities
-	function url_domain(data) {
-	    var a = document.createElement('a');
-	    a.href = data;
-	    return a.host;
-	}
-	
-	
+/**
+ * RAP plugin for browsers
+ * Functions: 1). IO mock data, 2). IO format check, 3). route manage
+ * Supports: 1). jQuery, 2). KISSY
+ *
+ * @createDate Mar. 10th 2014
+ * @updateDate Apr. 14th 2015
+ */
+(function(window, undefined) {
     var node = null;
     var blackList = [];
     var whiteList = [#foreach($url in $urlList)#if($velocityCount>1),#end"$url"#end];
 
-    var src = (document.scripts[document.scripts.length - 1]).getAttribute('src');
-    var ROOT = url_domain(src);
-    console.log('RAP mock server ROOT is ', ROOT);
-    
-    // [DEBUG]
-    //ROOT = 'etaoux-bj.taobao.ali.com:8080';
+    var ROOT = "$!consts.DOMAIN_URL";
     var LOST = "LOST";
     var PREFIX = "/mockjs/";
     var EMPTY_ARRAY = "EMPTY_ARRAY";
@@ -29,53 +22,16 @@
      * strategy 3-white list strategy
      */
     var mode = 3;
+    var modeStr = "$!utils.escapeInJ($mode)";
+    if (modeStr != "" && (+modeStr >= 0 && +modeStr <= 3)) {
+        mode = +modeStr;
+    }
     var modeList = [0, 1, 2, 3];
-    var projectId = 0;
+    var projectId = $!projectId;
+	var seajsEnabled = $!seajs;
+    var enable = $!enable;
 
-    // console handler
-    if (typeof window.console === 'undefined') {
-        window.console = {
-            log : function(){},
-            warn : function(){},
-            info : function(){},
-            dir : function(){}
-        };
-    }
-
-    if (!node) {
-        var nodes = document.getElementsByTagName('script');
-        node = nodes[nodes.length - 1];
-    }
-    var ms = node.src.match(/(?:\?|&)projectId=([^&]+)(?:&|$)/);
-    if (ms) {
-        projectId = ms[1];
-    }
-	
-	var seajsEnabled;
-	ms = node.src.match(/(?:\?|&)seajs=([^&]+)(?:&|$)/);
-    if (ms) {
-    	seajsEnabled = ms[1];
-    }
-	
-    var modePattern = node.src.match(/(?:\?|&)mode=([^&]+)(?:&|$)/);
-    if (modePattern) {
-        mode = +modePattern[1];
-        if (!(mode in modeList)) {
-            mode = 1;
-        }
-    }
-
-    var rootPattern = node.src.match(/(?:\?|&)root=([^&]+)(?:&|$)/);
-    if (rootPattern) {
-        ROOT = rootPattern[1];
-    }
-
-    var enable = true;
     console.log('Current RAP work mode:', mode, "(0-disabled, 1-intercept all requests, 2-black list, 3-white list)");
-    var ens = node.src.match(/(?:\?|&)enable=([^&]+)(?:&|$)/);
-    if (ens) {
-        enable = ens[1] == 'true';
-    }
 
     function wrapJQuery(jQuery) {
         if (jQuery._rap_wrapped) {
@@ -86,8 +42,26 @@
         var ajax = jQuery.ajax;
         jQuery.ajax = function() {
             var oOptions = arguments[0];
+
+            // process ajax(url, options) condition
+            if (typeof arguments[0] === 'string' &&
+                typeof arguments[1] === 'object' &&
+                arguments[1].url === undefined) {
+
+                oOptions = arguments[1];
+                oOptions.url = arguments[0];
+                arguments[0] = oOptions;
+
+            } else if(typeof arguments[0] === 'string' &&
+                typeof arguments[1] === undefined) {
+                oOptions = arguments[0] = {
+                    url : arguments[0]
+                };
+            }
+
             var url = oOptions.url;
-            if (route(url) && projectId) {
+            var routePassed = route(url) && projectId;
+            if (routePassed) {
                 rapUrlConverterJQuery(oOptions);
                 var oldSuccess1 = oOptions.success;
                 oldSuccess1 && (oOptions.success = function(data) {
@@ -128,7 +102,28 @@
                     oldSuccess2.apply(this,arguments);
                 };
             }
-            return ajax.apply(this, arguments);
+            var rv = ajax.apply(this, arguments);
+            if (routePassed) {
+                var oldDone = rv.done;
+                oldDone && (rv.done = function(data) {
+                    var oldCb = arguments[0];
+                    var args = arguments;
+                    if (oldCb) {
+                        args[0] = function(data) {
+                            if (PREFIX == '/mockjs/') {
+                                data = Mock.mock(data);
+                                console.log('请求' + url + '返回的Mock数据:');
+                                console.dir(data);
+                            }
+                            oldCb.apply(this, arguments);
+                        };
+                    }
+                    oldDone.apply(this, args);
+                });
+            }
+
+
+            return rv;
         };
     }
 
@@ -440,7 +435,7 @@
 
     /**
      * convert url to rap mock url (KISSY version)
-     * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
+     * example: www.baidu.com/a => {domain}/mock/106/a
      */
     function rapUrlConverterKissy(options) {
         var url = options.url;
@@ -458,7 +453,7 @@
 
     /**
      * convert url to rap mock url (jQuery version)
-     * example: www.baidu.com/a => alibaba-inc.com/mock/106/a
+     * example: www.baidu.com/a => {domain}/mock/106/a
      */
     function rapUrlConverterJQuery(options) {
         var url = options.url;
@@ -544,4 +539,5 @@
     };
 
     RAP.initList(whiteList);
-})();
+    RAP.wrapJQuery = window.wrapJQueryForRAP;
+})(this);

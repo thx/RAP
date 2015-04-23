@@ -470,6 +470,8 @@ public class WorkspaceAction extends ActionBase {
                 try {
                     // async update doc
                     projectMgr.updateDoc(id);
+                    // async update disableCache
+                    projectMgr.updateCache(id);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -482,6 +484,9 @@ public class WorkspaceAction extends ActionBase {
         Thread asyncThread = new Thread(futureTask);
         asyncThread.start();
         logger.info("Future task CHECK_IN running...");
+
+
+
 
 		return SUCCESS;
 	}

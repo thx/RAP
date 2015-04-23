@@ -10,10 +10,10 @@ import javax.mail.internet.AddressException;
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.account.bo.User;
-import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.ContextManager;
-import com.taobao.rigel.rap.common.Logger;
+import com.taobao.rigel.rap.common.Pinyin4jUtil;
+import com.taobao.rigel.rap.common.SystemVisitorLog;
 
 /**
  * account action
@@ -138,7 +138,10 @@ public class AccountAction extends ActionBase {
 			o.put("name", user.getName());
 			o.put("role", user.getRoleListStr());
 			o.put("account", user.getAccount());
-			o.put("realName", user.getRealName());
+			o.put("realName", user.getRealname());
+            o.put("empId", user.getEmpId());
+            o.put("namePinyin", Pinyin4jUtil.calculatePinyinArrStr(user.getName()));
+            o.put("realNamePinyin", Pinyin4jUtil.calculatePinyinArrStr(user.getRealname()));
 			result.add(o);
 		}
 		setJson("{\"users\":" + gson.toJson(result) + "}");
@@ -241,10 +244,15 @@ public class AccountAction extends ActionBase {
 	public String doLogin() {
 		if (super.getAccountMgr().validate(getAccount(), getPassword())) {
 			Map session = ContextManager.getSession();
-			String account = getAccount();
-			long userId = super.getAccountMgr().getUserId(account);
-			session.put(ContextManager.KEY_ACCOUNT, account);
-			session.put(ContextManager.KEY_USER_ID, userId);
+			User user = getAccountMgr().getUser(getAccount());
+            if (user != null && user.getId() > 0) {
+                session.put(ContextManager.KEY_ACCOUNT, user.getAccount());
+                session.put(ContextManager.KEY_USER_ID, user.getId());
+                session.put(ContextManager.KEY_NAME, user.getName());
+            } else {
+                setErrMsg("用户不存在或密码错误");
+                return ERROR;
+            }
 			if (getReturnUrl() != null && !getReturnUrl().trim().equals("")) {
 				return "redirect";
 			}
@@ -322,7 +330,7 @@ public class AccountAction extends ActionBase {
 	public String logData() {
 		Map<String, Object> obj = new HashMap<String, Object>();
 		obj.put("online", this.getCountOfOnlineUserList());
-		obj.put("mockNumToday", Logger.getMockNumToday());
+		obj.put("mockNumToday", SystemVisitorLog.getMockNumToday());
 		Gson gson = new Gson();
 		setJson(gson.toJson(obj));
 		return SUCCESS;

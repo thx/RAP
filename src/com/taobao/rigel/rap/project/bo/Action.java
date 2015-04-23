@@ -27,7 +27,17 @@ public class Action implements java.io.Serializable {
 		this.id = id;
 	}
 
-	private String name;
+    private int disableCache;
+
+    public int getDisableCache() {
+        return disableCache;
+    }
+
+    public void setDisableCache(int disableCache) {
+        this.disableCache = disableCache;
+    }
+
+    private String name;
 
 	public String getName() {
 		return name;
@@ -57,6 +67,18 @@ public class Action implements java.io.Serializable {
 		if (requestType == null || requestType == "")
 			return;
 		this.requestType = requestType;
+	}
+
+	public String getMethod() {
+		if (this.requestType.equals("2")) {
+			return "POST";
+		} else if (this.requestType.equals("3")) {
+			return "PUT";
+		} else if (this.requestType.equals("4")) {
+			return "DELETE";
+		} else {
+			return "GET"; // in default
+		}
 	}
 
 	private String requestUrl;

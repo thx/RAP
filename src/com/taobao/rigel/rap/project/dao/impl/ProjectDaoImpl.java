@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.sun.tools.javac.jvm.Items;
-import com.taobao.rigel.rap.workspace.bo.CheckIn;
-import com.taobao.rigel.rap.workspace.dao.WorkspaceDao;
+import com.taobao.rigel.rap.common.CacheUtils;
+import com.taobao.rigel.rap.common.URLUtils;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -29,13 +28,27 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     @SuppressWarnings("unchecked")
 	@Override
 	public List<Project> getProjectList(User user, int curPageNum, int pageSize) {
-		curPageNum = curPageNum <= 0 ? 1 : curPageNum;
-		String hqlByUser = "from Project as p left join fetch p.userList as u where p.user.id = :userId or u.id = :userId order by p.id desc";
-		Query query = getSession().createQuery(hqlByUser).setLong("userId",
+		StringBuilder sql = new StringBuilder();
+        sql
+        .append("SELECT project_id ")
+        .append("FROM tb_project_and_user ")
+        .append("WHERE user_id = :userId ")
+        .append("UNION ")
+        .append("SELECT id ")
+        .append("FROM tb_project ")
+        .append("WHERE user_id = :userId ");
+		Query query = getSession().createSQLQuery(sql.toString()).setLong("userId",
 				user.getId());
-		query = query.setFirstResult(pageSize * (curPageNum - 1));
-		query.setMaxResults(pageSize);
-		return query.list();
+
+        List<Integer> list = query.list();
+        List<Project> resultList = new ArrayList<Project>();
+	    for (Integer id : list) {
+            Project p = this.getProject(id);
+            if (p != null && p.getId() > 0) {
+                resultList.add(p);
+            }
+        }
+		return resultList;
 	}
     @Override
     public List<Project> getProjectList() {
@@ -179,6 +192,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 						continue;
 					}
 					actionServer.update(action);
+                    CacheUtils.removeCacheByActionId(action.getId());
 					for (Parameter parameter : action.getRequestParameterList()) {
 						Parameter parameterServer = projectServer
 								.findParameter(parameter.getId(), true);
@@ -334,6 +348,14 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     }
 
     @Override
+    public long getMockNumInTotal() {
+        String sql = "SELECT SUM(mock_num) FROM tb_project";
+        Query query = getSession().createSQLQuery(sql);
+        Object queryResult = query.uniqueResult();
+        return queryResult != null ? Long.parseLong(queryResult.toString()) : 0;
+    }
+
+    @Override
     public long getParametertNum() {
         String sql = "SELECT COUNT(*) FROM tb_parameter";
         Query query = getSession().createSQLQuery(sql);
@@ -362,10 +384,11 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 					result.add(action);
 				}
 			} else if (url.contains(":")) {
-				String urlParamRemoved = StringUtils.removeParamsInUrl(url);
-				String realUrlParamRemoved = StringUtils
+				String urlParamRemoved = URLUtils.removeParamsInUrl(url);
+				String realUrlParamRemoved = URLUtils
 						.removeRealParamsInUrl(pattern);
-				if (urlParamRemoved.contains(realUrlParamRemoved)) {
+				if (urlParamRemoved.contains(realUrlParamRemoved) ||
+						realUrlParamRemoved.contains(urlParamRemoved)) {
 					result.add(action);
 				}
 			} else { // normal pattern
@@ -509,5 +532,12 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		}
 		return list;
 	}
+
+    @Override
+    public List<Project> selectMockNumTopNProjectList(int limit) {
+        String hqlByUser = "from Project order by mockNum desc";
+        Query query = getSession().createQuery(hqlByUser);
+        return query.setMaxResults(limit).list();
+    }
 
 }

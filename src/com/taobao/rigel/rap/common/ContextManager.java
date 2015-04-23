@@ -10,6 +10,7 @@ public class ContextManager {
 	public static final String KEY_PROJECT_LOCK_LIST = "KEY_PROJECT_LOCK_LIST";
 	public static final String KEY_USER_ID = "KEY_USER_ID";
 	public static final String KEY_CORP_NAME = "KEY_CORP_NAME";
+    public static final String KEY_NAME = "KEY_NAME";
 	
 	@SuppressWarnings("rawtypes")
 	public static Map getSession() {

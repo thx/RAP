@@ -13,8 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.taobao.rigel.rap.account.service.AccountMgr;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 
 public class AuthCheckFilter implements Filter {
 	AccountMgr accountMgr;
@@ -40,8 +44,10 @@ public class AuthCheckFilter implements Filter {
         if (request instanceof HttpServletRequest) {
             url = ((HttpServletRequest)request).getRequestURL().toString();
         }
-
-        ((HttpServletRequest)request).getRequestURL().toString();
+        String domain = URLUtils.getDomain(url);
+        if (domain != "") {
+            SystemConstant.setDOMAIN_URL(domain);
+        }
 
         // all requests count into realtime charts
         SystemVisitorLog.count();
@@ -58,6 +64,7 @@ public class AuthCheckFilter implements Filter {
 		HttpSession session = ((HttpServletRequest) request).getSession();
 
         Object userAccount = session.getAttribute(ContextManager.KEY_ACCOUNT);
+        Object userName = session.getAttribute(ContextManager.KEY_NAME);
 		boolean logined = userAccount != null;
 		
 		SystemConstant.README_PATH = session.getServletContext().getRealPath(File.separator + "README.md");
@@ -66,6 +73,7 @@ public class AuthCheckFilter implements Filter {
 		if (logined) {	
             User logUser = new User();
             logUser.setAccount((String)userAccount);
+            logUser.setName((String)userName);
             SystemVisitorLog.count(logUser);
         }
 

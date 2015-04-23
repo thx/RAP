@@ -1,11 +1,8 @@
 #parse('/tcom/utils.macro.vm')
-
-
 #set($domainUrl = "http://" + $consts.DOMAIN_URL)
 #set($homeUrlEncoded = $utils.escapeInU($domainUrl))
 #set($logoutUrl = $domainUrl + $accountUrl.doLogout)
 #set($logoutUrlEncoded = $utils.escapeInU($logoutUrl))
-
 ## master page start
 #macro (bodyNewStart $hide)
 #if(!$hide)
@@ -18,7 +15,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-      <a class="navbar-brand" href="/"><i class="iconlogo mi-rap"></i> <span class="logo-text">RAP v0.9</span></a>
+      <a class="navbar-brand" href="/"><i class="iconlogo mi-rap"></i> <span class="logo-text">RAP v0.11.1</span></a>
     </div>
     <div class="collapse navbar-collapse"  id="global-navbar">
       <ul class="nav navbar-nav">
@@ -134,7 +131,6 @@
 #end
 <div class="container">
 #end
-
 ## master page end
 #macro (bodyEnd)
     <hr>
@@ -154,6 +150,11 @@
                     data = JSON.parse(data);
                     $('#_logOnline').html(data.online);
                     $('#_logMockNumToday').html(data.mockNumToday);
+                    var ele = $('#mockDataInDashboard');
+                    if (ele.length) {
+                        var startMockNum = +ele.attr('data-start');
+                        ele.html(startMockNum + (+data.mockNumToday));
+                    }
                     setTimeout(_logData, 2000);
                 }
             });

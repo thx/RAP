@@ -193,14 +193,6 @@ public class ProjectAction extends ActionBase {
 		return projectMgr;
 	}
 
-	/**
-	 * set project manager
-	 * 
-	 * @param projectMgr
-	 *            project manager
-	 * @throws exceptions
-	 *             No exceptions thrown
-	 */
 	public void setProjectMgr(ProjectMgr projectMgr) {
 		this.projectMgr = projectMgr;
 	}
@@ -235,22 +227,6 @@ public class ProjectAction extends ActionBase {
 		this.projectData = projectData;
 	}
 
-	/**
-	 * remove project
-	 * 
-	 * @param id
-	 *            {int} id of the project to be removed
-	 */
-	public String removeProject() {
-		if (!isUserLogined())
-			return LOGIN;
-		if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
-			setErrMsg("您没有管理该项目的权限");
-			return ERROR;
-		}
-		projectMgr.removeProject(getId());
-		return myProjectList();
-	}
 
 	public String delete() {
 		if (!isUserLogined())
@@ -261,28 +237,6 @@ public class ProjectAction extends ActionBase {
 		}
 		projectMgr.removeProject(getId());
 		return SUCCESS;
-	}
-
-	private String addProject() {
-		if (!isUserLogined())
-			return LOGIN;
-		Project project = new Project();
-		project.setCreateDate(new Date());
-		project.setUser(getCurUser());
-		project.setIntroduction(getIntroduction());
-		project.setName(getName());
-		List<String> memberAccountList = new ArrayList<String>();
-		String[] list = getMemberAccountListStr().split(",");
-		// format: mashengbo(大灰狼堡森), linpanhui(林攀辉),
-		for (String item : list) {
-			String account = item.contains("(") ? item.substring(0,
-					item.indexOf("(")).trim() : item.trim();
-			if (!account.equals(""))
-				memberAccountList.add(account);
-		}
-		project.setMemberAccountList(memberAccountList);
-		projectMgr.addProject(project);
-		return this.myProjectList();
 	}
 
 	public String create() {
@@ -317,33 +271,6 @@ public class ProjectAction extends ActionBase {
 		result.put("creator", project.getUser().getUserBaseInfo());
 		setJson(new RapError(gson.toJson(result)).toString());
 		return SUCCESS;
-	}
-
-	private String updateProject() {
-		if (!isUserLogined())
-			return LOGIN;
-		if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
-			setErrMsg("您没有管理该项目的权限");
-			return ERROR;
-		}
-		Project project = new Project();
-		project.setId(getId());
-		project.setIntroduction(getIntroduction());
-		project.setName(getName());
-
-		List<String> memberAccountList = new ArrayList<String>();
-		String[] list = getMemberAccountListStr().split(",");
-		// format: mashengbo(大灰狼堡森), linpanhui(林攀辉),
-		for (String item : list) {
-
-			String account = item.contains("(") ? item.substring(0,
-					item.indexOf("(")).trim() : item.trim();
-			if (!account.equals(""))
-				memberAccountList.add(account);
-		}
-		project.setMemberAccountList(memberAccountList);
-		projectMgr.updateProject(project);
-		return myProjectList();
 	}
 
 	public String update() {
@@ -401,52 +328,6 @@ public class ProjectAction extends ActionBase {
 		projectMgr.updateProject(project);
 		
 		return SUCCESS;
-	}
-
-	public String addOrUpdateProject() {
-		if (id == 0) {
-			return addProject();
-		} else {
-			return updateProject();
-		}
-	}
-
-	public String myProjectList() {
-		if (!isUserLogined())
-			return LOGIN;
-
-		// query paging
-		super.initPager();
-		int curPageNum = super.getPager().getCurPagerNum();
-		int pageSize = super.getPager().getPagerSize();
-		long totalRecNum = projectMgr.getProjectListNum(getCurUser());
-		getPager().setTotalRecNum(totalRecNum);
-
-		setProjectList(projectMgr.getProjectList(getCurUser(), curPageNum,
-				pageSize));
-		return SUCCESS;
-	}
-
-	public String myProject() {
-		if (!isUserLogined())
-			return LOGIN;
-		if (!getCurUser().haveAccessOfProject(getId())) {
-			setErrMsg("你没有访问该项目的权限。");
-			return ERROR;
-		}
-		setProject(projectMgr.getProject(getId()));
-		setJson(getProject().toString(Project.TO_STRING_TYPE.TO_PAGE));
-		return SUCCESS;
-	}
-
-	public String projectDetailAjax() {
-		if (!isUserLogined())
-			return LOGIN;
-		if (!getCurUser().haveAccessOfProject(getId())) {
-			setErrMsg("你没有访问该项目的权限。");
-			return ERROR;
-		}
-		return this.myProject();
 	}
 
 	private String result;

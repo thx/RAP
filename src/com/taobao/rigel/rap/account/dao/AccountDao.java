@@ -186,4 +186,6 @@ public interface AccountDao {
 
     long getUsertNum();
 
+    public void updateUser(User user);
+
 }

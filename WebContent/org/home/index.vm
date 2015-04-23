@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 #parse('/tcom/template.rap.vm')
 <html>
 	<head>
@@ -10,11 +10,15 @@
 	</head>
 	<body>
 	    #bodyNewStart
+        <div id="browserCheckAlert" class="alert alert-warning alert-dismissible" role="alert" style="display:none;">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <strong>Warning!</strong> We strongly recommend you to use IE9+/Chrome/Firefox, for others, we do not ensure the campability. 
+        </div>
 	    <div class="page home">
 		    <div class="groups-con content">
 		    	<h2>Dashboard</h2>
-		    	<div class="groups">
-		    		<div class="loading">loading...</div>
+                    <div class="groups">
+		    		<div class="loading">Loading, please wait...</div>
 		    	</div>
 		    </div>
 	    </div>
@@ -75,13 +79,13 @@
   <div class="form-group">
     <label for="" class="col-sm-2 control-label">Project Name <span style="color:red">&#42;</span></label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" style="width:432px;" placeholder="Edit project name here" value="{{name}}"/>
+      <input type="text" class="form-control" style="width:432px;" placeholder="Edit project name here" value="{{{name}}}"/>
     </div>
   </div>
  <div class="form-group">
     <label for="" class="col-sm-2 control-label">Project Descriptions</label>
     <div class="col-sm-10">
-      <textarea class="form-control desc" style="width:432px;resize:vertical;" placeholder="Edit project description here">{{desc}}</textarea>
+      <textarea class="form-control desc" style="width:432px;resize:vertical;" placeholder="Edit project description here">{{{desc}}}</textarea>
     </div>
   </div>
 <div class="form-group">
@@ -91,7 +95,7 @@
 	  <span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">{{account}} ({{name}})<i class="unpick-btn">&times;</i></span>
 	  {{/users}}
 	  <input class="form-control accounts-inputer" placeholder="Add project member"/>
-	  <span class="user-loading">Loading...</span>
+	  <span class="user-loading">Loading project members...</span>
       <div class="accounts-con"></div>
 	</div>
   </div>
@@ -119,7 +123,8 @@
 	  <span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">{{account}} ({{name}})<i class="unpick-btn">&times;</i></span>
 	  {{/users}}
 	  <input class="form-control accounts-inputer" placeholder="添加项目成员"/>
-	  <span class="user-loading">项目成员列表加载中，请稍候~ </span>
+	  <span class="user-loading">项目成员列表加载中，请稍候~ </span
+	  ><span class="glyphicon glyphicon-question-sign tip" title="如果该用户没有登录/注册过RAP，系统中就没有TA的信息。请TA先登录一下RAP吧。匹配时请可以输入TA的花名或帐号(域帐号)">找不到TA?</span>
       <div class="accounts-con"></div>
 	</div>
   </div>

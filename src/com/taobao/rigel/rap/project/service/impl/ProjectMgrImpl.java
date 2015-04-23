@@ -185,7 +185,9 @@ public class ProjectMgrImpl implements ProjectMgr {
         String projectData = check.getProjectData();
 
         Gson gson = new Gson();
-        return gson.fromJson(projectData, Project.class);
+        Project p = gson.fromJson(projectData, Project.class);
+        p.setVersion(check.getVersion());
+        return p;
     }
 
     @Override
@@ -334,5 +336,36 @@ public class ProjectMgrImpl implements ProjectMgr {
     @Override
     public long getCheckInNum() {
         return projectDao.getCheckInNum();
+    }
+
+    @Override
+    public long getMockNumInTotal() {return projectDao.getMockNumInTotal();}
+
+    @Override
+    public List<Project> selectMockNumTopNProjectList(int limit) {
+        return projectDao.selectMockNumTopNProjectList(limit);
+    }
+
+    @Override
+    public void updateCache(int projectId) {
+        Project project = getProject(projectId);
+        for (Module module : project.getModuleList()) {
+            for (Page page : module.getPageList()) {
+                for (Action action : page.getActionList()) {
+                    updateActionCache(action);
+                }
+            }
+        }
+    }
+
+    private void updateActionCache(Action action) {
+        action.setDisableCache(0);
+        for (Parameter param : action.getResponseParameterList()) {
+            String rules = param.getMockJsRules();
+            if (rules != null && rules.contains("${") && rules.contains("}")) {
+                action.setDisableCache(1);
+                break;
+            }
+        }
     }
 }

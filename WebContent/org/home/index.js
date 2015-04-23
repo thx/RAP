@@ -4,6 +4,10 @@ $(function() {
     //  console.log(data.isOk);
     //}, 'JSON');
 
+    if (!-[1,]) { // IE 6-8
+        $('#browserCheckAlert').show();
+    }
+
     var NAME_MAP = {
         'user': 'My project',
         'star': 'Important project',
@@ -48,7 +52,7 @@ $(function() {
                 $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
                     $(this).parent('.picked-user').remove();
                 });
-
+                $('.tip').tooltip();
                 $('.project-target .team').change(function() {
                     var corpId = $(this).val();
                     if (corpId === '') {
@@ -139,7 +143,7 @@ $(function() {
         var box = $(this);
         box = box.parents('.box');
         var projId = box.data('projid');
-        window.open($.route('workspace.mine') + '?projectId=' + projId);
+        window.location = ($.route('workspace.mine') + '?projectId=' + projId);
     }
 
     function handleEditProjectClick() {
@@ -162,7 +166,7 @@ $(function() {
         }
         $.confirm({
             content: $.render($('#update-proj-tmpl').text(), {
-                name: name,
+                name: name ? name.replace(/"/g, "") : "",
                 desc: desc,
                 users: pickeds
             }),
@@ -174,7 +178,7 @@ $(function() {
                 $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
                     $(this).parent('.picked-user').remove();
                 });
-
+                $('.tip').tooltip();
                 getUsers(function(users) {
                     $('.user-loading').hide();
                     $(that).find('.accounts-inputer').keyup(function() {
@@ -228,10 +232,12 @@ $(function() {
         var url = '';
         var host = location && location.host ? location.host : '/';
         $.message({
-             content: '<input type="text" id="rap-plugin-inputer" class="form-control" value="<script src=\'http://' + host + '/rap.plugin.js?projectId=' + id + '\'></script>" />',
-             title: 'copy RAP plugin address',
+             content: '<input type="text" id="rap-plugin-inputer" disabled="disabled" class="form-control" value="<script src=\'http://' + host + '/rap.plugin.js?projectId=' + id + '\'></script>" />',
+             title: 'Copy RAP Plugin Code',
              showCallback: function() {
-                 $('#rap-plugin-inputer').focus();
+                 var ele = $('#rap-plugin-inputer')[0];
+                 ele.focus();
+                 ele.selectionEnd = ele.value.length;
              }
         });
     }
@@ -539,4 +545,6 @@ $(function() {
     }
 
     render();
+    $('.tip').tooltip();
+
 });

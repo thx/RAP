@@ -17,6 +17,9 @@
 		<property name="requestType">
 			<column name="request_Type" />
 		</property>
+        <property name="disableCache">
+            <column name="disable_cache" />
+        </property>
 		<property name="requestUrl">
 			<column name="request_url" />
 		</property>

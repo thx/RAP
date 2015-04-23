@@ -6,24 +6,15 @@
 	<package name="platform" extends="rap-default" namespace="/platform">
 		<action name="home" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="home">
         	<result name="success" type="velocity">/platform/home.vm</result>
-        </action>   
-        <action name="document" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="document">
-        	<result name="success" type="velocity">/platform/document.vm</result>
-        </action>    
-        <action name="about" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="about">
-        	<result name="success" type="velocity">/platform/about.vm</result>
-        </action> 
-         <action name="status" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="status">
-        	<result name="success" type="velocity">/platform/status.vm</result>
-        </action>    
-          <action name="help" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="help">
-        	<result name="success" type="velocity">/platform/help.vm</result>
         </action>
         <action name="test" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="test">
         	<result name="success" type="velocity">/platform/test.vm</result>
         </action>
         <action name="log" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="log">
             <result name="success" type="velocity">/platform/log.vm</result>
+        </action>
+        <action name="monitor" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="monitor">
+            <result name="success" type="velocity">/platform/monitor.vm</result>
         </action>
         <action name="realtimeUpdate" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="realtimeUpdate">
             <result name="success" type="velocity">/bcom/json.cb.vm</result>
