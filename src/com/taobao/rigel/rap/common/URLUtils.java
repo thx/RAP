@@ -99,7 +99,7 @@ public class URLUtils {
     }
 
     public static String removeRealParamsInUrl(String url) {
-        url =  url.replaceAll("/[0-9]*", "");
+        url =  url.replaceAll("/[0-9]+[^\\$/]", "");
         String lastPart = url.substring(url.lastIndexOf("/") + 1);
         if (lastPart != null) {
             try {
