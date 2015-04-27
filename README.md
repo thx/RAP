@@ -4,7 +4,9 @@
 * [Official Site 官网](http://thx.github.io/RAP)
 * [Wiki](http://github.com/thx/RAP/wiki)
 
-In RAP, you can define the URL, response/request detail format, etc. By analyzing these data, RAP provides MOCK service, test service, etc. RAP also supplys lots of enterpise-level management tools, help enterprise and team work efficiently.
+RAP can help web engineers create interface doc efficiently, and generate mock data, validate real request by analyzing interface data. With structured API data, RAP can do more while we can do less.
+
+RAP可帮助WEB工程师高效建立接口文档，并生成Mock数据、校验真实接口。通过结构化的API数据，RAP可以做的更多，我们可以做的更少。
  
 ## About 关于
 
