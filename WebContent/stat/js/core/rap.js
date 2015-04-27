@@ -1358,6 +1358,12 @@ function deepCopy(o) {
      * initialize run when dom ready
      */
     ws.init = function(workspaceObj, urlObj, actionId) {
+        if (typeof actionId !== 'number' || actionId === 0) {
+            var hashId = getHash();
+            if (hashId) {
+                actionId = hashId;
+            }
+        }
         var me = this;
         var cb = arguments[arguments.length - 1];
         if (!cb || typeof cb !== 'function') {
@@ -1580,6 +1586,8 @@ function deepCopy(o) {
     ws.switchA = function(actionId, forceRefresh) {
         var action = p.getAction(actionId);
         if (action === null) return;
+
+        setHash(actionId);
 
         if (!forceRefresh) {
             if (!p.isActionInModule(actionId, _curModuleId)) {
@@ -2952,6 +2960,20 @@ function deepCopy(o) {
             b.on(list[i], "click", function(e) {
             e.stopPropagation();
             });
+        }
+    }
+
+    function setHash(actionId) {
+        location.hash = actionId;
+    }
+
+    function getHash() {
+        var hash = location.hash.substring(1);
+        hash = +hash;
+        if (hash > 0) {
+            return hash;
+        } else {
+            return null;
         }
     }
 
