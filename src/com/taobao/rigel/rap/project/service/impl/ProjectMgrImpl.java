@@ -1,9 +1,6 @@
 package com.taobao.rigel.rap.project.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.Notification;
@@ -202,8 +199,8 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 	@Override
 	public String updateProject(int id, String projectData,
-			String deletedObjectListData) {
-		return projectDao.updateProject(id, projectData, deletedObjectListData);
+			String deletedObjectListData, Map<Long, Long> actionIdMap) {
+		return projectDao.updateProject(id, projectData, deletedObjectListData, actionIdMap);
 	}
 
 	@Override

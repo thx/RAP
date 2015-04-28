@@ -1,6 +1,7 @@
 package com.taobao.rigel.rap.project.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.project.bo.Action;
@@ -79,7 +80,7 @@ public interface ProjectMgr {
 	 * @return
 	 */
 	String updateProject(int id, String projectData,
-			String deletedObjectListData);
+			String deletedObjectListData, Map<Long, Long> actionIdMap);
 
 	/**
 	 * get number of project list usually used for pager

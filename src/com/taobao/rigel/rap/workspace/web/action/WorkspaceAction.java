@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
+import com.google.gson.Gson;
 import com.taobao.rigel.rap.common.SystemConstant;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -371,7 +372,7 @@ public class WorkspaceAction extends ActionBase {
 		CheckIn check = workspaceMgr.getVersion(getVersionId());
 		workspaceMgr.prepareForVersionSwitch(check);
 		projectMgr.updateProject(check.getProject().getId(),
-				check.getProjectData(), "[]");
+				check.getProjectData(), "[]", new HashMap<Long, Long>());
 		Project project = projectMgr.getProject(check.getProject().getId());
 		String projectData = project
 				.toString(Project.TO_STRING_TYPE.TO_PARAMETER);
@@ -398,8 +399,10 @@ public class WorkspaceAction extends ActionBase {
 		}
 
 		// update project
+		Map<Long, Long> actionIdMap = new HashMap<Long, Long>();
 		projectMgr.updateProject(getId(), getProjectData(),
-				getDeletedObjectListData());
+				getDeletedObjectListData(), actionIdMap);
+
 
 		project = projectMgr.getProject(getId());
 
@@ -432,7 +435,11 @@ public class WorkspaceAction extends ActionBase {
 				stringBuilder.append(",");
 			}
 		}
-		stringBuilder.append("],\"isOk\":true}");
+		Gson g = new Gson();
+		stringBuilder
+				.append("],\"actionIdMap\":")
+				.append(g.toJson(actionIdMap))
+				.append(",\"isOk\":true}");
 		setJson(stringBuilder.toString());
 
 		// update project data
@@ -463,6 +470,8 @@ public class WorkspaceAction extends ActionBase {
         if (notification.getUser().getId() != getCurUserId())
             getAccountMgr().addNotification(notification);
 
+		// unfinished
+		/**
         Callable<String> taskSub = new Callable<String>() {
 
             @Override
@@ -484,7 +493,7 @@ public class WorkspaceAction extends ActionBase {
         Thread asyncThread = new Thread(futureTask);
         asyncThread.start();
         logger.info("Future task CHECK_IN running...");
-
+		*/
 
 
 

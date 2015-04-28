@@ -143,7 +143,7 @@ public class OpenAPIAction extends ActionBase {
         Map<Integer, Object> mockDataMap = new HashMap<Integer, Object>();
 
         for (Action a : aList) {
-            mockDataMap.put(a.getId(), mockMgr.generateRule(a.getId(), null, null));
+            mockDataMap.put(Integer.parseInt(new Long(a.getId()).toString()), mockMgr.generateRule(Integer.parseInt(new Long(a.getId()).toString()), null, null));
         }
 
         resultMap.put("modelJSON", p.toString(Project.TO_STRING_TYPE.TO_PARAMETER));

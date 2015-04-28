@@ -1,6 +1,7 @@
 package com.taobao.rigel.rap.project.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.project.bo.Action;
@@ -34,7 +35,7 @@ public interface ProjectDao {
 	 * @return
 	 */
 	String updateProject(int id, String projectData,
-			String deletedObjectListData);
+			String deletedObjectListData, Map<Long, Long> actionIdMap);
 
 	/**
 	 * update project
