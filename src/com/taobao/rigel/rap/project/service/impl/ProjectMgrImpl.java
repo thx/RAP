@@ -1,9 +1,6 @@
 package com.taobao.rigel.rap.project.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.Notification;
@@ -202,8 +199,8 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 	@Override
 	public String updateProject(int id, String projectData,
-			String deletedObjectListData) {
-		return projectDao.updateProject(id, projectData, deletedObjectListData);
+			String deletedObjectListData, Map<Long, Long> actionIdMap) {
+		return projectDao.updateProject(id, projectData, deletedObjectListData, actionIdMap);
 	}
 
 	@Override
@@ -282,12 +279,12 @@ public class ProjectMgrImpl implements ProjectMgr {
 	}
 
 	@Override
-	public Action getAction(int id) {
+	public Action getAction(long id) {
 		return projectDao.getAction(id);
 	}
 
     @Override
-    public Action getAction(int id, String ver, int projectId) {
+    public Action getAction(long id, String ver, int projectId) {
         CheckIn check = workspaceDao.getVersion(projectId, ver);
         Gson gson = new Gson();
         Project p = gson.fromJson(check.getProjectData(), Project.class);

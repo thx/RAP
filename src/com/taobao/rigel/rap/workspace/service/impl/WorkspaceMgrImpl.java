@@ -196,7 +196,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
 							// [TODO] conflict!
 						} else if (aChanged && !bChanged) {
 							// update
-							log.append(logTemplate(actionB.getId(), "action", "update", 
+							log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
 									actionA.getName(), actionB.getName(), "name"));
 							actionB.setName(actionA.getName());
 						} else if (!aChanged && bChanged){
@@ -211,7 +211,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
 							// [TODO] conflict!
 						} else if (aChanged && !bChanged) {
 							// update
-							log.append(logTemplate(actionB.getId(), "action", "update", 
+							log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
 									actionA.getDescription(), actionB.getDescription(), "description"));
 							actionB.setDescription(actionA.getDescription());
 						} else if (!aChanged && bChanged){
@@ -226,7 +226,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
 							// [TODO] conflict!
 						} else if (aChanged && !bChanged) {
 							// update
-							log.append(logTemplate(actionB.getId(), "action", "update", 
+							log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
 									actionA.getRequestType(), actionB.getRequestType(), "requestType"));
 							actionB.setRequestType(actionA.getRequestType());
 						} else if (!aChanged && bChanged){
@@ -241,7 +241,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
 							// [TODO] conflict!
 						} else if (aChanged && !bChanged) {
 							// update
-							log.append(logTemplate(actionB.getId(), "action", "update", 
+							log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
 									actionA.getRequestUrl(), actionB.getRequestUrl(), "requestUrl"));
 							actionB.setRequestUrl(actionA.getRequestUrl());
 						} else if (!aChanged && bChanged){
@@ -256,7 +256,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
 							// [TODO] conflict!
 						} else if (aChanged && !bChanged) {
 							// update
-							log.append(logTemplate(actionB.getId(), "action", "update", 
+							log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
 									actionA.getResponseTemplate(), actionB.getResponseTemplate(), "responseTemplate"));						
 							actionB.setResponseTemplate(actionA.getResponseTemplate());
 						} else if (!aChanged && bChanged){
@@ -422,7 +422,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
 							// [TODO] conflict!
 						} else if (aChanged && !bChanged) {
 							// update
-							log.append(logTemplate(actionB.getId(), "action", "update", 
+							log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
 									actionA.getName(), actionB.getName(), "name"));						
 							actionB.setName(actionA.getName());
 						} else if (!aChanged && bChanged){
@@ -437,7 +437,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
 							// [TODO] conflict!
 						} else if (aChanged && !bChanged) {
 							// update
-							log.append(logTemplate(actionB.getId(), "action", "update", 
+							log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
 									actionA.getDescription(), actionB.getDescription(), "description"));	
 							actionB.setDescription(actionA.getDescription());
 						} else if (!aChanged && bChanged){
@@ -452,7 +452,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
 							// [TODO] conflict!
 						} else if (aChanged && !bChanged) {
 							// update							
-							log.append(logTemplate(actionB.getId(), "action", "update", 
+							log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
 									actionA.getRequestType(), actionB.getRequestType(), "requestType"));
 							actionB.setRequestType(actionA.getRequestType());
 						} else if (!aChanged && bChanged){
@@ -467,7 +467,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
 							// [TODO] conflict!
 						} else if (aChanged && !bChanged) {
 							// update
-							log.append(logTemplate(actionB.getId(), "action", "update", 
+							log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
 									actionA.getRequestUrl(), actionB.getRequestUrl(), "requestUrl"));
 							actionB.setRequestUrl(actionA.getRequestUrl());
 						} else if (!aChanged && bChanged){
@@ -482,7 +482,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
 							// [TODO] conflict!
 						} else if (aChanged && !bChanged) {
 							// update
-							log.append(logTemplate(actionB.getId(), "action", "update", 
+							log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
 									actionA.getResponseTemplate(), actionB.getResponseTemplate(), "responseTemplate"));
 							actionB.setResponseTemplate(actionA.getResponseTemplate());
 						} else if (!aChanged && bChanged){
@@ -622,7 +622,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
 		return null;
 	}
 	
-	private Action findAction(Project p, int actionId) {
+	private Action findAction(Project p, long actionId) {
 		for (Module module : p.getModuleList()) {
 			for (Page page : module.getPageList()) {
 				for (Action action : page.getActionList()) {

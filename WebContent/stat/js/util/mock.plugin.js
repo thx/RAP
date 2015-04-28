@@ -33,7 +33,13 @@
 
     console.log('Current RAP work mode:', mode, "(0-disabled, 1-intercept all requests, 2-black list, 3-white list)");
 
-    function wrapJQuery(jQuery) {
+    function wrapJQuery(jQuery, pId, rootStr) {
+        if (pId) {
+            projectId = pId;
+        }
+        if (rootStr) {
+            ROOT = rootStr;
+        }
         if (jQuery._rap_wrapped) {
             return;
         }
@@ -535,6 +541,9 @@
         },
         router: function(url) {
         	return route(url);
+        },
+        checkerHandler: function() {
+            return checkerHandler.apply(this, arguments);
         }
     };
 

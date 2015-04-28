@@ -2346,7 +2346,7 @@ function deepCopy(o) {
             try {
                 var obj = eval("(" + response + ")");
                 if (obj.isOk) {
-                    storeViewState();
+                    storeViewState(obj.actionIdMap);
                     p.init(obj.projectData);
                     _data.projectDataOriginal = b.object.clone(obj.projectData);
                     _data.checkList = obj.checkList;
@@ -2741,7 +2741,10 @@ function deepCopy(o) {
         });
     }
 
-    function storeViewState() {
+    function storeViewState(actionIdMap) {
+        if (actionIdMap && actionIdMap[_curActionId]) {
+            _curActionId = actionIdMap[_curActionId];
+        }
         _viewState.moduleId = _curModuleId;
         _viewState.actionId = _curActionId;
 
