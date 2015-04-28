@@ -10,7 +10,7 @@ RAP可帮助WEB工程师高效建立接口文档，并生成Mock数据、校验�
  
 ## About 关于
 
-    @version     v0.11.1 (Apr. 12 2015 updated)
+    @version     v0.11.2 (Apr. 28 2015 updated)
     @author      @bosn @wangjeaf
     @director    @limu @xinglie
     @dependency  MockJS(@nuysoft)

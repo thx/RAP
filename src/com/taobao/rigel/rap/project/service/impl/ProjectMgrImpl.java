@@ -279,12 +279,12 @@ public class ProjectMgrImpl implements ProjectMgr {
 	}
 
 	@Override
-	public Action getAction(int id) {
+	public Action getAction(long id) {
 		return projectDao.getAction(id);
 	}
 
     @Override
-    public Action getAction(int id, String ver, int projectId) {
+    public Action getAction(long id, String ver, int projectId) {
         CheckIn check = workspaceDao.getVersion(projectId, ver);
         Gson gson = new Gson();
         Project p = gson.fromJson(check.getProjectData(), Project.class);

@@ -78,7 +78,7 @@ public interface ProjectDao {
 	 * @param id
 	 * @return
 	 */
-	Action getAction(int id);
+	Action getAction(long id);
 
 	/**
 	 * save project

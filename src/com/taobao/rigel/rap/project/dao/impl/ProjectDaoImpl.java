@@ -128,7 +128,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 
 
 	@Override
-	public Action getAction(int id) {
+	public Action getAction(long id) {
 		return (Action) getSession().get(Action.class, id);
 	}
 

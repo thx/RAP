@@ -138,9 +138,9 @@ public interface ProjectMgr {
 	 * @param id
 	 * @return
 	 */
-	Action getAction(int id);
+	Action getAction(long id);
 
-    Action getAction(int id, String ver, int projectId);
+    Action getAction(long id, String ver, int projectId);
 
     /**
      * update doc
