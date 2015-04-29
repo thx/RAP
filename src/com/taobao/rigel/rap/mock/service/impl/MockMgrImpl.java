@@ -775,6 +775,15 @@ public class MockMgrImpl implements MockMgr {
 					|| para.getDataType().equals("boolean"))
                     && !mockValue.startsWith("@")) {
 				return mockValue;
+			} else if ((para.getDataType().equals("array<number>")
+					|| para.getDataType().equals("array<boolean>")
+					|| para.getDataType().equals("array<string>"))) {
+				String result = mockValue;
+				if (para.getDataType().equals("array<string>")
+						&& !result.startsWith("\"") && !result.startsWith("'")) {
+					result = "\"" + result + "\"";
+				}
+				return "[" + result + "]";
 			} else {
 				if (escape) {
 					mockValue = StringUtils.escapeInJ(mockValue);
