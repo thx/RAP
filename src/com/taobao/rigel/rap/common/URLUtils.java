@@ -91,7 +91,7 @@ public class URLUtils {
     }
 
     public static String removeParamsInUrl(String url) {
-        String result =  url.replaceAll("/:[^/]*", "");
+        String result =  url.replaceAll("/:[^/]*", "/:number");
         if (!result.startsWith("/")) {
             result = "/" + result;
         }
@@ -99,13 +99,13 @@ public class URLUtils {
     }
 
     public static String removeRealParamsInUrl(String url) {
-        url =  url.replaceAll("/[0-9]+[^\\$/]", "");
+        url =  url.replaceAll("/[0-9]+[^\\$/]", "/:number");
         String lastPart = url.substring(url.lastIndexOf("/") + 1);
         if (lastPart != null) {
             try {
                 Integer num = Integer.parseInt(lastPart);
                 if (num != null) {
-                    url = url.substring(0, url.lastIndexOf("/"));
+                    url = url.substring(0, url.lastIndexOf("/")) + "/:number";
                 }
             } catch (Exception ex) {
 
