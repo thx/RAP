@@ -1,5 +1,5 @@
 
-# RAP
+# RAP 一直被抄袭，从未被超越...
 ![](https://sourcegraph.com/api/repos/github.com/thx/RAP/.counters/views-24h.png)
 * [Official Site 官网](http://thx.github.io/RAP)
 * [Wiki/Documents/Manual Wiki/文档/手册](http://github.com/thx/RAP/wiki)
