@@ -9,4 +9,4 @@ startup.sh(.bat)启动tomcat，该war包自动部署到文件夹ROOT
 
 启动tomcat，完成部署。
 
-具体部署请查看GitHub [Wiki](https://github.com/thx/RAP/wiki)中得部署手册。
+具体部署请查看GitHub [Wiki](https://github.com/thx/RAP/wiki)中得[部署手册](https://github.com/thx/RAP/wiki/deploy_manual_cn)。
