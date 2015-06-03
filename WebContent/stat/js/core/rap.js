@@ -3528,9 +3528,9 @@ function deepCopy(o) {
                     }
                     param.remark = '@mock=$order(' + mValues.join(',') + ')';
                 } else if (typeof f2 === 'string' && f.length > 1) {
-                    mValues = ['"' + f2 + '"'];
+                    mValues = ['\'' + f2 + '\''];
                     for (i = 1; i < f.length; i++) {
-                        mValues.push('"' + f[i] + '"');
+                        mValues.push('\'' + f[i] + '\'');
                     }
                     param.remark = '@mock=$order(' + mValues.join(',') + ')';
                 }
@@ -3582,9 +3582,9 @@ function deepCopy(o) {
             }
             param.remark = '@mock=$order(' + mValues.join(',') + ')';
         } else if (arrContext && typeof f === 'string') {
-            mValues = ['"' + f + '"'];
+            mValues = ['\'' + f + '\''];
             for (i = 1; i < arrContext.length; i++) {
-                mValues.push('"' + arrContext[i][k] + '"');
+                mValues.push('\'' + arrContext[i][k] + '\'');
             }
             param.remark = '@mock=$order(' + mValues.join(',') + ')';
         }
