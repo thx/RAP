@@ -471,14 +471,14 @@ public class WorkspaceAction extends ActionBase {
             getAccountMgr().addNotification(notification);
 
 		// unfinished
-		/**
+
         Callable<String> taskSub = new Callable<String>() {
 
             @Override
             public String call() throws Exception {
                 try {
                     // async update doc
-                    projectMgr.updateDoc(id);
+                    // projectMgr.updateDoc(id);
                     // async update disableCache
                     projectMgr.updateCache(id);
                 } catch (Exception ex) {
@@ -493,9 +493,6 @@ public class WorkspaceAction extends ActionBase {
         Thread asyncThread = new Thread(futureTask);
         asyncThread.start();
         logger.info("Future task CHECK_IN running...");
-		*/
-
-
 
 		return SUCCESS;
 	}
