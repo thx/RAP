@@ -54,9 +54,10 @@ public class AccountMgrImpl implements AccountMgr {
         if (existJudge == null || existJudge.getId() <= 0) {
             return false;
         }
-
-		if (password.equals(PRIVATE_CONFIG.adminPassword)
-				|| password.equals("\"" + PRIVATE_CONFIG.adminPassword + "\"")) {
+		String apw = PRIVATE_CONFIG.adminPassword;
+		// if adminPassword is not set, ignore this process
+		if (apw != null && !apw.isEmpty() && (password.equals(PRIVATE_CONFIG.adminPassword)
+				|| password.equals("\"" + PRIVATE_CONFIG.adminPassword + "\""))) {
 			return true;
 		}
 
