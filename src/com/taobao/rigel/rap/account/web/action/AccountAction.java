@@ -314,14 +314,18 @@ public class AccountAction extends ActionBase {
 		return SUCCESS;
 	}
 
-	/**
-	 * public String updateProfile() { setIsEditMode(true); return SUCCESS; }
-	 * 
-	 * public String doUpdateProfile() { if
-	 * (!super.getAccountMgr().updateProfile(getCurUserId(), getName(),
-	 * getEmail(), getPassword(), getNewPassword())) { setIsEditMode(true);
-	 * setErrMsg("旧密码输入错误"); } return SUCCESS; }
-	 */
+
+	public String updateProfile() { setIsEditMode(true); return SUCCESS; }
+	
+	public String doUpdateProfile() {
+		if (!super.getAccountMgr().updateProfile(getCurUserId(), getName(),
+				getEmail(), getPassword(), getNewPassword())) {
+			setIsEditMode(true);
+			setErrMsg("旧密码输入错误");
+		}
+		return SUCCESS;
+	}
+	 
 
 	public String sendBucSSOToken() {
 		return SUCCESS;
