@@ -357,12 +357,22 @@ public class ProjectMgrImpl implements ProjectMgr {
 
     private void updateActionCache(Action action) {
         action.setDisableCache(0);
-        for (Parameter param : action.getResponseParameterList()) {
-            String rules = param.getMockJsRules();
-            if (rules != null && rules.contains("${") && rules.contains("}")) {
-                action.setDisableCache(1);
-                break;
-            }
-        }
+		for (Parameter param : action.getResponseParameterList()) {
+			clearParameterCache(param, action);
+		}
     }
+
+	private void clearParameterCache(Parameter param, Action action) {
+		String rules = param.getMockJsRules();
+		if (rules != null && rules.contains("${") && rules.contains("}")) {
+			action.setDisableCache(1);
+			return; // over
+		}
+		Set<Parameter> children = param.getParameterList();
+		if (children != null && children.size() != 0) {
+			for (Parameter child : children) {
+				clearParameterCache(child, action);
+			}
+		}
+	}
 }
