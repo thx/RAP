@@ -22,6 +22,15 @@
 	</rule>
 	<rule>
 		<note>
+			mockjs auto service, use mock rules set by Open API
+		</note>
+		<from>^/mockjsauto/(\d*?)/(.*)$</from>
+		<to>/mock/createRuleAuto.action?id=$1&amp;pattern=/${escape:utf8:$2}</to>
+		<set type="response-header" name="Access-Control-Allow-Origin">*</set>
+		<set type="response-header" name="Access-Control-Allow-Headers">Origin, X-Requested-With, Content-Type, Accept</set>
+	</rule>
+	<rule>
+		<note>
 			mockjs result service
 		</note>
 		<from>^/mockjsdata/(\d*?)/(.*)$</from>
