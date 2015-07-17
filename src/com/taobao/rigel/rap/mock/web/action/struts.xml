@@ -3,6 +3,7 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
+<!--suppress ALL -->
 <struts>
 
 	<package name="mock" extends="rap-default" namespace="/mock">
@@ -54,6 +55,7 @@
 				<param name="location">/bcom/contentWithoutEscape.cb.vm</param>
 			</result>
 		</action>
+
 		<action name="createMockjsData" class="com.taobao.rigel.rap.mock.web.action.MockAction"
 			method="createMockjsData">
 			<result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
@@ -73,7 +75,6 @@
 				<param name="location">/mock/createPluginScript.vm</param>
 			</result>
 		</action>
-
 
 		<action name="getWhiteList" class="com.taobao.rigel.rap.mock.web.action.MockAction"
 				method="getWhiteList">

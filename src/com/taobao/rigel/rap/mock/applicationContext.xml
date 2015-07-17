@@ -7,4 +7,5 @@
 		<property name="projectDao" ref="projectDao" />
 		<property name="projectMgr" ref="projectMgr" />
 	</bean>
+	<bean id="mockDao" class="com.taobao.rigel.rap.mock.dao.impl.RuleDaoImpl" parent="baseDao" />
 </beans>

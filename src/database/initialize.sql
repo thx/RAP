@@ -395,6 +395,18 @@ CREATE TABLE tb_group
 	FOREIGN KEY(production_line_id) REFERENCES tb_production_line(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/**
+ * Stored mock rules set by Open API
+ */
+CREATE TABLE tb_rule (
+	action_id int(10) NOT NULL
+		PRIMARY KEY,
+	rules text NOT NULL, -- JSON规则
+	update_time datetime NOT NULL
+		DEFAULT NOW(),   -- 最近更新时间
+
+	FOREIGN KEY(action_id) REFERENCES tb_action(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- required base data
 INSERT INTO tb_role (name) VALUES ('god');
