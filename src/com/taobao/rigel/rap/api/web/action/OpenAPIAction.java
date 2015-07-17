@@ -163,4 +163,26 @@ public class OpenAPIAction extends ActionBase {
         return SUCCESS;
     }
 
+    public String getRules() {
+        return rules;
+    }
+
+    public void setRules(String rules) {
+        this.rules = rules;
+    }
+
+    private String rules;
+
+    public String modifyMockRules() {
+        String json = openAPIMgr.modifyMockRules(rules, actionId);
+        setJson(json);
+        return SUCCESS;
+    }
+
+    public String resetMockRules() {
+        String json = openAPIMgr.resetMockRules(actionId);
+        setJson(json);
+        return SUCCESS;
+    }
+
 }

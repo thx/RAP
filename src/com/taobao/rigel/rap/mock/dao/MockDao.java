@@ -5,7 +5,7 @@ import com.taobao.rigel.rap.mock.bo.Rule;
 /**
  * Created by Bosn on 15/7/17.
  */
-public interface RuleDao {
+public interface MockDao {
     /**
      * get rule by action id
      *

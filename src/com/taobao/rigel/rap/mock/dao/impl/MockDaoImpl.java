@@ -1,14 +1,14 @@
 package com.taobao.rigel.rap.mock.dao.impl;
 
 import com.taobao.rigel.rap.mock.bo.Rule;
-import com.taobao.rigel.rap.mock.dao.RuleDao;
+import com.taobao.rigel.rap.mock.dao.MockDao;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * Created by Bosn on 15/7/17.
  */
-public class RuleDaoImpl extends HibernateDaoSupport implements RuleDao {
+public class MockDaoImpl extends HibernateDaoSupport implements MockDao {
     @Override
     public Rule getRule(int actionId) {
         Rule rule = null;

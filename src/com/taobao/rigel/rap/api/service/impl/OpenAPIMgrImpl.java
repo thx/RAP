@@ -1,12 +1,12 @@
 package com.taobao.rigel.rap.api.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
+import com.google.gson.Gson;
 import com.taobao.rigel.rap.api.service.OpenAPIMgr;
+import com.taobao.rigel.rap.mock.bo.Rule;
+import com.taobao.rigel.rap.mock.dao.MockDao;
+import com.taobao.rigel.rap.mock.service.MockMgr;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Module;
 import com.taobao.rigel.rap.project.bo.Page;
@@ -25,6 +25,17 @@ public class OpenAPIMgrImpl implements OpenAPIMgr {
 	public void setProjectMgr(ProjectMgr projectMgr) {
 		this.projectMgr = projectMgr;
 	}
+
+	public MockDao getMockDao() {
+		return mockDao;
+	}
+
+	public void setMockDao(MockDao mockDao) {
+		this.mockDao = mockDao;
+	}
+
+	MockDao mockDao;
+
 
 	@Override
 	public Object getModel(int projectId, String ver) throws Exception {
@@ -112,6 +123,40 @@ public class OpenAPIMgrImpl implements OpenAPIMgr {
 		schema.put("properties", properties);
 
 		return schema;
+	}
+
+	@Override
+	public String modifyMockRules(String rules, int actionId) {
+		Rule rule = new Rule();
+		rule.setActionId(actionId);
+		rule.setRules(rules);
+		rule.setUpdateTime(new Date());
+		int code = mockDao.updateRule(rule);
+		Map<String, Object> jsonObj = new HashMap<String, Object>();
+		boolean isOk = code == 0;
+		String msg = "";
+		if (code == -1) {
+			msg = "Update rules failed.";
+		}
+		jsonObj.put("isOk", isOk);
+		jsonObj.put("msg", msg);
+		Gson gson = new Gson();
+		return gson.toJson(jsonObj);
+	}
+
+	@Override
+	public String resetMockRules(int actionId) {
+		int code = mockDao.removeRule(actionId);
+		Map<String, Object> jsonObj = new HashMap<String, Object>();
+		boolean isOk = code == 0;
+		String msg = "";
+		if (code == -1) {
+			msg = "Reset rules failed.";
+		}
+		jsonObj.put("isOk", isOk);
+		jsonObj.put("msg", msg);
+		Gson gson = new Gson();
+		return gson.toJson(jsonObj);
 	}
 
 	private Object generateJSONSchema(Parameter p) {
