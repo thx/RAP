@@ -238,7 +238,7 @@ public class MockMgrImpl implements MockMgr {
 		// load mock data by Open API
         Action actionMockRules = null;
 
-        if (rule.getRules() != null) {
+        if (rule != null && rule.getRules() != null) {
             Gson gson = new Gson();
             try {
                 actionMockRules = gson.fromJson(rule.getRules(), Action.class);

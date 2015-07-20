@@ -40,6 +40,15 @@
 	</rule>
 	<rule>
 		<note>
+			validation API
+		</note>
+		<from>^/validate/(\d*?)/(.*)$</from>
+		<to>/mock/validateAPI.action?id=$1&amp;pattern=/${escape:utf8:$2}</to>
+		<set type="response-header" name="Access-Control-Allow-Origin">*</set>
+		<set type="response-header" name="Access-Control-Allow-Headers">Origin, X-Requested-With, Content-Type, Accept</set>
+	</rule>
+	<rule>
+		<note>
 			mockjs plugin generator
 		</note>
 		<from>^/rap.plugin.js(.*)$</from>

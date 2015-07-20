@@ -348,4 +348,9 @@ public class MockAction extends ActionBase {
 			return SUCCESS;
 		}
 	}
+
+	public String validateAPI() {
+        setContent("projectId=" + id);
+		return SUCCESS;
+	}
 }
