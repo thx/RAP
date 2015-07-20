@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.gson.Gson;
 import com.taobao.rigel.rap.common.*;
 import com.taobao.rigel.rap.mock.bo.Rule;
 import com.taobao.rigel.rap.mock.dao.MockDao;
@@ -109,10 +110,7 @@ public class MockMgrImpl implements MockMgr {
 
 		String desc = action.getDescription();
 		Set<Parameter> pList = action.getResponseParameterList();
-		// load mock data by QA
-		for (Parameter p : pList) {
-			recursivelyLoadMockData(p);
-		}
+
 		StringBuilder json = new StringBuilder();
 		String left = "{", right = "}";
 
@@ -234,14 +232,24 @@ public class MockMgrImpl implements MockMgr {
             rule = mockDao.getRule((int) action.getId());
         }
 
-        // rule process [TODO]
-
+        // rule process
 		String desc = action.getDescription();
 		Set<Parameter> pList = action.getResponseParameterList();
-		// load mock data by QA
-		for (Parameter p : pList) {
-			recursivelyLoadMockData(p);
-		}
+		// load mock data by Open API
+        Action actionMockRules = null;
+
+        if (rule.getRules() != null) {
+            Gson gson = new Gson();
+            try {
+                actionMockRules = gson.fromJson(rule.getRules(), Action.class);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        if (actionMockRules != null)
+            for (Parameter p : pList) {
+                recursivelyLoadMockData(p, findParamInArray(p, actionMockRules.getResponseParameterList()));
+            }
 		StringBuilder json = new StringBuilder();
 		String left = "{", right = "}";
 
@@ -264,7 +272,6 @@ public class MockMgrImpl implements MockMgr {
 		int num = numStr == null ? 1 : Integer.parseInt(numStr);
 		json.append(left);
 		boolean first = true;
-
 		boolean isArrayMap = desc.contains("@type=array_map");
 
 		for (int i = 0; i < num; i++) {
@@ -294,6 +301,15 @@ public class MockMgrImpl implements MockMgr {
         CacheUtils.setRuleCache(action.getId(), result);
         return result;
 	}
+
+    private Parameter findParamInArray(Parameter p, Set<Parameter> list) {
+        for (Parameter item : list) {
+            if (item.getIdentifier().equals(p.getIdentifierWithoutMockjsRule())) {
+                return item;
+            }
+        }
+        return null;
+    }
 
 	private Action actionPick(List<Action> actionList, String pattern,
 			Map<String, Object> options) throws UnsupportedEncodingException {
@@ -406,16 +422,21 @@ public class MockMgrImpl implements MockMgr {
 		return result;
 	}
 
-	private void recursivelyLoadMockData(Parameter p) {
-		if (p.getMockData() != null && !p.getMockData().equals("")) {
-			p.setMockDataTEMP(p.getMockData());
-		} else {
-			p.setMockDataTEMP(p.getRemark());
-		}
+	private void recursivelyLoadMockData(Parameter p, Parameter pMock) {
+		if (pMock != null) {
+            if (pMock.getRemarkChange() != null) {
+                p.setRemarkChange(pMock.getRemarkChange());
+            }
+
+            if (pMock.getIdentifierChange() != null) {
+                p.setIdentifierChange(pMock.getIdentifierChange());
+            }
+        }
+
 		if (p.getParameterList() == null)
 			return;
 		for (Parameter subP : p.getParameterList()) {
-			recursivelyLoadMockData(subP);
+			recursivelyLoadMockData(subP, findParamInArray(subP, pMock.getParameterList()));
 		}
 	}
 
@@ -717,7 +738,7 @@ public class MockMgrImpl implements MockMgr {
 	}
 
 	private String mockjsValue(Parameter para, int index) {
-		String mockData = para.getMockDataTEMP();
+		String mockData = para.getRemark();
 		String[] tags = mockData.split(";");
 		if (mockData.contains("@mock=")) {
 			tags = new String[1];

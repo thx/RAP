@@ -44,8 +44,8 @@
 			</result>
 		</action>
 
-		<action name="createRuleAut" class="com.taobao.rigel.rap.mock.web.action.MockAction"
-				method="createRule">
+		<action name="createRuleAuto" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+				method="createRuleAuto">
 			<result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
 			</result>
 			<result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
