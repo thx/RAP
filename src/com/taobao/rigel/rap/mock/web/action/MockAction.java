@@ -279,7 +279,7 @@ public class MockAction extends ActionBase {
 		return SUCCESS;
 	}
 
-	public String markgetWhiteList() {
+	public String getWhiteList() {
 		Map<String, Boolean> _circleRefProtector = new HashMap<String, Boolean>();
 		List<String> list = new ArrayList<String>();
 		Project p = projectMgr.getProject(projectId);
@@ -347,9 +347,5 @@ public class MockAction extends ActionBase {
 		} else {
 			return SUCCESS;
 		}
-	}
-
-	public String validateAPI() {
-		return SUCCESS;
 	}
 }

@@ -39,4 +39,11 @@ public class MockDaoImpl extends HibernateDaoSupport implements MockDao {
         session.update(rule);
         return 0;
     }
+
+    @Override
+    public int addRule(Rule rule) {
+        Session session = getSession();
+        session.save(rule);
+        return 0;
+    }
 }

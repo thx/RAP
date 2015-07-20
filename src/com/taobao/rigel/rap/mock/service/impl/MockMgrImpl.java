@@ -11,6 +11,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.taobao.rigel.rap.common.*;
+import com.taobao.rigel.rap.mock.bo.Rule;
+import com.taobao.rigel.rap.mock.dao.MockDao;
 import nl.flotsam.xeger.Xeger;
 
 import com.taobao.rigel.rap.mock.service.MockMgr;
@@ -22,6 +24,16 @@ import com.taobao.rigel.rap.project.service.ProjectMgr;
 public class MockMgrImpl implements MockMgr {
 	private ProjectDao projectDao;
 	private ProjectMgr projectMgr;
+
+    public MockDao getMockDao() {
+        return mockDao;
+    }
+
+    public void setMockDao(MockDao mockDao) {
+        this.mockDao = mockDao;
+    }
+
+    private MockDao mockDao;
 	private int uid = 10000;
     private final String ERROR_PATTERN = "{\"isOk\":false,\"msg\":\"路径为空，请查看是否接口未填写URL.\"}";
 
@@ -176,6 +188,11 @@ public class MockMgrImpl implements MockMgr {
         }
 		String method = options.get("method").toString();
         String originalPattern = pattern;
+		boolean loadRule = false;
+        Rule rule = null;
+		if (options.get("loadRule") != null && (Boolean)options.get("loadRule") == true) {
+			loadRule = true;
+		}
         int actionId = 0;
         Action action;
 
@@ -204,7 +221,7 @@ public class MockMgrImpl implements MockMgr {
 				return "{\"isOk\":false, \"errMsg\":\"no matched action\"}";
 			}
 
-            if (action.getDisableCache() == 0) {
+            if (action.getDisableCache() == 0 && loadRule == false) {
                 String ruleCache = CacheUtils.getRuleCache(action, originalPattern);
                 if (ruleCache != null) {
                     return ruleCache;
@@ -212,6 +229,12 @@ public class MockMgrImpl implements MockMgr {
             }
 
         }
+
+        if (loadRule) {
+            rule = mockDao.getRule((int) action.getId());
+        }
+
+        // rule process [TODO]
 
 		String desc = action.getDescription();
 		Set<Parameter> pList = action.getResponseParameterList();
@@ -274,7 +297,6 @@ public class MockMgrImpl implements MockMgr {
 
 	private Action actionPick(List<Action> actionList, String pattern,
 			Map<String, Object> options) throws UnsupportedEncodingException {
-
 
 		List<Action> filteredActionList = new ArrayList<Action>();
 

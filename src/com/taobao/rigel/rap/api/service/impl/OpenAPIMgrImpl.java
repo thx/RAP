@@ -127,11 +127,21 @@ public class OpenAPIMgrImpl implements OpenAPIMgr {
 
 	@Override
 	public String modifyMockRules(String rules, int actionId) {
-		Rule rule = new Rule();
-		rule.setActionId(actionId);
-		rule.setRules(rules);
-		rule.setUpdateTime(new Date());
-		int code = mockDao.updateRule(rule);
+        Rule oldRule = mockDao.getRule(actionId);
+        int code;
+        if (oldRule == null) {
+            Rule rule = new Rule();
+            rule.setActionId(actionId);
+            rule.setRules(rules);
+            rule.setUpdateTime(new Date());
+            code = mockDao.addRule(rule);
+        } else {
+            Rule rule = oldRule;
+            rule.setActionId(actionId);
+            rule.setRules(rules);
+            rule.setUpdateTime(new Date());
+            code = mockDao.updateRule(rule);
+        }
 		Map<String, Object> jsonObj = new HashMap<String, Object>();
 		boolean isOk = code == 0;
 		String msg = "";

@@ -29,4 +29,12 @@ public interface MockDao {
      * @return
      */
     int updateRule(Rule rule);
+
+    /**
+     * add new rule for action
+     *
+     * @param rule
+     * @return
+     */
+    int addRule(Rule rule);
 }
