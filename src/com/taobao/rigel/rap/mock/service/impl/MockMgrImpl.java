@@ -217,7 +217,8 @@ public class MockMgrImpl implements MockMgr {
                 .append("var o2 = ")
                 .append(jsonToCompare)
                 .append(";\n")
-                .append("JSON.stringify(new StructureValidator(o1, o2).getResult());");
+                .append("var validator = new StructureValidator(o2, o1);")
+                .append("JSON.stringify({result : validator.getResult(), resultStr : validator.getResultStr()});");
         return new JSRunner().run(jsCode.toString());
     }
 
