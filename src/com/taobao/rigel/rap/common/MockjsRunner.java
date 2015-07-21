@@ -11,9 +11,8 @@ import org.mozilla.javascript.Scriptable;
 
 public class MockjsRunner {
 
-	private static String MOCKJS_PATH = SystemConstant.ROOT + "WEB-INF"
-			+ File.separator + "classes" + File.separator + "resource"
-			+ File.separator + "mockjs.js";
+	private static String MOCKJS_PATH =  SystemConstant.ROOT +
+            FileUtils.concatFilePath(new String[] {"stat", "js", "util", "mock-min.js"});
 	private Context ct;
 	private Scriptable scope;
 	private static String jsCode;
@@ -83,6 +82,6 @@ public class MockjsRunner {
 	}
 
 	public static void main(String[] args) {
-		//System.out.println(MockjsRunner.renderMockjsRule("{'id|1-20': '1', 'b': '@IMG'}"));
+		System.out.println(MockjsRunner.renderMockjsRule("{'id|1-20': '1', 'b': '@IMG'}"));
 	}
 }
