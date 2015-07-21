@@ -29,6 +29,7 @@ RAP可以帮助web工程师更高效的管理接口文档，同时通过这些�
 * 新浪微博：[@Bosn](http://weibo.com/bosn)
 * 技术支持：582755829  (阿里旺旺群)
 
+
     @version     v0.11.2 (7/21/2015 updated)
     @author      @bosn @wangjeaf
     @director    @limu @xinglie
