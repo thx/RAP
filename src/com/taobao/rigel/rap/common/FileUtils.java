@@ -45,4 +45,7 @@ public class FileUtils {
             return "ERROR";
         }
     }
+
+    public static String JS_UTIL_DIR_PATH = SystemConstant.ROOT +
+            FileUtils.concatFilePath(new String[] {"stat", "js", "util", ""});
 }

@@ -184,7 +184,6 @@ public class MockAction extends ActionBase {
 		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
 		options.put("method", getMethod());
-
 		String result = mockMgr.generateRule(id, pattern, options);
 		if (options.get("callback") != null) {
 			_c = (String) options.get("callback");
@@ -349,8 +348,30 @@ public class MockAction extends ActionBase {
 		}
 	}
 
-	public String validateAPI() {
-        setContent("projectId=" + id);
-		return SUCCESS;
+	public String validateAPI() throws UnsupportedEncodingException {
+        boolean isJSON = false;
+        SystemVisitorLog.mock(id, "createRule", pattern, getCurAccount(), projectMgr);
+        Map<String, Object> options = new HashMap<String, Object>();
+        String _c = get_c();
+        options.put("method", getMethod());
+
+        String result = mockMgr.validateAPI(id, pattern, options, getJson());
+        if (options.get("callback") != null) {
+            _c = (String) options.get("callback");
+            callback = (String) options.get("callback");
+        }
+        if (callback != null && !callback.isEmpty()) {
+            setContent(callback + "(" + result + ")");
+        } else if (_c != null && !_c.isEmpty()) {
+            setContent(_c + "(" + result + ")");
+        } else {
+            isJSON = true;
+            setContent(result);
+        }
+        if (isJSON) {
+            return "json";
+        } else {
+            return SUCCESS;
+        }
 	}
 }
