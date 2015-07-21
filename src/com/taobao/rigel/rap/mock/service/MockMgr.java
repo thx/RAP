@@ -72,4 +72,15 @@ public interface MockMgr {
      * @throws UnsupportedEncodingException
      */
     public String generateRuleData(int actionId) throws UnsupportedEncodingException;
+
+    /**
+     * validate API format
+     *
+     * @param projectId
+     * @param pattern
+     * @param options
+     * @param jsonToCompare
+     * @return
+     */
+	public String validateAPI(int projectId, String pattern, Map<String, Object> options, String jsonToCompare) throws UnsupportedEncodingException;
 }

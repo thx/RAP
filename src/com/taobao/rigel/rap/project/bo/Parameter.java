@@ -46,6 +46,16 @@ public class Parameter implements java.io.Serializable {
 		this.mockDataTEMP = mockDataTEMP;
 	}
 
+    public String getIdentifierTEMP() {
+        return identifierTEMP;
+    }
+
+    public void setIdentifierTEMP(String identifierTEMP) {
+        this.identifierTEMP = identifierTEMP;
+    }
+
+    private String identifierTEMP;
+
 	private String name;
 
 	public String getName() {
@@ -59,8 +69,33 @@ public class Parameter implements java.io.Serializable {
 	private String identifier;
 
 	public String getIdentifier() {
-		return identifier;
-	}
+        if (identifierChange != null) {
+            return identifierChange;
+        } else {
+            return identifier;
+        }
+    }
+
+    public String getIdentifierChange() {
+
+        return identifierChange;
+    }
+
+    public void setIdentifierChange(String identifierChange) {
+        this.identifierChange = identifierChange;
+    }
+
+    private String identifierChange;
+
+    public String getRemarkChange() {
+        return remarkChange;
+    }
+
+    public void setRemarkChange(String remarkChange) {
+        this.remarkChange = remarkChange;
+    }
+
+    private String remarkChange;
 
 	public String getMockIdentifier() {
 		String rv = "";
@@ -123,6 +158,9 @@ public class Parameter implements java.io.Serializable {
 	private String remark;
 
 	public String getRemark() {
+        if (remarkChange != null) {
+            return remarkChange;
+        }
 		return (remark == null ? "" : remark);
 	}
 

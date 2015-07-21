@@ -24,4 +24,20 @@ public interface OpenAPIMgr {
 	 */
 	Object getSchema(int actionId, Action.TYPE type, String ver, int projectId);
 
+	/**
+	 * modify mock rules
+	 *
+	 * @param rules mock rules
+	 * @param actionId action id
+	 * @return JSON, contains isOk/msg properties
+	 */
+	String modifyMockRules(String rules, int actionId);
+
+	/**
+	 * reset(delete) mock rules
+	 *
+	 * @param actionId action id
+	 * @return JSON, contains isOk/msg properties
+	 */
+	String resetMockRules(int actionId);
 }
