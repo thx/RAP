@@ -30,6 +30,7 @@
     var projectId = $!projectId;
     var seajsEnabled = $!seajs;
     var enable = $!enable;
+    var disableLog = $!disableLog;
 
     console.log('Current RAP work mode:', mode, "(0-disabled, 1-intercept all requests, 2-black list, 3-white list)");
 
@@ -47,7 +48,6 @@
 
         if (jQuery.ajaxPrefilter) {
             jQuery.ajaxPrefilter(function(oOptions, originalOptions, jqXHR) {
-                debugger;
                 var url = oOptions.url;
                 var routePassed = route(url) && projectId;
                 if (routePassed) {
@@ -56,8 +56,8 @@
                     oldSuccess1 && (oOptions.success = function(data) {
                         if (PREFIX == '/mockjs/') {
                             data = Mock.mock(data);
-                            console.log('请求' + url + '返回的Mock数据:');
-                            console.dir(data);
+                            disableLog || console.log('请求' + url + '返回的Mock数据:');
+                            disableLog || console.dir(data);
 
                         }
                         oldSuccess1.apply(this, arguments);
@@ -67,8 +67,8 @@
                     oldComplete && (oOptions.complete = function(data) {
                         if (PREFIX == '/mockjs/') {
                             data = Mock.mock(data);
-                            console.log('请求' + url + '返回的Mock数据:');
-                            console.dir(data);
+                            disableLog || console.log('请求' + url + '返回的Mock数据:');
+                            disableLog || console.dir(data);
 
                         }
                         oldComplete.apply(this, arguments);
@@ -91,29 +91,6 @@
                         oldSuccess2.apply(this,arguments);
                     };
                 }
-                /**
-                 var rv = ajax.apply(this, arguments);
-                 if (routePassed) {
-                    var oldDone = rv.done;
-                    oldDone && (rv.done = function(data) {
-                        var oldCb = arguments[0];
-                        var args = arguments;
-                        if (oldCb) {
-                            args[0] = function(data) {
-                                if (PREFIX == '/mockjs/') {
-                                    data = Mock.mock(data);
-                                    console.log('请求' + url + '返回的Mock数据:');
-                                    console.dir(data);
-                                }
-                                oldCb.apply(this, arguments);
-                            };
-                        }
-                        oldDone.apply(this, args);
-                    });
-                }
-                 return rv;
-                 */
-
             });
         } else {
             throw new Error('Can not find jQuery.ajaxPrefilter method!');
@@ -152,8 +129,8 @@
                             oldSuccess1 && (oOptions.success = function(data) {
                                 if (PREFIX == '/mockjs/') {
                                     data = Mock.mock(data);
-                                    console.log('请求' + url + '返回的Mock数据:');
-                                    console.dir(data);
+                                    disableLog || console.log('请求' + url + '返回的Mock数据:');
+                                    disableLog || console.dir(data);
                                 }
                                 oldSuccess1.apply(this, arguments);
                             });
@@ -161,8 +138,8 @@
                             oldComplete && (oOptions.complete = function(data) {
                                 if (PREFIX == '/mockjs/') {
                                     data = Mock.mock(data);
-                                    console.log('请求' + url + '返回的Mock数据:');
-                                    console.dir(data);
+                                    disableLog || console.log('请求' + url + '返回的Mock数据:');
+                                    disableLog || console.dir(data);
 
                                 }
                                 oldComplete.apply(this, arguments);
@@ -311,8 +288,8 @@
 
         console.info(log.join('\n'));
         if (error === true) {
-            console.log('真实数据:');
-            console.dir(this.data);
+            disableLog || console.log('真实数据:');
+            disableLog || console.dir(this.data);
         }
     }
 

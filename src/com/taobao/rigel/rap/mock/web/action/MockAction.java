@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 public class MockAction extends ActionBase {
 
 	private static final long serialVersionUID = 1L;
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(MockAction.class.getName());
 	private int id;
 	private String pattern;
 	private String mockData;
@@ -36,25 +37,44 @@ public class MockAction extends ActionBase {
 	private ProjectMgr projectMgr;
 	private List<String> urlList;
 	private boolean seajs;
+	private boolean disableLog;
 	private String mode;
-    private static final org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(MockAction.class.getName());
+	private MockMgr mockMgr;
+
+	public boolean isDisableLog() {
+		return disableLog;
+	}
+
+	public void setDisableLog(boolean disableLog) {
+		this.disableLog = disableLog;
+	}
+
 	public List<String> getUrlList() {
 		return urlList;
-	}
-	private String getMethod() {
-		return ServletActionContext.getRequest().getMethod();
 	}
 
 	public void setUrlList(List<String> urlList) {
 		this.urlList = urlList;
 	}
 
+	private String getMethod() {
+		return ServletActionContext.getRequest().getMethod();
+	}
+
 	public ProjectMgr getProjectMgr() {
 		return projectMgr;
 	}
 
+	public void setProjectMgr(ProjectMgr projectMgr) {
+		this.projectMgr = projectMgr;
+	}
+
 	public int getProjectId() {
 		return projectId;
+	}
+
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
 	}
 
 	public boolean isEnable() {
@@ -65,12 +85,12 @@ public class MockAction extends ActionBase {
 		this.enable = enable;
 	}
 
-	public void setSeajs(boolean seajs) {
-		this.seajs = seajs;
-	}
-
 	public boolean isSeajs() {
 		return seajs;
+	}
+
+	public void setSeajs(boolean seajs) {
+		this.seajs = seajs;
 	}
 
 	public String getMode() {
@@ -81,20 +101,12 @@ public class MockAction extends ActionBase {
 		this.mode = mode;
 	}
 
-	public void setProjectMgr(ProjectMgr projectMgr) {
-		this.projectMgr = projectMgr;
-	}
-
 	public void setMockData(String mockData) {
 		this.mockData = mockData;
 	}
 
 	public void setActionId(int actionId) {
 		this.actionId = actionId;
-	}
-
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
 	}
 
 	public String get_c() {
@@ -113,8 +125,6 @@ public class MockAction extends ActionBase {
 		this.callback = callback;
 	}
 
-	private MockMgr mockMgr;
-
 	public MockMgr getMockMgr() {
 		return mockMgr;
 	}
@@ -127,16 +137,16 @@ public class MockAction extends ActionBase {
 		return content;
 	}
 
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
 	}
 
 	public String getPattern() {
