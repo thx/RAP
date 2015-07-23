@@ -30,16 +30,16 @@ RAP可以帮助web工程师更高效的管理接口文档，同时通过这些�
 ## About
 
     @version     v0.11.2
-    @author      bosn wangjeaf
+    @author      @bosn @wangjeaf
     @director    @limu @xinglie
     @update      7/21/2015
     @dependency  MockJS(@nuysoft)
 
 ## Contact
 
-    @weibo       @Bosn
-    @support     582755829 (阿里旺旺)
-    @email       bosn@outlook.com
+    @问题反馈   https://github.com/thx/RAP/issues (推荐)
+    @旺旺群聊   582755829 (找到小伙伴)
+    @作者微博   http://weibo.com/bosn (求粉:3  )
     
 ## Contributors List 贡献者
 
