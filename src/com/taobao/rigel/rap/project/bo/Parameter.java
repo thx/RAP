@@ -33,29 +33,6 @@ public class Parameter implements java.io.Serializable {
 		this.mockData = mockData;
 	}
 
-	/**
-	 * temporary property
-	 */
-	private String mockDataTEMP;
-
-	public String getMockDataTEMP() {
-		return mockDataTEMP;
-	}
-
-	public void setMockDataTEMP(String mockDataTEMP) {
-		this.mockDataTEMP = mockDataTEMP;
-	}
-
-    public String getIdentifierTEMP() {
-        return identifierTEMP;
-    }
-
-    public void setIdentifierTEMP(String identifierTEMP) {
-        this.identifierTEMP = identifierTEMP;
-    }
-
-    private String identifierTEMP;
-
 	private String name;
 
 	public String getName() {
