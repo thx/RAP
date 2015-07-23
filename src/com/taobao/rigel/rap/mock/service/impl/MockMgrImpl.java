@@ -790,7 +790,7 @@ public class MockMgrImpl implements MockMgr {
                 return "\"" + generator.generate() + "\"";
             } else if (para.getDataType().equals("array<boolean>")) {
                 return "[true, false]";
-            } else if (para.getDataType().equals("array<object>")) {
+            } else if (para.getDataType().equals("array<object>") || para.getDataType().equals("array")) {
                 return "[]";
             } else if (para.getDataType().equals("object")) {
                 return "{}";
