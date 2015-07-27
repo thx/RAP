@@ -34,11 +34,19 @@
 
 
         $.ajax({
-          url:'x',
-          data:{id:1},
-          success:function(json){
-            console.log(json);
-          }
+             url:'x',
+             success:function(json){
+                 //debugger;
+                 console.log(json);
+             },
+             failure: function() {
+                 //debugger;
+             },
+            error: function() {
+                console.log('error');
+                console.dir(arguments);
+                //debugger;
+            }
         });
 
         /**
