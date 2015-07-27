@@ -1,4 +1,4 @@
-### Database Change v0.12.0
+### Database Change v0.11.3
 1. 增加tb_rule，用于存储通过Open API设置的校验规则
 
 ```sql
