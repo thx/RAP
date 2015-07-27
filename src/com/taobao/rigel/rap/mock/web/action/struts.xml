@@ -80,6 +80,18 @@
 			</result>
 		</action>
 
+		<action name="createMockjsDataAuto" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+				method="createMockjsDataAuto">
+			<result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
+			</result>
+			<result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+			</result>
+			<result name="json" type="rapVelocityResult">
+				<param name="contentType">application/json</param>
+				<param name="location">/bcom/contentWithoutEscape.cb.vm</param>
+			</result>
+		</action>
+
 		<action name="validateAPI" class="com.taobao.rigel.rap.mock.web.action.MockAction"
 				method="validateAPI">
 			<result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm

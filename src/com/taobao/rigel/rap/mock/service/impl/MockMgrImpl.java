@@ -228,7 +228,6 @@ public class MockMgrImpl implements MockMgr {
         if (!isPatternLegal(pattern)) {
             return ERROR_PATTERN;
         }
-        String method = options.get("method").toString();
         String originalPattern = pattern;
         boolean loadRule = false;
         Rule rule = null;
@@ -342,7 +341,9 @@ public class MockMgrImpl implements MockMgr {
         json.append(right);
         String result = json.toString();
         result = resultFilter(result);
-        CacheUtils.setRuleCache(action.getId(), result);
+        if (!loadRule) {
+            CacheUtils.setRuleCache(action.getId(), result);
+        }
         return result;
     }
 
@@ -473,7 +474,7 @@ public class MockMgrImpl implements MockMgr {
     private void buildJson(StringBuilder json, Parameter para, int index) {
         boolean isArrayObject = para.getDataType().equals("array<object>");
         int ARRAY_LENGTH = isArrayObject ? 5 : 1;
-        String[] tags = para.getMockDataTEMP().split(";");
+        String[] tags = para.getRemark().split(";");
         Map<String, String> tagMap = new HashMap<String, String>();
         parseTags(tags, tagMap, false);
 
@@ -580,7 +581,7 @@ public class MockMgrImpl implements MockMgr {
 
     private String mockValue(Parameter para, int index) {
         String dataType = para.getDataType();
-        String[] tags = para.getMockDataTEMP().split(";");
+        String[] tags = para.getRemark().split(";");
         Map<String, String> tagMap = new HashMap<String, String>();
         parseTags(tags, tagMap, true);
         String returnValue = "0";
@@ -790,7 +791,7 @@ public class MockMgrImpl implements MockMgr {
                 return "\"" + generator.generate() + "\"";
             } else if (para.getDataType().equals("array<boolean>")) {
                 return "[true, false]";
-            } else if (para.getDataType().equals("array<object>")) {
+            } else if (para.getDataType().equals("array<object>") || para.getDataType().equals("array")) {
                 return "[]";
             } else if (para.getDataType().equals("object")) {
                 return "{}";
