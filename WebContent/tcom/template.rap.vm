@@ -98,7 +98,7 @@
                         <label>
                           <input type="checkbox" name="remember"> 下次自动登录
                         </label>
-                      </div>
+                      </div>http://rap.xintuzaojiu.com/org/index.do
                   </div> -->
                   <div style="margin-top: 10px;">
                     <button type="submit" class="btn btn-primary" id="login-btn">登录</button>
@@ -117,7 +117,7 @@
           </li>
       </ul>
     </li>
-    <li>
+    <li style="display:none;">
         <a href="javascript:void(0);" class="dropdown-toggle" id="register-trigger">注册</a>
         <ul class="dropdown-menu dropdown-menu-right">
           <li>
