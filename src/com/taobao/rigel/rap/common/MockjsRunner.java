@@ -67,8 +67,11 @@ public class MockjsRunner {
 
 	private String doRenderMockJsRule(String mockRule) {
 		try {
-			Object result = ct.evaluateString(scope,
-					"JSON.stringify(Mock.mock(" + mockRule + "))", null, 1,
+			StringBuilder code = new StringBuilder();
+			code
+				.append("var obj = Mock.mock(" + mockRule + ");")
+				.append("JSON.stringify(obj.__root__ ? obj.__root__ : obj, null, 4);");
+			Object result = ct.evaluateString(scope, code.toString(), null, 1,
 					null);
 			return result.toString();
 		} catch (Exception e) {
