@@ -30,6 +30,7 @@
     var projectId = $!projectId;
     var seajsEnabled = $!seajs;
     var enable = $!enable;
+    var disableLog = $!disableLog;
 
     console.log('Current RAP work mode:', mode, "(0-disabled, 1-intercept all requests, 2-black list, 3-white list)");
 
@@ -76,8 +77,10 @@
                         if (data.__root__) {
                             data = data.__root__;
                         }
-                        console.log('请求' + url + '返回的Mock数据:');
-                        console.dir(data);
+                        if (!disableLog) {
+                            console.log('请求' + url + '返回的Mock数据:');
+                            console.dir(data);
+                        }
 
                     }
                     oldSuccess1.apply(this, arguments);
@@ -90,8 +93,10 @@
                         if (data.__root__) {
                             data = data.__root__;
                         }
-                        console.log('请求' + url + '返回的Mock数据:');
-                        console.dir(data);
+                        if (!disableLog) {
+                            console.log('请求' + url + '返回的Mock数据:');
+                            console.dir(data);
+                        }
 
                     }
                     oldComplete.apply(this, arguments);
@@ -127,8 +132,10 @@
                                 if (data.__root__) {
                                     data = data.__root__;
                                 }
-                                console.log('请求' + url + '返回的Mock数据:');
-                                console.dir(data);
+                                if (!disableLog) {
+                                    console.log('请求' + url + '返回的Mock数据:');
+                                    console.dir(data);
+                                }
                             }
                             oldCb.apply(this, arguments);
                         };
@@ -177,8 +184,10 @@
                                     if (data.__root__) {
                                         data = data.__root__;
                                     }
-                                    console.log('请求' + url + '返回的Mock数据:');
-                                    console.dir(data);
+                                    if (!disableLog) {
+                                        console.log('请求' + url + '返回的Mock数据:');
+                                        console.dir(data);
+                                    }
                                 }
                                 oldSuccess1.apply(this, arguments);
                             });
@@ -189,8 +198,10 @@
                                     if (data.__root__) {
                                         data = data.__root__;
                                     }
-                                    console.log('请求' + url + '返回的Mock数据:');
-                                    console.dir(data);
+                                    if (!disableLog) {
+                                        console.log('请求' + url + '返回的Mock数据:');
+                                        console.dir(data);
+                                    }
 
                                 }
                                 oldComplete.apply(this, arguments);
