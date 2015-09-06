@@ -7,7 +7,7 @@
 
 ### DEMO
 
-* [DEMO：http://rapapi.net/](http://rapapi.net/)
+* [DEMO：http://rapapi.net/](http://rapapi.net/) 测试账号：test 密码：test
 
 ### LINKS
 
