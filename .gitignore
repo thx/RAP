@@ -1,18 +1,3 @@
 # Package Files #
-*.ear
-build/*
-./settings/*
-*.swp
-*.bak
-*.log
-bak
-*.class
-bin/
-target
-node_modules
-_site
-buc.sso.*.jar
-buc.sso*.jar
 out
-.idea
-*.iml
+buc.sso*
