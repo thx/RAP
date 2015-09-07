@@ -14,5 +14,4 @@ _site
 buc.sso.*.jar
 buc.sso*.jar
 out
-.idea
 *.iml

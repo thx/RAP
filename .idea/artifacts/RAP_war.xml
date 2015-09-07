@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="RAP:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/RAP_war</output-path>
+    <root id="archive" name="RAP_war.war">
+      <element id="artifact" artifact-name="RAP:war exploded" />
+    </root>
+  </artifact>
+</component>
