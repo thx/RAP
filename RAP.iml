@@ -26,11 +26,6 @@
           <root url="file://$MODULE_DIR$/src" />
         </sourceRoots>
       </configuration>
-      <facet type="Struts2" name="Struts 2">
-        <configuration>
-          <propertiesKeys disabled="false" />
-        </configuration>
-      </facet>
     </facet>
     <facet type="Spring" name="Spring">
       <configuration>
@@ -74,7 +69,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="lib1" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
