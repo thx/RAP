@@ -7,6 +7,7 @@
           <element id="module-output" name="RAP" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="RAP/web/Web2" />
       <element id="javaee-facet-resources" facet="RAP/web/Web" />
     </root>
   </artifact>
