@@ -9,7 +9,11 @@ translating in progress 60%
 
 ### DEMO
 
-* [DEMO：http://rapapi.net/](http://rapapi.net/) 测试账号：test 密码：test
+* [apapi.net (English)](http://rapapi.net/)
+* [cn.rapapi.net (中文)](http://cn.rapapi.net/)
+* 测试账号 test account
+    * 账号/acc：test
+    * 密码/pwd：test
 
 ### LINKS
 

@@ -181,4 +181,6 @@ public interface ProjectMgr {
 	 * @return
 	 */
 	Integer getProjectIdByActionId(int actionId);
+
+	void updateProjectNum(Project project);
 }

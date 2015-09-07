@@ -360,6 +360,11 @@ public class ProjectMgrImpl implements ProjectMgr {
 		return projectDao.getProjectIdByActionId(actionId);
 	}
 
+	@Override
+	public void updateProjectNum(Project project) {
+		projectDao.updateProjectNum(project);
+	}
+
 	private void updateActionCache(Action action) {
         action.setDisableCache(0);
 		for (Parameter param : action.getResponseParameterList()) {
