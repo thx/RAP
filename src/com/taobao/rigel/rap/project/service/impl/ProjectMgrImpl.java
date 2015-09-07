@@ -355,7 +355,12 @@ public class ProjectMgrImpl implements ProjectMgr {
         }
     }
 
-    private void updateActionCache(Action action) {
+	@Override
+	public Integer getProjectIdByActionId(int actionId) {
+		return projectDao.getProjectIdByActionId(actionId);
+	}
+
+	private void updateActionCache(Action action) {
         action.setDisableCache(0);
 		for (Parameter param : action.getResponseParameterList()) {
 			clearParameterCache(param, action);

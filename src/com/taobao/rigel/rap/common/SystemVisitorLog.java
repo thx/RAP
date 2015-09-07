@@ -20,8 +20,24 @@ public class SystemVisitorLog {
     private static final int REALTIME_TIME_SPAN = 60;
     private static int mockTotalNum = 0;
     private static Date mockTotalNumDate = new Date();
+    private static Map<Integer, Integer> cacheIdMap = new HashMap<Integer, Integer>(); // key = actionId, value = projectId
 
-    public static void mock(int projectId, String methodName, String pattern, String account, ProjectMgr projectMgr) {
+
+
+
+    public static void mock(int actionId, String methodName, String pattern, String account, ProjectMgr projectMgr) {
+        Integer projectIdObj = cacheIdMap.get(actionId);
+        if (projectIdObj == null) {
+            projectIdObj = projectMgr.getProjectIdByActionId(actionId);
+            if (projectIdObj != null) {
+                cacheIdMap.put(actionId, projectIdObj);
+            } else {
+                return; // can not find the action
+            }
+        }
+
+        int projectId = projectIdObj;
+
         Date now = new Date();
         if (!DateUtils.compWorkAndCurrByDate(mockTotalNumDate, now)) {
             // clear real time log data per night

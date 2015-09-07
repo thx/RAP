@@ -173,4 +173,12 @@ public interface ProjectMgr {
      * @param projectId
      */
     void updateCache(int projectId);
+
+	/**
+	 * get project id by action id
+	 *
+	 * @param actionId
+	 * @return
+	 */
+	Integer getProjectIdByActionId(int actionId);
 }

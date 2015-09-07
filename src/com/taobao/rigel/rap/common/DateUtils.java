@@ -12,6 +12,8 @@ public class DateUtils {
 	public final static DateFormat TIME_FORMAT = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");
 
+	private static int counter = 1;
+
 	public static boolean compWorkAndCurrByDate(Date workDay, Date currTime) {
 		Calendar c1 = Calendar.getInstance();
 		Calendar c2 = Calendar.getInstance();

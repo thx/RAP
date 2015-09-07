@@ -29,7 +29,7 @@
 		</init-param>
 		<init-param>
 			<param-name>CLIENT_KEY</param-name>
-			<param-value>0e6f43d9-e380-4a7b-88ec-65b5568ce2ee</param-value>
+			<param-value>[TODO]:這裡寫LOGIN_KEY</param-value>
 		</init-param>
 		<init-param>
 			<param-name>EXCLUSIONS</param-name>
@@ -155,6 +155,11 @@
 	</listener>
 	<listener>
 		<listener-class>com.taobao.rigel.rap.common.SessionListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			com.taobao.rigel.rap.common.RapServletContextListener
+		</listener-class>
 	</listener>
 	<error-page>
 		<error-code>404</error-code>
