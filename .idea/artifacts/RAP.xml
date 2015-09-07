@@ -1,6 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="RAP">
-    <output-path>$PROJECT_DIR$/out/artifacts/RAP</output-path>
-    <root id="archive" name="RAP.war" />
-  </artifact>
-</component>
