@@ -150,4 +150,6 @@ public interface ProjectDao {
 	 * @return
 	 */
 	Integer getProjectIdByActionId(int actionId);
+
+	void updateProjectNum(Project project);
 }

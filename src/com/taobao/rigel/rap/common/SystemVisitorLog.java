@@ -21,28 +21,20 @@ public class SystemVisitorLog {
     private static int mockTotalNum = 0;
     private static Date mockTotalNumDate = new Date();
     private static Map<Integer, Integer> cacheIdMap = new HashMap<Integer, Integer>(); // key = actionId, value = projectId
+    private static int counter = 1;
 
 
 
-
-    public static void mock(int actionId, String methodName, String pattern, String account, ProjectMgr projectMgr) {
-        Integer projectIdObj = cacheIdMap.get(actionId);
-        if (projectIdObj == null) {
-            projectIdObj = projectMgr.getProjectIdByActionId(actionId);
-            if (projectIdObj != null) {
-                cacheIdMap.put(actionId, projectIdObj);
-            } else {
-                return; // can not find the action
-            }
-        }
-
-        int projectId = projectIdObj;
-
+    public static List<Project> mock(int projectId, String methodName, String pattern, String account) {
         Date now = new Date();
+        List<Project> resultList = new ArrayList<Project>();
+
+
         if (!DateUtils.compWorkAndCurrByDate(mockTotalNumDate, now)) {
             // clear real time log data per night
-            SystemVisitorLog.clear(projectMgr);
+            resultList = SystemVisitorLog.clear();
         }
+
         mockTotalNum++;
         Integer mockNum = mockMap.get(projectId);
         if (mockNum == null) {
@@ -55,6 +47,7 @@ public class SystemVisitorLog {
         mockInfo.put("userAccount", account);
         mockInfo.put("pattern", pattern);
         mockMapList.add(mockInfo);
+        return resultList;
     }
 
     public static int getMockNumToday() {
@@ -128,7 +121,7 @@ public class SystemVisitorLog {
         Collections.sort(list, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
-            return Integer.parseInt(o2.getValue()) - Integer.parseInt(o1.getValue());
+                return Integer.parseInt(o2.getValue()) - Integer.parseInt(o1.getValue());
             }
         });
 
@@ -191,8 +184,15 @@ public class SystemVisitorLog {
         mockMapList.add(mockLog);
     }
 
-    public static void clear(ProjectMgr projectMgr) {
-        new SystemVisitorLog().beforeClear(projectMgr);
+    public static List<Project> clear() {
+        List<Project> resultList = new ArrayList<Project>();
+
+        for (Integer projectId : mockMap.keySet()) {
+            Project p = new Project();
+            p.setId(projectId);
+            p.setMockNum(mockMap.get(projectId));
+            resultList.add(p);
+        }
 
         mockTotalNum = 0;
         mockTotalNumDate = new Date();
@@ -201,23 +201,10 @@ public class SystemVisitorLog {
         realtimeMap.clear();
         mockMapList.clear();
         mockMap.clear();
+
+        return resultList;
     }
 
-    public void beforeClear(ProjectMgr projectMgr) {
-        /**
-         * log mock info into database
-         */
-        for (Integer projectId : mockMap.keySet()) {
-            Project p = projectMgr.getProject(projectId);
-            if (p != null) {
-                int mockNum = p.getMockNum();
-                mockNum += mockMap.get(projectId);
-                p.setMockNum(mockNum);
-                projectMgr.updateProject(p);
-            }
-
-        }
-    }
 
     public static void debug(String msg) {
         logger.info("[DEBUG]" + msg);

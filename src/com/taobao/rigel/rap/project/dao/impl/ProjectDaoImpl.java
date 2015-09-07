@@ -558,4 +558,10 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		return (Integer)query.uniqueResult();
 	}
 
+	@Override
+	public void updateProjectNum(Project project) {
+		String sql = "UPDATE tb_project SET mock_num = :mockNum WHERE id = :projectId";
+		getSession().createSQLQuery(sql).setInteger("mockNum", project.getMockNum()).setInteger("projectId", project.getId()).executeUpdate();
+	}
+
 }
