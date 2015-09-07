@@ -1,3 +1,18 @@
+### Database Change v0.11.3
+1. 增加tb_rule，用于存储通过Open API设置的校验规则
+
+```sql
+CREATE TABLE tb_rule (
+	action_id int(10) NOT NULL
+		PRIMARY KEY,  
+	rules text NOT NULL, -- JSON规则
+	update_time datetime NOT NULL
+		DEFAULT NOW(),   -- 最近更新时间
+
+	FOREIGN KEY(action_id) REFERENCES tb_action(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
 ### Database Change v0.11.1
 1. 增加了tb_module.name的长度，防止过长模块名报错
 2. 增加tb_action.disable_cache字段用于自动化禁用cache处理

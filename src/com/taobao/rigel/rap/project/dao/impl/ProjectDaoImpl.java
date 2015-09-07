@@ -2,7 +2,9 @@ package com.taobao.rigel.rap.project.dao.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.taobao.rigel.rap.common.CacheUtils;
 import com.taobao.rigel.rap.common.URLUtils;
@@ -126,7 +128,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 
 
 	@Override
-	public Action getAction(int id) {
+	public Action getAction(long id) {
 		return (Action) getSession().get(Action.class, id);
 	}
 
@@ -143,7 +145,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 
 	@Override
 	public String updateProject(int id, String projectData,
-			String deletedObjectListData) {
+			String deletedObjectListData, Map<Long, Long> actionIdMap) {
 		Session session = getSession();
 		// StringBuilder log = new StringBuilder();
 		Gson gson = new Gson();
@@ -188,7 +190,9 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 					Action actionServer = projectServer.findAction(action
 							.getId());
 					if (actionServer == null) {
-						addAction(session, page, action);
+						long oldActionId = action.getId();
+						long createdActionId = addAction(session, page, action);
+						actionIdMap.put(oldActionId, createdActionId);
 						continue;
 					}
 					actionServer.update(action);
@@ -262,16 +266,17 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		}
 	}
 
-	private void addAction(Session session, Page page, Action action) {
+	private long addAction(Session session, Page page, Action action) {
 		page = (Page) session.load(Page.class, page.getId());
 		page.addAction(action);
-		session.save(action);
+		long createdId = (Long)session.save(action);
 		for (Parameter parameter : action.getRequestParameterList()) {
 			addParameter(session, action, parameter, true);
 		}
 		for (Parameter parameter : action.getResponseParameterList()) {
 			addParameter(session, action, parameter, false);
 		}
+		return createdId;
 	}
 
 	private void addParameter(Session session, Action action,
@@ -539,5 +544,18 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         Query query = getSession().createQuery(hqlByUser);
         return query.setMaxResults(limit).list();
     }
+
+	@Override
+	public Integer getProjectIdByActionId(int actionId) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT p.id FROM tb_project p ");
+		sql.append("JOIN tb_module m ON m.project_id = p.id ");
+		sql.append("JOIN tb_page page ON page.module_id = m.id ");
+		sql.append("JOIN tb_action_and_page anp ON anp.page_id = page.id ");
+		sql.append("where action_id = :actionId");
+		Query query = getSession().createSQLQuery(sql.toString());
+		query.setInteger("actionId", actionId);
+		return (Integer)query.uniqueResult();
+	}
 
 }

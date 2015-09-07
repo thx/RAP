@@ -11,9 +11,8 @@ import org.mozilla.javascript.Scriptable;
 
 public class MockjsRunner {
 
-	private static String MOCKJS_PATH = SystemConstant.ROOT + "WEB-INF"
-			+ File.separator + "classes" + File.separator + "resource"
-			+ File.separator + "mockjs.js";
+	private static String MOCKJS_PATH =  SystemConstant.ROOT +
+            FileUtils.concatFilePath(new String[] {"stat", "js", "util", "mock-min.js"});
 	private Context ct;
 	private Scriptable scope;
 	private static String jsCode;
@@ -68,8 +67,11 @@ public class MockjsRunner {
 
 	private String doRenderMockJsRule(String mockRule) {
 		try {
-			Object result = ct.evaluateString(scope,
-					"JSON.stringify(Mock.mock(" + mockRule + "))", null, 1,
+			StringBuilder code = new StringBuilder();
+			code
+				.append("var obj = Mock.mock(" + mockRule + ");")
+				.append("JSON.stringify(obj.__root__ ? obj.__root__ : obj, null, 4);");
+			Object result = ct.evaluateString(scope, code.toString(), null, 1,
 					null);
 			return result.toString();
 		} catch (Exception e) {
@@ -83,6 +85,6 @@ public class MockjsRunner {
 	}
 
 	public static void main(String[] args) {
-		//System.out.println(MockjsRunner.renderMockjsRule("{'id|1-20': '1', 'b': '@IMG'}"));
+		System.out.println(MockjsRunner.renderMockjsRule("{'id|1-20': '1', 'b': '@IMG'}"));
 	}
 }

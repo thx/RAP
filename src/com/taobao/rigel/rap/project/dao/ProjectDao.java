@@ -1,6 +1,7 @@
 package com.taobao.rigel.rap.project.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.project.bo.Action;
@@ -34,7 +35,7 @@ public interface ProjectDao {
 	 * @return
 	 */
 	String updateProject(int id, String projectData,
-			String deletedObjectListData);
+			String deletedObjectListData, Map<Long, Long> actionIdMap);
 
 	/**
 	 * update project
@@ -77,7 +78,7 @@ public interface ProjectDao {
 	 * @param id
 	 * @return
 	 */
-	Action getAction(int id);
+	Action getAction(long id);
 
 	/**
 	 * save project
@@ -101,8 +102,8 @@ public interface ProjectDao {
 	 * @return
 	 */
 	List<Action> getMatchedActionList(int projectId, String pattern);
-	
-	/**
+
+		/**
 	 * clear all mock data of objects in specified project
 	 * @param projectId project id
 	 * @return affected rows num
@@ -141,4 +142,12 @@ public interface ProjectDao {
     long getMockNumInTotal();
 
     List<Project> selectMockNumTopNProjectList(int limit);
+
+	/**
+	 * get project id by action id
+     *
+	 * @param actionId
+	 * @return
+	 */
+	Integer getProjectIdByActionId(int actionId);
 }

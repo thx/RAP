@@ -85,6 +85,7 @@
 		        <value>com/taobao/rigel/rap/organization/mapping/Corporation.hbm.xml</value>
 		        <value>com/taobao/rigel/rap/organization/mapping/Group.hbm.xml</value>
 		        <value>com/taobao/rigel/rap/organization/mapping/ProductionLine.hbm.xml</value>
+				<value>com/taobao/rigel/rap/mock/mapping/Rule.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

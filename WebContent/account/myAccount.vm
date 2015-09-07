@@ -75,8 +75,21 @@
                 <tr>
                     <td></td>
                     <td>
+                    	
+                        #if($isEditMode)
+                        <input type="submit" value="Submit" class="btn btn-primary" />
+                        <input type="button" value="Cancel" class="btn" onclick="window.location.href='$accountUrl.myAccount'" />
+                        #else
+                        <input type="button" value="Update Profile" class="btn" onclick="window.location.href='$accountUrl.updateProfile'" />
+                        #end
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
                         #if($errMsg && $errMsg != "")
-                        <span class="label label-important">$!errMsg</span>
+                        <i class="label label-important"></i>$!errMsg
                         #end
                     </td>
                 </tr>

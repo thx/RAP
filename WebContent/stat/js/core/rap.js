@@ -1251,6 +1251,7 @@ function deepCopy(o) {
         _debugCounter,                  // debug message counter
         _isLocalStorageEnabled,         // is local storage enabled, need HTML5 supports
         _isMockDisplay,                 // will mock labels displayed, default:false
+        _draftData,                     // when not defined, will be switched to edit mode with draft data
         URL      = null,                // url object, contains all url required
         MESSAGE = {
             "CONFIRM_COVER"                     : "Are you sure to cover old data?",
@@ -1359,6 +1360,13 @@ function deepCopy(o) {
      */
     ws.init = function(workspaceObj, urlObj, actionId) {
         var me = this;
+        if (typeof actionId !== 'number' || actionId === 0) {
+            var hashId = getHash();
+            if (hashId) {
+                actionId = hashId;
+            }
+        }
+        var me = this;
         var cb = arguments[arguments.length - 1];
         if (!cb || typeof cb !== 'function') {
             cb = function(){};
@@ -1372,6 +1380,19 @@ function deepCopy(o) {
 
             // backup project data
             _data.projectDataOriginal = b.object.clone(_data.projectData);
+
+
+            // local storage draft feature
+            if (_isLocalStorageEnabled) {
+                var draftData = localStorage.getItem('_data');
+                if (draftData) {
+                    var draftDataDate = new Date();
+                    draftDataDate.setTime(+localStorage.getItem('_dataDate'));
+                    if (confirm('检测到您有【未保存】的草稿，时间在' + draftDataDate.toString() + ', 是否恢复?')) {
+                        _draftData = draftData;
+                    }
+                }
+            }
 
         } catch(e) {
             showMessage(CONST.ERROR, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
@@ -1398,9 +1419,19 @@ function deepCopy(o) {
             window.onbeforeunload = function() {
                 if (_isEditMode) {
                     if (_isLocalStorageEnabled) {
+                        _data.projectData = p.getData();
                         localStorage.setItem('_data', b.json.stringify(_data));
+                        localStorage.setItem('_dataDate', new Date().getTime());
+
+                        // backup for administrators
+                        localStorage.setItem('_data' + (new Date).getTime(), b.json.stringify(_data));
                     }
                     return "All change not submit will be lost, are you sure?";
+                } else {
+                    if (_isLocalStorageEnabled) {
+                        localStorage.removeItem('_data');
+                        localStorage.removeItem('_dataDate');
+                    }
                 }
             };
 
@@ -1580,6 +1611,8 @@ function deepCopy(o) {
     ws.switchA = function(actionId, forceRefresh) {
         var action = p.getAction(actionId);
         if (action === null) return;
+
+        setHash(actionId);
 
         if (!forceRefresh) {
             if (!p.isActionInModule(actionId, _curModuleId)) {
@@ -2288,6 +2321,9 @@ function deepCopy(o) {
                     if (obj.projectData.moduleList.length === 0) {
                         obj.projectData.moduleList = [{"id":ws.generateId(),"name":"Some Tab(Dbl Click)","introduction":"","pageList":[{"moduleId":ws.generateId(),"name":"Some Page","introduction":"","id":ws.generateId(),"isIdGenerated":true,"actionList":[{"pageId":ws.generateId(),"name":"Some Action","requestType":"1","requestUrl":"","responseTemplate":"","description":"","id":ws.generateId(),"requestParameterList":[{"id":ws.generateId(),"identifier":"reqParam","name":"Some Parameter","remark":"","validator":"","dataType":"number","parameterList":[]}],"responseParameterList":[{"id":ws.generateId(),"identifier":"resParam","name":"Same Param","remark":"","validator":"","dataType":"number","parameterList":[]}]}]}]}];
                     }
+                    if (_draftData) {
+                        obj = JSON.parse(_draftData);
+                    }
                     p.init(obj.projectData);
                     _data.projectDataOriginal = b.object.clone(obj.projectData);
                     setButtonsViewState(CONST.EDIT);
@@ -2338,7 +2374,7 @@ function deepCopy(o) {
             try {
                 var obj = eval("(" + response + ")");
                 if (obj.isOk) {
-                    storeViewState();
+                    storeViewState(obj.actionIdMap);
                     p.init(obj.projectData);
                     _data.projectDataOriginal = b.object.clone(obj.projectData);
                     _data.checkList = obj.checkList;
@@ -2733,7 +2769,10 @@ function deepCopy(o) {
         });
     }
 
-    function storeViewState() {
+    function storeViewState(actionIdMap) {
+        if (actionIdMap && actionIdMap[_curActionId]) {
+            _curActionId = actionIdMap[_curActionId];
+        }
         _viewState.moduleId = _curModuleId;
         _viewState.actionId = _curActionId;
 
@@ -2955,6 +2994,20 @@ function deepCopy(o) {
         }
     }
 
+    function setHash(actionId) {
+        location.hash = actionId;
+    }
+
+    function getHash() {
+        var hash = location.hash.substring(1);
+        hash = +hash;
+        if (hash > 0) {
+            return hash;
+        } else {
+            return null;
+        }
+    }
+
     /**
      * jump to the first action of the current module
      */
@@ -3121,6 +3174,9 @@ function deepCopy(o) {
         initModules(defaultActionId);
         showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.MODULE_LOAD);
         processed();
+        if (_draftData) {
+            ws.switchToEditMode();
+        }
     }
 
 
@@ -3472,9 +3528,9 @@ function deepCopy(o) {
                     }
                     param.remark = '@mock=$order(' + mValues.join(',') + ')';
                 } else if (typeof f2 === 'string' && f.length > 1) {
-                    mValues = ['"' + f2 + '"'];
+                    mValues = ['\'' + f2 + '\''];
                     for (i = 1; i < f.length; i++) {
-                        mValues.push('"' + f[i] + '"');
+                        mValues.push('\'' + f[i] + '\'');
                     }
                     param.remark = '@mock=$order(' + mValues.join(',') + ')';
                 }
@@ -3526,9 +3582,9 @@ function deepCopy(o) {
             }
             param.remark = '@mock=$order(' + mValues.join(',') + ')';
         } else if (arrContext && typeof f === 'string') {
-            mValues = ['"' + f + '"'];
+            mValues = ['\'' + f + '\''];
             for (i = 1; i < arrContext.length; i++) {
-                mValues.push('"' + arrContext[i][k] + '"');
+                mValues.push('\'' + arrContext[i][k] + '\'');
             }
             param.remark = '@mock=$order(' + mValues.join(',') + ')';
         }

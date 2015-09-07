@@ -9,37 +9,9 @@
     <body>
         #bodyNewStart
         <div id="register">
-            <form name="formMain" method="post" action="$accountUrl.doRegister">
-                <div class="table-container">
-                    <div class="item">
-                        <div class="left">User Name:</div><div class="right"><input placeholder="User Name" type="text" name="account" /></div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="item">
-                        <div class="left">Password:</div><div class="right"><input type="password" placeholder="Password" name="password" /></div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="item">
-                        <div class="left">Password Confirm:</div><div class="right"><input type="password" placeholder="Password Confirm" /></div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="item">
-                        <div class="left">Email:</div><div class="right"><input type="text" name="email" placeholder="Email" /></div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="item">
-                        <div class="left">Name:</div><div class="right"><input type="text" name="name" placeholder="Real Name" /></div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="item">
-                        <div class="control"><input class="btn btn-primary" type="submit" value="Submit" /></div>
-                    </div>
-                    <div class="item">
-                        <br /><br />
-                        <div class="error label label-important">#if($errMsg)$errMsg#else Error Occurred #end</div>
-                    </div>
-                </div>
-            </form>
+            <div class="item">
+                <div class="error alert alert-danger">#if($errMsg)$errMsg#else User name existed, or other errors. Please try again. #end</div>
+            </div>
         </div>
         #bodyEnd
     </body>

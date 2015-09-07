@@ -28,12 +28,19 @@
     }
     var modeList = [0, 1, 2, 3];
     var projectId = $!projectId;
-	var seajsEnabled = $!seajs;
+    var seajsEnabled = $!seajs;
     var enable = $!enable;
+    var disableLog = $!disableLog;
 
     console.log('Current RAP work mode:', mode, "(0-disabled, 1-intercept all requests, 2-black list, 3-white list)");
 
-    function wrapJQuery(jQuery) {
+    function wrapJQuery(jQuery, pId, rootStr) {
+        if (pId) {
+            projectId = pId;
+        }
+        if (rootStr) {
+            ROOT = rootStr;
+        }
         if (jQuery._rap_wrapped) {
             return;
         }
@@ -67,8 +74,13 @@
                 oldSuccess1 && (oOptions.success = function(data) {
                     if (PREFIX == '/mockjs/') {
                         data = Mock.mock(data);
-                        console.log('请求' + url + '返回的Mock数据:');
-                        console.dir(data);
+                        if (data.__root__) {
+                            data = data.__root__;
+                        }
+                        if (!disableLog) {
+                            console.log('请求' + url + '返回的Mock数据:');
+                            console.dir(data);
+                        }
 
                     }
                     oldSuccess1.apply(this, arguments);
@@ -78,8 +90,13 @@
                 oldComplete && (oOptions.complete = function(data) {
                     if (PREFIX == '/mockjs/') {
                         data = Mock.mock(data);
-                        console.log('请求' + url + '返回的Mock数据:');
-                        console.dir(data);
+                        if (data.__root__) {
+                            data = data.__root__;
+                        }
+                        if (!disableLog) {
+                            console.log('请求' + url + '返回的Mock数据:');
+                            console.dir(data);
+                        }
 
                     }
                     oldComplete.apply(this, arguments);
@@ -112,8 +129,13 @@
                         args[0] = function(data) {
                             if (PREFIX == '/mockjs/') {
                                 data = Mock.mock(data);
-                                console.log('请求' + url + '返回的Mock数据:');
-                                console.dir(data);
+                                if (data.__root__) {
+                                    data = data.__root__;
+                                }
+                                if (!disableLog) {
+                                    console.log('请求' + url + '返回的Mock数据:');
+                                    console.dir(data);
+                                }
                             }
                             oldCb.apply(this, arguments);
                         };
@@ -159,8 +181,13 @@
                             oldSuccess1 && (oOptions.success = function(data) {
                                 if (PREFIX == '/mockjs/') {
                                     data = Mock.mock(data);
-                                    console.log('请求' + url + '返回的Mock数据:');
-                                    console.dir(data);
+                                    if (data.__root__) {
+                                        data = data.__root__;
+                                    }
+                                    if (!disableLog) {
+                                        console.log('请求' + url + '返回的Mock数据:');
+                                        console.dir(data);
+                                    }
                                 }
                                 oldSuccess1.apply(this, arguments);
                             });
@@ -168,8 +195,13 @@
                             oldComplete && (oOptions.complete = function(data) {
                                 if (PREFIX == '/mockjs/') {
                                     data = Mock.mock(data);
-                                    console.log('请求' + url + '返回的Mock数据:');
-                                    console.dir(data);
+                                    if (data.__root__) {
+                                        data = data.__root__;
+                                    }
+                                    if (!disableLog) {
+                                        console.log('请求' + url + '返回的Mock数据:');
+                                        console.dir(data);
+                                    }
 
                                 }
                                 oldComplete.apply(this, arguments);
@@ -240,32 +272,32 @@
     }
 
     if (window.seajs && window.seajs.use && window.define && window.define.cmd && seajsEnabled != 'false') {
-    
-		!function() {
-			var oldSeajsUse = seajs.use;
-			var initialized = false;
-			seajs.use = function() {
-				var handler = arguments[arguments.length - 1];
-				arguments[arguments.length - 1] = function() {
-					if (!initialized) {
-						for (var i = 0; i < arguments.length; i++) {
-							if (arguments[i] && typeof arguments[i] === 'function' && arguments[i].prototype &&
-								arguments[i].prototype.jquery
-								) {
-								wrapJQueryForRAP(arguments[i]);
-							}
-						}
-						
-						initialized = true;
-					}
-					handler.apply(this, arguments);
-				};
-				oldSeajsUse.apply(seajs, arguments);
-			}
-		}();
-		
-		
-        
+
+        !function() {
+            var oldSeajsUse = seajs.use;
+            var initialized = false;
+            seajs.use = function() {
+                var handler = arguments[arguments.length - 1];
+                arguments[arguments.length - 1] = function() {
+                    if (!initialized) {
+                        for (var i = 0; i < arguments.length; i++) {
+                            if (arguments[i] && typeof arguments[i] === 'function' && arguments[i].prototype &&
+                                arguments[i].prototype.jquery
+                            ) {
+                                wrapJQueryForRAP(arguments[i]);
+                            }
+                        }
+
+                        initialized = true;
+                    }
+                    handler.apply(this, arguments);
+                };
+                oldSeajsUse.apply(seajs, arguments);
+            }
+        }();
+
+
+
         var data = seajs.config().data;
         data.alias = data.alias || {};
         var path = 'http://' + ROOT + '/stat/js/util/jquery-rapped.js';
@@ -291,6 +323,9 @@
     function checkerHandler(mockData) {
         if (PREFIX == '/mockjs/') {
             mockData = Mock.mock(mockData);
+            if (mockData.__root__) {
+                mockData = mockData.__root__;
+            }
         }
         var realData = this.data;
         var validator = new StructureValidator(realData, mockData);
@@ -327,7 +362,7 @@
      * is in white list
      *
      */
-     function isInWhiteList(url) {
+    function isInWhiteList(url) {
         var i;
         var o;
         for (i = 0; i < whiteList.length; i++) {
@@ -339,7 +374,7 @@
             }
         }
         return false;
-     }
+    }
 
 
     /**
@@ -349,9 +384,9 @@
      * @return {boolean} true if route to RAP MOCK, other wise do nothing.
      */
     function route(url, ignoreMode) {
-		if (url && url.indexOf('?') !== -1) {
+        if (url && url.indexOf('?') !== -1) {
             url = url.substring(0, url.indexOf('?'))
-        } 
+        }
         var i;
         var o;
         var blackMode;
@@ -534,7 +569,10 @@
             return projectId;
         },
         router: function(url) {
-        	return route(url);
+            return route(url);
+        },
+        checkerHandler: function() {
+            return checkerHandler.apply(this, arguments);
         }
     };
 

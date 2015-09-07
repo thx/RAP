@@ -1,5 +1,4 @@
 # Package Files #
-*.war
 *.ear
 build/*
 ./settings/*

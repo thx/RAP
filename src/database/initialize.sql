@@ -17,23 +17,23 @@ CREATE TABLE tb_user
 (
 	id int(10) AUTO_INCREMENT NOT NULL
 		PRIMARY KEY,
-	account varchar(32) NOT NULL,
-	password varchar(128) NOT NULL,
-	name varchar(256) NOT NULL,
-	email varchar(256) NOT NULL,
-	create_date timestamp NOT NULL
+	account varchar(32) NOT NULL COMMENT '账户名 account name',
+	password varchar(128) NOT NULL COMMENT '密码 password',
+	name varchar(256) NOT NULL COMMENT '名字/昵称 name/nickname',
+	email varchar(256) NOT NULL COMMENT 'email',
+	create_date timestamp NOT NULL COMMENT '创建日期 create date'
 		DEFAULT now(),
-	is_locked_out int(1) NOT NULL COMMENT 'is the user locked out'
+	is_locked_out int(1) NOT NULL COMMENT '用户是否锁定 is the user locked out'
 		DEFAULT 0,
-	is_hint_enabled int(1) NOT NULL COMMENT 'is user hint enabled'
+	is_hint_enabled int(1) NOT NULL COMMENT '是否开启新手引导 is user hint enabled'
 		DEFAULT 1,
-	last_login_date datetime NOT NULL,
-	incorrect_login_attempt int(10) NOT NULL COMMENT 'count of incorrect login attempts, will be set to 0 after any succesful login'
+	last_login_date datetime NOT NULL COMMENT '最近登录 last login date',
+	incorrect_login_attempt int(10) NOT NULL COMMENT '错误登录次数，登录成功后会重置为0 count of incorrect login attempts, will be set to 0 after any succesful login'
 		DEFAULT 0,
-	realname varchar(128) NOT NULL
+	realname varchar(128) NOT NULL COMMENT '真实姓名'
 	  DEFAULT '',
-	emp_id VARCHAR(45),
-	mock_num int(10) NOT NULL
+	emp_id VARCHAR(45) NULL COMMENT '工号，可选',
+	mock_num int(10) NOT NULL COMMENT 'mock次数，用于记录该用户所创建的接口被调用的mock次数。 mock num, used for record mock API invokation count'
 	  DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -52,7 +52,7 @@ CREATE TABLE tb_role
 (
 	id int(10) AUTO_INCREMENT NOT NULL
 		PRIMARY KEY,
-	name varchar(16) NOT NULL
+	name varchar(16) NOT NULL COMMENT '角色名称 role name'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /**
@@ -86,12 +86,12 @@ CREATE TABLE tb_parameter
 (
 	id int(10) AUTO_INCREMENT NOT NULL
 		PRIMARY KEY,
-	name varchar(256) NULL,
-	identifier varchar(256) NULL,
-	data_type varchar(32) NULL,
-	remark text NULL,
-	expression varchar(128) NULL,
-	mock_data text NULL
+	name varchar(256) NULL COMMENT '参数含义 parameter name',
+	identifier varchar(256) NULL COMMENT '变量名/参数标识符 parameter identifier',
+	data_type varchar(32) NULL COMMENT '数据类型 data type',
+	remark text NULL COMMENT '备注/mock数据等 remark/mock data',
+	expression varchar(128) NULL '备用字段：表达式 backup column:expression',
+	mock_data text NULL '备用字段:mock数据 backup column:mock data'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /**
@@ -103,23 +103,23 @@ CREATE TABLE tb_project
 (
 	id int(10) AUTO_INCREMENT NOT NULL
 		PRIMARY KEY,
-	`version` varchar(128) NOT NULL
+	`version` varchar(128) NOT NULL COMMENT '版本号 version no.'
 		DEFAULT '0.0.0.1',
-	name varchar(128) NOT NULL,
-	create_date timestamp NOT NULL
+	name varchar(128) NOT NULL COMMENT '项目名称 project name',
+	create_date timestamp NOT NULL COMMENT '创建日期 create date'
 		DEFAULT now(),
-	user_id int(10) NOT NULL,
-	introduction text NULL,
-	workspace_mode int(10) NOT NULL
+	user_id int(10) NOT NULL COMMENT '创建人ID, project author id',
+	introduction text NULL COMMENT '项目描述 project introduction',
+	workspace_mode int(10) NOT NULL COMMENT '工作区提交模式(类VSS or SVN)，暂时弃用了。 Workspace submit mode, deprecated.'
 		DEFAULT 1,
-	stage int(10) NOT NULL
+	stage int(10) NOT NULL COMMENT '项目阶段，暂时废弃;project stage, temply deprecated.  1-design 2-developing 3-debug'
 		DEFAULT 1,
-	project_data longtext NULL,
-	group_id int(10) NULL,
-	related_ids varchar(128) NOT NULL
+	project_data longtext NULL COMMENT '项目JSON数据，存放当前最新的版本。 project JSON data, saved the newest version of the project',
+	group_id int(10) NULL COMMENT '分组ID group id',
+	related_ids varchar(128) NOT NULL COMMENT '路由ID，用于指定与哪些项目共享mock数据; router id, used for specify sharing data with which projects.'
 	DEFAULT '',
-	update_time datetime NOT NULL,
-	mock_num int NOT NULL
+	update_time datetime NOT NULL COMMENT '更新时间 update time',
+	mock_num int NOT NULL COMMENT 'mock次数 mock num'
 	  DEFAULT 0,
 
 	FOREIGN KEY(user_id) REFERENCES tb_user(id)
@@ -190,15 +190,15 @@ CREATE TABLE tb_action
 	description text NULL,
 
     /* request block */
-	request_type int NOT NULL
+	request_type int NOT NULL COMMENT '请求类型get/post/put/delete等等 request type'
 		DEFAULT 1,  /** request_type = 99, mount type **/
 	request_url text NULL,
 
-	disable_cache TINYINT NOT NULL
+	disable_cache TINYINT NOT NULL COMMENT '禁用Mock缓存 disable mock cache'
     DEFAULT 0,
 
 	/* response block */
-	response_template text NULL /* front end template path */
+	response_template text NULL COMMENT '响应模板地址, 暂时弃用。 response template address, temply deprecated.'
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -269,7 +269,7 @@ CREATE TABLE tb_response_parameter_list_mapping
 
 
 /**
- * workspace
+ * workspace, deprecated 工作区，暂时未使用
  */
 CREATE TABLE tb_workspace
 (
@@ -288,7 +288,7 @@ CREATE TABLE tb_workspace
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /**
- * workspace save
+ * workspace save, deprecated 工作区保存草稿，暂时未使用
  */
 CREATE TABLE tb_workspace_save
 (
@@ -303,6 +303,8 @@ CREATE TABLE tb_workspace_save
 
 /**
  * check in table
+ * every API document submit saved here, used for version control.
+ * 每一次提交记录在这里，用于版本管理和回滚控制
  * workspaceMode 1-VSS 2-SVN
  */
 CREATE TABLE tb_check_in
@@ -311,14 +313,14 @@ CREATE TABLE tb_check_in
 		PRIMARY KEY,
 	create_date timestamp NOT NULL
 		DEFAULT now(),
-	tag varchar(128) NULL,
-	user_id int(10) NOT NULL,
-	project_id int(10) NOT NULL,
-	description text NULL,
-	version varchar(128) NOT NULL,
-	project_data longtext NOT NULL,
-	workspace_mode int(10) NOT NULL,
-	log text NULL,
+	tag varchar(128) NULL COMMENT 'tag标签 暂时未使用 deprecated',
+	user_id int(10) NOT NULL COMMENT '提交人 submit user id',
+	project_id int(10) NOT NULL COMMENT '提交的项目ID submit project id',
+	description text NULL COMMENT '提交描述 submit description',
+	version varchar(128) NOT NULL '版本号 version no.',
+	project_data longtext NOT NULL '项目JSON数据 project json data',
+	workspace_mode int(10) NOT NULL '工作区模式(弃用) workspace mode(deprecated)',
+	log text NULL COMMENT '更新日志，用于存储与最近一个版本的对比差异。暂时未使用。update log, used for calculate versions differences. Deprecated.',
 
 	FOREIGN KEY(user_id) REFERENCES tb_user(id),
 	FOREIGN KEY(project_id) REFERENCES tb_project(id)
@@ -326,37 +328,47 @@ CREATE TABLE tb_check_in
 
 /**
  * user settings table
+ * 用户配置表
  */
 CREATE TABLE tb_user_settings
 (
 	user_id int(10) NOT NULL,
-	`key` varchar(128) NOT NULL,
-	`value` varchar(128) NOT NULL,
+	`key` varchar(128) NOT NULL COMMENT '配置KEY config key',
+	`value` varchar(128) NOT NULL COMMENT '配置VALUE config value',
 
 	PRIMARY KEY(user_id, `key`),
 	FOREIGN KEY(user_id) REFERENCES tb_user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/**
+ * user notification table
+ * 用户通知表
+ */
+
 CREATE TABLE tb_notification
 (
 	id int(10) AUTO_INCREMENT NOT NULL
 		PRIMARY KEY,
-	user_id int(10) NOT NULL,      -- 接受通知的用户id
-	target_user_id int(10) NOT NULL, -- 上下文用户id
-	type_id smallint NOT NULL, -- 1-文档修改,2-被加入新项目
-	param1 varchar(128) NULL,  -- 1,2-项目id
-	param2 varchar(128) NULL,  -- 1,2-项目名称
-	param3 text NULL,
-	create_time timestamp NOT NULL
+	user_id int(10) NOT NULL COMMENT '接受通知的用户id; user id to be notified.',
+    target_user_id int(10) NOT NULL COMMENT '上下文用户id; context user id',
+	type_id smallint NOT NULL COMMENT '1-文档修改,2-被加入新项目',
+	param1 varchar(128) NULL COMMENT '1,2-项目id',
+	param2 varchar(128) NULL COMMENT ' 1,2-项目名称',
+	param3 text NULL COMMENT '备用预留 reserved',
+	create_time timestamp NOT NULL COMMENT '创建时间 create time'
 		DEFAULT now(),
 
-	is_read smallint NOT NULL
+	is_read smallint NOT NULL COMMENT '是否已读 is notification read'
 		DEFAULT 0,
 
 	FOREIGN KEY(user_id) REFERENCES tb_user(id),
 	FOREIGN KEY(target_user_id) REFERENCES tb_user(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/**
+ * corporation table
+ * 公司表
+ */
 CREATE TABLE tb_corporation
 (
 	id int(10) AUTO_INCREMENT NOT NULL
@@ -369,6 +381,10 @@ CREATE TABLE tb_corporation
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+/**
+ * product line table
+ * 生产线表
+ */
 CREATE TABLE tb_production_line
 (
 	id int(10) AUTO_INCREMENT NOT NULL
@@ -383,6 +399,10 @@ CREATE TABLE tb_production_line
 	FOREIGN KEY(corporation_id) REFERENCES tb_corporation(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/**
+ * project group table
+ * 项目分组表
+ */
 CREATE TABLE tb_group
 (
 	id int(10) AUTO_INCREMENT NOT NULL
@@ -395,6 +415,19 @@ CREATE TABLE tb_group
 	FOREIGN KEY(production_line_id) REFERENCES tb_production_line(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/**
+ * 规则表，存储通过Open API设置的Mock规则
+ * Stored mock rules set by Open API
+ */
+CREATE TABLE tb_rule (
+	action_id int(10) NOT NULL
+		PRIMARY KEY,
+	rules text NOT NULL, -- JSON规则
+	update_time datetime NOT NULL
+		DEFAULT NOW(),   -- 最近更新时间
+
+	FOREIGN KEY(action_id) REFERENCES tb_action(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- required base data
 INSERT INTO tb_role (name) VALUES ('god');

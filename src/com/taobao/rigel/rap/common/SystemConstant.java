@@ -10,7 +10,8 @@ public class SystemConstant {
 	public static String ROOT = "";
 	public static String DOMAIN_URL = "";
 	public static final String ALI_LOGIN_URL = "";
-    public static final String NODE_SERVER = "localhost:8827";
+    private static String domainURL = "";
+    public static final String NODE_SERVER = "localhost:7429";
     public static boolean serviceInitialized = false;
 
 	public static String getAliLoginUrl() {
@@ -18,8 +19,11 @@ public class SystemConstant {
 	}
 
 	public static String getDOMAIN_URL() {
-		return DOMAIN_URL;
+		return domainURL;
 	}
-	
+
+	public static void setDOMAIN_URL(String domainURL) {
+		 SystemConstant.domainURL = domainURL;
+	}
 
 }

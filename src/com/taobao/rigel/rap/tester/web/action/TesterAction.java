@@ -53,9 +53,11 @@ public class TesterAction extends ActionBase {
 	}
 
     public String test() {
+		/**
         SystemVisitorLog.clear(projectMgr);
         System.out.println("Clear complete!");
         setJson("clear complete");
+		 */
         return SUCCESS;
     }
 	

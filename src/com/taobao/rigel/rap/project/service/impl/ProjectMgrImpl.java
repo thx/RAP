@@ -1,9 +1,6 @@
 package com.taobao.rigel.rap.project.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.Notification;
@@ -202,8 +199,8 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 	@Override
 	public String updateProject(int id, String projectData,
-			String deletedObjectListData) {
-		return projectDao.updateProject(id, projectData, deletedObjectListData);
+			String deletedObjectListData, Map<Long, Long> actionIdMap) {
+		return projectDao.updateProject(id, projectData, deletedObjectListData, actionIdMap);
 	}
 
 	@Override
@@ -282,12 +279,12 @@ public class ProjectMgrImpl implements ProjectMgr {
 	}
 
 	@Override
-	public Action getAction(int id) {
+	public Action getAction(long id) {
 		return projectDao.getAction(id);
 	}
 
     @Override
-    public Action getAction(int id, String ver, int projectId) {
+    public Action getAction(long id, String ver, int projectId) {
         CheckIn check = workspaceDao.getVersion(projectId, ver);
         Gson gson = new Gson();
         Project p = gson.fromJson(check.getProjectData(), Project.class);
@@ -358,14 +355,29 @@ public class ProjectMgrImpl implements ProjectMgr {
         }
     }
 
-    private void updateActionCache(Action action) {
+	@Override
+	public Integer getProjectIdByActionId(int actionId) {
+		return projectDao.getProjectIdByActionId(actionId);
+	}
+
+	private void updateActionCache(Action action) {
         action.setDisableCache(0);
-        for (Parameter param : action.getResponseParameterList()) {
-            String rules = param.getMockJsRules();
-            if (rules != null && rules.contains("${") && rules.contains("}")) {
-                action.setDisableCache(1);
-                break;
-            }
-        }
+		for (Parameter param : action.getResponseParameterList()) {
+			clearParameterCache(param, action);
+		}
     }
+
+	private void clearParameterCache(Parameter param, Action action) {
+		String rules = param.getMockJsRules();
+		if (rules != null && rules.contains("${") && rules.contains("}")) {
+			action.setDisableCache(1);
+			return; // over
+		}
+		Set<Parameter> children = param.getParameterList();
+		if (children != null && children.size() != 0) {
+			for (Parameter child : children) {
+				clearParameterCache(child, action);
+			}
+		}
+	}
 }

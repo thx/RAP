@@ -345,7 +345,7 @@ public class Project implements java.io.Serializable {
 		return null;
 	}
 	
-	public Action findAction(int actionId) {
+	public Action findAction(long actionId) {
 		for (Module module : getModuleList()) {
 			for (Page page : module.getPageList()) {
 				for (Action action : page.getActionList()) {
