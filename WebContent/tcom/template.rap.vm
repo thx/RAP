@@ -29,7 +29,6 @@
             #end
           </ul>
         </li>
-        <li><a href="$projectUrl.allProductlineList">Production Line Manage</a></li> -->
         #else
         <li><a href="$platformUrl.home">Home</a></li>
         #end
