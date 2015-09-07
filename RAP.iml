@@ -4,6 +4,19 @@
     <facet type="web" name="Web">
       <configuration>
         <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/out/artifacts/RAP_war_exploded/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/out/artifacts/RAP_war_exploded" relative="/" />
+        </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src" />
+        </sourceRoots>
+      </configuration>
+    </facet>
+    <facet type="web" name="Web2">
+      <configuration>
+        <descriptors>
           <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/WebContent/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
@@ -15,17 +28,6 @@
       </configuration>
       <facet type="Struts2" name="Struts 2">
         <configuration>
-          <fileset id="s2fileset" name="My Fileset " removed="false">
-            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/account/web/action/struts.xml</file>
-            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/api/web/action/struts.xml</file>
-            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/tester/web/action/struts.xml</file>
-            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/project/web/action/struts.xml</file>
-            <file>file://$MODULE_DIR$/src/struts.xml</file>
-            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/workspace/web/action/struts.xml</file>
-            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/platform/web/action/struts.xml</file>
-            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/organization/web/action/struts.xml</file>
-            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/mock/web/action/struts.xml</file>
-          </fileset>
           <propertiesKeys disabled="false" />
         </configuration>
       </facet>
@@ -33,6 +35,24 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/out/artifacts/RAP_war_exploded/WEB-INF/classes/com/taobao/rigel/rap/api/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/artifacts/RAP_war_exploded/WEB-INF/classes/com/taobao/rigel/rap/mock/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/artifacts/RAP_war_exploded/WEB-INF/classes/com/taobao/rigel/rap/common/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/artifacts/RAP_war_exploded/WEB-INF/classes/com/taobao/rigel/rap/account/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/artifacts/RAP_war_exploded/WEB-INF/classes/com/taobao/rigel/rap/project/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/artifacts/RAP_war_exploded/WEB-INF/classes/com/taobao/rigel/rap/platform/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/artifacts/RAP_war_exploded/WEB-INF/classes/com/taobao/rigel/rap/workspace/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/artifacts/RAP_war_exploded/WEB-INF/classes/com/taobao/rigel/rap/organization/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/artifacts/RAP_war_exploded/WEB-INF/classes/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/production/RAP/com/taobao/rigel/rap/api/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/production/RAP/com/taobao/rigel/rap/mock/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/production/RAP/com/taobao/rigel/rap/common/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/production/RAP/com/taobao/rigel/rap/account/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/production/RAP/com/taobao/rigel/rap/project/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/production/RAP/com/taobao/rigel/rap/platform/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/production/RAP/com/taobao/rigel/rap/workspace/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/production/RAP/com/taobao/rigel/rap/organization/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/out/production/RAP/applicationContext.xml</file>
           <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/api/applicationContext.xml</file>
           <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/mock/applicationContext.xml</file>
           <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/common/applicationContext.xml</file>
@@ -55,5 +75,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="lib1" level="project" />
   </component>
 </module>
