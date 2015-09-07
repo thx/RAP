@@ -1,6 +1,14 @@
 
 # RAP API Management System ![](https://sourcegraph.com/api/repos/github.com/thx/RAP/.counters/views-24h.png)
 
+### ADS
+* 阿里妈妈UED团队怒招优秀前端，我们是超专业的FE!!! 欢迎投递简历至：[bosn@outlook.com](mailto:bosn@outlook.com)
+* 其它THX开源工具: [http://thx.github.io/](http://thx.github.io/)
+
+### DEMO
+
+* [DEMO：http://rapapi.net/](http://rapapi.net/) 测试账号：test 密码：test
+
 ### LINKS
 
 * [Official Site 官网](http://thx.github.io/RAP)

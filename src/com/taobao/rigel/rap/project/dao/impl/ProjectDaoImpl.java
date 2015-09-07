@@ -545,4 +545,17 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         return query.setMaxResults(limit).list();
     }
 
+	@Override
+	public Integer getProjectIdByActionId(int actionId) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT p.id FROM tb_project p ");
+		sql.append("JOIN tb_module m ON m.project_id = p.id ");
+		sql.append("JOIN tb_page page ON page.module_id = m.id ");
+		sql.append("JOIN tb_action_and_page anp ON anp.page_id = page.id ");
+		sql.append("where action_id = :actionId");
+		Query query = getSession().createSQLQuery(sql.toString());
+		query.setInteger("actionId", actionId);
+		return (Integer)query.uniqueResult();
+	}
+
 }

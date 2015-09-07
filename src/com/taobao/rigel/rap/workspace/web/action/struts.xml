@@ -62,8 +62,8 @@
 			class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
 			method="export">
 			<result name="success" type="stream">
-				<param name="contentDisposition">attachment;filename=export.doc</param>
-				<param name="contentType">application/msword</param>
+				<param name="contentDisposition">attachment;filename=export.html</param>
+				<param name="contentType">text/html</param>
 				<param name="inputName">fileInputStream</param>
 				<param name="bufferSize">1024</param>
 			</result>

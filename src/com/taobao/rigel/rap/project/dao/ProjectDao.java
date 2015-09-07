@@ -142,4 +142,12 @@ public interface ProjectDao {
     long getMockNumInTotal();
 
     List<Project> selectMockNumTopNProjectList(int limit);
+
+	/**
+	 * get project id by action id
+     *
+	 * @param actionId
+	 * @return
+	 */
+	Integer getProjectIdByActionId(int actionId);
 }

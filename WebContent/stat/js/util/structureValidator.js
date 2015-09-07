@@ -106,16 +106,25 @@
                             });
                         }
                     } else if (isArrayObject(oa[p]) && isArrayObject(ob[p])) {
-                        l = oa[p][0];
-                        r = ob[p][0];
-                        if (l && r && isObject(l) && isObject(r)) {
-                            checkStructure(l, r, ns + '.' + p + '[0]');
-                        } else if (l && !r) {
-                            result.push({
-                                type : EMPTY_ARRAY,
-                                property : p,
-                                namespace : ns
-                            });
+                        var la = oa[p];
+                        var lb = ob[p];
+
+                        var length = la.length > lb.length ? la.length : lb.length;
+
+
+                        for (var i = 0; i < length; i++) {
+                            // if la[i] is null, using the first element instead
+                            l = la[i] ? la[i] : la[0];
+                            r = lb[i] ? lb[i] : lb[0];
+                            if (l && r && isObject(l) && isObject(r)) {
+                                checkStructure(l, r, ns + '.' + p + '[' + i + ']');
+                            } else if (l && !r) {
+                                result.push({
+                                    type : EMPTY_ARRAY,
+                                    property : p,
+                                    namespace : ns
+                                });
+                            }
                         }
 
                     } else if (isObject(oa[p]) && isObject(ob[p])) {
@@ -137,6 +146,7 @@
             p1 : 1,
             p2 : 2,
             p3 : 3,
+            p4 : 8,
             obj : [{
                 op3 : 3,
                 op6 : 6,
@@ -145,9 +155,14 @@
         };
         var o2 = {
             p1 : 1,
+            p2 : 5,
             p3 : 3,
             p4 : 4,
-            obj : []
+            obj : [{ op3 : 3,
+                op6 : 6,
+                op7 : 7}, { op3 : 3,
+                op6 : 6,
+                op77 : 7}]
         };
 
         var validator = new StructureValidator(o1, o2);
