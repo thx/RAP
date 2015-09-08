@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="RAP:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/RAP_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="RAP" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="RAP/web/Web" />
+      <element id="javaee-facet-resources" facet="RAP/web/Web2" />
+    </root>
+  </artifact>
+</component>
