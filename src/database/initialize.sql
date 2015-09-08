@@ -90,8 +90,8 @@ CREATE TABLE tb_parameter
 	identifier varchar(256) NULL COMMENT '变量名/参数标识符 parameter identifier',
 	data_type varchar(32) NULL COMMENT '数据类型 data type',
 	remark text NULL COMMENT '备注/mock数据等 remark/mock data',
-	expression varchar(128) NULL '备用字段：表达式 backup column:expression',
-	mock_data text NULL '备用字段:mock数据 backup column:mock data'
+	expression varchar(128) NULL COMMENT '备用字段：表达式 backup column:expression',
+	mock_data text NULL COMMENT '备用字段:mock数据 backup column:mock data'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /**
@@ -317,9 +317,9 @@ CREATE TABLE tb_check_in
 	user_id int(10) NOT NULL COMMENT '提交人 submit user id',
 	project_id int(10) NOT NULL COMMENT '提交的项目ID submit project id',
 	description text NULL COMMENT '提交描述 submit description',
-	version varchar(128) NOT NULL '版本号 version no.',
-	project_data longtext NOT NULL '项目JSON数据 project json data',
-	workspace_mode int(10) NOT NULL '工作区模式(弃用) workspace mode(deprecated)',
+	version varchar(128) NOT NULL COMMENT '版本号 version no.',
+	project_data longtext NOT NULL COMMENT '项目JSON数据 project json data',
+	workspace_mode int(10) NOT NULL COMMENT '工作区模式(弃用) workspace mode(deprecated)',
 	log text NULL COMMENT '更新日志，用于存储与最近一个版本的对比差异。暂时未使用。update log, used for calculate versions differences. Deprecated.',
 
 	FOREIGN KEY(user_id) REFERENCES tb_user(id),
@@ -443,4 +443,4 @@ INSERT INTO tb_user(account, password, email, create_date, last_login_date, name
 
 INSERT INTO tb_role_and_user (user_id, role_id) VALUES (1, 2);
 
-INSERT INTO tb_corporation (name, logo_url, user_id) VALUES ('默认团队', 'empty', 1);
+INSERT INTO tb_corporation (name, logo_url, user_id) VALUES ('MyTeam', 'empty', 1);
