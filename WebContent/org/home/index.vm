@@ -105,47 +105,47 @@
 <script type="text/tmpl" id="create-proj-tmpl">
 <div class="form-horizontal" role="form">
   <div class="form-group">
-    <label for="" class="col-sm-2 control-label">项目名称 <span style="color:red">&#42;</span></label>
+    <label for="" class="col-sm-2 control-label">Project Name<span style="color:red">&#42;</span></label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" style="width:432px;" placeholder="请在此编辑项目名称" value="{{name}}"/>
+      <input type="text" class="form-control" style="width:432px;" placeholder="Edit project name" value="{{name}}"/>
     </div>
   </div>
  <div class="form-group">
-    <label for="" class="col-sm-2 control-label">项目描述</label>
+    <label for="" class="col-sm-2 control-label">Project Desc</label>
     <div class="col-sm-10">
-      <textarea class="form-control desc" style="width:432px;resize:vertical;" placeholder="请在此编辑项目描述">{{desc}}</textarea>
+      <textarea class="form-control desc" style="width:432px;resize:vertical;" placeholder="Edit project description">{{desc}}</textarea>
     </div>
   </div>
 <div class="form-group">
-    <label for="" class="col-sm-2 control-label">项目成员</label>
+    <label for="" class="col-sm-2 control-label">Project Members</label>
     <div class="col-sm-10 picking-user" style="position:relative">
 	  {{#users}}
 	  <span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">{{account}} ({{name}})<i class="unpick-btn">&times;</i></span>
 	  {{/users}}
-	  <input class="form-control accounts-inputer" placeholder="添加项目成员"/>
-	  <span class="user-loading">项目成员列表加载中，请稍候~ </span
-	  ><span class="glyphicon glyphicon-question-sign tip" title="如果该用户没有登录/注册过RAP，系统中就没有TA的信息。请TA先登录一下RAP吧。匹配时请可以输入TA的花名或帐号(域帐号)">找不到TA?</span>
+	  <input class="form-control accounts-inputer" placeholder="Add project members"/>
+      <span class="user-loading">Loading project members... </span>
+      <span class="glyphicon glyphicon-question-sign tip" title="If you can not find the user, he/she may not register yet.">Can not find?</span>
       <div class="accounts-con"></div>
 	</div>
   </div>
   <div class="form-group" style="margin-bottom:0">
-    <label for="" class="col-sm-2 control-label">项目归属</label>
+    <label for="" class="col-sm-2 control-label">Project Organize</label>
     <div class="col-sm-10 project-target" style="position:relative">
 		<div class="clearfix">
     	<select class="form-control team">
-    		<option>--请选择团队--</option>
+    		<option>--Choose Team--</option>
     		#foreach($corp in $corpList)
           	 <option value="$corp.id">$corp.name</option>
           	#end
     	</select>
 		<span>
     		<select class="form-control productline">
-    			<option value="">--请选择产品线--</option>
+    			<option value="">--Choose Product Line--</option>
     		</select>
 		</span>
 		<span>
     		<select class="form-control group">
-    			<option value="">--请选择分组--</option>
+    			<option value="">--Choose Group--</option>
     		</select><br>
 		</span>
 	</div>
@@ -159,9 +159,9 @@
 <script type="text/tmpl" id="create-group-tmpl">
 <div class="form-horizontal" role="form">
   <div class="form-group" style="margin-bottom:0">
-    <label for="inputPassword3" class="col-sm-2 control-label">分组名称 <span style="color:red">&#42;</span></label>
+    <label for="inputPassword3" class="col-sm-2 control-label">Group Name <span style="color:red">&#42;</span></label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" style="width:432px;" placeholder="请在此添加分组名称" value=""/>
+      <input type="text" class="form-control" style="width:432px;" placeholder="Group name" value=""/>
     </div>
   </div>
 </div>
@@ -170,7 +170,7 @@
 <script type="text/tmpl" id="create-productline">
 <div class="form-horizontal" role="form">
   <div class="form-group" style="margin-bottom:0">
-    <label for="productline-inputer" class="col-sm-2 control-label">名称 <span style="color:red">&#42;</span></label>
+    <label for="productline-inputer" class="col-sm-2 control-label">Name <span style="color:red">&#42;</span></label>
     <div class="col-sm-10">
       <input type="text" id="productline-inputer" class="form-control" style="width:432px;" placeholder="Add production line here" value="{{value}}"/>
     </div>

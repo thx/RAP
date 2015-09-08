@@ -46,7 +46,7 @@
 		<script type="text/tmpl" id="create-productline">
 <div class="form-horizontal" role="form">
   <div class="form-group" style="margin-bottom:0">
-    <label for="productline-inputer" class="col-sm-2 control-label">名称 <span style="color:red">&#42;</span></label>
+    <label for="productline-inputer" class="col-sm-2 control-label">Name <span style="color:red">&#42;</span></label>
     <div class="col-sm-10">
       <input type="text" id="productline-inputer" class="form-control" style="width:432px;" placeholder="add production line name here" value="{{value}}"/>
     </div>

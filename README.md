@@ -1,4 +1,3 @@
-translating in progress 60%
 =======
 
 # RAP API Management System ![](https://sourcegraph.com/api/repos/github.com/thx/RAP/.counters/views-24h.png)
