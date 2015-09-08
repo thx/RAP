@@ -15,7 +15,7 @@ public class ActionBase extends ActionSupport {
 
 	public static String JSON_ERROR = "json-error";
 
-	public static String LOGIN_WARN_MSG = "您登录过期啦，不要乱动哦，请打开新页面登录后再提交吧 >  。<";
+	public static String LOGIN_WARN_MSG = "Session Expired, open another page to login, and return.  >  。<";
 
 	private boolean isReturnUrlFirstSet;
 
@@ -107,7 +107,7 @@ public class ActionBase extends ActionSupport {
 			name = nameObj.toString();
 		}
 		if (name == null || name.isEmpty()) {
-			return "团队";
+			return "Team";
 		}
 		return name;
 	}
@@ -194,7 +194,7 @@ public class ActionBase extends ActionSupport {
 	}
 
 	public void plsLogin() {
-		setErrMsg("请先登录");
+		setErrMsg("Please login first");
 	}
 
 }

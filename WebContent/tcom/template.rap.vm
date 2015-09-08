@@ -34,7 +34,7 @@
         #end
 
         <li><a href="$platformUrl.doc" target="_blank">Doc</a></li>
-        <li><a href="$platformUrl.log">Data<span style="color:#CC0000;"> (new)</span></a></li>
+        <li><a href="$platformUrl.log">Data</a></li>
         #if($isLogined)
         <li>
             <div class="search-project-con">
@@ -133,7 +133,7 @@
 #macro (bodyEnd)
     <hr>
     <footer>
-        <p><span id="_logOnline">-</span> users using RAP, Mock service usage today: <span id="_logMockNumToday">-</span> 次&nbsp;&nbsp;旺旺群支持:582755829 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_5879641'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D5879641%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></p>
+        <p><span id="_logOnline">-</span> users using RAP, Mock service usage today: <span id="_logMockNumToday">-</span>  times&nbsp;&nbsp; <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_5879641'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D5879641%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></p>
     </footer>
     <script>
         function _logData() {

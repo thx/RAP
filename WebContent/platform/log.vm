@@ -43,18 +43,18 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h3><span class="glyphicon glyphicon-time"></span>&nbsp;实时数据</h3>
+                    <h3><span class="glyphicon glyphicon-time"></span>&nbsp;Realtime Data</h3>
                     <div id="realtime">loading...</div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <h3><span class="glyphicon glyphicon-signal"></span>&nbsp;趋势数据</h3>
+                    <h3><span class="glyphicon glyphicon-signal"></span>&nbsp;Trends Data</h3>
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="#userTrend" role="tab" data-toggle="tab">用户量趋势</a></li>
-                        <li><a href="#checkInTrend" role="tab" data-toggle="tab">文档提交数趋势</a></li>
-                        <li><a href="#projectTrend" role="tab" data-toggle="tab">项目数趋势</a></li>
+                        <li class="active"><a href="#userTrend" role="tab" data-toggle="tab">User Trend</a></li>
+                        <li><a href="#checkInTrend" role="tab" data-toggle="tab">Doc Submit Trend</a></li>
+                        <li><a href="#projectTrend" role="tab" data-toggle="tab">Project Trend</a></li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
@@ -64,25 +64,25 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h3><span class="glyphicon glyphicon-user"></span>&nbsp;使用数据</h3>
+                    <h3><span class="glyphicon glyphicon-user"></span>&nbsp;Use Data</h3>
                     <div class="data-tab">
-                    目前已有<span class="label label-primary">$modelLogMap.get("用户数").getValue()</span>&nbsp;位工程师<br />
-                    <span class="label label-primary">$modelLogMap.get("项目数").getValue()</span>&nbsp;个业务项目在使用RAP。<br />
-                    在这里定义了
-                    <span class="label label-primary">$modelLogMap.get("接口数").getValue()</span>&nbsp;个接口<br />RAP已为小伙伴们伪造了<br />
-                    <span class="label label-danger label-sx" id="mockDataInDashboard" data-start="$modelLogMap.get("MOCK服务调用次数").getValue()">$modelLogMap.get("MOCK服务调用次数").getValue()</span>&nbsp;次MOCK数据！
+                    Now there're <span class="label label-primary">$modelLogMap.get("User count").getValue()</span>&nbsp; engineers<br />
+                    <span class="label label-primary">$modelLogMap.get("Project count").getValue()</span>&nbsp; projects using RAP。<br />
+                    We defined
+                    <span class="label label-primary">$modelLogMap.get("APIs count").getValue()</span>&nbsp; APIs here.<br />RAP help you create MOCK data more than <br />
+                    <span class="label label-danger label-sx" id="mockDataInDashboard" data-start="$modelLogMap.get("Mock invocation count").getValue()">$modelLogMap.get("Mock invocation count").getValue()</span>&nbsp; times！
                     </div>
                 </div>
             </div>
             <div class="row">
 
                 <div class="col-md-6">
-                    <h3><span class="glyphicon glyphicon-time"></span>&nbsp;今日统计</h3>
+                    <h3><span class="glyphicon glyphicon-time"></span>&nbsp;Data of Today</h3>
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="#mockByProjectTop5Today" role="tab" data-toggle="tab">活跃项目</a></li>
-                        <li><a href="#ipLog" role="tab" data-toggle="tab" class="tip" title="数据不包含css/js/html/图片/font等静态文件请求、日志请求"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;活跃IP</a></li>
-                        <li><a href="#userLog" role="tab" data-toggle="tab" class="tip" title="数据不包含css/js/html/图片/font等静态文件请求、日志请求"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;活跃用户</a></li>
+                        <li class="active"><a href="#mockByProjectTop5Today" role="tab" data-toggle="tab">Active Project</a></li>
+                        <li><a href="#ipLog" role="tab" data-toggle="tab" class="tip" title="css/js/html/img/font excluded"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;active IP</a></li>
+                        <li><a href="#userLog" role="tab" data-toggle="tab" class="tip" title="css/js/html/img/font excluded"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;active user</a></li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content" style="height:400px;">
@@ -132,12 +132,12 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h3><span class="glyphicon glyphicon-th"></span>&nbsp;全量统计</h3>
+                    <h3><span class="glyphicon glyphicon-th"></span>&nbsp;Global Data</h3>
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="#team" role="tab" data-toggle="tab">团队接口数统计</a></li>
-                        <li><a href="#statistics" role="tab" data-toggle="tab">系统统计</a></li>
-                        <li><a href="#mockByProjectTop5" role="tab" data-toggle="tab">MOCK服务调用TOP5</a></li>
+                        <li class="active"><a href="#team" role="tab" data-toggle="tab">APIs by team</a></li>
+                        <li><a href="#statistics" role="tab" data-toggle="tab">System Data</a></li>
+                        <li><a href="#mockByProjectTop5" role="tab" data-toggle="tab">Mock service top 5</a></li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">

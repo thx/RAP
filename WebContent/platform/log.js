@@ -3,7 +3,7 @@
 !function(global) {
     var _trendData = null;
     var _realtimeData = null;
-    var NO_DATA_HTML = '<div class="alert alert-info" style="margin:15px;">暂时没有数据</div>';
+    var NO_DATA_HTML = '<div class="alert alert-info" style="margin:15px;">No Data</div>';
     var FLUSH_SEC = 10;
     var _realtimeIndex = -1;
 
@@ -29,9 +29,9 @@
 
     function toTitle(c) {
         switch (c) {
-            case 'user': return '用户';
-            case 'project': return '项目';
-            case 'checkIn': return '文档提交';
+            case 'user': return 'user';
+            case 'project': return 'project';
+            case 'checkIn': return 'doc submit';
         }
         return c;
     }
@@ -57,7 +57,7 @@
             return;
         }
 
-        serie = {name : toTitle(key) + '数', data : []};
+        serie = {name : toTitle(key) + ' count', data : []};
         for (i = 0, n = data.length - 1; i < n; i++) {
 
             sum += data[i].num;
@@ -77,11 +77,11 @@
                 height: 350
             },
             title: {
-                text: toTitle(key) + '数变化趋势',
+                text: toTitle(key) + ' trends',
                 x: -20 //center
             },
             subtitle: {
-                text: '最近12月变化趋势数据',
+                text: 'data in 12 months',
                 x: -20
             },
             xAxis: {
@@ -90,7 +90,7 @@
             yAxis: {
                 allowDecimals: false,
                 title: {
-                    text: toTitle(key) + '数'
+                    text: toTitle(key) + ' count'
                 },
                 plotLines: [{
                     value: 0,
@@ -140,10 +140,10 @@
                 plotShadow: false
             },
             title: {
-                text: '各团队使用RAP管理的接口数'
+                text: 'APIs count by teams.'
             },
             tooltip: {
-                pointFormat: '{series.name}: 定义了 <b>{point.y}</b> 个接口，占比: <b>{point.percentage:.1f}%</b>'
+                pointFormat: '{series.name}: defined  <b>{point.y}</b> APIs，occupied: <b>{point.percentage:.1f}%</b>'
             },
             plotOptions: {
                 pie: {
@@ -161,7 +161,7 @@
             },
             series: [{
                 type: 'pie',
-                name: '接口数',
+                name: 'APIs count',
                 data: chartData
             }]
         });
@@ -204,10 +204,10 @@
                 }
             },
             title: {
-                text: 'Mock调用TOP5'
+                text: 'Mock Service Top 5'
             },
             series: [{
-                name : 'Mock服务调用次数',
+                name : 'Mock Service Top 5',
                 data: mockChartData
             }]
         });
@@ -250,10 +250,10 @@
                 }
             },
             title: {
-                text: '今日Mock调用TOP5'
+                text: 'Mock Service Top 5 Today'
             },
             series: [{
-                name : 'Mock服务调用次数',
+                name : 'Mock Service Count',
                 data: mockChartDataToday
             }]
         });
@@ -285,7 +285,7 @@
                 }
             },
             title: {
-                text: '实时服务器QPS'
+                text: 'Realtime QPS'
             },
             xAxis: {
                 type: 'datetime',

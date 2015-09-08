@@ -126,14 +126,14 @@ public class PlatformAction extends ActionBase {
 
     public String log() {
         // statistics for RAP models
-        modelLog.add(new Item("用户数", new Long(getAccountMgr().getUserNum()).toString()));
-        modelLog.add(new Item("项目数", new Long(projectMgr.getProjectNum()).toString()));
-        modelLog.add(new Item("接口数", new Long(projectMgr.getActionNum()).toString()));
+        modelLog.add(new Item("User count", new Long(getAccountMgr().getUserNum()).toString()));
+        modelLog.add(new Item("Project count", new Long(projectMgr.getProjectNum()).toString()));
+        modelLog.add(new Item("APIs count", new Long(projectMgr.getActionNum()).toString()));
         //modelLog.add(new Item("TAB数", new Long(projectMgr.getModuleNum()).toString()));
         //modelLog.add(new Item("页面数", new Long(projectMgr.getPageNum()).toString()));
         //modelLog.add(new Item("参数数", new Long(projectMgr.getParametertNum()).toString()));
-        modelLog.add(new Item("文档提交数", new Long(projectMgr.getCheckInNum()).toString()));
-        modelLog.add(new Item("MOCK服务调用次数", new Long(projectMgr.getMockNumInTotal()).toString(), "该信息自2014年10月底开始记录"));
+        modelLog.add(new Item("Doc submit Count", new Long(projectMgr.getCheckInNum()).toString()));
+        modelLog.add(new Item("Mock invocation count", new Long(projectMgr.getMockNumInTotal()).toString()));
 
         for (Item item : modelLog) {
             modelLogMap.put(item.getKey(), item);
