@@ -102,7 +102,7 @@
           </li>
         </ul>
     </li>
-    <li style="display:none;">
+    <li>
         <a href="javascript:void(0);" class="dropdown-toggle" id="register-trigger">Register</a>
         <ul class="dropdown-menu dropdown-menu-right">
           <li>
