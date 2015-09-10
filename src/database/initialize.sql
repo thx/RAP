@@ -153,7 +153,7 @@ CREATE TABLE tb_module
 	id int(10) AUTO_INCREMENT NOT NULL
 		PRIMARY KEY,
 	project_id int(10) NOT NULL,
-	name varchar(16) NOT NULL,
+	name varchar(256) NOT NULL,
 	introduction varchar(128) NULL,
 
 	FOREIGN KEY(project_id) REFERENCES tb_project(id)
