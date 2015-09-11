@@ -18,7 +18,7 @@ CREATE TABLE tb_rule (
 2. 增加tb_action.disable_cache字段用于自动化禁用cache处理
 
 ```sql
-ALTER TABLE `rap_db`.`tb_module` CHANGE COLUMN `name` `name` VARCHAR(128) NOT NULL  ;
+ALTER TABLE `rap_db`.`tb_module` CHANGE COLUMN `name` `name` VARCHAR(256) NOT NULL  ;
 ALTER TABLE `rap_db`.`tb_action` ADD COLUMN disable_cache TINYINT NOT NULL DEFAULT 0;
 ```
 
