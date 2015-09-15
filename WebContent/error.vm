@@ -22,7 +22,7 @@
 		#if($exception.message || $exceptionStack)
 		<div class="title"><h2>technical details</h2></div>
 		<div class="message content">#if($exception.message)$exception.message#else Unknown Exception #end</div>
-		<div class="detail">#if($exceptionStack)$exceptionStack#else NO DETAIL#end</div>
+		<div class="det gail">#if($exceptionStack)$exceptionStack#else NO DETAIL#end</div>
 		#end
 	</div>
 	#bodyEnd
