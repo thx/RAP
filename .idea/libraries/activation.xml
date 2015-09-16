@@ -82,7 +82,6 @@
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/struts2-spring-plugin-2.3.24.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/struts2-tiles-plugin-2.3.24.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/urlrewritefilter-4.0.3.jar!/" />
-      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/velocity-1.6.4.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/velocity-tools-1.4.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/velocity-tools-generic-1.4.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/velocity-tools-view-1.4.jar!/" />
@@ -92,6 +91,7 @@
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/xercesImpl-2.6.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/xercesImpl.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/xwork-core-2.3.24.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/velocity-1.6.4.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
