@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <toolbox>
-	<data type="string">
-		<key>version</key>
-		<value>1.3</value>
-	</data>
 	<tool>
 		<key>utils</key>
 		<scope>application</scope>

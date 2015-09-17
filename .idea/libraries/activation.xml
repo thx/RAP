@@ -12,9 +12,10 @@
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/codehaus.jackson.core-1.5.4.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/codehaus.jackson.mapper-1.5.4.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/commons-beanutils-1.8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/commons-chain-1.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/commons-codec-1.3.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/commons-codec-1.6.jar!/" />
-      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/commons-collections.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/commons-collections-3.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/commons-digester-2.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/commons-discovery.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/commons-fileupload-1.3.1.jar!/" />
@@ -25,9 +26,11 @@
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/commons-logging-1.1.3.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/commons-net-ftp-2.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/commons-pool-1.5.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/commons-validator-1.3.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/derbyclient.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/dom4j-1.6.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/dozer-5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/dvsl-1.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/ehcache-1.6.0-beta4.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/fluent-hc-4.3.3.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/freemarker-2.3.22.jar!/" />
@@ -61,11 +64,13 @@
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/ognl-3.0.6.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/org.slf4j.slf4j-api-1.5.6.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/org.slf4j.slf4j-log4j12-1.5.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/oro-2.0.8.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/ostermillerutils_1_07_00.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/pinyin4j-2.5.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/prettytime-3.2.3.Final.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/quartz-all-1.6.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/saaj.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/servletapi-2.3.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/sitemesh-2.2.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/slf4j-api-1.5.8.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/slf4j-log4j12-1.5.8.jar!/" />
@@ -73,6 +78,7 @@
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/spring-modules-cache.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/spring.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/spy-2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/sslext-1.2-0.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/stringtree-json-2.0.5.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/struts2-core-2.3.24.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/struts2-jasperreports-plugin-2.3.24.jar!/" />
@@ -82,16 +88,16 @@
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/struts2-spring-plugin-2.3.24.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/struts2-tiles-plugin-2.3.24.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/urlrewritefilter-4.0.3.jar!/" />
-      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/velocity-tools-1.4.jar!/" />
-      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/velocity-tools-generic-1.4.jar!/" />
-      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/velocity-tools-view-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/velocity-1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/velocity-tools-2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/velocity-tools-generic-2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/velocity-tools-view-2.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/wddx.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/wsdl4j.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/xeger-1.0-SNAPSHOT.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/xercesImpl-2.6.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/xercesImpl.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/xwork-core-2.3.24.jar!/" />
-      <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/velocity-1.6.4.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
