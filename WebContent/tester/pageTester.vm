@@ -34,7 +34,7 @@
                         </li>
                     #end
                 </ul>
-                <div class="tab-content">
+                <div class="tab-content">link=$link , $req $res $stack $ognl $ui
                 #foreach($action in $page.actionList)
                     <div class="tab-pane fade#if($velocityCount==1) in active#end" id="action$action.id">
                         <form name="form$!velocityCount" class="form" method="post" path="$!action.requestUrl" onsubmit="return false;">

@@ -7,7 +7,6 @@
 	<constant name="struts.action.extension" value="action,do" />
 	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
     <constant name="struts.devMode" value="true" />
-    <constant name="struts.velocity.tooxxxlboxlocation" value="WEB-INF/toolbox.xml"/>
 	<package name="rap-default" extends="struts-default">
 		<result-types>
 			<result-type name="rapVelocityResult" default="true"
@@ -30,12 +29,6 @@
                     <param name="exception.logEnabled">true</param>
                     <param name="exception.logLevel">ERROR</param>
                 </interceptor-ref>
-				<interceptor-ref name="validation">
-					<param name="excludeMethods">input,back,cancel,browse</param>
-				</interceptor-ref>
-				<interceptor-ref name="workflow">
-					<param name="excludeMethods">input,back,cancel,browse</param>
-				</interceptor-ref>
 			</interceptor-stack>
 		</interceptors>
 		<default-interceptor-ref name="baseStack" />

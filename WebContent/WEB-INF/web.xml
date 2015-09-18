@@ -23,7 +23,7 @@
 			<param-name>SSO_CALLBACK_CLASS</param-name>
 			<param-value>com.alibaba.buc.sso.client.handler.impl.SimpleSSOCallback</param-value>
 		</init-param>
-	
+
 		<init-param>
 			<param-name>EXCLUSIONS</param-name>
 			<param-value>*</param-value>
@@ -95,24 +95,31 @@
 		<filter-name>SetCharacterEncoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!-- Define Velocity template compiler -->
-	<servlet>
-		<servlet-name>velocity</servlet-name>
-		<servlet-class>
-			org.apache.velocity.tools.view.servlet.VelocityViewServlet</servlet-class>
-		<init-param>
-			<param-name>org.apache.velocity.toolbox</param-name>
-			<param-value>/WEB-INF/toolbox.xml</param-value>
-		</init-param>
-		<init-param>
-			<param-name>org.apache.velocity.properties</param-name>
-			<param-value>/WEB-INF/velocity.properties</param-value>
-		</init-param>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>velocity</servlet-name>
-		<url-pattern>*.vm</url-pattern>
-	</servlet-mapping>
+    <!-- Define Velocity template compiler -->
+    <servlet>
+        <servlet-name>velocity</servlet-name>
+        <servlet-class>
+            org.apache.velocity.tools.view.servlet.VelocityViewServlet</servlet-class>
+        <!-- Unless you plan to put your toolbox.xml and velocity.properties under
+            different folders or give them different names, then these two init-params
+            are unnecessary as of VelocityTools 1.3. The VelocityViewServlet will automatically
+            look for these files in the following locations. -->
+        <init-param>
+            <param-name>org.apache.velocity.toolbox</param-name>
+            <param-value>/WEB-INF/toolbox.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>org.apache.velocity.properties</param-name>
+            <param-value>/WEB-INF/velocity.properties</param-value>
+        </init-param>
+    </servlet>
+    <!-- <servlet-mapping> <servlet-name>default</servlet-name> <url-pattern>/t/*,/crossdomain.xml</url-pattern>
+        </servlet-mapping> -->
+    <!-- Map *.vm files to Velocity -->
+    <servlet-mapping>
+        <servlet-name>velocity</servlet-name>
+        <url-pattern>*.vm</url-pattern>
+    </servlet-mapping>
 	<filter>
 		<filter-name>struts-cleanup</filter-name>
 		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
