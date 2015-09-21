@@ -8,6 +8,7 @@ import com.taobao.rigel.rap.common.SystemVisitorLog;
 import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 import com.taobao.rigel.rap.tester.bo.SSOUserRes;
+import org.apache.velocity.tools.config.EasyFactoryConfiguration;
 
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,15 @@ public class TesterAction extends ActionBase {
 	}
 
 	public String pageTester() {
+        EasyFactoryConfiguration config = new EasyFactoryConfiguration();
+        config.toolbox("application").property("test", 123);
+        config.bool("isSimple", true);
+        config.string("foo", "this is foo.");
+        config.string("bar", "this is bar.");
+        config.data("dataKeys", "list", "version,date,isSimple,foo,bar,dataKeys,switches");
+        config.data("switches", "list.boolean", "true,false,false,true");
+
+
 		page = projectMgr.getPage(id);
 		projectMgr.loadParamIdListForPage(page);
 		projectId = page.getModule().getProject().getId();

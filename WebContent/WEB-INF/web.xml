@@ -136,14 +136,7 @@
 			com.taobao.rigel.rap.common.RapServletContextListener
 		</listener-class>
 	</listener>
-	<error-page>
-		<error-code>404</error-code>
-		<location>/notfound.html</location>
-	</error-page>
-	<error-page>
-		<error-code>500</error-code>
-		<location>/error.vm</location>
-	</error-page>
+
 	<session-config>
 		<session-timeout>60</session-timeout>
 	</session-config>
