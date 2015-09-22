@@ -15,6 +15,17 @@
       </configuration>
       <facet type="Struts2" name="Struts 2">
         <configuration>
+          <fileset id="s2fileset" name="My Fileset " removed="false">
+            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/tester/web/action/struts.xml</file>
+            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/organization/web/action/struts.xml</file>
+            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/mock/web/action/struts.xml</file>
+            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/platform/web/action/struts.xml</file>
+            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/api/web/action/struts.xml</file>
+            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/account/web/action/struts.xml</file>
+            <file>file://$MODULE_DIR$/src/struts.xml</file>
+            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/project/web/action/struts.xml</file>
+            <file>file://$MODULE_DIR$/src/com/taobao/rigel/rap/workspace/web/action/struts.xml</file>
+          </fileset>
           <propertiesKeys disabled="false" />
         </configuration>
       </facet>
@@ -75,6 +86,5 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lib" level="project" />
-    <orderEntry type="library" name="lib1" level="project" />
   </component>
 </module>

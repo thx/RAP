@@ -30,7 +30,7 @@
                 <ul class="nav nav-tabs" role="tablist">
                     #foreach($action in $page.actionList)
                         <li#if($velocityCount==1) class="active"#end>
-                            <a href="#action${action.id}" role="tab" data-toggle="tab">$!utils.escapeInH($action.name)</a>
+                            <a href="#action${action.id}" role="tab" data-toggle="tab">$utils.escapeInH($action.name)</a>
                         </li>
                     #end
                 </ul>
