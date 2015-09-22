@@ -104,6 +104,7 @@
     <SOURCES>
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/gson-1.5-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/ostermillerutils_1_07_00.jar!/" />
+      <root url="jar://$USER_HOME$/.ideaLibSources/struts2-core-2.3.24-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
