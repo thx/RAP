@@ -74,38 +74,13 @@
 		<filter-name>SetCharacterEncoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!-- Define Velocity template compiler -->
-	<servlet>
-		<servlet-name>velocity</servlet-name>
-		<servlet-class>
-			org.apache.velocity.tools.view.servlet.VelocityViewServlet</servlet-class>
-		<!-- Unless you plan to put your toolbox.xml and velocity.properties under 
-			different folders or give them different names, then these two init-params 
-			are unnecessary as of VelocityTools 1.3. The VelocityViewServlet will automatically 
-			look for these files in the following locations. -->
-		<init-param>
-			<param-name>org.apache.velocity.toolbox</param-name>
-			<param-value>/WEB-INF/toolbox.xml</param-value>
-		</init-param>
-		<init-param>
-			<param-name>org.apache.velocity.properties</param-name>
-			<param-value>/WEB-INF/velocity.properties</param-value>
-		</init-param>
-	</servlet>
-	<!-- <servlet-mapping> <servlet-name>default</servlet-name> <url-pattern>/t/*,/crossdomain.xml</url-pattern> 
-		</servlet-mapping> -->
-	<!-- Map *.vm files to Velocity -->
-	<servlet-mapping>
-		<servlet-name>velocity</servlet-name>
-		<url-pattern>*.vm</url-pattern>
-	</servlet-mapping>
 	<filter>
 		<filter-name>struts-cleanup</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.ActionContextCleanUp</filter-class>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
 	</filter>
 	<filter>
 		<filter-name>struts2</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>openSessionInViewFilter</filter-name>
@@ -133,14 +108,7 @@
 			com.taobao.rigel.rap.common.RapServletContextListener
 		</listener-class>
 	</listener>
-	<error-page>
-		<error-code>404</error-code>
-		<location>/notfound.html</location>
-	</error-page>
-	<error-page>
-		<error-code>500</error-code>
-		<location>/systembusy.html</location>
-	</error-page>
+
 	<session-config>
 		<session-timeout>60</session-timeout>
 	</session-config>
