@@ -6,6 +6,7 @@
 <struts>
 	<constant name="struts.action.extension" value="action,do" />
 	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+    <constant name="struts.devMode" value="false" />
 	<package name="rap-default" extends="struts-default">
 		<result-types>
 			<result-type name="rapVelocityResult" default="true"
@@ -16,33 +17,32 @@
 				<interceptor-ref name="createSession" />
 				<interceptor-ref name="exception" />
 				<interceptor-ref name="alias" />
-				<interceptor-ref name="servlet-config" />
+				<interceptor-ref name="servletConfig" />
 				<interceptor-ref name="prepare" />
 				<interceptor-ref name="i18n" />
 				<interceptor-ref name="chain" />
-				<interceptor-ref name="model-driven" />
-				<interceptor-ref name="static-params" />
+				<interceptor-ref name="modelDriven" />
+				<interceptor-ref name="staticParams" />
 				<interceptor-ref name="params"/>
 				<interceptor-ref name="conversionError" />
-				<interceptor-ref name="validation">
-					<param name="excludeMethods">input,back,cancel,browse</param>
-				</interceptor-ref>
-				<interceptor-ref name="workflow">
-					<param name="excludeMethods">input,back,cancel,browse</param>
-				</interceptor-ref>
+                <interceptor-ref name="defaultStack">
+                    <param name="exception.logEnabled">true</param>
+                    <param name="exception.logLevel">ERROR</param>
+                </interceptor-ref>
 			</interceptor-stack>
 		</interceptors>
 		<default-interceptor-ref name="baseStack" />
-		<!-- 全局result -->
 		<global-results>
 			<result name="login" type="velocity">/account/login.vm</result>
 			<result name="error" type="velocity">/error.vm</result>
+			<result name="exception" type="velocity">/error.vm</result>
 			<result name="json-error" type="velocity">/bcom/jsonError.cb.vm</result>
 			<result name="input" type="velocity">/error.vm</result>
 			<result name="redirect" type="velocity">/common/redirect.vm</result>
 		</global-results>
-		<!-- <global-exception-mappings> <exception-mapping result="error" exception="java.lang.RuntimeException" 
-			/> <exception-mapping result="error" exception="java.lang.Exception" /> </global-exception-mappings> -->
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception" result="exception" />
+		</global-exception-mappings>
 	</package>
 
 	<!-- project action mapping -->

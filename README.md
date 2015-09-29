@@ -14,12 +14,17 @@
     * 账号/acc：test
     * 密码/pwd：test
 
+I suggest to read [Quick Guide Manual](https://github.com/thx/RAP/wiki/quick_guide) at first.
+
+看得懂中文的朋友，建议先看 [Video Tutorial 视频教程](http://thx.github.io/RAP/study.html)
+
+
 ### LINKS
 
 * [Official Site 官网](http://thx.github.io/RAP)
 * [Wiki/Documents/Manual 文档/手册](http://github.com/thx/RAP/wiki)
 * [Video Introduction 视频介绍](http://vodcdn.video.taobao.com/player/ugc/tb_ugc_pieces_core_player_loader.swf?version=1.0.20150330&vid=11622279&uid=11051796&p=1&t=1&rid=&random=6666)
-* [Video Tutorial 视频教程](http://thx.github.io/RAP/study.html)
+* [Video Tutorial(In Chinese) 视频教程](http://thx.github.io/RAP/study.html)
 * [Issues 反馈问题](http://github.com/thx/RAP/issues)
 
 ### What is RAP?
@@ -42,7 +47,7 @@ RAP可以帮助web工程师更高效的管理接口文档，同时通过这些�
  
 ## About
 
-    @version     v0.11.3
+    @version     v0.11.4
     @author      @bosn @wangjeaf
     @director    @limu @xinglie
     @update      7/21/2015

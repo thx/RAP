@@ -1,5 +1,18 @@
 var rap = rap || {};
 
+
+// for compability... .bull shit
+baidu.ajax.post = function(url, q, func) {
+    $.ajax({
+        method : "POST",
+        url : url,
+        data : q,
+        success : function() {
+            func.apply(this, [null, arguments[0]]);
+        }
+    });
+};
+
 // console compability
 if (!window.console) {
     window.console = {
