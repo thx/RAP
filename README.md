@@ -46,7 +46,7 @@ RAP可以帮助web工程师更高效的管理接口文档，同时通过这些�
  
 ## About
 
-    @version     v0.11.3
+    @version     v0.11.4
     @author      @bosn @wangjeaf
     @director    @limu @xinglie
     @update      7/21/2015
