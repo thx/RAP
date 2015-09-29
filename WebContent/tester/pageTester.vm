@@ -18,11 +18,11 @@
         <div class="container">
             <h3>
                 <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;
-                $!utils.escapeInH($page.name) 页面控制台
+                $!utils.escapeInH($page.name) Page Console
             </h3>
             <div id="divRootSetting">
                 <label style="color:#666;display: inline; margin-right: 5px;" for="txtRootPath">
-                    请求根路径
+                    Request Root PATH
                 </label>
                 <input class="form-control" id="txtRootPath" type="text" style="width:300px;" value="" />
             </div>
@@ -40,26 +40,26 @@
                         <form name="form$!velocityCount" class="form" method="post" path="$!action.requestUrl" onsubmit="return false;">
                             <input type="hidden" name="paramIdList" class="paramIdList" value="$!action.remarks" />
                             <div class="p8">
-                                <div style="margin-top:5px;">请求标识: <span style="color:#990000;">$action.id</span></div>
-                                <div style="margin-top:5px;">请求地址: $!utils.escapeInH($action.requestUrl)</div>
+                                <div style="margin-top:5px;">Action ID: <span style="color:#990000;">$action.id</span></div>
+                                <div style="margin-top:5px;">Request URL: $!utils.escapeInH($action.requestUrl)</div>
                             </div>
                             <div class="clearfix">
                                 #foreach($para in $action.requestParameterList)
                                     <div>
                                         <span class="name">$!para.identifier</span><input type="text" style="width:100px" class="field" name="$!para.identifier" /></span>
                                         <span class="remark">
-                                            <span style="font-size: 12px;">说明</span>
+                                            <span style="font-size: 12px;">DESC</span>
                                             <div class="detail">
-                                                <div>- 变量名：$!para.name</div>
-                                                <div>- 备注：$!para.remark</div>
+                                                <div>- Identifier：$!para.name</div>
+                                                <div>- Remarks：$!para.remark</div>
                                             </div>
                                         </span>
                                     </div>
                                 #end
                             </div>
                             <div class="p8 tools">
-                                <input type="button" class="btn btn-primary btn-xs btn-run" value="MockJS数据"/>
-                                <input type="button" class="btn btn-default btn-xs btn-run-mockjsrule" style="margin-left:5px;" value="MockJS模板"/>
+                                <input type="button" class="btn btn-primary btn-xs btn-run" value="MockData"/>
+                                <input type="button" class="btn btn-default btn-xs btn-run-mockjsrule" style="margin-left:5px;" value="MockRules"/>
                             </div>
                         </form>
                     </div>
