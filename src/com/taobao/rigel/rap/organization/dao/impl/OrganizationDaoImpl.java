@@ -1,7 +1,12 @@
 package com.taobao.rigel.rap.organization.dao.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.taobao.rigel.rap.account.bo.User;
+import com.taobao.rigel.rap.account.dao.AccountDao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -13,6 +18,16 @@ import com.taobao.rigel.rap.organization.dao.OrganizationDao;
 
 public class OrganizationDaoImpl extends HibernateDaoSupport implements
 		OrganizationDao {
+
+    public AccountDao getAccountDao() {
+        return accountDao;
+    }
+
+    public void setAccountDao(AccountDao accountDao) {
+        this.accountDao = accountDao;
+    }
+
+    private AccountDao accountDao;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -112,7 +127,47 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
 		query.executeUpdate();
 	}
 
-	@Override
+    @Override
+    public List<User> getUserLisOfCorp(int corpId) {
+        Query query = getSession().createSQLQuery("SELECT user_id FROM tb_corporation_and_user WHERE corporation_id = :corpId");
+        query.setInteger("corpId", corpId);
+        List<Object []> list = query.list();
+        List<User> resultList = new ArrayList<User>();
+        for (Object[] row : list) {
+            int userId = (Integer)row[0];
+            User user = accountDao.getUser(userId);
+            if (user != null) {
+                resultList.add(user);
+            }
+        }
+        return resultList;
+    }
+
+    @Override
+    public void addUserToCorp(int corpId, int userId, int roleId) {
+        Query query = getSession().createSQLQuery("INSERT INTO tb_corporation_and_user (corporation_id, user_id, roleId) VALUES (:corpId, :userId, :roleId)");
+        query.setInteger("corpId", corpId)
+                .setInteger("userId", userId)
+                .setInteger("roleId", roleId);
+        query.executeUpdate();
+    }
+
+    @Override
+    public boolean isUserInCorp(int userId, int corpId) {
+        Query query = getSession().createSQLQuery("SELECT COUNT(*) FROM tb_corporation_and_user WHERE user_id = :userId AND corporation_id = :corpId");
+        query.setInteger("userId", userId).setInteger("corpId", corpId);
+        int num = Integer.parseInt(query.uniqueResult().toString());
+        return num > 0;
+    }
+
+    @Override
+    public int getUserRoleInCorp(int userId, int corpId) {
+        Query query = getSession().createSQLQuery("SELECT role_id FROM tb_corporation_and_user WHERE user_id = :userId AND corporation_id = :corpId");
+        query.setInteger("userId", userId).setInteger("corpId", corpId);
+        return Integer.parseInt(query.uniqueResult().toString());
+    }
+
+    @Override
 	public Corporation getCorporation(int id) {
 		return (Corporation) getSession().get(Corporation.class, id);
 	}

@@ -5,5 +5,7 @@
 		<property name="organizationDao" ref="organizationDao" />
 		<property name="projectMgr" ref="projectMgr" />
 	</bean>
-	<bean id="organizationDao" class="com.taobao.rigel.rap.organization.dao.impl.OrganizationDaoImpl" parent="baseDao" />
+	<bean id="organizationDao" class="com.taobao.rigel.rap.organization.dao.impl.OrganizationDaoImpl" parent="baseDao">
+        <property name="accountDao" ref="accountDao" />
+    </bean>
 </beans>

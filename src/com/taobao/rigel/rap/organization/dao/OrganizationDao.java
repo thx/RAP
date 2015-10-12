@@ -2,6 +2,7 @@ package com.taobao.rigel.rap.organization.dao;
 
 import java.util.List;
 
+import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.bo.Group;
 import com.taobao.rigel.rap.organization.bo.ProductionLine;
@@ -99,5 +100,41 @@ public interface OrganizationDao {
 	 * 
 	 * @param productionLineId
 	 */
-	public void updateCountersInProductionLine(int productionLineId);
+    void updateCountersInProductionLine(int productionLineId);
+
+    /**
+     * get user list of corporation
+     *
+     * @param corpId
+     * @return
+     */
+    List<User> getUserLisOfCorp(int corpId);
+
+
+    /**
+     * add a user to corporation
+     *
+     * @param corpId
+     * @param userId
+     * @param roleId
+     */
+    void addUserToCorp(int corpId, int userId, int roleId);
+
+    /**
+     * check if user in corporation
+     *
+     * @param userId
+     * @param corpId
+     * @return
+     */
+    boolean isUserInCorp(int userId, int corpId);
+
+    /**
+     * get user role in corporation
+     *
+     * @param userId
+     * @param corpId
+     * @return roleId
+     */
+    int getUserRoleInCorp(int userId, int corpId);
 }
