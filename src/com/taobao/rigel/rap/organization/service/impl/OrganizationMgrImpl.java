@@ -2,12 +2,16 @@ package com.taobao.rigel.rap.organization.service.impl;
 
 import java.util.List;
 
+import com.taobao.rigel.rap.account.bo.User;
+import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.RapError;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.bo.Group;
 import com.taobao.rigel.rap.organization.bo.ProductionLine;
 import com.taobao.rigel.rap.organization.dao.OrganizationDao;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
+import com.taobao.rigel.rap.project.bo.Module;
+import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 
@@ -15,6 +19,15 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 	private OrganizationDao organizationDao;
 	private ProjectMgr projectMgr;
 
+    public AccountMgr getAccountMgr() {
+        return accountMgr;
+    }
+
+    public void setAccountMgr(AccountMgr accountMgr) {
+        this.accountMgr = accountMgr;
+    }
+
+    private AccountMgr accountMgr;
 	public ProjectMgr getProjectMgr() {
 		return projectMgr;
 	}
@@ -108,5 +121,46 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 	public Corporation getCorporation(int id) {
 		return organizationDao.getCorporation(id);
 	}
+
+    @Override
+    public boolean canUserAccessCorp(int userId, int corpId) {
+        Corporation c = getCorporation(corpId);
+        if (c == null) return false;
+        if (c.getUserId() == userId) return true;
+        User user = accountMgr.getUser(userId);
+        if (user != null && user.isAdmin()) return true;
+        return organizationDao.isUserInCorp(userId, corpId);
+    }
+
+    @Override
+    public boolean canUserManageCorp(int userId, int corpId) {
+        int roleId = organizationDao.getUserRoleInCorp(userId, corpId);
+        Corporation c = getCorporation(corpId);
+        return (roleId >= 1 && roleId <= 2 || userId == c.getUserId());
+
+    }
+
+    @Override
+    public boolean canUserAccessProject(int userId, int projectId) {
+        User u = accountMgr.getUser(userId);
+        Project p = projectMgr.getProject(projectId);
+
+        return u.isAdmin() || p.isUserMember(userId);
+    }
+
+    @Override
+    public boolean canUserAccessPage(int userId, int pageId) {
+        Page page = projectMgr.getPage(pageId);
+        if (page != null) {
+            Module module = page.getModule();
+            if (module != null) {
+                Project project = module.getProject();
+                if (project != null) {
+                    return canUserAccessProject(userId, project.getId());
+                }
+            }
+        }
+        return false;
+    }
 
 }

@@ -86,6 +86,42 @@ public interface OrganizationMgr {
 	 * @return
 	 */
 	Corporation getCorporation(int id);
-	
+
+
+    /**
+     * can user access corporation
+     *
+     * @param userId
+     * @param corpId
+     * @return
+     */
+    boolean canUserAccessCorp(int userId, int corpId);
+
+    /**
+     * can user manage corporation
+     *
+     * @param userId
+     * @param corpId
+     * @return
+     */
+    boolean canUserManageCorp(int userId, int corpId);
+
+    /**
+     * can user access project
+     *
+     * @param userId
+     * @param projectId
+     * @return
+     */
+    boolean canUserAccessProject(int userId, int projectId);
+
+    /**
+     * can user access page
+     *
+     * @param userId
+     * @param pageId
+     * @return
+     */
+    boolean canUserAccessPage(int userId, int pageId);
 
 }

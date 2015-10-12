@@ -35,6 +35,16 @@ public class Project implements java.io.Serializable {
 	private int groupId;
     private int mockNum;
 
+    public short getAccessType() {
+        return accessType;
+    }
+
+    public void setAccessType(short accessType) {
+        this.accessType = accessType;
+    }
+
+    private short accessType;
+
     public void setMockNum(int mockNum) {
         this.mockNum = mockNum;
     }
@@ -518,5 +528,13 @@ public class Project implements java.io.Serializable {
             }
         }
         return list;
+    }
+
+    public boolean isUserMember(int userId) {
+        if (getUserId() == userId) return true;
+        for (User u : getUserList()) {
+            if (u.getId() == userId) return true;
+        }
+        return false;
     }
 }

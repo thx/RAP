@@ -6,6 +6,16 @@ public class Corporation {
 	private int userId;
 	private String name;
 
+    public short getAccessType() {
+        return accessType;
+    }
+
+    public void setAccessType(short accessType) {
+        this.accessType = accessType;
+    }
+
+    private short accessType;
+
 	public int getId() {
 		return id;
 	}

@@ -57,6 +57,9 @@
 				<comment>项目数据(json)，用于VSS同步模式</comment>
 			</column>
 		</property>
+        <property name="accessType">
+            <column name="access_type" />
+        </property>
 		<many-to-one name="user" column="user_id" />
 		<set name="userList" order-by="user_id asc" table="tb_project_and_user">
 			<key column="project_id" not-null="true" />

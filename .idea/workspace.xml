@@ -7,11 +7,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb20dc48-24f1-4b5c-8bab-296484269c0c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/dao/OrganizationDao.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/dao/OrganizationDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/dao/impl/OrganizationDaoImpl.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/dao/impl/OrganizationDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/mapping/Corporation.hbm.xml" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/mapping/Corporation.hbm.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/bo/Corporation.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/bo/Corporation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/service/OrganizationMgr.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/service/OrganizationMgr.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/service/impl/OrganizationMgrImpl.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/service/impl/OrganizationMgrImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/PRIVATE_CONFIG.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/PRIVATE_CONFIG.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/mapping/Project.hbm.xml" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/mapping/Project.hbm.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/bo/Project.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/bo/Project.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/bo/User.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/bo/User.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/applicationContext.xml" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/applicationContext.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -36,75 +39,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="OrganizationDaoImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/dao/impl/OrganizationDaoImpl.java">
+      <file leaf-file-name="OrganizationMgrImpl.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/service/impl/OrganizationMgrImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="140" column="13" selection-start-line="138" selection-start-column="30" selection-end-line="140" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.8519737">
+              <caret line="162" column="21" selection-start-line="162" selection-start-column="21" selection-end-line="162" selection-end-column="21" />
               <folding>
-                <element signature="e#742#743#0" expanded="true" />
-                <element signature="e#775#776#0" expanded="true" />
-                <element signature="e#831#832#0" expanded="true" />
-                <element signature="e#875#876#0" expanded="true" />
-                <element signature="e#4012#4018#0" expanded="true" />
-                <marker date="1444633992000" expanded="true" signature="3800:3874" placeholder="SELECT * FRO..tb_corporation_and_user..." />
-                <marker date="1444633992000" expanded="true" signature="4413:4517" placeholder="INSERT INTO ..." />
-                <marker date="1444633992000" expanded="true" signature="4818:4915" placeholder="SELECT COUNT..tb_corporation_and_user..." />
-                <marker date="1444633992000" expanded="true" signature="5216:5312" placeholder="SELECT role_..tb_corporation_and_user..." />
+                <element signature="e#895#896#0" expanded="true" />
+                <element signature="e#928#929#0" expanded="true" />
+                <element signature="e#984#985#0" expanded="true" />
+                <element signature="e#1028#1029#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="applicationContext.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/applicationContext.xml">
+      <file leaf-file-name="Project.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/project/bo/Project.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="applicationContext.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/account/applicationContext.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DataDaoImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/platform/dao/impl/DataDaoImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="115" column="0" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
-              <folding>
-                <marker date="1442890792000" expanded="true" signature="1328:1410" placeholder="SELECT COUNT..tb_user..." />
-                <marker date="1442890792000" expanded="true" signature="2564:2649" placeholder="SELECT COUNT..tb_project..." />
-                <marker date="1442890792000" expanded="true" signature="3803:3889" placeholder="SELECT COUNT..tb_check_in..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OrganizationDao.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/dao/OrganizationDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="116" column="20" selection-start-line="116" selection-start-column="20" selection-end-line="116" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PRIVATE_CONFIG.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/common/PRIVATE_CONFIG.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.17269737">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <caret line="537" column="21" selection-start-line="537" selection-start-column="21" selection-end-line="537" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -152,11 +106,17 @@
         <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/PRIVATE_CONFIG.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/8aeaa923-94d3-4e95-b15b-c937f8c9df4f/console.sql" />
         <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/mock/service/impl/MockMgrImpl.java" />
-        <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/bo/User.java" />
-        <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/applicationContext.xml" />
         <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/platform/dao/impl/DataDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/dao/OrganizationDao.java" />
         <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/dao/impl/OrganizationDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/mapping/Corporation.hbm.xml" />
+        <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/mapping/Project.hbm.xml" />
+        <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/bo/Corporation.java" />
+        <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/service/OrganizationMgr.java" />
+        <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/applicationContext.xml" />
+        <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/bo/User.java" />
+        <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/bo/Project.java" />
+        <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/service/impl/OrganizationMgrImpl.java" />
       </list>
     </option>
   </component>
@@ -615,12 +575,12 @@
       <workItem from="1444449033254" duration="2608000" />
       <workItem from="1444613128344" duration="266000" />
       <workItem from="1444642578240" duration="3495000" />
-      <workItem from="1444631146573" duration="1961000" />
+      <workItem from="1444631146573" duration="3134000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53003000" />
+    <option name="totallyTimeSpent" value="54176000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1794" y="41" width="1695" height="1017" extended-state="0" />
@@ -686,51 +646,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/WebContent/tester/pageTester.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/common/SystemConstant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/common/PRIVATE_CONFIG.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/toolbox.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/apache/struts2/views/velocity/VelocityManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="166" column="0" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebContent/tester/pageTester.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="53" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/common/SystemConstant.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -759,13 +674,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/web/action/OrganizationAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="18" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -1023,22 +931,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/account/bo/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/applicationContext.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/dao/OrganizationDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1060,36 +952,118 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="115" column="0" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
           <folding>
-            <marker date="1442890792000" expanded="true" signature="1328:1410" placeholder="SELECT COUNT..tb_user..." />
-            <marker date="1442890792000" expanded="true" signature="2564:2649" placeholder="SELECT COUNT..tb_project..." />
-            <marker date="1442890792000" expanded="true" signature="3803:3889" placeholder="SELECT COUNT..tb_check_in..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/dao/impl/OrganizationDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="140" column="13" selection-start-line="138" selection-start-column="30" selection-end-line="140" selection-end-column="13" />
-          <folding>
-            <element signature="e#742#743#0" expanded="true" />
-            <element signature="e#775#776#0" expanded="true" />
-            <element signature="e#831#832#0" expanded="true" />
-            <element signature="e#875#876#0" expanded="true" />
-            <element signature="e#4012#4018#0" expanded="true" />
-            <marker date="1444633992000" expanded="true" signature="3800:3874" placeholder="SELECT * FRO..tb_corporation_and_user..." />
-            <marker date="1444633992000" expanded="true" signature="4413:4517" placeholder="INSERT INTO ..." />
-            <marker date="1444633992000" expanded="true" signature="4818:4915" placeholder="SELECT COUNT..tb_corporation_and_user..." />
-            <marker date="1444633992000" expanded="true" signature="5216:5312" placeholder="SELECT role_..tb_corporation_and_user..." />
+            <marker date="1442890792000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..tb_user..." />
+            <marker date="1442890792000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..tb_project..." />
+            <marker date="1442890792000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..tb_check_in..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/common/PRIVATE_CONFIG.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17269737">
+        <state vertical-scroll-proportion="0.0">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/mapping/Corporation.hbm.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="19" selection-start-line="19" selection-start-column="7" selection-end-line="21" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/project/mapping/Project.hbm.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="64" column="21" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/bo/Corporation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="29" selection-start-line="8" selection-start-column="3" selection-end-line="16" selection-end-column="29" />
+          <folding>
+            <element signature="e#193#194#0" expanded="true" />
+            <element signature="e#226#227#0" expanded="true" />
+            <element signature="e#277#278#0" expanded="true" />
+            <element signature="e#321#322#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/web/action/OrganizationAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="63" column="18" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/service/OrganizationMgr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/dao/impl/OrganizationDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="155" column="31" selection-start-line="155" selection-start-column="19" selection-end-line="155" selection-end-column="31" />
+          <folding>
+            <element signature="e#742#743#0" expanded="true" />
+            <element signature="e#775#776#0" expanded="true" />
+            <element signature="e#831#832#0" expanded="true" />
+            <element signature="e#875#876#0" expanded="true" />
+            <element signature="e#4012#4018#0" expanded="true" />
+            <marker date="1444633992000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..tb_corporation_and_user..." />
+            <marker date="1444633992000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1444633992000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..tb_corporation_and_user..." />
+            <marker date="1444633992000" expanded="true" signature="-1:-1" placeholder="SELECT role_..tb_corporation_and_user..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/applicationContext.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="55" selection-start-line="6" selection-start-column="55" selection-end-line="6" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/account/bo/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/project/bo/Project.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="537" column="21" selection-start-line="537" selection-start-column="21" selection-end-line="537" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/service/impl/OrganizationMgrImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8519737">
+          <caret line="162" column="21" selection-start-line="162" selection-start-column="21" selection-end-line="162" selection-end-column="21" />
+          <folding>
+            <element signature="e#895#896#0" expanded="true" />
+            <element signature="e#928#929#0" expanded="true" />
+            <element signature="e#984#985#0" expanded="true" />
+            <element signature="e#1028#1029#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

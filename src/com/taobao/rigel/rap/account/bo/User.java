@@ -43,6 +43,15 @@ public class User implements java.io.Serializable {
 		return base;
 	}
 
+    public boolean isAdmin() {
+        for (Role role : this.getRoleList()) {
+            // roleId = 1, means super admin (god)
+            // roleId = 2, means admin
+            if (role.getId() >= 1 && role.getId() <= 2) return true;
+        }
+        return false;
+    }
+
     public void setRealname(String realname) {
         this.realname = realname;
     }
