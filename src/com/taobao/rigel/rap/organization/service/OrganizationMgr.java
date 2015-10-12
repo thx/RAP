@@ -15,6 +15,21 @@ public interface OrganizationMgr {
 	 */
 	List<Corporation> getCorporationList();
 
+    /**
+     * get corporation list
+     *
+     * @return
+     */
+    List<Corporation> getCorporationListWithPager(int pageNum, int pageSize);
+
+    /**
+     * get corporation list of user
+     *
+     * @param userId
+     * @return
+     */
+    List<Corporation> getCorporationListWithPage(int userId, int pageNum, int pageSize);
+
 	/**
 	 * get group list
 	 * 

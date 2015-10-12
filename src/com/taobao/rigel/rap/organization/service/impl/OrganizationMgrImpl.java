@@ -49,7 +49,17 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 		return organizationDao.getCorporationList();
 	}
 
-	@Override
+    @Override
+    public List<Corporation> getCorporationListWithPager(int pageNum, int pageSize) {
+        return organizationDao.getCorporationListWithPager(pageNum, pageSize);
+    }
+
+    @Override
+    public List<Corporation> getCorporationListWithPage(int userId, int pageNum, int pageSize) {
+        return organizationDao.getCorporationListWithPage(userId, pageNum, pageSize);
+    }
+
+    @Override
 	public List<Group> getGroupList(int productionLineId) {
 		return organizationDao.getGroupList(productionLineId);
 	}

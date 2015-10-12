@@ -168,8 +168,53 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     }
 
     @Override
+    public List<Corporation> getCorporationListWithPager(int pageNum, int pageSize) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT c.id ")
+                .append("FROM tb_corporation c")
+                .append("LIMIT :startIndex, :pageSize");
+
+        Query query = getSession().createSQLQuery(sql.toString());
+        query.setInteger("startIndex", (pageNum - 1) * pageSize);
+        query.setInteger("pageSize", pageSize);
+
+        List<Object []> list = query.list();
+        List<Corporation> resultList = new ArrayList<Corporation>();
+        for (Object[] rows : list) {
+            Corporation row = getCorporation((Integer)rows[0]);
+            resultList.add(row);
+        }
+        return resultList;
+    }
+
+    @Override
+    public List<Corporation> getCorporationListWithPage(int userId, int pageNum, int pageSize) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT c.id ")
+                .append("FROM tb_corporation c")
+                .append("JOIN tb_corporation_and_user u ON u.corporation_id = c.id ")
+                .append("WHERE u.id = :userId ")
+                .append("LIMIT :startIndex, :pageSize");
+
+        Query query = getSession().createSQLQuery(sql.toString());
+        query.setInteger("userId", userId);
+        query.setInteger("startIndex", (pageNum - 1) * pageSize);
+        query.setInteger("pageSize", pageSize);
+
+        List<Object []> list = query.list();
+        List<Corporation> resultList = new ArrayList<Corporation>();
+        for (Object[] rows : list) {
+            Corporation row = getCorporation((Integer)rows[0]);
+            resultList.add(row);
+        }
+        return resultList;
+    }
+
+    @Override
 	public Corporation getCorporation(int id) {
-		return (Corporation) getSession().get(Corporation.class, id);
+        return (Corporation) getSession().get(Corporation.class, id);
 	}
+
+
 
 }
