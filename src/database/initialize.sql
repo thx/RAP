@@ -121,6 +121,8 @@ CREATE TABLE tb_project
 	update_time datetime NOT NULL COMMENT '更新时间 update time',
 	mock_num int NOT NULL COMMENT 'mock次数 mock num'
 	  DEFAULT 0,
+  access_type TINYINT NOT NULL COMMENT '权限控制, 10普通, 0私有'
+    DEFAULT 10,
 
 	FOREIGN KEY(user_id) REFERENCES tb_user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -376,6 +378,8 @@ CREATE TABLE tb_corporation
 	name varchar(256) NOT NULL,
 	logo_url varchar(256) NULL,
 	user_id int(10) NULL,
+  access_type TINYINT NOT NULL COMMENT '权限控制, 10普通, 20公开'
+    DEFAULT 10,
 
 	FOREIGN KEY(user_id) REFERENCES tb_user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -429,13 +433,25 @@ CREATE TABLE tb_rule (
 	FOREIGN KEY(action_id) REFERENCES tb_action(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE tb_corporation_and_user
+(
+  user_id int(10) NOT NULL,
+  corporation_id int(10) NOT NULL,
+  role_id int(10) NOT NULL,
+
+  PRIMARY KEY(user_id, corporation_id),
+  FOREIGN KEY(user_id) REFERENCES tb_user(id),
+  FOREIGN KEY(corporation_id) REFERENCES tb_corporation(id),
+  FOREIGN KEY(role_id) REFERENCES tb_role(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 -- required base data
 INSERT INTO tb_role (name) VALUES ('god');
 INSERT INTO tb_role (name) VALUES ('admin');
-INSERT INTO tb_role (name) VALUES ('pm');
-INSERT INTO tb_role (name) VALUES ('rd');
-INSERT INTO tb_role (name) VALUES ('fe');
-INSERT INTO tb_role (name) VALUES ('qa');
+INSERT INTO tb_role (name) VALUES ('user');
+-- removed unused qa/pm/rd roles
 
 
 INSERT INTO tb_user(account, password, email, create_date, last_login_date, name) VALUES
@@ -443,4 +459,6 @@ INSERT INTO tb_user(account, password, email, create_date, last_login_date, name
 
 INSERT INTO tb_role_and_user (user_id, role_id) VALUES (1, 2);
 
-INSERT INTO tb_corporation (name, logo_url, user_id) VALUES ('MyTeam', 'empty', 1);
+-- INSERT INTO tb_corporation (name, logo_url, user_id) VALUES ('MyTeam', 'empty', 1);
+-- 新版RAP可以自建团队，不需要插入默认团队了。
+-- RAP v0.11.5+ users can create teams by their own, so there's no need to set default team.

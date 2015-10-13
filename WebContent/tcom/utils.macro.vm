@@ -506,8 +506,19 @@ baidu.dom.ready(function (){
  * @desc : includeNewRapStatic 新版统一引入静态资源 
  *#
 #macro (includeNewRapStatic)
-<link rel="stylesheet" href="${staticRoot}/bootstrap3/css/bootstrap.css?_r=$!timeStamp" type="text/css" media="screen">
-<link rel="stylesheet" href="${staticRoot}/bootstrap3/css/bootstrap-theme.css?_r=$!timeStamp" type="text/css" media="screen">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
+<link rel="stylesheet" href="${staticRoot}/bootstrap/css/bootstrap.min.css?_r=$!timeStamp">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
 <link rel="stylesheet" href="${staticRoot}/css/rap.template.css?_r=$!timeStamp" type="text/css" media="screen">
 <link rel="stylesheet" href="${staticRoot}/js/ui/floater/css/floater.css?_r=$!timeStamp" type="text/css">
 <script type="text/javascript" src="${staticRoot}/js/core/jquery-2.1.4.min.js?_r=$!timeStamp"></script>
@@ -515,7 +526,7 @@ baidu.dom.ready(function (){
 <script type="text/javascript" src="${staticRoot}/js/core/tangram-fix.js?_r=$!timeStamp"></script>
 <script type="text/javascript" src="${staticRoot}/js/base.js?_r=$!timeStamp"></script>
 <script type="text/javascript" src="${staticRoot}/js/routes.js?_r=$!timeStamp"></script>
-<script type="text/javascript" src="${staticRoot}/bootstrap3/js/bootstrap.js?_r=$!timeStamp"></script>
+<script type="text/javascript" src="${staticRoot}/bootstrap/js/bootstrap.min.js?_r=$!timeStamp"></script>
 <script type="text/javascript" src="${staticRoot}/js/core/ecui-1.1.0-br.js?_r=$!timeStamp"></script>
 <script type="text/javascript" src="${staticRoot}/js/ui/floater/js/floater.js?_r=$!timeStamp"></script>
 <script type="text/javascript" src="${staticRoot}/js/core/rap.js?_r=$!timeStamp"></script>

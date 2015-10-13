@@ -1,9 +1,8 @@
 
 # RAP API Management System ![](https://sourcegraph.com/api/repos/github.com/thx/RAP/.counters/views-24h.png)
 
-### ADS
-* 阿里妈妈UED团队怒招优秀前端，我们是超专业的FE!!! 欢迎投递简历至：[bosn@outlook.com](mailto:bosn@outlook.com)
-* 其它THX开源工具: [http://thx.github.io/](http://thx.github.io/)
+* THX开源工具集: [http://thx.github.io/](http://thx.github.io/)
+* 作者微博：[@Bosn](http://weibo.com/bosn)
 
 ### DEMO
 
@@ -46,10 +45,10 @@ RAP可以帮助web工程师更高效的管理接口文档，同时通过这些�
  
 ## About
 
-    @version     v0.11.4
+    @version     v0.11.5
     @author      @bosn @wangjeaf
     @director    @limu @xinglie
-    @update      7/21/2015
+    @update      Oct. 13th 2015
     @dependency  MockJS(@nuysoft)
 
 ## Contact
