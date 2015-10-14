@@ -75,8 +75,8 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 	}
 
 	@Override
-	public int addProductionList(ProductionLine productionLine) {
-		return organizationDao.addProductionList(productionLine);
+	public int addProductionLine(ProductionLine productionLine) {
+		return organizationDao.addProductionLine(productionLine);
 	}
 
 	@Override
@@ -171,6 +171,20 @@ public class OrganizationMgrImpl implements OrganizationMgr {
             }
         }
         return false;
+    }
+
+    @Override
+    public int addTeam(Corporation team) {
+        int corpId = organizationDao.addCorporation(team);
+        for (String account : team.getAccountList()) {
+            User u = accountMgr.getUser(account);
+            if (u.getId() == team.getUserId()) {
+                // if the user is creator, there's no need to add again
+                continue;
+            }
+            organizationDao.addUserToCorp(corpId, u.getId(), 3); // 3, normal member
+        }
+        return corpId;
     }
 
 }

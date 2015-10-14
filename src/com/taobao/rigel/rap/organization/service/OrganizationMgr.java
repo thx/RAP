@@ -56,7 +56,7 @@ public interface OrganizationMgr {
 	 * 
 	 * @param productionLine
 	 */
-	int addProductionList(ProductionLine productionLine);
+	int addProductionLine(ProductionLine productionLine);
 
 	/**
 	 * remove group
@@ -138,5 +138,13 @@ public interface OrganizationMgr {
      * @return
      */
     boolean canUserAccessPage(int userId, int pageId);
+
+    /**
+     * add new team
+     *
+     * @param team
+     * @return id
+     */
+    int addTeam(Corporation team);
 
 }

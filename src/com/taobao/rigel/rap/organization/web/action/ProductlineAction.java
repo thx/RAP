@@ -77,7 +77,7 @@ public class ProductlineAction extends ActionBase {
 		line.setName(name);
 		line.setUserId((int) getCurUserId());
 		line.setCorporationId(corpId);
-		int id = organizationMgr.addProductionList(line);
+		int id = organizationMgr.addProductionLine(line);
 		Map<String, Object> p = new HashMap<String, Object>();
 		p.put("id", id);
 		p.put("name", name);

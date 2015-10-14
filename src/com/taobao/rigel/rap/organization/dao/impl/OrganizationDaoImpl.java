@@ -1,20 +1,17 @@
 package com.taobao.rigel.rap.organization.dao.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.dao.AccountDao;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.bo.Group;
 import com.taobao.rigel.rap.organization.bo.ProductionLine;
 import com.taobao.rigel.rap.organization.dao.OrganizationDao;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrganizationDaoImpl extends HibernateDaoSupport implements
 		OrganizationDao {
@@ -59,7 +56,7 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
 	}
 
 	@Override
-	public int addProductionList(ProductionLine productionLine) {
+	public int addProductionLine(ProductionLine productionLine) {
 		Object s = getSession().save(productionLine);
 		return (Integer)s;
 	}
@@ -134,7 +131,7 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
         List<Object []> list = query.list();
         List<User> resultList = new ArrayList<User>();
         for (Object[] row : list) {
-            int userId = (Integer)row[0];
+            long userId = (Long)row[0];
             User user = accountDao.getUser(userId);
             if (user != null) {
                 resultList.add(user);
@@ -144,26 +141,26 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     }
 
     @Override
-    public void addUserToCorp(int corpId, int userId, int roleId) {
+    public void addUserToCorp(int corpId, long userId, int roleId) {
         Query query = getSession().createSQLQuery("INSERT INTO tb_corporation_and_user (corporation_id, user_id, roleId) VALUES (:corpId, :userId, :roleId)");
         query.setInteger("corpId", corpId)
-                .setInteger("userId", userId)
+                .setLong("userId", userId)
                 .setInteger("roleId", roleId);
         query.executeUpdate();
     }
 
     @Override
-    public boolean isUserInCorp(int userId, int corpId) {
+    public boolean isUserInCorp(long userId, int corpId) {
         Query query = getSession().createSQLQuery("SELECT COUNT(*) FROM tb_corporation_and_user WHERE user_id = :userId AND corporation_id = :corpId");
-        query.setInteger("userId", userId).setInteger("corpId", corpId);
+        query.setLong("userId", userId).setInteger("corpId", corpId);
         int num = Integer.parseInt(query.uniqueResult().toString());
         return num > 0;
     }
 
     @Override
-    public int getUserRoleInCorp(int userId, int corpId) {
+    public int getUserRoleInCorp(long userId, int corpId) {
         Query query = getSession().createSQLQuery("SELECT role_id FROM tb_corporation_and_user WHERE user_id = :userId AND corporation_id = :corpId");
-        query.setInteger("userId", userId).setInteger("corpId", corpId);
+        query.setLong("userId", userId).setInteger("corpId", corpId);
         return Integer.parseInt(query.uniqueResult().toString());
     }
 
@@ -188,7 +185,7 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     }
 
     @Override
-    public List<Corporation> getCorporationListWithPage(int userId, int pageNum, int pageSize) {
+    public List<Corporation> getCorporationListWithPage(long userId, int pageNum, int pageSize) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT c.id ")
                 .append("FROM tb_corporation c")
@@ -197,7 +194,7 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
                 .append("LIMIT :startIndex, :pageSize");
 
         Query query = getSession().createSQLQuery(sql.toString());
-        query.setInteger("userId", userId);
+        query.setLong("userId", userId);
         query.setInteger("startIndex", (pageNum - 1) * pageSize);
         query.setInteger("pageSize", pageSize);
 
@@ -208,6 +205,12 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
             resultList.add(row);
         }
         return resultList;
+    }
+
+    @Override
+    public int addCorporation(Corporation corporation) {
+        Object s = getSession().save(corporation);
+        return (Integer)s;
     }
 
     @Override

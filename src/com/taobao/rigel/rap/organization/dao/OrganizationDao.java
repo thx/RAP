@@ -41,7 +41,7 @@ public interface OrganizationDao {
 	 * 
 	 * @param productionLine
 	 */
-	int addProductionList(ProductionLine productionLine);
+	int addProductionLine(ProductionLine productionLine);
 
 	/**
 	 * remove group
@@ -118,7 +118,7 @@ public interface OrganizationDao {
      * @param userId
      * @param roleId
      */
-    void addUserToCorp(int corpId, int userId, int roleId);
+    void addUserToCorp(int corpId, long userId, int roleId);
 
     /**
      * check if user in corporation
@@ -127,7 +127,7 @@ public interface OrganizationDao {
      * @param corpId
      * @return
      */
-    boolean isUserInCorp(int userId, int corpId);
+    boolean isUserInCorp(long userId, int corpId);
 
     /**
      * get user role in corporation
@@ -136,7 +136,7 @@ public interface OrganizationDao {
      * @param corpId
      * @return roleId
      */
-    int getUserRoleInCorp(int userId, int corpId);
+    int getUserRoleInCorp(long userId, int corpId);
 
     /**
      * get corporation list
@@ -151,5 +151,12 @@ public interface OrganizationDao {
      * @param userId
      * @return
      */
-    List<Corporation> getCorporationListWithPage(int userId, int pageNum, int pageSize);
+    List<Corporation> getCorporationListWithPage(long userId, int pageNum, int pageSize);
+
+    /**
+     * add new corporation
+     *
+     * @param corporation
+     */
+    int addCorporation(Corporation corporation);
 }

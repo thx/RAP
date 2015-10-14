@@ -1,10 +1,40 @@
 package com.taobao.rigel.rap.organization.bo;
 
+import java.util.List;
+
 public class Corporation {
 	private int id;
 	private String logoUrl;
-	private int userId;
+	private long userId;
 	private String name;
+    private List<String> accountList;
+    private short typeId;
+
+    public List<String> getAccountList() {
+        return accountList;
+    }
+
+    public void setAccountList(List<String> accountList) {
+        this.accountList = accountList;
+    }
+
+    public short getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(short typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    private String desc;
 
     public short getAccessType() {
         return accessType;
@@ -32,11 +62,11 @@ public class Corporation {
 		this.logoUrl = logoUrl;
 	}
 
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
