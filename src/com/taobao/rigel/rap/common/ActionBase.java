@@ -99,7 +99,8 @@ public class ActionBase extends ActionSupport {
 		return isUserLogined() ? ContextManager.getSession()
 				.get(ContextManager.KEY_ACCOUNT).toString() : null;
 	}
-	
+
+    /**
 	public String getCurCorpName() {
 		Object nameObj = ContextManager.getSession().get(ContextManager.KEY_CORP_NAME);
 		String name = null;
@@ -111,6 +112,7 @@ public class ActionBase extends ActionSupport {
 		}
 		return name;
 	}
+     */
 
 	public boolean getIsLogined() {
 		return isUserLogined();

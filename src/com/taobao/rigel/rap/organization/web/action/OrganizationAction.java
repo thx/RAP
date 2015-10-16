@@ -21,6 +21,16 @@ public class OrganizationAction extends ActionBase {
 	private int plid;
 	private int id;
 
+    public Corporation getCorporation() {
+        return corporation;
+    }
+
+    public void setCorporation(Corporation corporation) {
+        this.corporation = corporation;
+    }
+
+    private Corporation corporation;
+
 	public int getId() {
 		return id;
 	}
@@ -76,11 +86,13 @@ public class OrganizationAction extends ActionBase {
 
 	@SuppressWarnings("unchecked")
 	public String productline() {
-		Corporation c = organizationMgr.getCorporation(id);
+        /**
 		if (c != null) {
 			ContextManager.getSession().put(ContextManager.KEY_CORP_NAME,
 					c.getName());
 		}
+         */
+        setCorporation(organizationMgr.getCorporation(id));
 		return SUCCESS;
 	}
 

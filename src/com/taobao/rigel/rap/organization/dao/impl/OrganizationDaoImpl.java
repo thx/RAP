@@ -188,21 +188,21 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     @Override
     public List<Corporation> getCorporationListWithPage(long userId, int pageNum, int pageSize) {
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT c.id ")
-                .append("FROM tb_corporation c")
+        sql.append("SELECT DISTINCT c.id ")
+                .append("FROM tb_corporation c ")
                 .append("JOIN tb_corporation_and_user u ON u.corporation_id = c.id ")
-                .append("WHERE u.id = :userId ")
-                .append("LIMIT :startIndex, :pageSize");
+                .append("WHERE c.id = :userId ")
+                .append("LIMIT :startIndex, :pageSize ");
 
         Query query = getSession().createSQLQuery(sql.toString());
         query.setLong("userId", userId);
-        query.setInteger("startIndex", (pageNum - 1) * pageSize);
-        query.setInteger("pageSize", pageSize);
+        query.setLong("startIndex", (pageNum - 1) * pageSize);
+        query.setLong("pageSize", pageSize);
 
-        List<Object []> list = query.list();
+        List<Integer> list = query.list();
         List<Corporation> resultList = new ArrayList<Corporation>();
-        for (Object[] rows : list) {
-            Corporation row = getCorporation((Integer)rows[0]);
+        for (int id : list) {
+            Corporation row = getCorporation(id);
             resultList.add(row);
         }
         return resultList;

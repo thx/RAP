@@ -530,7 +530,7 @@ public class Project implements java.io.Serializable {
         return list;
     }
 
-    public boolean isUserMember(int userId) {
+    public boolean isUserMember(long userId) {
         if (getUserId() == userId) return true;
         for (User u : getUserList()) {
             if (u.getId() == userId) return true;

@@ -28,7 +28,7 @@ public interface OrganizationMgr {
      * @param userId
      * @return
      */
-    List<Corporation> getCorporationListWithPage(int userId, int pageNum, int pageSize);
+    List<Corporation> getCorporationListWithPage(long userId, int pageNum, int pageSize);
 
 	/**
 	 * get group list
@@ -110,7 +110,7 @@ public interface OrganizationMgr {
      * @param corpId
      * @return
      */
-    boolean canUserAccessCorp(int userId, int corpId);
+    boolean canUserAccessCorp(long userId, int corpId);
 
     /**
      * can user manage corporation
@@ -119,7 +119,7 @@ public interface OrganizationMgr {
      * @param corpId
      * @return
      */
-    boolean canUserManageCorp(int userId, int corpId);
+    boolean canUserManageCorp(long userId, int corpId);
 
     /**
      * can user access project
@@ -128,7 +128,7 @@ public interface OrganizationMgr {
      * @param projectId
      * @return
      */
-    boolean canUserAccessProject(int userId, int projectId);
+    boolean canUserAccessProject(long userId, int projectId);
 
     /**
      * can user access page
@@ -137,7 +137,7 @@ public interface OrganizationMgr {
      * @param pageId
      * @return
      */
-    boolean canUserAccessPage(int userId, int pageId);
+    boolean canUserAccessPage(long userId, int pageId);
 
     /**
      * add new team

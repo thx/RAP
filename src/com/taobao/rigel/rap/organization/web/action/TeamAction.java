@@ -5,6 +5,7 @@ import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Bosn on 15/10/14.
@@ -13,6 +14,12 @@ public class TeamAction extends ActionBase {
 
     private String name;
     private String accountList;
+
+    public List<Corporation> getTeamList() {
+        return teamList;
+    }
+
+    private List<Corporation> teamList;
 
     public short getAccessType() {
         return accessType;
@@ -68,7 +75,13 @@ public class TeamAction extends ActionBase {
         team.setDesc(desc);
         team.setAccessType(accessType);
         team.setLogoUrl("");
-        organizationMgr.addTeam(team);
+        int id = organizationMgr.addTeam(team);
+        setJson("{\"id\":" + id + "}");
+        return SUCCESS;
+    }
+
+    public String teams() {
+        teamList = organizationMgr.getCorporationListWithPage(getCurUserId(), 1, 100);
         return SUCCESS;
     }
 }

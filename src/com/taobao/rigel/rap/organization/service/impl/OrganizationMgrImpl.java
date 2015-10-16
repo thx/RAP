@@ -55,7 +55,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
     @Override
-    public List<Corporation> getCorporationListWithPage(int userId, int pageNum, int pageSize) {
+    public List<Corporation> getCorporationListWithPage(long userId, int pageNum, int pageSize) {
         return organizationDao.getCorporationListWithPage(userId, pageNum, pageSize);
     }
 
@@ -133,7 +133,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 	}
 
     @Override
-    public boolean canUserAccessCorp(int userId, int corpId) {
+    public boolean canUserAccessCorp(long userId, int corpId) {
         Corporation c = getCorporation(corpId);
         if (c == null) return false;
         if (c.getUserId() == userId) return true;
@@ -143,7 +143,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
     @Override
-    public boolean canUserManageCorp(int userId, int corpId) {
+    public boolean canUserManageCorp(long userId, int corpId) {
         int roleId = organizationDao.getUserRoleInCorp(userId, corpId);
         Corporation c = getCorporation(corpId);
         return (roleId >= 1 && roleId <= 2 || userId == c.getUserId());
@@ -151,7 +151,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
     @Override
-    public boolean canUserAccessProject(int userId, int projectId) {
+    public boolean canUserAccessProject(long userId, int projectId) {
         User u = accountMgr.getUser(userId);
         Project p = projectMgr.getProject(projectId);
 
@@ -159,7 +159,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
     @Override
-    public boolean canUserAccessPage(int userId, int pageId) {
+    public boolean canUserAccessPage(long userId, int pageId) {
         Page page = projectMgr.getPage(pageId);
         if (page != null) {
             Module module = page.getModule();
@@ -177,6 +177,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     public int addTeam(Corporation team) {
         int corpId = organizationDao.addCorporation(team);
         for (String account : team.getAccountList()) {
+            if (account == null || account.trim().isEmpty()) continue;
             User u = accountMgr.getUser(account);
             if (u.getId() == team.getUserId()) {
                 // if the user is creator, there's no need to add again

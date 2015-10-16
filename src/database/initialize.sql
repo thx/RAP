@@ -380,6 +380,7 @@ CREATE TABLE tb_corporation
 	user_id int(10) NULL,
   access_type TINYINT NOT NULL COMMENT '权限控制, 10普通, 20公开'
     DEFAULT 10,
+  `desc` text NOT NULL COMMENT '备注',
 
 	FOREIGN KEY(user_id) REFERENCES tb_user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

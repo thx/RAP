@@ -23,7 +23,7 @@
         <li><a href="$newUrl.home">主页</a></li>
         <li class="dropdown">
             #if($corpList.size() > 0)
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">$curCorpName <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">团队 <b class="caret"></b></a>
             #else
                <a href="#" onclick="_createTeam();"><span class="glyphicon glyphicon-plus"></span>创建团队</a>
             #end
@@ -31,7 +31,7 @@
             #foreach($corp in $corpList)
              <li><a href="$projectUrl.allProductlineList?id=$corp.id">$corp.name</a></li>
             #end
-              <li><button onclick="_createTeam();" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span>创建团队</button></li>
+              <li style="text-align:center;"><button onclick="_createTeam();" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span>创建团队</button></li>
           </ul>
         </li>
         <!-- <li><a href="$projectUrl.myProjectList">我的项目</a></li>
@@ -314,8 +314,8 @@
                     accessType : isPrivate ? 10 : 20,
                     accountList : pickedUserList.join(',')
                 }, function(data) {
-
                     modal.modal('hide');
+                    window.location.href = "$orgUrl.productline" + "?id=" + data.id
                 }, "JSON");
             }
         });

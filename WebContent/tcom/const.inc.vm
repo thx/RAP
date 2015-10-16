@@ -76,3 +76,7 @@
 #set($testerUrl = {
     "pageTester":"$projectContext/tester/pageTester.action"
 })
+#set($orgUrl = {
+    "teams" : "$projectContext/org/team/teams.do",
+    "productline" : "$projectContext/org/productline.do"
+})

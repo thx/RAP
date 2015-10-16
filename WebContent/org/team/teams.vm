@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+    #parse('/tcom/template.rap.vm')
+<html>
+<head>
+    <title>欢迎使用RAP        </title>
+    #includeNewRapStatic
+</head>
+<body>
+#bodyNewStart
+<table class="table table-hover">
+    <thead>
+        <th>团队名称</th>
+        <th>人数</th>
+        <th>操作</th>
+    </thead>
+    <tbody>
+        #foreach($item in $teamList)
+        <tr>
+            <td>$!utils.escapeInH($item.name)</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+        #end
+    </tbody>
+</table>
+#bodyEnd
+</body>
+</html>
