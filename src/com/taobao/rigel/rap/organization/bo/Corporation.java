@@ -8,7 +8,6 @@ public class Corporation {
 	private long userId;
 	private String name;
     private List<String> accountList;
-    private short typeId;
 
     public List<String> getAccountList() {
         return accountList;
@@ -16,14 +15,6 @@ public class Corporation {
 
     public void setAccountList(List<String> accountList) {
         this.accountList = accountList;
-    }
-
-    public short getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(short typeId) {
-        this.typeId = typeId;
     }
 
     public String getDesc() {

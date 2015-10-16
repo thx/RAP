@@ -26,8 +26,7 @@
     </package>
 
     <package name="team" extends="rap-default" namespace="/org/team">
-        <action name="create" class="com.taobao.rigel.rap.organization.web.action.TeamAction"
-                method="create">
+        <action name="create" class="com.taobao.rigel.rap.organization.web.action.TeamAction" method="create">
             <result name="success" type="velocity">/bcom/json.cb.vm</result>
         </action>
     </package>

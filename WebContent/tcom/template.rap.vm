@@ -311,7 +311,7 @@
                 $.post($.route('org.team.create'), {
                     name : name,
                     desc : desc,
-                    typeId : isPrivate ? 10 : 20,
+                    accessType : isPrivate ? 10 : 20,
                     accountList : pickedUserList.join(',')
                 }, function(data) {
 

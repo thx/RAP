@@ -10,6 +10,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,7 +143,7 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
 
     @Override
     public void addUserToCorp(int corpId, long userId, int roleId) {
-        Query query = getSession().createSQLQuery("INSERT INTO tb_corporation_and_user (corporation_id, user_id, roleId) VALUES (:corpId, :userId, :roleId)");
+        Query query = getSession().createSQLQuery("INSERT INTO tb_corporation_and_user (corporation_id, user_id, role_id) VALUES (:corpId, :userId, :roleId)");
         query.setInteger("corpId", corpId)
                 .setLong("userId", userId)
                 .setInteger("roleId", roleId);
@@ -208,16 +209,21 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     }
 
     @Override
-    public int addCorporation(Corporation corporation) {
-        Object s = getSession().save(corporation);
-        return (Integer)s;
+    public int addCorporation(Corporation c) {
+        Session session = getSession();
+        Query query = session.createSQLQuery("INSERT INTO tb_corporation (`name`, logo_url, user_id, access_type, `desc`) VALUES (:name, :logoUrl, :userId, :accessType, :desc)");
+        query.setString("name", c.getName());
+        query.setString("logoUrl", c.getLogoUrl());
+        query.setLong("userId", c.getUserId());
+        query.setShort("accessType", c.getAccessType());
+        query.setString("desc", c.getDesc());
+        query.executeUpdate();
+
+        return Integer.parseInt(session.createSQLQuery("SELECT LAST_INSERT_ID()").uniqueResult().toString());
     }
 
     @Override
 	public Corporation getCorporation(int id) {
         return (Corporation) getSession().get(Corporation.class, id);
 	}
-
-
-
 }
