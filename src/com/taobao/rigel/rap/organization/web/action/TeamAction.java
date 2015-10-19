@@ -1,6 +1,7 @@
 package com.taobao.rigel.rap.organization.web.action;
 
 import com.taobao.rigel.rap.common.ActionBase;
+import com.taobao.rigel.rap.common.SystemConstant;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 
@@ -14,6 +15,16 @@ public class TeamAction extends ActionBase {
 
     private String name;
     private String accountList;
+    private long teamListNum;
+
+    public int getPageNum() {
+        if (pageNum > 0)
+            return pageNum;
+        else
+            return 1;
+    }
+
+    private int pageNum;
 
     public List<Corporation> getTeamList() {
         return teamList;
@@ -81,7 +92,22 @@ public class TeamAction extends ActionBase {
     }
 
     public String teams() {
-        teamList = organizationMgr.getCorporationListWithPage(getCurUserId(), 1, 100);
+        long userId = getCurUserId();
+        teamList = organizationMgr.getCorporationListWithPager(userId, getPageNum(), SystemConstant.DEFAULT_PAGE_SIZE);
+        teamListNum = organizationMgr.getCorporationListWithPagerNum(userId);
         return SUCCESS;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public long getTeamListNum() {
+        return teamListNum;
+    }
+
+    public long getTeamListPageInTotal() {
+        double result =  Math.floor(teamListNum / SystemConstant.DEFAULT_PAGE_SIZE + 1);
+        return (long) result;
     }
 }

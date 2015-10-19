@@ -23,7 +23,7 @@ public class ActionBase extends ActionSupport {
 	private int num;
 
 	public List<Corporation> getCorpList() {
-		return accountMgr.getCorporationList();
+		return accountMgr.getCorporationListWithPager(getCurUserId(), 1, 20);
 	}
 
 	public int getNum() {
@@ -52,16 +52,6 @@ public class ActionBase extends ActionSupport {
 		this.returnUrl = returnUrl;
 	}
 
-	private Pager pager;
-
-	public Pager getPager() {
-		return pager;
-	}
-
-	public void setPager(Pager pager) {
-		this.pager = pager;
-	}
-
     public Long getServerTime() {
         return new Date().getTime();
     }
@@ -72,18 +62,6 @@ public class ActionBase extends ActionSupport {
      */
     public void setSeed(int seed) {
     }
-
-	protected void initPager() {
-		if (getPager() == null) {
-			setPager(new Pager());
-		}
-		if (getPager().getCurPagerNum() == 0) {
-			getPager().setCurPagerNum(SystemConstant.FIRST_PAGE_NUM);
-		}
-		if (getPager().getPagerSize() == 0) {
-			getPager().setPagerSize(SystemConstant.DEFAULT_PAGE_NUM);
-		}
-	}
 
 	private AccountMgr accountMgr;
 
@@ -100,20 +78,6 @@ public class ActionBase extends ActionSupport {
 				.get(ContextManager.KEY_ACCOUNT).toString() : null;
 	}
 
-    /**
-	public String getCurCorpName() {
-		Object nameObj = ContextManager.getSession().get(ContextManager.KEY_CORP_NAME);
-		String name = null;
-		if (nameObj != null) {
-			name = nameObj.toString();
-		}
-		if (name == null || name.isEmpty()) {
-			return "团队";
-		}
-		return name;
-	}
-     */
-
 	public boolean getIsLogined() {
 		return isUserLogined();
 	}
@@ -122,7 +86,6 @@ public class ActionBase extends ActionSupport {
 		return ContextManager.getSession().get(ContextManager.KEY_ACCOUNT) != null;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public int getCountOfOnlineUserList() {
 		Map app = ContextManager.getApplication();
 		String key = ContextManager.KEY_COUNT_OF_ONLINE_USER_LIST;

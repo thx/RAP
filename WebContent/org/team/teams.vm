@@ -23,6 +23,24 @@
         #end
     </tbody>
 </table>
+<nav>
+    <ul class="pagination pagination-sm">
+        <li  #if($pageNum==1)
+                class="disabled" onclick="return false;"
+        #end><a href="$orgUrl.teams?pageNum=1" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+        #foreach($curPageNum in [1..$teamListPageInTotal])
+            #if($pageNum==$curPageNum)
+                <li class="active"><a href="#">$curPageNum <span class="sr-only">(current)</span></a></li>
+            #else
+                <li><a href="$orgUrl.teams?pageNum=$!curPageNum">$curPageNum</a></li>
+            #end
+
+        #end
+        <li #if($pageNum==$teamListPageInTotal)
+                class="disabled" onclick="return false;"
+            #end><a href="$orgUrl.teams?pageNum=$!teamListPageInTotal" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+    </ul>
+</nav>
 #bodyEnd
 </body>
 </html>

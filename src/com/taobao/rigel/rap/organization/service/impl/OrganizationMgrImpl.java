@@ -55,8 +55,18 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
     @Override
-    public List<Corporation> getCorporationListWithPage(long userId, int pageNum, int pageSize) {
-        return organizationDao.getCorporationListWithPage(userId, pageNum, pageSize);
+    public long getCorporationListWithPagerNum() {
+        return  organizationDao.getCorporationListWithPagerNum();
+    }
+
+    @Override
+    public List<Corporation> getCorporationListWithPager(long userId, int pageNum, int pageSize) {
+        return organizationDao.getCorporationListWithPager(userId, pageNum, pageSize);
+    }
+
+    @Override
+    public long getCorporationListWithPagerNum(long userId) {
+        return organizationDao.getCorporationListWithPagerNum(userId);
     }
 
     @Override

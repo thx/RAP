@@ -112,6 +112,8 @@ public interface AccountMgr {
 	 */
 	List<Corporation> getCorporationList();
 
+    List<Corporation> getCorporationListWithPager(long userId, int pageNum, int pageSize);
+
 	/**
 	 * get user by name
 	 * 

@@ -22,13 +22,29 @@ public interface OrganizationMgr {
      */
     List<Corporation> getCorporationListWithPager(int pageNum, int pageSize);
 
+
+    /**
+     * get corporation list
+     *
+     * @return
+     */
+    long getCorporationListWithPagerNum ();
+
     /**
      * get corporation list of user
      *
      * @param userId
      * @return
      */
-    List<Corporation> getCorporationListWithPage(long userId, int pageNum, int pageSize);
+    List<Corporation> getCorporationListWithPager(long userId, int pageNum, int pageSize);
+
+    /**
+     * get corporation list of user num
+     *
+     * @param userId
+     * @return
+     */
+    long getCorporationListWithPagerNum(long userId);
 
 	/**
 	 * get group list

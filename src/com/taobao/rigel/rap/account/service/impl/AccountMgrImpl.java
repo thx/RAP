@@ -138,6 +138,11 @@ public class AccountMgrImpl implements AccountMgr {
 		return organizationMgr.getCorporationList();
 	}
 
+    @Override
+    public List<Corporation> getCorporationListWithPager(long userId, int pageNum, int pageSize) {
+        return organizationMgr.getCorporationListWithPager(userId, pageNum, pageSize);
+    }
+
 	@Override
 	public User getUserByName(String name) {
 		return accountDao.getUserByName(name);

@@ -31,7 +31,9 @@
             #foreach($corp in $corpList)
              <li><a href="$projectUrl.allProductlineList?id=$corp.id">$corp.name</a></li>
             #end
-              <li style="text-align:center;"><button onclick="_createTeam();" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span>创建团队</button></li>
+              <div style="clear:both;"></div>
+              <li style="text-align:center;"><button onclick="window.location.href = '$orgUrl.teams';" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span>全部团队</button></li>
+              <li style="text-align:center;"><button onclick="_createTeam();" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span>创建团队</button></li>
           </ul>
         </li>
         <!-- <li><a href="$projectUrl.myProjectList">我的项目</a></li>

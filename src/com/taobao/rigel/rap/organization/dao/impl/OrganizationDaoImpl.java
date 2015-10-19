@@ -186,7 +186,18 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     }
 
     @Override
-    public List<Corporation> getCorporationListWithPage(long userId, int pageNum, int pageSize) {
+    public long getCorporationListWithPagerNum() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT COUNT(*) ")
+                .append("FROM tb_corporation c");
+
+        Query query = getSession().createSQLQuery(sql.toString());
+
+        return Long.parseLong(query.uniqueResult().toString());
+    }
+
+    @Override
+    public List<Corporation> getCorporationListWithPager(long userId, int pageNum, int pageSize) {
         StringBuilder sql = new StringBuilder();
         sql
                 .append("SELECT DISTINCT cid FROM ( ")
@@ -213,6 +224,25 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
             resultList.add(row);
         }
         return resultList;
+    }
+
+    @Override
+    public long getCorporationListWithPagerNum(long userId) {
+        StringBuilder sql = new StringBuilder();
+        sql
+                .append("SELECT COUNT(DISTINCT cid) FROM ( ")
+                .append("   SELECT c.id AS cid ")
+                .append("       FROM tb_corporation c ")
+                .append("       JOIN tb_corporation_and_user u ON u.corporation_id = c.id ")
+                .append("       WHERE c.id = :userId ")
+                .append("   UNION ")
+                .append("   SELECT id AS cid FROM tb_corporation ")
+                .append("   WHERE user_id = :userId ")
+                .append(") AS TEMP ");
+
+        Query query = getSession().createSQLQuery(sql.toString());
+        query.setLong("userId", userId);
+        return Long.parseLong(query.uniqueResult().toString());
     }
 
     @Override
