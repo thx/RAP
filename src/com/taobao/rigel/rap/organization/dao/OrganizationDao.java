@@ -174,4 +174,12 @@ public interface OrganizationDao {
      * @param corporation
      */
     int addCorporation(Corporation corporation);
+
+    /**
+     * get number of member in specific corporation
+     *
+     * @param corpId
+     * @return
+     */
+    long getMemberNumOfCorporation(int corpId);
 }

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+    #parse('/tcom/template.rap.vm')
+<html>
+<head>
+    <title>欢迎使用RAP        </title>
+    #includeNewRapStatic
+</head>
+<body>
+#bodyNewStart
+
+团队管理页面 is here...
+
+#bodyEnd
+</body>
+</html>

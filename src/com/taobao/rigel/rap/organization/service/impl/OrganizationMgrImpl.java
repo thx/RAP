@@ -61,7 +61,16 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
     @Override
     public List<Corporation> getCorporationListWithPager(long userId, int pageNum, int pageSize) {
-        return organizationDao.getCorporationListWithPager(userId, pageNum, pageSize);
+        List<Corporation> list = organizationDao.getCorporationListWithPager(userId, pageNum, pageSize);
+
+        for (Corporation c : list) {
+           long memberNum = organizationDao.getMemberNumOfCorporation(c.getId());
+            c.setMemberNum(memberNum);
+            c.setHasAccess(canUserManageCorp(userId, c.getId()));
+            c.setCreatorName(accountMgr.getUser(c.getUserId()).getName());
+        }
+
+        return list;
     }
 
     @Override
@@ -155,8 +164,9 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     @Override
     public boolean canUserManageCorp(long userId, int corpId) {
         int roleId = organizationDao.getUserRoleInCorp(userId, corpId);
-        Corporation c = getCorporation(corpId);
-        return (roleId >= 1 && roleId <= 2 || userId == c.getUserId());
+        return (roleId >= 1 && roleId <= 2 ||
+                userId == getCorporation(corpId).getUserId()) ||
+                accountMgr.getUser(userId).isAdmin();
 
     }
 

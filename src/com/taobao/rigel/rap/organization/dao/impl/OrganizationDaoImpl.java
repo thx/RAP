@@ -162,7 +162,11 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     public int getUserRoleInCorp(long userId, int corpId) {
         Query query = getSession().createSQLQuery("SELECT role_id FROM tb_corporation_and_user WHERE user_id = :userId AND corporation_id = :corpId");
         query.setLong("userId", userId).setInteger("corpId", corpId);
-        return Integer.parseInt(query.uniqueResult().toString());
+        Object result = query.uniqueResult();
+        if (result == null) {
+            return -1;
+        }
+        return Integer.parseInt(result.toString());
     }
 
     @Override
@@ -204,7 +208,7 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
                 .append("   SELECT c.id AS cid ")
                 .append("       FROM tb_corporation c ")
                 .append("       JOIN tb_corporation_and_user u ON u.corporation_id = c.id ")
-                .append("       WHERE c.id = :userId ")
+                .append("       WHERE u.user_id = :userId ")
                 .append("   UNION ")
                 .append("   SELECT id AS cid FROM tb_corporation ")
                 .append("   WHERE user_id = :userId ")
@@ -257,6 +261,16 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
         query.executeUpdate();
 
         return Integer.parseInt(session.createSQLQuery("SELECT LAST_INSERT_ID()").uniqueResult().toString());
+    }
+
+    @Override
+    public long getMemberNumOfCorporation(int corpId) {
+       String sql = "SELECT COUNT(DISTINCT cu.user_id) FROM tb_corporation c JOIN tb_corporation_and_user cu ON cu.corporation_id = c.id WHERE c.id = :corpId";
+
+        Query query = getSession().createSQLQuery(sql);
+        query.setInteger("corpId", corpId);
+
+        return Long.parseLong(query.uniqueResult().toString());
     }
 
     @Override

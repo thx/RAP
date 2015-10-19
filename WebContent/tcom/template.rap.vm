@@ -32,7 +32,7 @@
              <li><a href="$projectUrl.allProductlineList?id=$corp.id">$corp.name</a></li>
             #end
               <div style="clear:both;"></div>
-              <li style="text-align:center;"><button onclick="window.location.href = '$orgUrl.teams';" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span>全部团队</button></li>
+              <li style="text-align:center;"><button onclick="window.location.href = '$teamUrl.teams';" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span>全部团队</button></li>
               <li style="text-align:center;"><button onclick="_createTeam();" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span>创建团队</button></li>
           </ul>
         </li>
@@ -317,7 +317,7 @@
                     accountList : pickedUserList.join(',')
                 }, function(data) {
                     modal.modal('hide');
-                    window.location.href = "$orgUrl.productline" + "?id=" + data.id
+                    window.location.href = "$productlineUrl.productline" + "?id=" + data.id
                 }, "JSON");
             }
         });

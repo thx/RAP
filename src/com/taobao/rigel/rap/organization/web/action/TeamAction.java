@@ -110,4 +110,8 @@ public class TeamAction extends ActionBase {
         double result =  Math.floor(teamListNum / SystemConstant.DEFAULT_PAGE_SIZE + 1);
         return (long) result;
     }
+
+    public String manage() {
+        return SUCCESS;
+    }
 }

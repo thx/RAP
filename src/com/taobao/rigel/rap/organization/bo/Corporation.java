@@ -8,6 +8,8 @@ public class Corporation {
 	private long userId;
 	private String name;
     private List<String> accountList;
+    private long memberNum;
+    private String creatorName;
 
     public List<String> getAccountList() {
         return accountList;
@@ -68,4 +70,30 @@ public class Corporation {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+    public long getMemberNum() {
+        return memberNum;
+    }
+
+    public void setMemberNum(long memberNum) {
+        this.memberNum = memberNum;
+    }
+
+    private boolean hasAccess;
+
+    public boolean isHasAccess() {
+        return hasAccess;
+    }
+
+    public void setHasAccess(boolean hasAccess) {
+        this.hasAccess = hasAccess;
+    }
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
 }

@@ -32,6 +32,9 @@
         <action name="teams" class="com.taobao.rigel.rap.organization.web.action.TeamAction" method="teams">
             <result name="success" type="velocity">/org/team/teams.vm</result>
         </action>
+        <action name="manage" class="com.taobao.rigel.rap.organization.web.action.TeamAction" method="manage">
+            <result name="success" type="velocity">/org/team/manage.vm</result>
+        </action>
     </package>
 
     <package name="productline" extends="rap-default" namespace="/org/productline">
