@@ -1,5 +1,6 @@
 package com.taobao.rigel.rap.organization.web.action;
 
+import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.SystemConstant;
 import com.taobao.rigel.rap.organization.bo.Corporation;
@@ -17,6 +18,7 @@ public class TeamAction extends ActionBase {
     private String name;
     private String accountList;
     private long teamListNum;
+    private List<User> userList;
 
     public int getPageNum() {
         if (pageNum > 0)
@@ -118,15 +120,19 @@ public class TeamAction extends ActionBase {
     }
 
     public String manage() {
+        int corpId = getId();
         if (!isUserLogined()) {
             plsLogin();
-            setRelativeReturnUrl("/org/team/manage.do?id=" + getId());
+            setRelativeReturnUrl("/org/team/manage.do?id=" + corpId);
             return LOGIN;
         }
-        if (!organizationMgr.canUserManageCorp(getCurUserId(), getId())) {
+        if (!organizationMgr.canUserManageCorp(getCurUserId(), corpId)) {
             setErrMsg("你无权访问该页面。");
             return ERROR;
         }
+
+        userList = organizationMgr.getUserLisOfCorp(corpId);
+
         return SUCCESS;
     }
 
@@ -136,5 +142,9 @@ public class TeamAction extends ActionBase {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<User> getUserList() {
+        return userList;
     }
 }

@@ -186,6 +186,29 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
     @Override
+    public List<User> getUserLisOfCorp(int corpId) {
+        List<User> list =  organizationDao.getUserLisOfCorp(corpId);
+        Corporation c = getCorporation(corpId);
+        User u = accountMgr.getUser(c.getUserId());
+        list.add(u);
+        for (User user : list) {
+            int roleId = getUserRoleInCorp(u.getId(), corpId);
+            if (user.isAdmin()) {
+                roleId = 1; // user is the RAP platform admin
+            } else if (user.getId() == c.getUserId()) {
+                roleId = 1; // user is the author
+            }
+            user.setRoleId(roleId);
+        }
+        return list;
+    }
+
+    @Override
+    public int getUserRoleInCorp(long userId, int corpId) {
+        return organizationDao.getUserRoleInCorp(userId, corpId);
+    }
+
+    @Override
     public boolean canUserAccessProject(long userId, int projectId) {
         User u = accountMgr.getUser(userId);
         Project p = projectMgr.getProject(projectId);

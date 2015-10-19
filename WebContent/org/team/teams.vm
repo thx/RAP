@@ -10,13 +10,15 @@
 <table class="table table-hover">
     <thead>
         <th>团队名称</th>
-        <th width="150px">人数</th>
+        <th width="120px">创建人</th>
+        <th width="80px">人数</th>
         <th width="200px">操作</th>
     </thead>
     <tbody>
         #foreach($item in $teamList)
         <tr>
             <td><a href="$productlineUrl.productline?id=$item.id">$!utils.escapeInH($item.name)</a></td>
+            <td>$!utils.escapeInH($item.creatorName)</td>
             <td>$item.memberNum</td>
             <td>
                 <button onclick="window.location.href = '$productlineUrl.productline?id=$item.id';" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-triangle-top"></span>进入</button>&nbsp;&nbsp;&nbsp;&nbsp;

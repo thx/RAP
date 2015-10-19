@@ -2,6 +2,7 @@ package com.taobao.rigel.rap.organization.service;
 
 import java.util.List;
 
+import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.RapError;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.bo.Group;
@@ -136,6 +137,23 @@ public interface OrganizationMgr {
      * @return
      */
     boolean canUserManageCorp(long userId, int corpId);
+
+    /**
+     * get user list of corporation
+     *
+     * @param corpId
+     * @return
+     */
+    List<User> getUserLisOfCorp(int corpId);
+
+    /**
+     * get user role in corporation
+     *
+     * @param userId
+     * @param corpId
+     * @return roleId
+     */
+    int getUserRoleInCorp(long userId, int corpId);
 
     /**
      * can user access project

@@ -26,6 +26,7 @@ public class User implements java.io.Serializable {
 	private int incorrectLoginAttempt;
 	private String realname;
     private String empId;
+    private int roleId;
 
     public String getEmpId() {
         return empId;
@@ -260,4 +261,12 @@ public class User implements java.io.Serializable {
 	public String getRealname() {
 		return this.realname;
 	}
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
 }

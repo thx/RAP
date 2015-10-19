@@ -458,7 +458,7 @@ INSERT INTO tb_role (name) VALUES ('user');
 INSERT INTO tb_user(account, password, email, create_date, last_login_date, name) VALUES
 ('admin', 'RESERVED', 'admin@example.com', NOW(), NOW(), 'admin');
 
-INSERT INTO tb_role_and_user (user_id, role_id) VALUES (1, 2);
+INSERT INTO tb_role_and_user (user_id, role_id) VALUES (1, 1);
 
 -- INSERT INTO tb_corporation (name, logo_url, user_id) VALUES ('MyTeam', 'empty', 1);
 -- 新版RAP可以自建团队，不需要插入默认团队了。

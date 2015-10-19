@@ -129,11 +129,10 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     public List<User> getUserLisOfCorp(int corpId) {
         Query query = getSession().createSQLQuery("SELECT user_id FROM tb_corporation_and_user WHERE corporation_id = :corpId");
         query.setInteger("corpId", corpId);
-        List<Object []> list = query.list();
+        List<Integer> list = query.list();
         List<User> resultList = new ArrayList<User>();
-        for (Object[] row : list) {
-            long userId = (Long)row[0];
-            User user = accountDao.getUser(userId);
+        for (Integer id : list) {
+            User user = accountDao.getUser(id);
             if (user != null) {
                 resultList.add(user);
             }

@@ -1,4 +1,10 @@
 #parse('/tcom/const.inc.vm')
+
+
+## 权限字符串
+
+#macro (getRoleStr $roleId)#if($roleId==1)超级管理员#elseif($roleId==2)管理员#else 普通用户 #end #end
+
 ## 分页
 #macro (pager $curPagerNum $pagerSize $totalNum $url)
 	<p class="list-page" id="list-page-p">

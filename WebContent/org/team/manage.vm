@@ -8,8 +8,22 @@
 <body>
 #bodyNewStart
 
-团队管理页面 is here...
-
+<table class="table table-hover">
+    <thead>
+    <th>名字</th>
+    <th>权限</th>
+    <th width="200px">操作</th>
+    </thead>
+    <tbody>
+        #foreach($item in $userList)
+        <tr>
+            <td>$!utils.escapeInH($item.name)</td>
+            <td>#getRoleStr($item.roleId)</td>
+            <td>-</td>
+        </tr>
+        #end
+    </tbody>
+</table>
 #bodyEnd
 </body>
 </html>
