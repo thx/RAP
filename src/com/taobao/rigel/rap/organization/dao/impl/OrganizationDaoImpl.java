@@ -169,6 +169,15 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     }
 
     @Override
+    public void setUserRoleInCorp(long userId, int corpId, int roleId) {
+        Query query = getSession().createSQLQuery("UPDATE tb_corporation_and_user SET role_id = :roleId WHERE user_id = :userId AND corp_id = :corpId");
+        query.setInteger("roleId", roleId);
+        query.setInteger("corpId", corpId);
+        query.setLong("userId", userId);
+        query.executeUpdate();
+    }
+
+    @Override
     public List<Corporation> getCorporationListWithPager(int pageNum, int pageSize) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT c.id ")

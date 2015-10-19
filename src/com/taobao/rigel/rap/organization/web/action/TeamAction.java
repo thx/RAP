@@ -19,6 +19,8 @@ public class TeamAction extends ActionBase {
     private String accountList;
     private long teamListNum;
     private List<User> userList;
+    private int userId;
+
 
     public int getPageNum() {
         if (pageNum > 0)
@@ -146,5 +148,21 @@ public class TeamAction extends ActionBase {
 
     public List<User> getUserList() {
         return userList;
+    }
+
+    public String changeAccessType() {
+        if (organizationMgr.setUserRoleInCorp(getCurUserId(), getUserId(), getId(), getAccessType())) {
+            return SUCCESS;
+        } else {
+            return "json-error";
+        }
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

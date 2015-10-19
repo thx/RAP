@@ -7,23 +7,86 @@
 </head>
 <body>
 #bodyNewStart
-
-<table class="table table-hover">
-    <thead>
-    <th>名字</th>
-    <th>权限</th>
-    <th width="200px">操作</th>
-    </thead>
-    <tbody>
-        #foreach($item in $userList)
-        <tr>
-            <td>$!utils.escapeInH($item.name)</td>
-            <td>#getRoleStr($item.roleId)</td>
-            <td>-</td>
-        </tr>
-        #end
-    </tbody>
-</table>
+<div style="max-height:450px; overflow-y:auto;">
+    <table class="table table-hover">
+        <thead>
+        <th>名字</th>
+        <th>权限</th>
+        <th width="200px">操作</th>
+        </thead>
+        <tbody>
+            #foreach($item in $userList)
+            <tr>
+                <td>$!utils.escapeInH($item.name)</td>
+                <td>#getRoleStr($item.roleId)</td>
+                <td>
+                    <button onclick="accessControl($item.id);" class="btn btn-warn btn-sm"><span class="glyphicon glyphicon-cog"></span>权限</button>
+                    <button onclick="deleteUser($item.id);" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span>删除</button>
+                </td>
+            </tr>
+            #end
+        </tbody>
+    </table>
+</div>
+<div> <button onclick="addUser();" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span>添加用户</button></div>
 #bodyEnd
+
+
+<!-- templates -->
+<script type="text/tmpl" id="access-control-tmpl">
+    <div class="form-horizontal" role="form">
+        <div class="form-group" style="padding:0 20px;">
+            <div class="alert alert-info" role="alert">
+                * 如果该用户是RAP平台的管理员/超级管理员，您的设置将无效。
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">
+                权限设置
+            </label>
+            <div class="col-sm-10">
+                <input type="radio" value="1" id="accessType1" checked="checked" name="accessType">
+                <label for="accessType1">
+                   普通用户
+                </label>
+                <input type="radio" value="2" id="accessType2" name="accessType">
+                <label for="accessType2">
+                   管理员
+                </label>
+            </div>
+        </div>
+
+    </div>
+</script>
+
+<script>
+    function accessControl(userId, oldAccessType) {
+        $.confirm({
+            content: $.render($('#access-control-tmpl').text(), {}),
+            title: '权限设置',
+            confirmText: '确认',
+            showCallback: function() {
+                $("input[name='accessType']").removeAttr('checked');
+                $('#accessType' + (oldAccessType == 3 ? 1 : 2)).attr('checked', 'checked');
+            },
+            confirmClicked: function() {
+                var modal = $(this);
+                var accessType = $('#accessType1')[0].checked ? 3 : 2;
+                $.post($.route('org.team.changeAccessType'), {
+                    userId : userId,
+                    accessType : accessType
+                }, function(data) {
+                    modal.modal('hide');
+                    window.location.href = "$team.manage" + "?id=$id";
+                }, "JSON");
+            }
+        });
+    }
+
+    function deleteUser(userId) {
+
+    }
+</script>
+
 </body>
 </html>

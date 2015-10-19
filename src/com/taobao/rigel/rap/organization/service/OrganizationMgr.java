@@ -181,4 +181,15 @@ public interface OrganizationMgr {
      */
     int addTeam(Corporation team);
 
+    /**
+     * set user role in corporation
+     *
+     * @param curUserId user now proceeding the operation
+     * @param userId user to be processed
+     * @param corpId
+     * @param roleId
+     * @return if succeed
+     */
+    boolean setUserRoleInCorp(long curUserId, long userId, int corpId, int roleId);
+
 }

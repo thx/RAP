@@ -29,7 +29,8 @@
 				'all': '/account/all.action'
 			},
             team: {
-                'create': '/org/team/create.do'
+                'create': '/org/team/create.do',
+                'changeAccessType': '/org/team/changeAccessType.do'
             }
 		},
 		workspace: {

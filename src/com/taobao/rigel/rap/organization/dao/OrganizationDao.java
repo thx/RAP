@@ -139,6 +139,15 @@ public interface OrganizationDao {
     int getUserRoleInCorp(long userId, int corpId);
 
     /**
+     * set user role in corporation
+     *
+     * @param userId
+     * @param corpId
+     * @param roleId
+     */
+    void setUserRoleInCorp(long userId, int corpId, int roleId);
+
+    /**
      * get corporation list
      *
      * @return

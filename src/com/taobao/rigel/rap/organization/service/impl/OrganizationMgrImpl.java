@@ -56,7 +56,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
         for (Corporation c : list) {
             long memberNum = organizationDao.getMemberNumOfCorporation(c.getId());
-            c.setMemberNum(memberNum);
+            c.setMemberNum(memberNum + 1); // +1 project creator
             c.setHasAccess(true);
             c.setCreatorName(accountMgr.getUser(c.getUserId()).getName());
         }
@@ -77,7 +77,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         List<Corporation> list = organizationDao.getCorporationListWithPager(userId, pageNum, pageSize);
         for (Corporation c : list) {
            long memberNum = organizationDao.getMemberNumOfCorporation(c.getId());
-            c.setMemberNum(memberNum);
+            c.setMemberNum(memberNum + 1); // +1 project creator
             c.setHasAccess(canUserManageCorp(userId, c.getId()));
             c.setCreatorName(accountMgr.getUser(c.getUserId()).getName());
         }
@@ -244,6 +244,28 @@ public class OrganizationMgrImpl implements OrganizationMgr {
             organizationDao.addUserToCorp(corpId, u.getId(), 3); // 3, normal member
         }
         return corpId;
+    }
+
+    @Override
+    public boolean setUserRoleInCorp(long curUserId, long userId, int corpId, int roleId) {
+        if (canUserManageUserInCorp(curUserId, userId, corpId)) {
+            organizationDao.setUserRoleInCorp(userId, corpId, roleId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean canUserManageUserInCorp(long curUserId, long userId, int corpId) {
+        User curUser = accountMgr.getUser(curUserId);
+        if (curUser.isAdmin()) {
+            return true;
+        }
+        int roleId = getUserRoleInCorp(curUserId, corpId);
+        if (roleId >=1 || roleId <= 2) {
+            return  true;
+        }
+        return false;
     }
 
 }
