@@ -1,5 +1,7 @@
 package com.taobao.rigel.rap.organization.bo;
 
+import com.taobao.rigel.rap.common.StringUtils;
+
 import java.util.List;
 
 public class Corporation {
@@ -10,6 +12,7 @@ public class Corporation {
     private List<String> accountList;
     private long memberNum;
     private String creatorName;
+    public final int NAME_STR_MAX_LENGTH = 15;
 
     public List<String> getAccountList() {
         return accountList;
@@ -66,6 +69,13 @@ public class Corporation {
 	public String getName() {
 		return name;
 	}
+
+    public String getNameStr() {
+        if (StringUtils.getLengthOfStringChinese(name) > NAME_STR_MAX_LENGTH) {
+            return StringUtils.subStringChinese(name, 0, NAME_STR_MAX_LENGTH) + "..";
+        }
+        return name;
+    }
 
 	public void setName(String name) {
 		this.name = name;

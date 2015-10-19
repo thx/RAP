@@ -51,7 +51,16 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
     @Override
     public List<Corporation> getCorporationListWithPager(int pageNum, int pageSize) {
-        return organizationDao.getCorporationListWithPager(pageNum, pageSize);
+
+        List<Corporation> list = organizationDao.getCorporationListWithPager(pageNum, pageSize);
+
+        for (Corporation c : list) {
+            long memberNum = organizationDao.getMemberNumOfCorporation(c.getId());
+            c.setMemberNum(memberNum);
+            c.setHasAccess(true);
+            c.setCreatorName(accountMgr.getUser(c.getUserId()).getName());
+        }
+        return list;
     }
 
     @Override
@@ -61,20 +70,26 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
     @Override
     public List<Corporation> getCorporationListWithPager(long userId, int pageNum, int pageSize) {
+        User user = accountMgr.getUser(userId);
+        if (user.isAdmin()) {
+            return getCorporationListWithPager(pageNum, pageSize);
+        }
         List<Corporation> list = organizationDao.getCorporationListWithPager(userId, pageNum, pageSize);
-
         for (Corporation c : list) {
            long memberNum = organizationDao.getMemberNumOfCorporation(c.getId());
             c.setMemberNum(memberNum);
             c.setHasAccess(canUserManageCorp(userId, c.getId()));
             c.setCreatorName(accountMgr.getUser(c.getUserId()).getName());
         }
-
         return list;
     }
 
     @Override
     public long getCorporationListWithPagerNum(long userId) {
+        User user = accountMgr.getUser(userId);
+        if (user.isAdmin()) {
+            return getCorporationListWithPagerNum();
+        }
         return organizationDao.getCorporationListWithPagerNum(userId);
     }
 

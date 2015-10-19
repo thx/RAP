@@ -29,7 +29,7 @@
             #end
           <ul class="dropdown-menu teams">
             #foreach($corp in $corpList)
-             <li><a href="$projectUrl.allProductlineList?id=$corp.id">$corp.name</a></li>
+             <li><a href="$projectUrl.allProductlineList?id=$corp.id">$!utils.escapeInH($corp.nameStr)</a></li>
             #end
               <div style="clear:both;"></div>
               <li style="text-align:center;"><button onclick="window.location.href = '$teamUrl.teams';" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span>全部团队</button></li>

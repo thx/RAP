@@ -173,17 +173,17 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     public List<Corporation> getCorporationListWithPager(int pageNum, int pageSize) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT c.id ")
-                .append("FROM tb_corporation c")
-                .append("LIMIT :startIndex, :pageSize");
+                .append("FROM tb_corporation c ")
+                .append("LIMIT :startIndex, :pageSize ");
 
         Query query = getSession().createSQLQuery(sql.toString());
-        query.setInteger("startIndex", (pageNum - 1) * pageSize);
-        query.setInteger("pageSize", pageSize);
+        query.setLong("startIndex", (pageNum - 1) * pageSize);
+        query.setLong("pageSize", pageSize);
 
-        List<Object []> list = query.list();
+        List<Integer> list = (List<Integer>) query.list();
         List<Corporation> resultList = new ArrayList<Corporation>();
-        for (Object[] rows : list) {
-            Corporation row = getCorporation((Integer)rows[0]);
+        for (Integer id : list) {
+            Corporation row = getCorporation(id);
             resultList.add(row);
         }
         return resultList;
@@ -193,7 +193,7 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     public long getCorporationListWithPagerNum() {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT COUNT(*) ")
-                .append("FROM tb_corporation c");
+                .append("FROM tb_corporation c ");
 
         Query query = getSession().createSQLQuery(sql.toString());
 

@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class TeamAction extends ActionBase {
 
+    private int id;
     private String name;
     private String accountList;
     private long teamListNum;
@@ -92,6 +93,11 @@ public class TeamAction extends ActionBase {
     }
 
     public String teams() {
+        if (!isUserLogined()) {
+            plsLogin();
+            setRelativeReturnUrl("/org/team/teams.do?id=" + getId());
+            return LOGIN;
+        }
         long userId = getCurUserId();
         teamList = organizationMgr.getCorporationListWithPager(userId, getPageNum(), SystemConstant.DEFAULT_PAGE_SIZE);
         teamListNum = organizationMgr.getCorporationListWithPagerNum(userId);
@@ -112,6 +118,23 @@ public class TeamAction extends ActionBase {
     }
 
     public String manage() {
+        if (!isUserLogined()) {
+            plsLogin();
+            setRelativeReturnUrl("/org/team/manage.do?id=" + getId());
+            return LOGIN;
+        }
+        if (!organizationMgr.canUserManageCorp(getCurUserId(), getId())) {
+            setErrMsg("你无权访问该页面。");
+            return ERROR;
+        }
         return SUCCESS;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
