@@ -310,6 +310,8 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
             .append("JOIN tb_corporation c ON c.id = pl.corporation_id ")
             .append("WHERE p.user_id = :userId AND c.id = :corpId");
         query = getSession().createSQLQuery(builder.toString());
+        query.setLong("userId", userId);
+        query.setInteger("corpId", corpId);
         List<Integer> idList = query.list();
         for (Integer projectId : idList) {
             projectDao.updateCreatorId(projectId, curUserId);
