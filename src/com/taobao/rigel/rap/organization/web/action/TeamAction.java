@@ -20,6 +20,7 @@ public class TeamAction extends ActionBase {
     private long teamListNum;
     private List<User> userList;
     private int userId;
+    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getFormatterLogger(TeamAction.class.getName());
 
 
     public int getPageNum() {
@@ -151,6 +152,13 @@ public class TeamAction extends ActionBase {
     }
 
     public String changeAccessType() {
+        User curUser = getCurUser();
+        if (curUser == null) {
+            setErrMsg(LOGIN_WARN_MSG);
+            setIsOk(false);
+            logger.error("Unlogined user trying to checkin and failed.");
+            return JSON_ERROR;
+        }
         if (organizationMgr.setUserRoleInCorp(getCurUserId(), getUserId(), getId(), getAccessType())) {
             return SUCCESS;
         } else {
@@ -164,5 +172,20 @@ public class TeamAction extends ActionBase {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String deleteMember() {
+        User curUser = getCurUser();
+        if (curUser == null) {
+            setErrMsg(LOGIN_WARN_MSG);
+            setIsOk(false);
+            logger.error("Unlogined user trying to checkin and failed.");
+            return JSON_ERROR;
+        }
+        if (organizationMgr.removeMemberFromCorp(getCurUserId(), getUserId(), getId())) {
+            return SUCCESS;
+        } else {
+            return "json-error";
+        }
     }
 }

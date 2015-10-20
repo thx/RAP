@@ -148,7 +148,7 @@ public interface OrganizationMgr {
 
     /**
      * get user role in corporation
-     *
+
      * @param userId
      * @param corpId
      * @return roleId
@@ -192,4 +192,13 @@ public interface OrganizationMgr {
      */
     boolean setUserRoleInCorp(long curUserId, long userId, int corpId, int roleId);
 
+    /**
+     * remove member from team
+     *
+     * @param curUserId
+     * @param userId
+     * @param corpId
+     * @return
+     */
+    boolean removeMemberFromCorp(long curUserId, long userId, int corpId);
 }

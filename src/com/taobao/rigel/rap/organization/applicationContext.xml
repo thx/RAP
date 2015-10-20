@@ -8,5 +8,6 @@
 	</bean>
 	<bean id="organizationDao" class="com.taobao.rigel.rap.organization.dao.impl.OrganizationDaoImpl" parent="baseDao">
         <property name="accountDao" ref="accountDao" />
+        <property name="projectDao" ref="projectDao" />
     </bean>
 </beans>

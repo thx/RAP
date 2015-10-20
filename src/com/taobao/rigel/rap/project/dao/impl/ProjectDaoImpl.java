@@ -564,4 +564,12 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		getSession().createSQLQuery(sql).setInteger("mockNum", project.getMockNum()).setInteger("projectId", project.getId()).executeUpdate();
 	}
 
+    @Override
+    public void updateCreatorId(int projectId, long creatorId) {
+        Query query = getSession().createSQLQuery("UPDATE tb_project SET user_id = :userId WHERE id = :id");
+        query.setLong("userId", creatorId);
+        query.setInteger("id", projectId);
+        query.executeUpdate();
+    }
+
 }

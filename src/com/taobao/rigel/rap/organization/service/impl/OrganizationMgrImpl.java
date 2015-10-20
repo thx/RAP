@@ -192,7 +192,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         User u = accountMgr.getUser(c.getUserId());
         list.add(u);
         for (User user : list) {
-            int roleId = getUserRoleInCorp(u.getId(), corpId);
+            int roleId = getUserRoleInCorp(user.getId(), corpId);
             if (user.isAdmin()) {
                 roleId = 1; // user is the RAP platform admin
             } else if (user.getId() == c.getUserId()) {
@@ -255,6 +255,23 @@ public class OrganizationMgrImpl implements OrganizationMgr {
             return false;
         }
     }
+
+    @Override
+    public boolean removeMemberFromCorp(long curUserId, long userId, int corpId) {
+        int roleId = getUserRoleInCorp(userId, corpId);
+
+        // if user can't manage team, or the user to be deleted is super admin, failed
+        if (!canUserManageCorp(curUserId, corpId) || roleId == 1) {
+            return false;
+        }
+
+        organizationDao.deleteMembershipFromCorp(curUserId, userId, corpId);
+        organizationDao.changeAllProjectCreatorIdOfCorp(corpId, userId, curUserId);
+
+        return true;
+    }
+
+
 
     private boolean canUserManageUserInCorp(long curUserId, long userId, int corpId) {
         User curUser = accountMgr.getUser(curUserId);

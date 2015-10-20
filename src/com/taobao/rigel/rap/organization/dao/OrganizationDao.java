@@ -191,4 +191,23 @@ public interface OrganizationDao {
      * @return
      */
     long getMemberNumOfCorporation(int corpId);
+
+    /**
+     * delete all membership from team
+     *
+     * @param curUserId the user now operating, used for transfer project
+     *                  when the project operated are owned by the user removed.
+     * @param userId
+     * @param corpId
+     */
+    void deleteMembershipFromCorp(long curUserId, long userId, int corpId);
+
+    /**
+     * change all projects' creatorId in specific team
+     *
+     * @param corpId
+     * @param fromUserId
+     * @param targetUserId
+     */
+    void changeAllProjectCreatorIdOfCorp(int corpId, long fromUserId, long targetUserId);
 }

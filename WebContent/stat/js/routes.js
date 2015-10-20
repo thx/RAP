@@ -30,7 +30,8 @@
 			},
             team: {
                 'create': '/org/team/create.do',
-                'changeAccessType': '/org/team/changeAccessType.do'
+                'changeAccessType': '/org/team/changeAccessType.do',
+                'deleteMember':'/org/team/deleteMember.do'
             }
 		},
 		workspace: {

@@ -20,8 +20,14 @@
                 <td>$!utils.escapeInH($item.name)</td>
                 <td>#getRoleStr($item.roleId)</td>
                 <td>
-                    <button onclick="accessControl($item.id);" class="btn btn-warn btn-sm"><span class="glyphicon glyphicon-cog"></span>权限</button>
-                    <button onclick="deleteUser($item.id);" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span>删除</button>
+                    #if($item.id == $curUser.id)
+                        <span class="label label-default">自己，请善待</span>
+                    #elseif($item.roleId==1)
+                        <span class="label label-warning">无权修改，人家是超管耶~~~</span>
+                    #else
+                        <button onclick="accessControl($item.id, $item.roleId);" class="btn btn-warn btn-sm"><span class="glyphicon glyphicon-cog"></span>权限</button>
+                        <button onclick="deleteUser($item.id);" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span>删除</button>
+                    #end
                 </td>
             </tr>
             #end
@@ -45,11 +51,11 @@
                 权限设置
             </label>
             <div class="col-sm-10">
-                <input type="radio" value="1" id="accessType1" checked="checked" name="accessType">
+                <input type="radio" value="1" {{^isAdmin}}checked="checked" {{/isAdmin}} id="accessType1" name="accessType">
                 <label for="accessType1">
                    普通用户
                 </label>
-                <input type="radio" value="2" id="accessType2" name="accessType">
+                <input type="radio" value="2" {{#isAdmin}}checked="checked" {{/isAdmin}} id="accessType2" name="accessType">
                 <label for="accessType2">
                    管理员
                 </label>
@@ -58,33 +64,58 @@
 
     </div>
 </script>
+<!-- templates -->
+<script type="text/tmpl" id="delete-user-tmpl">
+    <div class="form-horizontal" role="form">
+        <div class="form-group" style="padding:0 20px;">
+            <div class="alert alert-warning" role="alert">
+                * 是否确定将该用户从团队中移除？<br />
+                移除后，该用户将退出该团队的所有项目。若该用户为项目创建者，项目将归属您的名下，请谨慎操作。
+            </div>
+        </div>
+    </div>
+</script>
 
 <script>
     function accessControl(userId, oldAccessType) {
+        var isAdmin = oldAccessType == 2 || oldAccessType == 1;
         $.confirm({
-            content: $.render($('#access-control-tmpl').text(), {}),
+            content: $.render($('#access-control-tmpl').text(), {isAdmin : isAdmin}),
             title: '权限设置',
             confirmText: '确认',
-            showCallback: function() {
-                $("input[name='accessType']").removeAttr('checked');
-                $('#accessType' + (oldAccessType == 3 ? 1 : 2)).attr('checked', 'checked');
-            },
             confirmClicked: function() {
                 var modal = $(this);
                 var accessType = $('#accessType1')[0].checked ? 3 : 2;
                 $.post($.route('org.team.changeAccessType'), {
                     userId : userId,
-                    accessType : accessType
+                    accessType : accessType,
+                    id : $id
                 }, function(data) {
                     modal.modal('hide');
-                    window.location.href = "$team.manage" + "?id=$id";
+                    window.location.href = "$teamUrl.manage" + "?id=$id";
                 }, "JSON");
             }
         });
     }
 
     function deleteUser(userId) {
+        $.confirm({
+            content: $.render($('#delete-user-tmpl').text(), {}),
+            title: '删除用户',
+            confirmText: '确认',
+            confirmClicked: function() {
+                var modal = $(this);
+                $.post($.route('org.team.deleteMember'), {
+                    userId : userId,
+                    id : $id
+                }, function(data) {
 
+
+                    modal.modal('hide');
+                    window.location.href = "$teamUrl.manage" + "?id=$id";
+                }, "JSON");
+            }
+        });
     }
 </script>
 

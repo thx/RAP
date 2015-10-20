@@ -6,6 +6,7 @@ import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.bo.Group;
 import com.taobao.rigel.rap.organization.bo.ProductionLine;
 import com.taobao.rigel.rap.organization.dao.OrganizationDao;
+import com.taobao.rigel.rap.project.dao.ProjectDao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -26,6 +27,17 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     }
 
     private AccountDao accountDao;
+
+    public ProjectDao getProjectDao() {
+        return projectDao;
+    }
+
+    public void setProjectDao(ProjectDao projectDao) {
+        this.projectDao = projectDao;
+    }
+
+    private ProjectDao projectDao;
+
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -170,7 +182,7 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
 
     @Override
     public void setUserRoleInCorp(long userId, int corpId, int roleId) {
-        Query query = getSession().createSQLQuery("UPDATE tb_corporation_and_user SET role_id = :roleId WHERE user_id = :userId AND corp_id = :corpId");
+        Query query = getSession().createSQLQuery("UPDATE tb_corporation_and_user SET role_id = :roleId WHERE user_id = :userId AND corporation_id = :corpId");
         query.setInteger("roleId", roleId);
         query.setInteger("corpId", corpId);
         query.setLong("userId", userId);
@@ -279,6 +291,34 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
         query.setInteger("corpId", corpId);
 
         return Long.parseLong(query.uniqueResult().toString());
+    }
+
+    @Override
+    public void deleteMembershipFromCorp(long curUserId, long userId, int corpId) {
+        Query query = getSession().createSQLQuery("DELETE FROM tb_corporation_and_user WHERE corporation_id = :corpId AND user_id = :userId");
+        query.setLong("userId", userId);
+        query.setInteger("corpId", corpId);
+        query.executeUpdate();
+
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("SELECT DISTINCT p.id AS projectId ")
+            .append("FROM tb_project p ")
+            .append("JOIN tb_project_and_user pu ON p.id = pu.project_id ")
+            .append("JOIN tb_group g ON g.id = p.group_id ")
+            .append("JOIN tb_production_line pl ON pl.id = g.production_line_id ")
+            .append("JOIN tb_corporation c ON c.id = pl.corporation_id ")
+            .append("WHERE p.user_id = :userId AND c.id = :corpId");
+        query = getSession().createSQLQuery(builder.toString());
+        List<Integer> idList = query.list();
+        for (Integer projectId : idList) {
+            projectDao.updateCreatorId(projectId, curUserId);
+        }
+    }
+
+    @Override
+    public void changeAllProjectCreatorIdOfCorp(int corpId, long fromUserId, long targetUserId) {
+
     }
 
     @Override
