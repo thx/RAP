@@ -154,7 +154,7 @@
     	<select class="form-control team">
     		<option>--请选择团队--</option>
     		#foreach($corp in $corpList)
-          	 <option value="$corp.id">$corp.name</option>
+          	 <option value="$corp.id">$!utils.escapeInH($corp.name)</option>
           	#end
     	</select>
 		<span>

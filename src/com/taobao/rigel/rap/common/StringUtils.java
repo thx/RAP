@@ -1,13 +1,13 @@
 package com.taobao.rigel.rap.common;
 
+import org.springmodules.cache.regex.Regex;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -514,8 +514,7 @@ public class StringUtils {
      * @return
      */
     public static String removeIllegalCharacters(String o) {
-        String pattern = "[^ 0-9a-zA-Z_]";
-        return o.replaceAll(pattern, "");
+        return o.replaceAll(Patterns.ILLEGAL_NAME_CHAR, "");
     }
 
 }

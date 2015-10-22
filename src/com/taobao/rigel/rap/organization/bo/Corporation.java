@@ -82,7 +82,8 @@ public class Corporation {
     }
 
 	public void setName(String name) {
-		this.name = StringUtils.removeIllegalCharacters(name);
+        // this.name = StringUtils.removeIllegalCharacters(name);
+        this.name = name;
 	}
 
     public long getMemberNum() {

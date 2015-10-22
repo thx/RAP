@@ -201,4 +201,21 @@ public interface OrganizationMgr {
      * @return
      */
     boolean removeMemberFromCorp(long curUserId, long userId, int corpId);
+
+    /**
+     * add team members
+     *
+     * @param curUserId
+     * @param corpId
+     * @param accountList
+     * @return
+     */
+    boolean addTeamMembers(long curUserId, int corpId, String accountList);
+
+    /**
+     * update corporation
+     *
+     * @param c
+     */
+    void updateCorporation(Corporation c);
 }

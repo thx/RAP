@@ -22,6 +22,11 @@ public class TeamAction extends ActionBase {
     private int userId;
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getFormatterLogger(TeamAction.class.getName());
 
+    public Corporation getTeam() {
+        return team;
+    }
+
+    private Corporation team;
 
     public int getPageNum() {
         if (pageNum > 0)
@@ -135,6 +140,7 @@ public class TeamAction extends ActionBase {
         }
 
         userList = organizationMgr.getUserLisOfCorp(corpId);
+        team = organizationMgr.getCorporation(corpId);
 
         return SUCCESS;
     }
@@ -187,5 +193,44 @@ public class TeamAction extends ActionBase {
         } else {
             return "json-error";
         }
+    }
+
+    public String addMembers() {
+        User curUser = getCurUser();
+        if (curUser == null) {
+            setErrMsg(LOGIN_WARN_MSG);
+            setIsOk(false);
+            logger.error("Unlogined user trying to checkin and failed.");
+            return JSON_ERROR;
+        }
+
+        if (organizationMgr.addTeamMembers(getCurUserId(), getId(), accountList)) {
+            return SUCCESS;
+        } else {
+            return "json-error";
+        }
+    }
+
+    public String update() {
+        User curUser = getCurUser();
+        if (curUser == null) {
+            setErrMsg(LOGIN_WARN_MSG);
+            setIsOk(false);
+            logger.error("Unlogined user trying to checkin and failed.");
+            return JSON_ERROR;
+        }
+
+        if (!organizationMgr.canUserManageCorp(curUser.getId(), getId())) {
+            return JSON_ERROR;
+        }
+
+        Corporation c = new Corporation();
+        c.setId(getId());
+        c.setName(getName());
+        c.setDesc(getDesc());
+        c.setAccessType(getAccessType());
+        organizationMgr.updateCorporation(c);
+
+        return SUCCESS;
     }
 }

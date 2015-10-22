@@ -293,6 +293,22 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
         return Long.parseLong(query.uniqueResult().toString());
     }
 
+    private List<Integer> getProjectIdsFromCorporation(long userId, int corpId) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("SELECT DISTINCT p.id AS projectId ")
+                .append("FROM tb_project p ")
+                .append("JOIN tb_project_and_user pu ON p.id = pu.project_id ")
+                .append("JOIN tb_group g ON g.id = p.group_id ")
+                .append("JOIN tb_production_line pl ON pl.id = g.production_line_id ")
+                .append("JOIN tb_corporation c ON c.id = pl.corporation_id ")
+                .append("WHERE p.user_id = :userId AND c.id = :corpId");
+        Query query = getSession().createSQLQuery(builder.toString());
+        query.setLong("userId", userId);
+        query.setInteger("corpId", corpId);
+        List<Integer> idList = query.list();
+        return idList;
+    }
+
     @Override
     public void deleteMembershipFromCorp(long curUserId, long userId, int corpId) {
         Query query = getSession().createSQLQuery("DELETE FROM tb_corporation_and_user WHERE corporation_id = :corpId AND user_id = :userId");
@@ -300,27 +316,21 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
         query.setInteger("corpId", corpId);
         query.executeUpdate();
 
+        List<Integer> idList = getProjectIdsFromCorporation(userId, corpId);
 
-        StringBuilder builder = new StringBuilder();
-        builder.append("SELECT DISTINCT p.id AS projectId ")
-            .append("FROM tb_project p ")
-            .append("JOIN tb_project_and_user pu ON p.id = pu.project_id ")
-            .append("JOIN tb_group g ON g.id = p.group_id ")
-            .append("JOIN tb_production_line pl ON pl.id = g.production_line_id ")
-            .append("JOIN tb_corporation c ON c.id = pl.corporation_id ")
-            .append("WHERE p.user_id = :userId AND c.id = :corpId");
-        query = getSession().createSQLQuery(builder.toString());
-        query.setLong("userId", userId);
-        query.setInteger("corpId", corpId);
-        List<Integer> idList = query.list();
         for (Integer projectId : idList) {
             projectDao.updateCreatorId(projectId, curUserId);
         }
     }
 
     @Override
-    public void changeAllProjectCreatorIdOfCorp(int corpId, long fromUserId, long targetUserId) {
-
+    public void updateCorporation(Corporation c) {
+        Query query = getSession().createSQLQuery("UPDATE tb_corporation SET `name`=:name, `desc`=:desc, access_type=:accessType WHERE id=:id");
+        query.setString("name", c.getName());
+        query.setString("desc", c.getDesc());
+        query.setShort("accessType", c.getAccessType());
+        query.setInteger("id", c.getId());
+        query.executeUpdate();
     }
 
     @Override

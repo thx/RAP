@@ -266,11 +266,34 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         }
 
         organizationDao.deleteMembershipFromCorp(curUserId, userId, corpId);
-        organizationDao.changeAllProjectCreatorIdOfCorp(corpId, userId, curUserId);
 
         return true;
     }
 
+    @Override
+    public boolean addTeamMembers(long curUserId, int corpId, String accountList) {
+        if (!canUserManageCorp(curUserId, corpId))
+            return false;
+
+        String[] accs = accountList.split(",");
+        Corporation c = getCorporation(corpId);
+        for (String acc : accs) {
+            User u = accountMgr.getUser(acc);
+            if (u != null) {
+                if (!organizationDao.isUserInCorp(u.getId(), corpId)
+                        && u.getId() != c.getUserId()) {
+                    organizationDao.addUserToCorp(corpId, u.getId(), 3);
+                }
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public void updateCorporation(Corporation c) {
+        organizationDao.updateCorporation(c);
+    }
 
 
     private boolean canUserManageUserInCorp(long curUserId, long userId, int corpId) {

@@ -203,11 +203,9 @@ public interface OrganizationDao {
     void deleteMembershipFromCorp(long curUserId, long userId, int corpId);
 
     /**
-     * change all projects' creatorId in specific team
+     * update corporation
      *
-     * @param corpId
-     * @param fromUserId
-     * @param targetUserId
+     * @param c
      */
-    void changeAllProjectCreatorIdOfCorp(int corpId, long fromUserId, long targetUserId);
+    void updateCorporation(Corporation c);
 }
