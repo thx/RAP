@@ -507,4 +507,15 @@ public class StringUtils {
 		return matcher.matches();
 	}
 
+    /**
+     * remove all characters except [0-9a-zA-Z_] and blank space
+     *
+     * @param o
+     * @return
+     */
+    public static String removeIllegalCharacters(String o) {
+        String pattern = "[^ 0-9a-zA-Z_]";
+        return o.replaceAll(pattern, "");
+    }
+
 }

@@ -37,7 +37,11 @@ public class Corporation {
     }
 
     public void setAccessType(short accessType) {
-        this.accessType = accessType;
+        if (accessType == 10 || accessType == 20) {
+            this.accessType = accessType;
+        } else {
+            this.accessType = 10; // DEFAULT is private
+        }
     }
 
     private short accessType;
@@ -78,7 +82,7 @@ public class Corporation {
     }
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = StringUtils.removeIllegalCharacters(name);
 	}
 
     public long getMemberNum() {
