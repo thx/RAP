@@ -22,18 +22,19 @@
         #if($isLogined)
         <li><a href="$newUrl.home">主页</a></li>
         <li class="dropdown">
-            #if($corpList.size() > 0)
+            #set($_corpList = $corpList)
+            #if($_corpList.size() > 0)
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">团队 <b class="caret"></b></a>
             #else
-               <a href="#" onclick="_createTeam();"><span class="glyphicon glyphicon-plus"></span>创建团队</a>
+               <a href="#" class="_createTeamBtn"><span class="glyphicon glyphicon-plus"></span>创建团队</a>
             #end
           <ul class="dropdown-menu teams">
-            #foreach($corp in $corpList)
+            #foreach($corp in $_corpList)
              <li><a href="$projectUrl.allProductlineList?id=$corp.id">$!utils.escapeInH($corp.nameStr)</a></li>
             #end
               <div style="clear:both;"></div>
               <li style="text-align:center;"><button onclick="window.location.href = '$teamUrl.teams';" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span>全部团队</button></li>
-              <li style="text-align:center;"><button onclick="_createTeam();" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span>创建团队</button></li>
+              <li style="text-align:center;"><button class="btn btn-primary btn-sm _createTeamBtn"><span class="glyphicon glyphicon-plus"></span>创建团队</button></li>
           </ul>
         </li>
         <!-- <li><a href="$projectUrl.myProjectList">我的项目</a></li>
@@ -200,6 +201,7 @@
 
 <!-- templates -->
 <script type="text/tmpl" id="_create-team-tmpl">
+<form id="_formCreateTeam">
     <div class="form-horizontal" role="form">
         <div class="form-group">
             <label class="col-sm-2 control-label">
@@ -209,7 +211,7 @@
                 </span>
             </label>
             <div class="col-sm-10">
-                <input type="text" id="_createTeamName" class="form-control" style="width:432px;" placeholder="请在此编辑团队名称"
+                <input type="text" id="_createTeamName" required class="form-control" style="width:432px;" placeholder="请在此编辑团队名称"
                 value="{{name}}" />
             </div>
         </div>
@@ -263,20 +265,24 @@
             </div>
         </div>
     </div>
+</form>
+</script>
+<script type="text/tmpl" id="user-auto-list">
+	<ul class="autocompleter">
+		{{#users}}
+			<li data-account="{{account}}" data-name="{{name}}" {{^block}}title="{{account}} ({{name}})"{{/block}}{{#block}} data-block="true"{{/block}}>
+				{{#block}}没有更多匹配数据{{/block}}
+				{{^block}}{{account}} ({{name}}){{/block}}
+			</li>
+		{{/users}}
+	</ul>
+</script>
+<script type="text/tmpl" id="user-item-tmpl">
+    <span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">{{account}} ({{name}})<i class="unpick-btn">&times;</i></span>
 </script>
 <script>
-    function _createTeam() {
-        function getUsers(callback) {
-            if ($.local('users')) {
-                callback($.local('users'));
-                return;
-            }
-            $.get($.route('org.account.all'), function(data) {
-                users = data.users;
-                $.local('users', users);
-                callback(users);
-            }, "JSON");
-        }
+    function _bindCreateTeamDialogAutoCompleteEvents() {
+        var that = this;
 
         $.confirm({
             content: $.render($('#_create-team-tmpl').text(), {}),
@@ -308,7 +314,7 @@
                 var isPrivate = $('#_createTeamType1')[0].checked;
                 var pickedUserList = [];
                 $('.picked-user').each(function(index, ele) {
-                   pickedUserList.push($(ele).data('account'));
+                    pickedUserList.push($(ele).data('account'));
                 });
                 $.post($.route('org.team.create'), {
                     name : name,
@@ -321,6 +327,25 @@
                 }, "JSON");
             }
         });
+
+        function getUsers(callback) {
+            if ($.local('users')) {
+                callback($.local('users'));
+                return;
+            }
+            $.get($.route('org.account.all'), function(data) {
+                users = data.users;
+                $.local('users', users);
+                callback(users);
+            }, "JSON");
+        }
     }
+
+    function _bindTemplateEvents() {
+        $('body')
+            .delegate('._createTeamBtn', 'click', _bindCreateTeamDialogAutoCompleteEvents);
+    }
+
+    _bindTemplateEvents();
 </script>
 #end

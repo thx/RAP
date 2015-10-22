@@ -34,11 +34,16 @@
         </tbody>
     </table>
 </div>
-<div> <button onclick="addUser();" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span>添加用户</button></div>
+<div>
+    <button onclick="addUser();" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span>添加用户</button>&nbsp;&nbsp;
+    <button onclick="alterTeam();" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-wrench"></span>修改团队信息</button>&nbsp;&nbsp;
+</div>
 #bodyEnd
 
 
 <!-- templates -->
+
+<!-- access contro floater -->
 <script type="text/tmpl" id="access-control-tmpl">
     <div class="form-horizontal" role="form">
         <div class="form-group" style="padding:0 20px;">
@@ -64,7 +69,8 @@
 
     </div>
 </script>
-<!-- templates -->
+
+<!-- delete user floater -->
 <script type="text/tmpl" id="delete-user-tmpl">
     <div class="form-horizontal" role="form">
         <div class="form-group" style="padding:0 20px;">
@@ -76,7 +82,83 @@
     </div>
 </script>
 
+<!-- add user floater -->
+<script type="text/tmpl" id="add-user-tmpl">
+    <div class="form-horizontal" role="form">
+         <div class="form-group">
+            <label for="" class="col-sm-2 control-label">
+                添加成员
+            </label>
+            <div class="col-sm-10 picking-user"  style="position:relative">
+                {{#users}}
+                <span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">
+                    {{account}} ({{name}})
+                    <i class="unpick-btn">
+                        &times;
+                    </i>
+                </span>
+                {{/users}}
+                <input class="form-control accounts-inputer" placeholder="添加项目成员" id="addTeamMemberList" />
+                <span class="user-loading">
+                    项目成员列表加载中，请稍候~
+                </span>
+                <span class="glyphicon glyphicon-question-sign tip" title="如果该用户没有登录/注册过RAP，系统中就没有TA的信息。请TA先登录一下RAP吧。匹配时请可以输入TA的花名或帐号(域帐号)">
+                    找不到TA?
+                </span>
+                <div class="accounts-con">
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!-- alter corporation info floater -->
+<script type="text/tmpl" id="alter-team-tmpl">
+  <form id="_formAlterTeam">
+    <div class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">
+                团队名称
+                <span style="color:red">
+                    *
+                </span>
+            </label>
+            <div class="col-sm-10">
+                <input type="text" id="createTeamName" required class="form-control" style="width:432px;" placeholder="请在此编辑团队名称"
+                value="{{name}}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">
+                权限
+            </label>
+            <div class="col-sm-10">
+                <input type="radio" value="1" id="createTeamType1" {{#isPrivate}}checked="checked"{{/isPrivate}} name="createTeamType"
+                />
+                <label for="createTeamType1">
+                    仅团队成员可见
+                </label>
+                <input type="radio" value="2" id="createTeamType2" {{^isPrivate}}checked="checked"{{/isPrivate}} name="createTeamType"
+                />
+                <label for="createTeamType2">
+                    全员可见
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">
+                团队描述
+            </label>
+            <div class="col-sm-10">
+                <textarea class="form-control desc" id="createTeamDesc" style="width:432px;resize:vertical;" placeholder="请在此编辑团队描述">{{desc}}</textarea>
+            </div>
+        </div>
+    </div>
+</form>
+</script>
+
 <script>
+
     function accessControl(userId, oldAccessType) {
         var isAdmin = oldAccessType == 2 || oldAccessType == 1;
         $.confirm({
@@ -117,6 +199,82 @@
             }
         });
     }
+
+    function addUser() {
+        function getUsers(callback) {
+            if ($.local('users')) {
+                callback($.local('users'));
+                return;
+            }
+            $.get($.route('org.account.all'), function(data) {
+                users = data.users;
+                $.local('users', users);
+                callback(users);
+            }, "JSON");
+        }
+        $.confirm({
+            content: $.render($('#add-user-tmpl').text(), {}),
+            title: '添加成员',
+            confirmText: '确认',
+            showCallback: function() {
+                var that = this;
+                $(this).find('input[type=text]').focus();
+                $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
+                    $(this).parent('.picked-user').remove();
+                });
+                $('.tip').tooltip();
+                getUsers(function(users) {
+                    $('.user-loading').hide();
+                    $(that).find('.accounts-inputer').keyup(function() {
+                        $.autocomplete(that, users);
+                    }).focus(function() {
+                        $.autocomplete(that, users);
+                    });
+                });
+            },
+            confirmClicked: function() {
+                var modal = $(this);
+                var pickedUserList = [];
+                $('.picked-user').each(function(index, ele) {
+                    pickedUserList.push($(ele).data('account'));
+                });
+
+                $.post($.route('org.team.addMembers'), {
+                    id : $id,
+                    accountList : pickedUserList.join(',')
+                }, function(data) {
+                    modal.modal('hide');
+                    window.location.href = "$teamUrl.manage" + "?id=$id";
+                }, "JSON");
+            }
+        });
+    }
+
+    function alterTeam() {
+        $.confirm({
+            content: $.render($('#alter-team-tmpl').text(), {
+                name : '$!utils.escapeInJ($team.name)',
+                desc : '$!utils.escapeInJ($team.desc)',
+                isPrivate : +'$team.accessType' === 10
+            }),
+            title: '修改团队信息',
+            confirmText: '确认',
+            confirmClicked: function() {
+                var modal = $(this);
+
+                $.post($.route('org.team.update'), {
+                    id : $id,
+                    name :$('#createTeamName').val(),
+                    desc : $('#createTeamDesc').val(),
+                    accessType : $('#createTeamType1')[0].checked ? 10 : 20
+                }, function(data) {
+                    modal.modal('hide');
+                    window.location.href = "$teamUrl.manage" + "?id=$id";
+                }, "JSON");
+            }
+        });
+    }
+
 </script>
 
 </body>

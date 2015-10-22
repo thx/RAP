@@ -6,7 +6,7 @@
 <struts>
 	<constant name="struts.action.extension" value="action,do" />
 	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
-    <constant name="struts.devMode" value="false" />
+    <constant name="struts.devMode" value="true" />
 	<package name="rap-default" extends="struts-default">
 		<result-types>
 			<result-type name="rapVelocityResult" default="true"
@@ -32,6 +32,7 @@
 			</interceptor-stack>
 		</interceptors>
 		<default-interceptor-ref name="baseStack" />
+
 		<global-results>
 			<result name="login" type="velocity">/account/login.vm</result>
 			<result name="error" type="velocity">/error.vm</result>

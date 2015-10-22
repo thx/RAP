@@ -112,21 +112,8 @@
 	</div>
   </div>
 </div>
-		</script>
-<script type="text/tmpl" id="user-auto-list">
-	<ul class="autocompleter">
-		{{#users}}
-			<li data-account="{{account}}" data-name="{{name}}" {{^block}}title="{{account}} ({{name}})"{{/block}}{{#block}} data-block="true"{{/block}}>
-				{{#block}}没有更多匹配数据{{/block}}
-				{{^block}}{{account}} ({{name}}){{/block}}
-			</li>
-		{{/users}}
-	</ul>
 </script>
-<script type="text/tmpl" id="user-item-tmpl">
-<span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">{{account}} ({{name}})<i class="unpick-btn">&times;</i></span>
-</script>
-	    <script src="./group/index.js?_r=$!timeStamp"></script>
+<script src="./group/index.js?_r=$!timeStamp"></script>
 	    #bodyEnd
 	</body>
 </html>

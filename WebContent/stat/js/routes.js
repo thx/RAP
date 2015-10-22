@@ -31,7 +31,9 @@
             team: {
                 'create': '/org/team/create.do',
                 'changeAccessType': '/org/team/changeAccessType.do',
-                'deleteMember':'/org/team/deleteMember.do'
+                'deleteMember':'/org/team/deleteMember.do',
+                'addMembers':'/org/team/addMembers.do',
+                'update':'/org/team/update.do'
             }
 		},
 		workspace: {
