@@ -11,10 +11,9 @@
         <script src="${staticRoot}/js/util/jsformat.js"></script>
     </head>
     <body class="workspace #if(!$accessable)read-only#end">
-        #bodyNewStart(true)
+        #bodyNewStart
         <div id="div-fixed-panel">
             <div class="clearfix">
-
                 <div id="div-w-message" class="label" style="display:none;">
                 </div>
                 <div id="div-control-panel">

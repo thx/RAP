@@ -31,6 +31,10 @@ public class OrganizationAction extends ActionBase {
 
     private Corporation corporation;
 
+    private ProductionLine productline;
+
+    private Corporation team;
+
 	public int getId() {
 		return id;
 	}
@@ -48,8 +52,12 @@ public class OrganizationAction extends ActionBase {
 	}
 
 	public ProductionLine getProductLine() {
-		return organizationMgr.getProductionLine(plid);
+		return productline;
 	}
+
+    public Corporation getTeam() {
+        return team;
+    }
 
 	public ProjectMgr getProjectMgr() {
 		return projectMgr;
@@ -81,6 +89,9 @@ public class OrganizationAction extends ActionBase {
 	}
 
 	public String group() {
+        productline = organizationMgr.getProductionLine(plid);
+        int corpId = productline.getCorporationId();
+        team = organizationMgr.getCorporation(corpId);
 		return SUCCESS;
 	}
 
