@@ -2,6 +2,7 @@ package com.taobao.rigel.rap.organization.web.action;
 
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.ActionBase;
+import com.taobao.rigel.rap.common.StringUtils;
 import com.taobao.rigel.rap.common.SystemConstant;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
@@ -77,6 +78,11 @@ public class TeamAction extends ActionBase {
     }
 
     public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            name = "unnamed";
+        }
+
+        this.name = StringUtils.removeIllegalCharacters(name);
         this.name = name;
     }
 
@@ -91,11 +97,11 @@ public class TeamAction extends ActionBase {
 
     public String create() {
         Corporation team = new Corporation();
-        team.setName(name);
+        team.setName(getName());
         team.setUserId(getCurUserId());
-        team.setAccountList(Arrays.asList(accountList.split(",")));
-        team.setDesc(desc);
-        team.setAccessType(accessType);
+        team.setAccountList(Arrays.asList(getAccountList().split(",")));
+        team.setDesc(getDesc());
+        team.setAccessType(getAccessType());
         team.setLogoUrl("");
         int id = organizationMgr.addTeam(team);
         setJson("{\"id\":" + id + "}");
@@ -123,7 +129,7 @@ public class TeamAction extends ActionBase {
     }
 
     public long getTeamListPageInTotal() {
-        double result =  Math.floor(teamListNum / SystemConstant.DEFAULT_PAGE_SIZE + 1);
+        double result = Math.floor(teamListNum / SystemConstant.DEFAULT_PAGE_SIZE + 1);
         return (long) result;
     }
 

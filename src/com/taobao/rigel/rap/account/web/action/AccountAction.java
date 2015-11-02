@@ -14,6 +14,7 @@ import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.ContextManager;
 import com.taobao.rigel.rap.common.Pinyin4jUtil;
 import com.taobao.rigel.rap.common.SystemVisitorLog;
+import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 
 /**
  * account action
@@ -33,6 +34,26 @@ public class AccountAction extends ActionBase {
 	private String email;
 	private String SSO_TOKEN;
 	private String BACK_URL;
+
+    public OrganizationMgr getOrganizationMgr() {
+        return organizationMgr;
+    }
+
+    public void setOrganizationMgr(OrganizationMgr organizationMgr) {
+        this.organizationMgr = organizationMgr;
+    }
+
+    private OrganizationMgr organizationMgr;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	private int id;
 
 	public String test() throws AddressException, InterruptedException {
 
@@ -129,8 +150,16 @@ public class AccountAction extends ActionBase {
 	}
 
 	public String all() {
+        if (!isUserLogined()) {
+            setErrMsg(LOGIN_HINT_MSG);
+            return JSON_ERROR;
+        }
+        if (id <= 0 || !organizationMgr.canUserManageCorp(getCurUserId(), id)) {
+            setErrMsg(ACCESS_DENY);
+            return JSON_ERROR;
+        }
 		Gson gson = new Gson();
-		List<User> users = super.getAccountMgr().getUserList();
+		List<User> users = super.getAccountMgr().getUserList(id);
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 		for (User user : users) {
 			Map<String, Object> o = new HashMap<String, Object>();

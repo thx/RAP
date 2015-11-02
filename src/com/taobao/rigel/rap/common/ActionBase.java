@@ -17,6 +17,11 @@ public class ActionBase extends ActionSupport {
 
 	public static String LOGIN_WARN_MSG = "您登录过期啦，不要乱动哦，请打开新页面登录后再提交吧 >  。<";
 
+	public static String LOGIN_HINT_MSG = "您尚未登录，或登录已过期，请登录后再试。";
+
+    public static String ACCESS_DENY = "您无权访问该页面或数据，请联系系统管理员。";
+
+
 	private boolean isReturnUrlFirstSet;
 
 	private boolean isLoginCtlHidden;
@@ -156,6 +161,7 @@ public class ActionBase extends ActionSupport {
 	public void setErrMsg(String errMsg) {
 		this.isLoginCtlHidden = true;
 		this.errMsg = errMsg;
+        this.isOk = false;
 	}
 
 	public void plsLogin() {

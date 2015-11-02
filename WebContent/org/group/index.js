@@ -94,7 +94,7 @@ $(function() {
 			var box = $(this);
 			box = box.parents('.box');
 			var projId = box.data('projid');
-			window.open($.route('workspace.mine') + '?projectId=' + projId);
+			window.location.href = ($.route('workspace.mine') + '?projectId=' + projId);
 		})
 		.delegate('.box .glyphicon-pencil', 'click', function() {
 			var id = $(this).data('id');

@@ -45,6 +45,14 @@ public interface AccountMgr {
 	List<User> getUserList();
 
 	/**
+	 * get users of team
+	 *
+	 * @param teamId
+	 * @return
+	 */
+	List<User> getUserList(int teamId);
+
+	/**
 	 * get user by account
 	 * 
 	 * @param userId
