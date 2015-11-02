@@ -5,6 +5,25 @@
 #set($logoutUrlEncoded = $utils.escapeInU($logoutUrl))
 ## master page start
 #macro (bodyNewStart $hide)
+
+    <script>
+        function getUsers(callback, teamId) {
+            if ($.local('users')) {
+                callback($.local('users'));
+                return;
+            }
+            var params = {};
+            if (teamId) {
+                params.id = teamId;
+            }
+            $.get($.route('org.account.all'), params, function(data) {
+                users = data.users;
+                $.local('users', users);
+                callback(users);
+            }, "JSON");
+        }
+    </script>
+
 #if(!$hide)
 <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
   <div class="container">
@@ -191,7 +210,7 @@
                         var startMockNum = +ele.attr('data-start');
                         ele.html(startMockNum + (+data.mockNumToday));
                     }
-                    setTimeout(_logData, 2000);
+                    // setTimeout(_logData, 2000);
                 }
             });
         }
@@ -328,17 +347,7 @@
             }
         });
 
-        function getUsers(callback) {
-            if ($.local('users')) {
-                callback($.local('users'));
-                return;
-            }
-            $.get($.route('org.account.all'), function(data) {
-                users = data.users;
-                $.local('users', users);
-                callback(users);
-            }, "JSON");
-        }
+
     }
 
     function _bindTemplateEvents() {

@@ -5,6 +5,9 @@
 		<title>欢迎使用RAP        </title>
 		#includeNewRapStatic
 		<link rel="stylesheet" href="./group/index.css?_r=$!timeStamp">
+        <script>
+            var teamId = $team.id;
+        </script>
 	</head>
 	<body>
 	    #bodyNewStart

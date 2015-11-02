@@ -334,6 +334,22 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     }
 
     @Override
+    public int getTeamIdByProjectId(int id) {
+        StringBuilder sql = new StringBuilder();
+
+        sql.append(" SELECT c.id");
+        sql.append(" FROM tb_project p");
+        sql.append(" JOIN tb_group g ON g.id = p.group_id");
+        sql.append(" JOIN tb_production_line pl ON pl.id = g.production_line_id");
+        sql.append(" JOIN tb_corporation c ON c.id = pl.corporation_id");
+        sql.append(" WHERE p.id = :id");
+
+        Query query = getSession().createSQLQuery(sql.toString());
+        query.setInteger("id", id);
+        return (Integer) query.uniqueResult();
+    }
+
+    @Override
 	public Corporation getCorporation(int id) {
         return (Corporation) getSession().get(Corporation.class, id);
 	}

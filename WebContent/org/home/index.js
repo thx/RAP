@@ -17,17 +17,6 @@ $(function() {
 
     var PL_ID = null;
     var CORP_ID = null;
-    function getUsers(callback) {
-        if ($.local('users')) {
-            callback($.local('users'));
-            return;
-        }
-        $.get($.route('org.account.all'), function(data) {
-            users = data.users;
-            $.local('users', users);
-            callback(users);
-        }, "JSON");
-    }
 
     function handleAddClick() {
         var that = this;
@@ -36,6 +25,7 @@ $(function() {
             return;
         }
         btn.data('shown', 1);
+        var teamId = 0;
         var groupId = $(this).data('groupid');
 
         $.confirm({
@@ -46,11 +36,12 @@ $(function() {
                 btn.data('shown', 0);
             },
             showCallback: function() {
+                var box = $(this);
                 btn.data('shown', 0);
                 var that = this;
-                $(this).find('input[type=text]').focus();
-                $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
-                    $(this).parent('.picked-user').remove();
+                box.find('input[type=text]').focus();
+                box.find('.picking-user').delegate('.unpick-btn', 'click', function() {
+                    box.parent('.picked-user').remove();
                 });
                 $('.tip').tooltip();
                 $('.project-target .team').change(function() {
@@ -65,6 +56,9 @@ $(function() {
                     fillSelectAsync('org.productline.all', {
                         corpId: corpId
                     }, $('#option-list-tmpl').text(), '.project-target .productline', function() {
+                        teamId = corpId;
+                        box.find('.disabled').removeClass('disabled');
+                        box.find('.accounts-inputer').removeAttr('disabled');
                         showCreateProductlineBtn(corpId, text);
                     });
                 });
@@ -91,7 +85,7 @@ $(function() {
                     }).focus(function() {
                         $.autocomplete(that, users);
                     });
-                });
+                }, teamId);
             },
             confirmClicked: function() {
                 var inputer = $(this).find('input[type=text]');
@@ -149,6 +143,7 @@ $(function() {
     function handleEditProjectClick() {
         var id = $(this).data('id');
         var box = $(this).parents('.box');
+        var teamId = box.data('teamid');
         var name = box.find('.info .title').html();
         var desc = box.find('.info .intro').html();
         var accounts = box.find('.accounts-hidden').val();
@@ -186,7 +181,7 @@ $(function() {
                     }).focus(function() {
                         $.autocomplete(that, users);
                     });
-                });
+                }, teamId);
             },
             confirmClicked: function() {
                 var inputer = $(this).find('input[type=text]');

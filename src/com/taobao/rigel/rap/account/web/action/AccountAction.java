@@ -154,12 +154,13 @@ public class AccountAction extends ActionBase {
             setErrMsg(LOGIN_HINT_MSG);
             return JSON_ERROR;
         }
-        if (id <= 0 || !organizationMgr.canUserManageCorp(getCurUserId(), id)) {
+        if (id > 0 && !organizationMgr.canUserManageCorp(getCurUserId(), id)) {
             setErrMsg(ACCESS_DENY);
             return JSON_ERROR;
         }
 		Gson gson = new Gson();
-		List<User> users = super.getAccountMgr().getUserList(id);
+
+		List<User> users = id > 0 ? super.getAccountMgr().getUserList(id) : super.getAccountMgr().getUserList();
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 		for (User user : users) {
 			Map<String, Object> o = new HashMap<String, Object>();

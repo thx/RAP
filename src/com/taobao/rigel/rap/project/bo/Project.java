@@ -35,6 +35,16 @@ public class Project implements java.io.Serializable {
 	private int groupId;
     private int mockNum;
 
+	public int getTeamId() {
+		return teamId;
+	}
+
+	public void setTeamId(int teamId) {
+		this.teamId = teamId;
+	}
+
+	private int teamId;
+
     public short getAccessType() {
         return accessType;
     }
