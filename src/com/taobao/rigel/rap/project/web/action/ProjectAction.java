@@ -362,11 +362,23 @@ public class ProjectAction extends ActionBase {
 	}
 
 	public String getGeneratedFileName() {
-		return projectMgr.getPage(getPageId()).getTemplate();
+        return projectMgr.getPage(getPageId()).getTemplate();
 	}
 
 	public String search() {
-		searchResult = projectMgr.search(key);
+
+        if (!isUserLogined()) {
+            setErrMsg(LOGIN_HINT_MSG);
+            return JSON_ERROR;
+        }
+
+        User curUser = getCurUser();
+        if (curUser.isAdmin()) {
+            searchResult = projectMgr.search(key);
+        } else {
+            searchResult = projectMgr.search(key, getCurUserId());
+        }
+
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		for (Project p : searchResult) {
 			Map<String, Object> item = new HashMap<String, Object>();

@@ -504,7 +504,6 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		return query.list();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Project> search(String key) {
 		String hql = "from Project where name LIKE :key";

@@ -118,7 +118,7 @@ public interface ProjectDao {
 	List<Project> getProjectListByGroup(int id);
 
 	/**
-	 * project search
+	 * search all projects (for admin use)
 	 * 
 	 * @param key
 	 * @return

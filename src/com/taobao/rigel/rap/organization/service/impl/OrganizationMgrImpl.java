@@ -212,8 +212,10 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     public boolean canUserAccessProject(long userId, int projectId) {
         User u = accountMgr.getUser(userId);
         Project p = projectMgr.getProject(projectId);
+        int teamId = organizationDao.getTeamIdByProjectId(projectId);
+        Corporation c = organizationDao.getCorporation(teamId);
 
-        return u.isAdmin() || p.isUserMember(userId);
+        return u.isAdmin() || p.isUserMember(userId)  || c.isPublic();
     }
 
     @Override

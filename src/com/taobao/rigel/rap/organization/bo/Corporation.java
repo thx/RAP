@@ -112,4 +112,8 @@ public class Corporation {
     public void setCreatorName(String creatorName) {
         this.creatorName = creatorName;
     }
+
+    public boolean isPublic() {
+        return this.accessType == PUBLIC_ACCESS;
+    }
 }
