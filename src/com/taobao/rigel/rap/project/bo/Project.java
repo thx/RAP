@@ -35,6 +35,10 @@ public class Project implements java.io.Serializable {
 	private int groupId;
     private int mockNum;
 
+    public static final int PRIVATE_ACCESS = 0;
+
+    public static final int DEFAULT_ACCESS = 10;
+
 	public int getTeamId() {
 		return teamId;
 	}

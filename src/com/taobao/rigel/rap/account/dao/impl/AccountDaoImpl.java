@@ -126,7 +126,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
     }
 
 	@Override
-	public List<Long> getUserIdList(int teamId) {
+	public List<Integer> getUserIdList(int teamId) {
 		String sql = "SELECT user_id FROM tb_corporation_and_user WHERE corporation_id = :teamId";
 		Query query = getSession().createSQLQuery(sql);
 		query.setInteger("teamId", teamId);

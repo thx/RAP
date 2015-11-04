@@ -231,7 +231,7 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
                 .append("       WHERE u.user_id = :userId ")
                 .append("   UNION ")
                 .append("   SELECT id AS cid FROM tb_corporation ")
-                .append("   WHERE user_id = :userId ")
+                .append("   WHERE user_id = :userId or access_type = 20")
                 .append(") AS TEMP ")
                 .append("ORDER BY cid DESC ")
                 .append("LIMIT :startIndex, :pageSize ");
@@ -261,7 +261,7 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
                 .append("       WHERE c.id = :userId ")
                 .append("   UNION ")
                 .append("   SELECT id AS cid FROM tb_corporation ")
-                .append("   WHERE user_id = :userId ")
+                .append("   WHERE user_id = :userId or access_type = 20")
                 .append(") AS TEMP ");
 
         Query query = getSession().createSQLQuery(sql.toString());

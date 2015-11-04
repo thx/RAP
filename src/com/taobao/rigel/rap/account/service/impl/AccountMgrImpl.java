@@ -131,11 +131,14 @@ public class AccountMgrImpl implements AccountMgr {
 
 	@Override
 	public List<User> getUserList(int teamId) {
-		List<Long> userIdList = accountDao.getUserIdList(teamId);
+
+		List<Integer> userIdList = accountDao.getUserIdList(teamId);
 		List<User> userList = new ArrayList<User>();
-		for (Long id : userIdList) {
+
+		for (Integer id : userIdList) {
 			userList.add(this.getUser(id));
 		}
+
 		Corporation c = organizationMgr.getCorporation(teamId);
 		userList.add(this.getUser(c.getUserId()));
 		return userList;

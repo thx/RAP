@@ -13,6 +13,8 @@ public class Corporation {
     private long memberNum;
     private String creatorName;
     public final int NAME_STR_MAX_LENGTH = 15;
+    public static final int PUBLIC_ACCESS = 20;
+    public static final int PRIVATE_ACCESS = 10;
 
     public List<String> getAccountList() {
         return accountList;

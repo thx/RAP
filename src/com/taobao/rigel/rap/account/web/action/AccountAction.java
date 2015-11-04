@@ -14,6 +14,7 @@ import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.ContextManager;
 import com.taobao.rigel.rap.common.Pinyin4jUtil;
 import com.taobao.rigel.rap.common.SystemVisitorLog;
+import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 
 /**
@@ -153,6 +154,11 @@ public class AccountAction extends ActionBase {
         if (!isUserLogined()) {
             setErrMsg(LOGIN_HINT_MSG);
             return JSON_ERROR;
+        }
+
+        Corporation c = organizationMgr.getCorporation(id);
+        if (c.getAccessType() == Corporation.PUBLIC_ACCESS) {
+            id = 0; // public access
         }
         if (id > 0 && !organizationMgr.canUserManageCorp(getCurUserId(), id)) {
             setErrMsg(ACCESS_DENY);
