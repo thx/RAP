@@ -188,4 +188,12 @@ public interface AccountDao {
 
     public void updateUser(User user);
 
+	/**
+	 * get user id list of team
+	 *
+	 * @param teamId
+	 * @return
+	 */
+	List<Integer> getUserIdList(int teamId);
+
 }

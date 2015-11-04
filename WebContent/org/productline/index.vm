@@ -10,9 +10,13 @@
 	</head>
 	<body>
 	    #bodyNewStart
+
 	    <div class="page">
 	    	<div class="productlines content">
-	    		<h2>产品线</h2>
+                <ol class="breadcrumb">
+                    <li><a href="$teamUrl.teams">主页</a></li>
+                    <li class="active">$!utils.escapeInH($corporation.name)</li>
+                </ol>
 	    		<div>
 	    			<table class="table">
 	    				<thead>

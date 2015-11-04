@@ -2,9 +2,7 @@
 #parse('/tcom/template.rap.vm')
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>欢迎使用RAP        </title>
-		<link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
 		#includeNewRapStatic
 		<link rel="stylesheet" href="./group/index.css?_r=$!timeStamp" type="text/css" media="screen">
 	</head>
@@ -17,26 +15,6 @@
 	    <div class="page home">
 		    <div class="groups-con content">
 		    	<h2>我的主页</h2>
-                <!--
-                <div><a id="rap_ad" href="http://iftest.alibaba-inc.com/index.htm?projectId=26&case_ui_id=case_6379" target="_blank"></a></div>
-		    	<script>
-                    !function() {
-                        var adContent = [
-                            '  RAP的gg们，测试mm求偶遇在if-test接口测试平台！',
-                            '想早点回家滚床单吗？基于RAP  If-test接口测试平台在等你试用啊！',
-                            'RAP把妹了哦—— If-test接口测试平台！接口质量尽在掌控！'
-                        ];
-                        var seed = Math.round(Math.random()* 100);
-                        var index = 0;
-                        if (seed < 30) {
-                            index = 1;
-                        } else if (seed > 70) {
-                            index = 2;
-                        }
-                        $('#rap_ad').html(adContent[index]);
-                    }();
-		    	</script>
-		    	-->
                 <div class="groups">
 		    		<div class="loading">加载中，请稍候</div>
 		    	</div>
@@ -50,7 +28,7 @@
     </h3>
     <div class="box-con clearfix">
 		{{#projects}}
-        <div class="box" data-projid="{{id}}">
+        <div class="box" data-projid="{{id}}" data-teamid="{{teamId}}">
             <div class="info">
                 <div class="title">{{name}}</div>
                 <div class="intro">{{desc}}</div>
@@ -125,55 +103,91 @@
 
 <script type="text/tmpl" id="create-proj-tmpl">
 <div class="form-horizontal" role="form">
-  <div class="form-group">
-    <label for="" class="col-sm-2 control-label">项目名称 <span style="color:red">&#42;</span></label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" style="width:432px;" placeholder="请在此编辑项目名称" value="{{name}}"/>
+    <div class="form-group">
+        <label for="" class="col-sm-2 control-label">
+            项目名称
+            <span style="color:red">
+                &#42;
+            </span>
+        </label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" style="width:432px;" placeholder="请在此编辑项目名称"
+            value="{{name}}" />
+        </div>
     </div>
-  </div>
- <div class="form-group">
-    <label for="" class="col-sm-2 control-label">项目描述</label>
-    <div class="col-sm-10">
-      <textarea class="form-control desc" style="width:432px;resize:vertical;" placeholder="请在此编辑项目描述">{{desc}}</textarea>
+    <div class="form-group">
+        <label for="" class="col-sm-2 control-label">
+            项目描述
+        </label>
+        <div class="col-sm-10">
+            <textarea class="form-control desc" style="width:432px;resize:vertical;"
+            placeholder="请在此编辑项目描述">
+                {{desc}}
+            </textarea>
+        </div>
     </div>
-  </div>
-<div class="form-group">
-    <label for="" class="col-sm-2 control-label">项目成员</label>
-    <div class="col-sm-10 picking-user" style="position:relative">
-	  {{#users}}
-	  <span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">{{account}} ({{name}})<i class="unpick-btn">&times;</i></span>
-	  {{/users}}
-	  <input class="form-control accounts-inputer" placeholder="添加项目成员"/>
-	  <span class="user-loading">项目成员列表加载中，请稍候~ </span
-	  ><span class="glyphicon glyphicon-question-sign tip" title="如果该用户没有登录/注册过RAP，系统中就没有TA的信息。请TA先登录一下RAP吧。匹配时请可以输入TA的花名或帐号(域帐号)">找不到TA?</span>
-      <div class="accounts-con"></div>
-	</div>
-  </div>
-  <div class="form-group" style="margin-bottom:0">
-    <label for="" class="col-sm-2 control-label">项目归属</label>
-    <div class="col-sm-10 project-target" style="position:relative">
-		<div class="clearfix">
-    	<select class="form-control team">
-    		<option>--请选择团队--</option>
-    		#foreach($corp in $corpList)
-          	 <option value="$corp.id">$corp.name</option>
-          	#end
-    	</select>
-		<span>
-    		<select class="form-control productline">
-    			<option value="">--请选择产品线--</option>
-    		</select>
-		</span>
-		<span>
-    		<select class="form-control group">
-    			<option value="">--请选择分组--</option>
-    		</select><br>
-		</span>
-	</div>
-    	<div class="create-new-entity-container">
-		</div>
-	</div>
-  </div>
+    <div class="form-group">
+        <label for="" class="col-sm-2 control-label">
+            项目归属
+        </label>
+        <div class="col-sm-10 project-target" style="position:relative">
+            <div class="clearfix">
+                <select class="form-control team">
+                    <option>
+                        --请选择团队--
+                    </option>
+                    #foreach($corp in $corpList)
+                    <option value="$corp.id">
+                        $!utils.escapeInH($corp.name)
+                    </option>
+                    #end
+                </select>
+                <span>
+                    <select class="form-control productline">
+                        <option value="">
+                            --请选择产品线--
+                        </option>
+                    </select>
+                </span>
+                <span>
+                    <select class="form-control group">
+                        <option value="">
+                            --请选择分组--
+                        </option>
+                    </select>
+                    <br>
+                </span>
+            </div>
+            <div class="create-new-entity-container">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="" class="col-sm-2 control-label">
+            项目成员
+        </label>
+        <div class="col-sm-10 picking-user disabled" style="position:relative">
+            {{#users}}
+            <span class="picked-user" data-name="{{name}}" data-account="{{account}}"
+            title="{{account}} ({{name}})">
+                {{account}} ({{name}})
+                <i class="unpick-btn">
+                    &times;
+                </i>
+            </span>
+            {{/users}}
+            <input class="form-control accounts-inputer" placeholder="添加项目成员" disabled/>
+            <span class="user-loading">
+                项目成员列表加载中，请稍候~
+            </span>
+            <span class="glyphicon glyphicon-question-sign tip" title="如果该用户没有登录/注册过RAP，系统中就没有TA的信息。请TA先登录一下RAP吧。匹配时请可以输入TA的花名或帐号(域帐号)">
+                找不到TA?
+            </span>
+            <div class="accounts-con">
+            </div>
+        </div>
+    </div>
+
 </div>
 </script>
 
@@ -203,22 +217,7 @@
 {{#items}}
 <option value="{{id}}">{{name}}</option>
 {{/items}}
-</script>
-
-<script type="text/tmpl" id="user-auto-list">
-	<ul class="autocompleter">
-		{{#users}}
-			<li data-account="{{account}}" data-name="{{name}}" {{^block}}title="{{account}} ({{name}})"{{/block}}{{#block}} data-block="true"{{/block}}>
-				{{#block}}没有更多匹配数据{{/block}}
-				{{^block}}{{account}} ({{name}}){{/block}}
-			</li>
-		{{/users}}
-	</ul>
-</script>
-<script type="text/tmpl" id="user-item-tmpl">
-<span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">{{account}} ({{name}})<i class="unpick-btn">&times;</i></span>
-</script>
-		</script>
+</script></script>
 	    <script src="./home/index.js?_r=$!timeStamp"></script>
 	    #bodyEnd
 	</body>

@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 #parse('/tcom/template.rap.vm')
-<html>
+<html lang="cn">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>欢迎使用RAP        </title>
-		<link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
 		#includeNewRapStatic
-		<link rel="stylesheet" href="./group/index.css?_r=$!timeStamp" type="text/css" media="screen">
+		<link rel="stylesheet" href="./group/index.css?_r=$!timeStamp">
+        <script>
+            var teamId = $team.id;
+        </script>
 	</head>
 	<body>
 	    #bodyNewStart
 	    <div class="page">
 		    <div class="groups-con content">
-		    	<h2>$!utils.escapeInH($productLine.name)</h2>
+                <ol class="breadcrumb">
+                    <li><a href="$teamUrl.teams">主页</a></li>
+                    <li><a href="$productlineUrl.productline?id=$team.id">$utils.escapeInH($team.name)</a></li>
+                    <li class="active">$!utils.escapeInH($productLine.name)</li>
+                </ol>
 		    	<div>
 		    		<span class="btn btn-primary create-group"><i class="glyphicon glyphicon-plus"></i> 创建分组</span>
 		    	</div>
@@ -114,21 +119,8 @@
 	</div>
   </div>
 </div>
-		</script>
-<script type="text/tmpl" id="user-auto-list">
-	<ul class="autocompleter">
-		{{#users}}
-			<li data-account="{{account}}" data-name="{{name}}" {{^block}}title="{{account}} ({{name}})"{{/block}}{{#block}} data-block="true"{{/block}}>
-				{{#block}}没有更多匹配数据{{/block}}
-				{{^block}}{{account}} ({{name}}){{/block}}
-			</li>
-		{{/users}}
-	</ul>
 </script>
-<script type="text/tmpl" id="user-item-tmpl">
-<span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">{{account}} ({{name}})<i class="unpick-btn">&times;</i></span>
-</script>
-	    <script src="./group/index.js?_r=$!timeStamp"></script>
+<script src="./group/index.js?_r=$!timeStamp"></script>
 	    #bodyEnd
 	</body>
 </html>

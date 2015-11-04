@@ -26,6 +26,7 @@ public class User implements java.io.Serializable {
 	private int incorrectLoginAttempt;
 	private String realname;
     private String empId;
+    private int roleId;
 
     public String getEmpId() {
         return empId;
@@ -42,6 +43,15 @@ public class User implements java.io.Serializable {
 		base.put("email", this.email);
 		return base;
 	}
+
+    public boolean isAdmin() {
+        for (Role role : this.getRoleList()) {
+            // roleId = 1, means super admin (god)
+            // roleId = 2, means admin
+            if (role.getId() >= 1 && role.getId() <= 2) return true;
+        }
+        return false;
+    }
 
     public void setRealname(String realname) {
         this.realname = realname;
@@ -251,4 +261,12 @@ public class User implements java.io.Serializable {
 	public String getRealname() {
 		return this.realname;
 	}
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
 }

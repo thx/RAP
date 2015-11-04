@@ -45,6 +45,14 @@ public interface AccountMgr {
 	List<User> getUserList();
 
 	/**
+	 * get users of team
+	 *
+	 * @param teamId
+	 * @return
+	 */
+	List<User> getUserList(int teamId);
+
+	/**
 	 * get user by account
 	 * 
 	 * @param userId
@@ -111,6 +119,8 @@ public interface AccountMgr {
 	 * @return
 	 */
 	List<Corporation> getCorporationList();
+
+    List<Corporation> getCorporationListWithPager(long userId, int pageNum, int pageSize);
 
 	/**
 	 * get user by name

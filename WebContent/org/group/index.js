@@ -94,7 +94,7 @@ $(function() {
 			var box = $(this);
 			box = box.parents('.box');
 			var projId = box.data('projid');
-			window.open($.route('workspace.mine') + '?projectId=' + projId);
+			window.location.href = ($.route('workspace.mine') + '?projectId=' + projId);
 		})
 		.delegate('.box .glyphicon-pencil', 'click', function() {
 			var id = $(this).data('id');
@@ -136,7 +136,7 @@ $(function() {
 						}).focus(function() {
 							$.autocomplete(that, users);
 						});
-					});
+					}, teamId);
 				},
 				confirmClicked: function() {
 					var inputer = $(this).find('input[type=text]');
@@ -234,7 +234,7 @@ $(function() {
 						}).focus(function() {
 							$.autocomplete(that, users);
 						});
-					});
+					}, teamId);
 				},
 				confirmClicked: function() {
 					var inputer = $(this).find('input[type=text]');
@@ -294,17 +294,7 @@ $(function() {
 			}, "JSON");
 		});
 	}
-	function getUsers(callback) {
-		if ($.local('users')) {
-			callback($.local('users'));
-			return;
-		}
-		$.get($.route('org.account.all'), function(data) {
-			users = data.users;
-			$.local('users', users);
-			callback(users);
-		}, "JSON");
-	}
+
 	function render() {
 		$.get($.route('org.group.all'), {
 			productLineId: plId

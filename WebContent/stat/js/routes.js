@@ -2,41 +2,48 @@
 	var URLS = {
 		org : {
 			home: {
-				'projects': '/org/projects.action',
-				'productlines': '/org/home/productlines.action',
-				'groups': '/org/home/groups.action',
-				'grouplist': '/org/group/groups.action'
+				'projects': '/org/projects.do',
+				'productlines': '/org/home/productlines.do',
+				'groups': '/org/home/groups.do',
+				'grouplist': '/org/group/groups.do'
 			},
 			group: {
-				'all':    '/org/group/all.action',
-				'update': '/org/group/update.action',
-				'delete': '/org/group/delete.action',
-				'create': '/org/group/create.action'
+				'all':    '/org/group/all.do',
+				'update': '/org/group/update.do',
+				'delete': '/org/group/delete.do',
+				'create': '/org/group/create.do'
 			},
 			productline: {
-				'all':    '/org/productline/all.action',
-				'update': '/org/productline/update.action',
-				'delete': '/org/productline/delete.action',
-				'create': '/org/productline/create.action'
+				'all':    '/org/productline/all.do',
+				'update': '/org/productline/update.do',
+				'delete': '/org/productline/delete.do',
+				'create': '/org/productline/create.do'
 			},
 			project: {
-				'create': '/project/create.action',
-				'delete': '/project/delete.action',
-				'update': '/project/update.action',
-				'search': '/project/search.action'
+				'create': '/project/create.do',
+				'delete': '/project/delete.do',
+				'update': '/project/update.do',
+				'search': '/project/search.do'
 			}, 
 			account: {
 				'all': '/account/all.action'
-			}
+			},
+            team: {
+                'create': '/org/team/create.do',
+                'changeAccessType': '/org/team/changeAccessType.do',
+                'deleteMember':'/org/team/deleteMember.do',
+                'addMembers':'/org/team/addMembers.do',
+                'update':'/org/team/update.do'
+            }
 		},
 		workspace: {
-			'mine': '/workspace/myWorkspace.action'
+			'mine': '/workspace/myWorkspace.do'
 		},
 		notify: {
-			'unread': '/account/getUnreadNotificationList.action',
-			'clear': '/account/clearUnreadNotifications.action',
-			'all': '/account/getNotificationList.action',
-			'delete': '/account/readAllNotification.action'
+			'unread': '/account/getUnreadNotificationList.do',
+			'clear': '/account/clearUnreadNotifications.do',
+			'all': '/account/getNotificationList.do',
+			'delete': '/account/readAllNotification.do'
 		}
 	};
 	

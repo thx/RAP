@@ -152,4 +152,13 @@ public interface ProjectDao {
 	Integer getProjectIdByActionId(int actionId);
 
 	void updateProjectNum(Project project);
+
+
+    /**
+     * transfer a project to another user
+     *
+     * @param projectId
+     * @param creatorId
+     */
+    void updateCreatorId(int projectId, long creatorId);
 }

@@ -21,6 +21,20 @@ public class OrganizationAction extends ActionBase {
 	private int plid;
 	private int id;
 
+    public Corporation getCorporation() {
+        return corporation;
+    }
+
+    public void setCorporation(Corporation corporation) {
+        this.corporation = corporation;
+    }
+
+    private Corporation corporation;
+
+    private ProductionLine productline;
+
+    private Corporation team;
+
 	public int getId() {
 		return id;
 	}
@@ -38,8 +52,12 @@ public class OrganizationAction extends ActionBase {
 	}
 
 	public ProductionLine getProductLine() {
-		return organizationMgr.getProductionLine(plid);
+		return productline;
 	}
+
+    public Corporation getTeam() {
+        return team;
+    }
 
 	public ProjectMgr getProjectMgr() {
 		return projectMgr;
@@ -71,22 +89,33 @@ public class OrganizationAction extends ActionBase {
 	}
 
 	public String group() {
+		if (!isUserLogined()) {
+			setErrMsg(LOGIN_HINT_MSG);
+			setRelativeReturnUrl("/org/group.do?plid=" + plid);
+			return LOGIN;
+		}
+        productline = organizationMgr.getProductionLine(plid);
+        int corpId = productline.getCorporationId();
+        team = organizationMgr.getCorporation(corpId);
 		return SUCCESS;
 	}
 
 	@SuppressWarnings("unchecked")
 	public String productline() {
-		Corporation c = organizationMgr.getCorporation(id);
-		if (c != null) {
-			ContextManager.getSession().put(ContextManager.KEY_CORP_NAME,
-					c.getName());
+		if (!isUserLogined()) {
+			setErrMsg(LOGIN_HINT_MSG);
+			setRelativeReturnUrl("/org/productline.do?id=" + id);
+			return LOGIN;
 		}
+        setCorporation(organizationMgr.getCorporation(id));
 		return SUCCESS;
 	}
 
 	public String projects() {
-		if (!isUserLogined())
-			return LOGIN;
+		if (!isUserLogined()) {
+            setErrMsg(LOGIN_HINT_MSG);
+            return JSON_ERROR;
+        }
 		Gson gson = new Gson();
 		List<Map<String, Object>> projects = new ArrayList<Map<String, Object>>();
 		// long totalRecNum = projectMgr.getProjectListNum(getCurUser());
@@ -107,6 +136,7 @@ public class OrganizationAction extends ActionBase {
 			map.put("isManagable", p.getIsManagable());
 			map.put("creator", p.getUser().getUserBaseInfo());
 			map.put("related", p.getUser().getId() != getCurUserId());
+            map.put("teamId", p.getTeamId());
 			projects.add(map);
 		}
 		StringBuilder json = new StringBuilder();
@@ -122,6 +152,11 @@ public class OrganizationAction extends ActionBase {
 	}
 
 	public String corporationList() {
+        if (!isUserLogined()) {
+            setErrMsg(LOGIN_HINT_MSG);
+            return JSON_ERROR;
+        }
+
 		Gson gson = new Gson();
 		setJson(gson.toJson(organizationMgr.getCorporationList()));
 		return SUCCESS;

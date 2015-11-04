@@ -1,5 +1,6 @@
 package com.taobao.rigel.rap.account.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -129,6 +130,21 @@ public class AccountMgrImpl implements AccountMgr {
 	}
 
 	@Override
+	public List<User> getUserList(int teamId) {
+
+		List<Integer> userIdList = accountDao.getUserIdList(teamId);
+		List<User> userList = new ArrayList<User>();
+
+		for (Integer id : userIdList) {
+			userList.add(this.getUser(id));
+		}
+
+		Corporation c = organizationMgr.getCorporation(teamId);
+		userList.add(this.getUser(c.getUserId()));
+		return userList;
+	}
+
+	@Override
 	public void _updatePassword(String account, String password) {
 		accountDao._changePassword(account, password);
 	}
@@ -137,6 +153,11 @@ public class AccountMgrImpl implements AccountMgr {
 	public List<Corporation> getCorporationList() {
 		return organizationMgr.getCorporationList();
 	}
+
+    @Override
+    public List<Corporation> getCorporationListWithPager(long userId, int pageNum, int pageSize) {
+        return organizationMgr.getCorporationListWithPager(userId, pageNum, pageSize);
+    }
 
 	@Override
 	public User getUserByName(String name) {

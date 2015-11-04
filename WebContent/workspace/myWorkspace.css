@@ -191,7 +191,7 @@ body {
     background: #FFF;
     z-index: 1;
     padding-top: 10px;
-    top:0;
+    top:50px;
 }
 
 .m {
@@ -382,7 +382,7 @@ body {
 
 #div-w {
     position: relative;
-    margin-top: 90px;
+    margin-top: 140px;
 }
 
 #div-w-message {
