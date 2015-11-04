@@ -35,6 +35,11 @@ CREATE TABLE tb_rule (
 
 	FOREIGN KEY(action_id) REFERENCES tb_action(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 将老的团队全部设为公开
+UPDATE tb_corporation SET access_type = 20;
+
 ```
 
 ### Database Change v0.11.1

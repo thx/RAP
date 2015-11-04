@@ -49,7 +49,7 @@
             #end
           <ul class="dropdown-menu teams">
             #foreach($corp in $_corpList)
-             <li><a href="$projectUrl.allProductlineList?id=$corp.id">$!utils.escapeInH($corp.nameStr)</a></li>
+             <li><a href="$projectUrl.allProductlineList?id=$corp.id">#if($corp.accessType==20)<span class="glyphicon glyphicon-exclamation-sign" title="公开项目,所有RAP用户均可访问,请注意数据安全."></span>&nbsp;&nbsp;#end$!utils.escapeInH($corp.nameStr)</a></li>
             #end
               <div style="clear:both;"></div>
               <li style="text-align:center;"><button onclick="window.location.href = '$teamUrl.teams';" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span>全部团队</button></li>
@@ -328,8 +328,8 @@
     }
 
     function _bindTemplateEvents() {
-        $('body')
-            .delegate('._createTeamBtn', 'click', _bindCreateTeamDialogAutoCompleteEvents);
+        $('body').delegate('._createTeamBtn', 'click', _bindCreateTeamDialogAutoCompleteEvents);
+        $('.glyphicon').tooltip();
     }
 
     _bindTemplateEvents();

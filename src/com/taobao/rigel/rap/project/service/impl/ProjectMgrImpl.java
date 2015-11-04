@@ -12,6 +12,7 @@ import com.taobao.rigel.rap.common.HTTPUtils;
 import com.taobao.rigel.rap.common.SystemConstant;
 import com.taobao.rigel.rap.organization.bo.Group;
 import com.taobao.rigel.rap.organization.dao.OrganizationDao;
+import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Module;
 import com.taobao.rigel.rap.project.bo.Page;
@@ -28,6 +29,16 @@ public class ProjectMgrImpl implements ProjectMgr {
 	private OrganizationDao organizationDao;
 	private AccountMgr accountMgr;
     private WorkspaceDao workspaceDao;
+
+    public OrganizationMgr getOrganizationMgr() {
+        return organizationMgr;
+    }
+
+    public void setOrganizationMgr(OrganizationMgr organizationMgr) {
+        this.organizationMgr = organizationMgr;
+    }
+
+    private OrganizationMgr organizationMgr;
 
     public void setWorkspaceDao(WorkspaceDao workspaceDao) {
         this.workspaceDao = workspaceDao;
@@ -279,6 +290,19 @@ public class ProjectMgrImpl implements ProjectMgr {
 	public List<Project> search(String key) {
 		return projectDao.search(key);
 	}
+
+    @Override
+    public List<Project> search(String key, long userId) {
+        List<Project> list =  projectDao.search(key);
+        List<Project> result = new ArrayList<Project>();
+
+        for (Project p : list) {
+            if (organizationMgr.canUserAccessProject(userId, p.getId())) {
+                result.add(p);
+            }
+        }
+        return result;
+    }
 
 	@Override
 	public Action getAction(long id) {
