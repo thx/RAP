@@ -40,7 +40,7 @@ body {
 }
 
 .dropdown-menu.teams {
-	width: 300px;
+	width: 420px;
 }
 
 .dropdown-menu.teams:before {
@@ -71,7 +71,7 @@ body {
 
 .dropdown-menu.teams li {
 	float: left;
-	width: 149px;
+	width: 200px;
 }
 
 .dropdown-menu.teams li a {
