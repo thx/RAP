@@ -4,13 +4,13 @@
 * THX开源工具集: [http://thx.github.io/](http://thx.github.io/)
 * 作者微博：[@Bosn](http://weibo.com/bosn)
 
-### DEMO
+### 线上版本
 
-* [apapi.net (English)](http://rapapi.net/)
-* [cn.rapapi.net (中文)](http://cn.rapapi.net/)
+* [cn.rapapi.net (中文)](http://cn.rapapi.net/)   **由作者维护**
 * 测试账号 test account
     * 账号/acc：test
     * 密码/pwd：test
+* [apapi.net (English)](http://rapapi.net/) **英文国际化版，仅供测试，不维护**
 
 I suggest to read [Quick Guide Manual](https://github.com/thx/RAP/wiki/quick_guide) at first.
 
