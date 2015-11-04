@@ -8,16 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb20dc48-24f1-4b5c-8bab-296484269c0c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/web/action/AccountAction.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/web/action/AccountAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/dao/AccountDao.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/dao/AccountDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/dao/impl/AccountDaoImpl.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/dao/impl/AccountDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/service/impl/AccountMgrImpl.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/service/impl/AccountMgrImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/bo/Corporation.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/bo/Corporation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/dao/impl/OrganizationDaoImpl.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/dao/impl/OrganizationDaoImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/PRIVATE_CONFIG.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/PRIVATE_CONFIG.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/bo/Project.java" afterPath="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/bo/Project.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/tcom/template.rap.vm" afterPath="$PROJECT_DIR$/WebContent/tcom/template.rap.vm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="RAP.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -72,15 +63,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="template.rap.vm" pinned="false" current-in-tab="true">
+      <file leaf-file-name="template.rap.vm" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebContent/tcom/template.rap.vm">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.28737542">
-              <caret line="33" column="40" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
+            <state vertical-scroll-proportion="-9.083333">
+              <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
               <folding>
                 <element signature="n#style#0;n#span#0;n#span#0;n#a#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#1;n#span#0;n#a#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PRIVATE_CONFIG.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/common/PRIVATE_CONFIG.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.11980831">
+              <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -149,7 +150,6 @@
         <option value="$PROJECT_DIR$/WebContent/org/group/index.vm" />
         <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/dao/AccountDao.java" />
         <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/dao/impl/AccountDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/PRIVATE_CONFIG.java" />
         <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/dao/impl/OrganizationDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/account/service/impl/AccountMgrImpl.java" />
         <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/bo/Corporation.java" />
@@ -157,6 +157,7 @@
         <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/web/action/ProjectAction.java" />
         <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/project/bo/Project.java" />
         <option value="$PROJECT_DIR$/WebContent/tcom/template.rap.vm" />
+        <option value="$PROJECT_DIR$/src/com/taobao/rigel/rap/common/PRIVATE_CONFIG.java" />
       </list>
     </option>
   </component>
@@ -641,12 +642,12 @@
       <workItem from="1446601539834" duration="1420000" />
       <workItem from="1446605409837" duration="1112000" />
       <workItem from="1446606615031" duration="427000" />
-      <workItem from="1446607158006" duration="2347000" />
+      <workItem from="1446607158006" duration="2398000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="150866000" />
+    <option name="totallyTimeSpent" value="150917000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1920" y="27" width="1903" height="1024" extended-state="0" />
@@ -1037,14 +1038,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/common/PRIVATE_CONFIG.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/organization/web/action/TeamAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1157,12 +1150,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/WebContent/tcom/template.rap.vm">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28737542">
-          <caret line="33" column="40" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
+        <state vertical-scroll-proportion="-9.083333">
+          <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
           <folding>
             <element signature="n#style#0;n#span#0;n#span#0;n#a#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#1;n#span#0;n#a#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/taobao/rigel/rap/common/PRIVATE_CONFIG.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11980831">
+          <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>
