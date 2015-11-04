@@ -155,10 +155,11 @@ public class AccountAction extends ActionBase {
             setErrMsg(LOGIN_HINT_MSG);
             return JSON_ERROR;
         }
-
-        Corporation c = organizationMgr.getCorporation(id);
-        if (c.getAccessType() == Corporation.PUBLIC_ACCESS) {
-            id = 0; // public access
+        if (id > 0) {
+            Corporation c = organizationMgr.getCorporation(id);
+            if (c.getAccessType() == Corporation.PUBLIC_ACCESS) {
+                id = 0; // public access
+            }
         }
         if (id > 0 && !organizationMgr.canUserManageCorp(getCurUserId(), id)) {
             setErrMsg(ACCESS_DENY);
