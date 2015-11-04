@@ -17,7 +17,7 @@
     <tbody>
         #foreach($item in $teamList)
         <tr>
-            <td><a href="$productlineUrl.productline?id=$item.id">$!utils.escapeInH($item.name)</a></td>
+            <td><a href="$productlineUrl.productline?id=$item.id">#if($item.accessType==20)<span class="glyphicon glyphicon-exclamation-sign" title="公开项目,所有RAP用户均可访问,请注意数据安全."></span>&nbsp;&nbsp;#end $!utils.escapeInH($item.name)</a></td>
             <td>$!utils.escapeInH($item.creatorName)</td>
             <td>$item.memberNum</td>
             <td>
@@ -48,6 +48,9 @@
             #end><a href="$teamUrl.teams?pageNum=$!teamListPageInTotal" aria-label="Next"><span aria-hidden="true">»</span></a></li>
     </ul>
 </nav>
+<script>
+    $('.glyphicon').tooltip();
+</script>
 #bodyEnd
 </body>
 </html>
