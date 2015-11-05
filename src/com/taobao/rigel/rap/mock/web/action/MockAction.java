@@ -23,7 +23,8 @@ public class MockAction extends ActionBase {
 
 	private static final long serialVersionUID = 1L;
     private static final org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(MockAction.class.getName());
-	private int id;
+    private int id;
+    private int __id__;
 	private String pattern;
 	private String mockData;
 	private int actionId;
@@ -162,10 +163,10 @@ public class MockAction extends ActionBase {
 
 	public String createData() throws UnsupportedEncodingException {
 		boolean isJSON = false;
-		updateProjectListMockNum(SystemVisitorLog.mock(id, "createData", pattern, getCurAccount()));
+		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createData", pattern, getCurAccount()));
 		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
-		String result = mockMgr.generateData(id, pattern, options);
+		String result = mockMgr.generateData(__id__, pattern, options);
 		if (options.get("callback") != null) {
 			_c = (String) options.get("callback");
 			callback = (String) options.get("callback");
@@ -188,11 +189,11 @@ public class MockAction extends ActionBase {
 
 	public String createRule() throws UnsupportedEncodingException {
 		boolean isJSON = false;
-		updateProjectListMockNum(SystemVisitorLog.mock(id, "createRule", pattern, getCurAccount()));
+		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createRule", pattern, getCurAccount()));
 		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
 		options.put("method", getMethod());
-		String result = mockMgr.generateRule(id, pattern, options);
+		String result = mockMgr.generateRule(__id__, pattern, options);
 		if (options.get("callback") != null) {
 			_c = (String) options.get("callback");
 			callback = (String) options.get("callback");
@@ -214,13 +215,13 @@ public class MockAction extends ActionBase {
 
 	public String createRuleAuto() throws UnsupportedEncodingException {
 		boolean isJSON = false;
-		updateProjectListMockNum(SystemVisitorLog.mock(id, "createRule", pattern, getCurAccount()));
+		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createRule", pattern, getCurAccount()));
 		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
 		options.put("method", getMethod());
         options.put("loadRule", true); // load rules set by Open API (tb_rule)
 
-		String result = mockMgr.generateRule(id, pattern, options);
+		String result = mockMgr.generateRule(__id__, pattern, options);
 		if (options.get("callback") != null) {
 			_c = (String) options.get("callback");
 			callback = (String) options.get("callback");
@@ -331,11 +332,11 @@ public class MockAction extends ActionBase {
 
 	public String createMockjsData() throws UnsupportedEncodingException {
 		boolean isJSON = false;
-        updateProjectListMockNum(SystemVisitorLog.mock(id, "createMockjsData", pattern, getCurAccount()));
+        updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createMockjsData", pattern, getCurAccount()));
 		String _c = get_c();
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("method", getMethod());
-		String result = mockMgr.generateRuleData(id, pattern, options);
+		String result = mockMgr.generateRuleData(__id__, pattern, options);
 		if (options.get("callback") != null) {
 			_c = (String) options.get("callback");
 			callback = (String) options.get("callback");
@@ -358,12 +359,12 @@ public class MockAction extends ActionBase {
 
 	public String createMockjsDataAuto() throws UnsupportedEncodingException {
 		boolean isJSON = false;
-		updateProjectListMockNum(SystemVisitorLog.mock(id, "createMockjsData", pattern, getCurAccount()));
+		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createMockjsData", pattern, getCurAccount()));
 		String _c = get_c();
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("method", getMethod());
 		options.put("loadRule", true);
-		String result = mockMgr.generateRuleData(id, pattern, options);
+		String result = mockMgr.generateRuleData(__id__, pattern, options);
 		if (options.get("callback") != null) {
 			_c = (String) options.get("callback");
 			callback = (String) options.get("callback");
@@ -419,4 +420,12 @@ public class MockAction extends ActionBase {
             projectMgr.updateProjectNum(project);
 		}
 	}
+
+    public int get__id__() {
+        return __id__;
+    }
+
+    public void set__id__(int __id__) {
+        this.__id__ = __id__;
+    }
 }

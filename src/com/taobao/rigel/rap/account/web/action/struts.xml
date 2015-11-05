@@ -28,9 +28,9 @@
 			class="com.taobao.rigel.rap.account.web.action.AccountAction" method="doLogout">
 			<result name="success" type="velocity">/platform/home.vm</result>
 		</action>
-		<!-- <action name="register" class="com.taobao.rigel.rap.account.web.action.AccountAction" 
+		 <action name="register" class="com.taobao.rigel.rap.account.web.action.AccountAction"
 			method="register"> <result name="success" type="velocity">/account/register.vm</result> 
-			</action> -->
+			</action>
 		<action name="doRegister"
 			class="com.taobao.rigel.rap.account.web.action.AccountAction" method="doRegister">
 			<result name="success" type="velocity">/platform/home.vm</result>
@@ -47,11 +47,11 @@
 			<result name="error" type="velocity">/account/login.vm</result>
 		</action>
 
-		<!-- <action name="updateProfile" class="com.taobao.rigel.rap.account.web.action.AccountAction" 
-			method="updateProfile"> <result name="success" type="velocity">/account/myAccount.vm</result> 
-			</action> <action name="doUpdateProfile" class="com.taobao.rigel.rap.account.web.action.AccountAction" 
-			method="doUpdateProfile"> <result name="success" type="velocity">/account/myAccount.vm</result> 
-			</action> -->
+		 <action name="updateProfile" class="com.taobao.rigel.rap.account.web.action.AccountAction"
+			method="updateProfile"> <result name="success" type="velocity">/account/myAccount.vm</result>
+			</action> <action name="doUpdateProfile" class="com.taobao.rigel.rap.account.web.action.AccountAction"
+			method="doUpdateProfile"> <result name="success" type="velocity">/account/myAccount.vm</result>
+			</action>
 		<action name="doChangeProfile"
 			class="com.taobao.rigel.rap.account.web.action.AccountAction" method="doChangeProfile">
 			<result name="success" type="velocity">/bcom/json.cb.vm</result>

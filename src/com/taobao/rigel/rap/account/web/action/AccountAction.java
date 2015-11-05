@@ -152,7 +152,7 @@ public class AccountAction extends ActionBase {
 
 	public String all() {
         if (!isUserLogined()) {
-            setErrMsg(LOGIN_HINT_MSG);
+            plsLogin();
             return JSON_ERROR;
         }
         if (id > 0) {
@@ -308,10 +308,10 @@ public class AccountAction extends ActionBase {
 		return SUCCESS;
 	}
 
-	// public String register() {
-	// doLogout();
-	// return SUCCESS;
-	// }
+    public String register() {
+        doLogout();
+        return SUCCESS;
+    }
 
 	public String doRegister() {
 		User user = new User();
@@ -351,14 +351,27 @@ public class AccountAction extends ActionBase {
 		return SUCCESS;
 	}
 
-	/**
-	 * public String updateProfile() { setIsEditMode(true); return SUCCESS; }
-	 * 
-	 * public String doUpdateProfile() { if
-	 * (!super.getAccountMgr().updateProfile(getCurUserId(), getName(),
-	 * getEmail(), getPassword(), getNewPassword())) { setIsEditMode(true);
-	 * setErrMsg("旧密码输入错误"); } return SUCCESS; }
-	 */
+
+    public String updateProfile() {
+
+        if (!isUserLogined()) {
+            plsLogin();
+            setRelativeReturnUrl("/account/updateProfile.do");
+            return LOGIN;
+        }
+
+        setIsEditMode(true);
+        return SUCCESS;
+    }
+
+    public String doUpdateProfile() {
+        if(!super.getAccountMgr().updateProfile(getCurUserId(), getName(),
+                getEmail(), getPassword(), getNewPassword())) {
+            setIsEditMode(true);
+            setErrMsg("旧密码输入错误");
+        }
+        return SUCCESS;
+    }
 
 	public String sendBucSSOToken() {
 		return SUCCESS;

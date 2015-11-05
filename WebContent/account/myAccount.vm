@@ -72,7 +72,7 @@
                     <td>上次登录:</td>
                     <td>$!curUser.lastLoginDateStr</td>
                 </tr>
-                <!--<tr>
+                <tr>
                     <td></td>
                     <td>
                     	
@@ -84,7 +84,7 @@
                         #end
                         
                     </td>
-                </tr>-->
+                </tr>
                 <tr>
                     <td></td>
                     <td>
