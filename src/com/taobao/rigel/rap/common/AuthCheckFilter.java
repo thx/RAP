@@ -63,6 +63,7 @@ public class AuthCheckFilter implements Filter {
 		if (logined) {	
             User logUser = new User();
             logUser.setAccount((String)userAccount);
+            logUser.setName((String)userName);
             SystemVisitorLog.count(logUser);
         }
 
