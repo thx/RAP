@@ -368,7 +368,7 @@ public class ProjectAction extends ActionBase {
 	public String search() {
 
         if (!isUserLogined()) {
-            setErrMsg(LOGIN_HINT_MSG);
+            plsLogin();
             return JSON_ERROR;
         }
 

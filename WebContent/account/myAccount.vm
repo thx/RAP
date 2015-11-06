@@ -6,100 +6,106 @@
 		<link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
 		<title>Manage Account        </title>
 		#includeNewRapStatic
-        <style type="text/css">
-            #if ($isEditMode)
-            \#table {width:530px;}
-            #else
-            \#table {width:560px;}
-            #end
-        </style>
 	</head>
 	<body>
 	    #bodyNewStart
+        <div style="width:600px;">
+            <form name="formUpdateProfile" action="$accountUrl.doUpdateProfile" class="form-horizontal" method="post" onsubmit="return formOnSubmit(this);">
+            <div class="form-group row">
+                <label class="col-sm-2 control-label">账号</label>
+                <div class="col-sm-10">
+                    <p id="pAccount" class="form-control-static">$!utils.escapeInH($curUser.account)</p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 control-label">名字</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        #if($isEditMode)
+                            <input name="name" minLen="2" maxLen="10" message="名字有效长度2-10" class="form-control" value="$!utils.escapeInH($curUser.name)" type="text" />
+                        #else
+                            $!utils.escapeInH($curUser.name)
+                        #end
+                    </p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        #if($isEditMode)
+                            <input name="email" minLen="1" message="Email地址无效" pattern="[a-zA-Z0-9_+.-]+\@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}" class="form-control" value="$!utils.escapeInH($curUser.email)" type="text" />
+                        #else
+                            $!utils.escapeInH($curUser.email)
+                        #end
+                    </p>
+                </div>
+            </div>
         #if($isEditMode)
-        <form name="formUpdateProfile" action="$accountUrl.doUpdateProfile" method="post" onsubmit="return formOnSubmit(this);">
+            <div class="form-group row">
+                <label class="col-sm-2 control-label">旧密码</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        <input id="oldPassword" name="password" class="form-control" type="password" placeholder="请输入旧密码" /><font color="silver">* 若无需修改请忽略</font>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 control-label">新密码</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        <input id="newPassword" name="newPassword" class="form-control" type="password" placeholder="请输入新密码" />
+                    </p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 control-label">确认密码</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        <input id="confirmNewPassword" class="form-control" type="password" placeholder="请再次输入新密码" />
+                    </p>
+                </div>
+            </div>
         #end
-            <table id="table" class="table" cellpadding="4px" style="margin: 0 auto; margin-top: 30px;">
-                <tr>
-                    <td>用户名:</td>
-                    <td>$!curUser.account</td>
-                </tr>
-                <tr>
-                    <td>名字:</td>
-                    <td>
+            <div class="form-group row">
+                <label class="col-sm-2 control-label">注册时间</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        $!utils.escapeInH($curUser.createDateStr)
+                    </p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        <span class="alert alert-danger" id="errMsg"  #if($errMsg && $errMsg != "")#else style="display:none;"#end>$!utils.escapeInH($errMsg)</span>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
                         #if($isEditMode)
-                        <input name="name" minLen="2" maxLen="10" message="名字有效长度2-10" class="text-input" value="$!curUser.name" type="text" />
+                            <input type="submit" value="更新资料" class="btn btn-primary" />
+                            <input type="button" value="取消" class="btn btn-default" onclick="window.location.href='$accountUrl.myAccount'" />
                         #else
-                            $!curUser.name
+                            <input type="button" value="修改资料" class="btn btn-default" onclick="window.location.href='$accountUrl.updateProfile'" />
                         #end
-                    </td>
-                </tr>
-                <tr>
-                    <td>Email:</td>
-                    <td>
-                        #if($isEditMode)
-                        <input name="email" minLen="1" message="Email地址无效" pattern="[a-zA-Z0-9_+.-]+\@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}" class="text-input" value="$!curUser.email" type="text" />
-                        #else
-                        $!curUser.email
-                        #end
-                    </td>
-                </tr>
-                #if($isEditMode)
-                <tr>
-                    <td>旧密码:</td>
-                    <td>
-                        <input id="oldPassword" name="password" class="text-input" type="password" placeholder="请输入旧密码" /><font color="silver">* 若无需修改请忽略</font>
-                    </td>
-                </tr>
-                <tr>
-                    <td>新密码:</td>
-                    <td><input id="newPassword" name="newPassword" class="text-input" type="password" placeholder="请输入新密码" /></td>
-                </tr>
-                <tr>
-                    <td>确认密码:</td>
-                    <td><input id="confirmNewPassword" class="text-input" type="password" placeholder="请再次输入新密码" /></td>
-                </tr>
-                #end
-                <tr>
-                    <td>角色:</td>
-                    <td>$!curUser.roleListStr</td>
-                </tr>
-                <tr>
-                    <td>注册时间:</td>
-                    <td>$!curUser.createDateStr</td>
-                </tr>
-                <tr>
-                    <td>上次登录:</td>
-                    <td>$!curUser.lastLoginDateStr</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                    	
-                        #if($isEditMode)
-                        <input type="submit" value="更新资料" class="btn btn-primary" />
-                        <input type="button" value="取消" class="btn" onclick="window.location.href='$accountUrl.myAccount'" />
-                        #else
-                        <input type="button" value="修改资料" class="btn" onclick="window.location.href='$accountUrl.updateProfile'" />
-                        #end
-                        
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        #if($errMsg && $errMsg != "")
-                        <i class="label label-important"></i>$!errMsg
-                        #end
-                    </td>
-                </tr>
-            </table>
-        #if ($isEditMode) 
-        </form>
-        #end
+                    </p>
+                </div>
+            </div>
+            </form>
+        </div>
 		#bodyEnd
 		<script type="text/javascript">
 			function formOnSubmit(form) {
+                if ($('#newPassword').val() != $("#confirmNewPassword").val()) {
+                    $('#errMsg').html('两次密码输入不一致');
+                    $('#errMsg').show();
+                    return false;
+                }
 				return rap.util.validator.validForm(form);
 			}
 		</script>

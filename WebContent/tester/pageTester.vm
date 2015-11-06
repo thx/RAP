@@ -37,8 +37,8 @@
                 <div class="tab-content">
                 #foreach($action in $page.actionList)
                     <div class="tab-pane fade#if($velocityCount==1) in active#end" id="action$action.id">
-                        <form name="form$!velocityCount" class="form" method="post" path="$!action.requestUrl" onsubmit="return false;">
-                            <input type="hidden" name="paramIdList" class="paramIdList" value="$!action.remarks" />
+                        <form name="form$!velocityCount" class="form" method="post" path="$!utils.escapeInH($action.requestUrl)" onsubmit="return false;">
+                            <input type="hidden" name="paramIdList" class="paramIdList" value="$!utils.escapeInH($action.remarks)" />
                             <div class="p8">
                                 <div style="margin-top:5px;">请求标识: <span style="color:#990000;">$action.id</span></div>
                                 <div style="margin-top:5px;">请求地址: $!utils.escapeInH($action.requestUrl)</div>
@@ -46,12 +46,12 @@
                             <div class="clearfix">
                                 #foreach($para in $action.requestParameterList)
                                     <div>
-                                        <span class="name">$!para.identifier</span><input type="text" style="width:100px" class="field" name="$!para.identifier" /></span>
+                                        <span class="name">$!utils.escapeInH($para.identifier)</span><input type="text" style="width:100px" class="field" name="$!utils.escapeInH($para.identifier)" /></span>
                                         <span class="remark">
                                             <span style="font-size: 12px;">说明</span>
                                             <div class="detail">
-                                                <div>- 变量名：$!para.name</div>
-                                                <div>- 备注：$!para.remark</div>
+                                                <div>- 变量名：$!utils.escapeInH($para.name)</div>
+                                                <div>- 备注：$!utils.escapeInH($para.remark)</div>
                                             </div>
                                         </span>
                                     </div>

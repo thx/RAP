@@ -380,10 +380,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 		List<Action> result = new ArrayList<Action>();
 		for (Action action : list) {
 			String url = action.getRequestUrl();
-			if (url != null && !url.isEmpty() && url.charAt(0) != '/'
-					&& !url.startsWith("reg:")) {
-				url = "/" + url;
-			}
+			url = URLUtils.getRelativeUrl(url);
 			if (url.startsWith("reg:")) { // regular pattern
 				if (StringUtils.regMatch(url.substring(4), pattern)) {
 					result.add(action);

@@ -90,7 +90,7 @@ public class OrganizationAction extends ActionBase {
 
 	public String group() {
 		if (!isUserLogined()) {
-			setErrMsg(LOGIN_HINT_MSG);
+			plsLogin();
 			setRelativeReturnUrl("/org/group.do?plid=" + plid);
 			return LOGIN;
 		}
@@ -103,7 +103,7 @@ public class OrganizationAction extends ActionBase {
 	@SuppressWarnings("unchecked")
 	public String productline() {
 		if (!isUserLogined()) {
-			setErrMsg(LOGIN_HINT_MSG);
+			plsLogin();
 			setRelativeReturnUrl("/org/productline.do?id=" + id);
 			return LOGIN;
 		}
@@ -113,7 +113,7 @@ public class OrganizationAction extends ActionBase {
 
 	public String projects() {
 		if (!isUserLogined()) {
-            setErrMsg(LOGIN_HINT_MSG);
+            plsLogin();
             return JSON_ERROR;
         }
 		Gson gson = new Gson();
@@ -153,7 +153,7 @@ public class OrganizationAction extends ActionBase {
 
 	public String corporationList() {
         if (!isUserLogined()) {
-            setErrMsg(LOGIN_HINT_MSG);
+            plsLogin();
             return JSON_ERROR;
         }
 

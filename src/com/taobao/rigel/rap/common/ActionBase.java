@@ -165,7 +165,7 @@ public class ActionBase extends ActionSupport {
 	}
 
 	public void plsLogin() {
-		setErrMsg("请先登录");
+		setErrMsg(LOGIN_HINT_MSG);
 	}
 
 }
