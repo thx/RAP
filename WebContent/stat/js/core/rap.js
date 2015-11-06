@@ -1790,6 +1790,8 @@ function deepCopy(o) {
             }
         }
 
+        var param = p.getParameter(id)
+
         switch (key) {
             case "mt":
                 width = CONFIG.MODULE_NAME_WIDTH;
@@ -1800,26 +1802,25 @@ function deepCopy(o) {
             case "param-name":
                 width = CONFIG.PARAMETER_NAME_WIDTH;
                 el = getTd(id, key);
-                oldValue = b.trim(el.innerHTML);
+                oldValue = b.trim(param.name);
                 str += getEditInputHtml(oldValue, width, CONFIG.DEFAULT_MAX_LENGTH);
                 break;
             case "param-identifier":
                 width = CONFIG.PARAMETER_IDENTIFIER_WIDTH;
                 el = getTd(id, key);
-                //oldValue = b.trim(el.innerHTML)
-                oldValue = b.trim(p.getParameter(id).identifier);
+                oldValue = b.trim(param.identifier);
                 str += getEditInputHtml(oldValue, width, CONFIG.DEFAULT_MAX_LENGTH);
                 break;
             case "param-validator":
                 el = getTd(id, key);
-                oldValue = b.trim(el.innerHTML);
+                oldValue = b.trim(param.validator);
                 str += getEditInputHtml(oldValue, width, CONFIG.DEFAULT_MAX_LENGTH);
                 break;
             case "param-remark":
                 width = CONFIG.PARAMETER_REMARK_WIDTH;
                 el = getTd(id, key);
                 // oldValue = b.trim(el.innerHTML)
-                oldValue = b.trim(p.getParameter(id).remark);
+                oldValue = b.trim(param.remark);
                 str += getEditInputHtml(oldValue, width, CONFIG.REMARK_MAX_LENGTH);
                 break;
             default:
