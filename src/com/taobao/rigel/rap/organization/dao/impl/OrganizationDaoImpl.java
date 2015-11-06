@@ -258,7 +258,7 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
                 .append("   SELECT c.id AS cid ")
                 .append("       FROM tb_corporation c ")
                 .append("       JOIN tb_corporation_and_user u ON u.corporation_id = c.id ")
-                .append("       WHERE c.id = :userId ")
+                .append("       WHERE u.user_id = :userId ")
                 .append("   UNION ")
                 .append("   SELECT id AS cid FROM tb_corporation ")
                 .append("   WHERE user_id = :userId or access_type = 20")
