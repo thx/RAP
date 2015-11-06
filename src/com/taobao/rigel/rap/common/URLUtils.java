@@ -71,7 +71,7 @@ public class URLUtils {
         return url;
     }
 
-    private static String getRelativeUrl(String url) {
+    public static String getRelativeUrl(String url) {
         if (url == null || url.isEmpty()) {
             return "";
         }
@@ -83,7 +83,7 @@ public class URLUtils {
         if (url.contains("?")) {
             url = url.substring(0, url.indexOf("?"));
         }
-        if (url.charAt(0) != '/') {
+        if (url.charAt(0) != '/' && !url.startsWith("reg:")) {
             url = '/' + url;
 
         }
