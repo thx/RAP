@@ -111,7 +111,7 @@ public class TeamAction extends ActionBase {
     public String teams() {
         if (!isUserLogined()) {
             plsLogin();
-            setRelativeReturnUrl("/org/team/teams.do?id=" + getId());
+            setRelativeReturnUrl("/org/team/teams.do");
             return LOGIN;
         }
         long userId = getCurUserId();
@@ -129,7 +129,7 @@ public class TeamAction extends ActionBase {
     }
 
     public long getTeamListPageInTotal() {
-        double result = Math.floor(teamListNum / SystemConstant.DEFAULT_PAGE_SIZE + 1);
+        double result = Math.ceil((double)teamListNum / (double)SystemConstant.DEFAULT_PAGE_SIZE);
         return (long) result;
     }
 

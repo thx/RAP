@@ -215,7 +215,8 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         int teamId = organizationDao.getTeamIdByProjectId(projectId);
         Corporation c = organizationDao.getCorporation(teamId);
 
-        return u.isAdmin() || p.isUserMember(userId)  || p.getUser().getId() == userId || c.isPublic();
+        return u.isAdmin() || p.isUserMember(userId) || c.isPublic()
+                || canUserAccessCorp(userId, c.getId()) || p.getUser().getId() == userId;
     }
 
     @Override
