@@ -1,50 +1,42 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Login        </title>
-        #parse('/tcom/template.rap.vm')
-        #includeNewRapStatic
-        #if($returnUrlFirstSet)
-            #set($returnUrlEncoded = $!utils.escapeInU($returnUrl))
-        #else
-            #set($returnUrlEncoded = $returnUrl)
-        #end
-        <style type="text/css">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Login        </title>
+    #parse('/tcom/template.rap.vm')
+    #includeNewRapStatic
+    #if($returnUrlFirstSet)
+        #set($returnUrlEncoded = $!utils.escapeInU($returnUrl))
+    #else
+        #set($returnUrlEncoded = $returnUrl)
+    #end
+    <style type="text/css">
 
-        </style>
-        <script type="text/javascript" src="${staticRoot}/js/core/jquery-2.1.0.min.js?_r=$!timeStamp"></script>
-    </head>
-    <body>
-        <div class="container">
-        #bodyNewStart
-        <form name="formMain" role="form" action="$accountUrl.doLogin" method="post">
-            <input type="hidden" name="returnUrl" value="$!returnUrlEncoded" />
-            <table class="table">
-                <tr>
-                    <td colspan="2"><h4>登录</h4></td>
-                </tr>
-                <tr>
-                    <td>用户名:</td>
-                    <td><input name="account" type="text" value="$!account" width="120px" /></td>
-                </tr>
-                <tr>
-                    <td>密&nbsp;&nbsp;&nbsp;&nbsp;码:</td>
-                    <td><input name="password" type="password" value="" width="120px" /></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" class="btn btn-primary" value="登录" /></td>
-                </tr>
-                #if ($errMsg && $errMsg != "")
-                <tr>
-                    <td></td>
-                    <td><span class="label label-important">$!errMsg</span></td>
-                </tr>
-                #end
-            </table>
-        </form>
-        #bodyEnd
+    </style>
+</head>
+<body>
+<div class="container">
+    #bodyNewStart
+    <form name="formMain" role="form" action="$accountUrl.doLogin" method="post">
+        <input type="hidden" name="returnUrl" value="$!returnUrlEncoded" />
+        <div class="form-group">
+            <label for="accountInput">登录</label>
+            <input name="account" class="form-control" type="text" value="$!account"  placeholder="请输入账户" />
         </div>
-    </body>
+        <div class="form-group">
+            <label for="passwordInput">密码</label>
+            <input name="password" class="form-control" type="password" value="" placeholder="请输入密码" />
+        </div>
+        #if ($errMsg && $errMsg != "")
+            <div class="form-group">
+                <div class="alert alert-danger">
+                    $!errMsg
+                </div>
+            </div>
+        #end
+        <input type="submit" class="btn btn-default" value="登录" />
+    </form>
+    #bodyEnd
+</div>
+</body>
 </html>
