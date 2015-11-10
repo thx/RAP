@@ -517,4 +517,33 @@ public class StringUtils {
         return o.replaceAll(Patterns.ILLEGAL_NAME_CHAR, "");
     }
 
+
+    public static boolean validateAccount(String str) {
+        if (str == null) return false;
+        if (str.length() < SystemConstant.ACCOUNT_LENGTH_MIN || str.length() > SystemConstant.ACCOUNT_LENGTH_MAX) {
+            return false;
+        }
+        return str.matches(Patterns.LEGAL_ACCOUNT_CHAR + "*");
+    }
+
+    public static boolean validateName(String str) {
+        if (str == null) return false;
+        if (str.length() < SystemConstant.NAME_LENGTH_MIN || str.length() > SystemConstant.NAME_LENGTH_MAX) {
+            return false;
+        }
+
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (!isChinese(c) && !String.valueOf(c).matches(Patterns.LEGAL_NAME_CHAR)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    public static final String NAME_FORMAT_WARN_MSG = "名字必须由数字/字母/汉子/空格/下划线组成,长度" + SystemConstant.NAME_LENGTH_MIN + "-" + SystemConstant.NAME_LENGTH_MAX + ".";
+
+    public static final String ACCOUNT_FORMAT_WARN_MSG = "账户必须由数字/字母/下划线组成,长度" + SystemConstant.ACCOUNT_LENGTH_MIN + "-" + SystemConstant.ACCOUNT_LENGTH_MAX + ".";
 }
