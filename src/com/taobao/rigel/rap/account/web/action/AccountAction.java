@@ -10,10 +10,7 @@ import javax.mail.internet.AddressException;
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.account.bo.User;
-import com.taobao.rigel.rap.common.ActionBase;
-import com.taobao.rigel.rap.common.ContextManager;
-import com.taobao.rigel.rap.common.Pinyin4jUtil;
-import com.taobao.rigel.rap.common.SystemVisitorLog;
+import com.taobao.rigel.rap.common.*;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 
@@ -314,11 +311,28 @@ public class AccountAction extends ActionBase {
     }
 
 	public String doRegister() {
+        if (!StringUtils.validateName(getName())) {
+            setErrMsg(StringUtils.NAME_FORMAT_WARN_MSG);
+            return ERROR;
+        }
+
+        if (!StringUtils.validateAccount(getAccount())) {
+            setErrMsg(StringUtils.ACCOUNT_FORMAT_WARN_MSG);
+            return ERROR;
+        }
+
 		User user = new User();
 		user.setAccount(getAccount());
 		user.setPassword(getPassword());
 		user.setName(getName());
 		user.setEmail(getEmail());
+
+        String validateMsg = getAccountMgr().validatePasswordFormat(getPassword());
+        if (validateMsg != null) {
+            setErrMsg(validateMsg);
+            return ERROR;
+        }
+
 		if (super.getAccountMgr().addUser(user)) {
 			return doLogin();
 		} else {
@@ -365,11 +379,34 @@ public class AccountAction extends ActionBase {
     }
 
     public String doUpdateProfile() {
+        if (!isUserLogined()) {
+            plsLogin();
+            setRelativeReturnUrl("/account/updateProfile.do");
+            return LOGIN;
+        }
+
+        if (!StringUtils.validateName(getName())) {
+            setIsEditMode(true);
+            setErrMsg(StringUtils.NAME_FORMAT_WARN_MSG);
+            return SUCCESS;
+        }
+
+
+        String validateMsg = getAccountMgr().validatePasswordFormat(getPassword());
+        if (validateMsg != null) {
+            setIsEditMode(true);
+            setErrMsg(validateMsg);
+            return SUCCESS;
+        }
+
+
         if(!super.getAccountMgr().updateProfile(getCurUserId(), getName(),
                 getEmail(), getPassword(), getNewPassword())) {
             setIsEditMode(true);
             setErrMsg("旧密码输入错误");
+            return SUCCESS;
         }
+
         return SUCCESS;
     }
 

@@ -246,4 +246,19 @@ public class AccountMgrImpl implements AccountMgr {
         accountDao.updateUser(user);
     }
 
+    @Override
+    public String validatePasswordFormat(String password) {
+        if (password == null || password.trim().isEmpty()) {
+            return "密码不能为空";
+        }
+
+        password = password.trim();
+
+        if (password.length() < 6) {
+            return "密码必须大于等于6位";
+        }
+
+        return null;
+    }
+
 }
