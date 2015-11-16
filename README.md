@@ -6,11 +6,7 @@
 
 ### 线上版本
 
-* 中文版 [cn.rapapi.net](http://cn.rapapi.net/)   **由作者维护，请放心使用**
-    * 测试账号 test account
-        * 账号/acc：test
-        * 密码/pwd：test
-* English Version [apapi.net](http://rapapi.net/) **仅供测试，不维护, only for DEMO, not maintained, data would be cleared at anytime.** 
+* [rapapi.net](http://rapapi.net/)   **由作者维护**
 
 I suggest to read [Quick Guide Manual](https://github.com/thx/RAP/wiki/quick_guide) at first.
 
