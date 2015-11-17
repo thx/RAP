@@ -31,6 +31,10 @@ public class ActionBase extends ActionSupport {
 		return accountMgr.getCorporationListWithPager(getCurUserId(), 1, 20);
 	}
 
+    public List<Corporation> getAllCorpList() {
+        return accountMgr.getCorporationListWithPager(getCurUserId(), 1, 120);
+    }
+
 	public int getNum() {
 		return num;
 	}
