@@ -65,13 +65,6 @@ public class ActionBase extends ActionSupport {
         return new Date().getTime();
     }
 
-    /**
-     * void setter for cache aprams
-     * @param seed
-     */
-    public void setSeed(int seed) {
-    }
-
 	private AccountMgr accountMgr;
 
 	public AccountMgr getAccountMgr() {
