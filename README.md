@@ -41,7 +41,7 @@ RAP可以帮助web工程师更高效的管理接口文档，同时通过这些�
 
 ## 订阅RAP更新?
 
-为了在有新Release、发现重大安全漏洞时能够及时的通知到各位管理员，请随便发个邮件至 `bosn@outlook.com` 告诉我就好.
+为了在有新Release、发现重大安全漏洞时能够及时的通知到各位管理员，请关注 [订阅帖](https://github.com/thx/RAP/issues/234)
 
  
 ## About
