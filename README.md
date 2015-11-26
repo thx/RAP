@@ -1,5 +1,5 @@
 
-# RAP API Management System
+ # RAP API Management System
 
 * THX开源工具集: [http://thx.github.io/](http://thx.github.io/)
 * 作者微博：[@Bosn](http://weibo.com/bosn)
@@ -12,8 +12,12 @@ I suggest to read [Quick Guide Manual](https://github.com/thx/RAP/wiki/quick_gui
 
 看得懂中文的朋友，建议先看 [Video Tutorial 视频教程](http://thx.github.io/RAP/study.html)
 
+### 最新Release
+* [Release](https://github.com/thx/RAP/releases)
+* [如何部署RAP服务器](https://github.com/thx/RAP/wiki/deploy_manual_cn)
+* [如何使用RAP编辑文档](https://github.com/thx/RAP/wiki/user_manual_cn)
 
-### LINKS
+### 其它LINKS
 
 * [Official Site 官网](http://thx.github.io/RAP)
 * [Wiki/Documents/Manual 文档/手册](http://github.com/thx/RAP/wiki)
