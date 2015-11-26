@@ -94,19 +94,30 @@ public class OrganizationAction extends ActionBase {
 			setRelativeReturnUrl("/org/group.do?plid=" + plid);
 			return LOGIN;
 		}
+
+        if (!organizationMgr.canUserAccessProductionLine(getCurUserId(), plid)) {
+            setErrMsg(ACCESS_DENY);
+            return ERROR;
+        }
+
         productline = organizationMgr.getProductionLine(plid);
         int corpId = productline.getCorporationId();
         team = organizationMgr.getCorporation(corpId);
 		return SUCCESS;
 	}
 
-	@SuppressWarnings("unchecked")
 	public String productline() {
 		if (!isUserLogined()) {
 			plsLogin();
 			setRelativeReturnUrl("/org/productline.do?id=" + id);
 			return LOGIN;
 		}
+
+		if (!organizationMgr.canUserAccessCorp(getCurUserId(), id)) {
+            setErrMsg(ACCESS_DENY);
+            return ERROR;
+        }
+
         setCorporation(organizationMgr.getCorporation(id));
 		return SUCCESS;
 	}
@@ -158,7 +169,7 @@ public class OrganizationAction extends ActionBase {
         }
 
 		Gson gson = new Gson();
-		setJson(gson.toJson(organizationMgr.getCorporationList()));
+		setJson(gson.toJson(organizationMgr.getCorporationListWithPager(getCurUserId(), 1, 1000)));
 		return SUCCESS;
 	}
 

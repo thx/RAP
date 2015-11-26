@@ -21,6 +21,16 @@ public class ActionBase extends ActionSupport {
 
     public static String ACCESS_DENY = "您无权访问该页面或数据，请联系系统管理员。";
 
+	public boolean isOpSuccess() {
+		return isOpSuccess;
+	}
+
+	public void setIsOpSuccess(boolean isOpSuccess) {
+		this.isOpSuccess = isOpSuccess;
+	}
+
+	private boolean isOpSuccess = false;
+
 
 	private boolean isReturnUrlFirstSet;
 
@@ -30,6 +40,10 @@ public class ActionBase extends ActionSupport {
 	public List<Corporation> getCorpList() {
 		return accountMgr.getCorporationListWithPager(getCurUserId(), 1, 20);
 	}
+
+    public List<Corporation> getAllCorpList() {
+        return accountMgr.getCorporationListWithPager(getCurUserId(), 1, 120);
+    }
 
 	public int getNum() {
 		return num;
@@ -59,13 +73,6 @@ public class ActionBase extends ActionSupport {
 
     public Long getServerTime() {
         return new Date().getTime();
-    }
-
-    /**
-     * void setter for cache aprams
-     * @param seed
-     */
-    public void setSeed(int seed) {
     }
 
 	private AccountMgr accountMgr;

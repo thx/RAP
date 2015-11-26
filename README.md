@@ -1,16 +1,12 @@
 
-# RAP API Management System ![](https://sourcegraph.com/api/repos/github.com/thx/RAP/.counters/views-24h.png)
+# RAP API Management System
 
 * THX开源工具集: [http://thx.github.io/](http://thx.github.io/)
 * 作者微博：[@Bosn](http://weibo.com/bosn)
 
 ### 线上版本
 
-* 中文版 [cn.rapapi.net](http://cn.rapapi.net/)   **由作者维护，请放心使用**
-    * 测试账号 test account
-        * 账号/acc：test
-        * 密码/pwd：test
-* English Version [apapi.net](http://rapapi.net/) **仅供测试，不维护, only for DEMO, not maintained, data would be cleared at anytime.** 
+* [rapapi.net](http://rapapi.net/)   **由作者维护**
 
 I suggest to read [Quick Guide Manual](https://github.com/thx/RAP/wiki/quick_guide) at first.
 
@@ -45,7 +41,7 @@ RAP可以帮助web工程师更高效的管理接口文档，同时通过这些�
 
 ## 订阅RAP更新?
 
-为了在有新Release、发现重大安全漏洞时能够及时的通知到各位管理员，请随便发个邮件至 `bosn@outlook.com` 告诉我就好.
+为了在有新Release、发现重大安全漏洞时能够及时的通知到各位管理员，请关注 [订阅帖](https://github.com/thx/RAP/issues/234)
 
  
 ## About

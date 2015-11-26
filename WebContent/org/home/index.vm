@@ -136,7 +136,7 @@
                     <option>
                         --请选择团队--
                     </option>
-                    #foreach($corp in $corpList)
+                    #foreach($corp in $allCorpList)
                     <option value="$corp.id">
                         $!utils.escapeInH($corp.name)
                     </option>

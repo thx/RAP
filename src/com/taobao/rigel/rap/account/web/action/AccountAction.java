@@ -391,20 +391,21 @@ public class AccountAction extends ActionBase {
             return SUCCESS;
         }
 
-
-        String validateMsg = getAccountMgr().validatePasswordFormat(getPassword());
-        if (validateMsg != null) {
-            setIsEditMode(true);
-            setErrMsg(validateMsg);
-            return SUCCESS;
-        }
-
+		if (getNewPassword() != null && !getNewPassword().isEmpty()) {
+			String validateMsg = getAccountMgr().validatePasswordFormat(getNewPassword());
+			if (validateMsg != null) {
+				setIsEditMode(true);
+				setErrMsg(validateMsg);
+				return SUCCESS;
+			}
+		}
 
         if(!super.getAccountMgr().updateProfile(getCurUserId(), getName(),
                 getEmail(), getPassword(), getNewPassword())) {
             setIsEditMode(true);
             setErrMsg("旧密码输入错误");
-            return SUCCESS;
+        } else {
+            setIsOpSuccess(true);
         }
 
         return SUCCESS;
