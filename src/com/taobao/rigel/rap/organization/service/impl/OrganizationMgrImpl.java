@@ -235,6 +235,44 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
     @Override
+    public boolean canUserAccessProductionLine(long userId, int plId) {
+        ProductionLine pl = this.getProductionLine(plId);
+        int corpId = pl.getCorporationId();
+        Corporation team = getCorporation(corpId);
+        if (team.getAccessType() == Corporation.PUBLIC_ACCESS) {
+            return true;
+        }
+        return canUserAccessCorp(userId, corpId);
+    }
+
+    @Override
+    public boolean canUserManageProductionLine(long userId, int plId) {
+        ProductionLine pl = this.getProductionLine(plId);
+        int corpId = pl.getCorporationId();
+        return canUserManageCorp(userId, corpId);
+    }
+
+    @Override
+    public boolean canUserAccessGroup(long userId, int groupId) {
+        Group g = organizationDao.getGroup(groupId);
+        ProductionLine pl = getProductionLine(g.getProductionLineId());
+        int corpId = pl.getCorporationId();
+        Corporation team = getCorporation(corpId);
+        if (team.getAccessType() == Corporation.PUBLIC_ACCESS) {
+            return true;
+        }
+        return canUserAccessCorp(userId, corpId);
+    }
+
+    @Override
+    public boolean canUserManageGroup(long userId, int groupId) {
+        Group g = organizationDao.getGroup(groupId);
+        ProductionLine pl = getProductionLine(g.getProductionLineId());
+        int corpId = pl.getCorporationId();
+        return canUserManageCorp(userId, corpId);
+    }
+
+    @Override
     public int addTeam(Corporation team) {
         int corpId = organizationDao.addCorporation(team);
         for (String account : team.getAccountList()) {

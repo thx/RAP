@@ -173,6 +173,42 @@ public interface OrganizationMgr {
      */
     boolean canUserAccessPage(long userId, int pageId);
 
+
+    /**
+     * can user access production line
+     *
+     * @param userId
+     * @param plId
+     * @return
+     */
+    boolean canUserAccessProductionLine(long userId, int plId);
+
+    /**
+     * can user manage production line
+     *
+     * @param userId
+     * @param plId
+     * @return
+     */
+    boolean canUserManageProductionLine(long userId, int plId);
+
+    /**
+     * can user access group
+     *
+     * @param userId
+     * @return
+     */
+    boolean canUserAccessGroup(long userId, int groupId);
+
+    /**
+     * can user manage grup
+     *
+     * @param userId
+     * @param groupId
+     * @return
+     */
+    boolean canUserManageGroup(long userId, int groupId);
+
     /**
      * add new team
      *

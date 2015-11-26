@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.organization.bo.ProductionLine;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
+import com.taobao.rigel.rap.project.bo.Project;
 
 public class ProductlineAction extends ActionBase {
 
@@ -53,6 +54,14 @@ public class ProductlineAction extends ActionBase {
 	}
 
 	public String all() {
+		if (!isUserLogined()) {
+			plsLogin();
+			return ERROR;
+		}
+		if (!organizationMgr.canUserAccessCorp(getCurUserId(), corpId)) {
+			setErrMsg(ACCESS_DENY);
+			return ERROR;
+		}
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
 		List<ProductionLine> lineModels = organizationMgr
@@ -72,6 +81,14 @@ public class ProductlineAction extends ActionBase {
 	}
 
 	public String create() {
+		if (!isUserLogined()) {
+			plsLogin();
+			return JSON_ERROR;
+		}
+		if (!organizationMgr.canUserManageCorp(getCurUserId(), corpId)) {
+			setErrMsg(ACCESS_DENY);
+			return JSON_ERROR;
+		}
 		ProductionLine line = new ProductionLine();
 		Gson gson = new Gson();
 		line.setName(name);
@@ -86,11 +103,28 @@ public class ProductlineAction extends ActionBase {
 	}
 
 	public String delete() {
+		if (!isUserLogined()) {
+			plsLogin();
+			return JSON_ERROR;
+		}
+		if (!organizationMgr.canUserManageProductionLine(getCurUserId(), id)) {
+			setErrMsg(ACCESS_DENY);
+			return JSON_ERROR;
+		}
 		setJson(organizationMgr.removeProductionLine(id).toString());
 		return SUCCESS;
 	}
 
 	public String update() {
+		if (!isUserLogined()) {
+			plsLogin();
+			return JSON_ERROR;
+		}
+		if (!organizationMgr.canUserManageProductionLine(getCurUserId(), id)) {
+			setErrMsg(ACCESS_DENY);
+			return JSON_ERROR;
+		}
+
 		ProductionLine line = new ProductionLine();
 		line.setId(id);
 		line.setName(name);
