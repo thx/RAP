@@ -116,9 +116,12 @@ public class AccountMgrImpl implements AccountMgr {
 	@Override
 	public boolean updateProfile(long userId, String name, String email,
 			String password, String newPassword) {
-		if (password != null) {
+		if (password != null && !password.isEmpty() && newPassword != null && !newPassword.isEmpty()) {
 			password = StringUtils.getDoubleMD5(password);
 			newPassword = StringUtils.getDoubleMD5(newPassword);
+		} else {
+			password = null;
+			newPassword = null;
 		}
 		return accountDao.updateProfile(userId, name, email, password,
 				newPassword);

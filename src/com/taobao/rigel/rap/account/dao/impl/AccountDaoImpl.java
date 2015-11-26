@@ -109,8 +109,9 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 		if (email != null && !email.equals(""))
 			user.setEmail(email);
 		if (password != null && !password.equals("")) {
-			if (user.getPassword().equals(password) && newPassword != null
-					&& !newPassword.equals("")) {
+			if (password == null || newPassword == null || password.isEmpty() || newPassword.isEmpty()) {
+				// password is not changed.
+			} else if (user.getPassword().equals(password)) {
 				user.setPassword(newPassword);
 			} else {
 				// only when user input old password, and the password is
