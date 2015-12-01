@@ -21,6 +21,16 @@ public class ActionBase extends ActionSupport {
 
     public static String ACCESS_DENY = "您无权访问该页面或数据，请联系系统管理员。";
 
+	public boolean isOpSuccess() {
+		return isOpSuccess;
+	}
+
+	public void setIsOpSuccess(boolean isOpSuccess) {
+		this.isOpSuccess = isOpSuccess;
+	}
+
+	private boolean isOpSuccess = false;
+
 
 	private boolean isReturnUrlFirstSet;
 
