@@ -3,3 +3,5 @@ out
 buc.sso*
 target
 build
+.idea
+*.imi
