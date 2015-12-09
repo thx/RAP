@@ -3068,6 +3068,8 @@ function deepCopy(o) {
             str1 = "",
             str2 = "";
 
+        list.sort(modelSorterByName);
+        
         // clear old content
         div1.innerHTML = "";
         div2.innerHTML = "";
@@ -3782,6 +3784,16 @@ function deepCopy(o) {
             return str;
         }
 
+        function modelSorterByName(a, b) {
+            if (a.name > b.name) {
+                return 1;
+            } else if (a.name < b.name) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+
         /**
          * get module tree html string from module object
          */
@@ -3789,6 +3801,9 @@ function deepCopy(o) {
             var str = "",
                 pageList = m.pageList,
                 pageListNum = pageList.length;
+
+            pageList.sort(modelSorterByName);
+
             str += "<div id=\"div-tree-" + m.id + "\" class=\"tree-m\">";
             str += "<div class=\"more\" ecui=\"type:tree;id:moduleTree" + m.id + "\">";
             str += "<label>" + util.escaper.escapeInH(m.name);
@@ -3800,6 +3815,8 @@ function deepCopy(o) {
                 var page = pageList[i],
                 actionList = page.actionList,
                 actionListNum = actionList.length;
+                actionList.sort(modelSorterByName);
+
                 str += "<div class=\"more\">";
                 str += "<label ondblclick=\"ws.editP(" + page.id + "); return false;\">" + util.escaper.escapeInH(page.name);
                 if (_isEditMode) {
