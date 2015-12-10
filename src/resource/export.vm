@@ -47,6 +47,8 @@
                             <h3>$moduleNo.$pageNo.$actionNo&nbsp;$action.name</h3>
                             <h3>Description</h3>
                             <div>$action.description</div>
+                            <h3>URL</h3>
+                            <div>$action.requestUrl</div>
                             <h3>Request Param List</h3>
                             $action.requestParameterListHTML
                             <h3>Response Param List</h3>

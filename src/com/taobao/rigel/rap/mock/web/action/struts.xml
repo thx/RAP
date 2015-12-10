@@ -117,5 +117,23 @@
 			<result name="success" type="velocity">/bcom/json.cb.vm
 			</result>
 		</action>
+
+		<action name="requestOnServer" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+				method="requestOnServer">
+			<result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+			</result>
+		</action>
+
+        <action name="queryMockData" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+                method="queryMockData">
+            <result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="json" type="rapVelocityResult">
+                <param name="contentType">application/json</param>
+                <param name="location">/bcom/contentWithoutEscape.cb.vm</param>
+            </result>
+        </action>
 	</package>
 </struts>

@@ -1,5 +1,8 @@
 package com.taobao.rigel.rap.mock.service;
 
+import com.taobao.rigel.rap.mock.bo.Rule;
+import com.taobao.rigel.rap.project.bo.Action;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
@@ -13,7 +16,7 @@ public interface MockMgr {
 	 * @return JSON String
 	 * @throws UnsupportedEncodingException
 	 */
-	public String generateData(int projectId, String pattern,
+    String generateData(int projectId, String pattern,
 			Map<String, Object> options) throws UnsupportedEncodingException;
 
 	/**
@@ -29,7 +32,7 @@ public interface MockMgr {
 	 * @return number of rows affected
 	 * 
 	 */
-	public int modify(int actionId, String mockData);
+    int modify(int actionId, String mockData);
 
 	/**
 	 * clear all mock data of object in specified project
@@ -37,7 +40,7 @@ public interface MockMgr {
 	 * @param projectId
 	 * @return number of rows affected
 	 */
-	public int reset(int projectId);
+    int reset(int projectId);
 
 	/**
 	 * generate mockjs rule
@@ -49,7 +52,7 @@ public interface MockMgr {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public String generateRule(int id, String pattern,
+    String generateRule(int id, String pattern,
 			Map<String, Object> options) throws UnsupportedEncodingException;
 
 	/**
@@ -61,7 +64,7 @@ public interface MockMgr {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public String generateRuleData(int id, String pattern,
+    String generateRuleData(int id, String pattern,
 			Map<String, Object> options) throws UnsupportedEncodingException;
 
     /**
@@ -71,7 +74,7 @@ public interface MockMgr {
      * @return
      * @throws UnsupportedEncodingException
      */
-    public String generateRuleData(int actionId) throws UnsupportedEncodingException;
+    // String generateRuleData(int actionId) throws UnsupportedEncodingException;
 
     /**
      * validate API format
@@ -82,5 +85,14 @@ public interface MockMgr {
      * @param jsonToCompare
      * @return
      */
-	public String validateAPI(int projectId, String pattern, Map<String, Object> options, String jsonToCompare) throws UnsupportedEncodingException;
+    String validateAPI(int projectId, String pattern, Map<String, Object> options, String jsonToCompare) throws UnsupportedEncodingException;
+
+    /**
+     * get mock rule from action and action rule
+     *
+     * @param rule
+     * @param action
+     * @return
+     */
+    String getMockRuleFromActionAndRule(Rule rule, Action action);
 }

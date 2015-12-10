@@ -9,6 +9,7 @@
         <link type="text/css" rel="stylesheet" href="${staticRoot}/css/defcontrol.css" />
         <link type="text/css" rel="stylesheet" href="myWorkspace.css?_r=$!timeStamp" />
         <script src="${staticRoot}/js/util/jsformat.js"></script>
+        <script src="${staticRoot}/js/util/mock-min.js"></script>
     </head>
     <body class="workspace #if(!$accessable)read-only#end">
         #bodyNewStart
@@ -112,8 +113,11 @@
 
             </div>
             <div id="div-debug"></div>
-            <div id="div-mt-list" class="clearfix"></div>
-            <div id="div-add-p" style="display: none"><a href="#" class="btn btn-info btn-xs" onclick="ws.addP(); return false;"><i class="glyphicon glyphicon-plus" style="margin-right: 5px"></i>添加页面</a></div>
+            <div id="div-add-p-mt-list-container">
+                <div id="div-add-p" style="display: none"><a href="#" class="btn btn-info btn-xs" onclick="ws.addP(); return false;"><i class="glyphicon glyphicon-plus" style="margin-right: 5px"></i>添加页面</a></div>
+                <div id="div-mt-list" class="clearfix"></div>
+            </div>
+
         </div>
         <div id="div-w">
             <div id="div-m-list"> </div>
@@ -124,7 +128,7 @@
 
         ## [todo] mode case
         #if (1 == 1)
-            #startFloater("saveVSSFloater" "" 475 354)
+            #startFloater("saveVSSFloater" "" 500 380)
             <form name="formSaveVSSFloater">
                 <div id="div-saveVSS-floater-message" style="display:none;" class="label">
                 </div>
@@ -403,13 +407,31 @@
         </form>
         #endFloater
         #startFloater("actionUrlFloater" "请求链接" 600 180)
-        <form name="fformActionUrlFloater">
+        <form name="formActionUrlFloater">
             <div class="myfloater">
                 <div>
                     <input disabled="disabled" id="actionUrlFloater-input" style="width:550px;margin:8px 0;" type="text" value="">
                 </div>
                 <div class="div-floater-control">
                     <input type="button" class="btn btn-default" onclick="ws.closeActionUrlFloater();"  value="关闭" />
+                </div>
+            </div>
+        </form>
+        #endFloater
+
+        #startFloater("mockDataPreviewFloater" "Mock数据预览" 600 600)
+        <form name="mockDataPreviewFloater">
+            <div class="myfloater">
+                <div>
+                    <h5>Mock规则</h5>
+                    <pre style="width:100%;height:200px;overflow-y:auto;" id="mockRulePreviewFloater-container"></pre>
+                </div>
+                <div>
+                    <h5>Mock数据</h5>
+                    <pre style="width:100%;height:200px;overflow-y:auto;" id="mockDataPreviewFloater-container"></pre>
+                </div>
+                <div class="div-floater-control">
+                    <input type="button" class="btn btn-default" onclick="ecui.get('mockDataPreviewFloater').hide();"  value="关闭" />
                 </div>
             </div>
         </form>
@@ -470,7 +492,8 @@
                 "switchVersion"     : "$workspaceUrl.switchVersion",
                 "pageTester"        : "$testerUrl.pageTester",
                 "updateReleatedIds" : "$projectUrl.updateReleatedIds",
-                "myWorkspace"       : "http://$!consts.DOMAIN_URL$workspaceUrl.myWorkspace"
+                "myWorkspace"       : "$workspaceUrl.myWorkspace",
+                "queryMockData"     : "$mockUrl.queryMockData"
             },
             ws = rap.workspace,
             data = $workspaceJsonString,

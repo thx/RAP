@@ -2,6 +2,7 @@ package com.taobao.rigel.rap.mock.web.action;
 
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.common.ActionBase;
+import com.taobao.rigel.rap.common.HTTPUtils;
 import com.taobao.rigel.rap.common.SystemVisitorLog;
 import com.taobao.rigel.rap.mock.service.MockMgr;
 import com.taobao.rigel.rap.project.bo.Action;
@@ -39,6 +40,26 @@ public class MockAction extends ActionBase {
 	private boolean disableLog;
 	private String mode;
 	private MockMgr mockMgr;
+
+    public String getActionData() {
+        return actionData;
+    }
+
+    public void setActionData(String actionData) {
+        this.actionData = actionData;
+    }
+
+    private String actionData;
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	private String url;
 
 	public boolean isDisableLog() {
 		return disableLog;
@@ -427,5 +448,22 @@ public class MockAction extends ActionBase {
 
     public void set__id__(int __id__) {
         this.__id__ = __id__;
+    }
+
+	public String requestOnServer() {
+		try {
+			setContent(HTTPUtils.sendGet(url));
+		} catch (Exception e) {
+			setContent(e.getMessage());
+		}
+		return SUCCESS;
+	}
+
+    public String queryMockData() {
+        Gson gson = new Gson();
+        Action action = gson.fromJson(actionData, Action.class);
+        setContent(mockMgr.getMockRuleFromActionAndRule(null, action));
+
+        return SUCCESS;
     }
 }

@@ -1581,6 +1581,10 @@ function deepCopy(o) {
             return;
         }
 
+        if (isEditing()) {
+            return;
+        }
+
         var validDefaultActionId = defaultActionId && p.isActionInModule(defaultActionId, id);
 
         if (id < 0) {
@@ -2392,10 +2396,9 @@ function deepCopy(o) {
                     p.init(obj.projectData);
                     _data.projectDataOriginal = b.object.clone(obj.projectData);
                     _data.checkList = obj.checkList;
-                    initVersionPanel();
+                    //initVersionPanel();
                     switchToViewModeSub();
-                    ws.cancelSaveVSS();
-                    recoverViewState();
+                    //ws.cancelSaveVSS();
                     showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVED);
                 } else {
                     showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, obj.errMsg);
@@ -2642,6 +2645,25 @@ function deepCopy(o) {
         ws.switchA(_curActionId, true);
     };
 
+    ws.showMockData = function(actionId) {
+        var action = p.getAction(actionId);
+        var postData = 'actionData=' + encodeURIComponent(JSON.stringify(action));
+        b.g('mockDataPreviewFloater-container').innerHTML = 'loading...';
+        ecFloater.show("mockDataPreviewFloater");
+        b.ajax.post(URL.queryMockData, postData, function(xhr, response) {
+            try {
+                // var obj = eval("(" + response + ")");
+                var mockRuleObj = eval('(' + response + ')'); 
+                var mockDataObj  = Mock.mock(mockRuleObj);
+                b.g('mockRulePreviewFloater-container').innerHTML = JSON.stringify(mockRuleObj, null, 4);
+                b.g('mockDataPreviewFloater-container').innerHTML = JSON.stringify(mockDataObj, null, 4);
+                showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVED);
+            } catch(e) {
+                showMessage(CONST.ERROR, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
+            }
+        });
+    };
+
 
     /********************************************************
      *                              *
@@ -2812,7 +2834,7 @@ function deepCopy(o) {
     }
 
     function recoverViewState() {
-        if (_viewState.moduleId > 0) {
+        if (_viewState.moduleId > 0 && _viewState.moduleId < 999999999) {
             if (p.getModuleList().length > 1) {
                 ws.switchM(_viewState.moduleId);
             }
@@ -2857,10 +2879,10 @@ function deepCopy(o) {
      * quit edit mode, switch to view mode sub-function
      */
     function switchToViewModeSub() {
-            setButtonsViewState(CONST.NORMAL);
-            _isEditMode = false;
-            initModules();
-            recoverViewState();
+        setButtonsViewState(CONST.NORMAL);
+        _isEditMode = false;
+        initModules();
+        recoverViewState();
     }
 
     /**
@@ -3068,6 +3090,8 @@ function deepCopy(o) {
             str1 = "",
             str2 = "";
 
+        list.sort(modelSorterByName);
+        
         // clear old content
         div1.innerHTML = "";
         div2.innerHTML = "";
@@ -3227,7 +3251,7 @@ function deepCopy(o) {
     function clearMessage() {
         var ele = b.g(_messageContainerId);
         if (ele === null) return;
-    b.hide(ele);
+        b.hide(ele);
         ele.innerHTML = "";
         _messageTimer = null;
         _messageContainerId = "";
@@ -3782,6 +3806,16 @@ function deepCopy(o) {
             return str;
         }
 
+        function modelSorterByName(a, b) {
+            if (a.name > b.name) {
+                return 1;
+            } else if (a.name < b.name) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+
         /**
          * get module tree html string from module object
          */
@@ -3789,6 +3823,9 @@ function deepCopy(o) {
             var str = "",
                 pageList = m.pageList,
                 pageListNum = pageList.length;
+
+            pageList.sort(modelSorterByName);
+
             str += "<div id=\"div-tree-" + m.id + "\" class=\"tree-m\">";
             str += "<div class=\"more\" ecui=\"type:tree;id:moduleTree" + m.id + "\">";
             str += "<label>" + util.escaper.escapeInH(m.name);
@@ -3800,6 +3837,8 @@ function deepCopy(o) {
                 var page = pageList[i],
                 actionList = page.actionList,
                 actionListNum = actionList.length;
+                actionList.sort(modelSorterByName);
+
                 str += "<div class=\"more\">";
                 str += "<label ondblclick=\"ws.editP(" + page.id + "); return false;\">" + util.escaper.escapeInH(page.name);
                 if (_isEditMode) {
@@ -3930,9 +3969,13 @@ function deepCopy(o) {
          * get action info html
          */
         function getAInfoHtml(a) {
-            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id + ") <a href=\"#\" onclick=\"ws.openActionUrlFloater(" + a.id + ");return false;\">复制URL</a></span> </h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
+            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id 
+                + ") &nbsp;&nbsp;&nbsp;&nbsp;<button class=\"btn btn-danger btn-xs\" onclick=\"ws.showMockData(" 
+                + a.id + ");\">Mock数据</button></span> </h2><div class='action-info' href='#' onclick='ws.editA(" 
+                + a.id + "); return false;'>",
                 body = "",
                 foot = "</div>";
+
             if (a.name) {
                 body += "<div class='item'><b>接口名称 </b>" + a.name + "</div>";
             }
@@ -3956,44 +3999,44 @@ function deepCopy(o) {
             return head + body + foot;
         }
 
-    /**
-     * process text area, using @code @end commands
-     * to make text area more colorful and readable
-     * @param {string} text string to be formatted
-     * @return {string} formatted string
-     */
-    function processTextarea(txt) {
-        var code = '@type=array_map;';
-        if (txt && txt.substring(0, 16) === code) {
-            txt = txt.substring(16);
-        }
-
-
-        var arr = [],
-        hasCode = txt.indexOf('@code') > -1,
-        i = 0;
-        if (txt.length > 100) {
-        var t1 = hasCode ? txt.replace(/(@code|@end)/gmi, '') : txt;
-        var reg = /@code([\s\S]*?)@end/gm;
-
-        arr[i++] = '<a class="div-a-desc-expander" href="#" onclick="this.innerHTML = this.innerHTML == \'展开\' ? \'收缩\' : \'展开\';baidu.each(baidu.dom.query(\'.description-area\'), function(ele){baidu.dom.toggle(ele);});baidu.each(baidu.dom.query(\'.description-area-partial\'), function(ele){baidu.dom.toggle(ele)}); return false;">展开</a>';
-        arr[i++] = '<div class="description-area-partial">';
-        arr[i++] = t1.substring(0, 100);
-        arr[i++] = '...</div>';
         /**
-         * process code area
+         * process text area, using @code @end commands
+         * to make text area more colorful and readable
+         * @param {string} text string to be formatted
+         * @return {string} formatted string
          */
-        arr[i++] = '<div class="description-area" style="display:none;">';
-        arr[i++] = txt.replace(reg, '<div class="js-code-area">$1</div>');
-        arr[i++] = '</div>';
-        arr[i++] = '</div>';
-        } else {
-        arr[i++] = txt;
+        function processTextarea(txt) {
+            var code = '@type=array_map;';
+            if (txt && txt.substring(0, 16) === code) {
+                txt = txt.substring(16);
+            }
 
+
+            var arr = [],
+            hasCode = txt.indexOf('@code') > -1,
+            i = 0;
+            if (txt.length > 100) {
+            var t1 = hasCode ? txt.replace(/(@code|@end)/gmi, '') : txt;
+            var reg = /@code([\s\S]*?)@end/gm;
+
+            arr[i++] = '<a class="div-a-desc-expander" href="#" onclick="this.innerHTML = this.innerHTML == \'展开\' ? \'收缩\' : \'展开\';baidu.each(baidu.dom.query(\'.description-area\'), function(ele){baidu.dom.toggle(ele);});baidu.each(baidu.dom.query(\'.description-area-partial\'), function(ele){baidu.dom.toggle(ele)}); return false;">展开</a>';
+            arr[i++] = '<div class="description-area-partial">';
+            arr[i++] = t1.substring(0, 100);
+            arr[i++] = '...</div>';
+            /**
+             * process code area
+             */
+            arr[i++] = '<div class="description-area" style="display:none;">';
+            arr[i++] = txt.replace(reg, '<div class="js-code-area">$1</div>');
+            arr[i++] = '</div>';
+            arr[i++] = '</div>';
+            } else {
+            arr[i++] = txt;
+
+            }
+
+            return arr.join('');
         }
-
-        return arr.join('');
-    }
 
         /**
          * get request type string
@@ -4075,7 +4118,6 @@ function deepCopy(o) {
                 "\");' >" + (level ? new Array(level + 1).join('&nbsp;&nbsp;&nbsp;&nbsp;') : '') + value + "</td>";
         }
 
-
         /**
          * remark filter, remove @labels
          */
@@ -4140,7 +4182,6 @@ function deepCopy(o) {
             }
             */
 
-
             // hide floater
             ws.cancelEditA();
 
@@ -4155,9 +4196,6 @@ function deepCopy(o) {
 
             // update the current model tree
             updateCurMTree();
-
-
-
         }
 
 

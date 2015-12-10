@@ -170,7 +170,8 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     public boolean canUserAccessCorp(long userId, int corpId) {
         Corporation c = getCorporation(corpId);
         if (c == null) return false;
-        if (c.getUserId() == userId) return true;
+        if (c.getUserId() == userId) return true;  // team owner
+        if (c.getAccessType() == Corporation.PUBLIC_ACCESS) return true; // public team
         User user = accountMgr.getUser(userId);
         if (user != null && user.isAdmin()) return true;
         return organizationDao.isUserInCorp(userId, corpId);
