@@ -84,3 +84,7 @@
 #set($productlineUrl = {
     "productline":"$projectContext/org/productline.do"
 })
+
+#set($mockUrl = {
+    "queryMockData":"$projectContext/mock/queryMockData.do"
+})

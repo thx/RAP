@@ -2645,6 +2645,25 @@ function deepCopy(o) {
         ws.switchA(_curActionId, true);
     };
 
+    ws.showMockData = function(actionId) {
+        var action = p.getAction(actionId);
+        var postData = 'actionData=' + encodeURIComponent(JSON.stringify(action));
+        b.g('mockDataPreviewFloater-container').innerHTML = 'loading...';
+        ecFloater.show("mockDataPreviewFloater");
+        b.ajax.post(URL.queryMockData, postData, function(xhr, response) {
+            try {
+                // var obj = eval("(" + response + ")");
+                var mockRuleObj = eval('(' + response + ')'); 
+                var mockDataObj  = Mock.mock(mockRuleObj);
+                b.g('mockRulePreviewFloater-container').innerHTML = JSON.stringify(mockRuleObj, null, 4);
+                b.g('mockDataPreviewFloater-container').innerHTML = JSON.stringify(mockDataObj, null, 4);
+                showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVED);
+            } catch(e) {
+                showMessage(CONST.ERROR, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
+            }
+        });
+    };
+
 
     /********************************************************
      *                              *
@@ -3950,9 +3969,13 @@ function deepCopy(o) {
          * get action info html
          */
         function getAInfoHtml(a) {
-            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id + ") <a href=\"#\" onclick=\"ws.openActionUrlFloater(" + a.id + ");return false;\">复制URL</a></span> </h2><div class='action-info' href='#' onclick='ws.editA(" + a.id + "); return false;'>",
+            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id 
+                + ") &nbsp;&nbsp;&nbsp;&nbsp;<button class=\"btn btn-danger btn-xs\" onclick=\"ws.showMockData(" 
+                + a.id + ");\">Mock数据</button></span> </h2><div class='action-info' href='#' onclick='ws.editA(" 
+                + a.id + "); return false;'>",
                 body = "",
                 foot = "</div>";
+
             if (a.name) {
                 body += "<div class='item'><b>接口名称 </b>" + a.name + "</div>";
             }

@@ -41,6 +41,16 @@ public class MockAction extends ActionBase {
 	private String mode;
 	private MockMgr mockMgr;
 
+    public String getActionData() {
+        return actionData;
+    }
+
+    public void setActionData(String actionData) {
+        this.actionData = actionData;
+    }
+
+    private String actionData;
+
 	public String getUrl() {
 		return url;
 	}
@@ -448,4 +458,12 @@ public class MockAction extends ActionBase {
 		}
 		return SUCCESS;
 	}
+
+    public String queryMockData() {
+        Gson gson = new Gson();
+        Action action = gson.fromJson(actionData, Action.class);
+        setContent(mockMgr.getMockRuleFromActionAndRule(null, action));
+
+        return SUCCESS;
+    }
 }

@@ -274,7 +274,16 @@ public class MockMgrImpl implements MockMgr {
         if (loadRule) {
             rule = mockDao.getRule((int) action.getId());
         }
+        String result = getMockRuleFromActionAndRule(rule, action);
 
+
+        if (!loadRule) {
+            CacheUtils.setRuleCache(action.getId(), result);
+        }
+        return result;
+    }
+
+    public String getMockRuleFromActionAndRule(Rule rule, Action action) {
         // rule process
         String desc = action.getDescription();
         Set<Parameter> pList = action.getResponseParameterList();
@@ -341,9 +350,6 @@ public class MockMgrImpl implements MockMgr {
         json.append(right);
         String result = json.toString();
         result = resultFilter(result);
-        if (!loadRule) {
-            CacheUtils.setRuleCache(action.getId(), result);
-        }
         return result;
     }
 
