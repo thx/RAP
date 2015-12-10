@@ -185,12 +185,10 @@ body {
 
 
 #div-fixed-panel {
-    position: fixed;
     width: 1170px;
-    margin: 0 auto;
+    margin: 70px 0 0 0;
     background: #FFF;
     z-index: 1;
-    padding-top: 10px;
     top:50px;
 }
 
@@ -200,6 +198,8 @@ body {
     background-color: #F2F2F2;
     border: 1px solid #DDD;
     border-radius: 0 0 12px 12px;
+    height: 550px;
+    overflow-y: auto;
 }
 
 .tree-m {
@@ -363,7 +363,7 @@ body {
 
 #div-add-m {
     float: right;
-    margin-top: 18px;
+    margin-top: 8px;
 }
 
 #div-remove-m {
@@ -374,21 +374,17 @@ body {
 }
 
 #div-add-p {
-    position: absolute;
-    top: 54px;
-    left: 0px;
-    z-index: 10;
+
 }
 
 #div-w {
     position: relative;
-    margin-top: 140px;
+    margin-top: -1px;
 }
 
 #div-w-message {
     font-size: 14px;
     float: left;
-    margin-left: 12px;
     margin-top: 5px;
 }
 

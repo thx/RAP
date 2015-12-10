@@ -112,8 +112,11 @@
 
             </div>
             <div id="div-debug"></div>
-            <div id="div-mt-list" class="clearfix"></div>
-            <div id="div-add-p" style="display: none"><a href="#" class="btn btn-info btn-xs" onclick="ws.addP(); return false;"><i class="glyphicon glyphicon-plus" style="margin-right: 5px"></i>添加页面</a></div>
+            <div id="div-add-p-mt-list-container">
+                <div id="div-add-p" style="display: none"><a href="#" class="btn btn-info btn-xs" onclick="ws.addP(); return false;"><i class="glyphicon glyphicon-plus" style="margin-right: 5px"></i>添加页面</a></div>
+                <div id="div-mt-list" class="clearfix"></div>
+            </div>
+
         </div>
         <div id="div-w">
             <div id="div-m-list"> </div>
