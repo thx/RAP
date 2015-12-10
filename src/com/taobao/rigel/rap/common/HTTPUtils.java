@@ -1,4 +1,4 @@
-package com.taobao.rigel.rap.common;
+ package com.taobao.rigel.rap.common;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

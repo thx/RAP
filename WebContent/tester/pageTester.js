@@ -10,15 +10,13 @@ function wrapHref(url) {
     return '<a href="' + url + '" target="_blank">' + url + '</a>';
 }
 
-YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify', function (Y) {
+YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify', 'datasource', function (Y) {
+    window.Y = Y;
     var source = Y.one("#resBoard-template"),
-        TResBoard = Y.Handlebars.compile(source),
         divLog = document.getElementById("divResBoardLog"),
         ERROR = -1, WARN = -2,                                // log type
         LIGHT_GRAY = '#999', RED = 'red', ORANGE = 'orange',  // colors
-        _resetUrl = '',
         _rootUrl = '',
-        _modifyUrl = '',
         logLine = 1;
 
     log('tester initializing...');
@@ -27,12 +25,10 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
         form.one('.btn-run-mockjsrule').on('click', function(e) {
             Y.one('#divResBoardJson').setHTML('加载中，请稍后...');
 
-            var url     = '';
             var qArr    = [];
             var i       = 0;
             var fields  = form.all('.field');
             var baseUrl = Y.one('#txtRootPath').get('value');
-            var baseUrlOrigin = Y.one('#txtRootPath').get('value');
             var rapUrl  = RAP_ROOT;
             var path    = form.getAttribute('path');
 
@@ -65,8 +61,8 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
             log('request starting, url: ' + color(wrapHref(url), LIGHT_GRAY));
             Y.timeLog.time = new Date().getTime();
             try {
-                Y.jsonp(url, {
-                    on : {
+                Y.io(url, {
+                    on: {
                         success : function() {
                             var slice = Array.prototype.slice;
                             var args = slice.call(arguments);
