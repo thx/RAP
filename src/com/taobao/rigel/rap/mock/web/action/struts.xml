@@ -120,7 +120,7 @@
 
 		<action name="requestOnServer" class="com.taobao.rigel.rap.mock.web.action.MockAction"
 				method="requestOnServer">
-			<result name="success" type="velocity">/bcom/content.cb.vm
+			<result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
 			</result>
 		</action>
 

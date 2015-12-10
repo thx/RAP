@@ -5,6 +5,7 @@ import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.HTTPUtils;
 import com.taobao.rigel.rap.common.SystemVisitorLog;
+import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 import com.taobao.rigel.rap.tester.bo.SSOUserRes;
@@ -21,6 +22,16 @@ public class TesterAction extends ActionBase {
 	private int id;
 	private Page page;
 	private int projectId;
+
+    public OrganizationMgr getOrganizationMgr() {
+        return organizationMgr;
+    }
+
+    public void setOrganizationMgr(OrganizationMgr organizationMgr) {
+        this.organizationMgr = organizationMgr;
+    }
+
+    private OrganizationMgr organizationMgr;
 
 	public int getProjectId() {
 		return projectId;
@@ -47,14 +58,18 @@ public class TesterAction extends ActionBase {
 	}
 
 	public String pageTester() {
-        EasyFactoryConfiguration config = new EasyFactoryConfiguration();
-        config.toolbox("application").property("test", 123);
-        config.bool("isSimple", true);
-        config.string("foo", "this is foo.");
-        config.string("bar", "this is bar.");
-        config.data("dataKeys", "list", "version,date,isSimple,foo,bar,dataKeys,switches");
-        config.data("switches", "list.boolean", "true,false,false,true");
 
+        if (!isUserLogined()) {
+            plsLogin();
+            setRelativeReturnUrl("/tester/pageTester.do?id="
+                    + id);
+            return LOGIN;
+        }
+
+        if (!organizationMgr.canUserAccessPage(getCurUserId(), id)) {
+            setErrMsg(ACCESS_DENY);
+            return ERROR;
+        }
 
 		page = projectMgr.getPage(id);
 		projectMgr.loadParamIdListForPage(page);
