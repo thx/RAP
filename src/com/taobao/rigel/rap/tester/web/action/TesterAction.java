@@ -23,6 +23,16 @@ public class TesterAction extends ActionBase {
 	private Page page;
 	private int projectId;
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    private String url;
+
     public OrganizationMgr getOrganizationMgr() {
         return organizationMgr;
     }
@@ -91,33 +101,7 @@ public class TesterAction extends ActionBase {
 	 * @return
 	 */
 	public String ___init___() throws Exception {
-        /**
-        List<User> list = getAccountMgr().getUserList();
-        int count = 1000;
-        for (User u : list) {
-            if (count-- <=0) {
-                break;
-            }
-            String account = u.getAccount();
-            String res = HTTPUtils.sendGet("");
-            Gson gson  = new Gson();
-            SSOUserRes json = gson.fromJson(res, SSOUserRes.class);
-            if (json.content == null)
-                System.out.println("not Ali employee");
-            else {
-                System.out.println("empId:" + json.content.empId);
-                if (json.content.nickNameCn != null && !json.content.nickNameCn.isEmpty()) {
-                    u.setName(json.content.nickNameCn);
-                } else {
-                    u.setName(json.content.lastName);
-                }
-                u.setRealname(json.content.lastName);
-                u.setEmpId(json.content.empId);
-                getAccountMgr().updateUser(u);
 
-            }
-        }
-         */
 
 		return SUCCESS;
 	}
