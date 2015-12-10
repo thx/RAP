@@ -58,7 +58,7 @@
                                 #end
                             </div>
                             <div class="p8 tools">
-                                <input type="button" class="btn btn-primary btn-xs btn-run" value="请求"/>
+                                <input type="button" class="btn btn-primary btn-run" value="请求"/>
                             </div>
                         </form>
                     </div>

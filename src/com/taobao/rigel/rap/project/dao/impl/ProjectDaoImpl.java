@@ -389,8 +389,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 				String urlParamRemoved = URLUtils.removeParamsInUrl(url);
 				String realUrlParamRemoved = URLUtils
 						.removeRealParamsInUrl(pattern);
-				if (urlParamRemoved.contains(realUrlParamRemoved) ||
-						realUrlParamRemoved.contains(urlParamRemoved)) {
+				if (realUrlParamRemoved.equals(urlParamRemoved)) {
 					result.add(action);
 				}
 			} else { // normal pattern

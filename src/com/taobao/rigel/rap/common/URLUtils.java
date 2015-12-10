@@ -54,10 +54,14 @@ public class URLUtils {
         return !(isStaticUrl(url) || isLogUrl(url));
     }
 
-    public static boolean isRelativeUrlExactlyMatch(String url1, String url2) {
-        if (url1 == url2) return true;
-        if (url1 == null || url2 == null) return false;
-        return getRelativeUrl(url1).equals(getRelativeUrl(url2));
+    public static boolean isRelativeUrlExactlyMatch(String pattern, String requestUrl) {
+        if (pattern == requestUrl) return true;
+        if (pattern == null || requestUrl == null) return false;
+
+        // process /:id/ syntax
+
+
+        return getRelativeUrl(pattern).equals(getRelativeUrl(requestUrl));
     }
 
     public static String getDomain(String url) {
