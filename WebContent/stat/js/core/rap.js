@@ -1316,7 +1316,7 @@ function deepCopy(o) {
             "VERSION_PANEL_BEGIN"           : "<div id=\"div-version-panel\"><table class='table-version'><tr class='head'><td class='version-op'>OP</td><td class='version'>版本</td><td class='operator'>操作人</td><td class='operation-time'>操作时间</td><td class='version-desc'>描述</td></tr>",
             "VERSION_PANEL_END"             : "</table></div>",
 
-            "MODULE_ADD_BUTTON"             : "<div id=\"div-add-m\"><a href=\"#\" class=\"add-link add-link-module\" onclick=\"ws.addM(); return false;\"><i class='glyphicon glyphicon-plus' style='color:#5bc0de'></i></a></div>",
+            "MODULE_ADD_BUTTON"             : "<div id=\"div-add-m\"><a href=\"#\" style=\"margin:0 10px;\" onclick=\"ws.addM(); return false;\"><i class='glyphicon glyphicon-plus' style='color:#5bc0de'></i></a></div>",
 
             "SEPERATOR"                     : "<div class=\"seperator\"></div>" ,
 
@@ -3830,7 +3830,7 @@ function deepCopy(o) {
             str += "<div class=\"more\" ecui=\"type:tree;id:moduleTree" + m.id + "\">";
             str += "<label>" + util.escaper.escapeInH(m.name);
             if (_isEditMode) {
-                str     += "<a href=\"#\" class=\"del-link\" onclick=\"ws.removeM(); return false;\"><i class='glyphicon glyphicon-remove' style='color:#d9534f'></i></a>";
+                str     += "<a href=\"#\" onclick=\"ws.removeM(); return false;\"><i class='glyphicon glyphicon-remove' style='color:#d9534f'></i></a>";
             }
             str += "</label>";
             for (var i = 0; i < pageListNum; i++) {
@@ -3843,8 +3843,8 @@ function deepCopy(o) {
                 str += "<label ondblclick=\"ws.editP(" + page.id + "); return false;\">" + util.escaper.escapeInH(page.name);
                 if (_isEditMode) {
                     str += "<span class=\"div-p-control\"><a href=\"#\" class=\"edit-link\" onclick=\"ws.editP(" +
-                        page.id + "); return false;\"><i class=\"glyphicon glyphicon-pencil\"></i></a><a href=\"#\" class=\"del-link\" onclick=\"ws.removeP(" +
-                        page.id + "); return false;\"><i class=\"glyphicon glyphicon-trash\"></i></a></span>";
+                        page.id + "); return false;\"><i class=\"glyphicon glyphicon-pencil\"></i></a><a href=\"#\" onclick=\"ws.removeP(" +
+                        page.id + "); return false;\" style=\"margin-left:5px;\"><i class=\"glyphicon glyphicon-trash\"></i></a></span>";
                 }
                 str += (page.isIdGenerated ? '' : '<a class="test-link" href="' + URL.pageTester + '?id=' + page.id + '" target="_blank"><i class="glyphicon glyphicon-step-forward"></i></a>');
                 str += "</label>";
@@ -3854,8 +3854,8 @@ function deepCopy(o) {
                         "); return false;\" ondblclick=\"ws.editA(" + action.id + "); return false;\">" + util.escaper.escapeInH(action.name) + "</a>";
                     if (_isEditMode) {
                         str += "<a href=\"#\" class=\"edit-link\" onclick=\"ws.editA(" +
-                            action.id + "); return false;\"><i class=\"glyphicon glyphicon-pencil\"></i><a href=\"#\" class=\"del-link\" onclick=\"ws.removeA(" +
-                            action.id + "); return false;\"><i class=\"glyphicon glyphicon-trash\"></i></a>";
+                            action.id + "); return false;\"><i class=\"glyphicon glyphicon-pencil\"></i><a href=\"#\" onclick=\"ws.removeA(" +
+                            action.id + "); return false;\" style=\"margin-left:5px;\"><i class=\"glyphicon glyphicon-trash\"></i></a>";
                     }
                     str += "</div>";
                 }
@@ -4081,9 +4081,9 @@ function deepCopy(o) {
             if (_isEditMode) {
             str += getPTDHtml(param.id,
                     "<div id=\"div-param-op-" + param.id + "\" class=\"div-op-container\" style=\"display:none;\">" +
-                    "<a href=\"#\" class=\"del-link\" onclick=\"ws.removeParam(" + param.id + "); return false;\"><i class='glyphicon glyphicon-remove'></i></a>" +
+                    "<a href=\"#\" onclick=\"ws.removeParam(" + param.id + "); return false;\"><i class='glyphicon glyphicon-remove'></i></a>" +
                     (parameterListNum > 0 || param.dataType == "object" || param.dataType == "array<object>" ?
-                     "<a href=\"#\" class=\"add-link\" onclick=\"ws.addParam('child', " +
+                     "<a style=\"margin-left:5px;color:#47a947;\" href=\"#\" onclick=\"ws.addParam('child', " +
                         param.id +  "); return false;\"><i class='glyphicon glyphicon-plus'></i></a>" : "") + "</div>", "op");
             }
             str += getPTDHtml(param.id, util.escaper.escapeInH(param.identifier), "identifier", level);

@@ -673,9 +673,7 @@ body {
 }
 
 .div-op-container {
-    position: absolute;
-    margin-top: -8px; #
-    margin-top: 0; /* for IE */
+    position: relative;
 }
 
 .ec-tree > .edit-link, .ec-tree > .del-link {
@@ -767,4 +765,8 @@ body {
 #floaterEditAFloater .radio-list {
 	padding-top: 5px;
 	padding-bottom: 5px;
+}
+
+.glyphicon-remove {
+    color:#d9534f
 }
