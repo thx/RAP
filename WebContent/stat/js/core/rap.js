@@ -2648,13 +2648,16 @@ function deepCopy(o) {
     ws.showMockData = function(actionId) {
         var action = p.getAction(actionId);
         var postData = 'actionData=' + encodeURIComponent(JSON.stringify(action));
+        var me = this;
         b.g('mockDataPreviewFloater-container').innerHTML = 'loading...';
+        $('.glyphicon-question-sign').tooltip();
         ecFloater.show("mockDataPreviewFloater");
         b.ajax.post(URL.queryMockData, postData, function(xhr, response) {
             try {
                 // var obj = eval("(" + response + ")");
                 var mockRuleObj = eval('(' + response + ')'); 
                 var mockDataObj  = Mock.mock(mockRuleObj);
+                me._mockRuleObj = mockRuleObj;
                 b.g('mockRulePreviewFloater-container').innerHTML = JSON.stringify(mockRuleObj, null, 4);
                 b.g('mockDataPreviewFloater-container').innerHTML = JSON.stringify(mockDataObj, null, 4);
                 showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVED);
@@ -2662,6 +2665,10 @@ function deepCopy(o) {
                 showMessage(CONST.ERROR, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
             }
         });
+    };
+
+    ws.refreshMockPreviewData = function() {
+        b.g('mockDataPreviewFloater-container').innerHTML = JSON.stringify(Mock.mock(this._mockRuleObj), null, 4);
     };
 
 
