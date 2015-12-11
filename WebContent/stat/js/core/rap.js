@@ -2671,6 +2671,16 @@ function deepCopy(o) {
         b.g('mockDataPreviewFloater-container').innerHTML = JSON.stringify(Mock.mock(this._mockRuleObj), null, 4);
     };
 
+    ws.copyToClipboard = function(eleId) {
+        var ele = b.g(eleId);
+        ele.select();
+        try {
+            document.execCommand('copy');
+        } catch (err) {
+            console.log('Oops, unable to copy');
+        }
+    };
+
 
     /********************************************************
      *                              *
