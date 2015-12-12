@@ -2649,7 +2649,8 @@ function deepCopy(o) {
         var action = p.getAction(actionId);
         var postData = 'actionData=' + encodeURIComponent(JSON.stringify(action));
         var me = this;
-        b.g('mockDataPreviewFloater-container').innerHTML = 'loading...';
+        $('#mockDataPreviewFloater-container').val('loading...');
+        $('#mockRulePreviewFloater-container').val('loading...');
         $('.glyphicon-question-sign').tooltip();
         ecFloater.show("mockDataPreviewFloater");
         b.ajax.post(URL.queryMockData, postData, function(xhr, response) {
@@ -2658,8 +2659,8 @@ function deepCopy(o) {
                 var mockRuleObj = eval('(' + response + ')'); 
                 var mockDataObj  = Mock.mock(mockRuleObj);
                 me._mockRuleObj = mockRuleObj;
-                b.g('mockRulePreviewFloater-container').innerHTML = JSON.stringify(mockRuleObj, null, 4);
-                b.g('mockDataPreviewFloater-container').innerHTML = JSON.stringify(mockDataObj, null, 4);
+                $('#mockRulePreviewFloater-container').val(JSON.stringify(mockRuleObj, null, 4));
+                $('#mockDataPreviewFloater-container').val(JSON.stringify(mockDataObj, null, 4));
                 showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVED);
             } catch(e) {
                 showMessage(CONST.ERROR, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
@@ -2668,7 +2669,7 @@ function deepCopy(o) {
     };
 
     ws.refreshMockPreviewData = function() {
-        b.g('mockDataPreviewFloater-container').innerHTML = JSON.stringify(Mock.mock(this._mockRuleObj), null, 4);
+        $('#mockDataPreviewFloater-container').val(JSON.stringify(Mock.mock(this._mockRuleObj), null, 4));
     };
 
     ws.copyToClipboard = function(eleId) {
