@@ -1,5 +1,4 @@
-
- # RAP API Management System
+# RAP API Management System
 
 * THX开源工具集: [http://thx.github.io/](http://thx.github.io/)
 * 作者微博：[@Bosn](http://weibo.com/bosn)
