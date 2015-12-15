@@ -379,7 +379,11 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createMockjsDataAuto() throws UnsupportedEncodingException {
-		boolean isJSON = false;
+        setErrMsg("该接口存在漏洞,暂时禁用.请访问/mockjs/");
+        return JSON_ERROR;
+
+        /**
+        boolean isJSON = false;
 		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createMockjsData", pattern, getCurAccount()));
 		String _c = get_c();
 		Map<String, Object> options = new HashMap<String, Object>();
@@ -404,6 +408,7 @@ public class MockAction extends ActionBase {
 		} else {
 			return SUCCESS;
 		}
+         */
 	}
 
 	public String validateAPI() throws UnsupportedEncodingException {
