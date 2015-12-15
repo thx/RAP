@@ -29,6 +29,7 @@ public class MockMgrImpl implements MockMgr {
     private MockDao mockDao;
     private int uid = 10000;
     private Map<String, List<String>> requestParams;
+    private boolean isMockJsData = false;
     /**
      * random seed
      */
@@ -189,6 +190,7 @@ public class MockMgrImpl implements MockMgr {
     @Override
     public String generateRuleData(int projectId, String pattern,
                                    Map<String, Object> options) throws UnsupportedEncodingException {
+        isMockJsData = true;
         String result = generateRule(projectId, pattern, options);
         result = MockjsRunner.renderMockjsRule(result);
         result = StringUtils.chineseToUnicode(result);
@@ -196,6 +198,7 @@ public class MockMgrImpl implements MockMgr {
     }
 
     public String generateRuleData(int actionId) throws UnsupportedEncodingException {
+        isMockJsData = true;
         String result = generateRule(actionId, null, null);
         result = MockjsRunner.renderMockjsRule(result);
         result = StringUtils.chineseToUnicode(result);
@@ -807,9 +810,10 @@ public class MockMgrImpl implements MockMgr {
         mockValue = processMockValueWithParams(mockValue);
 
         if (mockValue != null && !mockValue.isEmpty()) {
-            if ((mockValue.startsWith("[") && mockValue.endsWith("]"))
-                    || mockValue.startsWith("function")) {
+            if (mockValue.startsWith("[") && mockValue.endsWith("]")) {
                 return mockValue;
+            } else if (mockValue.startsWith("function")) {
+                return isMockJsData ? "1" : mockValue;
             } else if (mockValue.startsWith("$order")) {
                 if (para.getDataType().contains("array")) {
                     return "[" + mockValue.substring(7, mockValue.length() - 1) + "]";
