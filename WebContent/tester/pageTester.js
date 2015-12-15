@@ -69,7 +69,7 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
                         success : function() {
                             var args = [];
                             try {
-                                args = [JSON.parse(arguments[1].responseText)];
+                                args = [eval('(' + arguments[1].responseText + ')')];
                             } catch (ex) {
                                 log(color('error occurred!', RED) + color(', detail:' + ex.message, LIGHT_GRAY));
                             }
