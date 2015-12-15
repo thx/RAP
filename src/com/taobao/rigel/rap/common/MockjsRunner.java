@@ -66,6 +66,7 @@ public class MockjsRunner {
 	}
 
 	private String doRenderMockJsRule(String mockRule) {
+        String returnVal = "JS_ERROR";
 		try {
 			StringBuilder code = new StringBuilder();
 			code
@@ -78,13 +79,13 @@ public class MockjsRunner {
                     .append("result;");
 			Object result = ct.evaluateString(scope, code.toString(), null, 1,
 					null);
-			return result.toString();
+			returnVal = result.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "JS_ERROR";
 		} finally {
             ct.exit();
         }
+        return returnVal;
     }
 	
 	public static String renderMockjsRule(String mockRule) {
