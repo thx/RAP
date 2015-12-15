@@ -82,8 +82,10 @@ public class MockjsRunner {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "JS_ERROR";
-		}
-	}
+		} finally {
+            ct.exit();
+        }
+    }
 	
 	public static String renderMockjsRule(String mockRule) {
 		return new MockjsRunner().doRenderMockJsRule(mockRule);

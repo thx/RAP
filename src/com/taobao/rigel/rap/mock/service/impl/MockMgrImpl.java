@@ -190,7 +190,6 @@ public class MockMgrImpl implements MockMgr {
     @Override
     public String generateRuleData(int projectId, String pattern,
                                    Map<String, Object> options) throws UnsupportedEncodingException {
-        isMockJsData = true;
         String result = generateRule(projectId, pattern, options);
         result = MockjsRunner.renderMockjsRule(result);
         result = StringUtils.chineseToUnicode(result);
@@ -198,7 +197,6 @@ public class MockMgrImpl implements MockMgr {
     }
 
     public String generateRuleData(int actionId) throws UnsupportedEncodingException {
-        isMockJsData = true;
         String result = generateRule(actionId, null, null);
         result = MockjsRunner.renderMockjsRule(result);
         result = StringUtils.chineseToUnicode(result);
