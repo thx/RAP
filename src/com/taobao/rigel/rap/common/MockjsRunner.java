@@ -71,10 +71,11 @@ public class MockjsRunner {
 			code
                 .append("var result = {};")
                 .append("try {")
-				.append("var obj = Mock.mock(JSON.parse(\"" + StringUtils.escapeInJ(mockRule) + "\"));")
-                .append("result = JSON.stringify(obj.__root__ ? obj.__root__ : obj, null, 4);")
-                .append("} catch(ex) {result.errMsg = ex.message;result.isOk=false;result = JSON.stringify(result);}")
-                .append("result;");
+				// .append("var obj = Mock.mock(JSON.parse(\"" + StringUtils.escapeInJ(mockRule.replaceAll("\\'", "'")) + "\"));")
+                    .append("var obj = Mock.mock(" + mockRule + ");")
+                    .append("result = JSON.stringify(obj.__root__ ? obj.__root__ : obj, null, 4);")
+                    .append("} catch(ex) {result.errMsg = ex.message;result.isOk=false;result = JSON.stringify(result);}")
+                    .append("result;");
 			Object result = ct.evaluateString(scope, code.toString(), null, 1,
 					null);
 			return result.toString();
