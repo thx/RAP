@@ -26,9 +26,9 @@ I suggest to read [Quick Guide Manual](https://github.com/thx/RAP/wiki/quick_gui
 
 ### What is RAP?
 
-RAP can help web engineers manage API docs efficiently, and generate mock data, validate real request by analyzing interface data. With structured API data, RAP can do more while we can do less.
+RAP can help web engineers manage API docs efficiently, and generate mock data, validate real request by analyzing interface data, make RAP has a strong dependency relationship with the development work flow. With structured API data, RAP can do more while we can do less.
 
-RAP可以帮助web工程师更高效的管理接口文档，同时通过这些文档直接生成Mock数据、校验真实数据的正确性。有了结构化的API数据，RAP可以做的更多，而我们可以避免更多重复的傻瓜工作。
+RAP可以帮助web工程师更高效的管理接口文档，同时通过这些文档直接生成Mock数据、校验真实数据的正确性，使接口文档成为开发流程中的强依赖。有了结构化的API数据，RAP可以做的更多，而我们可以避免更多重复的傻瓜工作。
 
 ### Why RAP?
 
