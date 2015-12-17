@@ -1,6 +1,4 @@
-# RAP API Management System
-
-<img src="http://gtms04.alicdn.com/tps/i4/TB18fUNKVXXXXXpXpXX96liOVXX-690-234.png" height=40 />
+# <img src="http://gtms04.alicdn.com/tps/i4/TB18fUNKVXXXXXpXpXX96liOVXX-690-234.png" height=40 />
 
 * THX开源工具集: [http://thx.github.io/](http://thx.github.io/)
 * 作者微博：[@Bosn](http://weibo.com/bosn)
