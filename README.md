@@ -36,13 +36,13 @@ RAP可以帮助web工程师更高效的管理接口文档，同时通过这些�
 
 ### Why RAP?
 
-* Enterprise level application. More than 21 departments, 1200 engineers, 540 business projects at Alibaba using RAP to manage their important API Docs!
+* Enterprise level application. More than 350+ corporations including Alibaba Group are using RAP to manage their important API Docs!
 * Fast and efficient technical support, continuously update. Go to issues list to find out how lively the community is!
 * Free and open source, all things are under control!
 
 ### 为什么用RAP？
 
-* 企业级应用，阿里21个BU、1200+工程师、540+业务项目都在使用RAP管理重要的接口文档。
+* 企业级应用，包括阿里集团在内得350多个企业都在使用RAP管理重要的接口文档。
 * 快速高效的技术支持，持续的更新，去Issues看一看就知道有多热闹。
 * 免费、开源，一切尽在掌握中！
 
