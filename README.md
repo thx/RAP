@@ -30,6 +30,8 @@ RAP can help web engineers manage API docs efficiently, and generate mock data, 
 
 RAP可以帮助web工程师更高效的管理接口文档，同时通过这些文档直接生成Mock数据、校验真实数据的正确性，使接口文档成为开发流程中的强依赖。有了结构化的API数据，RAP可以做的更多，而我们可以避免更多重复的傻瓜工作。
 
+![](http://gtms04.alicdn.com/tps/i4/TB19tgUKVXXXXXAXXXXAhCB5VXX-1222-646.png)
+
 ### Why RAP?
 
 * Enterprise level application. More than 21 departments, 1200 engineers, 540 business projects at Alibaba using RAP to manage their important API Docs!
