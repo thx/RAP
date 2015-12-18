@@ -1,11 +1,11 @@
 # <img src="http://gtms04.alicdn.com/tps/i4/TB18fUNKVXXXXXpXpXX96liOVXX-690-234.png" height=40 />
 
 ### What is RAP?
-RAP can help web engineers manage API docs efficiently, and generate mock data, validate real request by analyzing interface data, make RAP has a strong dependency relationship with the development work flow. With structured API data, RAP can do more while we can do less.
+RAP can help WEB engineers manage API document efficiently by supplying a GUI edit tool, it can generate mock data, validate real request by analyzing API structure, make API doc as a strong dependency with the development workflow. With structured API data, RAP can do more while we can do less.
 
-RAP可以帮助web工程师更高效的管理接口文档，同时通过这些文档直接生成Mock数据、校验真实数据的正确性，使接口文档成为开发流程中的强依赖。有了结构化的API数据，RAP可以做的更多，而我们可以避免更多重复的傻瓜工作。
+RAP通过GUI工具帮助WEB工程师更高效的管理接口文档，同时通过分析接口结构自动生成Mock数据、校验真实接口的正确性，使接口文档成为开发流程中的强依赖。有了结构化的API数据，RAP可以做的更多，而我们可以避免更多重复劳动。
 
-![](http://gtms04.alicdn.com/tps/i4/TB19tgUKVXXXXXAXXXXAhCB5VXX-1222-646.png)
+<img src="http://gtms04.alicdn.com/tps/i4/TB19tgUKVXXXXXAXXXXAhCB5VXX-1222-646.png" width="300" />
 
 ### Why we use RAP?
 * Enterprise level application. More than 350+ corporations including Alibaba Group are using RAP to manage their important API Docs!
