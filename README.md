@@ -31,11 +31,11 @@ RAP通过GUI工具帮助WEB工程师更高效的管理接口文档，同时通�
 * [如何使用RAP编辑文档](https://github.com/thx/RAP/wiki/user_manual_cn)
 
 ### 其它LINKS
-* [Official Site 官网](http://thx.github.io/RAP)
-* [Wiki/Documents/Manual 文档/手册](http://github.com/thx/RAP/wiki)
-* [Video Introduction 视频介绍](http://vodcdn.video.taobao.com/player/ugc/tb_ugc_pieces_core_player_loader.swf?version=1.0.20150330&vid=11622279&uid=11051796&p=1&t=1&rid=&random=6666)
-* [Video Tutorial(In Chinese) 视频教程](http://thx.github.io/RAP/study.html)
-* [Issues 反馈问题](http://github.com/thx/RAP/issues)
+* 我想大概了解RAP => [Official Site 官网](http://thx.github.io/RAP)
+* 我想查找详细的文档资料 => [Wiki/Documents/Manual 文档/手册](http://github.com/thx/RAP/wiki)
+* 我想快速了解什么是RAP => [视频介绍](http://vodcdn.video.taobao.com/player/ugc/tb_ugc_pieces_core_player_loader.swf?version=1.0.20150330&vid=11622279&uid=11051796&p=1&t=1&rid=&random=6666)
+* 我想快速上手RAP使用方法 => [视频教程](http://thx.github.io/RAP/study.html)
+* 我要反馈问题 => [Issues](http://github.com/thx/RAP/issues)
 
 
 ## 订阅RAP更新?
