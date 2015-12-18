@@ -5,7 +5,7 @@ RAP can help WEB engineers manage API document efficiently by supplying a GUI ed
 
 RAP通过GUI工具帮助WEB工程师更高效的管理接口文档，同时通过分析接口结构自动生成Mock数据、校验真实接口的正确性，使接口文档成为开发流程中的强依赖。有了结构化的API数据，RAP可以做的更多，而我们可以避免更多重复劳动。
 
-<img src="http://gtms04.alicdn.com/tps/i4/TB19tgUKVXXXXXAXXXXAhCB5VXX-1222-646.png" width="300" />
+<img src="http://gtms04.alicdn.com/tps/i4/TB19tgUKVXXXXXAXXXXAhCB5VXX-1222-646.png" width="600" />
 
 ### Why we use RAP?
 * Enterprise level application. More than 350+ corporations including Alibaba Group are using RAP to manage their important API Docs!
