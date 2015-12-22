@@ -45,7 +45,7 @@ RAP通过GUI工具帮助WEB工程师更高效的管理接口文档，同时通�
  
 ## About
 
-    @version     v0.12.0
+    @version     v0.13.0
     @author      @bosn @wangjeaf
     @director    @limu @xinglie
     @update      Oct. 13th 2015
