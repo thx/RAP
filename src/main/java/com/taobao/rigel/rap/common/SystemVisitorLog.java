@@ -118,7 +118,7 @@ public class SystemVisitorLog {
         }
 
         Collections.sort(list, new Comparator<Item>() {
-            @Override
+            
             public int compare(Item o1, Item o2) {
                 return Integer.parseInt(o2.getValue()) - Integer.parseInt(o1.getValue());
             }
@@ -223,7 +223,7 @@ public class SystemVisitorLog {
             results.add(row);
         }
         Collections.sort(results, new Comparator<Map<String, Object>>() {
-            @Override
+            
             public int compare(Map<String, Object> o1, Map<String, Object> o2) {
                 return (Integer) o2.get("mockNum") - (Integer) o1.get("mockNum");
             }

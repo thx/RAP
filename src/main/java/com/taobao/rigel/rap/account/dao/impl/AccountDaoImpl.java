@@ -15,7 +15,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 
     public boolean validate(String account, String password) {
         try {
-            User user = (User) getSession()
+            User user = getSession()
                     .load(User.class, getUserId(account));
             return user != null && user.getPassword().equals(password);
         } catch (ObjectNotFoundException ex) {
@@ -196,7 +196,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 
 
     public List<Notification> getUnreadNotificationList(long userId) {
-        String hql = "from Notification n where n.user.id = :userId and read = 0 order by n.createTime desc";
+        String hql = "from Notification n where n.user.id = :userId and read = false order by n.createTime desc";
         Query query = getSession().createQuery(hql).setLong("userId", userId);
         return query.list();
     }
@@ -225,7 +225,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
     }
 
     public boolean notificationExists(Notification notification) {
-        String hql = "from Notification where user.id = :userId and typeId = :typeId and param1 = :param1 and is_read = 0";
+        String hql = "from Notification where user.id = :userId and typeId = :typeId and param1 = :param1 and read = false";
         Session session = getSession();
         Query query = session.createQuery(hql);
         query.setLong("userId", notification.getUser().getId())

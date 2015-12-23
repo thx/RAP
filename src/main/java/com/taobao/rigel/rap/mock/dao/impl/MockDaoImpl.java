@@ -9,7 +9,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * Created by Bosn on 15/7/17.
  */
 public class MockDaoImpl extends HibernateDaoSupport implements MockDao {
-    @Override
+    
     public Rule getRule(int actionId) {
         Rule rule = null;
         try {
@@ -21,7 +21,7 @@ public class MockDaoImpl extends HibernateDaoSupport implements MockDao {
         return rule;
     }
 
-    @Override
+    
     public int removeRule(int actionId) {
         Session session = getSession();
         Object rule = session.get(Rule.class, actionId);
@@ -33,14 +33,14 @@ public class MockDaoImpl extends HibernateDaoSupport implements MockDao {
         }
     }
 
-    @Override
+    
     public int updateRule(Rule rule) {
         Session session = getSession();
         session.update(rule);
         return 0;
     }
 
-    @Override
+    
     public int addRule(Rule rule) {
         Session session = getSession();
         session.save(rule);
