@@ -19,8 +19,7 @@ public class Pinyin4jUtil {
     /**
      * 汉字转换位汉语拼音首字母，英文字符不变，特殊字符丢失 支持多音字，生成方式如（长沙市长:cssc,zssz,zssc,cssz）
      *
-     * @param chines
-     *            汉字
+     * @param chines 汉字
      * @return 拼音
      */
     public static String converterToFirstSpell(String chines) {
@@ -64,8 +63,7 @@ public class Pinyin4jUtil {
      * 支持多音字，生成方式如（重当参:zhongdangcen,zhongdangcan,chongdangcen
      * ,chongdangshen,zhongdangshen,chongdangcan）
      *
-     * @param chines
-     *            汉字
+     * @param chines 汉字
      * @return 拼音
      */
     public static String converterToSpell(String chines) {
@@ -182,10 +180,10 @@ public class Pinyin4jUtil {
     }
 
     public static String calculatePinyinArrStr(String ch) {
-       if (ch == null || ch.isEmpty()) {
-           return "";
-       }
-       return Pinyin4jUtil.converterToSpell(ch) + "|" + Pinyin4jUtil.converterToFirstSpell(ch);
+        if (ch == null || ch.isEmpty()) {
+            return "";
+        }
+        return Pinyin4jUtil.converterToSpell(ch) + "|" + Pinyin4jUtil.converterToFirstSpell(ch);
     }
 
 }

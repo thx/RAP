@@ -1,7 +1,5 @@
 package com.taobao.rigel.rap.organization.service.impl;
 
-import java.util.List;
-
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.RapError;
@@ -15,9 +13,12 @@ import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 
+import java.util.List;
+
 public class OrganizationMgrImpl implements OrganizationMgr {
-	private OrganizationDao organizationDao;
-	private ProjectMgr projectMgr;
+    private OrganizationDao organizationDao;
+    private ProjectMgr projectMgr;
+    private AccountMgr accountMgr;
 
     public AccountMgr getAccountMgr() {
         return accountMgr;
@@ -27,29 +28,28 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         this.accountMgr = accountMgr;
     }
 
-    private AccountMgr accountMgr;
-	public ProjectMgr getProjectMgr() {
-		return projectMgr;
-	}
+    public ProjectMgr getProjectMgr() {
+        return projectMgr;
+    }
 
-	public void setProjectMgr(ProjectMgr projectMgr) {
-		this.projectMgr = projectMgr;
-	}
+    public void setProjectMgr(ProjectMgr projectMgr) {
+        this.projectMgr = projectMgr;
+    }
 
-	public OrganizationDao getOrganizationDao() {
-		return organizationDao;
-	}
+    public OrganizationDao getOrganizationDao() {
+        return organizationDao;
+    }
 
-	public void setOrganizationDao(OrganizationDao organizationDao) {
-		this.organizationDao = organizationDao;
-	}
+    public void setOrganizationDao(OrganizationDao organizationDao) {
+        this.organizationDao = organizationDao;
+    }
 
-	@Override
-	public List<Corporation> getCorporationList() {
-		return organizationDao.getCorporationList();
-	}
 
-    @Override
+    public List<Corporation> getCorporationList() {
+        return organizationDao.getCorporationList();
+    }
+
+
     public List<Corporation> getCorporationListWithPager(int pageNum, int pageSize) {
 
         List<Corporation> list = organizationDao.getCorporationListWithPager(pageNum, pageSize);
@@ -63,12 +63,12 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         return list;
     }
 
-    @Override
+
     public long getCorporationListWithPagerNum() {
-        return  organizationDao.getCorporationListWithPagerNum();
+        return organizationDao.getCorporationListWithPagerNum();
     }
 
-    @Override
+
     public List<Corporation> getCorporationListWithPager(long userId, int pageNum, int pageSize) {
         User user = accountMgr.getUser(userId);
         if (user.isAdmin()) {
@@ -76,7 +76,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         }
         List<Corporation> list = organizationDao.getCorporationListWithPager(userId, pageNum, pageSize);
         for (Corporation c : list) {
-           long memberNum = organizationDao.getMemberNumOfCorporation(c.getId());
+            long memberNum = organizationDao.getMemberNumOfCorporation(c.getId());
             c.setMemberNum(memberNum + 1); // +1 project creator
             c.setHasAccess(canUserManageCorp(userId, c.getId()));
             c.setCreatorName(accountMgr.getUser(c.getUserId()).getName());
@@ -84,7 +84,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         return list;
     }
 
-    @Override
+
     public long getCorporationListWithPagerNum(long userId) {
         User user = accountMgr.getUser(userId);
         if (user.isAdmin()) {
@@ -93,80 +93,80 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         return organizationDao.getCorporationListWithPagerNum(userId);
     }
 
-    @Override
-	public List<Group> getGroupList(int productionLineId) {
-		return organizationDao.getGroupList(productionLineId);
-	}
 
-	@Override
-	public List<ProductionLine> getProductionLineList(int corpId) {
-		return organizationDao.getProductionLineList(corpId);
-	}
+    public List<Group> getGroupList(int productionLineId) {
+        return organizationDao.getGroupList(productionLineId);
+    }
 
-	@Override
-	public int addGroup(Group group) {
-		return organizationDao.addGroup(group);
-	}
 
-	@Override
-	public int addProductionLine(ProductionLine productionLine) {
-		return organizationDao.addProductionLine(productionLine);
-	}
+    public List<ProductionLine> getProductionLineList(int corpId) {
+        return organizationDao.getProductionLineList(corpId);
+    }
 
-	@Override
-	public RapError removeGroup(int groupId) {
-		if (!groupCanBeDeleted(groupId)) {
-			return new RapError(RapError.ERR_HAS_CHILDREN,
-					"为确保您的数据安全，请先删除分组下的项目，再删除该分组。");
-		} else {
-			organizationDao.removeGroup(groupId);
-			return new RapError();
-		}
-	}
 
-	private boolean groupCanBeDeleted(int groupId) {
-		List<Project> list = projectMgr.getProjectListByGroup(groupId);
+    public int addGroup(Group group) {
+        return organizationDao.addGroup(group);
+    }
 
-		return list == null || list.size() == 0;
-	}
 
-	@Override
-	public RapError removeProductionLine(int productionLineId) {
-		if (!productionLineCanBeDeleted(productionLineId)) {
-			return new RapError(RapError.ERR_HAS_CHILDREN,
-					"为确保您的数据安全，请先删除业务线下的分组及项目，再删除该业务线。");
-		} else {
-			organizationDao.removeProductionLine(productionLineId);
-			return new RapError();
-		}
-	}
+    public int addProductionLine(ProductionLine productionLine) {
+        return organizationDao.addProductionLine(productionLine);
+    }
 
-	private boolean productionLineCanBeDeleted(int productionLineId) {
-		List<Group> list = this.getGroupList(productionLineId);
-		return list == null || list.size() == 0;
-	}
 
-	@Override
-	public void updateGroup(Group group) {
-		organizationDao.updateGroup(group);
-	}
+    public RapError removeGroup(int groupId) {
+        if (!groupCanBeDeleted(groupId)) {
+            return new RapError(RapError.ERR_HAS_CHILDREN,
+                    "为确保您的数据安全，请先删除分组下的项目，再删除该分组。");
+        } else {
+            organizationDao.removeGroup(groupId);
+            return new RapError();
+        }
+    }
 
-	@Override
-	public void updateProductionLine(ProductionLine productionLine) {
-		organizationDao.updateProductionLine(productionLine);
-	}
+    private boolean groupCanBeDeleted(int groupId) {
+        List<Project> list = projectMgr.getProjectListByGroup(groupId);
 
-	@Override
-	public ProductionLine getProductionLine(int plid) {
-		return organizationDao.getProductionLine(plid);
-	}
+        return list == null || list.size() == 0;
+    }
 
-	@Override
-	public Corporation getCorporation(int id) {
-		return organizationDao.getCorporation(id);
-	}
 
-    @Override
+    public RapError removeProductionLine(int productionLineId) {
+        if (!productionLineCanBeDeleted(productionLineId)) {
+            return new RapError(RapError.ERR_HAS_CHILDREN,
+                    "为确保您的数据安全，请先删除业务线下的分组及项目，再删除该业务线。");
+        } else {
+            organizationDao.removeProductionLine(productionLineId);
+            return new RapError();
+        }
+    }
+
+    private boolean productionLineCanBeDeleted(int productionLineId) {
+        List<Group> list = this.getGroupList(productionLineId);
+        return list == null || list.size() == 0;
+    }
+
+
+    public void updateGroup(Group group) {
+        organizationDao.updateGroup(group);
+    }
+
+
+    public void updateProductionLine(ProductionLine productionLine) {
+        organizationDao.updateProductionLine(productionLine);
+    }
+
+
+    public ProductionLine getProductionLine(int plid) {
+        return organizationDao.getProductionLine(plid);
+    }
+
+
+    public Corporation getCorporation(int id) {
+        return organizationDao.getCorporation(id);
+    }
+
+
     public boolean canUserAccessCorp(long userId, int corpId) {
         Corporation c = getCorporation(corpId);
         if (c == null) return false;
@@ -177,7 +177,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         return organizationDao.isUserInCorp(userId, corpId);
     }
 
-    @Override
+
     public boolean canUserManageCorp(long userId, int corpId) {
         int roleId = organizationDao.getUserRoleInCorp(userId, corpId);
         return (roleId >= 1 && roleId <= 2 ||
@@ -186,9 +186,9 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
     }
 
-    @Override
+
     public List<User> getUserLisOfCorp(int corpId) {
-        List<User> list =  organizationDao.getUserLisOfCorp(corpId);
+        List<User> list = organizationDao.getUserLisOfCorp(corpId);
         Corporation c = getCorporation(corpId);
         User u = accountMgr.getUser(c.getUserId());
         list.add(u);
@@ -204,12 +204,12 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         return list;
     }
 
-    @Override
+
     public int getUserRoleInCorp(long userId, int corpId) {
         return organizationDao.getUserRoleInCorp(userId, corpId);
     }
 
-    @Override
+
     public boolean canUserAccessProject(long userId, int projectId) {
         User u = accountMgr.getUser(userId);
         Project p = projectMgr.getProject(projectId);
@@ -220,7 +220,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
                 || canUserAccessCorp(userId, c.getId()) || p.getUser().getId() == userId;
     }
 
-    @Override
+
     public boolean canUserAccessPage(long userId, int pageId) {
         Page page = projectMgr.getPage(pageId);
         if (page != null) {
@@ -235,7 +235,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         return false;
     }
 
-    @Override
+
     public boolean canUserAccessProductionLine(long userId, int plId) {
         ProductionLine pl = this.getProductionLine(plId);
         int corpId = pl.getCorporationId();
@@ -246,14 +246,14 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         return canUserAccessCorp(userId, corpId);
     }
 
-    @Override
+
     public boolean canUserManageProductionLine(long userId, int plId) {
         ProductionLine pl = this.getProductionLine(plId);
         int corpId = pl.getCorporationId();
         return canUserManageCorp(userId, corpId);
     }
 
-    @Override
+
     public boolean canUserAccessGroup(long userId, int groupId) {
         Group g = organizationDao.getGroup(groupId);
         ProductionLine pl = getProductionLine(g.getProductionLineId());
@@ -265,7 +265,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         return canUserAccessCorp(userId, corpId);
     }
 
-    @Override
+
     public boolean canUserManageGroup(long userId, int groupId) {
         Group g = organizationDao.getGroup(groupId);
         ProductionLine pl = getProductionLine(g.getProductionLineId());
@@ -273,7 +273,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         return canUserManageCorp(userId, corpId);
     }
 
-    @Override
+
     public int addTeam(Corporation team) {
         int corpId = organizationDao.addCorporation(team);
         for (String account : team.getAccountList()) {
@@ -288,7 +288,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         return corpId;
     }
 
-    @Override
+
     public boolean setUserRoleInCorp(long curUserId, long userId, int corpId, int roleId) {
         if (canUserManageUserInCorp(curUserId, userId, corpId)) {
             organizationDao.setUserRoleInCorp(userId, corpId, roleId);
@@ -298,7 +298,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         }
     }
 
-    @Override
+
     public boolean removeMemberFromCorp(long curUserId, long userId, int corpId) {
         int roleId = getUserRoleInCorp(userId, corpId);
 
@@ -312,7 +312,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         return true;
     }
 
-    @Override
+
     public boolean addTeamMembers(long curUserId, int corpId, String accountList) {
         if (!canUserManageCorp(curUserId, corpId))
             return false;
@@ -332,7 +332,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         return true;
     }
 
-    @Override
+
     public void updateCorporation(Corporation c) {
         organizationDao.updateCorporation(c);
     }
@@ -344,8 +344,8 @@ public class OrganizationMgrImpl implements OrganizationMgr {
             return true;
         }
         int roleId = getUserRoleInCorp(curUserId, corpId);
-        if (roleId >=1 || roleId <= 2) {
-            return  true;
+        if (roleId >= 1 || roleId <= 2) {
+            return true;
         }
         return false;
     }

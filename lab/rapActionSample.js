@@ -3,16 +3,30 @@
  */
 
 {
-    "id": 627,                                          // 请求ID
-    "name": "报表数据",                                  // 请求名称
-    "description": "获取报表数据",                        // 请求描述
-    "requestType": "1",                                 // 请求类型（GET/POST）
-    "requestUrl": "/snsADGroup/listSNSADGroup.htm",     // 请求链接
-    "responseTemplate": "",
+    "id"
+:
+    627,                                          // 请求ID
+        "name"
+:
+    "报表数据",                                  // 请求名称
+        "description"
+:
+    "获取报表数据",                        // 请求描述
+        "requestType"
+:
+    "1",                                 // 请求类型（GET/POST）
+        "requestUrl"
+:
+    "/snsADGroup/listSNSADGroup.htm",     // 请求链接
+        "responseTemplate"
+:
+    "",
     /**
      * 请求参数列表
      */
-    "requestParameterList": [{
+        "requestParameterList"
+:
+    [{
         "id": 11819,                // 参数ID
         "identifier": "queryVO",    // 参数标识符
         "name": "请求对象",          // 参数名称
@@ -82,8 +96,10 @@
      *
      * 结构与请求参数列表相同
      */
-    "responseParameterList": [{
-        "id": 11635,    
+        "responseParameterList"
+:
+    [{
+        "id": 11635,
         "identifier": "result",
         "name": "",
         "remark": "",

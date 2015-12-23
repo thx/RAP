@@ -1,14 +1,14 @@
 package com.taobao.rigel.rap.project.bo;
 
-import java.util.Comparator;
-
 import com.taobao.rigel.rap.workspace.bo.CheckIn;
 
-public class CheckInComparator implements Comparator<CheckIn>{
+import java.util.Comparator;
 
-	@Override
-	public int compare(CheckIn o1, CheckIn o2) {
-		return o1.getId() > o2.getId() ? -1 : 1;
-	}
+public class CheckInComparator implements Comparator<CheckIn> {
+
+
+    public int compare(CheckIn o1, CheckIn o2) {
+        return o1.getId() > o2.getId() ? -1 : 1;
+    }
 
 }

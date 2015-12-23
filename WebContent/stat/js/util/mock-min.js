@@ -5,13 +5,13 @@
  https://github.com/nuysoft/Mock
  墨智 nuysoft@gmail.com
  */
-(function(undefined) {
+(function (undefined) {
     var Mock = {
         version: "0.1.9",
         _mocked: {}
     };
     /*! src/util.js */
-    var Util = function() {
+    var Util = function () {
         var Util = {};
         Util.extend = function extend() {
             var target = arguments[0] || {}, i = 1, length = arguments.length, options, name, src, copy, clone;
@@ -19,7 +19,7 @@
                 target = this;
                 i = 0;
             }
-            for (;i < length; i++) {
+            for (; i < length; i++) {
                 options = arguments[i];
                 if (!options) continue;
                 for (name in options) {
@@ -57,25 +57,25 @@
         Util.type = function type(obj) {
             return obj === null || obj === undefined ? String(obj) : Object.prototype.toString.call(obj).match(/\[object (\w+)\]/)[1].toLowerCase();
         };
-        Util.each("String Object Array RegExp Function".split(" "), function(value) {
-            Util["is" + value] = function(obj) {
+        Util.each("String Object Array RegExp Function".split(" "), function (value) {
+            Util["is" + value] = function (obj) {
                 return Util.type(obj) === value.toLowerCase();
             };
         });
-        Util.isObjectOrArray = function(value) {
+        Util.isObjectOrArray = function (value) {
             return Util.isObject(value) || Util.isArray(value);
         };
-        Util.isNumeric = function(value) {
+        Util.isNumeric = function (value) {
             return !isNaN(parseFloat(value)) && isFinite(value);
         };
-        Util.keys = function(obj) {
+        Util.keys = function (obj) {
             var keys = [];
             for (var key in obj) {
                 if (obj.hasOwnProperty(key)) keys.push(key);
             }
             return keys;
         };
-        Util.values = function(obj) {
+        Util.values = function (obj) {
             var values = [];
             for (var key in obj) {
                 if (obj.hasOwnProperty(key)) values.push(obj[key]);
@@ -85,16 +85,17 @@
         Util.heredoc = function heredoc(fn) {
             return fn.toString().replace(/^[^\/]+\/\*!?/, "").replace(/\*\/[^\/]+$/, "").replace(/^[\s\xA0]+/, "").replace(/[\s\xA0]+$/, "");
         };
-        Util.noop = function() {};
+        Util.noop = function () {
+        };
         return Util;
     }();
     /*! src/random.js */
-    var Random = function() {
+    var Random = function () {
         var Random = {
             extend: Util.extend
         };
         Random.extend({
-            "boolean": function(min, max, cur) {
+            "boolean": function (min, max, cur) {
                 if (cur !== undefined) {
                     min = typeof min !== "undefined" && !isNaN(min) ? parseInt(min, 10) : 1;
                     max = typeof max !== "undefined" && !isNaN(max) ? parseInt(max, 10) : 1;
@@ -102,23 +103,23 @@
                 }
                 return Math.random() >= .5;
             },
-            bool: function(min, max, cur) {
+            bool: function (min, max, cur) {
                 return this.boolean(min, max, cur);
             },
-            natural: function(min, max) {
+            natural: function (min, max) {
                 min = typeof min !== "undefined" ? parseInt(min, 10) : 0;
                 max = typeof max !== "undefined" ? parseInt(max, 10) : 9007199254740992;
                 return Math.round(Math.random() * (max - min)) + min;
             },
-            integer: function(min, max) {
+            integer: function (min, max) {
                 min = typeof min !== "undefined" ? parseInt(min, 10) : -9007199254740992;
                 max = typeof max !== "undefined" ? parseInt(max, 10) : 9007199254740992;
                 return Math.round(Math.random() * (max - min)) + min;
             },
-            "int": function(min, max) {
+            "int": function (min, max) {
                 return this.integer(min, max);
             },
-            "float": function(min, max, dmin, dmax) {
+            "float": function (min, max, dmin, dmax) {
                 dmin = dmin === undefined ? 0 : dmin;
                 dmin = Math.max(Math.min(dmin, 17), 0);
                 dmax = dmax === undefined ? 17 : dmax;
@@ -129,7 +130,7 @@
                 }
                 return parseFloat(ret, 10);
             },
-            character: function(pool) {
+            character: function (pool) {
                 var pools = {
                     lower: "abcdefghijklmnopqrstuvwxyz",
                     upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -141,10 +142,10 @@
                 pool = pools[("" + pool).toLowerCase()] || pool;
                 return pool.charAt(Random.natural(0, pool.length - 1));
             },
-            "char": function(pool) {
+            "char": function (pool) {
                 return this.character(pool);
             },
-            string: function(pool, min, max) {
+            string: function (pool, min, max) {
                 var length;
                 if (arguments.length === 3) {
                     length = Random.natural(min, max);
@@ -170,10 +171,10 @@
                 }
                 return text;
             },
-            str: function(pool, min, max) {
+            str: function (pool, min, max) {
                 return this.string(pool, min, max);
             },
-            range: function(start, stop, step) {
+            range: function (start, stop, step) {
                 if (arguments.length <= 1) {
                     stop = start || 0;
                     start = 0;
@@ -193,88 +194,88 @@
         Random.extend({
             patternLetters: {
                 yyyy: "getFullYear",
-                yy: function(date) {
+                yy: function (date) {
                     return ("" + date.getFullYear()).slice(2);
                 },
                 y: "yy",
-                MM: function(date) {
+                MM: function (date) {
                     var m = date.getMonth() + 1;
                     return m < 10 ? "0" + m : m;
                 },
-                M: function(date) {
+                M: function (date) {
                     return date.getMonth() + 1;
                 },
-                dd: function(date) {
+                dd: function (date) {
                     var d = date.getDate();
                     return d < 10 ? "0" + d : d;
                 },
                 d: "getDate",
-                HH: function(date) {
+                HH: function (date) {
                     var h = date.getHours();
                     return h < 10 ? "0" + h : h;
                 },
                 H: "getHours",
-                hh: function(date) {
+                hh: function (date) {
                     var h = date.getHours() % 12;
                     return h < 10 ? "0" + h : h;
                 },
-                h: function(date) {
+                h: function (date) {
                     return date.getHours() % 12;
                 },
-                mm: function(date) {
+                mm: function (date) {
                     var m = date.getMinutes();
                     return m < 10 ? "0" + m : m;
                 },
                 m: "getMinutes",
-                ss: function(date) {
+                ss: function (date) {
                     var s = date.getSeconds();
                     return s < 10 ? "0" + s : s;
                 },
                 s: "getSeconds",
-                SS: function(date) {
+                SS: function (date) {
                     var ms = date.getMilliseconds();
                     return ms < 10 && "00" + ms || ms < 100 && "0" + ms || ms;
                 },
                 S: "getMilliseconds",
-                A: function(date) {
+                A: function (date) {
                     return date.getHours() < 12 ? "AM" : "PM";
                 },
-                a: function(date) {
+                a: function (date) {
                     return date.getHours() < 12 ? "am" : "pm";
                 },
                 T: "getTime"
             }
         });
         Random.extend({
-            rformat: new RegExp(function() {
+            rformat: new RegExp(function () {
                 var re = [];
                 for (var i in Random.patternLetters) re.push(i);
                 return "(" + re.join("|") + ")";
             }(), "g"),
-            format: function(date, format) {
+            format: function (date, format) {
                 var patternLetters = Random.patternLetters, rformat = Random.rformat;
-                return format.replace(rformat, function($0, flag) {
+                return format.replace(rformat, function ($0, flag) {
                     return typeof patternLetters[flag] === "function" ? patternLetters[flag](date) : patternLetters[flag] in patternLetters ? arguments.callee($0, patternLetters[flag]) : date[patternLetters[flag]]();
                 });
             },
-            randomDate: function(min, max) {
+            randomDate: function (min, max) {
                 min = min === undefined ? new Date(0) : min;
                 max = max === undefined ? new Date() : max;
                 return new Date(Math.random() * (max.getTime() - min.getTime()));
             },
-            date: function(format) {
+            date: function (format) {
                 format = format || "yyyy-MM-dd";
                 return this.format(this.randomDate(), format);
             },
-            time: function(format) {
+            time: function (format) {
                 format = format || "HH:mm:ss";
                 return this.format(this.randomDate(), format);
             },
-            datetime: function(format) {
+            datetime: function (format) {
                 format = format || "yyyy-MM-dd HH:mm:ss";
                 return this.format(this.randomDate(), format);
             },
-            now: function(unit, format) {
+            now: function (unit, format) {
                 if (arguments.length === 1) {
                     if (!/year|month|week|day|hour|minute|second|week/.test(unit)) {
                         format = unit;
@@ -312,10 +313,10 @@
             }
         });
         Random.extend({
-            ad_size: [ "300x250", "250x250", "240x400", "336x280", "180x150", "720x300", "468x60", "234x60", "88x31", "120x90", "120x60", "120x240", "125x125", "728x90", "160x600", "120x600", "300x600" ],
-            screen_size: [ "320x200", "320x240", "640x480", "800x480", "800x480", "1024x600", "1024x768", "1280x800", "1440x900", "1920x1200", "2560x1600" ],
-            video_size: [ "720x480", "768x576", "1280x720", "1920x1080" ],
-            image: function(size, background, foreground, format, text) {
+            ad_size: ["300x250", "250x250", "240x400", "336x280", "180x150", "720x300", "468x60", "234x60", "88x31", "120x90", "120x60", "120x240", "125x125", "728x90", "160x600", "120x600", "300x600"],
+            screen_size: ["320x200", "320x240", "640x480", "800x480", "800x480", "1024x600", "1024x768", "1280x800", "1440x900", "1920x1200", "2560x1600"],
+            video_size: ["720x480", "768x576", "1280x720", "1920x1080"],
+            image: function (size, background, foreground, format, text) {
                 if (arguments.length === 4) {
                     text = format;
                     format = undefined;
@@ -329,7 +330,7 @@
                 if (foreground && ~foreground.indexOf("#")) foreground = foreground.slice(1);
                 return "http://dummyimage.com/" + size + (background ? "/" + background : "") + (foreground ? "/" + foreground : "") + (format ? "." + format : "") + (text ? "&text=" + text : "");
             },
-            img: function() {
+            img: function () {
                 return this.image.apply(this, arguments);
             }
         });
@@ -484,14 +485,14 @@
                 Zerply: "#9dcc7a",
                 Zootool: "#5e8b1d"
             },
-            brands: function() {
+            brands: function () {
                 var brands = [];
                 for (var b in this.brandColors) {
                     brands.push(b);
                 }
                 return brands;
             },
-            dataImage: function(size, text) {
+            dataImage: function (size, text) {
                 var canvas = typeof document !== "undefined" && document.createElement("canvas"), ctx = canvas && canvas.getContext && canvas.getContext("2d");
                 if (!canvas || !ctx) return "";
                 if (!size) size = this.pick(this.ad_size);
@@ -511,27 +512,27 @@
             }
         });
         Random.extend({
-            color: function() {
+            color: function () {
                 var colour = Math.floor(Math.random() * (16 * 16 * 16 * 16 * 16 * 16 - 1)).toString(16);
                 colour = "#" + ("000000" + colour).slice(-6);
                 return colour;
             }
         });
         Random.extend({
-            capitalize: function(word) {
+            capitalize: function (word) {
                 return (word + "").charAt(0).toUpperCase() + (word + "").substr(1);
             },
-            upper: function(str) {
+            upper: function (str) {
                 return (str + "").toUpperCase();
             },
-            lower: function(str) {
+            lower: function (str) {
                 return (str + "").toLowerCase();
             },
-            pick: function(arr) {
+            pick: function (arr) {
                 arr = arr || [];
                 return arr[this.natural(0, arr.length - 1)];
             },
-            shuffle: function(arr) {
+            shuffle: function (arr) {
                 arr = arr || [];
                 var old = arr.slice(0), result = [], index = 0, length = old.length;
                 for (var i = 0; i < length; i++) {
@@ -543,7 +544,7 @@
             }
         });
         Random.extend({
-            paragraph: function(min, max) {
+            paragraph: function (min, max) {
                 var len;
                 if (arguments.length === 0) len = Random.natural(3, 7);
                 if (arguments.length === 1) len = max = min;
@@ -558,7 +559,7 @@
                 }
                 return arr.join(" ");
             },
-            sentence: function(min, max) {
+            sentence: function (min, max) {
                 var len;
                 if (arguments.length === 0) len = Random.natural(12, 18);
                 if (arguments.length === 1) len = max = min;
@@ -573,7 +574,7 @@
                 }
                 return Random.capitalize(arr.join(" ")) + ".";
             },
-            word: function(min, max) {
+            word: function (min, max) {
                 var len;
                 if (arguments.length === 0) len = Random.natural(3, 10);
                 if (arguments.length === 1) len = max = min;
@@ -588,7 +589,7 @@
                 }
                 return result;
             },
-            title: function(min, max) {
+            title: function (min, max) {
                 var len, result = [];
                 if (arguments.length === 0) len = Random.natural(3, 7);
                 if (arguments.length === 1) len = max = min;
@@ -604,18 +605,18 @@
             }
         });
         Random.extend({
-            first: function() {
-                var names = [ "James", "John", "Robert", "Michael", "William", "David", "Richard", "Charles", "Joseph", "Thomas", "Christopher", "Daniel", "Paul", "Mark", "Donald", "George", "Kenneth", "Steven", "Edward", "Brian", "Ronald", "Anthony", "Kevin", "Jason", "Matthew", "Gary", "Timothy", "Jose", "Larry", "Jeffrey", "Frank", "Scott", "Eric" ].concat([ "Mary", "Patricia", "Linda", "Barbara", "Elizabeth", "Jennifer", "Maria", "Susan", "Margaret", "Dorothy", "Lisa", "Nancy", "Karen", "Betty", "Helen", "Sandra", "Donna", "Carol", "Ruth", "Sharon", "Michelle", "Laura", "Sarah", "Kimberly", "Deborah", "Jessica", "Shirley", "Cynthia", "Angela", "Melissa", "Brenda", "Amy", "Anna" ]);
+            first: function () {
+                var names = ["James", "John", "Robert", "Michael", "William", "David", "Richard", "Charles", "Joseph", "Thomas", "Christopher", "Daniel", "Paul", "Mark", "Donald", "George", "Kenneth", "Steven", "Edward", "Brian", "Ronald", "Anthony", "Kevin", "Jason", "Matthew", "Gary", "Timothy", "Jose", "Larry", "Jeffrey", "Frank", "Scott", "Eric"].concat(["Mary", "Patricia", "Linda", "Barbara", "Elizabeth", "Jennifer", "Maria", "Susan", "Margaret", "Dorothy", "Lisa", "Nancy", "Karen", "Betty", "Helen", "Sandra", "Donna", "Carol", "Ruth", "Sharon", "Michelle", "Laura", "Sarah", "Kimberly", "Deborah", "Jessica", "Shirley", "Cynthia", "Angela", "Melissa", "Brenda", "Amy", "Anna"]);
                 return this.pick(names);
             },
-            last: function() {
-                var names = [ "Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson", "Martinez", "Anderson", "Taylor", "Thomas", "Hernandez", "Moore", "Martin", "Jackson", "Thompson", "White", "Lopez", "Lee", "Gonzalez", "Harris", "Clark", "Lewis", "Robinson", "Walker", "Perez", "Hall", "Young", "Allen" ];
+            last: function () {
+                var names = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson", "Martinez", "Anderson", "Taylor", "Thomas", "Hernandez", "Moore", "Martin", "Jackson", "Thompson", "White", "Lopez", "Lee", "Gonzalez", "Harris", "Clark", "Lewis", "Robinson", "Walker", "Perez", "Hall", "Young", "Allen"];
                 return this.pick(names);
             },
-            name: function(middle) {
+            name: function (middle) {
                 return this.first() + " " + (middle ? this.first() + " " : "") + this.last();
             },
-            chineseName: function(count) {
+            chineseName: function (count) {
                 var familyNames = "赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜戚谢邹喻柏水窦章云苏潘葛奚范彭郎鲁韦昌马苗凤花方俞任袁柳酆鲍史唐".split("");
                 var names = "贵福生龙元全国胜学祥才发武新利清飞彬富顺信子杰涛昌成康星光天达安岩中茂进林有坚和彪博绍功松善厚庆磊民友裕河哲江超浩亮政谦亨奇固之轮翰朗伯宏言若鸣朋斌梁栋维启克伦翔旭鹏月莺媛艳瑞凡佳嘉琼勤珍贞莉桂娣叶璧璐娅琦晶妍茜秋珊莎锦黛青倩婷姣婉娴瑾颖露瑶怡婵雁蓓".split("");
                 if (typeof count !== "number") {
@@ -630,77 +631,86 @@
             }
         });
         Random.extend({
-            url: function() {
+            url: function () {
                 return "http://" + this.domain() + "/" + this.word();
             },
-            domain: function(tld) {
+            domain: function (tld) {
                 return this.word() + "." + (tld || this.tld());
             },
-            email: function(domain) {
+            email: function (domain) {
                 return this.character("lower") + "." + this.last().toLowerCase() + "@" + this.last().toLowerCase() + "." + this.tld();
             },
-            ip: function() {
+            ip: function () {
                 return this.natural(0, 255) + "." + this.natural(0, 255) + "." + this.natural(0, 255) + "." + this.natural(0, 255);
             },
-            tlds: [ "com", "org", "edu", "gov", "co.uk", "net", "io" ],
-            tld: function() {
+            tlds: ["com", "org", "edu", "gov", "co.uk", "net", "io"],
+            tld: function () {
                 return this.pick(this.tlds);
             }
         });
         Random.extend({
-            areas: [ "东北", "华北", "华东", "华中", "华南", "西南", "西北" ],
-            area: function() {
+            areas: ["东北", "华北", "华东", "华中", "华南", "西南", "西北"],
+            area: function () {
                 return this.pick(this.areas);
             },
-            regions: [ "110000 北京市", "120000 天津市", "130000 河北省", "140000 山西省", "150000 内蒙古自治区", "210000 辽宁省", "220000 吉林省", "230000 黑龙江省", "310000 上海市", "320000 江苏省", "330000 浙江省", "340000 安徽省", "350000 福建省", "360000 江西省", "370000 山东省", "410000 河南省", "420000 湖北省", "430000 湖南省", "440000 广东省", "450000 广西壮族自治区", "460000 海南省", "500000 重庆市", "510000 四川省", "520000 贵州省", "530000 云南省", "540000 西藏自治区", "610000 陕西省", "620000 甘肃省", "630000 青海省", "640000 宁夏回族自治区", "650000 新疆维吾尔自治区", "650000 新疆维吾尔自治区", "710000 台湾省", "810000 香港特别行政区", "820000 澳门特别行政区" ],
-            region: function() {
+            regions: ["110000 北京市", "120000 天津市", "130000 河北省", "140000 山西省", "150000 内蒙古自治区", "210000 辽宁省", "220000 吉林省", "230000 黑龙江省", "310000 上海市", "320000 江苏省", "330000 浙江省", "340000 安徽省", "350000 福建省", "360000 江西省", "370000 山东省", "410000 河南省", "420000 湖北省", "430000 湖南省", "440000 广东省", "450000 广西壮族自治区", "460000 海南省", "500000 重庆市", "510000 四川省", "520000 贵州省", "530000 云南省", "540000 西藏自治区", "610000 陕西省", "620000 甘肃省", "630000 青海省", "640000 宁夏回族自治区", "650000 新疆维吾尔自治区", "650000 新疆维吾尔自治区", "710000 台湾省", "810000 香港特别行政区", "820000 澳门特别行政区"],
+            region: function () {
                 return this.pick(this.regions).split(" ")[1];
             },
-            address: function() {},
-            city: function() {},
-            phone: function() {},
-            areacode: function() {},
-            street: function() {},
-            street_suffixes: function() {},
-            street_suffix: function() {},
-            states: function() {},
-            state: function() {},
-            zip: function(len) {
+            address: function () {
+            },
+            city: function () {
+            },
+            phone: function () {
+            },
+            areacode: function () {
+            },
+            street: function () {
+            },
+            street_suffixes: function () {
+            },
+            street_suffix: function () {
+            },
+            states: function () {
+            },
+            state: function () {
+            },
+            zip: function (len) {
                 var zip = "";
                 for (var i = 0; i < (len || 6); i++) zip += this.natural(0, 9);
                 return zip;
             }
         });
         Random.extend({
-            todo: function() {
+            todo: function () {
                 return "todo";
             }
         });
         Random.extend({
-            d4: function() {
+            d4: function () {
                 return this.natural(1, 4);
             },
-            d6: function() {
+            d6: function () {
                 return this.natural(1, 6);
             },
-            d8: function() {
+            d8: function () {
                 return this.natural(1, 8);
             },
-            d12: function() {
+            d12: function () {
                 return this.natural(1, 12);
             },
-            d20: function() {
+            d20: function () {
                 return this.natural(1, 20);
             },
-            d100: function() {
+            d100: function () {
                 return this.natural(1, 100);
             },
-            guid: function() {
+            guid: function () {
                 var pool = "ABCDEF1234567890", guid = this.string(pool, 8) + "-" + this.string(pool, 4) + "-" + this.string(pool, 4) + "-" + this.string(pool, 4) + "-" + this.string(pool, 12);
                 return guid;
             },
-            id: function() {
-                var id, sum = 0, rank = [ "7", "9", "10", "5", "8", "4", "2", "1", "6", "3", "7", "9", "10", "5", "8", "4", "2" ], last = [ "1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2" ];
+            id: function () {
+                var id, sum = 0, rank = ["7", "9", "10", "5", "8", "4", "2", "1", "6", "3", "7", "9", "10", "5", "8", "4", "2"], last = ["1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"];
                 id = this.pick(this.regions).split(" ")[0] + this.date("yyyyMMdd") + this.string("number", 3);
                 for (var i = 0; i < id.length; i++) {
                     sum += id[i] * rank[i];
@@ -709,10 +719,10 @@
                 return id;
             },
             autoIncrementInteger: 0,
-            increment: function(step) {
+            increment: function (step) {
                 return this.autoIncrementInteger += +step || 1;
             },
-            inc: function(step) {
+            inc: function (step) {
                 return this.increment(step);
             }
         });
@@ -721,7 +731,7 @@
     /*! src/mock.js */
     var rkey = /(.+)\|(?:\+(\d+)|([\+\-]?\d+-?[\+\-]?\d*)?(?:\.(\d+-?\d*))?)/, rrange = /([\+\-]?\d+)-?([\+\-]?\d+)?/, rplaceholder = /\\*@([^@#%&()\?\s\/\.]+)(?:\((.*?)\))?/g;
     Mock.extend = Util.extend;
-    Mock.mock = function(rurl, rtype, template) {
+    Mock.mock = function (rurl, rtype, template) {
         if (arguments.length === 1) {
             return Handle.gen(rurl);
         }
@@ -739,7 +749,7 @@
     var Handle = {
         extend: Util.extend
     };
-    Handle.rule = function(name) {
+    Handle.rule = function (name) {
         name = (name || "") + "";
         var parameters = (name || "").match(rkey), range = parameters && parameters[3] && parameters[3].match(rrange), min = range && parseInt(range[1], 10), max = range && parseInt(range[2], 10), count = range ? !range[2] && parseInt(range[1], 10) || Random.integer(min, max) : 1, decimal = parameters && parameters[4] && parameters[4].match(rrange), dmin = decimal && parseInt(decimal[1], 10), dmax = decimal && parseInt(decimal[2], 10), dcount = decimal ? !decimal[2] && parseInt(decimal[1], 10) || Random.integer(dmin, dmax) : 0, point = parameters && parameters[4];
         return {
@@ -755,7 +765,7 @@
             point: point
         };
     };
-    Handle.gen = function(template, name, context) {
+    Handle.gen = function (template, name, context) {
         name = name = (name || "") + "";
         context = context || {};
         context = {
@@ -781,7 +791,7 @@
         return template;
     };
     Handle.extend({
-        array: function(options) {
+        array: function (options) {
             var result = [], i, j;
             if (!options.rule.parameters) {
                 for (i = 0; i < options.template.length; i++) {
@@ -813,7 +823,7 @@
             }
             return result;
         },
-        object: function(options) {
+        object: function (options) {
             var result = {}, keys, fnKeys, key, parsedKey, inc, i;
             if (options.rule.min) {
                 keys = Util.keys(options.template);
@@ -855,7 +865,7 @@
             }
             return result;
         },
-        number: function(options) {
+        number: function (options) {
             var result, parts, i;
             if (options.rule.point) {
                 options.template += "";
@@ -871,12 +881,12 @@
             }
             return result;
         },
-        "boolean": function(options) {
+        "boolean": function (options) {
             var result;
             result = options.rule.parameters ? Random.bool(options.rule.min, options.rule.max, options.template) : options.template;
             return result;
         },
-        string: function(options) {
+        string: function (options) {
             var result = "", i, placeholders, ph, phed;
             if (options.template.length) {
                 for (i = 0; i < options.rule.count; i++) {
@@ -901,17 +911,17 @@
             }
             return result;
         },
-        "function": function(options) {
+        "function": function (options) {
             return options.template.call(options.context.currentContext);
         }
     });
     Handle.extend({
-        _all: function() {
+        _all: function () {
             var re = {};
             for (var key in Random) re[key.toLowerCase()] = key;
             return re;
         },
-        placeholder: function(placeholder, obj, templateContext) {
+        placeholder: function (placeholder, obj, templateContext) {
             rplaceholder.exec("");
             var parts = rplaceholder.exec(placeholder), key = parts && parts[1], lkey = key && key.toLowerCase(), okey = this._all()[lkey], params = parts && parts[2] || "";
             try {
@@ -963,9 +973,11 @@
             }
         }
     }
+
     function convert(item, options) {
         return Util.isFunction(item.template) ? item.template(options) : Mock.mock(item.template);
     }
+
     Mock.mockjax = function mockjax(jQuery) {
         function mockxhr() {
             return {
@@ -973,7 +985,7 @@
                 status: 200,
                 statusText: "",
                 open: jQuery.noop,
-                send: function() {
+                send: function () {
                     if (this.onload) this.onload();
                 },
                 setRequestHeader: jQuery.noop,
@@ -983,22 +995,24 @@
                 abort: jQuery.noop
             };
         }
+
         function prefilter(options, originalOptions, jqXHR) {
             var item = find(options);
             if (item) {
-                options.dataFilter = options.converters["text json"] = options.converters["text jsonp"] = options.converters["text script"] = options.converters["script json"] = function() {
+                options.dataFilter = options.converters["text json"] = options.converters["text jsonp"] = options.converters["text script"] = options.converters["script json"] = function () {
                     return convert(item, options);
                 };
                 options.xhr = mockxhr;
                 if (originalOptions.dataType !== "script") return "json";
             }
         }
+
         jQuery.ajaxPrefilter("json jsonp script", prefilter);
         return Mock;
     };
     if (typeof jQuery != "undefined") Mock.mockjax(jQuery);
     if (typeof Zepto != "undefined") {
-        Mock.mockjax = function(Zepto) {
+        Mock.mockjax = function (Zepto) {
             var __original_ajax = Zepto.ajax;
             var xhr = {
                 readyState: 4,
@@ -1009,7 +1023,7 @@
                 statusText: "success",
                 timeoutTimer: null
             };
-            Zepto.ajax = function(options) {
+            Zepto.ajax = function (options) {
                 var item = find(options);
                 if (item) {
                     var data = Mock.mock(item.template);
@@ -1034,7 +1048,7 @@
                 statusText: "success",
                 timeoutTimer: null
             };
-            KISSY.io = function(options) {
+            KISSY.io = function (options) {
                 var item = find(options);
                 if (item) {
                     var data = Mock.mock(item.template);
@@ -1056,42 +1070,42 @@
     if (typeof module === "object" && module.exports) {
         module.exports = Mock;
     } else if (typeof define === "function" && define.amd) {
-        define("mock", [], function() {
+        define("mock", [], function () {
             return Mock;
         });
-        define("mockjs", [], function() {
+        define("mockjs", [], function () {
             return Mock;
         });
     } else if (typeof define === "function" && define.cmd) {
-        define(function() {
+        define(function () {
             return Mock;
         });
     }
     this.Mock = Mock;
     this.Random = Random;
     if (typeof KISSY != "undefined") {
-        Util.each([ "mock", "components/mock/", "mock/dist/mock", "gallery/Mock/0.1.9/" ], function register(name) {
-            KISSY.add(name, function(S) {
+        Util.each(["mock", "components/mock/", "mock/dist/mock", "gallery/Mock/0.1.9/"], function register(name) {
+            KISSY.add(name, function (S) {
                 Mock.mockjax(S);
                 return Mock;
             }, {
-                requires: [ "ajax" ]
+                requires: ["ajax"]
             });
         });
     }
     /*! src/mock4tpl.js */
-    (function(undefined) {
+    (function (undefined) {
         var Mock4Tpl = {
             version: "0.0.1"
         };
         if (!this.Mock) module.exports = Mock4Tpl;
-        Mock.tpl = function(input, options, helpers, partials) {
+        Mock.tpl = function (input, options, helpers, partials) {
             return Mock4Tpl.mock(input, options, helpers, partials);
         };
-        Mock.parse = function(input) {
+        Mock.parse = function (input) {
             return Handlebars.parse(input);
         };
-        Mock4Tpl.mock = function(input, options, helpers, partials) {
+        Mock4Tpl.mock = function (input, options, helpers, partials) {
             helpers = helpers ? Util.extend({}, helpers, Handlebars.helpers) : Handlebars.helpers;
             partials = partials ? Util.extend({}, partials, Handlebars.partials) : Handlebars.partials;
             return Handle.gen(input, null, options, helpers, partials);
@@ -1100,14 +1114,14 @@
             debug: Mock4Tpl.debug || false,
             extend: Util.extend
         };
-        Handle.gen = function(node, context, options, helpers, partials) {
+        Handle.gen = function (node, context, options, helpers, partials) {
             if (Util.isString(node)) {
                 var ast = Handlebars.parse(node);
                 options = Handle.parseOptions(node, options);
                 var data = Handle.gen(ast, context, options, helpers, partials);
                 return data;
             }
-            context = context || [ {} ];
+            context = context || [{}];
             options = options || {};
             if (this[node.type] === Util.noop) return;
             options.__path = options.__path || [];
@@ -1124,7 +1138,7 @@
             }
             return context[context.length - 1];
         };
-        Handle.parseOptions = function(input, options) {
+        Handle.parseOptions = function (input, options) {
             var rComment = /<!--\s*\n*Mock\s*\n*([\w\W]+?)\s*\n*-->/g;
             var comments = input.match(rComment), ret = {}, i, ma, option;
             for (i = 0; comments && i < comments.length; i++) {
@@ -1138,7 +1152,7 @@
             }
             return Util.extend(ret, options);
         };
-        Handle.val = function(name, options, context, def) {
+        Handle.val = function (name, options, context, def) {
             if (name !== options.__path[options.__path.length - 1]) throw new Error(name + "!==" + options.__path);
             if (Mock4Tpl.debug || Handle.debug) console.log("[options]", name, options.__path);
             if (def !== undefined) def = Mock.mock(def);
@@ -1152,12 +1166,12 @@
             if (Util.isArray(context[0])) return {};
             return def !== undefined ? def : name || Random.word();
         };
-        Handle.program = function(node, context, options, helpers, partials) {
+        Handle.program = function (node, context, options, helpers, partials) {
             for (var i = 0; i < node.statements.length; i++) {
                 this.gen(node.statements[i], context, options, helpers, partials);
             }
         };
-        Handle.mustache = function(node, context, options, helpers, partials) {
+        Handle.mustache = function (node, context, options, helpers, partials) {
             var i, currentContext = context[0], contextLength = context.length;
             if (Util.type(currentContext) === "array") {
                 currentContext.push({});
@@ -1165,7 +1179,8 @@
                 context.unshift(currentContext);
             }
             if (node.isHelper || helpers && helpers[node.id.string]) {
-                if (node.params.length === 0) {} else {
+                if (node.params.length === 0) {
+                } else {
                     for (i = 0; i < node.params.length; i++) {
                         this.gen(node.params[i], context, options, helpers, partials);
                     }
@@ -1176,9 +1191,10 @@
             }
             if (context.length > contextLength) context.splice(0, context.length - contextLength);
         };
-        Handle.block = function(node, context, options, helpers, partials) {
+        Handle.block = function (node, context, options, helpers, partials) {
             var parts = node.mustache.id.parts, i, len, cur, val, type, currentContext = context[0], contextLength = context.length;
-            if (node.inverse) {}
+            if (node.inverse) {
+            }
             if (node.mustache.isHelper || helpers && helpers[node.mustache.id.string]) {
                 type = parts[0];
                 val = (Helpers[type] || Helpers.custom).apply(this, arguments);
@@ -1211,7 +1227,7 @@
             }
             if (context.length > contextLength) context.splice(0, context.length - contextLength);
         };
-        Handle.hash = function(node, context, options, helpers, partials) {
+        Handle.hash = function (node, context, options, helpers, partials) {
             var pairs = node.pairs, pair, i, j;
             for (i = 0; i < pairs.length; i++) {
                 pair = pairs[i];
@@ -1220,10 +1236,11 @@
                 }
             }
         };
-        Handle.ID = function(node, context, options) {
+        Handle.ID = function (node, context, options) {
             var parts = node.parts, i, len, cur, prev, def, val, type, valType, preOptions, currentContext = context[node.depth], contextLength = context.length;
             if (Util.isArray(currentContext)) currentContext = context[node.depth + 1];
-            if (!parts.length) {} else {
+            if (!parts.length) {
+            } else {
                 for (i = 0, len = parts.length; i < len; i++) {
                     options.__path.push(parts[i]);
                     cur = parts[i];
@@ -1253,7 +1270,7 @@
             }
             if (context.length > contextLength) context.splice(0, context.length - contextLength);
         };
-        Handle.partial = function(node, context, options, helpers, partials) {
+        Handle.partial = function (node, context, options, helpers, partials) {
             var name = node.partialName.name, partial = partials && partials[name], contextLength = context.length;
             if (partial) Handle.gen(partial, context, options, helpers, partials);
             if (context.length > contextLength) context.splice(0, context.length - contextLength);
@@ -1266,7 +1283,7 @@
         Handle.BOOLEAN = Util.noop;
         Handle.comment = Util.noop;
         var Helpers = {};
-        Helpers.each = function(node, context, options) {
+        Helpers.each = function (node, context, options) {
             var i, len, cur, val, parts, def, type, currentContext = context[0];
             parts = node.mustache.params[0].parts;
             for (i = 0, len = parts.length; i < len; i++) {
@@ -1283,7 +1300,7 @@
             }
             return val;
         };
-        Helpers["if"] = Helpers.unless = function(node, context, options) {
+        Helpers["if"] = Helpers.unless = function (node, context, options) {
             var params = node.mustache.params, i, j, cur, val, parts, def, type, currentContext = context[0];
             for (i = 0; i < params.length; i++) {
                 parts = params[i].parts;
@@ -1305,7 +1322,7 @@
             }
             return val;
         };
-        Helpers["with"] = function(node, context, options) {
+        Helpers["with"] = function (node, context, options) {
             var i, cur, val, parts, def, currentContext = context[0];
             parts = node.mustache.params[0].parts;
             for (i = 0; i < parts.length; i++) {
@@ -1318,8 +1335,9 @@
             }
             return val;
         };
-        Helpers.log = function() {};
-        Helpers.custom = function(node, context, options) {
+        Helpers.log = function () {
+        };
+        Helpers.custom = function (node, context, options) {
             var i, len, cur, val, parts, def, type, currentContext = context[0];
             if (node.mustache.params.length === 0) {
                 return;
@@ -1352,31 +1370,31 @@
         };
     }).call(this);
     /*! src/mock4xtpl.js */
-    (function(undefined) {
+    (function (undefined) {
         if (typeof KISSY === "undefined") return;
         var Mock4XTpl = {
             debug: false
         };
         var XTemplate;
-        KISSY.use("xtemplate", function(S, T) {
+        KISSY.use("xtemplate", function (S, T) {
             XTemplate = T;
         });
         if (!this.Mock) module.exports = Mock4XTpl;
-        Mock.xtpl = function(input, options, helpers, partials) {
+        Mock.xtpl = function (input, options, helpers, partials) {
             return Mock4XTpl.mock(input, options, helpers, partials);
         };
-        Mock.xparse = function(input) {
+        Mock.xparse = function (input) {
             return XTemplate.compiler.parse(input);
         };
-        Mock4XTpl.mock = function(input, options, helpers, partials) {
+        Mock4XTpl.mock = function (input, options, helpers, partials) {
             helpers = helpers ? Util.extend({}, helpers, XTemplate.RunTime.commands) : XTemplate.RunTime.commands;
             partials = partials ? Util.extend({}, partials, XTemplate.RunTime.subTpls) : XTemplate.RunTime.subTpls;
             return this.gen(input, null, options, helpers, partials, {});
         };
-        Mock4XTpl.parse = function(input) {
+        Mock4XTpl.parse = function (input) {
             return XTemplate.compiler.parse(input);
         };
-        Mock4XTpl.gen = function(node, context, options, helpers, partials, other) {
+        Mock4XTpl.gen = function (node, context, options, helpers, partials, other) {
             if (typeof node === "string") {
                 if (Mock4XTpl.debug) {
                     console.log("[tpl    ]\n", node);
@@ -1386,7 +1404,7 @@
                 var data = this.gen(ast, context, options, helpers, partials, other);
                 return data;
             }
-            context = context || [ {} ];
+            context = context || [{}];
             options = options || {};
             node.type = node.type;
             if (this[node.type] === Util.noop) return;
@@ -1412,7 +1430,7 @@
             }
             return context[context.length - 1];
         };
-        Mock4XTpl.parseOptions = function(input, options) {
+        Mock4XTpl.parseOptions = function (input, options) {
             var rComment = /<!--\s*\n*Mock\s*\n*([\w\W]+?)\s*\n*-->/g;
             var comments = input.match(rComment), ret = {}, i, ma, option;
             for (i = 0; comments && i < comments.length; i++) {
@@ -1426,23 +1444,25 @@
             }
             return Util.extend(ret, options);
         };
-        Mock4XTpl.parseVal = function(expr, object) {
+        Mock4XTpl.parseVal = function (expr, object) {
             function queryArray(prop, context) {
-                if (typeof context === "object" && prop in context) return [ context[prop] ];
+                if (typeof context === "object" && prop in context) return [context[prop]];
                 var ret = [];
                 for (var i = 0; i < context.length; i++) {
-                    ret.push.apply(ret, query(prop, [ context[i] ]));
+                    ret.push.apply(ret, query(prop, [context[i]]));
                 }
                 return ret;
             }
+
             function queryObject(prop, context) {
-                if (typeof context === "object" && prop in context) return [ context[prop] ];
+                if (typeof context === "object" && prop in context) return [context[prop]];
                 var ret = [];
                 for (var key in context) {
-                    ret.push.apply(ret, query(prop, [ context[key] ]));
+                    ret.push.apply(ret, query(prop, [context[key]]));
                 }
                 return ret;
             }
+
             function query(prop, set) {
                 var ret = [];
                 for (var i = 0; i < set.length; i++) {
@@ -1453,16 +1473,18 @@
                 }
                 return ret;
             }
+
             function parse(expr, context) {
-                var parts = typeof expr === "string" ? expr.split(".") : expr.slice(0), set = [ context ];
+                var parts = typeof expr === "string" ? expr.split(".") : expr.slice(0), set = [context];
                 while (parts.length) {
                     set = query(parts.shift(), set);
                 }
                 return set;
             }
+
             return parse(expr, object);
         };
-        Mock4XTpl.val = function(name, options, context, def) {
+        Mock4XTpl.val = function (name, options, context, def) {
             if (name !== options.__path[options.__path.length - 1]) throw new Error(name + "!==" + options.__path);
             if (def !== undefined) def = Mock.mock(def);
             if (options) {
@@ -1477,7 +1499,7 @@
             if (Util.isArray(context[0])) return {};
             return def !== undefined ? def : name;
         };
-        Mock4XTpl.program = function(node, context, options, helpers, partials, other) {
+        Mock4XTpl.program = function (node, context, options, helpers, partials, other) {
             for (var i = 0; i < node.statements.length; i++) {
                 this.gen(node.statements[i], context, options, helpers, partials, other);
             }
@@ -1485,7 +1507,7 @@
                 this.gen(node.inverse[j], context, options, helpers, partials, other);
             }
         };
-        Mock4XTpl.block = function(node, context, options, helpers, partials, other) {
+        Mock4XTpl.block = function (node, context, options, helpers, partials, other) {
             var contextLength = context.length;
             this.gen(node.tpl, context, options, helpers, partials, Util.extend({}, other, {
                 def: {},
@@ -1508,7 +1530,7 @@
                 context.splice(0, context.length - contextLength);
             }
         };
-        Mock4XTpl.tpl = function(node, context, options, helpers, partials, other) {
+        Mock4XTpl.tpl = function (node, context, options, helpers, partials, other) {
             if (node.params && node.params.length) {
                 other = Util.extend({}, other, {
                     def: {
@@ -1519,10 +1541,10 @@
                     }[node.path.string],
                     hold: {
                         each: true,
-                        "if": function(_, __, ___, name, value) {
+                        "if": function (_, __, ___, name, value) {
                             return typeof value === "object";
                         },
-                        unless: function(_, __, ___, name, value) {
+                        unless: function (_, __, ___, name, value) {
                             return typeof value === "object";
                         },
                         "with": true,
@@ -1542,24 +1564,24 @@
                 this.gen(node.path, context, options, helpers, partials, other);
             }
         };
-        Mock4XTpl.tplExpression = function(node, context, options, helpers, partials, other) {
+        Mock4XTpl.tplExpression = function (node, context, options, helpers, partials, other) {
             this.gen(node.expression, context, options, helpers, partials, other);
         };
         Mock4XTpl.content = Util.noop;
         Mock4XTpl.unaryExpression = Util.noop;
-        Mock4XTpl.multiplicativeExpression = Mock4XTpl.additiveExpression = function(node, context, options, helpers, partials, other) {
+        Mock4XTpl.multiplicativeExpression = Mock4XTpl.additiveExpression = function (node, context, options, helpers, partials, other) {
             this.gen(node.op1, context, options, helpers, partials, Util.extend({}, other, {
-                def: function() {
+                def: function () {
                     return node.op2.type === "number" ? node.op2.value.indexOf(".") > -1 ? Random.float(-Math.pow(10, 10), Math.pow(10, 10), 1, Math.pow(10, 6)) : Random.integer() : undefined;
                 }()
             }));
             this.gen(node.op2, context, options, helpers, partials, Util.extend({}, other, {
-                def: function() {
+                def: function () {
                     return node.op1.type === "number" ? node.op1.value.indexOf(".") > -1 ? Random.float(-Math.pow(10, 10), Math.pow(10, 10), 1, Math.pow(10, 6)) : Random.integer() : undefined;
                 }()
             }));
         };
-        Mock4XTpl.relationalExpression = function(node, context, options, helpers, partials, other) {
+        Mock4XTpl.relationalExpression = function (node, context, options, helpers, partials, other) {
             this.gen(node.op1, context, options, helpers, partials, other);
             this.gen(node.op2, context, options, helpers, partials, other);
         };
@@ -1569,15 +1591,16 @@
         Mock4XTpl.string = Util.noop;
         Mock4XTpl.number = Util.noop;
         Mock4XTpl.boolean = Util.noop;
-        Mock4XTpl.hash = function(node, context, options, helpers, partials, other) {
+        Mock4XTpl.hash = function (node, context, options, helpers, partials, other) {
             var pairs = node.value, key;
             for (key in pairs) {
                 this.gen(pairs[key], context, options, helpers, partials, other);
             }
         };
-        Mock4XTpl.id = function(node, context, options, helpers, partials, other) {
+        Mock4XTpl.id = function (node, context, options, helpers, partials, other) {
             var contextLength = context.length;
             var parts = node.parts, currentContext = context[node.depth], i, len, cur, def, val;
+
             function fix(currentContext, index, length, name, val) {
                 var type = Util.type(currentContext[name]), valType = Util.type(val);
                 val = val === "true" ? true : val === "false" ? false : val;
@@ -1598,6 +1621,7 @@
                 }
                 return currentContext[name];
             }
+
             if (Util.isArray(currentContext)) currentContext = context[node.depth + 1];
             for (i = 0, len = parts.length; i < len; i++) {
                 if (i === 0 && parts[i] === "this") continue;

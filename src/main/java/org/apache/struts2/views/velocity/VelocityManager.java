@@ -51,43 +51,30 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
 
 
 /**
  * Manages the environment for Velocity result types
- *
  */
 public class VelocityManager {
-    private static final Logger LOG = LoggerFactory.getLogger(VelocityManager.class);
     public static final String STRUTS = "struts";
-    private ObjectFactory objectFactory;
-
     public static final String KEY_VELOCITY_STRUTS_CONTEXT = ".KEY_velocity.struts2.context";
-
     /**
      * the parent JSP tag
      */
     public static final String PARENT = "parent";
-
     /**
      * the current JSP tag
      */
     public static final String TAG = "tag";
-
-    private VelocityEngine velocityEngine;
-
+    private static final Logger LOG = LoggerFactory.getLogger(VelocityManager.class);
     /**
      * A reference to the toolbox manager.
      */
     protected ToolboxManager toolboxManager = null;
+    private ObjectFactory objectFactory;
+    private VelocityEngine velocityEngine;
     private String toolBoxLocation;
 
 
@@ -102,6 +89,37 @@ public class VelocityManager {
 
     private List<TagLibraryDirectiveProvider> tagLibraries;
     private List<TagLibrary> oldTagLibraries;
+
+    private static final String replace(String string, String oldString, String newString) {
+        if (string == null) {
+            return null;
+        }
+        // If the newString is null, just return the string since there's nothing to replace.
+        if (newString == null) {
+            return string;
+        }
+        int i = 0;
+        // Make sure that oldString appears at least once before doing any processing.
+        if ((i = string.indexOf(oldString, i)) >= 0) {
+            // Use char []'s, as they are more efficient to deal with.
+            char[] string2 = string.toCharArray();
+            char[] newString2 = newString.toCharArray();
+            int oLength = oldString.length();
+            StringBuilder buf = new StringBuilder(string2.length);
+            buf.append(string2, 0, i).append(newString2);
+            i += oLength;
+            int j = i;
+            // Replace all remaining instances of oldString with newString.
+            while ((i = string.indexOf(oldString, i)) > 0) {
+                buf.append(string2, j, i - j).append(newString2);
+                i += oLength;
+                j = i;
+            }
+            buf.append(string2, j, string2.length - j);
+            return buf.toString();
+        }
+        return string;
+    }
 
     @Inject
     public void setObjectFactory(ObjectFactory fac) {
@@ -127,7 +145,7 @@ public class VelocityManager {
 
     /**
      * @return a reference to the VelocityEngine used by <b>all</b> struts velocity thingies with the exception of
-     *         directly accessed *.vm pages
+     * directly accessed *.vm pages
      */
     public VelocityEngine getVelocityEngine() {
         return velocityEngine;
@@ -153,7 +171,7 @@ public class VelocityManager {
         VelocityContext[] chainedContexts = prepareChainedContexts(req, res, stack.getContext());
         StrutsVelocityContext context = new StrutsVelocityContext(chainedContexts, stack);
         Map standardMap = ContextUtil.getStandardContext(stack, req, res);
-        for (Iterator iterator = standardMap.entrySet().iterator(); iterator.hasNext();) {
+        for (Iterator iterator = standardMap.entrySet().iterator(); iterator.hasNext(); ) {
             Map.Entry entry = (Map.Entry) iterator.next();
             context.put((String) entry.getKey(), entry.getValue());
         }
@@ -361,7 +379,7 @@ public class VelocityManager {
             LOG.debug("Initializing Velocity with the following properties ...");
 
             for (Iterator iter = properties.keySet().iterator();
-                 iter.hasNext();) {
+                 iter.hasNext(); ) {
                 String key = (String) iter.next();
                 String value = properties.getProperty(key);
 
@@ -423,9 +441,6 @@ public class VelocityManager {
             Velocity.info("VelocityViewServlet: No toolbox entry in configuration.");
         }
     }
-
-
-
 
     /**
      * <p/>
@@ -567,37 +582,6 @@ public class VelocityManager {
 
     private void addDirective(StringBuilder sb, Class clazz) {
         sb.append(clazz.getName()).append(",");
-    }
-
-    private static final String replace(String string, String oldString, String newString) {
-        if (string == null) {
-            return null;
-        }
-        // If the newString is null, just return the string since there's nothing to replace.
-        if (newString == null) {
-            return string;
-        }
-        int i = 0;
-        // Make sure that oldString appears at least once before doing any processing.
-        if ((i = string.indexOf(oldString, i)) >= 0) {
-            // Use char []'s, as they are more efficient to deal with.
-            char[] string2 = string.toCharArray();
-            char[] newString2 = newString.toCharArray();
-            int oLength = oldString.length();
-            StringBuilder buf = new StringBuilder(string2.length);
-            buf.append(string2, 0, i).append(newString2);
-            i += oLength;
-            int j = i;
-            // Replace all remaining instances of oldString with newString.
-            while ((i = string.indexOf(oldString, i)) > 0) {
-                buf.append(string2, j, i - j).append(newString2);
-                i += oLength;
-                j = i;
-            }
-            buf.append(string2, j, string2.length - j);
-            return buf.toString();
-        }
-        return string;
     }
 
     /**

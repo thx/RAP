@@ -17,12 +17,12 @@ public class DataMgrImpl implements DataMgr {
     private DataDao dataDao;
     private ProjectMgr projectMgr;
 
-    public void setDataDao(DataDao dataDao) {
-        this.dataDao = dataDao;
-    }
-
     public DataDao getDataDao() {
         return dataDao;
+    }
+
+    public void setDataDao(DataDao dataDao) {
+        this.dataDao = dataDao;
     }
 
     public ProjectMgr getProjectMgr() {
@@ -33,27 +33,27 @@ public class DataMgrImpl implements DataMgr {
         this.projectMgr = projectMgr;
     }
 
-    @Override
+
     public List<Map<String, Object>> getUserTrendByMonth() {
         return dataDao.getUserTrendByMonth();
     }
 
-    @Override
+
     public List<Map<String, Object>> getProjectTrendByMonth() {
         return dataDao.getProjectTrendByMonth();
     }
 
-    @Override
+
     public List<Map<String, Object>> getCheckInTrendByMonth() {
         return dataDao.getCheckInTrendByMonth();
     }
 
-    @Override
+
     public List<Map<String, Object>> getActionNumByTeam() {
         return dataDao.getActionNumByTeam();
     }
 
-    @Override
+
     public List<Map<String, Object>> getMockNumByProject() {
         List<Project> list = projectMgr.selectMockNumTopNProjectList(5);
         List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();

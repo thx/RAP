@@ -15,19 +15,23 @@ import java.util.List;
  */
 public class TeamAction extends ActionBase {
 
+    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getFormatterLogger(TeamAction.class.getName());
     private int id;
     private String name;
     private String accountList;
     private long teamListNum;
     private List<User> userList;
     private int userId;
-    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getFormatterLogger(TeamAction.class.getName());
+    private Corporation team;
+    private int pageNum;
+    private List<Corporation> teamList;
+    private short accessType;
+    private OrganizationMgr organizationMgr;
+    private String desc;
 
     public Corporation getTeam() {
         return team;
     }
-
-    private Corporation team;
 
     public int getPageNum() {
         if (pageNum > 0)
@@ -36,13 +40,13 @@ public class TeamAction extends ActionBase {
             return 1;
     }
 
-    private int pageNum;
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
 
     public List<Corporation> getTeamList() {
         return teamList;
     }
-
-    private List<Corporation> teamList;
 
     public short getAccessType() {
         return accessType;
@@ -51,9 +55,6 @@ public class TeamAction extends ActionBase {
     public void setAccessType(short accessType) {
         this.accessType = accessType;
     }
-
-    private short accessType;
-    private OrganizationMgr organizationMgr;
 
     public OrganizationMgr getOrganizationMgr() {
         return organizationMgr;
@@ -70,8 +71,6 @@ public class TeamAction extends ActionBase {
     public void setDesc(String desc) {
         this.desc = desc;
     }
-
-    private String desc;
 
     public String getName() {
         return name;
@@ -93,7 +92,6 @@ public class TeamAction extends ActionBase {
     public void setAccountList(String accountList) {
         this.accountList = accountList;
     }
-
 
     public String create() {
         Corporation team = new Corporation();
@@ -120,16 +118,12 @@ public class TeamAction extends ActionBase {
         return SUCCESS;
     }
 
-    public void setPageNum(int pageNum) {
-        this.pageNum = pageNum;
-    }
-
     public long getTeamListNum() {
         return teamListNum;
     }
 
     public long getTeamListPageInTotal() {
-        double result = Math.ceil((double)teamListNum / (double)SystemConstant.DEFAULT_PAGE_SIZE);
+        double result = Math.ceil((double) teamListNum / (double) SystemConstant.DEFAULT_PAGE_SIZE);
         return (long) result;
     }
 

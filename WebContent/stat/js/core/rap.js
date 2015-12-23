@@ -2,12 +2,12 @@ var rap = rap || {};
 
 
 // for compability... .bull shit
-baidu.ajax.post = function(url, q, func) {
+baidu.ajax.post = function (url, q, func) {
     $.ajax({
-        method : "POST",
-        url : url,
-        data : q,
-        success : function() {
+        method: "POST",
+        url: url,
+        data: q,
+        success: function () {
             func.apply(this, [null, arguments[0]]);
         }
     });
@@ -16,9 +16,12 @@ baidu.ajax.post = function(url, q, func) {
 // console compability
 if (!window.console) {
     window.console = {
-        log : function() {},
-        warn : function() {},
-        error : function() {}
+        log: function () {
+        },
+        warn: function () {
+        },
+        error: function () {
+        }
     };
 }
 
@@ -37,7 +40,7 @@ function deepCopy(o) {
 /**
  * Util Module
  */
-(function() {
+(function () {
     rap.util = rap.util || {};
 
     var util = rap.util,
@@ -50,7 +53,7 @@ function deepCopy(o) {
      * @param {String} inputStr 需要转义的字符串
      * @return 转义后的输出
      */
-    util.escaper.escapeInHJ = function(inputStr) {
+    util.escaper.escapeInHJ = function (inputStr) {
         inputStr.replace(/\&/g, "&amp;");
         inputStr = inputStr.replace(/</g, "&lt;");
         inputStr = inputStr.replace(/>/g, "&gt;");
@@ -63,7 +66,7 @@ function deepCopy(o) {
         return inputStr;
     };
 
-    util.escaper.escapeInJ = function(inputStr) {
+    util.escaper.escapeInJ = function (inputStr) {
         inputStr = inputStr.replace(/\\/g, "\\\\");
         inputStr = inputStr.replace(/\//g, "\\/");
         inputStr = inputStr.replace(/\'/g, "\\&#39;");
@@ -71,10 +74,10 @@ function deepCopy(o) {
         return inputStr;
     };
 
-    util.escaper.escapeInH = function(inputStr) {
-       inputStr = b.encodeHTML(inputStr);
-       inputStr = inputStr.replace(/\'/g, "&#39;");
-       return  inputStr;
+    util.escaper.escapeInH = function (inputStr) {
+        inputStr = b.encodeHTML(inputStr);
+        inputStr = inputStr.replace(/\'/g, "&#39;");
+        return inputStr;
     };
 
     util.escaper.escapeInU = encodeURIComponent;
@@ -82,34 +85,34 @@ function deepCopy(o) {
     /**
      * hint message
      */
-    util.hint = (function() {
+    util.hint = (function () {
         var DIV_NAME = "tipDiv",
             _hint = {},
             _enabled = true,
             _div = null;
 
-        _hint.init = function() {
+        _hint.init = function () {
             var _checkboxHintEnabled = b.g("checkboxHintEnabled");
             if (_checkboxHintEnabled) {
                 _enabled = _checkboxHintEnabled.checked;
             }
         };
 
-        _hint.bind = function(ele, message) {
+        _hint.bind = function (ele, message) {
             ele = (typeof ele == "string" ? b.g(ele) : ele);
             if (ele && message) {
-                b.event.on(ele, "mouseover", function() {
+                b.event.on(ele, "mouseover", function () {
                     rap.util.hint.show(this, message);
                 });
 
-                b.event.on(ele, "mouseout", function() {
+                b.event.on(ele, "mouseout", function () {
                     rap.util.hint.hide();
                 });
             }
 
         };
 
-        _hint.show = function(ele, message) {
+        _hint.show = function (ele, message) {
             if (!_enabled) return;
             var p = baidu.dom.getPosition(ele);
             var div = _div ? _div : createDiv();
@@ -121,7 +124,7 @@ function deepCopy(o) {
             else {
                 baidu.setStyle(DIV_NAME, "top", p.top);
             }
-            if  (p.left + ele.offsetWidth + div.offsetWidth > baidu.page.getViewWidth()) {
+            if (p.left + ele.offsetWidth + div.offsetWidth > baidu.page.getViewWidth()) {
                 baidu.setStyle(DIV_NAME, "left", p.left - div.offsetWidth);
             }
             else {
@@ -130,16 +133,16 @@ function deepCopy(o) {
         };
 
 
-        _hint.hide = function() {
+        _hint.hide = function () {
             if (!_enabled) return;
             b.hide(_div);
         };
 
-        _hint.enable = function() {
+        _hint.enable = function () {
             _enabled = true;
         };
 
-        _hint.disable = function() {
+        _hint.disable = function () {
             _enabled = false;
         };
 
@@ -157,7 +160,7 @@ function deepCopy(o) {
     })();
 
 
-    util.validator = (function(){
+    util.validator = (function () {
         /**
          * 验证表单元素的格式, 属性validate表示当前数据的名称；属性trim="yes"时会过滤数据两端的空白字符；属性pattern表示
          * 需要验证的正则表达式，会自动在当前正则表达式前后添加^与$表示行首行尾转义；属性maxValue,minValue表示数据允许的
@@ -173,10 +176,8 @@ function deepCopy(o) {
          * @param {Element} e 表单元素
          * @return {Boolean} 是/否为允许的格式
          */
-        function Validate(e)
-        {
-            if (e._sValue !== undefined)
-            {
+        function Validate(e) {
+            if (e._sValue !== undefined) {
                 return false;
             }
             e = baidu.G(e);
@@ -185,17 +186,13 @@ function deepCopy(o) {
             var value = e.getAttribute('trim') != 'no' ? baidu.trim(e.value) : e.value;
             var msg =
                 o._pattern(value, name, e.getAttribute('pattern')) || o._number(value, name, e.getAttribute('maxValue'), e.getAttribute('minValue')) || o._length(value, name, e.getAttribute('maxLen'), e.getAttribute('minLen'), e.getAttribute('character') !== false) || o._custom(value, name, e.getAttribute('custom'));
-            if (msg)
-            {
+            if (msg) {
                 msg = e.getAttribute('message') || msg;
-                if (!e.onInvalid)
-                {
+                if (!e.onInvalid) {
                     var invalid = e.getAttribute('invalid');
-                    if (invalid)
-                    {
+                    if (invalid) {
                         o = baidu.G(invalid);
-                        if (o)
-                        {
+                        if (o) {
                             /* 如果有同名的Element, 则设置Element的innerHTML值 */
                             e._eMsg = o;
                             e.onInvalid = function (msg) {
@@ -205,8 +202,7 @@ function deepCopy(o) {
                                 this._eMsg.innerHTML = '';
                             };
                         }
-                        else
-                        {
+                        else {
                             /* 如果没有同名的Element, 调用函数处理 */
                             e.onInvalid = window[invalid];
                             e.onValid = e.onInvalid.valid;
@@ -217,11 +213,10 @@ function deepCopy(o) {
                             baidu.addClass(this, 'invalid');
                             this.value = msg;
                             this.onfocus = function () {
-                                baidu.removeClass(this,'invalid');
+                                baidu.removeClass(this, 'invalid');
                                 var v = this._sValue;
                                 /* 恢复原来的值 */
-                                if (v !== undefined)
-                                {
+                                if (v !== undefined) {
                                     this.value = v;
                                     this._sValue = undefined;
                                 }
@@ -264,7 +259,7 @@ function deepCopy(o) {
             for (var i = 0, o; o = list[i]; i++) {
                 var tagName = o.tagName.toLowerCase();
                 if ((tagName == 'input' || tagName == 'select' || tagName == 'textarea') &&
-                    (o.offsetWidth || o.type=='hidden') && !Validate(o)) {
+                    (o.offsetWidth || o.type == 'hidden') && !Validate(o)) {
                     r = false;
                 }
             }
@@ -281,10 +276,8 @@ function deepCopy(o) {
         Validate.validForm = function (form) {
             var list = form;
             var r = true;
-            for (var i = 0, o; o = list[i]; i++)
-            {
-                if ((o.offsetWidth || o.type=='hidden') && !Validate(o))
-                {
+            for (var i = 0, o; o = list[i]; i++) {
+                if ((o.offsetWidth || o.type == 'hidden') && !Validate(o)) {
                     r = false;
                 }
             }
@@ -301,8 +294,7 @@ function deepCopy(o) {
          * @return {String} 如果有值返回的是出错提示信息
          */
         Validate._pattern = function (value, name, regexp) {
-            if (regexp && !value.match(new RegExp('^' + regexp + '$')))
-            {
+            if (regexp && !value.match(new RegExp('^' + regexp + '$'))) {
                 return baidu.format(Validate.ERR_INVAILD, [name]);
             }
         };
@@ -318,21 +310,16 @@ function deepCopy(o) {
          * @return {String} 如果有值返回的是出错提示信息
          */
         Validate._number = function (value, name, max, min) {
-            if (max || min)
-            {
-                if (!value.match(/^[0-9]+(\.[0-9]+)?$/))
-                {
+            if (max || min) {
+                if (!value.match(/^[0-9]+(\.[0-9]+)?$/)) {
                     return baidu.format(Validate.ERR_INVAILD, [name]);
                 }
-                else
-                {
+                else {
                     value = parseInt(value, 10);
-                    if (max !== null && value > parseInt(max, 10))
-                    {
+                    if (max !== null && value > parseInt(max, 10)) {
                         return baidu.format(Validate.ERR_MAXIMUL, [name, max]);
                     }
-                    if (min !== null && value < parseInt(min, 10))
-                    {
+                    if (min !== null && value < parseInt(min, 10)) {
                         return baidu.format(Validate.ERR_MINIMUL, [name, min]);
                     }
                 }
@@ -350,15 +337,12 @@ function deepCopy(o) {
          * @return {String} 如果有值返回的是出错提示信息
          */
         Validate._length = function (value, name, max, min, character) {
-            if (max || min)
-            {
+            if (max || min) {
                 var length = character ? value.length : baidu.string.getByteLength(value);
-                if (max && length > parseInt(max, 10))
-                {
+                if (max && length > parseInt(max, 10)) {
                     return character ? baidu.format(Validate.ERR_MOST_CHAR, [name, max]) : baidu.format(Validate.ERR_MOST_LETTER, [name, max]);
                 }
-                if (min && length < parseInt(min, 10))
-                {
+                if (min && length < parseInt(min, 10)) {
                     return length ? (character ? baidu.format(Validate.ERR_LEAST_CHARname, [min]) : baidu.format(Validate.ERR_LEAST_LETTER, [name, min])) : baidu.format(Validate.ERR_REQUIRED, [name]);
                 }
             }
@@ -392,7 +376,7 @@ function deepCopy(o) {
 /**
  * Project Module
  */
-(function() {
+(function () {
 
     rap.project = rap.project || {};
 
@@ -403,28 +387,28 @@ function deepCopy(o) {
     /**
      * init project
      */
-    p.init = function(projectData) {
+    p.init = function (projectData) {
         _data = projectData;
     };
 
     /**
      * get id
      */
-    p.getId = function() {
+    p.getId = function () {
         return _data.id;
     };
 
     /**
      * get version
      */
-    p.getVersion = function() {
+    p.getVersion = function () {
         return _data.version;
     };
 
     /**
      * get module list
      */
-    p.getModuleList = function() {
+    p.getModuleList = function () {
         return _data.moduleList;
     };
 
@@ -434,7 +418,7 @@ function deepCopy(o) {
      * @param {number} action id
      * @return {number} module id, undefined if not found
      */
-    p.getModuleIdByActionId = function(acitonId) {
+    p.getModuleIdByActionId = function (acitonId) {
         var list = _data.moduleList,
             n = list.length,
             i = 0, m;
@@ -449,7 +433,7 @@ function deepCopy(o) {
     /**
      * get module by id
      */
-    p.getModule = function(id) {
+    p.getModule = function (id) {
         var list = _data.moduleList,
             n = list.length;
         for (var i = 0; i < n; i++) {
@@ -463,7 +447,7 @@ function deepCopy(o) {
     /**
      * get action by id
      */
-    p.getAction = function(id) {
+    p.getAction = function (id) {
         var moduleList = _data.moduleList,
             n = moduleList.length;
         for (var i = 0; i < n; i++) {
@@ -490,7 +474,7 @@ function deepCopy(o) {
      * return -1 if can not find the next parameter
      * ignore child parameters of complex parameter
      */
-    p.findNextParameter = function(actionId, parameterId) {
+    p.findNextParameter = function (actionId, parameterId) {
         var action = this.getAction(actionId);
         var i;
         var p;
@@ -525,7 +509,7 @@ function deepCopy(o) {
     /**
      * is request parameter
      */
-    p.isRequestParameter = function(actionId, parameterId) {
+    p.isRequestParameter = function (actionId, parameterId) {
         var action = this.getAction(actionId);
         if (action) {
             var list = action.requestParameterList,
@@ -543,7 +527,7 @@ function deepCopy(o) {
     /**
      *is response parameter
      */
-    p.isResponseParameter = function(actionId, parameterId) {
+    p.isResponseParameter = function (actionId, parameterId) {
         var action = this.getAction(actionId);
         if (action) {
             var list = action.responseParameterList,
@@ -561,14 +545,14 @@ function deepCopy(o) {
     /**
      * get page list
      */
-    p.getPageList = function(moduleId) {
+    p.getPageList = function (moduleId) {
         return this.getModule(moduleId).pageList;
     };
 
     /**
      * get page by id
      */
-    p.getPage = function(id) {
+    p.getPage = function (id) {
         var moduleList = _data.moduleList,
             n = moduleList.length;
         for (var i = 0; i < n; i++) {
@@ -588,7 +572,7 @@ function deepCopy(o) {
     /**
      * get action index and action list
      */
-    p.getActionIndexAndActionList = function(id) {
+    p.getActionIndexAndActionList = function (id) {
         var moduleList = _data.moduleList,
             n = moduleList.length;
         for (var i = 0; i < n; i++) {
@@ -602,7 +586,7 @@ function deepCopy(o) {
                 for (var k = 0; k < actionListCount; k++) {
                     var action = actionList[k];
                     if (action.id == id) {
-                        return {"actionIndex" : k, "actionList" : actionList};
+                        return {"actionIndex": k, "actionList": actionList};
                     }
                 }
             }
@@ -613,7 +597,7 @@ function deepCopy(o) {
     /**
      * get page index and page list
      */
-    p.getPageIndexAndPageList = function(id) {
+    p.getPageIndexAndPageList = function (id) {
         var moduleList = _data.moduleList,
             n = moduleList.length;
         for (var i = 0; i < n; i++) {
@@ -623,7 +607,7 @@ function deepCopy(o) {
             for (var j = 0; j < pageListCount; j++) {
                 var page = pageList[j];
                 if (page.id == id) {
-                    return {"pageIndex" : j, "pageList" : pageList};
+                    return {"pageIndex": j, "pageList": pageList};
                 }
             }
         }
@@ -632,7 +616,7 @@ function deepCopy(o) {
     /**
      * update action
      */
-    p.updateAction = function(obj) {
+    p.updateAction = function (obj) {
         var action = this.getAction(obj.id);
         if (action !== null) {
             action.name = obj.name;
@@ -646,7 +630,7 @@ function deepCopy(o) {
     /**
      * update page
      */
-    p.updatePage = function(obj) {
+    p.updatePage = function (obj) {
         var page = this.getPage(obj.id);
         if (page !== null) {
             page.name = obj.name;
@@ -657,23 +641,23 @@ function deepCopy(o) {
     /**
      * get data
      */
-    p.getData = function() {
+    p.getData = function () {
         return _data;
     };
 
     /**
      * add new module
      */
-    p.addModule = function() {
+    p.addModule = function () {
         // generate temp id for added module
         var id = generateId();
         _data.moduleList.push(
-                {
-                    "id":id,
-                    "name":"",
-                    "introduction":"",
-                    "pageList":[]
-                }
+            {
+                "id": id,
+                "name": "",
+                "introduction": "",
+                "pageList": []
+            }
         );
         return id;
     };
@@ -681,7 +665,7 @@ function deepCopy(o) {
     /**
      * add new action
      */
-    p.addAction = function(obj, addExisted, isCopy) {
+    p.addAction = function (obj, addExisted, isCopy) {
         obj = deepCopy(obj);
         if (isCopy) {
             obj.name += '-副本';
@@ -692,11 +676,11 @@ function deepCopy(o) {
             obj.requestParameterList = [];
             obj.responseParameterList = [];
             /**
-            if (addExisted === 'mount') {
+             if (addExisted === 'mount') {
                 obj.requestType = '99';
                 obj.responseTemplate = '{{mountId}}' + oldId;
             }
-            */
+             */
         } else {
             // recursively update identifier
             var i;
@@ -725,9 +709,9 @@ function deepCopy(o) {
     /**
      * add new page
      */
-    p.addPage = function(obj) {
+    p.addPage = function (obj) {
         obj.id = generateId();
-    obj.isIdGenerated = true;
+        obj.isIdGenerated = true;
         obj.actionList = [];
         this.getModule(obj.moduleId).pageList.push(obj);
     };
@@ -735,7 +719,7 @@ function deepCopy(o) {
     /**
      * add request parameter
      */
-    p.addRequestParameter = function(actionId) {
+    p.addRequestParameter = function (actionId) {
         var pNew = newParameter();
         this.getAction(actionId).requestParameterList.push(pNew);
         return pNew.id;
@@ -744,7 +728,7 @@ function deepCopy(o) {
     /**
      * add response parameter
      */
-    p.addResponseParameter = function(actionId) {
+    p.addResponseParameter = function (actionId) {
         var pNew = newParameter();
         this.getAction(actionId).responseParameterList.push(pNew);
         return pNew.id;
@@ -753,7 +737,7 @@ function deepCopy(o) {
     /**
      * add child parameter of complex parameter
      */
-    p.addChildParameter = function(parentParamId) {
+    p.addChildParameter = function (parentParamId) {
         var p = this.getParameter(parentParamId);
         if (p !== null) {
             var pNew = newParameter();
@@ -778,7 +762,7 @@ function deepCopy(o) {
     /**
      * remove module
      */
-    p.removeModule = function(id) {
+    p.removeModule = function (id) {
         var m = this.getModule(id);
         if (m === null) return;
         b.array.remove(_data.moduleList, m);
@@ -788,7 +772,7 @@ function deepCopy(o) {
     /**
      * remove action
      */
-    p.removeAction = function(id) {
+    p.removeAction = function (id) {
         var obj = this.getActionIndexAndActionList(id);
         if (obj === null) return;
         obj.actionList.splice(obj.actionIndex, 1);
@@ -797,7 +781,7 @@ function deepCopy(o) {
     /**
      * remove parameter
      */
-    p.removeParameter = function(id) {
+    p.removeParameter = function (id) {
         var moduleList = _data.moduleList,
             l,
             parameter,
@@ -866,12 +850,10 @@ function deepCopy(o) {
     }
 
 
-
-
     /**
      * remove page
      */
-    p.removePage = function(id) {
+    p.removePage = function (id) {
         var obj = this.getPageIndexAndPageList(id);
         if (obj === null) return;
         obj.pageList.splice(obj.pageIndex, 1);
@@ -880,7 +862,7 @@ function deepCopy(o) {
     /**
      * set module name
      */
-    p.setModuleName = function(id, name) {
+    p.setModuleName = function (id, name) {
         var module = this.getModule(id);
         if (module) {
             module.name = name;
@@ -890,7 +872,7 @@ function deepCopy(o) {
     /**
      * set parameter
      */
-    p.setParameter = function(id, value, property) {
+    p.setParameter = function (id, value, property) {
         var p = this.getParameter(id);
         if (p === null) return;
         p[property] = value;
@@ -899,7 +881,7 @@ function deepCopy(o) {
     /**
      * set parameter obj
      */
-    p.setParameterObj = function(p, obj) {
+    p.setParameterObj = function (p, obj) {
         if (!p || !p.id || !obj || !obj.id) return;
         p.name = obj.name;
         p.dataType = obj.dataType;
@@ -912,7 +894,7 @@ function deepCopy(o) {
     /**
      * get parameter
      */
-    p.getParameter = function(id) {
+    p.getParameter = function (id) {
         var moduleList = _data.moduleList,
             l,
             parameter,
@@ -961,34 +943,34 @@ function deepCopy(o) {
      * to find the similar parameter
      * and copy that to the current parameter
      */
-    p.parameterAutoComplete = function(paramId) {
+    p.parameterAutoComplete = function (paramId) {
         var param = this.getParameter(paramId);
         var moduleList = _data.moduleList,
             l,
             itemL,
             n = moduleList.length;
-        for (var i = n -1; i > -1; i--) {
+        for (var i = n - 1; i > -1; i--) {
             var module = moduleList[i],
                 pageList = module.pageList,
                 pageListCount = pageList.length;
-            for (var j = pageListCount -1; j > -1; j--) {
+            for (var j = pageListCount - 1; j > -1; j--) {
                 var page = pageList[j],
                     actionList = page.actionList,
                     actionListCount = actionList.length;
-                for (var k = actionListCount -1; k > -1; k--) {
+                for (var k = actionListCount - 1; k > -1; k--) {
                     var action = actionList[k],
                         requestParameterList = action.requestParameterList,
                         requestParameterListCount = requestParameterList.length,
                         responseParameterList = action.responseParameterList,
                         responseParameterListCount = responseParameterList.length;
-                    for (l = requestParameterListCount -1; l > -1; l--) {
+                    for (l = requestParameterListCount - 1; l > -1; l--) {
                         itemL = requestParameterList[l];
                         if (this.parameterAutoCompleteRecursively(itemL, param)) {
                             return true;
                         }
                     }
 
-                    for (l = responseParameterListCount -1; l > -1; l--) {
+                    for (l = responseParameterListCount - 1; l > -1; l--) {
                         itemL = responseParameterList[l];
                         if (this.parameterAutoCompleteRecursively(itemL, param)) {
                             return true;
@@ -1004,11 +986,11 @@ function deepCopy(o) {
      * to find the similar parameter
      * and copy that to the current parameter
      */
-    p.parameterAutoCompleteRecursively = function(recuredParam, autoCompletedParam) {
+    p.parameterAutoCompleteRecursively = function (recuredParam, autoCompletedParam) {
         if (!recuredParam || !autoCompletedParam) return;
         if (((recuredParam.name == autoCompletedParam.name && recuredParam.name !== "") ||
-                (recuredParam.identifier == autoCompletedParam.identifier && autoCompletedParam.identifier !== "")) &&
-                recuredParam.id != autoCompletedParam.id) {
+            (recuredParam.identifier == autoCompletedParam.identifier && autoCompletedParam.identifier !== "")) &&
+            recuredParam.id != autoCompletedParam.id) {
             var clonedObj = b.object.clone(recuredParam);
             p.resetAllChildParameterId(clonedObj);
             this.setParameterObj(autoCompletedParam, clonedObj);
@@ -1026,7 +1008,7 @@ function deepCopy(o) {
     /**
      *  is action in module
      */
-    p.isActionInModule = function(actionId, moduleId) {
+    p.isActionInModule = function (actionId, moduleId) {
         if (!moduleId) {
             return false;
         }
@@ -1056,7 +1038,7 @@ function deepCopy(o) {
      * @param {number} pageId page id
      * @return {bolean} true is action is under the page specified
      */
-    p.isActionInPage = function(actionId, pageId) {
+    p.isActionInPage = function (actionId, pageId) {
         var p = this.getPage(pageId);
 
         if (p) {
@@ -1076,7 +1058,7 @@ function deepCopy(o) {
     /**
      * get module id by action id
      */
-    p.getModuleIdByActionId = function(actionId) {
+    p.getModuleIdByActionId = function (actionId) {
         var mList = _data.moduleList;
         var n = mList.length;
         while (n--) {
@@ -1093,7 +1075,7 @@ function deepCopy(o) {
      */
     function getParameterRecursively(p, id) {
         var parameterList = p.parameterList,
-            parameterListNum = parameterList &&     parameterList.length ? parameterList.length : 0;
+            parameterListNum = parameterList && parameterList.length ? parameterList.length : 0;
 
         for (var i = 0; i < parameterListNum; i++) {
             var parameter = parameterList[i];
@@ -1111,6 +1093,7 @@ function deepCopy(o) {
     }
 
     var _generateCounter = 1;
+
     /**
      * id generator
      * [todo] generate unique id, this algorithm may have problem.
@@ -1122,7 +1105,7 @@ function deepCopy(o) {
     /**
      * is empty
      */
-    p.isEmpty = function() {
+    p.isEmpty = function () {
         return _data.moduleList.length === 0;
     };
 
@@ -1134,7 +1117,7 @@ function deepCopy(o) {
      * including child parameters
      * of complex parameter
      */
-    p.resetAllChildParameterId = function(param) {
+    p.resetAllChildParameterId = function (param) {
         if (!param || !param.id || !param.parameterList) return;
         var parameterList = param.parameterList,
             parameterListNum = parameterList.length;
@@ -1148,12 +1131,12 @@ function deepCopy(o) {
     /**
      * serach project by key
      */
-    p.search = function(key) {
+    p.search = function (key) {
         var RESULT_LENGTH_LIMIT = 6;
         var r = {
-            'byActionName' : [],
-            'byActionUrl'  : [],
-            'byPageName' : []
+            'byActionName': [],
+            'byActionUrl': [],
+            'byPageName': []
         };
 
         var AN = 'byActionName',
@@ -1206,7 +1189,7 @@ function deepCopy(o) {
         return r;
     };
 
- })();
+})();
 
 /*                                                      *
  *                                                      *
@@ -1215,17 +1198,16 @@ function deepCopy(o) {
  ********************************************************/
 
 
-
 /********************************************************
  *                                                      *
  *         ##workspace-module-begin                     *
  *                                                      *
  *                                                      */
-(function() {
+(function () {
 
     rap.workspace = rap.workspace || {};
 
-    rap.workspace._get = function(key) {
+    rap.workspace._get = function (key) {
         return eval(key);
     };
 
@@ -1244,11 +1226,11 @@ function deepCopy(o) {
      *                                                    *
      ******************************************************/
 
-    var ws       = rap.workspace,       // workspace module
-        p        = rap.project,         // project module
-        util     = rap.util,            // utility module
-        b        = baidu,               // tangram package
-        e        = ecui,                // ecui package
+    var ws = rap.workspace,       // workspace module
+        p = rap.project,         // project module
+        util = rap.util,            // utility module
+        b = baidu,               // tangram package
+        e = ecui,                // ecui package
         _curModuleId,                   // current module id
         _data,                          // project data object
         _curActionId,                   // current action id
@@ -1265,113 +1247,113 @@ function deepCopy(o) {
         _isLocalStorageEnabled,         // is local storage enabled, need HTML5 supports
         _isMockDisplay,                 // will mock labels displayed, default:false
         _draftData,                     // when not defined, will be switched to edit mode with draft data
-        URL      = null,                // url object, contains all url required
+        URL = null,                // url object, contains all url required
         MESSAGE = {
-            "CONFIRM_COVER"                     : "是否确定覆盖旧的内容?",
-            "CONFIRM_SAVE"                      : "是否确认保存?",
-            "CONFIRM_CANCEL"                    : "是否确定取消?",
-            "CONFIRM_CHECKIN"                   : "是否确定提交?",
-            "CONFIRM_CHECKOUT"                  : "是否确定获取?",
-            "CHECK_LOCK_CONFLICKTION"           : "正在为您检查工作区锁定状态...",
-            "CHECK_LOCK_CONFLICKTION_COMPLETED" : "您已成功切换至编辑状态，该项目已被您锁定。",
-            "CHOOSE_AT_FIRST"                   : "请先选择您要操作的选项.",
-            "SAVE_LIST_MAX_LENGTH_OVERFLOW"     : "您的存档空间已满，请删除不必要的存档，或覆盖旧的存档。",
-            "CONFIRM_DELETE"                    : "您是否确认删除?",
-            "LOADING"                           : "加载中...",
-            "LOAD"                              : "已完成加载",
-            "MODULE_LOADING"                    : "正在加载项目模块...",
-            "MODULE_LOAD"                       : "项目模块加载完成",
-            "VERSION_LOADING"                   : "正在请求版本信息...",
-            "VERSION_LOAD"                      : "版本信息已加载",
-            "VERSION_EXIT"                      : "已退出版本观看模式",
-            "VERSION_SWITCHING"                 : "正在为您切换版本...",
-            "VERSION_SWITCHED"                  : "版本切换成功",
-            "VERSION_SWITCH_ERROR"              : "版本切换中发生错误，已恢复至切换前",
-            "SAVING"                            : "正在保存...",
-            "SAVED"                             : "保存成功",
-            "DELETING"                          : "正在删除...",
-            "DELETED"                           : "删除成功",
-            "PROCESSING"                        : "正在处理中,请稍后...",
-            "PROCESSED"                         : "处理成功",
-            "ERROR"                             : "出现错误，请稍后重试。",
-            "DO_NOT_DOUBLE_CLICK"               : "您的请求正在处理，请勿重复点击。",
-            "FATAL_ERROR"                       : "发生严重错误，请联系维护人员并保留现场。",
-            "SESSION_DELAY_ERROR"               : "Session延时发生异常，建议您立即保存工作区并联系维护人员."
+            "CONFIRM_COVER": "是否确定覆盖旧的内容?",
+            "CONFIRM_SAVE": "是否确认保存?",
+            "CONFIRM_CANCEL": "是否确定取消?",
+            "CONFIRM_CHECKIN": "是否确定提交?",
+            "CONFIRM_CHECKOUT": "是否确定获取?",
+            "CHECK_LOCK_CONFLICKTION": "正在为您检查工作区锁定状态...",
+            "CHECK_LOCK_CONFLICKTION_COMPLETED": "您已成功切换至编辑状态，该项目已被您锁定。",
+            "CHOOSE_AT_FIRST": "请先选择您要操作的选项.",
+            "SAVE_LIST_MAX_LENGTH_OVERFLOW": "您的存档空间已满，请删除不必要的存档，或覆盖旧的存档。",
+            "CONFIRM_DELETE": "您是否确认删除?",
+            "LOADING": "加载中...",
+            "LOAD": "已完成加载",
+            "MODULE_LOADING": "正在加载项目模块...",
+            "MODULE_LOAD": "项目模块加载完成",
+            "VERSION_LOADING": "正在请求版本信息...",
+            "VERSION_LOAD": "版本信息已加载",
+            "VERSION_EXIT": "已退出版本观看模式",
+            "VERSION_SWITCHING": "正在为您切换版本...",
+            "VERSION_SWITCHED": "版本切换成功",
+            "VERSION_SWITCH_ERROR": "版本切换中发生错误，已恢复至切换前",
+            "SAVING": "正在保存...",
+            "SAVED": "保存成功",
+            "DELETING": "正在删除...",
+            "DELETED": "删除成功",
+            "PROCESSING": "正在处理中,请稍后...",
+            "PROCESSED": "处理成功",
+            "ERROR": "出现错误，请稍后重试。",
+            "DO_NOT_DOUBLE_CLICK": "您的请求正在处理，请勿重复点击。",
+            "FATAL_ERROR": "发生严重错误，请联系维护人员并保留现场。",
+            "SESSION_DELAY_ERROR": "Session延时发生异常，建议您立即保存工作区并联系维护人员."
         },
         TEMPLATE = {            // static template
 
-            "REQUEST_BEGIN"                 : "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
-            "REQUEST_BEGIN_EDIT"            : "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
-            "REQUEST_END"                   : "</table>",
-            "REQUEST_PARAMETER_ADD_BUTTON"  : "<div class='btns-container'><a href=\"#\" class=\"btn btn-info btn-xs\" onclick=\"ws.addParam('request'); return false;\"><i class='glyphicon glyphicon-plus'></i>添加参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(true); return false;\"><i class='glyphicon glyphicon-transfer'></i>导入JSON</a></div>",
+            "REQUEST_BEGIN": "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "REQUEST_BEGIN_EDIT": "<h2>请求参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "REQUEST_END": "</table>",
+            "REQUEST_PARAMETER_ADD_BUTTON": "<div class='btns-container'><a href=\"#\" class=\"btn btn-info btn-xs\" onclick=\"ws.addParam('request'); return false;\"><i class='glyphicon glyphicon-plus'></i>添加参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(true); return false;\"><i class='glyphicon glyphicon-transfer'></i>导入JSON</a></div>",
 
-            "RESPONSE_BEGIN"                : "<h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
-            "RESPONSE_BEGIN_EDIT"           : "<h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
-            "RESPONSE_END"                  : "</table>",
-            "RESPONSE_PARAMETER_ADD_BUTTON" : "<div class='btns-container'><a href=\"#\" class=\"btn btn-info btn-xs\" onclick=\"ws.addParam('response'); return false;\"><i class='glyphicon glyphicon-plus'></i>添加参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(); return false;\"><i class='glyphicon glyphicon-transfer'></i>导入JSON</a></div>",
+            "RESPONSE_BEGIN": "<h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "RESPONSE_BEGIN_EDIT": "<h2>响应参数列表</h2><table class=\"table-a\"><tr class=\"head\"><td class=\"head-expander\"></td><td class=\"head-op\">OP</td><td class=\"head-identifier\">变量名</td><td class=\"head-name\">含义</td><td class=\"head-type\">类型</td><td class=\"head-remark\">备注</td></tr>",
+            "RESPONSE_END": "</table>",
+            "RESPONSE_PARAMETER_ADD_BUTTON": "<div class='btns-container'><a href=\"#\" class=\"btn btn-info btn-xs\" onclick=\"ws.addParam('response'); return false;\"><i class='glyphicon glyphicon-plus'></i>添加参数</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.importJSON(); return false;\"><i class='glyphicon glyphicon-transfer'></i>导入JSON</a></div>",
 
-            "SAVE_PANEL_BEGIN"              : "<div id=\"div-save-panel\">",
-            "SAVE_PANEL_END"                : "</div>",
+            "SAVE_PANEL_BEGIN": "<div id=\"div-save-panel\">",
+            "SAVE_PANEL_END": "</div>",
 
-            "VERSION_PANEL_BEGIN"           : "<div id=\"div-version-panel\"><table class='table-version'><tr class='head'><td class='version-op'>OP</td><td class='version'>版本</td><td class='operator'>操作人</td><td class='operation-time'>操作时间</td><td class='version-desc'>描述</td></tr>",
-            "VERSION_PANEL_END"             : "</table></div>",
+            "VERSION_PANEL_BEGIN": "<div id=\"div-version-panel\"><table class='table-version'><tr class='head'><td class='version-op'>OP</td><td class='version'>版本</td><td class='operator'>操作人</td><td class='operation-time'>操作时间</td><td class='version-desc'>描述</td></tr>",
+            "VERSION_PANEL_END": "</table></div>",
 
-            "MODULE_ADD_BUTTON"             : "<div id=\"div-add-m\"><a href=\"#\" style=\"margin:0 10px;\" onclick=\"ws.addM(); return false;\"><i class='glyphicon glyphicon-plus' style='color:#5bc0de'></i></a></div>",
+            "MODULE_ADD_BUTTON": "<div id=\"div-add-m\"><a href=\"#\" style=\"margin:0 10px;\" onclick=\"ws.addM(); return false;\"><i class='glyphicon glyphicon-plus' style='color:#5bc0de'></i></a></div>",
 
-            "SEPERATOR"                     : "<div class=\"seperator\"></div>" ,
+            "SEPERATOR": "<div class=\"seperator\"></div>",
 
-            "NO_DATA_CHECKED"               : "<div class='log-item'><font color='gray'>没有可获取或更新的数据</font></div>"
+            "NO_DATA_CHECKED": "<div class='log-item'><font color='gray'>没有可获取或更新的数据</font></div>"
         },
         CONFIG = {
-            "SAVE_LIST_MAX_LENGTH"       : 10,
-            "DEFAULT_MAX_LENGTH"         : 50,
-            "REMARK_MAX_LENGTH"          : 9999,
-            "DEFAULT_INPUT_WIDTH"        : 100,
-            "MODULE_NAME_WIDTH"          : 100,
-            "PARAMETER_NAME_WIDTH"       : 160,
-            "PARAMETER_IDENTIFIER_WIDTH" : 160,
-            "PARAMETER_TYPE_WIDTH"       : 110,
-            "PARAMETER_REMARK_WIDTH"     : 300,
-            "MESSAGE_TIMEOUT"            : 5000,
-            "SESSION_DELAY_TIMESPAN"     : 300000,
-            "KEYPRESS_EVENT_NAME"        : (baidu.browser.firefox ? "keypress" : "keydown")
+            "SAVE_LIST_MAX_LENGTH": 10,
+            "DEFAULT_MAX_LENGTH": 50,
+            "REMARK_MAX_LENGTH": 9999,
+            "DEFAULT_INPUT_WIDTH": 100,
+            "MODULE_NAME_WIDTH": 100,
+            "PARAMETER_NAME_WIDTH": 160,
+            "PARAMETER_IDENTIFIER_WIDTH": 160,
+            "PARAMETER_TYPE_WIDTH": 110,
+            "PARAMETER_REMARK_WIDTH": 300,
+            "MESSAGE_TIMEOUT": 5000,
+            "SESSION_DELAY_TIMESPAN": 300000,
+            "KEYPRESS_EVENT_NAME": (baidu.browser.firefox ? "keypress" : "keydown")
         },
         CONST = {
-            "WARN"     : "warn",
-            "ERROR"    : "error",
-            "LOADING"  : "loading",
-            "LOAD"     : "load",
-            "NORMAL"   : "normal",
-            "EDIT"     : "edit",
-            "VERSION"  : "version"
+            "WARN": "warn",
+            "ERROR": "error",
+            "LOADING": "loading",
+            "LOAD": "load",
+            "NORMAL": "normal",
+            "EDIT": "edit",
+            "VERSION": "version"
         },
         ELEMENT_ID = {
-            "SAVE_PANEL"             : "saveFloater",
-            "SAVE_PANEL_CONTENT"     : "div-save-floater-content",
-            "SAVE_PANEL_MESSAGE"     : "div-save-floater-message",
-            "VERSION_PANEL"          : "versionFloater",
-            "VERSION_PANEL_MESSAGE"  : "div-version-floater-message",
-            "VERSION_PANEL_CONTENT"  : "div-version-floater-content",
-            "CHECKOUT_PANEL"         : "checkoutFloater",
-            "CHECKOUT_PANEL_CONTENT" : "div-checkout-floater-content",
-            "CHECKOUT_PANEL_MESSAGE" : "div-checkout-floater-message",
-            "CHECKIN_PANEL"          : "checkinFloater",
-            "CHECKIN_PANEL_CONTENT"  : "div-checkin-floater-content",
-            "CHECKIN_PANEL_MESSAGE"  : "div-checkin-floater-message",
-            "VSS_PANEL_MESSAGE"      : "div-saveVSS-floater-message",
-            "WORKSPACE_MESSAGE"      : "div-w-message",
-            "EDIT_INPUT"             : "txtMTName" ,
-            "IMPORT_JSON_MESSAGE"    : "div-importJSON-floater-message"
+            "SAVE_PANEL": "saveFloater",
+            "SAVE_PANEL_CONTENT": "div-save-floater-content",
+            "SAVE_PANEL_MESSAGE": "div-save-floater-message",
+            "VERSION_PANEL": "versionFloater",
+            "VERSION_PANEL_MESSAGE": "div-version-floater-message",
+            "VERSION_PANEL_CONTENT": "div-version-floater-content",
+            "CHECKOUT_PANEL": "checkoutFloater",
+            "CHECKOUT_PANEL_CONTENT": "div-checkout-floater-content",
+            "CHECKOUT_PANEL_MESSAGE": "div-checkout-floater-message",
+            "CHECKIN_PANEL": "checkinFloater",
+            "CHECKIN_PANEL_CONTENT": "div-checkin-floater-content",
+            "CHECKIN_PANEL_MESSAGE": "div-checkin-floater-message",
+            "VSS_PANEL_MESSAGE": "div-saveVSS-floater-message",
+            "WORKSPACE_MESSAGE": "div-w-message",
+            "EDIT_INPUT": "txtMTName",
+            "IMPORT_JSON_MESSAGE": "div-importJSON-floater-message"
         },
         PREFIX = {
-            "SAVE" : "radio-save-"
+            "SAVE": "radio-save-"
         };
 
 
     /**
      * initialize run when dom ready
      */
-    ws.init = function(workspaceObj, urlObj, actionId) {
+    ws.init = function (workspaceObj, urlObj, actionId) {
         var me = this;
         if (typeof actionId !== 'number' || actionId === 0) {
             var hashId = getHash();
@@ -1382,7 +1364,8 @@ function deepCopy(o) {
         var me = this;
         var cb = arguments[arguments.length - 1];
         if (!cb || typeof cb !== 'function') {
-            cb = function(){};
+            cb = function () {
+            };
         }
         _isLocalStorageEnabled = typeof(localStorage) != 'undefined';
         _isMockDisplay = false;
@@ -1407,7 +1390,7 @@ function deepCopy(o) {
                 }
             }
 
-        } catch(e) {
+        } catch (e) {
             showMessage(CONST.ERROR, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
         }
         b.dom.ready(function () {
@@ -1421,15 +1404,15 @@ function deepCopy(o) {
              * initialize variables that shuold be only initialized once
              */
             _viewState = {
-                "moduleId"   : -1,
-                "pageId"     : -1,
-                "actionId"   : -1,
+                "moduleId": -1,
+                "pageId": -1,
+                "actionId": -1,
                 "parameterId": -1
             };
 
             _debugCounter = 1;
 
-            window.onbeforeunload = function() {
+            window.onbeforeunload = function () {
                 if (_isEditMode) {
                     if (_isLocalStorageEnabled) {
                         _data.projectData = p.getData();
@@ -1457,7 +1440,7 @@ function deepCopy(o) {
              * bind events
              */
 
-            // tree node fixed, for <a></a>(tree node control panel)
+                // tree node fixed, for <a></a>(tree node control panel)
             ecui.ui.Tree.prototype.onclick = function (event) {
                 return event.target == this.getBase();
             };
@@ -1469,11 +1452,11 @@ function deepCopy(o) {
 
         // workspace UI events register
         var inputSearch = $('#inputSearch');
-        inputSearch.keyup(function() {
+        inputSearch.keyup(function () {
             workspaceSearch(inputSearch.val(), arguments);
         });
 
-        $(document.body).keypress(function(ev) {
+        $(document.body).keypress(function (ev) {
             if (ev.altKey && ev.charCode === 402) {
                 inputSearch.focus();
                 ev.preventDefault();
@@ -1482,7 +1465,7 @@ function deepCopy(o) {
 
     };
 
-    ws.workspaceSearchResultHandler = function(type, id) {
+    ws.workspaceSearchResultHandler = function (type, id) {
         var page;
         var actionId;
         var moduleId;
@@ -1507,14 +1490,14 @@ function deepCopy(o) {
     };
 
 
-    ws.showPluginCode = function() {
+    ws.showPluginCode = function () {
         ecFloater.show("pluginCodeFloater");
         b.g('pluginCodeInput').select();
         var ele = document.getElementById('pluginCodeInput');
         ele.selectionEnd = ele.value.length;
     };
 
-    ws.closePluginCodeFloater = function(save) {
+    ws.closePluginCodeFloater = function (save) {
         /**
          * related id filter
          */
@@ -1533,6 +1516,7 @@ function deepCopy(o) {
             }
             return arr.join(',');
         }
+
         e.get("pluginCodeFloater").hide();
         if (save) {
             var ele = $('#divRelatedIds');
@@ -1540,18 +1524,18 @@ function deepCopy(o) {
             var q = "id=" + p.getId() + "&ids=" + val;
             ele.val(val);
             showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVING);
-            b.ajax.post(URL.updateReleatedIds, q, function(xhr, response) {
+            b.ajax.post(URL.updateReleatedIds, q, function (xhr, response) {
                 try {
                     var obj = eval("(" + response + ")");
                     showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVED);
-                } catch(e) {
+                } catch (e) {
                     showMessage(CONST.ERROR, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
                 }
             });
         }
     };
 
-    ws.openActionUrlFloater = function(actionId) {
+    ws.openActionUrlFloater = function (actionId) {
         ecFloater.show("actionUrlFloater");
         $('#actionUrlFloater-input').val(URL.myWorkspace + '?projectId=' + p.getId() + '&actionId=' + actionId);
         $('#actionUrlFloater-input').focus().select();
@@ -1560,22 +1544,22 @@ function deepCopy(o) {
     };
 
 
-    ws.closeActionUrlFloater = function() {
+    ws.closeActionUrlFloater = function () {
         e.get('actionUrlFloater').hide();
     };
 
-    ws._getData = function() {
+    ws._getData = function () {
         return p.getData();
     };
 
-    ws.generateId = function() {
+    ws.generateId = function () {
         return p.generateId();
     };
 
     /**
      * switch module
      */
-    ws.switchM = function(id, defaultActionId, preventDefaultSwitch) {
+    ws.switchM = function (id, defaultActionId, preventDefaultSwitch) {
         if (id === undefined) {
             console.error('ws.switchM(undefined)');
             return;
@@ -1625,7 +1609,7 @@ function deepCopy(o) {
      * @forceRefresh {boolean} if true, refresh will be done forcely (ignore the case
      *                         when target action id equals to current action id
      */
-    ws.switchA = function(actionId, forceRefresh) {
+    ws.switchA = function (actionId, forceRefresh) {
         var action = p.getAction(actionId);
         if (action === null) return;
 
@@ -1636,13 +1620,13 @@ function deepCopy(o) {
                 console.error('invalid invoke: ws.switchA(', actionId, ",", forceRefresh, ")");
                 return;
                 /**
-                var mid = p.getModuleIdByActionId(actionId);
-                if (mid !== undefined) {
+                 var mid = p.getModuleIdByActionId(actionId);
+                 if (mid !== undefined) {
                     ws.switchM(mid);
                 } else {
                     return;
                 }
-                */
+                 */
             }
         }
         getDiv(_curModuleId, "a").innerHTML = getAHtml(action);
@@ -1665,7 +1649,7 @@ function deepCopy(o) {
     /**
      * add module
      */
-    ws.addM = function() {
+    ws.addM = function () {
         var div1 = b.g("div-m-list"),
             div2 = b.g("div-mt-list"),
             id = p.addModule(),
@@ -1689,7 +1673,7 @@ function deepCopy(o) {
     /**
      * add parameter
      */
-    ws.addParam = function(type, parentParamId) {
+    ws.addParam = function (type, parentParamId) {
         var newParamId = -1;
         if (type == "child") {
             newParamId = p.addChildParameter(parentParamId);
@@ -1712,7 +1696,7 @@ function deepCopy(o) {
     /**
      * remove current module
      */
-    ws.removeM = function() {
+    ws.removeM = function () {
         if (!confirm(MESSAGE.CONFIRM_DELETE)) return;
         if (p.isEmpty()) return;
         if (isEditing()) cancelEdit();
@@ -1737,7 +1721,7 @@ function deepCopy(o) {
     /**
      * remove action
      */
-    ws.removeA = function(actionId) {
+    ws.removeA = function (actionId) {
         if (!confirm(MESSAGE.CONFIRM_DELETE)) return;
         // update model
         p.removeAction(actionId);
@@ -1752,7 +1736,7 @@ function deepCopy(o) {
     /**
      * remove page
      */
-    ws.removeP = function(pageId) {
+    ws.removeP = function (pageId) {
         if (!confirm(MESSAGE.CONFIRM_DELETE)) return;
         // update model
         p.removePage(pageId);
@@ -1764,7 +1748,7 @@ function deepCopy(o) {
     /**
      * remove parameter
      */
-    ws.removeParam = function(paramId) {
+    ws.removeParam = function (paramId) {
         p.removeParameter(paramId);
         putObjectIntoDeletedPool("Parameter", paramId);
         ws.switchA(_curActionId);
@@ -1773,7 +1757,7 @@ function deepCopy(o) {
     /**
      * edit
      */
-    ws.edit = function(id, key) {
+    ws.edit = function (id, key) {
         var el,
             str = "",
             oldValue,
@@ -1788,7 +1772,7 @@ function deepCopy(o) {
         // edited is being edited, ignore it.
         if (isEditing()) {
             if (_editContext.id == id && _editContext.key == key) {
-                return ;
+                return;
             } else {
                 this.finishEdit();
             }
@@ -1843,10 +1827,10 @@ function deepCopy(o) {
     /**
      * validate
      */
-    ws.validate = function() {
+    ws.validate = function () {
         showMessage(CONST.LOADING, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.PROCESSING);
         if (!processing()) return;
-        setTimeout(function() {
+        setTimeout(function () {
             ecFloater.show("validateFloater");
             e.get("validateFloater").setTitle("Validate Workspace");
             showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.PROCESSED);
@@ -1857,7 +1841,7 @@ function deepCopy(o) {
     /**
      * save
      */
-    ws.save = function() {
+    ws.save = function () {
         if (!processing()) return;
         ecFloater.show(ELEMENT_ID.SAVE_PANEL);
         e.get(ELEMENT_ID.SAVE_PANEL).setTitle("Save Workspace");
@@ -1867,7 +1851,7 @@ function deepCopy(o) {
     /**
      * start version manage
      */
-    ws.version = function() {
+    ws.version = function () {
         if (!processing()) return;
         e.get(ELEMENT_ID.VERSION_PANEL).setTitle("版本管理");
         ecFloater.show(ELEMENT_ID.VERSION_PANEL);
@@ -1883,7 +1867,7 @@ function deepCopy(o) {
     /**
      * used when something bad happend :(
      */
-    ws._processed = function() {
+    ws._processed = function () {
         processed();
     };
 
@@ -1891,7 +1875,7 @@ function deepCopy(o) {
     /**
      * check in
      */
-    ws.checkIn = function() {
+    ws.checkIn = function () {
         if (!confirm(MESSAGE.CONFIRM_CHECKIN)) return;
         ecFloater.show(ELEMENT_ID.CHECKIN_PANEL);
         ecui.get(ELEMENT_ID.CHECKIN_PANEL).setTitle("Check In");
@@ -1899,7 +1883,7 @@ function deepCopy(o) {
             "&projectDataOriginal=" + util.escaper.escapeInU(b.json.stringify(_data.projectDataOriginal));
         showMessage(CONST.LOADING, ELEMENT_ID.CHECKIN_PANEL_MESSAGE, MESSAGE.PROCESSING);
         if (!processing()) return;
-        b.ajax.post(URL.checkIn, q, function(xhr, response) {
+        b.ajax.post(URL.checkIn, q, function (xhr, response) {
             try {
                 var obj = eval("(" + response + ")");
                 p.init(obj.projectData);
@@ -1907,7 +1891,7 @@ function deepCopy(o) {
                 b.g(ELEMENT_ID.CHECKIN_PANEL_CONTENT).innerHTML = obj.log ? obj.log : TEMPLATE.NO_DATA_CHECKED;
                 bind(true);
                 showMessage(CONST.LOAD, ELEMENT_ID.CHECKIN_PANEL_MESSAGE, MESSAGE.PROCESSED);
-            } catch(e) {
+            } catch (e) {
                 showMessage(CONST.ERROR, ELEMENT_ID.CHECKIN_PANEL_MESSAGE, MESSAGE.FATAL_ERROR);
             } finally {
                 processed();
@@ -1919,21 +1903,21 @@ function deepCopy(o) {
     /**
      * hide save panel
      */
-    ws.closeSavePanel = function() {
+    ws.closeSavePanel = function () {
         e.get(ELEMENT_ID.SAVE_PANEL).hide();
     };
 
     /**
      * hide version panel
      */
-    ws.closeVersionPanel = function() {
+    ws.closeVersionPanel = function () {
         e.get(ELEMENT_ID.VERSION_PANEL).hide();
     };
 
     /**
      * hide check out panel
      */
-    ws.closeCheckOutPanel = function() {
+    ws.closeCheckOutPanel = function () {
         b.g(ELEMENT_ID.CHECKOUT_PANEL_MESSAGE).innerHTML = "";
         b.g(ELEMENT_ID.CHECKOUT_PANEL_CONTENT).innerHTML = "";
         ecui.get(ELEMENT_ID.CHECKOUT_PANEL).hide();
@@ -1942,7 +1926,7 @@ function deepCopy(o) {
     /**
      * hide check in panel
      */
-    ws.closeCheckInPanel = function() {
+    ws.closeCheckInPanel = function () {
         b.g(ELEMENT_ID.CHECKIN_PANEL_MESSAGE).innerHTML = "";
         b.g(ELEMENT_ID.CHECKIN_PANEL_CONTENT).innerHTML = "";
         ecui.get(ELEMENT_ID.CHECKIN_PANEL).hide();
@@ -1950,7 +1934,7 @@ function deepCopy(o) {
 
     /**
      * delete save
-    ws.removeSave = function() {
+     ws.removeSave = function() {
         var save = getSelectedSave();
         if (save === null) {
             showMessage(CONST.WARN, ELEMENT_ID.SAVE_PANEL_MESSAGE, MESSAGE.CHOOSE_AT_FIRST);
@@ -1973,12 +1957,12 @@ function deepCopy(o) {
             }
         });
     };
-    */
+     */
 
     /**
      * data type select changed
      */
-    ws.dataTypeSelectChanged = function(parameterId, value) {
+    ws.dataTypeSelectChanged = function (parameterId, value) {
         p.setParameter(parameterId, value, "dataType");
         if (value == "object" || value == "array<object>") {
             this.switchA(_curActionId);
@@ -1988,7 +1972,7 @@ function deepCopy(o) {
     /**
      * radio version changed
      */
-    ws.radioVersionChanged = function(position) {
+    ws.radioVersionChanged = function (position) {
         b.g("divVersion").innerHTML = p.getVersion() + " -> " + versionUpgrade(p.getVersion(), position);
     };
 
@@ -1996,7 +1980,7 @@ function deepCopy(o) {
     /**
      * data type select key pressed
      */
-    ws.dataTypeKeyPressed = function(e, parameterId) {
+    ws.dataTypeKeyPressed = function (e, parameterId) {
         if (b.event.getKeyCode(e) == 9) {
             this.edit(parameterId, "param-remark");
         }
@@ -2006,7 +1990,7 @@ function deepCopy(o) {
     /**
      * invoked when edit is ready to be finished
      */
-    ws.finishEdit = function(fromOnClick) {
+    ws.finishEdit = function (fromOnClick) {
         if (!isEditing()) return;
         var inputDiv = b.g(ELEMENT_ID.EDIT_INPUT);
         if (!inputDiv) return;
@@ -2053,7 +2037,7 @@ function deepCopy(o) {
     /**
      * add or edit action
      */
-    ws.doAddOrEditA = function() {
+    ws.doAddOrEditA = function () {
         if (!validate("formEditAFloater")) return;
         if (b.g("editAFloater-id").value === "") {
             this.doAddA();
@@ -2065,7 +2049,7 @@ function deepCopy(o) {
     /**
      * add or edit page
      */
-    ws.doAddOrEditP = function() {
+    ws.doAddOrEditP = function () {
         if (!validate("formEditPFloater")) return;
         if (b.g("editPFloater-id").value === "") {
             this.doAddP();
@@ -2077,7 +2061,7 @@ function deepCopy(o) {
     /**
      * do import JSON
      */
-    ws.doImportJSON = function() {
+    ws.doImportJSON = function () {
         if (!validate('formImportJSONFloater')) return;
         var ele = b.g('importJSONFloater-text');
         var txt = ele.value;
@@ -2096,11 +2080,10 @@ function deepCopy(o) {
             processJSONImport(data);
             this.switchA(_curActionId);
             this.cancelImportJSON();
-         } catch (e) {
+        } catch (e) {
             showMessage(CONST.ERROR, ELEMENT_ID.IMPORT_JSON_MESSAGE, 'JSON解析错误: ' + e.message);
-         }
-     };
-
+        }
+    };
 
 
     /**
@@ -2140,7 +2123,7 @@ function deepCopy(o) {
     /**
      * edit action
      */
-    ws.editA = function(actionId) {
+    ws.editA = function (actionId) {
         if (!_isEditMode) return;
         var action = p.getAction(actionId);
         initEditAFloater();
@@ -2166,7 +2149,7 @@ function deepCopy(o) {
     /**
      * edit page
      */
-    ws.editP = function(pageId) {
+    ws.editP = function (pageId) {
         if (!_isEditMode) return;
         var page = p.getPage(pageId);
         initEditPFloater();
@@ -2180,7 +2163,7 @@ function deepCopy(o) {
     /**
      * add action
      */
-    ws.addA = function(pageId) {
+    ws.addA = function (pageId) {
         initEditAFloater();
         b.g("editAFloater-pageId").value = pageId;
         e.get("editAFloater").setTitle("模型管理 - 添加新请求");
@@ -2190,7 +2173,7 @@ function deepCopy(o) {
     /**
      * add page
      */
-    ws.addP = function() {
+    ws.addP = function () {
         initEditPFloater();
         e.get("editPFloater").setTitle("模型管理 - 添加新页面");
         ecFloater.show("editPFloater");
@@ -2199,7 +2182,7 @@ function deepCopy(o) {
     /**
      * submit action edit operation
      */
-    ws.doEditA = function(actionId) {
+    ws.doEditA = function (actionId) {
         // loading action
         var action = {};
         action.id = b.g("editAFloater-id").value - 0;
@@ -2224,7 +2207,7 @@ function deepCopy(o) {
     /**
      * submit action add operation
      */
-    ws.doAddA = function() {
+    ws.doAddA = function () {
         // generating action
         var action = {};
         action.pageId = b.g("editAFloater-pageId").value - 0;
@@ -2253,7 +2236,7 @@ function deepCopy(o) {
     /**
      * submit page add operation
      */
-    ws.doAddP = function() {
+    ws.doAddP = function () {
         // generating page
         var page = {};
         page.moduleId = _curModuleId;
@@ -2273,7 +2256,7 @@ function deepCopy(o) {
     /**
      * submit page edit operation
      */
-    ws.doEditP = function(pageId) {
+    ws.doEditP = function (pageId) {
         // loading page
         var page = {};
         page.id = b.g("editPFloater-id").value - 0;
@@ -2293,51 +2276,89 @@ function deepCopy(o) {
     /**
      * cancel action edit operation
      */
-    ws.cancelEditA = function() {
+    ws.cancelEditA = function () {
         ecui.get("editAFloater").hide();
     };
 
     /**
      * cancel page edit operation
      */
-    ws.cancelEditP = function() {
+    ws.cancelEditP = function () {
         ecui.get("editPFloater").hide();
     };
 
     /**
      * cancel import JSON
      */
-     ws.cancelImportJSON = function() {
-         ecui.get('importJSONFloater').hide();
-     };
+    ws.cancelImportJSON = function () {
+        ecui.get('importJSONFloater').hide();
+    };
 
-     ws.importJSON = function(doesImportToRequest) {
+    ws.importJSON = function (doesImportToRequest) {
         ecFloater.show("importJSONFloater");
         this._doesImportToRequest = !!doesImportToRequest;
-     };
+    };
 
     /**
      * cancel save in VSS mode
      */
-    ws.cancelSaveVSS = function() {
+    ws.cancelSaveVSS = function () {
         ecui.get("saveVSSFloater").hide();
     };
 
     /**
      * switch to edit mode
      */
-    ws.switchToEditMode = function() {
+    ws.switchToEditMode = function () {
         var q = "id=" + p.getId();
         showMessage(CONST.LOADING, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.CHECK_LOCK_CONFLICKTION);
         if (!processing(ELEMENT_ID.WORKSPACE_MESSAGE)) return;
-        b.ajax.post(URL.lock, q, function(xhr, response) {
+        b.ajax.post(URL.lock, q, function (xhr, response) {
             try {
                 response = jsonFilter(response);
                 var obj = eval("(" + response + ")");
                 if (obj.isOk) {
                     storeViewState();
                     if (obj.projectData.moduleList.length === 0) {
-                        obj.projectData.moduleList = [{"id":ws.generateId(),"name":"某模块（点击编辑后双击修改）","introduction":"","pageList":[{"moduleId":ws.generateId(),"name":"某页面","introduction":"","id":ws.generateId(),"isIdGenerated":true,"actionList":[{"pageId":ws.generateId(),"name":"某请求","requestType":"1","requestUrl":"","responseTemplate":"","description":"","id":ws.generateId(),"requestParameterList":[{"id":ws.generateId(),"identifier":"reqParam","name":"某请求参数","remark":"","validator":"","dataType":"number","parameterList":[]}],"responseParameterList":[{"id":ws.generateId(),"identifier":"resParam","name":"某响应参数","remark":"","validator":"","dataType":"number","parameterList":[]}]}]}]}];
+                        obj.projectData.moduleList = [{
+                            "id": ws.generateId(),
+                            "name": "某模块（点击编辑后双击修改）",
+                            "introduction": "",
+                            "pageList": [{
+                                "moduleId": ws.generateId(),
+                                "name": "某页面",
+                                "introduction": "",
+                                "id": ws.generateId(),
+                                "isIdGenerated": true,
+                                "actionList": [{
+                                    "pageId": ws.generateId(),
+                                    "name": "某请求",
+                                    "requestType": "1",
+                                    "requestUrl": "",
+                                    "responseTemplate": "",
+                                    "description": "",
+                                    "id": ws.generateId(),
+                                    "requestParameterList": [{
+                                        "id": ws.generateId(),
+                                        "identifier": "reqParam",
+                                        "name": "某请求参数",
+                                        "remark": "",
+                                        "validator": "",
+                                        "dataType": "number",
+                                        "parameterList": []
+                                    }],
+                                    "responseParameterList": [{
+                                        "id": ws.generateId(),
+                                        "identifier": "resParam",
+                                        "name": "某响应参数",
+                                        "remark": "",
+                                        "validator": "",
+                                        "dataType": "number",
+                                        "parameterList": []
+                                    }]
+                                }]
+                            }]
+                        }];
                     }
                     if (_draftData) {
                         obj = JSON.parse(_draftData);
@@ -2353,7 +2374,7 @@ function deepCopy(o) {
                 } else {
                     showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, obj.errMsg);
                 }
-            } catch(e) {
+            } catch (e) {
                 showMessage(CONST.ERROR, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
             } finally {
                 processed();
@@ -2367,7 +2388,7 @@ function deepCopy(o) {
      * @param isSave true if save operation shuold be performed
      *               false if user cancel the edit
      */
-    ws.switchToViewMode = function(isSave) {
+    ws.switchToViewMode = function (isSave) {
         storeViewState();
         // update model
         if (isSave) {
@@ -2375,20 +2396,21 @@ function deepCopy(o) {
         } else {
             if (!confirm(MESSAGE.CONFIRM_CANCEL)) return;
             var q = "id=" + p.getId();
-            b.ajax.post(URL.unlock, q, function(xhr, response) {});
+            b.ajax.post(URL.unlock, q, function (xhr, response) {
+            });
             // initialize
             p.init(b.object.clone(_data.projectDataOriginal));
             switchToViewModeSub();
         }
     };
 
-    ws.quickSave = function() {
+    ws.quickSave = function () {
         var q = "id=" + p.getId() + "&projectData=" + util.escaper.escapeInU(getProjectDataJson()) +
             "&deletedObjectListData=" + util.escaper.escapeInU(b.json.stringify(_deletedObjectList)) +
             "&versionPosition=4&description=quick save";
-            showMessage(CONST.LOADING, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVING);
-            if (!processing(ELEMENT_ID.WORKSPACE_MESSAGE)) return;
-            b.ajax.post(URL.checkIn, q, function(xhr, response) {
+        showMessage(CONST.LOADING, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVING);
+        if (!processing(ELEMENT_ID.WORKSPACE_MESSAGE)) return;
+        b.ajax.post(URL.checkIn, q, function (xhr, response) {
             try {
                 var obj = eval("(" + response + ")");
                 if (obj.isOk) {
@@ -2403,7 +2425,7 @@ function deepCopy(o) {
                 } else {
                     showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, obj.errMsg);
                 }
-            } catch(e) {
+            } catch (e) {
                 showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
             } finally {
                 processed();
@@ -2412,14 +2434,14 @@ function deepCopy(o) {
 
     };
 
-    ws.doSaveVSS = function() {
+    ws.doSaveVSS = function () {
         if (!validate("formSaveVSSFloater")) return;
         var q = "id=" + p.getId() + "&projectData=" + util.escaper.escapeInU(getProjectDataJson()) +
             "&deletedObjectListData=" + util.escaper.escapeInU(b.json.stringify(_deletedObjectList)) +
             "&versionPosition=" + getSelectedValue("radioVersion") + "&description=" + b.g("txtDescription").value;
-            showMessage(CONST.LOADING, ELEMENT_ID.VSS_PANEL_MESSAGE, MESSAGE.SAVING);
-            if (!processing(ELEMENT_ID.VSS_PANEL_MESSAGE)) return;
-            b.ajax.post(URL.checkIn, q, function(xhr, response) {
+        showMessage(CONST.LOADING, ELEMENT_ID.VSS_PANEL_MESSAGE, MESSAGE.SAVING);
+        if (!processing(ELEMENT_ID.VSS_PANEL_MESSAGE)) return;
+        b.ajax.post(URL.checkIn, q, function (xhr, response) {
             try {
                 var obj = eval("(" + response + ")");
                 if (obj.isOk) {
@@ -2433,7 +2455,7 @@ function deepCopy(o) {
                 } else {
                     showMessage(CONST.WARN, ELEMENT_ID.VSS_PANEL_MESSAGE, obj.errMsg);
                 }
-            } catch(e) {
+            } catch (e) {
                 showMessage(CONST.WARN, ELEMENT_ID.VSS_PANEL_MESSAGE, MESSAGE.FATAL_ERROR);
             } finally {
                 processed();
@@ -2444,7 +2466,7 @@ function deepCopy(o) {
     /**
      * show operation column of parameter table (action table)
      */
-    ws.showOpColumn = function(event, pId) {
+    ws.showOpColumn = function (event, pId) {
         if (!_isEditMode) return;
         b.show("div-param-op-" + pId);
         b.event.stop(event);
@@ -2453,7 +2475,7 @@ function deepCopy(o) {
     /**
      * hide operation column of parameter table (action table)
      */
-    ws.hideOpColumn = function(event, pId) {
+    ws.hideOpColumn = function (event, pId) {
         if (!_isEditMode) return;
         b.hide("div-param-op-" + pId);
         b.event.stop(event);
@@ -2462,16 +2484,16 @@ function deepCopy(o) {
     /**
      * read project of specific version
      */
-    ws.readProjectOfVersion = function() {
+    ws.readProjectOfVersion = function () {
         var versionId = getSelectedValue("radioCheckIn");
         if (!versionId) {
             showMessage(CONST.WARN, ELEMENT_ID.VERSION_PANEL_MESSAGE, MESSAGE.CHOOSE_AT_FIRST);
             return;
         }
-        var q = "versionId=" + versionId ;
+        var q = "versionId=" + versionId;
         showMessage(CONST.LOADING, ELEMENT_ID.VERSION_PANEL_MESSAGE, MESSAGE.VERSION_LOADING);
         if (!processing(ELEMENT_ID.VERSION_PANEL_MESSAGE)) return;
-        b.ajax.post(URL.queryVersion, q, function(xhr, response) {
+        b.ajax.post(URL.queryVersion, q, function (xhr, response) {
             try {
                 var obj = eval("(" + response + ")");
                 p.init(obj.projectData);
@@ -2481,7 +2503,7 @@ function deepCopy(o) {
                 // no need to recovery view state
                 ws.closeVersionPanel();
                 showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.VERSION_LOAD);
-            } catch(e) {
+            } catch (e) {
                 showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
             } finally {
                 processed();
@@ -2492,7 +2514,7 @@ function deepCopy(o) {
     /**
      * exit version observation mode
      */
-    ws.exitVersion = function() {
+    ws.exitVersion = function () {
         p.init(_data.projectDataOriginal);
         setButtonsViewState(CONST.NORMAL);
         _isEditMode = false;
@@ -2503,8 +2525,8 @@ function deepCopy(o) {
     /**
      * switch version
      */
-    ws.switchVersion = function() {
-    if (!confirm('确定要恢复到另一版本吗？')) return;
+    ws.switchVersion = function () {
+        if (!confirm('确定要恢复到另一版本吗？')) return;
         var versionId = getSelectedValue("radioCheckIn");
         if (!versionId) {
             showMessage(CONST.WARN, ELEMENT_ID.VERSION_PANEL_MESSAGE, MESSAGE.CHOOSE_AT_FIRST);
@@ -2513,7 +2535,7 @@ function deepCopy(o) {
         var q = "versionId=" + versionId;
         showMessage(CONST.LOADING, ELEMENT_ID.VERSION_PANEL_MESSAGE, MESSAGE.VERSION_SWITCHING);
         if (!processing(ELEMENT_ID.VERSION_PANEL_MESSAGE)) return;
-        b.ajax.post(URL.switchVersion, q, function(xhr, response) {
+        b.ajax.post(URL.switchVersion, q, function (xhr, response) {
             try {
                 var obj = eval("(" + response + ")");
                 if (obj.isOk) {
@@ -2522,7 +2544,7 @@ function deepCopy(o) {
                 } else {
                     throw Error();
                 }
-            } catch(e) {
+            } catch (e) {
                 showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.VERSION_SWITCH_ERROR);
                 p.init(_data.projectDataOriginal);
             } finally {
@@ -2539,11 +2561,14 @@ function deepCopy(o) {
     /**
      * complex parameter shrink
      */
-    ws.paramShrink = function(paramId) {
+    ws.paramShrink = function (paramId) {
         hideAllChildParameters(p.getParameter(paramId));
         var divExpander = b.g("div-param-expander-" + paramId);
         if (divExpander) {
-            divExpander.onclick = function() {ws.paramExpand(paramId); return false;};
+            divExpander.onclick = function () {
+                ws.paramExpand(paramId);
+                return false;
+            };
             b.dom.removeClass(divExpander, "more");
             b.dom.addClass(divExpander, "more-fold");
         }
@@ -2553,7 +2578,7 @@ function deepCopy(o) {
     /**
      * move or copy action
      */
-    ws.moveAndCopy = function() {
+    ws.moveAndCopy = function () {
         function initActionOpFloater() {
             setSelectedValue("actionOpFloater-op", 'move');
             $('#actionOpFloater-title').html(p.getAction(_curActionId).name);
@@ -2573,11 +2598,12 @@ function deepCopy(o) {
             initSelect1();
             ws.actionOpFloaterSelectChanged();
         }
+
         ecFloater.show("actionOpFloater");
         initActionOpFloater();
     };
 
-    ws.actionOpFloaterSelectChanged = function() {
+    ws.actionOpFloaterSelectChanged = function () {
         var empty = true;
         $('#actionOpFloater-page').html('');
         var pList = p.getPageList(+$('#actionOpFloater-tab').val());
@@ -2598,7 +2624,7 @@ function deepCopy(o) {
     /**
      * close actionOpFloater
      */
-    ws.closeActionOpFloater = function(userConfirm) {
+    ws.closeActionOpFloater = function (userConfirm) {
         if (userConfirm) {
             var targetMID = +$('#actionOpFloater-tab').val();   // target module id
             var targetPID = +$('#actionOpFloater-page').val();  // target page id
@@ -2617,11 +2643,14 @@ function deepCopy(o) {
     /**
      * complex parameter expand
      */
-    ws.paramExpand = function(paramId) {
+    ws.paramExpand = function (paramId) {
         showAllChildParameters(p.getParameter(paramId));
         var divExpander = b.g("div-param-expander-" + paramId);
         if (divExpander) {
-            divExpander.onclick = function() {ws.paramShrink(paramId); return false;};
+            divExpander.onclick = function () {
+                ws.paramShrink(paramId);
+                return false;
+            };
             b.dom.removeClass(divExpander, "more-fold");
             b.dom.addClass(divExpander, "more");
         }
@@ -2631,7 +2660,7 @@ function deepCopy(o) {
     /**
      * toggle mock labels display
      */
-    ws.toggleMockDisplay = function() {
+    ws.toggleMockDisplay = function () {
         if (!_isMockDisplay) {
             $('#btnToggleMockDisplay').addClass('btn-success');
         } else {
@@ -2645,7 +2674,7 @@ function deepCopy(o) {
         ws.switchA(_curActionId, true);
     };
 
-    ws.showMockData = function(actionId) {
+    ws.showMockData = function (actionId) {
         var action = p.getAction(actionId);
         var postData = 'actionData=' + encodeURIComponent(JSON.stringify(action));
         var me = this;
@@ -2653,26 +2682,26 @@ function deepCopy(o) {
         $('#mockRulePreviewFloater-container').val('loading...');
         $('.glyphicon-question-sign').tooltip();
         ecFloater.show("mockDataPreviewFloater");
-        b.ajax.post(URL.queryMockData, postData, function(xhr, response) {
+        b.ajax.post(URL.queryMockData, postData, function (xhr, response) {
             try {
                 // var obj = eval("(" + response + ")");
-                var mockRuleObj = eval('(' + response + ')'); 
-                var mockDataObj  = Mock.mock(mockRuleObj);
+                var mockRuleObj = eval('(' + response + ')');
+                var mockDataObj = Mock.mock(mockRuleObj);
                 me._mockRuleObj = mockRuleObj;
                 $('#mockRulePreviewFloater-container').val(JSON.stringify(mockRuleObj, null, 4));
                 $('#mockDataPreviewFloater-container').val(JSON.stringify(mockDataObj, null, 4));
                 showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVED);
-            } catch(e) {
+            } catch (e) {
                 showMessage(CONST.ERROR, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
             }
         });
     };
 
-    ws.refreshMockPreviewData = function() {
+    ws.refreshMockPreviewData = function () {
         $('#mockDataPreviewFloater-container').val(JSON.stringify(Mock.mock(this._mockRuleObj), null, 4));
     };
 
-    ws.copyToClipboard = function(eleId) {
+    ws.copyToClipboard = function (eleId) {
         var ele = b.g(eleId);
         ele.select();
         try {
@@ -2704,7 +2733,9 @@ function deepCopy(o) {
     function focusElement(element) {
         if (!element) return;
         if (b.browser.ie) {
-            setTimeout(function(){element.focus();}, 200);
+            setTimeout(function () {
+                element.focus();
+            }, 200);
         } else {
             element.focus();
         }
@@ -2735,7 +2766,7 @@ function deepCopy(o) {
      * hide all child parameters of a complex parameter
      */
     function hideAllChildParameters(param) {
-        if (!param || !param.parameterList || param.parameterList <=0) return;
+        if (!param || !param.parameterList || param.parameterList <= 0) return;
         var paramList = param.parameterList,
             paramListNum = paramList.length;
         for (var i = 0; i < paramListNum; i++) {
@@ -2749,7 +2780,7 @@ function deepCopy(o) {
      * show all child parameters of a complex parameter
      */
     function showAllChildParameters(param) {
-        if (!param || !param.parameterList || param.parameterList <=0) return;
+        if (!param || !param.parameterList || param.parameterList <= 0) return;
         var paramList = param.parameterList,
             paramListNum = paramList.length;
         for (var i = 0; i < paramListNum; i++) {
@@ -2806,18 +2837,19 @@ function deepCopy(o) {
             b.show("btnExitVersion");
         }
     }
+
     /**
      * session delay preventing from session timeout
      */
     function sessionDelay() {
-        b.ajax.get(URL.ping, function(xhr, response) {
+        b.ajax.get(URL.ping, function (xhr, response) {
             try {
                 var obj = eval("(" + response + ")");
                 if (obj.isOk) {
                 } else {
                     showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SESSION_DELAY_ERROR);
                 }
-            } catch(e) {
+            } catch (e) {
                 showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SESSION_DELAY_ERROR);
             }
         });
@@ -2889,7 +2921,7 @@ function deepCopy(o) {
             _deletedObjectList = [];
         }
         if (className && id) {
-            _deletedObjectList.push({"className" : className, "id" : id});
+            _deletedObjectList.push({"className": className, "id": id});
         }
     }
 
@@ -2981,7 +3013,7 @@ function deepCopy(o) {
                     if (nextParamId > 0) {
                         ws.edit(nextParamId, "param-name");
                     } else if (p.isRequestParameter(_curActionId, prevParamId)) {
-                    // otherwise, create new parameter, than switch to that
+                        // otherwise, create new parameter, than switch to that
                         ws.addParam('request');
                     } else if (p.isResponseParameter(_curActionId, prevParamId)) {
                         ws.addParam('response');
@@ -3014,7 +3046,7 @@ function deepCopy(o) {
                     if (nextParamId > 0) {
                         ws.edit(nextParamId, "param-name");
                     } else if (p.isRequestParameter(_curActionId, prevParamId)) {
-                    // otherwise, create new parameter, than switch to that
+                        // otherwise, create new parameter, than switch to that
                         ws.addParam('request');
                     } else if (p.isResponseParameter(_curActionId, prevParamId)) {
                         ws.addParam('response');
@@ -3041,9 +3073,9 @@ function deepCopy(o) {
         length = list.length;
         i = 0;
 
-        for(; i < length; i++) {
-            b.on(list[i], "click", function(e) {
-            e.stopPropagation();
+        for (; i < length; i++) {
+            b.on(list[i], "click", function (e) {
+                e.stopPropagation();
             });
         }
     }
@@ -3068,7 +3100,7 @@ function deepCopy(o) {
     function switchToCurA() {
         var curModule = p.getModule(_curModuleId);
         if (curModule !== null && curModule.pageList.length !== 0 &&
-                curModule.pageList[0].actionList.length !== 0) {
+            curModule.pageList[0].actionList.length !== 0) {
             ws.switchA(curModule.pageList[0].actionList[0].id, _curModuleId);
         } else {
             var divAction = b.g("div-a-" + _curModuleId);
@@ -3109,7 +3141,7 @@ function deepCopy(o) {
             str2 = "";
 
         list.sort(modelSorterByName);
-        
+
         // clear old content
         div1.innerHTML = "";
         div2.innerHTML = "";
@@ -3223,7 +3255,7 @@ function deepCopy(o) {
 
         // [todo] mode case
         if (true) {// VSS mode
-        } else if(_data.modeInt == 2) {
+        } else if (_data.modeInt == 2) {
             initSavePanel();
         }
         initVersionPanel();
@@ -3234,7 +3266,6 @@ function deepCopy(o) {
             ws.switchToEditMode();
         }
     }
-
 
 
     /**
@@ -3248,7 +3279,7 @@ function deepCopy(o) {
      * editing
      */
     function editing(id, content, key) {
-        _editContext = {"id" : id, "content" : content, "key" : key};
+        _editContext = {"id": id, "content": content, "key": key};
     }
 
     /**
@@ -3303,10 +3334,10 @@ function deepCopy(o) {
     function processing(eleId) {
         if (_isProcessing) {
             showMessage(
-                    CONST.WARN,
-                    eleId === null ? ELEMENT_ID.WORKSPACE_MESSAGE : eleId,
-                    MESSAGE.DO_NOT_DOUBLE_CLICK
-                );
+                CONST.WARN,
+                eleId === null ? ELEMENT_ID.WORKSPACE_MESSAGE : eleId,
+                MESSAGE.DO_NOT_DOUBLE_CLICK
+            );
             return false;
         }
         _isProcessing = true;
@@ -3360,7 +3391,7 @@ function deepCopy(o) {
                 break;
         }
         ele.innerHTML = message;
-    b.show(ele);
+        b.show(ele);
 
         _messageContainerId = containerId;
         _messageTimer = setTimeout(clearMessage, CONFIG.MESSAGE_TIMEOUT);
@@ -3370,7 +3401,7 @@ function deepCopy(o) {
      * get background style
      */
     function getBackgroundStyle(fileName) {
-        return  "url(\"" + URL.imageRoot + fileName + "\") no-repeat";
+        return "url(\"" + URL.imageRoot + fileName + "\") no-repeat";
     }
 
     /**
@@ -3469,24 +3500,24 @@ function deepCopy(o) {
     /**
      * set selected value (radio or select)
      */
-   function setSelectedValue(selectName, value) {
-       var selectList = document.getElementsByName(selectName),
-           selectListNum = selectList.length;
-       for (var i = 0; i < selectListNum; i++) {
-           var option = selectList[i];
-           if (option.checked) {
-               option.checked = false;
-           }
-           if (option.value == value) {
-               option.checked = true;
-           }
-       }
-   }
+    function setSelectedValue(selectName, value) {
+        var selectList = document.getElementsByName(selectName),
+            selectListNum = selectList.length;
+        for (var i = 0; i < selectListNum; i++) {
+            var option = selectList[i];
+            if (option.checked) {
+                option.checked = false;
+            }
+            if (option.value == value) {
+                option.checked = true;
+            }
+        }
+    }
 
-   /**
-    * update current module tree
-    */
-   function updateCurMTree(refreshOnly) {
+    /**
+     * update current module tree
+     */
+    function updateCurMTree(refreshOnly) {
         var module = p.getModule(_curModuleId);
         if (module === null) return;
         if (!refreshOnly) {
@@ -3501,10 +3532,10 @@ function deepCopy(o) {
         }
     }
 
-   /**
-    * render module tree list
-    */
-   function renderModuleTreeList() {
+    /**
+     * render module tree list
+     */
+    function renderModuleTreeList() {
         var moduleList = p.getModuleList(),
             moduleListNum = moduleList.length,
             i = 0,
@@ -3521,7 +3552,7 @@ function deepCopy(o) {
             b.dom.addClass(cur, 'cur');
         }
 
-   }
+    }
 
     /**
      * process JSON import
@@ -3577,7 +3608,7 @@ function deepCopy(o) {
                 }
 
                 // process @order for import array data
-                if (typeof f2 in {'number' : undefined, 'boolean' : undefined } && f.length > 1) {
+                if (typeof f2 in {'number': undefined, 'boolean': undefined} && f.length > 1) {
                     mValues = [f2];
                     for (i = 1; i < f.length; i++) {
                         mValues.push(f[i]);
@@ -3593,17 +3624,17 @@ function deepCopy(o) {
 
             }
         } else if (typeof f === 'string') {
-            if(param) {
+            if (param) {
                 param.dataType = 'string';
                 param.remark = '@mock=' + f;
             }
         } else if (typeof f === 'number') {
-            if(param) {
+            if (param) {
                 param.dataType = 'number';
                 param.remark = '@mock=' + f;
             }
         } else if (typeof f === 'boolean') {
-            if(param) {
+            if (param) {
                 param.dataType = 'boolean';
                 param.remark = '@mock=' + f;
             }
@@ -3615,14 +3646,14 @@ function deepCopy(o) {
 
             param && (param.dataType = 'object');
 
-            Object.keys(f).forEach(function(key) {
+            Object.keys(f).forEach(function (key) {
                 oldKey = key;
                 oldItem = f[key];
-                if (f[key] && f[key] instanceof Array && f[key].length > 1 
+                if (f[key] && f[key] instanceof Array && f[key].length > 1
                     && f[key][0] instanceof Object && f[key][0] !== null
                     && !(f[key][0] instanceof Array)) {
                     key = key + '|' + f[key].length;
-                    delete f[oldKey] ;
+                    delete f[oldKey];
                     f[key] = oldItem;
                 }
                 processJSONImport(f[key], key, notFirst ? id : null, true);
@@ -3630,7 +3661,7 @@ function deepCopy(o) {
             });
         }
 
-        if (arrContext && typeof f in {'number' : undefined, 'boolean' : undefined}) {
+        if (arrContext && typeof f in {'number': undefined, 'boolean': undefined}) {
             // process @order for import array data for array<object>
             mValues = [f];
             for (i = 1; i < arrContext.length; i++) {
@@ -3645,7 +3676,7 @@ function deepCopy(o) {
             param.remark = '@mock=$order(' + mValues.join(',') + ')';
         }
 
-     }
+    }
 
 
     var _curSearchIndex = -1;
@@ -3669,7 +3700,7 @@ function deepCopy(o) {
 
         // up/down arrow
         if (ev.keyCode === 38 || ev.keyCode === 40) {
-            console.log('keyCode:' , ev.keyCode, ", index:", _curSearchIndex, ", length:", liList.length);
+            console.log('keyCode:', ev.keyCode, ", index:", _curSearchIndex, ", length:", liList.length);
             liList.css('background', 'none');
             $(liList[_curSearchIndex]).removeClass('selected');
             if (ev.keyCode === 40) {
@@ -3688,7 +3719,7 @@ function deepCopy(o) {
 
             return;
 
-        // enter response
+            // enter response
         } else if (ev.keyCode === 13) {
             selectedItem = $('#dropdown-workspace-search .selected');
             orders = selectedItem.find('a').attr('onclick');
@@ -3712,328 +3743,327 @@ function deepCopy(o) {
     }
 
 
+    /***************************************************
+     *                                                 *
+     *       ##html-template-engine-begin              *
+     *                                                 *
+     ***************************************************/
 
-        /***************************************************
-         *                                                 *
-         *       ##html-template-engine-begin              *
-         *                                                 *
-         ***************************************************/
-
+    /**
+     * get workspace search result HTML
+     */
+    function getSearchResultHTML(r) {
+        var AN = 'byActionName',
+            AU = 'byActionUrl',
+            PN = 'byPageName',
+            n, o, num,
+            html = '',
+            header, footer, body,
+            htmlList = [];
         /**
-         * get workspace search result HTML
+         <ul class="dropdown-menu" style="display:block" role="menu" aria-labelledby="dropdownMenu2">
+         <li role="presentation" class="dropdown-header">Dropdown header</li>
+         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+         <li role="presentation" class="divider"></li>
+         <li role="presentation" class="dropdown-header">Dropdown header</li>
+         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+         </ul>
          */
-        function getSearchResultHTML(r) {
-            var AN = 'byActionName',
-                AU = 'byActionUrl',
-                PN = 'byPageName',
-                n, o, num,
-                html = '',
-                header, footer, body,
-                htmlList = [];
-            /**
-            <ul class="dropdown-menu" style="display:block" role="menu" aria-labelledby="dropdownMenu2">
-                <li role="presentation" class="dropdown-header">Dropdown header</li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                <li role="presentation" class="divider"></li>
-                <li role="presentation" class="dropdown-header">Dropdown header</li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-            </ul>
-            */
-            header = '<ul class="dropdown-menu" style="display:block" role="menu" aria-labelledby="dropdownMenu2">';
+        header = '<ul class="dropdown-menu" style="display:block" role="menu" aria-labelledby="dropdownMenu2">';
 
-            // action name results
-            html = '';
-            n = r[AN].length;
-            num = n;
-            if (n) {
-                html += '<li role="presentation" class="dropdown-header">Action Name (' + r[AN + "_length"]  + ')</li>';
-                while (n--) {
-                    o = r[AN][n];
-                    html += '<li role="presentation" class="item"><a role="menuitem" tabindex="-1" href="#" onclick="ws.workspaceSearchResultHandler(\'a\', ' +
-                        o.id + ');">' + o.name + '&nbsp;&nbsp;' + o.requestUrl + '</a></li>';
-                }
-                if (r[AN + "_length"] > num) {
-                    html += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="return false;">... ...</a></li>';
-                }
-                htmlList.push(html);
+        // action name results
+        html = '';
+        n = r[AN].length;
+        num = n;
+        if (n) {
+            html += '<li role="presentation" class="dropdown-header">Action Name (' + r[AN + "_length"] + ')</li>';
+            while (n--) {
+                o = r[AN][n];
+                html += '<li role="presentation" class="item"><a role="menuitem" tabindex="-1" href="#" onclick="ws.workspaceSearchResultHandler(\'a\', ' +
+                    o.id + ');">' + o.name + '&nbsp;&nbsp;' + o.requestUrl + '</a></li>';
             }
-
-            // action url results
-            html = '';
-            n = r[AU].length;
-            num = n;
-            if (n) {
-                html += '<li role="presentation" class="dropdown-header">Request Url (' + r[AU + "_length"] + ')</li>';
-                while (n--) {
-                    o = r[AU][n];
-                    html += '<li role="presentation" class="item"><a role="menuitem" tabindex="-1" href="#" onclick="ws.workspaceSearchResultHandler(\'a\', ' +
-                        o.id + ');">' + o.name + '&nbsp;&nbsp;' + o.requestUrl + '</a></li>';
-                }
-                if (r[AU + "_length"] > num) {
-                    html += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="return false;">... ...</a></li>';
-                }
-                htmlList.push(html);
+            if (r[AN + "_length"] > num) {
+                html += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="return false;">... ...</a></li>';
             }
-
-            // page name results
-            html = '';
-            n = r[PN].length;
-            num = n;
-            if (n) {
-                html += '<li role="presentation" class="dropdown-header">Page Name (' + r[PN + "_length"] + ')</li>';
-                while (n--) {
-                    o = r[PN][n];
-                    html += '<li role="presentation" class="item"><a role="menuitem" tabindex="-1" href="#" onclick="ws.workspaceSearchResultHandler(\'p\', ' +
-                        o.id + ');">' + o.name + '</a></li>';
-                }
-                if (r[PN + "_length"] > num) {
-                    html += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="return false;">... ...</a></li>';
-                }
-                htmlList.push(html);
-            }
-
-            body = htmlList.join('<li role="presentation" class="divider"></li>');
-
-            footer = '</ul>';
-
-            return header + body + footer;
+            htmlList.push(html);
         }
 
-
-        /**
-         * get module html
-         */
-        function getMHtml(m) {
-            var str = "";
-
-            str += "<div class=\"m clearfix\" id=\"div-m-" + m.id + "\">";
-
-            // loading module tree
-            str += getMTreeHtml(m);
-
-            // loading seperator
-            str += TEMPLATE.SEPERATOR;
-
-            // loading content
-            str += getMTableHtml(m);
-
-            str += "</div>";
-
-            return str;
+        // action url results
+        html = '';
+        n = r[AU].length;
+        num = n;
+        if (n) {
+            html += '<li role="presentation" class="dropdown-header">Request Url (' + r[AU + "_length"] + ')</li>';
+            while (n--) {
+                o = r[AU][n];
+                html += '<li role="presentation" class="item"><a role="menuitem" tabindex="-1" href="#" onclick="ws.workspaceSearchResultHandler(\'a\', ' +
+                    o.id + ');">' + o.name + '&nbsp;&nbsp;' + o.requestUrl + '</a></li>';
+            }
+            if (r[AU + "_length"] > num) {
+                html += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="return false;">... ...</a></li>';
+            }
+            htmlList.push(html);
         }
 
-        function modelSorterByName(a, b) {
-            if (a.name > b.name) {
-                return 1;
-            } else if (a.name < b.name) {
-                return -1;
-            } else {
-                return 0;
+        // page name results
+        html = '';
+        n = r[PN].length;
+        num = n;
+        if (n) {
+            html += '<li role="presentation" class="dropdown-header">Page Name (' + r[PN + "_length"] + ')</li>';
+            while (n--) {
+                o = r[PN][n];
+                html += '<li role="presentation" class="item"><a role="menuitem" tabindex="-1" href="#" onclick="ws.workspaceSearchResultHandler(\'p\', ' +
+                    o.id + ');">' + o.name + '</a></li>';
             }
+            if (r[PN + "_length"] > num) {
+                html += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="return false;">... ...</a></li>';
+            }
+            htmlList.push(html);
         }
 
-        /**
-         * get module tree html string from module object
-         */
-        function getMTreeHtml(m) {
-            var str = "",
-                pageList = m.pageList,
-                pageListNum = pageList.length;
+        body = htmlList.join('<li role="presentation" class="divider"></li>');
 
-            pageList.sort(modelSorterByName);
+        footer = '</ul>';
 
-            str += "<div id=\"div-tree-" + m.id + "\" class=\"tree-m\">";
-            str += "<div class=\"more\" ecui=\"type:tree;id:moduleTree" + m.id + "\">";
-            str += "<label>" + util.escaper.escapeInH(m.name);
-            if (_isEditMode) {
-                str     += "<a href=\"#\" onclick=\"ws.removeM(); return false;\"><i class='glyphicon glyphicon-remove' style='color:#d9534f'></i></a>";
-            }
-            str += "</label>";
-            for (var i = 0; i < pageListNum; i++) {
-                var page = pageList[i],
+        return header + body + footer;
+    }
+
+
+    /**
+     * get module html
+     */
+    function getMHtml(m) {
+        var str = "";
+
+        str += "<div class=\"m clearfix\" id=\"div-m-" + m.id + "\">";
+
+        // loading module tree
+        str += getMTreeHtml(m);
+
+        // loading seperator
+        str += TEMPLATE.SEPERATOR;
+
+        // loading content
+        str += getMTableHtml(m);
+
+        str += "</div>";
+
+        return str;
+    }
+
+    function modelSorterByName(a, b) {
+        if (a.name > b.name) {
+            return 1;
+        } else if (a.name < b.name) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * get module tree html string from module object
+     */
+    function getMTreeHtml(m) {
+        var str = "",
+            pageList = m.pageList,
+            pageListNum = pageList.length;
+
+        pageList.sort(modelSorterByName);
+
+        str += "<div id=\"div-tree-" + m.id + "\" class=\"tree-m\">";
+        str += "<div class=\"more\" ecui=\"type:tree;id:moduleTree" + m.id + "\">";
+        str += "<label>" + util.escaper.escapeInH(m.name);
+        if (_isEditMode) {
+            str += "<a href=\"#\" onclick=\"ws.removeM(); return false;\"><i class='glyphicon glyphicon-remove' style='color:#d9534f'></i></a>";
+        }
+        str += "</label>";
+        for (var i = 0; i < pageListNum; i++) {
+            var page = pageList[i],
                 actionList = page.actionList,
                 actionListNum = actionList.length;
-                actionList.sort(modelSorterByName);
+            actionList.sort(modelSorterByName);
 
-                str += "<div class=\"more\">";
-                str += "<label ondblclick=\"ws.editP(" + page.id + "); return false;\">" + util.escaper.escapeInH(page.name);
+            str += "<div class=\"more\">";
+            str += "<label ondblclick=\"ws.editP(" + page.id + "); return false;\">" + util.escaper.escapeInH(page.name);
+            if (_isEditMode) {
+                str += "<span class=\"div-p-control\"><a href=\"#\" class=\"edit-link\" onclick=\"ws.editP(" +
+                    page.id + "); return false;\"><i class=\"glyphicon glyphicon-pencil\"></i></a><a href=\"#\" onclick=\"ws.removeP(" +
+                    page.id + "); return false;\" style=\"margin-left:5px;\"><i class=\"glyphicon glyphicon-trash\"></i></a></span>";
+            }
+            str += (page.isIdGenerated ? '' : '<a class="test-link" href="' + URL.pageTester + '?id=' + page.id + '" target="_blank"><i class="glyphicon glyphicon-step-forward"></i></a>');
+            str += "</label>";
+            for (var j = 0; j < actionListNum; j++) {
+                var action = actionList[j];
+                str += "<div id=\"div-a-tree-node-" + action.id + "\">" + "<a href=\"#\" onclick=\"ws.switchA(" + action.id +
+                    "); return false;\" ondblclick=\"ws.editA(" + action.id + "); return false;\">" + util.escaper.escapeInH(action.name) + "</a>";
                 if (_isEditMode) {
-                    str += "<span class=\"div-p-control\"><a href=\"#\" class=\"edit-link\" onclick=\"ws.editP(" +
-                        page.id + "); return false;\"><i class=\"glyphicon glyphicon-pencil\"></i></a><a href=\"#\" onclick=\"ws.removeP(" +
-                        page.id + "); return false;\" style=\"margin-left:5px;\"><i class=\"glyphicon glyphicon-trash\"></i></a></span>";
-                }
-                str += (page.isIdGenerated ? '' : '<a class="test-link" href="' + URL.pageTester + '?id=' + page.id + '" target="_blank"><i class="glyphicon glyphicon-step-forward"></i></a>');
-                str += "</label>";
-                for (var j = 0; j < actionListNum; j++) {
-                    var action = actionList[j];
-                    str += "<div id=\"div-a-tree-node-" + action.id + "\">" + "<a href=\"#\" onclick=\"ws.switchA(" + action.id +
-                        "); return false;\" ondblclick=\"ws.editA(" + action.id + "); return false;\">" + util.escaper.escapeInH(action.name) + "</a>";
-                    if (_isEditMode) {
-                        str += "<a href=\"#\" class=\"edit-link\" onclick=\"ws.editA(" +
-                            action.id + "); return false;\"><i class=\"glyphicon glyphicon-pencil\"></i><a href=\"#\" onclick=\"ws.removeA(" +
-                            action.id + "); return false;\" style=\"margin-left:5px;\"><i class=\"glyphicon glyphicon-trash\"></i></a>";
-                    }
-                    str += "</div>";
-                }
-                if (_isEditMode) {
-                    str += "<div style='margin-top:10px'><a class=\"btn btn-info btn-xs\" href=\"#\" onclick=\"ws.addA(" + page.id + "); return false;\"><i class=\"glyphicon glyphicon-plus\" style='margin-right: 5px;'></i>添加接口</a></div>";
+                    str += "<a href=\"#\" class=\"edit-link\" onclick=\"ws.editA(" +
+                        action.id + "); return false;\"><i class=\"glyphicon glyphicon-pencil\"></i><a href=\"#\" onclick=\"ws.removeA(" +
+                        action.id + "); return false;\" style=\"margin-left:5px;\"><i class=\"glyphicon glyphicon-trash\"></i></a>";
                 }
                 str += "</div>";
             }
-            str += "</div></div>";
-            return str;
-        }
-
-        /**
-         * get module table html string from module object
-         */
-        function getMTableHtml(m) {
-            var str = "";
-            str += "<div class=\"div-a\" id=\"div-a-" + m.id + "\">";
+            if (_isEditMode) {
+                str += "<div style='margin-top:10px'><a class=\"btn btn-info btn-xs\" href=\"#\" onclick=\"ws.addA(" + page.id + "); return false;\"><i class=\"glyphicon glyphicon-plus\" style='margin-right: 5px;'></i>添加接口</a></div>";
+            }
             str += "</div>";
-            return str;
+        }
+        str += "</div></div>";
+        return str;
+    }
+
+    /**
+     * get module table html string from module object
+     */
+    function getMTableHtml(m) {
+        var str = "";
+        str += "<div class=\"div-a\" id=\"div-a-" + m.id + "\">";
+        str += "</div>";
+        return str;
+    }
+
+    /**
+     * get module tab html string from module object
+     */
+    function getMTHtml(m, isFirst) {
+        var str = "";
+        str += "<a id=\"a-mt-" + m.id + "\" href=\"#\" onclick=\"ws.switchM(";
+        str += m.id + "); return false;\" ondblclick=\"ws.edit(";
+        str += m.id + ", 'mt'); return false;\"><div class=\"tab" + (isFirst ? " first cur" : "");
+        str += "\" id=\"div-mt-" + m.id + "\">" + util.escaper.escapeInH(m.name) + "</div></a>";
+        return str;
+    }
+
+    /**
+     * sort parameters recursively
+     */
+    function sortParams(params) {
+        if (!params) return;
+        var i = 0;
+        var n = params.length;
+        var o;
+        params.sort(paramsSorter);
+        for (; i < n; i++) {
+            sortParams(params[i].parameterList);
+        }
+    }
+
+    /**
+     * params sorter
+     */
+    function paramsSorter(p1, p2) {
+        if (p1 !== p2) {
+            return p1.identifier > p2.identifier ? 1 : -1;
+        }
+        return p1.id > p2.id ? 1 : -1;
+    }
+
+    /**
+     * get action html
+     */
+    function getAHtml(a) {
+        var str = "",
+            requestParameterList = a.requestParameterList,
+            responseParameterList = a.responseParameterList,
+            requestParameterListNum = requestParameterList.length,
+            responseParameterListNum = responseParameterList.length,
+            p, i,
+            breaker = true;
+
+
+        sortParams(requestParameterList);
+        sortParams(responseParameterList);
+
+        str += getAInfoHtml(a);
+
+        if (_isEditMode) {
+            str += "<div class=\"action-info\"><a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.moveAndCopy(); return false;\"><i class='glyphicon glyphicon-random'></i>移动/复制接口</a></div>";
         }
 
-        /**
-         * get module tab html string from module object
-         */
-        function getMTHtml(m, isFirst) {
-            var str = "";
-            str += "<a id=\"a-mt-" + m.id + "\" href=\"#\" onclick=\"ws.switchM(";
-            str += m.id +"); return false;\" ondblclick=\"ws.edit(";
-            str += m.id + ", 'mt'); return false;\"><div class=\"tab" + (isFirst ? " first cur" : "");
-            str += "\" id=\"div-mt-" + m.id + "\">" + util.escaper.escapeInH(m.name) + "</div></a>";
-            return str;
+        //if (requestParameterListNum > 0) {
+        str += _isEditMode ? TEMPLATE.REQUEST_BEGIN_EDIT : TEMPLATE.REQUEST_BEGIN;
+        for (i = 0; i < requestParameterListNum; i++) {
+            p = requestParameterList[i];
+            str += getPTRHtml(p);
+        }
+        str += TEMPLATE.REQUEST_END;
+        //}
+
+        if (_isEditMode) {
+            str += TEMPLATE.REQUEST_PARAMETER_ADD_BUTTON;
         }
 
-        /**
-         * sort parameters recursively
-         */
-        function sortParams(params) {
-            if (!params) return;
-            var i = 0;
-            var n = params.length;
-            var o;
-            params.sort(paramsSorter);
-            for (; i < n; i++) {
-               sortParams(params[i].parameterList);
-            }
+        //if (responseParameterListNum > 0) {
+
+        str += _isEditMode ? TEMPLATE.RESPONSE_BEGIN_EDIT : TEMPLATE.RESPONSE_BEGIN;
+        for (i = 0; i < responseParameterListNum; i++) {
+            p = responseParameterList[i];
+            str += getPTRHtml(p);
+        }
+        str += TEMPLATE.RESPONSE_END;
+        //}
+        if (_isEditMode) {
+            str += TEMPLATE.RESPONSE_PARAMETER_ADD_BUTTON;
         }
 
-        /**
-         * params sorter
-         */
-        function paramsSorter(p1, p2) {
-            if (p1 !== p2) {
-                return p1.identifier > p2.identifier ? 1 : -1;
-            }
-            return p1.id > p2.id ? 1 : -1;
-        }
+        return str;
+    }
 
-        /**
-         * get action html
-         */
-        function getAHtml(a) {
-            var str = "",
-                requestParameterList = a.requestParameterList,
-                responseParameterList = a.responseParameterList,
-                requestParameterListNum = requestParameterList.length,
-                responseParameterListNum = responseParameterList.length,
-                p, i,
-                breaker = true;
-
-
-            sortParams(requestParameterList);
-            sortParams(responseParameterList);
-
-            str += getAInfoHtml(a);
-
-            if (_isEditMode) {
-                str += "<div class=\"action-info\"><a href\"#\" class='btn btn-default btn-xs' onclick=\"ws.moveAndCopy(); return false;\"><i class='glyphicon glyphicon-random'></i>移动/复制接口</a></div>";
-            }
-
-            //if (requestParameterListNum > 0) {
-                str += _isEditMode ? TEMPLATE.REQUEST_BEGIN_EDIT : TEMPLATE.REQUEST_BEGIN;
-                for (i = 0; i < requestParameterListNum; i++) {
-                    p = requestParameterList[i];
-                    str += getPTRHtml(p);
-                }
-                str += TEMPLATE.REQUEST_END;
-            //}
-
-            if (_isEditMode) {
-                str += TEMPLATE.REQUEST_PARAMETER_ADD_BUTTON;
-            }
-
-            //if (responseParameterListNum > 0) {
-
-                str += _isEditMode ? TEMPLATE.RESPONSE_BEGIN_EDIT : TEMPLATE.RESPONSE_BEGIN;
-                for (i = 0; i < responseParameterListNum; i++) {
-                    p = responseParameterList[i];
-                    str += getPTRHtml(p);
-                }
-                str += TEMPLATE.RESPONSE_END;
-            //}
-            if (_isEditMode) {
-                str += TEMPLATE.RESPONSE_PARAMETER_ADD_BUTTON;
-            }
-
-            return str;
-        }
-
-        /**
-         * get action info html
-         */
-        function getAInfoHtml(a) {
-            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id 
-                + ") &nbsp;&nbsp;&nbsp;&nbsp;<button class=\"btn btn-danger btn-xs\" onclick=\"ws.showMockData(" 
-                + a.id + ");\">Mock数据</button></span> </h2><div class='action-info' href='#' onclick='ws.editA(" 
+    /**
+     * get action info html
+     */
+    function getAInfoHtml(a) {
+        var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id
+                + ") &nbsp;&nbsp;&nbsp;&nbsp;<button class=\"btn btn-danger btn-xs\" onclick=\"ws.showMockData("
+                + a.id + ");\">Mock数据</button></span> </h2><div class='action-info' href='#' onclick='ws.editA("
                 + a.id + "); return false;'>",
-                body = "",
-                foot = "</div>";
+            body = "",
+            foot = "</div>";
 
-            if (a.name) {
-                body += "<div class='item'><b>接口名称 </b>" + a.name + "</div>";
-            }
-            if (a.requestType) {
-                body += "<div class='item'><b>请求类型 </b><font color='orange'>" + getRequestTypeStr(a.requestType) + "</font></div>";
-            }
-            if (a.requestUrl) {
-                body += "<div class='item'><b>请求Url </b><font color='blue'> " + a.requestUrl + "</font></div>";
-            }
-            if (a.responseTemplate) {
-                body += "<div class='item'><b>相关模板 </b><font color='red'>" + a.responseTemplate + "</font></div>";
-            }
-            if (a.description) {
-                body += "<div class='item'><b>接口描述 </b>" + processTextarea(a.description) + "</div>";
-            }
-
-
-            if (!body) {
-                body += "no info";
-            }
-            return head + body + foot;
+        if (a.name) {
+            body += "<div class='item'><b>接口名称 </b>" + a.name + "</div>";
+        }
+        if (a.requestType) {
+            body += "<div class='item'><b>请求类型 </b><font color='orange'>" + getRequestTypeStr(a.requestType) + "</font></div>";
+        }
+        if (a.requestUrl) {
+            body += "<div class='item'><b>请求Url </b><font color='blue'> " + a.requestUrl + "</font></div>";
+        }
+        if (a.responseTemplate) {
+            body += "<div class='item'><b>相关模板 </b><font color='red'>" + a.responseTemplate + "</font></div>";
+        }
+        if (a.description) {
+            body += "<div class='item'><b>接口描述 </b>" + processTextarea(a.description) + "</div>";
         }
 
-        /**
-         * process text area, using @code @end commands
-         * to make text area more colorful and readable
-         * @param {string} text string to be formatted
-         * @return {string} formatted string
-         */
-        function processTextarea(txt) {
-            var code = '@type=array_map;';
-            if (txt && txt.substring(0, 16) === code) {
-                txt = txt.substring(16);
-            }
+
+        if (!body) {
+            body += "no info";
+        }
+        return head + body + foot;
+    }
+
+    /**
+     * process text area, using @code @end commands
+     * to make text area more colorful and readable
+     * @param {string} text string to be formatted
+     * @return {string} formatted string
+     */
+    function processTextarea(txt) {
+        var code = '@type=array_map;';
+        if (txt && txt.substring(0, 16) === code) {
+            txt = txt.substring(16);
+        }
 
 
-            var arr = [],
+        var arr = [],
             hasCode = txt.indexOf('@code') > -1,
             i = 0;
-            if (txt.length > 100) {
+        if (txt.length > 100) {
             var t1 = hasCode ? txt.replace(/(@code|@end)/gmi, '') : txt;
             var reg = /@code([\s\S]*?)@end/gm;
 
@@ -4048,294 +4078,295 @@ function deepCopy(o) {
             arr[i++] = txt.replace(reg, '<div class="js-code-area">$1</div>');
             arr[i++] = '</div>';
             arr[i++] = '</div>';
-            } else {
+        } else {
             arr[i++] = txt;
 
-            }
-
-            return arr.join('');
         }
 
-        /**
-         * get request type string
-         */
-        function getRequestTypeStr(requestType) {
-            requestType = requestType - 0;
-            switch (requestType) {
-                case 1:
-                    return "get";
-                case 2:
-                    return "post";
-                case 3:
-                    return "put";
-                case 4:
-                    return "delete";
-                default: return "unknown";
-            }
+        return arr.join('');
+    }
+
+    /**
+     * get request type string
+     */
+    function getRequestTypeStr(requestType) {
+        requestType = requestType - 0;
+        switch (requestType) {
+            case 1:
+                return "get";
+            case 2:
+                return "post";
+            case 3:
+                return "put";
+            case 4:
+                return "delete";
+            default:
+                return "unknown";
         }
+    }
 
-        /**
-         * get parameter tr html
-         */
-        function getPTRHtml(param, level) {
-            var str = "",
-                parameterList = param.parameterList,
-                parameterListNum = param.parameterList && param.parameterList.length ?
-                    param.parameterList.length : 0;
-            level = level || 0;
-            str += "<tr class='tr-param" + (level > 0 || parameterListNum > 0 ? " param-level-" + level : "") +
-                "' id='tr-param-" + param.id + "' onmouseover=\"ws.showOpColumn(event, " +
-                param.id + "); return false;\"" + "onmouseout=\"ws.hideOpColumn(event, " +
-                param.id + "); return false;\">";
+    /**
+     * get parameter tr html
+     */
+    function getPTRHtml(param, level) {
+        var str = "",
+            parameterList = param.parameterList,
+            parameterListNum = param.parameterList && param.parameterList.length ?
+                param.parameterList.length : 0;
+        level = level || 0;
+        str += "<tr class='tr-param" + (level > 0 || parameterListNum > 0 ? " param-level-" + level : "") +
+            "' id='tr-param-" + param.id + "' onmouseover=\"ws.showOpColumn(event, " +
+            param.id + "); return false;\"" + "onmouseout=\"ws.hideOpColumn(event, " +
+            param.id + "); return false;\">";
 
-            // special column, expander
-            str += "<td class='expander'" + (_isEditMode ? " style='background-color:#E6E6E6;'" : "") + ">";
-            if (parameterListNum > 0) {
-                str += "<div style='position:relative;width:0;'><div class='more' id='div-param-expander-" + param.id + "' onclick='ws.paramShrink(" +
-                    param.id + "); return false;' style='width:16px;height:18px;position: absolute;left:-22px;top:-10px;'></div></td>";
-            }
-            str += "</td>";
+        // special column, expander
+        str += "<td class='expander'" + (_isEditMode ? " style='background-color:#E6E6E6;'" : "") + ">";
+        if (parameterListNum > 0) {
+            str += "<div style='position:relative;width:0;'><div class='more' id='div-param-expander-" + param.id + "' onclick='ws.paramShrink(" +
+                param.id + "); return false;' style='width:16px;height:18px;position: absolute;left:-22px;top:-10px;'></div></td>";
+        }
+        str += "</td>";
 
-            if (_isEditMode) {
+        if (_isEditMode) {
             str += getPTDHtml(param.id,
-                    "<div id=\"div-param-op-" + param.id + "\" class=\"div-op-container\" style=\"display:none;\">" +
-                    "<a href=\"#\" onclick=\"ws.removeParam(" + param.id + "); return false;\"><i class='glyphicon glyphicon-remove'></i></a>" +
-                    (parameterListNum > 0 || param.dataType == "object" || param.dataType == "array<object>" ?
-                     "<a style=\"margin-left:5px;color:#47a947;\" href=\"#\" onclick=\"ws.addParam('child', " +
-                        param.id +  "); return false;\"><i class='glyphicon glyphicon-plus'></i></a>" : "") + "</div>", "op");
-            }
-            str += getPTDHtml(param.id, util.escaper.escapeInH(param.identifier), "identifier", level);
-            str += getPTDHtml(param.id, util.escaper.escapeInH(param.name), "name");
-            str += getDataTypeEditSelectHtml(param.id, param.dataType);
-            // for remarkFilter, escape after filter processed...
-            str += getPTDHtml(param.id, param.remark, "remark");
-            str += "</tr>";
+                "<div id=\"div-param-op-" + param.id + "\" class=\"div-op-container\" style=\"display:none;\">" +
+                "<a href=\"#\" onclick=\"ws.removeParam(" + param.id + "); return false;\"><i class='glyphicon glyphicon-remove'></i></a>" +
+                (parameterListNum > 0 || param.dataType == "object" || param.dataType == "array<object>" ?
+                "<a style=\"margin-left:5px;color:#47a947;\" href=\"#\" onclick=\"ws.addParam('child', " +
+                param.id + "); return false;\"><i class='glyphicon glyphicon-plus'></i></a>" : "") + "</div>", "op");
+        }
+        str += getPTDHtml(param.id, util.escaper.escapeInH(param.identifier), "identifier", level);
+        str += getPTDHtml(param.id, util.escaper.escapeInH(param.name), "name");
+        str += getDataTypeEditSelectHtml(param.id, param.dataType);
+        // for remarkFilter, escape after filter processed...
+        str += getPTDHtml(param.id, param.remark, "remark");
+        str += "</tr>";
 
-            for (var i = 0; i < parameterListNum; i++) {
-                str += getPTRHtml(parameterList[i], level + 1);
-            }
-
-            return str;
+        for (var i = 0; i < parameterListNum; i++) {
+            str += getPTRHtml(parameterList[i], level + 1);
         }
 
-        /**
-         * get parameter td html
-         * value must be processed by escapeInH !!!
-         *
-         * for remarkFilter, escape after filter processed...
-         */
-        function getPTDHtml(id, value, type, level) {
-            if (type === 'remark') {
-                value = remarkFilter(value);
-                value = util.escaper.escapeInH(value);
-            } else if (type === 'identifier') {
-                value = identifierFilter(value);
-            }
-            return "<td id='td-param-" + type + "-" + id + "' class='td-param " + type +
-                "' onclick='ws.edit(" + id + ", \"param-"+ type +
-                "\");' >" + (level ? new Array(level + 1).join('&nbsp;&nbsp;&nbsp;&nbsp;') : '') + value + "</td>";
+        return str;
+    }
+
+    /**
+     * get parameter td html
+     * value must be processed by escapeInH !!!
+     *
+     * for remarkFilter, escape after filter processed...
+     */
+    function getPTDHtml(id, value, type, level) {
+        if (type === 'remark') {
+            value = remarkFilter(value);
+            value = util.escaper.escapeInH(value);
+        } else if (type === 'identifier') {
+            value = identifierFilter(value);
         }
+        return "<td id='td-param-" + type + "-" + id + "' class='td-param " + type +
+            "' onclick='ws.edit(" + id + ", \"param-" + type +
+            "\");' >" + (level ? new Array(level + 1).join('&nbsp;&nbsp;&nbsp;&nbsp;') : '') + value + "</td>";
+    }
 
-        /**
-         * remark filter, remove @labels
-         */
-        function remarkFilter(r) {
-            if (_isMockDisplay) {
-                return r;
-            }
-            if (!r) return '';
-            // 感谢@逸才 提供正则表达式
-            if (~r.indexOf('@mock')) {
-                return r.substring(0, r.indexOf('@mock'));
-            }
-            return r.replace(/[\s;]?@\w+=[^;]+[ ;]?/g, '');
+    /**
+     * remark filter, remove @labels
+     */
+    function remarkFilter(r) {
+        if (_isMockDisplay) {
+            return r;
         }
-
-        /**
-         * identifier filter, remove things after |(used for mockjs)
-         */
-        function identifierFilter(r) {
-            if (_isMockDisplay) {
-                return r;
-            }
-            if (!r) return '';
-            return r.replace(/\|.*$/g, '');
+        if (!r) return '';
+        // 感谢@逸才 提供正则表达式
+        if (~r.indexOf('@mock')) {
+            return r.substring(0, r.indexOf('@mock'));
         }
+        return r.replace(/[\s;]?@\w+=[^;]+[ ;]?/g, '');
+    }
 
-        /**
-         * escaption handler
-         */
-        function jsonFilter(s) {
-            if (!s) return '';
-            s =  s.replace(/\\'/g, "'");
-            s = s.replace();
-            return s;
+    /**
+     * identifier filter, remove things after |(used for mockjs)
+     */
+    function identifierFilter(r) {
+        if (_isMockDisplay) {
+            return r;
         }
+        if (!r) return '';
+        return r.replace(/\|.*$/g, '');
+    }
 
+    /**
+     * escaption handler
+     */
+    function jsonFilter(s) {
+        if (!s) return '';
+        s = s.replace(/\\'/g, "'");
+        s = s.replace();
+        return s;
+    }
+
+    /**
+     * action operation
+     *
+     * @param {number} mid target module id
+     * @param {number} pid target page id
+     * @param {string} t   type is one of ["move", "copy", "mount"]
+     */
+    function actionOperate(mid, pid, t) {
+        console.log('action operation request with params, {mid:' + mid + ', pid:' + pid + ', op:' + t + "}.");
+        var curMid = _curModuleId;
+        var curAid = _curActionId;
+        var action = p.getAction(curAid);
+
+        action.pageId = pid;
+
+        if (t === 'move') {
+            p.removeAction(curAid);
+            putObjectIntoDeletedPool("Action", curAid);
+            _curActionId = p.addAction(action, true);
+        } else if (t === 'copy') {
+            _curActionId = p.addAction(action, true, true);
+        }
         /**
-         * action operation
-         *
-         * @param {number} mid target module id
-         * @param {number} pid target page id
-         * @param {string} t   type is one of ["move", "copy", "mount"]
-         */
-        function actionOperate(mid, pid, t) {
-            console.log('action operation request with params, {mid:' + mid + ', pid:' + pid + ', op:' + t + "}.");
-            var curMid = _curModuleId;
-            var curAid = _curActionId;
-            var action = p.getAction(curAid);
-
-            action.pageId = pid;
-
-            if (t === 'move') {
-                p.removeAction(curAid);
-                putObjectIntoDeletedPool("Action", curAid);
-                _curActionId = p.addAction(action, true);
-            } else if (t === 'copy') {
-                _curActionId = p.addAction(action, true, true);
-            }
-            /**
-            else if (t === 'mount') {
+         else if (t === 'mount') {
                 _curActionId = p.addAction(action, 'mount');
             }
-            */
+         */
 
             // hide floater
-            ws.cancelEditA();
+        ws.cancelEditA();
 
-            // update before view moved to target tab
-            updateCurMTree(true);
+        // update before view moved to target tab
+        updateCurMTree(true);
 
-            /// switch th this new added action's module
-            ws.switchM(p.getModuleIdByActionId(_curActionId), undefined, true);
+        /// switch th this new added action's module
+        ws.switchM(p.getModuleIdByActionId(_curActionId), undefined, true);
 
-            // switch to this new added action
-            ws.switchA(_curActionId);
+        // switch to this new added action
+        ws.switchA(_curActionId);
 
-            // update the current model tree
-            updateCurMTree();
+        // update the current model tree
+        updateCurMTree();
+    }
+
+
+    /**
+     * get edit input element
+     */
+    function getEditInputHtml(value, width, maxLength) {
+        if (!value) {
+            value = '';
         }
+        value = util.escaper.escapeInH(value);
+        return "<input id='" + ELEMENT_ID.EDIT_INPUT + "' class='edit-input' type='text' value='" + value +
+            "' style='width: " + width + "px' maxlength='" + maxLength + "' onblur='ws.finishEdit();' />";
+    }
 
+    /**
+     * get parameter data type edit select html
+     */
+    function getDataTypeEditSelectHtml(id, type) {
+        var str = "",
+            typeList = [
+                '',
+                'number',
+                'string',
+                'object',
+                'boolean',
+                'array<number>',
+                'array<string>',
+                'array<object>',
+                'array<boolean>',
+                'array'
+            ],
+            typeListNum = typeList.length;
 
-        /**
-         * get edit input element
-         */
-        function getEditInputHtml(value, width, maxLength) {
-            if (!value) {
-                value = '';
+        str += "<td id='td-param-dataType-" + id + "' class='td-param dataType'>";
+        if (_isEditMode) {
+            str += "<select id='select-dataType-" + id + "' class='select-dataType' on" + CONFIG.KEYPRESS_EVENT_NAME + "='ws.dataTypeKeyPressed(event, " +
+                id + ");' onchange='ws.dataTypeSelectChanged(" + id + ", this.value);'>";
+            for (var i = 0; i < typeListNum; i++) {
+                var item = typeList[i];
+                str += "<option value='" + item + "'" + (item == type ? " selected='true'" : "") + ">" + util.escaper.escapeInH(item) + "</option>";
             }
-            value = util.escaper.escapeInH(value);
-            return "<input id='" + ELEMENT_ID.EDIT_INPUT + "' class='edit-input' type='text' value='" + value +
-                "' style='width: " + width +"px' maxlength='" + maxLength + "' onblur='ws.finishEdit();' />";
+            str += "</select>";
+        } else {
+            str += util.escaper.escapeInH(type);
+        }
+        str += "</td>";
+        return str;
+    }
+
+    /**
+     * get save panel html
+     */
+    function getSavePanelHtml(saveList) {
+        if (saveList === null) return;
+        var n = saveList.length,
+            str = "";
+        n = n >= CONFIG.SAVE_LIST_MAX_LENGTH ? CONFIG.SAVE_LIST_MAX_LENGTH : n;
+        str += TEMPLATE.SAVE_PANEL_BEGIN;
+
+        for (var i = 0; i < n; i++) {
+            str += getSavePanelItemHtml(saveList[i]);
         }
 
-        /**
-         * get parameter data type edit select html
-         */
-        function getDataTypeEditSelectHtml(id, type) {
-            var str = "",
-                typeList = [
-                        '',
-                        'number',
-                        'string',
-                        'object',
-                        'boolean',
-                        'array<number>',
-                        'array<string>',
-                        'array<object>',
-                        'array<boolean>',
-                        'array'
-                    ],
-                typeListNum = typeList.length;
-
-            str += "<td id='td-param-dataType-"+ id +"' class='td-param dataType'>";
-            if (_isEditMode) {
-                str += "<select id='select-dataType-"+ id + "' class='select-dataType' on" + CONFIG.KEYPRESS_EVENT_NAME + "='ws.dataTypeKeyPressed(event, " +
-                    id + ");' onchange='ws.dataTypeSelectChanged(" + id + ", this.value);'>";
-                for (var i = 0; i < typeListNum; i++) {
-                    var item = typeList[i];
-                    str += "<option value='"+ item +"'" + (item == type ? " selected='true'" : "") + ">" + util.escaper.escapeInH(item) + "</option>";
-                }
-                str += "</select>";
-            } else {
-                str += util.escaper.escapeInH(type);
-            }
-            str += "</td>";
-            return str;
+        if (n < CONFIG.SAVE_LIST_MAX_LENGTH) {
+            str += getSavePanelItemHtml();
         }
 
-        /**
-         * get save panel html
-         */
-        function getSavePanelHtml(saveList) {
-            if (saveList === null) return;
-            var n = saveList.length,
-                str = "";
-            n = n >= CONFIG.SAVE_LIST_MAX_LENGTH ? CONFIG.SAVE_LIST_MAX_LENGTH : n;
-            str += TEMPLATE.SAVE_PANEL_BEGIN;
+        str += TEMPLATE.SAVE_PANEL_END;
+        return str;
+    }
 
-            for (var i = 0; i < n; i++) {
-                str += getSavePanelItemHtml(saveList[i]);
-            }
+    /**
+     * get verseion panel html
+     */
+    function getVersionPanelHtml(versionList) {
+        if (versionList === null) return;
+        var n = versionList.length,
+            str = "";
+        str += TEMPLATE.VERSION_PANEL_BEGIN;
 
-            if (n < CONFIG.SAVE_LIST_MAX_LENGTH) {
-                str += getSavePanelItemHtml();
-            }
-
-            str += TEMPLATE.SAVE_PANEL_END;
-            return str;
+        for (var i = 0; i < n; i++) {
+            str += getVersionPanelItemHtml(versionList[i]);
         }
 
-        /**
-         * get verseion panel html
-         */
-        function getVersionPanelHtml(versionList) {
-            if (versionList === null) return;
-            var n = versionList.length,
-                str = "";
-            str += TEMPLATE.VERSION_PANEL_BEGIN;
+        str += TEMPLATE.VERSION_PANEL_END;
+        return str;
+    }
 
-            for (var i = 0; i < n; i++) {
-                str += getVersionPanelItemHtml(versionList[i]);
-            }
+    /**
+     * get save panel item html
+     */
+    function getSavePanelItemHtml(save) {
+        var str = "",
+            isNew = (save === null);
+        str += "<div class='item'><input name='radio-save' type='radio' value='' group='save-panel' " +
+            (isNew ? "" : "id='" + PREFIX.SAVE + save.id + "'") + "/>" + (isNew ? "新增存档" : "存档:" +
+            save.id + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更新时间: " + save.updateDate) + "</div>";
+        return str;
+    }
 
-            str += TEMPLATE.VERSION_PANEL_END;
-            return str;
-        }
-
-        /**
-         * get save panel item html
-         */
-        function getSavePanelItemHtml(save) {
-            var str = "",
-                isNew = (save === null);
-            str += "<div class='item'><input name='radio-save' type='radio' value='' group='save-panel' " +
-                (isNew ? "" : "id='" + PREFIX.SAVE + save.id + "'") + "/>" + (isNew ? "新增存档" : "存档:" +
-                save.id + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更新时间: " + save.updateDate) + "</div>";
-            return str;
-        }
-
-        /**
-         * get version panel html
-         */
-        function getVersionPanelItemHtml(check) {
-            var str = "";
-            str += "<tr class='table-row'>";
-            str += "<td><input name='radioCheckIn' type='radio' group='radioCheckInGroup' value='" + check.id + "' /></td>";
-            str += "<td class='version'>" + check.version + "</td>";
-            str += "<td class='operator'>" + util.escaper.escapeInH(check.userName) + "</td>";
-            str += "<td class='operation-time'>" + check.createDateStr + "</td>";
-            str += "<td class='version-desc' >" + util.escaper.escapeInH(check.description) + "</td>";
-            str += "</tr>";
-            return str;
-        }
+    /**
+     * get version panel html
+     */
+    function getVersionPanelItemHtml(check) {
+        var str = "";
+        str += "<tr class='table-row'>";
+        str += "<td><input name='radioCheckIn' type='radio' group='radioCheckInGroup' value='" + check.id + "' /></td>";
+        str += "<td class='version'>" + check.version + "</td>";
+        str += "<td class='operator'>" + util.escaper.escapeInH(check.userName) + "</td>";
+        str += "<td class='operation-time'>" + check.createDateStr + "</td>";
+        str += "<td class='version-desc' >" + util.escaper.escapeInH(check.description) + "</td>";
+        str += "</tr>";
+        return str;
+    }
 
 
-        /********************************************************
-         *                                                      *
-         *         ##html-template-engine-end                   *
-         *                                                      *
-         ********************************************************/
+    /********************************************************
+     *                                                      *
+     *         ##html-template-engine-end                   *
+     *                                                      *
+     ********************************************************/
 
 
     /********************************************************
@@ -4344,7 +4375,7 @@ function deepCopy(o) {
      *                                                      *
      ********************************************************/
 
- })();
+})();
 
 
 /********************************************************

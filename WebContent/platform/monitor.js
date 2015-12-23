@@ -1,4 +1,4 @@
-!function(){
+!function () {
     var data = window.logsData;
 
     console.log("IP Log");

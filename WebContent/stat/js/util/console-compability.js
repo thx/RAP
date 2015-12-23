@@ -1,4 +1,4 @@
-!function() {
+!function () {
     // console handler
     if (typeof window.console === 'undefined') {
         window.console = {};
@@ -15,7 +15,7 @@
     }
 
     function genereateConsoleMethod(key) {
-        return function(msg) {
+        return function (msg) {
             if (window.showConsoleMsg)
                 document.body.innerHTML += '<br />[' + key + ']:' + msg;
         };

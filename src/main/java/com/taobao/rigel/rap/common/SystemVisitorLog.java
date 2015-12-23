@@ -3,7 +3,7 @@ package com.taobao.rigel.rap.common;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
-import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.*;
 
@@ -11,19 +11,18 @@ import java.util.*;
  * Created by Bosn on 14-9-2.
  */
 public class SystemVisitorLog {
+    private static final int MAX_LOG_LENGTH = 10;
+    private static final int REALTIME_TIME_SPAN = 60;
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(SystemVisitorLog.class.getName());
     private static Map<String, Long> ipMap = new HashMap<String, Long>();
     private static Map<String, Long> userMap = new HashMap<String, Long>();
     private static List<Map<String, String>> mockMapList = new ArrayList<Map<String, String>>();
     private static Map<Integer, Integer> mockMap = new HashMap<Integer, Integer>();
     private static Map<Long, Integer> realtimeMap = new HashMap<Long, Integer>();
-    private static final int MAX_LOG_LENGTH = 10;
-    private static final int REALTIME_TIME_SPAN = 60;
     private static int mockTotalNum = 0;
     private static Date mockTotalNumDate = new Date();
     private static Map<Integer, Integer> cacheIdMap = new HashMap<Integer, Integer>(); // key = actionId, value = projectId
     private static int counter = 1;
-
-
 
     public static List<Project> mock(int projectId, String methodName, String pattern, String account) {
         Date now = new Date();
@@ -54,8 +53,6 @@ public class SystemVisitorLog {
         return mockTotalNum;
     }
 
-    private static final org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(SystemVisitorLog.class.getName());
-
     public static List<Item> getIpLog() {
         return getLogMap(ipMap, MAX_LOG_LENGTH);
     }
@@ -72,7 +69,9 @@ public class SystemVisitorLog {
         return getLogMap(userMap, 0);
     }
 
-    public static List<Map<String, String>> getMockMapList() {return mockMapList;}
+    public static List<Map<String, String>> getMockMapList() {
+        return mockMapList;
+    }
 
     public static List<Map<String, Object>> getRealtimeMap(Long limitTime) {
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
@@ -226,7 +225,7 @@ public class SystemVisitorLog {
         Collections.sort(results, new Comparator<Map<String, Object>>() {
             @Override
             public int compare(Map<String, Object> o1, Map<String, Object> o2) {
-                return (Integer)o2.get("mockNum") - (Integer)o1.get("mockNum");
+                return (Integer) o2.get("mockNum") - (Integer) o1.get("mockNum");
             }
         });
         if (results.size() > 5) {

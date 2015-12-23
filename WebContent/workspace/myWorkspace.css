@@ -1,28 +1,31 @@
 body {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     color: #666;
 }
 
-.add-link,.edit-link,.del-link,.test-link {
-	margin-top: 5px;
-	display: inline-block;
-	margin-left: 5px;
-	cursor: pointer;
-	text-decoration: none !important;
-	color: #999 !important;
+.add-link, .edit-link, .del-link, .test-link {
+    margin-top: 5px;
+    display: inline-block;
+    margin-left: 5px;
+    cursor: pointer;
+    text-decoration: none !important;
+    color: #999 !important;
 }
+
 .ec-tree .add-link,
 .ec-tree .edit-link,
 .ec-tree .del-link,
 .ec-tree .test-link {
-	margin-top: 2px;
+    margin-top: 2px;
 }
-.add-link:hover,.edit-link:hover,.del-link:hover,.test-link:hover {
-	color: #666 !important;
+
+.add-link:hover, .edit-link:hover, .del-link:hover, .test-link:hover {
+    color: #666 !important;
 }
+
 .add-link {
-	background-position: 0 -31px;
+    background-position: 0 -31px;
 }
 
 .air {
@@ -183,13 +186,12 @@ body {
 
 }
 
-
 #div-fixed-panel {
     width: 1170px;
     margin: 70px 0 0 0;
     background: #FFF;
     z-index: 1;
-    top:50px;
+    top: 50px;
 }
 
 .m {
@@ -334,7 +336,7 @@ body {
     border-bottom: 1px solid #DDD;
     width: 1157px;
     text-align: left;
-    margin-top:13px;
+    margin-top: 13px;
 }
 
 #div-mt-list .tab {
@@ -397,7 +399,8 @@ body {
 }
 
 #div-control-panel {
-    float: right; margin-right: 13px;
+    float: right;
+    margin-right: 13px;
 }
 
 #div-control-panel .button {
@@ -406,7 +409,7 @@ body {
 }
 
 #div-control-panel .btn {
-	outline: none;
+    outline: none;
 }
 
 #div-return {
@@ -426,8 +429,7 @@ body {
 
 }
 
-#div-save-floater-message,#div-checkin-floater-message,#div-checkout-floater-message,#div-version-floater-message,#div-saveVSS-floater-message
-    {
+#div-save-floater-message, #div-checkin-floater-message, #div-checkout-floater-message, #div-version-floater-message, #div-saveVSS-floater-message {
     position: absolute;
     top: 40px;
     left: 28px;
@@ -442,7 +444,7 @@ body {
     text-align: right;
 }
 
-#div-checkin-floater-content,#div-checkout-floater-content {
+#div-checkin-floater-content, #div-checkout-floater-content {
     margin: 8px;
     border: Gray 1px dashed;
     width: 550px;
@@ -459,13 +461,13 @@ body {
     font-weight: bold;
 }
 
-#floaterEditAFloater .radio-list label{
+#floaterEditAFloater .radio-list label {
     float: left;
-    margin:0 10px 0 4px;
+    margin: 0 10px 0 4px;
     cursor: pointer;
 }
 
-#floaterEditAFloater .radio-list input{
+#floaterEditAFloater .radio-list input {
     float: left;
 }
 
@@ -488,13 +490,13 @@ body {
     font-weight: bold;
 }
 
-#div-saveVSS-floater-content .radio-list label{
+#div-saveVSS-floater-content .radio-list label {
     float: left;
-    margin:0 10px 0 4px;
+    margin: 0 10px 0 4px;
     cursor: pointer;
 }
 
-#div-saveVSS-floater-content .radio-list input{
+#div-saveVSS-floater-content .radio-list input {
     float: left;
 }
 
@@ -513,13 +515,14 @@ body {
 }
 
 #div-control-panel .btn {
-    margin-left:5px;
+    margin-left: 5px;
 }
 
 .td-param {
     border: white 1px solid;
     border-collapse: collapse;
-    height: 28px; padding-left: 5px;
+    height: 28px;
+    padding-left: 5px;
 }
 
 .table-a {
@@ -536,7 +539,6 @@ body {
 .log-item {
     margin: 8px;
 }
-
 
 .param-level-0 {
     background-color: #b8def5;
@@ -572,13 +574,13 @@ body {
 
 .td-param .edit-input, .tab input {
     background: none;
-    margin:0;
-    font-style:italic;
+    margin: 0;
+    font-style: italic;
 }
 
 .tab input {
-    height:22px;
-    font-size:12px;
+    height: 22px;
+    font-size: 12px;
 }
 
 .item {
@@ -587,9 +589,10 @@ body {
 }
 
 .item b {
-	display: inline-block;
-	width: 60px;
+    display: inline-block;
+    width: 60px;
 }
+
 .select-dataType {
     background-color: #E6E6E6;
     border: none;
@@ -677,24 +680,29 @@ body {
 }
 
 .ec-tree > .edit-link, .ec-tree > .del-link {
-	visibility: hidden;
+    visibility: hidden;
 }
+
 .ec-tree:hover > .edit-link, .ec-tree:hover > .del-link {
-	visibility: visible;
+    visibility: visible;
 }
+
 .div-op-container .del-link {
-	margin-left: 2px;
+    margin-left: 2px;
 }
+
 .div-op-container .del-link i {
-	color: #d9534f;
+    color: #d9534f;
 }
+
 .div-op-container .add-link i {
-	color: #5cb85c;
+    color: #5cb85c;
 }
 
 .div-op-container .del-link, .div-op-container .add-link {
-	margin-top: 0;
+    margin-top: 0;
 }
+
 .div-add-param-link {
     margin-left: 12px;
 }
@@ -714,59 +722,67 @@ body {
 }
 
 #div-workspace-search .glyphicon-search {
-	position: absolute; right: 8px; top: 10px; color: #999;
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    color: #999;
 }
 
 #dropdown-workspace-search .dropdown-menu {
-	min-width: 300px; max-width: 687px;
+    min-width: 300px;
+    max-width: 687px;
 }
 
 #dropdown-workspace-search .dropdown-menu li a {
-	overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #pluginCodeInput {
-	display: block;
-	width: 100%;
-  height: 34px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #555;
-  background-color: #fff;
-  background-image: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
 .table-version {
-	margin: 0 auto;
+    margin: 0 auto;
 }
 
 .myfloater textarea, .myfloater input[type=text], .myfloater input[type=password] {
-	border: 1px solid #DDD;
-	border-radius: 2px;
-	padding: 5px;
-	outline: none;
+    border: 1px solid #DDD;
+    border-radius: 2px;
+    padding: 5px;
+    outline: none;
 }
+
 .myfloater textarea {
-	margin-top: 2px;
-	resize: none;
+    margin-top: 2px;
+    resize: none;
 }
+
 #floaterEditAFloater input[type=text], #floaterEditAFloater input[type=password] {
-	margin-top: 3px;
-	margin-bottom: 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 #floaterEditAFloater .radio-list {
-	padding-top: 5px;
-	padding-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .glyphicon-remove {
-    color:#d9534f
+    color: #d9534f
 }

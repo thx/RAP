@@ -1,47 +1,39 @@
 package com.taobao.rigel.rap.platform.web.action;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import com.google.gson.Gson;
-import com.opensymphony.xwork2.ActionContext;
+import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.Item;
 import com.taobao.rigel.rap.common.SystemVisitorLog;
 import com.taobao.rigel.rap.platform.service.DataMgr;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
-import org.apache.commons.io.IOUtils;
-
-import com.taobao.rigel.rap.common.ActionBase;
-import com.taobao.rigel.rap.common.SystemConstant;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class PlatformAction extends ActionBase {
+    private static final Logger logger = LogManager.getFormatterLogger(PlatformAction.class.getName());
     private Gson gson = new Gson();
-
     private long time;
+    private Map<String, List<Map<String, Object>>> trends = new HashMap<String, List<Map<String, Object>>>();
+    private Map<String, List<Map<String, Object>>> statistics = new HashMap<String, List<Map<String, Object>>>();
+    private int tabIndex;
+    private ProjectMgr projectMgr;
+    private List<Item> modelLog = new ArrayList<Item>();
+    private Map<String, Item> modelLogMap = new HashMap<String, Item>();
+    private DataMgr dataMgr;
+    private String text;
 
     public void setTime(long time) {
         this.time = time;
     }
 
-    private static final Logger logger = LogManager.getFormatterLogger(PlatformAction.class.getName());
-
-	private static final long serialVersionUID = 1L;
-
-    private Map<String, List<Map<String, Object>>> trends = new HashMap<String, List<Map<String, Object>>>();
-
     public Map<String, List<Map<String, Object>>> getTrends() {
         return trends;
     }
-
-    private Map<String, List<Map<String, Object>>> statistics = new HashMap<String, List<Map<String, Object>>>();
 
     public Map<String, List<Map<String, Object>>> getStatistics() {
         return statistics;
@@ -63,10 +55,6 @@ public class PlatformAction extends ActionBase {
         return gson.toJson(SystemVisitorLog.getRealtimeMap(time));
     }
 
-
-
-    private int tabIndex;
-
     public int getTabIndex() {
         return tabIndex;
     }
@@ -74,11 +62,6 @@ public class PlatformAction extends ActionBase {
     public void setTabIndex(int tabIndex) {
         this.tabIndex = tabIndex;
     }
-
-    private ProjectMgr projectMgr;
-    private List<Item> modelLog = new ArrayList<Item>();
-
-    private Map<String, Item> modelLogMap = new HashMap<String, Item>();
 
     public Map<String, Item> getModelLogMap() {
         return modelLogMap;
@@ -88,15 +71,13 @@ public class PlatformAction extends ActionBase {
         return modelLog;
     }
 
-    public void setProjectMgr(ProjectMgr projectMgr) {
-        this.projectMgr = projectMgr;
-    }
-
     public ProjectMgr getProjectMgr() {
         return projectMgr;
     }
 
-    private DataMgr dataMgr;
+    public void setProjectMgr(ProjectMgr projectMgr) {
+        this.projectMgr = projectMgr;
+    }
 
     public DataMgr getDataMgr() {
         return dataMgr;
@@ -106,23 +87,21 @@ public class PlatformAction extends ActionBase {
         this.dataMgr = dataMgr;
     }
 
-    private String text;
+    public String getText() {
+        return text;
+    }
 
-	public String getText() {
-		return text;
-	}
+    public void setText(String text) {
+        this.text = text;
+    }
 
-	public void setText(String text) {
-		this.text = text;
-	}
+    public String home() {
+        return SUCCESS;
+    }
 
-	public String home() {
-		return SUCCESS;
-	}
-
-	public String test() {
-		return SUCCESS;
-	}
+    public String test() {
+        return SUCCESS;
+    }
 
     public String log() {
         // statistics for RAP models
@@ -143,7 +122,6 @@ public class PlatformAction extends ActionBase {
         trends.put("user", dataMgr.getUserTrendByMonth());
         trends.put("project", dataMgr.getProjectTrendByMonth());
         trends.put("checkIn", dataMgr.getCheckInTrendByMonth());
-
 
 
         // statistics data

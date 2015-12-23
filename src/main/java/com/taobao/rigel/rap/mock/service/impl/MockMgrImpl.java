@@ -1,26 +1,21 @@
 package com.taobao.rigel.rap.mock.service.impl;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.common.*;
 import com.taobao.rigel.rap.mock.bo.Rule;
 import com.taobao.rigel.rap.mock.dao.MockDao;
-import nl.flotsam.xeger.Xeger;
-
 import com.taobao.rigel.rap.mock.service.MockMgr;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Parameter;
 import com.taobao.rigel.rap.project.dao.ProjectDao;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
+import nl.flotsam.xeger.Xeger;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MockMgrImpl implements MockMgr {
     private final String ERROR_PATTERN = "{\"isOk\":false,\"msg\":\"路径为空，请查看是否接口未填写URL.\"}";
@@ -34,13 +29,13 @@ public class MockMgrImpl implements MockMgr {
      * random seed
      */
     private int _num = 1;
-    private String[] NAME_LIB = { "霍雍", "行列", "幻刺", "金台", "望天", "李牧", "三冰",
+    private String[] NAME_LIB = {"霍雍", "行列", "幻刺", "金台", "望天", "李牧", "三冰",
             "自勉", "思霏", "诚冉", "甘苦", "勇智", "墨汁老湿", "圣香", "定球", "征宇", "灵兮", "永盛",
-            "小婉", "紫丞", "少侠", "木谦", "周亮", "宝山", "张中", "晓哲", "夜沨" };
-    private String[] LOCATION_LIB = { "北京 朝阳区", "北京 海淀区", "北京 昌平区",
-            "吉林 长春 绿园区", "吉林 吉林 丰满区" };
-    private String[] PHONE_LIB = { "15813243928", "13884928343", "18611683243",
-            "18623432532", "18611582432" };
+            "小婉", "紫丞", "少侠", "木谦", "周亮", "宝山", "张中", "晓哲", "夜沨"};
+    private String[] LOCATION_LIB = {"北京 朝阳区", "北京 海淀区", "北京 昌平区",
+            "吉林 长春 绿园区", "吉林 吉林 丰满区"};
+    private String[] PHONE_LIB = {"15813243928", "13884928343", "18611683243",
+            "18623432532", "18611582432"};
 
     public static Map<String, List<String>> getUrlParameters(String url)
             throws UnsupportedEncodingException {
@@ -112,7 +107,7 @@ public class MockMgrImpl implements MockMgr {
         this.projectDao = projectDao;
     }
 
-    @Override
+
     public String generateData(int projectId, String pattern,
                                Map<String, Object> options) throws UnsupportedEncodingException {
 
@@ -187,7 +182,7 @@ public class MockMgrImpl implements MockMgr {
         return resultFilter(result);
     }
 
-    @Override
+
     public String generateRuleData(int projectId, String pattern,
                                    Map<String, Object> options) throws UnsupportedEncodingException {
         String result = generateRule(projectId, pattern, options);
@@ -203,7 +198,7 @@ public class MockMgrImpl implements MockMgr {
         return result;
     }
 
-    @Override
+
     public String validateAPI(int projectId, String pattern, Map<String, Object> options, String jsonToCompare)
             throws UnsupportedEncodingException {
         String mockjsData = generateRuleData(projectId, pattern, options);
@@ -223,7 +218,7 @@ public class MockMgrImpl implements MockMgr {
         return new JSRunner().run(jsCode.toString());
     }
 
-    @Override
+
     public String generateRule(int projectId, String pattern,
                                Map<String, Object> options) throws UnsupportedEncodingException {
         if (!isPatternLegal(pattern)) {
@@ -232,7 +227,7 @@ public class MockMgrImpl implements MockMgr {
         String originalPattern = pattern;
         boolean loadRule = false;
         Rule rule = null;
-        if (options.get("loadRule") != null && (Boolean)options.get("loadRule") == true) {
+        if (options.get("loadRule") != null && (Boolean) options.get("loadRule") == true) {
             loadRule = true;
         }
         int actionId = 0;
@@ -468,15 +463,12 @@ public class MockMgrImpl implements MockMgr {
     /**
      * build JSON
      *
-     * @param json
-     *            string builder
-     * @param para
-     *            parameter to be parsed
-     * @param index
-     *            available in array<object> stands for index of array, used for
-     *            special mode of tags like @format[3] which means the third
-     *            record enabled only. Default value should be -1 which disabled
-     *            the feature.
+     * @param json  string builder
+     * @param para  parameter to be parsed
+     * @param index available in array<object> stands for index of array, used for
+     *              special mode of tags like @format[3] which means the third
+     *              record enabled only. Default value should be -1 which disabled
+     *              the feature.
      */
     private void buildJson(StringBuilder json, Parameter para, int index) {
         boolean isArrayObject = para.getDataType().equals("array<object>");
@@ -533,15 +525,12 @@ public class MockMgrImpl implements MockMgr {
     /**
      * build mock.js template
      *
-     * @param json
-     *            string builder
-     * @param para
-     *            parameter to be parsed
-     * @param index
-     *            available in array<object> stands for index of array, used for
-     *            special mode of tags like @format[3] which means the third
-     *            record enabled only. Default value should be -1 which disabled
-     *            the feature.
+     * @param json  string builder
+     * @param para  parameter to be parsed
+     * @param index available in array<object> stands for index of array, used for
+     *              special mode of tags like @format[3] which means the third
+     *              record enabled only. Default value should be -1 which disabled
+     *              the feature.
      */
     private void buildMockTemplate(StringBuilder json, Parameter para, int index) {
         boolean isArrayObject = para.getDataType().equals("array<object>");
@@ -910,11 +899,9 @@ public class MockMgrImpl implements MockMgr {
     /**
      * from tag string to tag map
      *
-     * @param tags
-     *            tag string input by parsing whole string split by separator
-     *            ";"
-     * @param tagMap
-     *            tag map
+     * @param tags      tag string input by parsing whole string split by separator
+     *                  ";"
+     * @param tagMap    tag map
      * @param isMocking
      */
     private void parseTags(String[] tags, Map<String, String> tagMap,
@@ -982,7 +969,7 @@ public class MockMgrImpl implements MockMgr {
         }
     }
 
-    @Override
+
     public int modify(int actionId, String mockData) {
         Action action = projectDao.getAction(actionId);
         if (action == null)
@@ -1009,9 +996,8 @@ public class MockMgrImpl implements MockMgr {
      * recursively locating parameter specified in the mock data
      *
      * @param pList
-     * @param snip
-     *            request.a.b.c=@xxxx => a.b.c==@xxxx (namely request. or
-     *            response. removed)
+     * @param snip  request.a.b.c=@xxxx => a.b.c==@xxxx (namely request. or
+     *              response. removed)
      * @return
      */
     private Parameter locateParam(Set<Parameter> pList, String snip) {
@@ -1028,7 +1014,7 @@ public class MockMgrImpl implements MockMgr {
         return null;
     }
 
-    @Override
+
     public int reset(int projectId) {
         return projectDao.resetMockData(projectId);
     }

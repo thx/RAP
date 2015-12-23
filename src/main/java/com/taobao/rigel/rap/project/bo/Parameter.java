@@ -1,56 +1,59 @@
 package com.taobao.rigel.rap.project.bo;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
 import com.taobao.rigel.rap.common.StringUtils;
+
+import java.util.*;
 
 public class Parameter implements java.io.Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private int id;
+    private String mockData;
+    private String name;
+    private String identifier;
+    private String identifierChange;
+    private String remarkChange;
+    private String dataType;
+    private String remark;
+    private Set<Action> actionRequestList = new HashSet<Action>();
+    private Set<Action> actionResponseList = new HashSet<Action>();
+    private String validator = "";
+    private Set<Parameter> parameterList = new HashSet<Parameter>();
+    private Set<Parameter> complexParamerterList = new HashSet<Parameter>();
 
-	private int id;
+    public int getId() {
+        return id;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getMockData() {
+        return mockData;
+    }
 
-	private String mockData;
+    public void setMockData(String mockData) {
+        this.mockData = mockData;
+    }
 
-	public String getMockData() {
-		return mockData;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setMockData(String mockData) {
-		this.mockData = mockData;
-	}
+    public void setName(String name) {
+        this.name = (name == null ? "" : name);
+    }
 
-	private String name;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = (name == null ? "" : name);
-	}
-
-	private String identifier;
-
-	public String getIdentifier() {
+    public String getIdentifier() {
         if (identifierChange != null) {
             return identifierChange;
         } else {
             return identifier;
         }
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = (identifier == null ? "" : identifier);
     }
 
     public String getIdentifierChange() {
@@ -62,8 +65,6 @@ public class Parameter implements java.io.Serializable {
         this.identifierChange = identifierChange;
     }
 
-    private String identifierChange;
-
     public String getRemarkChange() {
         return remarkChange;
     }
@@ -72,23 +73,21 @@ public class Parameter implements java.io.Serializable {
         this.remarkChange = remarkChange;
     }
 
-    private String remarkChange;
+    public String getMockIdentifier() {
+        String rv = "";
+        if (identifier == null || identifier.isEmpty()) {
+            return "\"emptyIdentifier\"";
+        }
 
-	public String getMockIdentifier() {
-		String rv = "";
-		if (identifier == null || identifier.isEmpty()) {
-			return "\"emptyIdentifier\"";
-		}
-
-		rv = identifier;
-		if (rv != null && !rv.isEmpty()) {
-			int index = rv.indexOf("|");
-			if (index > -1) {
-				rv = rv.substring(0, index);
-			}
-		}
-		return "\"" + rv + "\"";
-	}
+        rv = identifier;
+        if (rv != null && !rv.isEmpty()) {
+            int index = rv.indexOf("|");
+            if (index > -1) {
+                rv = rv.substring(0, index);
+            }
+        }
+        return "\"" + rv + "\"";
+    }
 
     public String getIdentifierWithoutMockjsRule() {
         String rv;
@@ -106,141 +105,123 @@ public class Parameter implements java.io.Serializable {
         return rv;
     }
 
-	public String getMockJSIdentifier() {
-		String rv = "";
-		if (identifier == null || identifier.isEmpty()) {
-			return "\"emptyIdentifier\"";
-		}
-		rv = identifier;
-		return "\"" + rv + "\"";
-	}
+    public String getMockJSIdentifier() {
+        String rv = "";
+        if (identifier == null || identifier.isEmpty()) {
+            return "\"emptyIdentifier\"";
+        }
+        rv = identifier;
+        return "\"" + rv + "\"";
+    }
 
-	public void setIdentifier(String identifier) {
-		this.identifier = (identifier == null ? "" : identifier);
-	}
+    public String getDataType() {
+        if (this.dataType == null || this.dataType.trim().isEmpty()) {
+            return "";
+        }
+        return dataType;
+    }
 
-	private String dataType;
+    public void setDataType(String dataType) {
+        this.dataType = (dataType == null ? "" : dataType);
+    }
 
-	public String getDataType() {
-		if (this.dataType == null || this.dataType.trim().isEmpty()) {
-			return "";
-		}
-		return dataType;
-	}
-
-	public void setDataType(String dataType) {
-		this.dataType = (dataType == null ? "" : dataType);
-	}
-
-	private String remark;
-
-	public String getRemark() {
+    public String getRemark() {
         if (remarkChange != null) {
             return remarkChange;
         }
-		return (remark == null ? "" : remark);
-	}
+        return (remark == null ? "" : remark);
+    }
 
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-	private Set<Action> actionRequestList = new HashSet<Action>();
+    public Set<Action> getActionRequestList() {
+        return actionRequestList;
+    }
 
-	public Set<Action> getActionRequestList() {
-		return actionRequestList;
-	}
+    public void setActionRequestList(Set<Action> actionRequestList) {
+        this.actionRequestList = actionRequestList;
+    }
 
-	public void setActionRequestList(Set<Action> actionRequestList) {
-		this.actionRequestList = actionRequestList;
-	}
+    public Set<Action> getActionResponseList() {
+        return actionResponseList;
+    }
 
-	private Set<Action> actionResponseList = new HashSet<Action>();
+    public void setActionResponseList(Set<Action> actionResponseList) {
+        this.actionResponseList = actionResponseList;
+    }
 
-	public Set<Action> getActionResponseList() {
-		return actionResponseList;
-	}
+    public String getValidator() {
+        return validator;
+    }
 
-	public void setActionResponseList(Set<Action> actionResponseList) {
-		this.actionResponseList = actionResponseList;
-	}
+    public void setValidator(String validator) {
+        this.validator = validator;
+    }
 
-	private String validator = "";
+    public Set<Parameter> getParameterList() {
+        return parameterList;
+    }
 
-	public String getValidator() {
-		return validator;
-	}
+    public void setParameterList(Set<Parameter> parameterList) {
+        this.parameterList = parameterList;
+    }
 
-	public void setValidator(String validator) {
-		this.validator = validator;
-	}
+    public void update(Parameter parameter) {
+        setDataType(parameter.getDataType());
+        setIdentifier(parameter.getIdentifier());
+        setName(parameter.getName());
+        setRemark(parameter.getRemark());
+        setValidator(parameter.getValidator());
+    }
 
-	private Set<Parameter> parameterList = new HashSet<Parameter>();
+    public List<Parameter> getParameterListOrdered() {
+        Set<Parameter> parameterList = getParameterList();
+        List<Parameter> parameterListOrdered = new ArrayList<Parameter>();
+        parameterListOrdered.addAll(parameterList);
+        Collections.sort(parameterListOrdered, new ParameterComparator());
+        return parameterListOrdered;
+    }
 
-	public Set<Parameter> getParameterList() {
-		return parameterList;
-	}
+    public Set<Parameter> getComplexParameterList() {
+        return complexParamerterList;
+    }
 
-	public void setParameterList(Set<Parameter> parameterList) {
-		this.parameterList = parameterList;
-	}
+    public void setComplexParameterList(Set<Parameter> complexParameterList) {
+        this.complexParamerterList = complexParameterList;
+    }
 
-	public void update(Parameter parameter) {
-		setDataType(parameter.getDataType());
-		setIdentifier(parameter.getIdentifier());
-		setName(parameter.getName());
-		setRemark(parameter.getRemark());
-		setValidator(parameter.getValidator());
-	}
+    public void addChild(Parameter parameter) {
+        getParameterList().add(parameter);
+        parameter.getComplexParameterList().add(this);
+    }
 
-	public List<Parameter> getParameterListOrdered() {
-		Set<Parameter> parameterList = getParameterList();
-		List<Parameter> parameterListOrdered = new ArrayList<Parameter>();
-		parameterListOrdered.addAll(parameterList);
-		Collections.sort(parameterListOrdered, new ParameterComparator());
-		return parameterListOrdered;
-	}
-
-	private Set<Parameter> complexParamerterList = new HashSet<Parameter>();
-
-	public Set<Parameter> getComplexParameterList() {
-		return complexParamerterList;
-	}
-
-	public void setComplexParameterList(Set<Parameter> complexParameterList) {
-		this.complexParamerterList = complexParameterList;
-	}
-
-	public void addChild(Parameter parameter) {
-		getParameterList().add(parameter);
-		parameter.getComplexParameterList().add(this);
-	}
-
-	public String toString() {
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("{\"id\":" + getId() + ",");
-		stringBuilder.append("\"identifier\":\""
-				+ StringUtils.escapeInJ(getIdentifier()) + "\",");
-		stringBuilder.append("\"name\":\"" + StringUtils.escapeInJ(getName())
-				+ "\",");
-		stringBuilder.append("\"remark\":\""
-				+ StringUtils.escapeInJ(getRemark()) + "\",");
-		stringBuilder.append("\"parameterList\":");
-		stringBuilder.append("[");
-		Iterator<Parameter> iterator = getParameterListOrdered().iterator();
-		while (iterator.hasNext()) {
-			stringBuilder.append(iterator.next());
-			if (iterator.hasNext()) {
-				stringBuilder.append(",");
-			}
-		}
-		stringBuilder.append("],");
-		stringBuilder.append("\"validator\":\""
-				+ StringUtils.escapeInJ(getValidator()) + "\",");
-		stringBuilder.append("\"dataType\":\""
-				+ StringUtils.escapeInJ(getDataType()) + "\"}");
-		return stringBuilder.toString();
-	}
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("{\"id\":" + getId() + ",");
+        stringBuilder.append("\"identifier\":\""
+                + StringUtils.escapeInJ(getIdentifier()) + "\",");
+        stringBuilder.append("\"name\":\"" + StringUtils.escapeInJ(getName())
+                + "\",");
+        stringBuilder.append("\"remark\":\""
+                + StringUtils.escapeInJ(getRemark()) + "\",");
+        stringBuilder.append("\"parameterList\":");
+        stringBuilder.append("[");
+        Iterator<Parameter> iterator = getParameterListOrdered().iterator();
+        while (iterator.hasNext()) {
+            stringBuilder.append(iterator.next());
+            if (iterator.hasNext()) {
+                stringBuilder.append(",");
+            }
+        }
+        stringBuilder.append("],");
+        stringBuilder.append("\"validator\":\""
+                + StringUtils.escapeInJ(getValidator()) + "\",");
+        stringBuilder.append("\"dataType\":\""
+                + StringUtils.escapeInJ(getDataType()) + "\"}");
+        return stringBuilder.toString();
+    }
 
     public String getRemarkWithoutMockjsRule() {
         if (remark != null && remark.contains("@mock=")) {
@@ -259,12 +240,12 @@ public class Parameter implements java.io.Serializable {
     }
 
 
-	public String getJSONSchemaDataType() {
-		if (dataType != null && dataType.contains("array")) {
+    public String getJSONSchemaDataType() {
+        if (dataType != null && dataType.contains("array")) {
             return "array";
         }
-		return this.dataType;
-	}
+        return this.dataType;
+    }
 
     public boolean hasMockJSData() {
         return this.getMockJsRules() != null;

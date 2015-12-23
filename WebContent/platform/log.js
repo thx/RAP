@@ -1,6 +1,6 @@
 'use strict';
 
-!function(global) {
+!function (global) {
     var _trendData = null;
     var _realtimeData = null;
     var NO_DATA_HTML = '<div class="alert alert-info" style="margin:15px;">暂时没有数据</div>';
@@ -10,7 +10,7 @@
     // Radialize the colors
     Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
         return {
-            radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+            radialGradient: {cx: 0.5, cy: 0.3, r: 0.7},
             stops: [
                 [0, color],
                 [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
@@ -19,8 +19,8 @@
     });
 
     Highcharts.setOptions({
-        credits : {
-            enabled : false
+        credits: {
+            enabled: false
         },
         global: {
             useUTC: false
@@ -29,9 +29,12 @@
 
     function toTitle(c) {
         switch (c) {
-            case 'user': return '用户';
-            case 'project': return '项目';
-            case 'checkIn': return '文档提交';
+            case 'user':
+                return '用户';
+            case 'project':
+                return '项目';
+            case 'checkIn':
+                return '文档提交';
         }
         return c;
     }
@@ -57,7 +60,7 @@
             return;
         }
 
-        serie = {name : toTitle(key) + '数', data : []};
+        serie = {name: toTitle(key) + '数', data: []};
         for (i = 0, n = data.length - 1; i < n; i++) {
 
             sum += data[i].num;
@@ -123,10 +126,10 @@
             item = teamData[i];
             if (i == 0) {
                 chartData.push({
-                   name : item.name,
-                   y : item.num,
-                   sliced : true,
-                   selected : true
+                    name: item.name,
+                    y: item.num,
+                    sliced: true,
+                    selected: true
                 });
             } else {
                 chartData.push([item.name, item.num]);
@@ -177,8 +180,8 @@
         for (; i < n; i++) {
             item = mockData[i];
             mockChartData.push({
-                name : item.name,
-                y : item.mockNum
+                name: item.name,
+                y: item.mockNum
             });
             categories.push(item.name);
         }
@@ -207,7 +210,7 @@
                 text: 'Mock调用TOP5'
             },
             series: [{
-                name : 'Mock服务调用次数',
+                name: 'Mock服务调用次数',
                 data: mockChartData
             }]
         });
@@ -223,8 +226,8 @@
         for (; i < n; i++) {
             item = mockDataToday[i];
             mockChartDataToday.push({
-                name : item.name,
-                y : item.mockNum
+                name: item.name,
+                y: item.mockNum
             });
             categoriesToday.push(item.name);
         }
@@ -253,7 +256,7 @@
                 text: '今日Mock调用TOP5'
             },
             series: [{
-                name : 'Mock服务调用次数',
+                name: 'Mock服务调用次数',
                 data: mockChartDataToday
             }]
         });
@@ -301,7 +304,7 @@
                     width: 1,
                     color: '#808080'
                 }],
-                min : 0
+                min: 0
             },
             tooltip: {
                 formatter: function () {
@@ -333,11 +336,11 @@
                     // data loader
                     function dynamicallyLoadData() {
                         $.ajax({
-                            url : updateUrl,
-                            data : {
-                                time : _realtimeData[_realtimeData.length - 1].time
+                            url: updateUrl,
+                            data: {
+                                time: _realtimeData[_realtimeData.length - 1].time
                             },
-                            success:function(json){
+                            success: function (json) {
                                 var data = JSON.parse(json);
                                 for (var i = 0; i < data.length; i++) {
                                     _realtimeData.push(data[i]);
@@ -358,5 +361,7 @@
     global.loadTrends = loadTrends;
     global.loadStatistics = loadStatistics;
     global.loadRealtime = loadRealtime;
-    global.getRealtimeData = function() {return _realtimeData};
+    global.getRealtimeData = function () {
+        return _realtimeData
+    };
 }(this);

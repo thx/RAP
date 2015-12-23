@@ -16,6 +16,11 @@ public class JSRunner {
         this.scope = ct.initStandardObjects();
     }
 
+    public static void main(String[] args) {
+        JSRunner runner = new JSRunner();
+        System.out.println(runner.run("1 + 2"));
+    }
+
     public Context getContext() {
         return this.ct;
     }
@@ -29,10 +34,5 @@ public class JSRunner {
             return "JS_ERROR";
         }
         return result == null ? null : result.toString();
-    }
-
-    public static void main(String[] args) {
-        JSRunner runner = new JSRunner();
-        System.out.println(runner.run("1 + 2"));
     }
 }

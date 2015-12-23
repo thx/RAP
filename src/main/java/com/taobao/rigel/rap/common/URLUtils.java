@@ -8,7 +8,7 @@ public class URLUtils {
         if (url == null) {
             return false;
         }
-        String [] extentions = new String[] {
+        String[] extentions = new String[]{
                 ".jpg", ".png", ".gif",
                 ".js", ".css", ".font", ".woff"
         };
@@ -24,7 +24,7 @@ public class URLUtils {
         if (url == null) {
             return false;
         }
-        String [] keys = new String[] {
+        String[] keys = new String[]{
                 "logData.action", "getUnreadNotificationList.action"
         };
         for (String key : keys) {
@@ -39,7 +39,7 @@ public class URLUtils {
         if (url == null) {
             return false;
         }
-        String [] keys = new String[] {
+        String[] keys = new String[]{
                 "/mockjs/", "/mock/", "/mockjsdata/"
         };
         for (String key : keys) {
@@ -95,7 +95,7 @@ public class URLUtils {
     }
 
     public static String removeParamsInUrl(String url) {
-        String result =  url.replaceAll("/:[^/]*", "/:number");
+        String result = url.replaceAll("/:[^/]*", "/:number");
         if (!result.startsWith("/")) {
             result = "/" + result;
         }
@@ -103,7 +103,7 @@ public class URLUtils {
     }
 
     public static String removeRealParamsInUrl(String url) {
-        url =  url.replaceAll("/[0-9]+[^\\$/]", "/:number");
+        url = url.replaceAll("/[0-9]+[^\\$/]", "/:number");
         String lastPart = url.substring(url.lastIndexOf("/") + 1);
         if (lastPart != null) {
             try {

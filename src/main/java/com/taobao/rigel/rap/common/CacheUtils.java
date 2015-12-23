@@ -1,4 +1,5 @@
 package com.taobao.rigel.rap.common;
+
 import com.taobao.rigel.rap.project.bo.Action;
 
 import java.util.HashMap;
@@ -34,14 +35,14 @@ public class CacheUtils {
         }
         return SystemConstant.getCacheServer().get(MOCK_RULE_CACHE_PREFIX + actionId);
         /**
-        String cache = cachedRules.get(actionId);
-        if (cache != null) {
-            Long fre = rulesFrequency.get(actionId);
-            if (fre != null) {
-                rulesFrequency.put(actionId, fre + 1);
-            }
-        }
-        return cache;
+         String cache = cachedRules.get(actionId);
+         if (cache != null) {
+         Long fre = rulesFrequency.get(actionId);
+         if (fre != null) {
+         rulesFrequency.put(actionId, fre + 1);
+         }
+         }
+         return cache;
          **/
     }
 
@@ -54,12 +55,12 @@ public class CacheUtils {
     public static void setRuleCache(long actionId, String result) {
         SystemConstant.getCacheServer().set(MOCK_RULE_CACHE_PREFIX + actionId, result);
         /**
-        if (!cachedRules.containsKey(actionId)) {
-            cachedRules.put(actionId, result);
-            rulesFrequency.put(actionId, 0L);
-            cachedRuleSize++;
-            cachedSize++;
-        };
+         if (!cachedRules.containsKey(actionId)) {
+         cachedRules.put(actionId, result);
+         rulesFrequency.put(actionId, 0L);
+         cachedRuleSize++;
+         cachedSize++;
+         };
          */
 
     }
@@ -70,19 +71,19 @@ public class CacheUtils {
      * @param actionId
      */
     /**
-    private static void removeRuleCache(long actionId) {
-        if (cachedRules.containsKey(actionId)) {
-            cachedRules.remove(actionId);
-            rulesFrequency.remove(actionId);
-            cachedRuleSize--;
-            cachedSize--;
-        }
-    }
+     private static void removeRuleCache(long actionId) {
+     if (cachedRules.containsKey(actionId)) {
+     cachedRules.remove(actionId);
+     rulesFrequency.remove(actionId);
+     cachedRuleSize--;
+     cachedSize--;
+     }
+     }
      */
     /**
-    public static long getCachedRuleSize() {
-        return cachedRuleSize;
-    }
+     * public static long getCachedRuleSize() {
+     * return cachedRuleSize;
+     * }
      */
 
     public static void removeCacheByActionId(long id) {

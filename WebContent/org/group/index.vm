@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-#parse('/tcom/template.rap.vm')
+    #parse('/tcom/template.rap.vm')
 <html lang="cn">
-	<head>
-		<title>欢迎使用RAP        </title>
-		#includeNewRapStatic
-		<link rel="stylesheet" href="./group/index.css?_r=$!timeStamp">
-        <script>
-            var teamId = $team.id;
-        </script>
-	</head>
-	<body>
-	    #bodyNewStart
-	    <div class="page">
-		    <div class="groups-con content">
-                <ol class="breadcrumb">
-                    <li><a href="$teamUrl.teams">主页</a></li>
-                    <li><a href="$productlineUrl.productline?id=$team.id">$utils.escapeInH($team.name)</a></li>
-                    <li class="active">$!utils.escapeInH($productLine.name)</li>
-                </ol>
-		    	<div>
-		    		<span class="btn btn-primary create-group"><i class="glyphicon glyphicon-plus"></i> 创建分组</span>
-		    	</div>
-		    	<div class="groups">
-		    		<div class="loading">加载中，请稍候</div>
-		    	</div>
-		    </div>
-	    </div>
-	   
+<head>
+    <title>欢迎使用RAP </title>
+    #includeNewRapStatic
+    <link rel="stylesheet" href="./group/index.css?_r=$!timeStamp">
+    <script>
+        var teamId = $team.id;
+    </script>
+</head>
+<body>
+#bodyNewStart
+<div class="page">
+    <div class="groups-con content">
+        <ol class="breadcrumb">
+            <li><a href="$teamUrl.teams">主页</a></li>
+            <li><a href="$productlineUrl.productline?id=$team.id">$utils.escapeInH($team.name)</a></li>
+            <li class="active">$!utils.escapeInH($productLine.name)</li>
+        </ol>
+        <div>
+            <span class="btn btn-primary create-group"><i class="glyphicon glyphicon-plus"></i> 创建分组</span>
+        </div>
+        <div class="groups">
+            <div class="loading">加载中，请稍候</div>
+        </div>
+    </div>
+</div>
+
 <script type="text/tmpl" id="group-tmpl">
 {{#groups}}
 <div class="group">
@@ -64,6 +64,7 @@
     </div>
 </div>
 {{/groups}}
+
 </script>
 
 <script type="text/tmpl" id="create-proj-success-tmpl">
@@ -81,9 +82,10 @@
 			</div>
 			<input type="hidden" class="accounts-hidden" value="{{accounts}}"/>
         </div>
+
 </script>
 
-	    <script type="text/tmpl" id="create-group-tmpl">
+<script type="text/tmpl" id="create-group-tmpl">
 <div class="form-horizontal" role="form">
   <div class="form-group" style="margin-bottom:0">
     <label for="inputPassword3" class="col-sm-2 control-label">分组名称 <span style="color:red">&#42;</span></label>
@@ -92,8 +94,9 @@
     </div>
   </div>
 </div>
-		</script>
-	    <script type="text/tmpl" id="create-proj-tmpl">
+
+</script>
+<script type="text/tmpl" id="create-proj-tmpl">
 <div class="form-horizontal" role="form">
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">项目名称 <span style="color:red">&#42;</span></label>
@@ -119,8 +122,9 @@
 	</div>
   </div>
 </div>
+
 </script>
 <script src="./group/index.js?_r=$!timeStamp"></script>
-	    #bodyEnd
-	</body>
+#bodyEnd
+</body>
 </html>

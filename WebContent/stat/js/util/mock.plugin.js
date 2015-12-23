@@ -6,10 +6,13 @@
  * @createDate Mar. 10th 2014
  * @updateDate Apr. 14th 2015
  */
-(function(window, undefined) {
+(function (window, undefined) {
     var node = null;
     var blackList = [];
-    var whiteList = [#foreach($url in $urlList)#if($velocityCount>1),#end"$url"#end];
+    var whiteList = [#foreach($url in $urlList)#if ($velocityCount > 1),#end
+    "$url"#end
+    ]
+    ;
 
     var ROOT = "$!consts.DOMAIN_URL";
     var LOST = "LOST";
@@ -27,10 +30,14 @@
         mode = +modeStr;
     }
     var modeList = [0, 1, 2, 3];
-    var projectId = $!projectId;
-    var seajsEnabled = $!seajs;
-    var enable = $!enable;
-    var disableLog = $!disableLog;
+    var projectId = $
+    !projectId;
+    var seajsEnabled = $
+    !seajs;
+    var enable = $
+    !enable;
+    var disableLog = $
+    !disableLog;
 
     console.log('Current RAP work mode:', mode, "(0-disabled, 1-intercept all requests, 2-black list, 3-white list)");
 
@@ -47,7 +54,7 @@
         jQuery._rap_wrapped = true;
 
         var ajax = jQuery.ajax;
-        jQuery.ajax = function() {
+        jQuery.ajax = function () {
             var oOptions = arguments[0];
 
             // process ajax(url, options) condition
@@ -59,10 +66,10 @@
                 oOptions.url = arguments[0];
                 arguments[0] = oOptions;
 
-            } else if(typeof arguments[0] === 'string' &&
+            } else if (typeof arguments[0] === 'string' &&
                 typeof arguments[1] === undefined) {
                 oOptions = arguments[0] = {
-                    url : arguments[0]
+                    url: arguments[0]
                 };
             }
 
@@ -71,7 +78,7 @@
             if (routePassed) {
                 rapUrlConverterJQuery(oOptions);
                 var oldSuccess1 = oOptions.success;
-                oldSuccess1 && (oOptions.success = function(data) {
+                oldSuccess1 && (oOptions.success = function (data) {
                     if (PREFIX == '/mockjs/') {
                         data = Mock.mock(data);
                         if (data.__root__) {
@@ -87,7 +94,7 @@
                 });
 
                 var oldComplete = oOptions.complete;
-                oldComplete && (oOptions.complete = function(data) {
+                oldComplete && (oOptions.complete = function (data) {
                     if (PREFIX == '/mockjs/') {
                         data = Mock.mock(data);
                         if (data.__root__) {
@@ -101,32 +108,32 @@
                     }
                     oldComplete.apply(this, arguments);
                 });
-            } else if(isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
-                var checkerOptions = {url : oOptions.url};
+            } else if (isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
+                var checkerOptions = {url: oOptions.url};
                 rapUrlConverterJQuery(checkerOptions);
                 checkerOptions.RAP_NOT_TRACK = true;
                 checkerOptions.success = checkerHandler;
                 // real data checking
                 var oldSuccess2 = oOptions.success;
-                oOptions.success = function() {
+                oOptions.success = function () {
                     var realData = arguments[0];
                     checkerOptions.context = {
-                        data : realData,
-                        url : oOptions.url
+                        data: realData,
+                        url: oOptions.url
                     };
                     // perform real data check
                     ajax.apply(jQuery, [checkerOptions]);
-                    oldSuccess2.apply(this,arguments);
+                    oldSuccess2.apply(this, arguments);
                 };
             }
             var rv = ajax.apply(this, arguments);
             if (routePassed) {
                 var oldDone = rv.done;
-                oldDone && (rv.done = function(data) {
+                oldDone && (rv.done = function (data) {
                     var oldCb = arguments[0];
                     var args = arguments;
                     if (oldCb) {
-                        args[0] = function(data) {
+                        args[0] = function (data) {
                             if (PREFIX == '/mockjs/') {
                                 data = Mock.mock(data);
                                 if (data.__root__) {
@@ -167,10 +174,10 @@
             KISSY.oldUse = KISSY.use;
             KISSY.oldAdd = KISSY.add;
 
-            KISSY.add('rap_io', function(S, IO) {
+            KISSY.add('rap_io', function (S, IO) {
                 var oldIO = IO;
                 var key;
-                var fn = KISSY.io = KISSY.IO = KISSY.ajax = function(options) {
+                var fn = KISSY.io = KISSY.IO = KISSY.ajax = function (options) {
                     var oOptions, url;
                     if (arguments[0]) {
                         oOptions = arguments[0];
@@ -178,7 +185,7 @@
                         if (route(url) && !oOptions.RAP_NOT_TRACK) {
                             rapUrlConverterKissy(oOptions);
                             var oldSuccess1 = oOptions.success;
-                            oldSuccess1 && (oOptions.success = function(data) {
+                            oldSuccess1 && (oOptions.success = function (data) {
                                 if (PREFIX == '/mockjs/') {
                                     data = Mock.mock(data);
                                     if (data.__root__) {
@@ -192,7 +199,7 @@
                                 oldSuccess1.apply(this, arguments);
                             });
                             var oldComplete = oOptions.complete;
-                            oldComplete && (oOptions.complete = function(data) {
+                            oldComplete && (oOptions.complete = function (data) {
                                 if (PREFIX == '/mockjs/') {
                                     data = Mock.mock(data);
                                     if (data.__root__) {
@@ -206,22 +213,22 @@
                                 }
                                 oldComplete.apply(this, arguments);
                             });
-                        } else if(isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
-                            var checkerOptions = {url:oOptions.url};
+                        } else if (isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
+                            var checkerOptions = {url: oOptions.url};
                             rapUrlConverterKissy(checkerOptions);
                             checkerOptions.RAP_NOT_TRACK = true;
                             checkerOptions.success = checkerHandler;
                             // real data checking
                             var oldSuccess2 = oOptions.success;
-                            oOptions.success = function() {
+                            oOptions.success = function () {
                                 var realData = arguments[0];
                                 checkerOptions.context = {
-                                    data : realData,
-                                    url : oOptions.url
+                                    data: realData,
+                                    url: oOptions.url
                                 };
                                 // perform real data check
                                 IO(checkerOptions);
-                                oldSuccess2.apply(this,arguments);
+                                oldSuccess2.apply(this, arguments);
                             };
 
                         }
@@ -241,7 +248,7 @@
             });
 
 
-            KISSY.use = function(modules, callback) {
+            KISSY.use = function (modules, callback) {
                 var args = arguments;
                 if (modules instanceof Array || typeof modules === 'string') {
                     args[0] = replace(modules);
@@ -249,10 +256,10 @@
                 KISSY.oldUse.apply(this, args);
             };
 
-            KISSY.add = function(name, fn, options) {
+            KISSY.add = function (name, fn, options) {
                 if (options && options.requires) {
 
-                    for(var i = 0, l = options.requires.length; i < l; i++) {
+                    for (var i = 0, l = options.requires.length; i < l; i++) {
                         var current = options.requires[i].toLowerCase();
 
                         if (current == 'io' || current == 'ajax') {
@@ -265,7 +272,8 @@
             };
 
             if (KISSY.IO || KISSY.io || KISSY.ajax) {
-                KISSY.use('rap_io', function() {});
+                KISSY.use('rap_io', function () {
+                });
             }
 
         }
@@ -273,12 +281,12 @@
 
     if (window.seajs && window.seajs.use && window.define && window.define.cmd && seajsEnabled != 'false') {
 
-        !function() {
+        !function () {
             var oldSeajsUse = seajs.use;
             var initialized = false;
-            seajs.use = function() {
+            seajs.use = function () {
                 var handler = arguments[arguments.length - 1];
-                arguments[arguments.length - 1] = function() {
+                arguments[arguments.length - 1] = function () {
                     if (!initialized) {
                         for (var i = 0; i < arguments.length; i++) {
                             if (arguments[i] && typeof arguments[i] === 'function' && arguments[i].prototype &&
@@ -295,7 +303,6 @@
                 oldSeajsUse.apply(seajs, arguments);
             }
         }();
-
 
 
         var data = seajs.config().data;
@@ -504,7 +511,7 @@
     }
 
     window.RAP = {
-        initList : function(list) {
+        initList: function (list) {
             var PARAM_REG = /\/:[^\/]*/g;
             var i, n = list.length, item;
             for (i = 0; i < n; i++) {
@@ -522,26 +529,26 @@
             }
             return list;
         },
-        setBlackList : function(arr) {
+        setBlackList: function (arr) {
             if (arr && arr instanceof Array) {
                 blackList = this.initList(arr);
             }
         },
-        setWhiteList : function(arr) {
+        setWhiteList: function (arr) {
             if (arr && arr instanceof Array) {
                 whiteList = this.initList(arr);
             }
         },
-        getBlackList : function() {
+        getBlackList: function () {
             return blackList;
         },
-        getWhiteList : function() {
+        getWhiteList: function () {
             return whiteList;
         },
-        getMode : function() {
+        getMode: function () {
             return mode;
         },
-        setMode : function(m) {
+        setMode: function (m) {
             m = +m;
             if (m in modeList) {
                 mode = m;
@@ -550,28 +557,28 @@
                 console.warn('Illegal mode id. Please check.');
             }
         },
-        setHost : function(h) {
+        setHost: function (h) {
             ROOT = h;
         },
-        getHost : function() {
+        getHost: function () {
             return ROOT;
         },
-        setPrefix: function(p) {
+        setPrefix: function (p) {
             PREFIX = p;
         },
-        getPrefix: function(p) {
+        getPrefix: function (p) {
             return PREFIX;
         },
-        setProjectId: function(id) {
+        setProjectId: function (id) {
             projectId = id;
         },
-        getProjectId: function() {
+        getProjectId: function () {
             return projectId;
         },
-        router: function(url) {
+        router: function (url) {
             return route(url);
         },
-        checkerHandler: function() {
+        checkerHandler: function () {
             return checkerHandler.apply(this, arguments);
         }
     };

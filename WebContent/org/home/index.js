@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     //$(".content").html('group here');
     //$.get($.route('org.home.projects'), function(data) {
     //  console.log(data.isOk);
@@ -32,19 +32,19 @@ $(function() {
             content: $.render($('#create-proj-tmpl').text(), {}),
             title: '创建项目',
             confirmText: '确认创建',
-            cancelCallback: function() {
+            cancelCallback: function () {
                 btn.data('shown', 0);
             },
-            showCallback: function() {
+            showCallback: function () {
                 var box = $(this);
                 btn.data('shown', 0);
                 var that = this;
                 box.find('input[type=text]').focus();
-                box.find('.picking-user').delegate('.unpick-btn', 'click', function() {
+                box.find('.picking-user').delegate('.unpick-btn', 'click', function () {
                     box.parent('.picked-user').remove();
                 });
                 $('.tip').tooltip();
-                $('.project-target .team').change(function() {
+                $('.project-target .team').change(function () {
                     var corpId = $(this).val();
                     if (corpId === '') {
                         CORP_ID = '';
@@ -55,7 +55,7 @@ $(function() {
 
                     fillSelectAsync('org.productline.all', {
                         corpId: corpId
-                    }, $('#option-list-tmpl').text(), '.project-target .productline', function() {
+                    }, $('#option-list-tmpl').text(), '.project-target .productline', function () {
                         teamId = corpId;
                         box.find('.disabled').removeClass('disabled');
                         box.find('.accounts-inputer').removeAttr('disabled');
@@ -63,7 +63,7 @@ $(function() {
                     });
                 });
 
-                $('.project-target .productline').change(function() {
+                $('.project-target .productline').change(function () {
                     var plId = $(this).val();
                     if (!plId) {
                         PL_ID = '';
@@ -73,26 +73,26 @@ $(function() {
                     var text = $(this).find('[value=' + plId + ']').text();
                     fillSelectAsync('org.home.grouplist', {
                         productLineId: plId
-                    }, $('#option-list-tmpl').text(), '.project-target .group', function() {
+                    }, $('#option-list-tmpl').text(), '.project-target .group', function () {
                         showCreateGroupBtn(plId, text);
                     });
                 });
 
-                getUsers(function(users) {
+                getUsers(function (users) {
                     $('.user-loading').hide();
-                    $(that).find('.accounts-inputer').keyup(function() {
+                    $(that).find('.accounts-inputer').keyup(function () {
                         $.autocomplete(that, users);
-                    }).focus(function() {
+                    }).focus(function () {
                         $.autocomplete(that, users);
                     });
                 }, teamId);
             },
-            confirmClicked: function() {
+            confirmClicked: function () {
                 var inputer = $(this).find('input[type=text]');
                 if (inputer.val().trim() === '') {
                     inputer.addClass('shake');
                     inputer.focus();
-                    setTimeout(function() {
+                    setTimeout(function () {
                         inputer && inputer.removeClass('shake');
                     }, 1000);
                     return;
@@ -102,7 +102,7 @@ $(function() {
                 if (grouper.val().trim() === '') {
                     var parent = grouper.parents('.project-target');
                     parent.addClass('shake');
-                    setTimeout(function() {
+                    setTimeout(function () {
                         parent && parent.removeClass('shake');
                     }, 1000);
                     return;
@@ -113,7 +113,7 @@ $(function() {
                 var modal = $(this);
                 var accounts = $(this).find('.picked-user');
                 var values = [];
-                for(var i = 0, l = accounts.length; i < l; i++) {
+                for (var i = 0, l = accounts.length; i < l; i++) {
                     var current = $(accounts[i]);
                     values.push(current.data('account') + '(' + current.data('name') + ')');
                 }
@@ -122,7 +122,7 @@ $(function() {
                     name: inputer.val(),
                     desc: $(this).find('textarea.desc').val(),
                     accounts: values.join(', ')
-                }, function(data) {
+                }, function (data) {
                     data = data.result;
                     data.status = data.status || '刚刚创建';
                     var html = $.render(tmpl, data);
@@ -150,7 +150,7 @@ $(function() {
         var splited = accounts.split(',');
         var pickeds = [];
         var reg = /(.+)\s*\(([^,]+)\)/;
-        for(var i = 0, l = splited.length; i < l; i++) {
+        for (var i = 0, l = splited.length; i < l; i++) {
             var matched = reg.exec(splited[i]);
             if (matched) {
                 pickeds.push({
@@ -167,28 +167,28 @@ $(function() {
             }),
             title: '修改项目',
             confirmText: '确认修改',
-            showCallback: function() {
+            showCallback: function () {
                 var that = this;
                 $(this).find('input[type=text]').focus();
-                $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
+                $(this).find('.picking-user').delegate('.unpick-btn', 'click', function () {
                     $(this).parent('.picked-user').remove();
                 });
                 $('.tip').tooltip();
-                getUsers(function(users) {
+                getUsers(function (users) {
                     $('.user-loading').hide();
-                    $(that).find('.accounts-inputer').keyup(function() {
+                    $(that).find('.accounts-inputer').keyup(function () {
                         $.autocomplete(that, users);
-                    }).focus(function() {
+                    }).focus(function () {
                         $.autocomplete(that, users);
                     });
                 }, teamId);
             },
-            confirmClicked: function() {
+            confirmClicked: function () {
                 var inputer = $(this).find('input[type=text]');
                 if (inputer.val().trim() === '') {
                     inputer.addClass('shake');
                     inputer.focus();
-                    setTimeout(function() {
+                    setTimeout(function () {
                         inputer && inputer.removeClass('shake');
                     }, 1000);
                     return;
@@ -197,7 +197,7 @@ $(function() {
                 var modal = $(this);
                 var accounts = $(this).find('.picked-user');
                 var values = [];
-                for(var i = 0, l = accounts.length; i < l; i++) {
+                for (var i = 0, l = accounts.length; i < l; i++) {
                     var current = $(accounts[i]);
                     values.push(current.data('account') + '(' + current.data('name') + ')');
                 }
@@ -206,7 +206,7 @@ $(function() {
                     name: inputer.val(),
                     desc: $(this).find('textarea.desc').val(),
                     accounts: values.join(', ')
-                }, function(data) {
+                }, function (data) {
                     if (data.code != '200') {
                         modal.modal('hide');
                         alert(data.msg);
@@ -227,13 +227,13 @@ $(function() {
         var url = '';
         var host = location && location.host ? location.host : '/';
         $.message({
-             content: '<input type="text" id="rap-plugin-inputer" disabled="disabled" class="form-control" value="<script src=\'http://' + host + '/rap.plugin.js?projectId=' + id + '\'></script>" />',
-             title: '复制RAP插件地址',
-             showCallback: function() {
-                 var ele = $('#rap-plugin-inputer')[0];
-                 ele.focus();
-                 ele.selectionEnd = ele.value.length;
-             }
+            content: '<input type="text" id="rap-plugin-inputer" disabled="disabled" class="form-control" value="<script src=\'http://' + host + '/rap.plugin.js?projectId=' + id + '\'></script>" />',
+            title: '复制RAP插件地址',
+            showCallback: function () {
+                var ele = $('#rap-plugin-inputer')[0];
+                ele.focus();
+                ele.selectionEnd = ele.value.length;
+            }
         });
     }
 
@@ -242,15 +242,15 @@ $(function() {
             content: $.render($('#create-productline').text(), {}),
             title: '添加产品线',
             confirmText: '确定',
-            showCallback: function() {
+            showCallback: function () {
                 $(this).find('input[type=text]').focus();
             },
-            confirmClicked: function() {
+            confirmClicked: function () {
                 var inputer = $(this).find('input[type=text]');
                 if (inputer.val().trim() === '') {
                     inputer.addClass('shake');
                     inputer.focus();
-                    setTimeout(function() {
+                    setTimeout(function () {
                         inputer && inputer.removeClass('shake');
                     }, 1000);
                     return;
@@ -260,7 +260,7 @@ $(function() {
                 $.post($.route('org.productline.create'), {
                     corpId: CORP_ID,
                     name: value
-                }, function(data) {
+                }, function (data) {
                     var productlines = data.items;
                     if (!productlines) {
                         alert('创建失败，请稍后再试');
@@ -270,7 +270,7 @@ $(function() {
                     showCreateGroupBtn(pl.id, pl.name);
                     resetGroupSelect();
                     var select = appendOptions('.project-target .productline', pl.id, pl.name);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         select.find('[value=""]').text('--请选择--');
                         select.val(pl.id);
                     }, 100);
@@ -287,13 +287,13 @@ $(function() {
     function showCreateGroupBtn(id, name) {
         PL_ID = id;
         $('.create-new-entity-container').hide().html(
-                '<div class="create-group btn btn-default" style="margin-top: 10px;">为 “' + name + '” 产品线创建新分组</div>').slideDown();
+            '<div class="create-group btn btn-default" style="margin-top: 10px;">为 “' + name + '” 产品线创建新分组</div>').slideDown();
     }
 
     function showCreateProductlineBtn(id, name) {
         CORP_ID = id;
         $('.create-new-entity-container').hide().html(
-                '<div class="create-productline btn btn-default" style="margin-top: 10px;">为 “' + name + '” 创建新产品线</div>').slideDown();
+            '<div class="create-productline btn btn-default" style="margin-top: 10px;">为 “' + name + '” 创建新产品线</div>').slideDown();
     }
 
     function resetGroupSelect() {
@@ -305,16 +305,16 @@ $(function() {
             content: $('#create-group-tmpl').text(),
             title: '创建分组',
             confirmText: '确认创建',
-            showCallback: function() {
+            showCallback: function () {
                 $(this).find('input[type=text]').focus();
             },
-            confirmClicked: function() {
+            confirmClicked: function () {
                 var tmpl = $('#group-tmpl').text();
                 var inputer = $(this).find('input[type=text]');
                 if (inputer.val().trim() === '') {
                     inputer.addClass('shake');
                     inputer.focus();
-                    setTimeout(function() {
+                    setTimeout(function () {
                         inputer && inputer.removeClass('shake');
                     }, 1000);
                     return;
@@ -323,7 +323,7 @@ $(function() {
                 $.post($.route('org.group.create'), {
                     productLineId: PL_ID,
                     name: inputer.val().trim()
-                }, function(data) {
+                }, function (data) {
                     var groups = data.groups;
                     if (!groups) {
                         alert('创建失败，请稍后再试');
@@ -331,7 +331,7 @@ $(function() {
                     }
                     var group = groups[0];
                     var select = $('.project-target .group').append('<option value="' + group.id + '">' + group.name + '</option>');
-                    setTimeout(function() {
+                    setTimeout(function () {
                         select.find('[value=""]').text('--请选择--');
                         select.val(group.id);
                     }, 100);
@@ -348,13 +348,13 @@ $(function() {
             content: '删除以后不可恢复，请谨慎操作',
             title: '删除项目',
             confirmText: '确认删除',
-            confirmClicked: function() {
+            confirmClicked: function () {
                 var modal = $(this);
                 $.post($.route('org.project.delete'), {
                     id: id
-                }, function(data) {
+                }, function (data) {
                     if (data.code == '200') {
-                        box.hide('slow', function() {
+                        box.hide('slow', function () {
                             box.remove();
                         });
                     } else {
@@ -365,15 +365,16 @@ $(function() {
             }
         });
     }
+
     function bindEvents() {
         $('body')
-        .delegate('.box .info, .box .tools .glyphicon-eye-open', 'click', handleViewProjectClick)
-        .delegate('.box-to-add', 'click', handleAddClick)
-        .delegate('.box .glyphicon-pencil', 'click', handleEditProjectClick)
-        .delegate('.box .glyphicon-export', 'click', handleRapPluginClick)
-        .delegate('.create-productline', 'click', handleCreateProductline)
-        .delegate('.create-group', 'click', handleCreateGroup)
-        .delegate('.box .glyphicon-trash', 'click', handleDeleteClick);
+            .delegate('.box .info, .box .tools .glyphicon-eye-open', 'click', handleViewProjectClick)
+            .delegate('.box-to-add', 'click', handleAddClick)
+            .delegate('.box .glyphicon-pencil', 'click', handleEditProjectClick)
+            .delegate('.box .glyphicon-export', 'click', handleRapPluginClick)
+            .delegate('.create-productline', 'click', handleCreateProductline)
+            .delegate('.create-group', 'click', handleCreateGroup)
+            .delegate('.box .glyphicon-trash', 'click', handleDeleteClick);
     }
 
     function fillSelectAsync(route, params, tmpl, target, callback) {
@@ -381,7 +382,7 @@ $(function() {
         $(target).html($.render(tmpl, {
             items: [{id: '', name: '加载中...'}]
         }));
-        $.get($.route(route), params, function(data) {
+        $.get($.route(route), params, function (data) {
             if (data.groups) {
                 data.items = data.groups;
             }
@@ -399,6 +400,7 @@ $(function() {
     function bindSearchEvents() {
         var con = $('.project-autocomplete-con'),
             ul = $('.project-autocomplete-con ul');
+
         function handler(e) {
             var code = e.keyCode;
             if (code == 38 || code == 40) {
@@ -425,7 +427,7 @@ $(function() {
             }
             jqThis.data('searching', 1);
 
-            $.post($.route('org.project.search'), {key: val}, function(data) {
+            $.post($.route('org.project.search'), {key: val}, function (data) {
                 if (!jqThis.data('searching')) {
                     // 可能返回途中，就已经不需要这个数据了，比如：清空了input
                     return;
@@ -440,22 +442,23 @@ $(function() {
                 con.show();
             }, 'JSON');
         }
+
         var inputer = $('.project-search-inputer'), prev;
-        ul.delegate('li', 'mouseenter', function() {
+        ul.delegate('li', 'mouseenter', function () {
             prev && prev.removeClass('active');
             prev = $(this).addClass('active');
-        }).delegate('li', 'mouseleave', function() {
+        }).delegate('li', 'mouseleave', function () {
             $(this).removeClass('active');
         });
-        inputer.focus(handler).keyup(handler).blur(function() {
+        inputer.focus(handler).keyup(handler).blur(function () {
             var jqThis = $(this), val = jqThis.val().trim();
             if (val) {
                 jqThis.data('oldValue', val);
             }
-            setTimeout(function() {
+            setTimeout(function () {
                 con.hide();
             }, 300);
-        }).keydown(function(e) {
+        }).keydown(function (e) {
             var code = e.keyCode;
             var active;
             var node;
@@ -478,7 +481,9 @@ $(function() {
                 active = ul.children().index(ul.find('.active'));
                 node = null;
                 if (active == -1 || active == ul.children().length - 1) {
-                    node = ul.children().first(); } else { node = $(ul.children()[active + 1]);
+                    node = ul.children().first();
+                } else {
+                    node = $(ul.children()[active + 1]);
                 }
                 if (prev) {
                     prev.removeClass('active');
@@ -498,7 +503,7 @@ $(function() {
                 }
             }
         });
-        con.delegate('li', 'click', function() {
+        con.delegate('li', 'click', function () {
             var jqThis = $(this);
             var id = jqThis.data('id');
             if (id == '-1') {
@@ -510,16 +515,16 @@ $(function() {
 
     function render() {
         var tmpl = $('#group-tmpl').text();
-        $.get($.route('org.home.projects'), {}, function(data) {
+        $.get($.route('org.home.projects'), {}, function (data) {
             var newGroup = [];
-            for(var i = 0, l = data.groups.length; i < l; i++) {
+            for (var i = 0, l = data.groups.length; i < l; i++) {
                 if (data.groups[i].type == 'user') {
                     var group = data.groups[i];
-                    for(var j = 0; j < group.projects.length; j++) {
+                    for (var j = 0; j < group.projects.length; j++) {
                         if (group.projects[j].related) {
                             newGroup.push(group.projects[j]);
                             group.projects.splice(j, 1);
-                            j --;
+                            j--;
                         }
                     }
                 }

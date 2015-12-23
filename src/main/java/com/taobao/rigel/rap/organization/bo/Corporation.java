@@ -5,16 +5,19 @@ import com.taobao.rigel.rap.common.StringUtils;
 import java.util.List;
 
 public class Corporation {
-	private int id;
-	private String logoUrl;
-	private long userId;
-	private String name;
+    public static final int PUBLIC_ACCESS = 20;
+    public static final int PRIVATE_ACCESS = 10;
+    public final int NAME_STR_MAX_LENGTH = 20;
+    private int id;
+    private String logoUrl;
+    private long userId;
+    private String name;
     private List<String> accountList;
     private long memberNum;
     private String creatorName;
-    public final int NAME_STR_MAX_LENGTH = 20;
-    public static final int PUBLIC_ACCESS = 20;
-    public static final int PRIVATE_ACCESS = 10;
+    private String desc;
+    private short accessType;
+    private boolean hasAccess;
 
     public List<String> getAccountList() {
         return accountList;
@@ -32,8 +35,6 @@ public class Corporation {
         this.desc = desc;
     }
 
-    private String desc;
-
     public short getAccessType() {
         return accessType;
     }
@@ -46,35 +47,37 @@ public class Corporation {
         }
     }
 
-    private short accessType;
+    public int getId() {
+        return id;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getLogoUrl() {
+        return logoUrl;
+    }
 
-	public String getLogoUrl() {
-		return logoUrl;
-	}
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
 
-	public void setLogoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-	}
+    public long getUserId() {
+        return userId;
+    }
 
-	public long getUserId() {
-		return userId;
-	}
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getNameStr() {
         if (StringUtils.getLengthOfStringChinese(name) > NAME_STR_MAX_LENGTH) {
@@ -83,10 +86,6 @@ public class Corporation {
         return name;
     }
 
-	public void setName(String name) {
-        this.name = name;
-	}
-
     public long getMemberNum() {
         return memberNum;
     }
@@ -94,8 +93,6 @@ public class Corporation {
     public void setMemberNum(long memberNum) {
         this.memberNum = memberNum;
     }
-
-    private boolean hasAccess;
 
     public boolean isHasAccess() {
         return hasAccess;

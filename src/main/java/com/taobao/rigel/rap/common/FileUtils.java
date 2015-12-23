@@ -1,21 +1,22 @@
 package com.taobao.rigel.rap.common;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by mashengbo on 15/7/21.
  */
 public class FileUtils {
+    public static String JS_UTIL_DIR_PATH = SystemConstant.ROOT +
+            FileUtils.concatFilePath(new String[]{"stat", "js", "util", ""});
+
     /**
      * concatenate file path with File.seperator
      *
      * @param subs
      * @return
      */
-    public static String concatFilePath(String [] subs) {
+    public static String concatFilePath(String[] subs) {
         return ArrayUtils.join(Arrays.asList(subs), File.separator);
     }
 
@@ -45,7 +46,4 @@ public class FileUtils {
             return "ERROR";
         }
     }
-
-    public static String JS_UTIL_DIR_PATH = SystemConstant.ROOT +
-            FileUtils.concatFilePath(new String[] {"stat", "js", "util", ""});
 }

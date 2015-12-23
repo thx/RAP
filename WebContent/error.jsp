@@ -12,7 +12,7 @@
     <title></title>
 </head>
 <body>
-Exception : <s:property value="%{exception}" />
+Exception : <s:property value="%{exception}"/>
 
 Exception stacktrace: <s:property value="exceptionStack"/>
 </body>

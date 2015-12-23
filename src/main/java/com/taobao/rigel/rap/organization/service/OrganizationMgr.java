@@ -1,20 +1,20 @@
 package com.taobao.rigel.rap.organization.service;
 
-import java.util.List;
-
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.RapError;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.bo.Group;
 import com.taobao.rigel.rap.organization.bo.ProductionLine;
 
+import java.util.List;
+
 public interface OrganizationMgr {
-	/**
-	 * get corporation list
-	 * 
-	 * @return
-	 */
-	List<Corporation> getCorporationList();
+    /**
+     * get corporation list
+     *
+     * @return
+     */
+    List<Corporation> getCorporationList();
 
     /**
      * get corporation list
@@ -29,7 +29,7 @@ public interface OrganizationMgr {
      *
      * @return
      */
-    long getCorporationListWithPagerNum ();
+    long getCorporationListWithPagerNum();
 
     /**
      * get corporation list of user
@@ -47,77 +47,77 @@ public interface OrganizationMgr {
      */
     long getCorporationListWithPagerNum(long userId);
 
-	/**
-	 * get group list
-	 * 
-	 * @return
-	 */
-	List<Group> getGroupList(int productionLineId);
+    /**
+     * get group list
+     *
+     * @return
+     */
+    List<Group> getGroupList(int productionLineId);
 
-	/**
-	 * get production line list
-	 * 
-	 * @return
-	 */
-	List<ProductionLine> getProductionLineList(int corpId);
+    /**
+     * get production line list
+     *
+     * @return
+     */
+    List<ProductionLine> getProductionLineList(int corpId);
 
-	/**
-	 * add group
-	 * 
-	 * @param group
-	 */
-	int addGroup(Group group);
+    /**
+     * add group
+     *
+     * @param group
+     */
+    int addGroup(Group group);
 
-	/**
-	 * add production line
-	 * 
-	 * @param productionLine
-	 */
-	int addProductionLine(ProductionLine productionLine);
+    /**
+     * add production line
+     *
+     * @param productionLine
+     */
+    int addProductionLine(ProductionLine productionLine);
 
-	/**
-	 * remove group
-	 * 
-	 * @param groupId
-	 */
-	RapError removeGroup(int groupId);
+    /**
+     * remove group
+     *
+     * @param groupId
+     */
+    RapError removeGroup(int groupId);
 
-	/**
-	 * remove production line
-	 * 
-	 * @param productionLineId
-	 */
-	RapError removeProductionLine(int productionLineId);
+    /**
+     * remove production line
+     *
+     * @param productionLineId
+     */
+    RapError removeProductionLine(int productionLineId);
 
-	/**
-	 * update group
-	 * 
-	 * @param group
-	 */
-	void updateGroup(Group group);
+    /**
+     * update group
+     *
+     * @param group
+     */
+    void updateGroup(Group group);
 
-	/**
-	 * update production line
-	 * 
-	 * @param productionLine
-	 */
-	void updateProductionLine(ProductionLine productionLine);
+    /**
+     * update production line
+     *
+     * @param productionLine
+     */
+    void updateProductionLine(ProductionLine productionLine);
 
-	/**
-	 * get production line
-	 * 
-	 * @param plid
-	 * @return
-	 */
-	ProductionLine getProductionLine(int plid);
-	
-	/**
-	 * get corporation
-	 * 
-	 * @param id
-	 * @return
-	 */
-	Corporation getCorporation(int id);
+    /**
+     * get production line
+     *
+     * @param plid
+     * @return
+     */
+    ProductionLine getProductionLine(int plid);
+
+    /**
+     * get corporation
+     *
+     * @param id
+     * @return
+     */
+    Corporation getCorporation(int id);
 
 
     /**
@@ -148,7 +148,7 @@ public interface OrganizationMgr {
 
     /**
      * get user role in corporation
-
+     *
      * @param userId
      * @param corpId
      * @return roleId
@@ -221,7 +221,7 @@ public interface OrganizationMgr {
      * set user role in corporation
      *
      * @param curUserId user now proceeding the operation
-     * @param userId user to be processed
+     * @param userId    user to be processed
      * @param corpId
      * @param roleId
      * @return if succeed

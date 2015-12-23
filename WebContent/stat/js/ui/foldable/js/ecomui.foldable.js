@@ -1,66 +1,66 @@
 var ecomui = ecomui || {};
 
-(function() {
- 	var lib = baidu, 
-		core = ecui, 
-		dom = core.dom, 
-		ui = core.ui,
-		util = core.util,
-		inherits = util.inherits,
-		copy = util.copy,
+(function () {
+    var lib = baidu,
+        core = ecui,
+        dom = core.dom,
+        ui = core.ui,
+        util = core.util,
+        inherits = util.inherits,
+        copy = util.copy,
 
-		children = dom.children,
-		createDom = dom.create,
-		$fastCreate = core.$fastCreate,
-		setText = dom.setText,
+        children = dom.children,
+        createDom = dom.create,
+        $fastCreate = core.$fastCreate,
+        setText = dom.setText,
 
-		DOCUMENT = document,
-		UI_CONTROL = ui.Control,
-		ECOM_FOLDABLE_CLASS;
-	
-	ecomui.Foldable = ui.Foldable = function(el, params) {
-		var typeClass = params.type,
-			contentEl = children(el)[0];
-			titleEl = createDom(typeClass + "-title"),
-			handlerEl = createDom(typeClass + "-handler");
+        DOCUMENT = document,
+        UI_CONTROL = ui.Control,
+        ECOM_FOLDABLE_CLASS;
 
-		el.insertBefore(titleEl, contentEl);
-		setText(titleEl, params.title || "");	
-		titleEl.insertBefore(handlerEl, titleEl.firstChild);
+    ecomui.Foldable = ui.Foldable = function (el, params) {
+        var typeClass = params.type,
+            contentEl = children(el)[0];
+        titleEl = createDom(typeClass + "-title"),
+            handlerEl = createDom(typeClass + "-handler");
 
-		params.capture = false;
+        el.insertBefore(titleEl, contentEl);
+        setText(titleEl, params.title || "");
+        titleEl.insertBefore(handlerEl, titleEl.firstChild);
 
-		UI_CONTROL.call(this, el, params);
+        params.capture = false;
 
-		this._uTitle = 	$fastCreate(UI_CONTROL, titleEl, this);
-		this._uContent = $fastCreate(UI_CONTROL, contentEl, this, {capture: false});
-		this._uHandler = $fastCreate(UI_CONTROL, handlerEl, this._uTitle, {capture: false});
+        UI_CONTROL.call(this, el, params);
 
-		this._uTitle["on" + (params.trigger || "click")] = ECOM_FOLDABLE_TITLECLICK;
+        this._uTitle = $fastCreate(UI_CONTROL, titleEl, this);
+        this._uContent = $fastCreate(UI_CONTROL, contentEl, this, {capture: false});
+        this._uHandler = $fastCreate(UI_CONTROL, handlerEl, this._uTitle, {capture: false});
 
-		ECOM_FOLDABLE_TOGGLECONTENT.call(this._uTitle, params.initFold || false);
-	}; 
+        this._uTitle["on" + (params.trigger || "click")] = ECOM_FOLDABLE_TITLECLICK;
 
-	function ECOM_FOLDABLE_TITLECLICK() {
-		ECOM_FOLDABLE_TOGGLECONTENT.call(this);
-	}
+        ECOM_FOLDABLE_TOGGLECONTENT.call(this._uTitle, params.initFold || false);
+    };
 
-	function ECOM_FOLDABLE_TOGGLECONTENT(fold) {
-		var control = this.getParent(),
-			content = control._uContent,
-			handler = control._uHandler,
-			handlerEl = handler.getBase(),
-			isShow = fold !== undefined ? fold : content.isShow();
+    function ECOM_FOLDABLE_TITLECLICK() {
+        ECOM_FOLDABLE_TOGGLECONTENT.call(this);
+    }
 
-		isShow ? content.hide() : content.show();
-		handlerEl.setAttribute("title", isShow ? "点击展开" : "点击折叠");
+    function ECOM_FOLDABLE_TOGGLECONTENT(fold) {
+        var control = this.getParent(),
+            content = control._uContent,
+            handler = control._uHandler,
+            handlerEl = handler.getBase(),
+            isShow = fold !== undefined ? fold : content.isShow();
 
-		this.$alterClass(isShow ? "unfold" : "fold");
-		this.$alterClass(isShow ? "fold" : "unfold", true);
+        isShow ? content.hide() : content.show();
+        handlerEl.setAttribute("title", isShow ? "点击展开" : "点击折叠");
 
-		control.$resize();
-	}
+        this.$alterClass(isShow ? "unfold" : "fold");
+        this.$alterClass(isShow ? "fold" : "unfold", true);
 
-	ECOM_FOLDABLE_CLASS = inherits(ui.Foldable, UI_CONTROL);
+        control.$resize();
+    }
 
- })();
+    ECOM_FOLDABLE_CLASS = inherits(ui.Foldable, UI_CONTROL);
+
+})();

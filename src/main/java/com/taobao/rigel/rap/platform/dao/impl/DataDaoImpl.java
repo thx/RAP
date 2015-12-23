@@ -13,17 +13,17 @@ import java.util.Map;
  * Created by Bosn on 14-9-5.
  */
 public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
-    @Override
+
     public List<Map<String, Object>> getUserTrendByMonth() {
         StringBuilder sql = new StringBuilder();
         sql
-            .append("SELECT MONTH(create_date) AS month, COUNT(id) as num, create_date ")
-            .append("FROM tb_user ")
-            .append("WHERE create_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 YEAR) AND NOW() ")
-            .append("GROUP BY MONTH(create_date) ")
-            .append("ORDER BY create_date");
+                .append("SELECT MONTH(create_date) AS month, COUNT(id) as num, create_date ")
+                .append("FROM tb_user ")
+                .append("WHERE create_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 YEAR) AND NOW() ")
+                .append("GROUP BY MONTH(create_date) ")
+                .append("ORDER BY create_date");
         Query query = getSession().createSQLQuery(sql.toString());
-        List<Object []> list = query.list();
+        List<Object[]> list = query.list();
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         for (Object[] row : list) {
             Map<String, Object> map = new HashMap<String, Object>();
@@ -42,7 +42,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
         return result;
     }
 
-    @Override
+
     public List<Map<String, Object>> getProjectTrendByMonth() {
         StringBuilder sql = new StringBuilder();
         sql
@@ -52,7 +52,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
                 .append("GROUP BY MONTH(create_date) ")
                 .append("ORDER BY create_date");
         Query query = getSession().createSQLQuery(sql.toString());
-        List<Object []> list = query.list();
+        List<Object[]> list = query.list();
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         for (Object[] row : list) {
             Map<String, Object> map = new HashMap<String, Object>();
@@ -70,7 +70,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
         return result;
     }
 
-    @Override
+
     public List<Map<String, Object>> getCheckInTrendByMonth() {
         StringBuilder sql = new StringBuilder();
         sql
@@ -80,7 +80,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
                 .append("GROUP BY MONTH(create_date) ")
                 .append("ORDER BY create_date");
         Query query = getSession().createSQLQuery(sql.toString());
-        List<Object []> list = query.list();
+        List<Object[]> list = query.list();
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         for (Object[] row : list) {
             Map<String, Object> map = new HashMap<String, Object>();
@@ -90,7 +90,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
         }
 
         Object count = getSession().createSQLQuery("SELECT COUNT(*) FROM tb_check_in WHERE create_date < DATE_ADD(NOW(), INTERVAL -1 YEAR)")
-            .uniqueResult();
+                .uniqueResult();
         Map<String, Object> mapCount = new HashMap<String, Object>();
         mapCount.put("startValue", count);
         result.add(mapCount);
@@ -98,7 +98,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
         return result;
     }
 
-    @Override
+
     public List<Map<String, Object>> getActionNumByTeam() {
         StringBuilder sql = new StringBuilder();
         sql
@@ -116,7 +116,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 
 
         Query query = getSession().createSQLQuery(sql.toString());
-        List<Object []> list = query.list();
+        List<Object[]> list = query.list();
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         for (Object[] row : list) {
             Map<String, Object> map = new HashMap<String, Object>();

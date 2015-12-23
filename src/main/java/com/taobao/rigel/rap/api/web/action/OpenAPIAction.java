@@ -1,10 +1,5 @@
 package com.taobao.rigel.rap.api.web.action;
 
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.api.service.OpenAPIMgr;
 import com.taobao.rigel.rap.common.ActionBase;
@@ -13,29 +8,36 @@ import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class OpenAPIAction extends ActionBase {
 
-    private static final long serialVersionUID = -1786553279434025468L;
 
     private OpenAPIMgr openAPIMgr;
+    private ProjectMgr projectMgr;
+    private MockMgr mockMgr;
+    private int projectId;
+    private int actionId;
+    private String type;
+    private String ver;
+    private String _c;
+    private String callback;
+    private String rules;
 
     public void setOpenAPIMgr(OpenAPIMgr openAPIMgr) {
         this.openAPIMgr = openAPIMgr;
     }
 
-    private ProjectMgr projectMgr;
-
     public void setProjectMgr(ProjectMgr projectMgr) {
         this.projectMgr = projectMgr;
     }
 
-    private MockMgr mockMgr;
-
     public void setMockMgr(MockMgr mockMgr) {
         this.mockMgr = mockMgr;
     }
-
-    private int projectId;
 
     public int getProjectId() {
         return projectId;
@@ -45,8 +47,6 @@ public class OpenAPIAction extends ActionBase {
         this.projectId = projectId;
     }
 
-    private int actionId;
-
     public int getActionId() {
         return this.actionId;
     }
@@ -54,8 +54,6 @@ public class OpenAPIAction extends ActionBase {
     public void setActionId(int actionId) {
         this.actionId = actionId;
     }
-
-    private String type;
 
     public String getType() {
         return type;
@@ -65,8 +63,6 @@ public class OpenAPIAction extends ActionBase {
         this.type = type;
     }
 
-    private String ver;
-
     public String getVer() {
         return ver;
     }
@@ -74,10 +70,6 @@ public class OpenAPIAction extends ActionBase {
     public void setVer(String ver) {
         this.ver = ver;
     }
-
-    private String _c;
-
-    private String callback;
 
     public String get_c() {
         return _c;
@@ -87,12 +79,12 @@ public class OpenAPIAction extends ActionBase {
         this._c = _c;
     }
 
-    public void setCallback(String callback) {
-        this.callback = callback;
-    }
-
     public String getCallback() {
         return callback;
+    }
+
+    public void setCallback(String callback) {
+        this.callback = callback;
     }
 
     public String queryModel() throws Exception {
@@ -170,8 +162,6 @@ public class OpenAPIAction extends ActionBase {
     public void setRules(String rules) {
         this.rules = rules;
     }
-
-    private String rules;
 
     public String modifyMockRules() {
         String json = openAPIMgr.modifyMockRules(rules, actionId);

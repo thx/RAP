@@ -2,13 +2,10 @@ package com.taobao.rigel.rap.project.bo;
 
 import java.util.Comparator;
 
-public class PageComparator implements Comparator<Page>{
+public class PageComparator implements Comparator<Page> {
 
-	@Override
-	public int compare(Page o1, Page o2) {
-		Page l = (Page) o1;
-		Page r = (Page) o2;
-		return l.getId() < r.getId() ? 0 : 1;
-	}
+    public int compare(Page o1, Page o2) {
+        return o1.getId() < o2.getId() ? 0 : 1;
+    }
 
 }

@@ -2,9 +2,6 @@ package com.taobao.rigel.rap.mock.bo;
 
 import java.util.Date;
 
-/**
- * Created by Bosn on 15/7/17.
- */
 public class Rule {
     private int actionId;
     private String rules;

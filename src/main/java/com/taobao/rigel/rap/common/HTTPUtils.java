@@ -1,8 +1,6 @@
- package com.taobao.rigel.rap.common;
+package com.taobao.rigel.rap.common;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.LogManager;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -14,6 +12,7 @@ import java.net.URL;
  */
 public class HTTPUtils {
     private final static org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(HTTPUtils.class.getName());
+
     // HTTP GET request
     public static String sendGet(String url) throws Exception {
         String USER_AGENT = "Mozilla/5.0";
@@ -48,7 +47,6 @@ public class HTTPUtils {
         return response.toString();
 
     }
-
 
 
 }

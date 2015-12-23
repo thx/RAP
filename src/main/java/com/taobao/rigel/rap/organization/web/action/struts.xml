@@ -33,10 +33,12 @@
         <action name="manage" class="com.taobao.rigel.rap.organization.web.action.TeamAction" method="manage">
             <result name="success" type="velocity">/org/team/manage.vm</result>
         </action>
-        <action name="changeAccessType" class="com.taobao.rigel.rap.organization.web.action.TeamAction" method="changeAccessType">
+        <action name="changeAccessType" class="com.taobao.rigel.rap.organization.web.action.TeamAction"
+                method="changeAccessType">
             <result name="success" type="velocity">/bcom/json.cb.vm</result>
         </action>
-        <action name="deleteMember" class="com.taobao.rigel.rap.organization.web.action.TeamAction" method="deleteMember">
+        <action name="deleteMember" class="com.taobao.rigel.rap.organization.web.action.TeamAction"
+                method="deleteMember">
             <result name="success" type="velocity">/bcom/json.cb.vm</result>
         </action>
         <action name="addMembers" class="com.taobao.rigel.rap.organization.web.action.TeamAction" method="addMembers">
