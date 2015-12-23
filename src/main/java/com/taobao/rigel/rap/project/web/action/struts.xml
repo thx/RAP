@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <package name="project" extends="rap-default" namespace="/project">
+
+        <action name="delete"
+                class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="delete">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+
+        <action name="create"
+                class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="create">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+
+        <action name="update"
+                class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="update">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+
+        <action name="search"
+                class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="search">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+
+        <action name="updateReleatedIds"
+                class="com.taobao.rigel.rap.project.web.action.ProjectAction" method="updateReleatedIds">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+
+    </package>
+
+</struts>

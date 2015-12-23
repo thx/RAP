@@ -18,11 +18,11 @@ ecui.ui.Form.prototype.showModal = function (opacity) {
 }
 
 var ecFloater = {
-	/**
-	 * 显示指定的浮动层
+    /**
+     * 显示指定的浮动层
      * @param {String} ecId 获取ec控件需要的id
-	 */
-	show : function(ecId) {
+     */
+    show: function (ecId) {
 
         var floater = ecui.get(ecId);
         floater.showModal();
@@ -39,5 +39,5 @@ var ecFloater = {
         var y = parseInt((viewHeight - elHeight) / 2 + scrollHeight, 10);
 
         floater.setPosition(x, y);
-	}
+    }
 };

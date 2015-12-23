@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.taobao.rigel.rap.account.bo">
+    <class name="User" table="tb_user">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name"/>
+        <property name="empId">
+            <column name="emp_id" not-null="false">
+                <comment>工号</comment>
+            </column>
+        </property>
+        <property name="account"/>
+        <property name="realname"/>
+        <property name="password"/>
+        <property name="email"/>
+        <property name="isHintEnabled">
+            <column name="is_hint_enabled">
+                <comment>是否启用提示</comment>
+            </column>
+        </property>
+        <property name="createDate" type="date" insert="false">
+            <column name="create_date">
+                <comment>创建时间</comment>
+            </column>
+        </property>
+        <property name="lastLoginDate" type="date">
+            <column name="last_login_date" not-null="true">
+                <comment>最近登录时间</comment>
+            </column>
+        </property>
+        <property name="isLockedOut">
+            <column name="is_locked_out">
+                <comment>锁定状态</comment>
+            </column>
+        </property>
+        <property name="incorrectLoginAttempt" type="int">
+            <column name="incorrect_login_attempt" not-null="true">
+                <comment>错误登录次数</comment>
+            </column>
+        </property>
+
+        <set name="createdProjectList" inverse="true">
+            <key column="user_id" not-null="true"/>
+            <one-to-many class="com.taobao.rigel.rap.project.bo.Project"/>
+        </set>
+
+        <set name="joinedProjectList" inverse="true" table="tb_project_and_user">
+            <key column="user_id" not-null="true"/>
+            <many-to-many column="project_id" class="com.taobao.rigel.rap.project.bo.Project"/>
+        </set>
+
+        <set name="roleList" inverse="true" table="tb_role_and_user">
+            <key column="user_id" not-null="true"/>
+            <many-to-many column="role_id" class="com.taobao.rigel.rap.account.bo.Role"/>
+        </set>
+
+    </class>
+</hibernate-mapping>

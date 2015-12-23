@@ -1,5 +1,5 @@
 module('env confirm');
-test('no KISSY.io when kissy seed inited', function() {
+test('no KISSY.io when kissy seed inited', function () {
     ok(KISSY.io === undefined, 'KISSY.io is undefined when kissy seed loaded');
 });
 
@@ -21,4 +21,5 @@ var scripts = [
     'errors/bugfix-list.js'
 ];
 
-loadScripts(scripts, function() {});
+loadScripts(scripts, function () {
+});

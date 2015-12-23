@@ -1,8 +1,11 @@
 if (!window.console) {
     window.console = {
-        log : function() {},
-        warn : function() {},
-        err : function() {}
+        log: function () {
+        },
+        warn: function () {
+        },
+        err: function () {
+        }
     };
 }
 
@@ -10,31 +13,30 @@ function wrapHref(url) {
     return '<a href="' + url + '" target="_blank">' + url + '</a>';
 }
 
-YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify', function (Y) {
+YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify', 'datasource', function (Y) {
+    window.Y = Y;
     var source = Y.one("#resBoard-template"),
-        TResBoard = Y.Handlebars.compile(source),
         divLog = document.getElementById("divResBoardLog"),
         ERROR = -1, WARN = -2,                                // log type
         LIGHT_GRAY = '#999', RED = 'red', ORANGE = 'orange',  // colors
-        _resetUrl = '',
         _rootUrl = '',
-        _modifyUrl = '',
         logLine = 1;
 
     log('tester initializing...');
     Y.timeLog = {};
-    Y.all('.form').each(function(form) {
-        form.one('.btn-run-mockjsrule').on('click', function(e) {
-            Y.one('#divResBoardJson').setHTML('加载中，请稍后...');
+    Y.all('.form').each(function (form) {
 
-            var url     = '';
-            var qArr    = [];
-            var i       = 0;
-            var fields  = form.all('.field');
+        // form start
+        form.one('.btn-run').on('click', function (e) {
+            Y.one('#divResBoardJson').setHTML('加载中，请稍后...');
+            var url = '';
+            var qArr = [];
+            var i = 0;
+            var fields = form.all('.field');
             var baseUrl = Y.one('#txtRootPath').get('value');
             var baseUrlOrigin = Y.one('#txtRootPath').get('value');
-            var rapUrl  = RAP_ROOT;
-            var path    = form.getAttribute('path');
+            var rapUrl = RAP_ROOT;
+            var path = form.getAttribute('path');
 
             if (~path.indexOf('http')) {
                 path = path.substring(7);
@@ -47,7 +49,7 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
 
             baseUrl += path;
             rapUrl += path;
-            fields.each(function(field) {
+            fields.each(function (field) {
                 var name = field.get('name'),
                     value = field.get('value');
                 qArr[i++] = name + '=' + encodeURIComponent(value);
@@ -65,77 +67,23 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
             log('request starting, url: ' + color(wrapHref(url), LIGHT_GRAY));
             Y.timeLog.time = new Date().getTime();
             try {
-                Y.jsonp(url, {
-                    on : {
-                        success : function() {
-                            var slice = Array.prototype.slice;
-                            var args = slice.call(arguments);
-                            args.push('rule');
-                            testResHandler.apply(this, args);
-                        },
-                        timeout : function() {
-                            log(color('timeout', RED) + '... so long time to response!');
-                        },
-                        failure : function(e) {
-                            log(color('error occurred!', RED) + color(', detail:' + e.errors[0].error, LIGHT_GRAY));
-                        }
-                    },
-                    timeout : 10000,
-                    args : [form]
-                });
-            } catch(ex) {
-                alert(ex);
-            }
-        });
-        form.one('.btn-run').on('click', function(e) {
-            Y.one('#divResBoardJson').setHTML('加载中，请稍后...');
-            var url     = '';
-            var qArr    = [];
-            var i       = 0;
-            var fields  = form.all('.field');
-            var baseUrl = Y.one('#txtRootPath').get('value');
-            var baseUrlOrigin = Y.one('#txtRootPath').get('value');
-            var rapUrl  = RAP_ROOT;
-            var path    = form.getAttribute('path');
-
-            if (~path.indexOf('http')) {
-                path = path.substring(7);
-                path = path.substring(path.indexOf("/"));
-            }
-
-            if (path[0] !== '/') {
-                path = '/' + path;
-            }
-
-            baseUrl += path;
-            rapUrl += path;
-            fields.each(function(field) {
-                var name = field.get('name'),
-                    value = field.get('value');
-                qArr[i++] = name + '=' + encodeURIComponent(value);
-            });
-
-            if (!~baseUrl.indexOf('http://')) {
-                baseUrl = "http://" + baseUrl;
-            }
-            if (!~rapUrl.indexOf('http://')) {
-                rapUrl = "http://" + rapUrl;
-            }
-
-            url = baseUrl + (baseUrl.indexOf('?') === -1 ? '?' : '&') + qArr.join('&');
-            url = urlProcess(url);
-            log('request starting, url: ' + color(wrapHref(url), LIGHT_GRAY));
-            Y.timeLog.time = new Date().getTime();
-            try {
-                Y.jsonp(url, {
-                    on : {
-                        success : function() {
-                            var realData = testResHandler.apply(this, arguments);
+                Y.io('/mock/requestOnServer.do?url=' + encodeURIComponent(url), {
+                    on: {
+                        success: function () {
+                            var args = [];
+                            try {
+                                args = [eval('(' + arguments[1].responseText + ')')];
+                            } catch (ex) {
+                                log(color('error occurred!', RED) + color(', detail:' + ex.message, LIGHT_GRAY));
+                            }
+                            var realData = testResHandler.apply(this, args);
+                            if (!realData) {
+                                realData = {};
+                            }
                             if (RAP_ROOT != baseUrlOrigin) {
                                 Y.jsonp(rapUrl, {
-                                    on : {
-                                        success : function(response) {
-
+                                    on: {
+                                        success: function (response) {
                                             function validatorResultLog(item, isReverse) {
                                                 var LOST = "LOST";
                                                 var EMPTY_ARRAY = "EMPTY_ARRAY";
@@ -175,33 +123,34 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
                                                 validatorResultLog(rapDataResult[i], true);
                                             }
                                         },
-                                        timeout : function() {
+                                        timeout: function () {
                                             log(color('timeout', RED) + '... so long time to response!');
                                         },
-                                        failure : function(e) {
+                                        failure: function (e) {
                                             console.log(color('error occurred!', RED) + color(', detail:' + e.errors[0].error, LIGHT_GRAY));
                                         }
                                     },
-                                    timeout : 10000
+                                    timeout: 10000
                                 });
                             }
                         },
-                        timeout : function() {
+                        timeout: function () {
                             log(color('timeout', RED) + '... so long time to response!');
                         },
-                        failure : function(e) {
+                        failure: function (e) {
                             log(color('error occurred!', RED) + color(', detail:' + e.errors[0].error, LIGHT_GRAY));
                         }
                     },
-                    timeout : 10000,
-                    args : [form]
+                    timeout: 10000,
+                    args: [form]
                 });
-            } catch(ex) {
+            } catch (ex) {
                 alert(ex);
             }
         });
-
+        // form end
     });
+
 
     function sortObj(obj) {
         if (!obj) {
@@ -209,19 +158,19 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
         }
         if (jQuery.isArray(obj)) {
             var newArray = [];
-            for(var k = 0; k < obj.length; k++) {
+            for (var k = 0; k < obj.length; k++) {
                 newArray.push(sortObj(obj[k]));
             }
             return newArray;
         } else if (jQuery.isPlainObject(obj)) {
             var result = {}, keys = [];
-            for(var prop in obj) {
+            for (var prop in obj) {
                 if (obj.hasOwnProperty(prop)) {
                     keys.push(prop);
                 }
             }
             keys = keys.sort();
-            for(var i = 0, l = keys.length; i < l; i++) {
+            for (var i = 0, l = keys.length; i < l; i++) {
                 result[keys[i]] = sortObj(obj[keys[i]]);
             }
             return result;
@@ -233,32 +182,27 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
     function testResHandler(response, form, btn) {
         var obj = response;
         var jsonString;
-      
+
 
         var path = Y.one('#txtRootPath').get('value');
         obj = sortObj(obj);
         if (btn != 'rule' && path.indexOf('mockjs') != -1) {
             obj = Mock.mock(obj);
         }
-    
-        jsonString = JSON.stringify(obj, function(key, val) {
+
+        jsonString = JSON.stringify(obj, function (key, val) {
             if (typeof val === 'function') {
                 return "<mockjs custom function handler>";
             } else {
                 return val;
             }
         });
-        
+
         var beginTime = Y.timeLog.time;
         if (!beginTime) return;
         var endTime = new Date().getTime();
         log('request end in:' + color(endTime - beginTime, RED) + 'ms.');
         Y.one('#divResBoardJson').setHTML(jsonString.formatJS());
-
-        if (!form) {
-            btn.removeClass('disabled');
-            return;
-        }
 
         return obj;
     }
@@ -295,36 +239,36 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
     Y.one('#txtRootPath').on('change', initUrl);
 
 
-    setTimeout(function() {
+    setTimeout(function () {
         var logContainer = $('#divResBoardLog');
-        $(document).delegate('#up-trigger', 'click', function() {
+        $(document).delegate('#up-trigger', 'click', function () {
             logContainer.animate({
                 'height': 500
             });
-        }).delegate('#expand-trigger', 'click', function() {
+        }).delegate('#expand-trigger', 'click', function () {
             logContainer.animate({
                 'width': '98%'
             });
             $('body').css('padding-bottom', '110px');
-        }).delegate('#down-trigger', 'click', function() {
+        }).delegate('#down-trigger', 'click', function () {
             logContainer.animate({
                 'height': 100
             });
-        }).delegate('#close-trigger', 'click', function() {
+        }).delegate('#close-trigger', 'click', function () {
             logContainer.hide('slow');
             $('#show-trigger').show('slow');
-        }).delegate('#show-trigger', 'click', function() {
+        }).delegate('#show-trigger', 'click', function () {
             logContainer.show('slow');
             $('#show-trigger').hide('slow');
         });
     }, 500);
 
-    $('.btn-run-real').on('click', function(e) {
+    $('.btn-run-real').on('click', function (e) {
         $(this).toggleClass('active');
         $(this).parents('.tools').find('.real-options').toggle();
     });
 
-    $('.btn-run-do-real').on('click', function(e) {
+    $('.btn-run-do-real').on('click', function (e) {
         $('#divResBoardJson').html('正在进行测试，请稍候...');
     });
     log('tester ready.');

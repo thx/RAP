@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF8">
+    <title></title>
+    <style type="text/css">
+        #container {
+            margin: 8px;
+        }
+
+        .param-table {
+            background: #E6E6E6;
+            border: 1px solid #FFF;
+            margin: 12px 0;
+            border-collapse: collapse;
+        }
+
+        .param-table th {
+            background: gray;
+            color: #FFF;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid #FFF;
+        }
+
+        .param-table td {
+            border-collapse: collapse;
+            border: 1px solid #FFF;
+            font-size: 12px;
+        }
+
+        .param-table .th-name {
+            width: 140px;
+        }
+
+        .param-table .th-identifier {
+            width: 140px;
+        }
+
+        .param-table .th-type {
+            width: 100px;
+        }
+
+        .param-table .th-remark {
+            width: 200px;
+        }
+
+        .param-table .td-name {
+        }
+
+        .param-table .td-identifier {
+        }
+
+        .param-table .td-type {
+            color: #990000;
+        }
+
+        .param-table .td-remark {
+            color: #666;
+        }
+
+        .param-table .tr-level-1 {
+            background: #E6E6E6;
+        }
+
+        .param-table .tr-level-2 {
+            background: silver;
+        }
+
+        .param-table .tr-level-3 {
+            background: gray;
+        }
+
+        .param-table .tr-level-4 {
+            background: silver;
+        }
+
+        .param-table .tr-level-5 {
+            background: gray;
+        }
+
+        .param-table .tr-level-6 {
+            background: silver;
+        }
+
+        .param-table .tr-level-7 {
+            background: gray;
+        }
+
+        .param-table .tr-level-8 {
+            background: silver;
+        }
+
+        .param-table .tr-level-9 {
+            background: gray;
+        }
+
+        .param-table .tr-level-10 {
+            background: silver;
+        }
+
+        .param-table .tr-level-11 {
+            background: gray;
+        }
+
+        .param-table .tr-level-12 {
+            background: silver;
+        }
+
+        .param-table .tr-level-13 {
+            background: gray;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    #foreach($module in $project.moduleListOrdered)
+        #set($moduleNo = $velocityCount)
+        <div class="module">
+            <h1>$moduleNo&nbsp;$module.name</h1>
+            #foreach($page in $module.pageListOrdered)
+                #set($pageNo = $velocityCount)
+                <div class="page">
+                    <h2>$moduleNo.$pageNo&nbsp;$page.name</h2>
+                    #foreach($action in $page.actionListOrdered)
+                        #set($actionNo = $velocityCount)
+                        <div class="action">
+                            <h3>$moduleNo.$pageNo.$actionNo&nbsp;$action.name</h3>
+
+                            <h3>Description</h3>
+
+                            <div>$action.description</div>
+                            <h3>URL</h3>
+
+                            <div>$action.requestUrl</div>
+                            <h3>Request Param List</h3>
+                            $action.requestParameterListHTML
+                            <h3>Response Param List</h3>
+                            $action.responseParameterListHTML
+                        </div>
+                    #end
+                </div>
+            #end
+        </div>
+    #end
+</div>
+</body>
+</html>

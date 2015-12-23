@@ -14,35 +14,40 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 */
 
 .wickFloater {
-position:absolute;
-z-index:2;
-display:none;
-padding:0;
+    position: absolute;
+    z-index: 2;
+    display: none;
+    padding: 0;
 }
 
 .wickFloater td {
-background-color:white;
-border:1px inset #979797;
-color:black;
+    background-color: white;
+    border: 1px inset #979797;
+    color: black;
 }
 
 .matchedSmartInputItem {
-font-size:12px;
-padding: 5px 10px 1px 5px;
-margin:0;
-cursor:pointer;
+    font-size: 12px;
+    padding: 5px 10px 1px 5px;
+    margin: 0;
+    cursor: pointer;
 }
 
 .selectedSmartInputItem {
-color:white;
-background-color:#3875D7;
+    color: white;
+    background-color: #3875D7;
 }
 
 #smartInputResults {
-padding:0;margin:0;
+    padding: 0;
+    margin: 0;
 }
 
 .siwCredit {
-margin:0;padding:0;margin-top:10px;font-size:12px;color:black;
+    margin: 0;
+    padding: 0;
+    margin-top: 10px;
+    font-size: 12px;
+    color: black;
 }
 

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <package name="organization" extends="rap-default" namespace="/org">
+        <action name="index" class="com.taobao.rigel.rap.organization.web.action.OrganizationAction" method="index">
+            <result name="success" type="velocity">/org/home/index.vm</result>
+            <result name="public" type="velocity">/platform/home.vm</result>
+        </action>
+        <action name="projects" class="com.taobao.rigel.rap.organization.web.action.OrganizationAction"
+                method="projects">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="group" class="com.taobao.rigel.rap.organization.web.action.OrganizationAction" method="group">
+            <result name="success" type="velocity">/org/group/index.vm</result>
+        </action>
+        <action name="productline" class="com.taobao.rigel.rap.organization.web.action.OrganizationAction"
+                method="productline">
+            <result name="success" type="velocity">/org/productline/index.vm</result>
+        </action>
+    </package>
+
+    <package name="team" extends="rap-default" namespace="/org/team">
+        <action name="create" class="com.taobao.rigel.rap.organization.web.action.TeamAction" method="create">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="teams" class="com.taobao.rigel.rap.organization.web.action.TeamAction" method="teams">
+            <result name="success" type="velocity">/org/team/teams.vm</result>
+        </action>
+        <action name="manage" class="com.taobao.rigel.rap.organization.web.action.TeamAction" method="manage">
+            <result name="success" type="velocity">/org/team/manage.vm</result>
+        </action>
+        <action name="changeAccessType" class="com.taobao.rigel.rap.organization.web.action.TeamAction"
+                method="changeAccessType">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="deleteMember" class="com.taobao.rigel.rap.organization.web.action.TeamAction"
+                method="deleteMember">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="addMembers" class="com.taobao.rigel.rap.organization.web.action.TeamAction" method="addMembers">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="update" class="com.taobao.rigel.rap.organization.web.action.TeamAction" method="update">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+    </package>
+
+    <package name="productline" extends="rap-default" namespace="/org/productline">
+        <action name="all" class="com.taobao.rigel.rap.organization.web.action.ProductlineAction" method="all">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="create" class="com.taobao.rigel.rap.organization.web.action.ProductlineAction" method="create">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="delete" class="com.taobao.rigel.rap.organization.web.action.ProductlineAction" method="delete">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="update" class="com.taobao.rigel.rap.organization.web.action.ProductlineAction" method="update">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+    </package>
+
+    <package name="group" extends="rap-default" namespace="/org/group">
+        <action name="all" class="com.taobao.rigel.rap.organization.web.action.GroupAction" method="all">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="groups" class="com.taobao.rigel.rap.organization.web.action.GroupAction" method="groups">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="create" class="com.taobao.rigel.rap.organization.web.action.GroupAction" method="create">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="delete" class="com.taobao.rigel.rap.organization.web.action.GroupAction" method="delete">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="update" class="com.taobao.rigel.rap.organization.web.action.GroupAction" method="update">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="corporationList" class="com.taobao.rigel.rap.organization.web.action.OrganizationAction"
+                method="corporationList">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+    </package>
+
+</struts>

@@ -5,27 +5,27 @@ var esEditor = window.esEditor || {};
  * @return {String} 去除html标签等后的字符串
  */
 esEditor.getEditorText = function (html) {
-    html = html.replace(/<embed[^>]*>(.*?)<\/embed>/ig,"");
-    html = html.replace(/<object[^>]*>(.*?)<\/object>/ig,"");
-    html = html.replace(/<applet[^>]*>(.*?)<\/applet>/ig,"");
-    html = html.replace(/<script[^>]*>(.*?)<\/script>/ig,"");
-    html = html.replace(/<style[^>]*>(.*?)<\/style>/ig,"");
-    html = html.replace(/<!--([^>]*)-->/ig,"");
-    html = html.replace(/<!--(.|\n|\r)*?-->/ig,"");
-    html = html.replace(/\r/g,"");
-    html = html.replace(/\n/g,"");
-    html = html.replace(/<p( .*?)?>/ig,"");
-    html = html.replace(/<\/p>/ig,"<br>");
-    html = html.replace(/<br>/ig,"");
-    html = html.replace(/<br ?\/>/ig,"");
+    html = html.replace(/<embed[^>]*>(.*?)<\/embed>/ig, "");
+    html = html.replace(/<object[^>]*>(.*?)<\/object>/ig, "");
+    html = html.replace(/<applet[^>]*>(.*?)<\/applet>/ig, "");
+    html = html.replace(/<script[^>]*>(.*?)<\/script>/ig, "");
+    html = html.replace(/<style[^>]*>(.*?)<\/style>/ig, "");
+    html = html.replace(/<!--([^>]*)-->/ig, "");
+    html = html.replace(/<!--(.|\n|\r)*?-->/ig, "");
+    html = html.replace(/\r/g, "");
+    html = html.replace(/\n/g, "");
+    html = html.replace(/<p( .*?)?>/ig, "");
+    html = html.replace(/<\/p>/ig, "<br>");
+    html = html.replace(/<br>/ig, "");
+    html = html.replace(/<br ?\/>/ig, "");
     html = html.replace(/<[^<>]*>/gi, "");
-    html = html.replace(/&gt;/g,">");
-    html = html.replace(/&lt;/g,"<");
-    html = html.replace(/&nbsp;/ig," ");
-    html = html.replace(/&amp;/g,"&");
-    html = html.replace(/&#39;/g,"\'");
-    html = html.replace(/&quot;/g,"\"");
-    html = html.replace(/\r\n　　/g,"");
+    html = html.replace(/&gt;/g, ">");
+    html = html.replace(/&lt;/g, "<");
+    html = html.replace(/&nbsp;/ig, " ");
+    html = html.replace(/&amp;/g, "&");
+    html = html.replace(/&#39;/g, "\'");
+    html = html.replace(/&quot;/g, "\"");
+    html = html.replace(/\r\n　　/g, "");
     html = baidu.trim(html);
     return html;
 };
@@ -55,13 +55,13 @@ esEditor.disableEditor = function (editorSuffix) {
     baidu.show(shadeDivEl);
 
     baidu.setStyles(shadeDivEl, {
-        "position"   : "absolute",
-        "height"     : height,
-        "width"      : width,
-        "left"       : 0,
-        "top"        : 0,
-        "background" : "#000",
-        "opacity"    : 0.3 
+        "position": "absolute",
+        "height": height,
+        "width": width,
+        "left": 0,
+        "top": 0,
+        "background": "#000",
+        "opacity": 0.3
     });
 };
 
@@ -80,7 +80,7 @@ esEditor.enableEditor = function (editorSuffix) {
  */
 esEditor.getImgNum = function (editor) {
     var imgNum = 0;
-    if(!editor) {
+    if (!editor) {
         return imgNum;
     }
     var imgEls = editor.document.getElementsByTagName("img");

@@ -2,7 +2,7 @@
     #parse('/tcom/template.rap.vm')
 <html>
 <head>
-    <title>欢迎使用RAP        </title>
+    <title>欢迎使用RAP </title>
     #includeNewRapStatic
 </head>
 <body>
@@ -25,8 +25,12 @@
                     #elseif($item.roleId==1)
                         <span class="label label-warning">无权修改，人家是超管耶~~~</span>
                     #else
-                        <button onclick="accessControl($item.id, $item.roleId);" class="btn btn-warn btn-sm"><span class="glyphicon glyphicon-cog"></span>权限</button>
-                        <button onclick="deleteUser($item.id);" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span>删除</button>
+                        <button onclick="accessControl($item.id, $item.roleId);" class="btn btn-warn btn-sm"><span
+                                class="glyphicon glyphicon-cog"></span>权限
+                        </button>
+                        <button onclick="deleteUser($item.id);" class="btn btn-danger btn-sm"><span
+                                class="glyphicon glyphicon-remove"></span>删除
+                        </button>
                     #end
                 </td>
             </tr>
@@ -35,8 +39,12 @@
     </table>
 </div>
 <div>
-    <button onclick="addUser();" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span>添加用户</button>&nbsp;&nbsp;
-    <button onclick="alterTeam();" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-wrench"></span>修改团队信息</button>&nbsp;&nbsp;
+    <button onclick="addUser();" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span>添加用户
+    </button>
+    &nbsp;&nbsp;
+    <button onclick="alterTeam();" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-wrench"></span>修改团队信息
+    </button>
+    &nbsp;&nbsp;
 </div>
 #bodyEnd
 
@@ -68,6 +76,7 @@
         </div>
 
     </div>
+
 </script>
 
 <!-- delete user floater -->
@@ -80,6 +89,7 @@
             </div>
         </div>
     </div>
+
 </script>
 
 <!-- add user floater -->
@@ -110,6 +120,7 @@
             </div>
         </div>
     </div>
+
 </script>
 
 <!-- alter corporation info floater -->
@@ -155,6 +166,7 @@
         </div>
     </div>
 </form>
+
 </script>
 
 <script>
@@ -162,17 +174,17 @@
     function accessControl(userId, oldAccessType) {
         var isAdmin = oldAccessType == 2 || oldAccessType == 1;
         $.confirm({
-            content: $.render($('#access-control-tmpl').text(), {isAdmin : isAdmin}),
+            content: $.render($('#access-control-tmpl').text(), {isAdmin: isAdmin}),
             title: '权限设置',
             confirmText: '确认',
-            confirmClicked: function() {
+            confirmClicked: function () {
                 var modal = $(this);
                 var accessType = $('#accessType1')[0].checked ? 3 : 2;
                 $.post($.route('org.team.changeAccessType'), {
-                    userId : userId,
-                    accessType : accessType,
-                    id : $id
-                }, function(data) {
+                    userId: userId,
+                    accessType: accessType,
+                    id: $id
+                }, function (data) {
                     modal.modal('hide');
                     window.location.href = "$teamUrl.manage" + "?id=$id";
                 }, "JSON");
@@ -185,12 +197,12 @@
             content: $.render($('#delete-user-tmpl').text(), {}),
             title: '删除用户',
             confirmText: '确认',
-            confirmClicked: function() {
+            confirmClicked: function () {
                 var modal = $(this);
                 $.post($.route('org.team.deleteMember'), {
-                    userId : userId,
-                    id : $id
-                }, function(data) {
+                    userId: userId,
+                    id: $id
+                }, function (data) {
 
 
                     modal.modal('hide');
@@ -206,43 +218,44 @@
                 callback($.local('users'));
                 return;
             }
-            $.get($.route('org.account.all'), function(data) {
+            $.get($.route('org.account.all'), function (data) {
                 users = data.users;
                 $.local('users', users);
                 callback(users);
             }, "JSON");
         }
+
         $.confirm({
             content: $.render($('#add-user-tmpl').text(), {}),
             title: '添加成员',
             confirmText: '确认',
-            showCallback: function() {
+            showCallback: function () {
                 var that = this;
                 $(this).find('input[type=text]').focus();
-                $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
+                $(this).find('.picking-user').delegate('.unpick-btn', 'click', function () {
                     $(this).parent('.picked-user').remove();
                 });
                 $('.tip').tooltip();
-                getUsers(function(users) {
+                getUsers(function (users) {
                     $('.user-loading').hide();
-                    $(that).find('.accounts-inputer').keyup(function() {
+                    $(that).find('.accounts-inputer').keyup(function () {
                         $.autocomplete(that, users);
-                    }).focus(function() {
+                    }).focus(function () {
                         $.autocomplete(that, users);
                     });
                 });
             },
-            confirmClicked: function() {
+            confirmClicked: function () {
                 var modal = $(this);
                 var pickedUserList = [];
-                $('.picked-user').each(function(index, ele) {
+                $('.picked-user').each(function (index, ele) {
                     pickedUserList.push($(ele).data('account'));
                 });
 
                 $.post($.route('org.team.addMembers'), {
-                    id : $id,
-                    accountList : pickedUserList.join(',')
-                }, function(data) {
+                    id: $id,
+                    accountList: pickedUserList.join(',')
+                }, function (data) {
                     modal.modal('hide');
                     window.location.href = "$teamUrl.manage" + "?id=$id";
                 }, "JSON");
@@ -253,21 +266,21 @@
     function alterTeam() {
         $.confirm({
             content: $.render($('#alter-team-tmpl').text(), {
-                name : '$!utils.escapeInJ($team.name)',
-                desc : '$!utils.escapeInJ($team.desc)',
-                isPrivate : +'$team.accessType' === 10
+                name: '$!utils.escapeInJ($team.name)',
+                desc: '$!utils.escapeInJ($team.desc)',
+                isPrivate: +'$team.accessType' === 10
             }),
             title: '修改团队信息',
             confirmText: '确认',
-            confirmClicked: function() {
+            confirmClicked: function () {
                 var modal = $(this);
 
                 $.post($.route('org.team.update'), {
-                    id : $id,
-                    name :$('#createTeamName').val(),
-                    desc : $('#createTeamDesc').val(),
-                    accessType : $('#createTeamType1')[0].checked ? 10 : 20
-                }, function(data) {
+                    id: $id,
+                    name: $('#createTeamName').val(),
+                    desc: $('#createTeamDesc').val(),
+                    accessType: $('#createTeamType1')[0].checked ? 10 : 20
+                }, function (data) {
                     modal.modal('hide');
                     window.location.href = "$teamUrl.manage" + "?id=$id";
                 }, "JSON");

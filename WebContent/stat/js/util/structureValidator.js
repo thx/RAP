@@ -1,10 +1,23 @@
-!function() {
+!function () {
     var global = this;
     var LOST = "LOST";
     var EMPTY_ARRAY = "EMPTY_ARRAY";
     var TYPE_NOT_EQUAL = "TYPE_NOT_EQUAL";
 
     function StructureValidator(o1, o2, leftName, rightName) {
+        if (typeof o1 === 'string') {
+            try {
+                o1 = JSON.parse(o1);
+            } catch (ex) {
+            }
+        }
+        if (typeof o2 === 'string') {
+            try {
+                o2 = JSON.parse(o2);
+            } catch (ex) {
+            }
+        }
+
         if (!leftName) {
             leftName = 'obj';
         }
@@ -20,14 +33,14 @@
         this._check(o1, o2, 'right', rightName);
     }
 
-    StructureValidator.prototype.getResult = function() {
+    StructureValidator.prototype.getResult = function () {
         return {
-            left  : this.left,
-            right : this.right
+            left: this.left,
+            right: this.right
         };
     };
 
-    StructureValidator.prototype.getResultStr = function() {
+    StructureValidator.prototype.getResultStr = function () {
         var result = this.getResult();
         var left = result.left;
         var right = result.right;
@@ -64,7 +77,7 @@
         }
     }
 
-    StructureValidator.prototype._check = function(o1, o2, key, keyName, isReverseCheck) {
+    StructureValidator.prototype._check = function (o1, o2, key, keyName, isReverseCheck) {
         var result = [];
 
         function typeEqual(a, b) {
@@ -93,16 +106,16 @@
                 if (oa.hasOwnProperty(p)) {
                     if (!ob.hasOwnProperty(p)) {
                         result.push({
-                            type : LOST,
-                            property : p,
-                            namespace : ns
+                            type: LOST,
+                            property: p,
+                            namespace: ns
                         });
                     } else if (!typeEqual(oa[p], ob[p])) {
                         if (!isReverseCheck) {
                             result.push({
-                                type : TYPE_NOT_EQUAL,
-                                property : p,
-                                namespace : ns
+                                type: TYPE_NOT_EQUAL,
+                                property: p,
+                                namespace: ns
                             });
                         }
                     } else if (isArrayObject(oa[p]) && isArrayObject(ob[p])) {
@@ -120,9 +133,9 @@
                                 checkStructure(l, r, ns + '.' + p + '[' + i + ']');
                             } else if (l && !r) {
                                 result.push({
-                                    type : EMPTY_ARRAY,
-                                    property : p,
-                                    namespace : ns
+                                    type: EMPTY_ARRAY,
+                                    property: p,
+                                    namespace: ns
                                 });
                             }
                         }
@@ -143,26 +156,30 @@
     function tester() {
 
         var o1 = {
-            p1 : 1,
-            p2 : 2,
-            p3 : 3,
-            p4 : 8,
-            obj : [{
-                op3 : 3,
-                op6 : 6,
-                op7 : 7
+            p1: 1,
+            p2: 2,
+            p3: 3,
+            p4: 8,
+            obj: [{
+                op3: 3,
+                op6: 6,
+                op7: 7
             }]
         };
         var o2 = {
-            p1 : 1,
-            p2 : 5,
-            p3 : 3,
-            p4 : 4,
-            obj : [{ op3 : 3,
-                op6 : 6,
-                op7 : 7}, { op3 : 3,
-                op6 : 6,
-                op77 : 7}]
+            p1: 1,
+            p2: 5,
+            p3: 3,
+            p4: 4,
+            obj: [{
+                op3: 3,
+                op6: 6,
+                op7: 7
+            }, {
+                op3: 3,
+                op6: 6,
+                op77: 7
+            }]
         };
 
         var validator = new StructureValidator(o1, o2);

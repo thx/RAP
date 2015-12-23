@@ -2,28 +2,35 @@
     #parse('/tcom/template.rap.vm')
 <html>
 <head>
-    <title>欢迎使用RAP        </title>
+    <title>欢迎使用RAP </title>
     #includeNewRapStatic
 </head>
 <body>
 #bodyNewStart
 <table class="table table-hover">
     <thead>
-        <th>团队名称</th>
-        <th width="120px">创建人</th>
-        <th width="80px">人数</th>
-        <th width="200px">操作</th>
+    <th>团队名称</th>
+    <th width="120px">创建人</th>
+    <th width="80px">人数</th>
+    <th width="200px">操作</th>
     </thead>
     <tbody>
         #foreach($item in $teamList)
         <tr>
-            <td><a href="$productlineUrl.productline?id=$item.id">#if($item.accessType==20)<span class="glyphicon glyphicon-exclamation-sign" title="公开团队,所有RAP用户均可访问,请注意数据安全."></span>&nbsp;&nbsp;#end $!utils.escapeInH($item.name)</a></td>
+            <td><a href="$productlineUrl.productline?id=$item.id">#if($item.accessType==20)<span
+                    class="glyphicon glyphicon-exclamation-sign"
+                    title="公开团队,所有RAP用户均可访问,请注意数据安全."></span>&nbsp;&nbsp;#end $!utils.escapeInH($item.name)</a></td>
             <td>$!utils.escapeInH($item.creatorName)</td>
             <td>$item.memberNum</td>
             <td>
-                <button onclick="window.location.href = '$productlineUrl.productline?id=$item.id';" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-triangle-top"></span>进入</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button onclick="window.location.href = '$productlineUrl.productline?id=$item.id';"
+                        class="btn btn-default btn-sm"><span class="glyphicon glyphicon-triangle-top"></span>进入
+                </button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 #if($item.hasAccess)
-                    <button onclick="window.location.href = '$teamUrl.manage?id=$item.id';" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-user"></span>管理</button>
+                    <button onclick="window.location.href = '$teamUrl.manage?id=$item.id';"
+                            class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-user"></span>管理
+                    </button>
                 #end
             </td>
         </tr>
@@ -45,7 +52,8 @@
         #end
         <li #if($pageNum==$teamListPageInTotal)
                 class="disabled" onclick="return false;"
-            #end><a href="$teamUrl.teams?pageNum=$!teamListPageInTotal" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+        #end><a href="$teamUrl.teams?pageNum=$!teamListPageInTotal" aria-label="Next"><span aria-hidden="true">»</span></a>
+        </li>
     </ul>
 </nav>
 <script>

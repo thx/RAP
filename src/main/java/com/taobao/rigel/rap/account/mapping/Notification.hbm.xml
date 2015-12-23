@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.taobao.rigel.rap.account.bo">
+    <class name="Notification" table="tb_notification">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="param1"/>
+        <property name="param2"/>
+        <property name="param3"/>
+        <property name="typeId" type="short">
+            <column name="type_id" not-null="true">
+                <comment>项目相关ID</comment>
+            </column>
+        </property>
+        <property name="read" type="boolean">
+            <column name="is_read" not-null="true">
+                <comment>项目相关ID</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="create_time" not-null="true">
+                <comment>创建时间</comment>
+            </column>
+        </property>
+        <many-to-one name="user" column="user_id"/>
+        <many-to-one name="targetUser" column="target_user_id"/>
+    </class>
+</hibernate-mapping>

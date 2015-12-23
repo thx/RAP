@@ -1,6 +1,6 @@
 module('rap-plugin-jsapis');
 
-test('RAP.set/getWhiteList', function() {
+test('RAP.set/getWhiteList', function () {
     var old = RAP.getWhiteList();
     var newList = ['a', 'b'];
     RAP.setWhiteList(newList);
@@ -9,7 +9,7 @@ test('RAP.set/getWhiteList', function() {
     equal(RAP.getWhiteList(), old, 'recover ok');
 });
 
-test('RAP.set/getHost', function() {
+test('RAP.set/getHost', function () {
     var old = RAP.getHost();
     equal(old, window.location.host, 'old is ok');
     var newHost = 'rap2.ali' + 'bab' + 'a-inc.com';
@@ -19,7 +19,7 @@ test('RAP.set/getHost', function() {
     equal(RAP.getHost(), old, 'recover ok');
 });
 
-test('RAP.set/getBlackList', function() {
+test('RAP.set/getBlackList', function () {
     var old = RAP.getBlackList();
     var newList = ['a', 'b'];
     RAP.setBlackList(newList);
@@ -28,7 +28,7 @@ test('RAP.set/getBlackList', function() {
     equal(RAP.getBlackList(), old, 'recover ok');
 });
 
-test('RAP.set/getMode', function() {
+test('RAP.set/getMode', function () {
     var old = RAP.getMode();
     var newMode = 3;
     RAP.setMode(newMode);
@@ -37,7 +37,7 @@ test('RAP.set/getMode', function() {
     equal(RAP.getMode(), old, 'recover ok');
 });
 
-test('RAP.set/getPrefix', function() {
+test('RAP.set/getPrefix', function () {
     var old = RAP.getPrefix();
     equal(old, '/mockjs/', 'old is /mockjs/');
     var newPrefix = '/mockjsdata/';
@@ -47,8 +47,8 @@ test('RAP.set/getPrefix', function() {
     equal(RAP.getPrefix(), old, 'recover ok');
 });
 
-test('RAP.set/white list & black list functions', function() {
-    var arr = ['a', 'b','c'];
+test('RAP.set/white list & black list functions', function () {
+    var arr = ['a', 'b', 'c'];
     RAP.setWhiteList(arr);
     var whiteList = RAP.getWhiteList();
     deepEqual(arr, whiteList, 'white list works fine');
@@ -59,7 +59,7 @@ test('RAP.set/white list & black list functions', function() {
     deepEqual(arr2, blackList, 'black list works fined');
 });
 
-test('RAP.set/getProjectId', function() {
+test('RAP.set/getProjectId', function () {
     var old = RAP.getProjectId();
     equal(old, 114, 'old is 114');
     var newProjectId = 121;

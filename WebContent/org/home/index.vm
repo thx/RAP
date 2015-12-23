@@ -1,25 +1,27 @@
 <!DOCTYPE html>
-#parse('/tcom/template.rap.vm')
+    #parse('/tcom/template.rap.vm')
 <html>
-	<head>
-		<title>欢迎使用RAP        </title>
-		#includeNewRapStatic
-		<link rel="stylesheet" href="./group/index.css?_r=$!timeStamp" type="text/css" media="screen">
-	</head>
-	<body>
-	    #bodyNewStart
-        <div id="browserCheckAlert" class="alert alert-warning alert-dismissible" role="alert" style="display:none;">
-            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <strong>Warning!</strong> 建议使用IE9+/Chrome/Firefox访问RAP，其它浏览器可能不支持某些特性，我们也不会对其兼容性进行维护。
+<head>
+    <title>欢迎使用RAP </title>
+    #includeNewRapStatic
+    <link rel="stylesheet" href="./group/index.css?_r=$!timeStamp" type="text/css" media="screen">
+</head>
+<body>
+#bodyNewStart
+<div id="browserCheckAlert" class="alert alert-warning alert-dismissible" role="alert" style="display:none;">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+            class="sr-only">Close</span></button>
+    <strong>Warning!</strong> 建议使用IE9+/Chrome/Firefox访问RAP，其它浏览器可能不支持某些特性，我们也不会对其兼容性进行维护。
+</div>
+<div class="page home">
+    <div class="groups-con content">
+        <h2>我的主页</h2>
+
+        <div class="groups">
+            <div class="loading">加载中，请稍候</div>
         </div>
-	    <div class="page home">
-		    <div class="groups-con content">
-		    	<h2>我的主页</h2>
-                <div class="groups">
-		    		<div class="loading">加载中，请稍候</div>
-		    	</div>
-		    </div>
-	    </div>
+    </div>
+</div>
 <script type="text/tmpl" id="group-tmpl">
 {{#groups}}
 <div class="group">
@@ -51,6 +53,7 @@
     </div>
 </div>
 {{/groups}}
+
 </script>
 
 
@@ -69,6 +72,7 @@
 			</div>
 			<input type="hidden" class="accounts-hidden" value="{{accounts}}"/>
         </div>
+
 </script>
 
 
@@ -99,6 +103,7 @@
 	</div>
   </div>
 </div>
+
 </script>
 
 <script type="text/tmpl" id="create-proj-tmpl">
@@ -136,7 +141,7 @@
                     <option>
                         --请选择团队--
                     </option>
-                    #foreach($corp in $corpList)
+                    #foreach($corp in $allCorpList)
                     <option value="$corp.id">
                         $!utils.escapeInH($corp.name)
                     </option>
@@ -189,6 +194,7 @@
     </div>
 
 </div>
+
 </script>
 
 <script type="text/tmpl" id="create-group-tmpl">
@@ -200,6 +206,7 @@
     </div>
   </div>
 </div>
+
 </script>
 
 <script type="text/tmpl" id="create-productline">
@@ -211,14 +218,19 @@
     </div>
   </div>
 </div>
+
 </script>
 
 <script type="text/tmpl" id="option-list-tmpl">
 {{#items}}
 <option value="{{id}}">{{name}}</option>
 {{/items}}
-</script></script>
-	    <script src="./home/index.js?_r=$!timeStamp"></script>
-	    #bodyEnd
-	</body>
+
+</script>
+</script>
+<
+script
+src = "./home/index.js?_r=$!timeStamp" ></script>
+#bodyEnd
+</body>
 </html>

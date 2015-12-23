@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.action.extension" value="action,do"></constant>
+    <constant name="struts.i18n.encoding" value="UTF-8"></constant>
+    <constant name="struts.devMode" value="false"></constant>
+    <constant name="struts.objectFactory" value="spring"></constant>
+    <package name="rap-default" extends="struts-default">
+        <result-types>
+            <result-type name="rapVelocityResult" default="true"
+                         class="org.apache.struts2.views.velocity.RapVelocityResult"/>
+        </result-types>
+        <interceptors>
+            <interceptor-stack name="baseStack">
+                <interceptor-ref name="createSession"/>
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="params"/>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="defaultStack">
+                    <param name="exception.logEnabled">true</param>
+                    <param name="exception.logLevel">ERROR</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="baseStack"/>
+
+        <global-results>
+            <result name="login" type="velocity">/account/login.vm</result>
+            <result name="error" type="velocity">/error.vm</result>
+            <result name="exception" type="velocity">/error.vm</result>
+            <result name="json-error" type="velocity">/bcom/jsonError.cb.vm</result>
+            <result name="input" type="velocity">/error.vm</result>
+            <result name="redirect" type="velocity">/common/redirect.vm</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+        </global-exception-mappings>
+    </package>
+
+    <!-- project action mapping -->
+    <include file="com/taobao/rigel/rap/project/web/action/struts.xml"/>
+
+    <!-- organization action mapping -->
+    <include file="com/taobao/rigel/rap/organization/web/action/struts.xml"/>
+
+    <!-- account action mapping -->
+    <include file="com/taobao/rigel/rap/account/web/action/struts.xml"/>
+
+    <!-- workspace action mapping -->
+    <include file="com/taobao/rigel/rap/workspace/web/action/struts.xml"/>
+
+    <!-- platform action mapping -->
+    <include file="com/taobao/rigel/rap/platform/web/action/struts.xml"/>
+
+    <!-- platform tester mapping -->
+    <include file="com/taobao/rigel/rap/tester/web/action/struts.xml"/>
+
+    <!-- platform mock mapping -->
+    <include file="com/taobao/rigel/rap/mock/web/action/struts.xml"/>
+
+    <!-- API mock mapping -->
+    <include file="com/taobao/rigel/rap/api/web/action/struts.xml"/>
+</struts>
