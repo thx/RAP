@@ -269,7 +269,7 @@ public class AccountAction extends ActionBase {
     @SuppressWarnings({"unchecked", "rawtypes"})
     public String doLogin() {
         if (super.getAccountMgr().validate(getAccount(), getPassword())) {
-            Map session = ContextManager.getSession();
+            Map session = ContextManager.currentSession();
             User user = getAccountMgr().getUser(getAccount());
             if (user != null && user.getId() > 0) {
                 session.put(ContextManager.KEY_ACCOUNT, user.getAccount());
@@ -291,8 +291,8 @@ public class AccountAction extends ActionBase {
 
     public String doLogout() {
         String key = ContextManager.KEY_ACCOUNT;
-        if (ContextManager.getSession().get(key) != null) {
-            ContextManager.getSession().remove(key);
+        if (ContextManager.currentSession().get(key) != null) {
+            ContextManager.currentSession().remove(key);
         }
         return SUCCESS;
     }

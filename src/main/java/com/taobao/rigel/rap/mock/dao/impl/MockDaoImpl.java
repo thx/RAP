@@ -3,7 +3,7 @@ package com.taobao.rigel.rap.mock.dao.impl;
 import com.taobao.rigel.rap.mock.bo.Rule;
 import com.taobao.rigel.rap.mock.dao.MockDao;
 import org.hibernate.Session;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 /**
  * Created by Bosn on 15/7/17.
@@ -13,7 +13,7 @@ public class MockDaoImpl extends HibernateDaoSupport implements MockDao {
     public Rule getRule(int actionId) {
         Rule rule = null;
         try {
-            Session session = getSession();
+            Session session = currentSession();
             rule = (Rule) session.get(Rule.class, actionId);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -23,7 +23,7 @@ public class MockDaoImpl extends HibernateDaoSupport implements MockDao {
 
     
     public int removeRule(int actionId) {
-        Session session = getSession();
+        Session session = currentSession();
         Object rule = session.get(Rule.class, actionId);
         if (rule != null) {
             session.delete((Rule) rule);
@@ -35,14 +35,14 @@ public class MockDaoImpl extends HibernateDaoSupport implements MockDao {
 
     
     public int updateRule(Rule rule) {
-        Session session = getSession();
+        Session session = currentSession();
         session.update(rule);
         return 0;
     }
 
     
     public int addRule(Rule rule) {
-        Session session = getSession();
+        Session session = currentSession();
         session.save(rule);
         return 0;
     }

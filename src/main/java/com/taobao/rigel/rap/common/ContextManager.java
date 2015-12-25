@@ -13,7 +13,7 @@ public class ContextManager {
     public static final String KEY_NAME = "KEY_NAME";
 
     @SuppressWarnings("rawtypes")
-    public static Map getSession() {
+    public static Map currentSession() {
         return ActionContext.getContext().getSession();
     }
 
