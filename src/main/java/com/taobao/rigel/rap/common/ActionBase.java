@@ -81,7 +81,7 @@ public class ActionBase extends ActionSupport {
     }
 
     public String getCurAccount() {
-        return isUserLogined() ? ContextManager.getSession()
+        return isUserLogined() ? ContextManager.currentSession()
                 .get(ContextManager.KEY_ACCOUNT).toString() : null;
     }
 
@@ -90,7 +90,7 @@ public class ActionBase extends ActionSupport {
     }
 
     protected boolean isUserLogined() {
-        return ContextManager.getSession().get(ContextManager.KEY_ACCOUNT) != null;
+        return ContextManager.currentSession().get(ContextManager.KEY_ACCOUNT) != null;
     }
 
     public int getCountOfOnlineUserList() {
@@ -104,7 +104,7 @@ public class ActionBase extends ActionSupport {
     }
 
     protected long getCurUserId() {
-        Object account = ContextManager.getSession().get(
+        Object account = ContextManager.currentSession().get(
                 ContextManager.KEY_ACCOUNT);
         if (account == null)
             return -1;

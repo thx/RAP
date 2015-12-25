@@ -2,7 +2,7 @@ package com.taobao.rigel.rap.platform.dao.impl;
 
 import com.taobao.rigel.rap.platform.dao.DataDao;
 import org.hibernate.Query;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
                 .append("WHERE create_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 YEAR) AND NOW() ")
                 .append("GROUP BY MONTH(create_date) ")
                 .append("ORDER BY create_date");
-        Query query = getSession().createSQLQuery(sql.toString());
+        Query query = currentSession().createSQLQuery(sql.toString());
         List<Object[]> list = query.list();
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         for (Object[] row : list) {
@@ -32,7 +32,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
             result.add(map);
         }
 
-        Object count = getSession().createSQLQuery("SELECT COUNT(*) FROM tb_user WHERE create_date < DATE_ADD(NOW(), INTERVAL -1 YEAR)")
+        Object count = currentSession().createSQLQuery("SELECT COUNT(*) FROM tb_user WHERE create_date < DATE_ADD(NOW(), INTERVAL -1 YEAR)")
                 .uniqueResult();
         Map<String, Object> mapCount = new HashMap<String, Object>();
         mapCount.put("startValue", count);
@@ -51,7 +51,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
                 .append("WHERE create_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 YEAR) AND NOW() ")
                 .append("GROUP BY MONTH(create_date) ")
                 .append("ORDER BY create_date");
-        Query query = getSession().createSQLQuery(sql.toString());
+        Query query = currentSession().createSQLQuery(sql.toString());
         List<Object[]> list = query.list();
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         for (Object[] row : list) {
@@ -61,7 +61,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
             result.add(map);
         }
 
-        Object count = getSession().createSQLQuery("SELECT COUNT(*) FROM tb_project WHERE create_date < DATE_ADD(NOW(), INTERVAL -1 YEAR)")
+        Object count = currentSession().createSQLQuery("SELECT COUNT(*) FROM tb_project WHERE create_date < DATE_ADD(NOW(), INTERVAL -1 YEAR)")
                 .uniqueResult();
         Map<String, Object> mapCount = new HashMap<String, Object>();
         mapCount.put("startValue", count);
@@ -79,7 +79,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
                 .append("WHERE create_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 YEAR) AND NOW() ")
                 .append("GROUP BY MONTH(create_date) ")
                 .append("ORDER BY create_date");
-        Query query = getSession().createSQLQuery(sql.toString());
+        Query query = currentSession().createSQLQuery(sql.toString());
         List<Object[]> list = query.list();
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         for (Object[] row : list) {
@@ -89,7 +89,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
             result.add(map);
         }
 
-        Object count = getSession().createSQLQuery("SELECT COUNT(*) FROM tb_check_in WHERE create_date < DATE_ADD(NOW(), INTERVAL -1 YEAR)")
+        Object count = currentSession().createSQLQuery("SELECT COUNT(*) FROM tb_check_in WHERE create_date < DATE_ADD(NOW(), INTERVAL -1 YEAR)")
                 .uniqueResult();
         Map<String, Object> mapCount = new HashMap<String, Object>();
         mapCount.put("startValue", count);
@@ -115,7 +115,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
                 .append("ORDER BY COUNT(a.id) DESC ");
 
 
-        Query query = getSession().createSQLQuery(sql.toString());
+        Query query = currentSession().createSQLQuery(sql.toString());
         List<Object[]> list = query.list();
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         for (Object[] row : list) {
