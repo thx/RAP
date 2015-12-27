@@ -373,10 +373,12 @@ public class WorkspaceAction extends ActionBase {
 		this.projectMgr = projectMgr;
 	}
 
+    /**
 	public String ping() {
 		setJson("{\"isOk\":true}");
 		return SUCCESS;
 	}
+     */
 
 	public String queryVersion() {
 		setJson(workspaceMgr.getVersion(getVersionId()).toString(

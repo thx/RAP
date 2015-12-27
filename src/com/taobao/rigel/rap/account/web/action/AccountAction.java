@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.mail.internet.AddressException;
+import javax.naming.Context;
 
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.Notification;
@@ -283,6 +284,7 @@ public class AccountAction extends ActionBase {
                 session.put(ContextManager.KEY_ACCOUNT, user.getAccount());
                 session.put(ContextManager.KEY_USER_ID, user.getId());
                 session.put(ContextManager.KEY_NAME, user.getName());
+                session.put(ContextManager.KEY_USER, user);
             } else {
                 setErrMsg("用户不存在或密码错误");
                 return ERROR;

@@ -1,7 +1,12 @@
 package com.taobao.rigel.rap.common;
+import com.taobao.rigel.rap.account.bo.User;
+import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.project.bo.Action;
 
+import java.lang.Long;
+import java.lang.String;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,9 +15,15 @@ import java.util.Map;
  */
 public class CacheUtils {
     private static Map<Long, String> cachedRules = new HashMap<Long, String>();
-    private static Map<Long, Long> rulesFrequency = new HashMap<Long, Long>(); // frequency cache
+    private static Map<Long, Map<String, List<Corporation>>> cachedTeams = new HashMap<Long, Map<String, List<Corporation>>>();
+
+    private static Map<Long, Long> rulesFrequency = new HashMap<Long, Long>(); // frequency of rules cache
+    private static Map<Long, Long> teamsFrequency = new HashMap<Long, Long>(); // frequency of teams cache
+
+
     private static long cachedSize = 0; // cached size in total
     private static long cachedRuleSize = 0; // cached size of rules cache
+    private static long cachedTeamSize = 0; // cached size of teams cache
 
     /**
      * get cached Mock rule
@@ -41,6 +52,15 @@ public class CacheUtils {
         return cache;
     }
 
+    public static List<Corporation> getTeamCache(long userId, int pageNum, int pageSize) {
+        String key = "" +  pageNum + pageSize;
+        Map<String, List<Corporation>> teamCache = cachedTeams.get(userId);
+        if (teamCache.get(key) != null) {
+            return teamCache.get(key);
+        }
+        return null;
+    }
+
     /**
      * set Mock rule cache
      *
@@ -53,10 +73,35 @@ public class CacheUtils {
             rulesFrequency.put(actionId, 0L);
             cachedRuleSize++;
             cachedSize++;
-        };
+        }
 
     }
 
+    public static void setTeamCache(long userId, int pageNum, int pageSize, List<Corporation> teamList) {
+        String key = "" +  pageNum + pageSize;
+        if (!cachedTeams.containsKey(userId)) {
+            Map<String, List<Corporation>> teamMap = cachedTeams.get(userId);
+            if (teamMap == null) {
+                teamMap = new HashMap<String, List<Corporation>>();
+            }
+            if (!teamMap.containsKey(key)) {
+                teamMap.put(key, teamList);
+                cachedTeams.put(userId, teamMap);
+                teamsFrequency.put(userId, 0L);
+                cachedTeamSize++;
+                cachedSize++;
+            }
+        }
+    }
+
+    public static void removeTeamCache(long userId) {
+        if (cachedTeams.containsKey(userId)) {
+            cachedTeams.remove(userId);
+            teamsFrequency.remove(userId);
+            cachedTeamSize--;
+            cachedSize--;
+        }
+    }
 
     /**
      * remove rule cache
@@ -78,4 +123,8 @@ public class CacheUtils {
     public static void removeCacheByActionId(long id) {
         removeRuleCache(id);
     }
+
+    public static long getCachedTeamSize() {return cachedTeamSize;}
+
+    public static long getCachedSize() {return cachedSize;}
 }

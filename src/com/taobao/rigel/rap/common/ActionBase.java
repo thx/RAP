@@ -86,8 +86,9 @@ public class ActionBase extends ActionSupport {
 	}
 
 	public String getCurAccount() {
-		return isUserLogined() ? ContextManager.getSession()
-				.get(ContextManager.KEY_ACCOUNT).toString() : null;
+        Object account = ContextManager.getSession()
+                .get(ContextManager.KEY_ACCOUNT).toString();
+		return account == null ? null : (String) account;
 	}
 
 	public boolean getIsLogined() {
@@ -109,22 +110,12 @@ public class ActionBase extends ActionSupport {
 	}
 
 	protected long getCurUserId() {
-		Object account = ContextManager.getSession().get(
-				ContextManager.KEY_ACCOUNT);
-		if (account == null)
-			return -1;
-		String accountStr = account.toString().trim();
-		if (accountStr == "")
-			return -1;
-		return accountMgr.getUserId(accountStr);
+        Object userId = ContextManager.getSession().get(ContextManager.KEY_USER_ID);
+		return userId != null ? (Long)userId : -1;
 	}
 
 	public User getCurUser() {
-		if (isUserLogined()) {
-			return accountMgr.getUser(getCurUserId());
-		} else {
-			return null;
-		}
+        return (User) ContextManager.getSession().get(ContextManager.KEY_USER);
 	}
 
 	private boolean isOk = true;

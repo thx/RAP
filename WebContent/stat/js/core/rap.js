@@ -2810,6 +2810,8 @@ function deepCopy(o) {
      * session delay preventing from session timeout
      */
     function sessionDelay() {
+        // because of optimization problem, halt temply
+        /**
         b.ajax.get(URL.ping, function(xhr, response) {
             try {
                 var obj = eval("(" + response + ")");
@@ -2821,6 +2823,7 @@ function deepCopy(o) {
                 showMessage(CONST.WARN, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SESSION_DELAY_ERROR);
             }
         });
+        */
     }
 
     function storeViewState(actionIdMap) {
