@@ -245,7 +245,7 @@ public class ProjectAction extends ActionBase {
 		Gson gson = new Gson();
 		Project project = new Project();
 		project.setCreateDate(new Date());
-		project.setUser(getCurUser());
+		project.setUser(getAccountMgr().getUser(getCurUserId()));
 		project.setIntroduction(getDesc());
 		project.setName(getName());
 		project.setGroupId(groupId);
@@ -280,11 +280,12 @@ public class ProjectAction extends ActionBase {
 			setErrMsg("您没有管理该项目的权限");
 			return ERROR;
 		}
+        User curUser = getAccountMgr().getUser(getCurUserId());
 		Project project = new Project();
 		project.setId(getId());
 		project.setIntroduction(getDesc());
 		project.setName(getName());
-		project.setUser(getCurUser());
+		project.setUser(curUser);
 		List<String> memberAccountList = new ArrayList<String>();
 		String[] list = getAccounts().split(",");
 		// format: mashengbo(大灰狼堡森), linpanhui(林攀辉),
@@ -299,8 +300,8 @@ public class ProjectAction extends ActionBase {
 		projectMgr.updateProject(project);
 		project = projectMgr.getProject(project.getId());
 
-		if (getCurUser().isUserInRole("admin")
-				|| getCurUser().getId() == project.getUser().getId()) {
+		if (curUser.isUserInRole("admin")
+				|| curUser.getId() == project.getUser().getId()) {
 			project.setIsManagable(true);
 		}
 
@@ -372,7 +373,8 @@ public class ProjectAction extends ActionBase {
             return JSON_ERROR;
         }
 
-        User curUser = getCurUser();
+        long curUserId = getCurUserId();
+        User curUser = getAccountMgr().getUser(curUserId);
         if (curUser.isAdmin()) {
             searchResult = projectMgr.search(key);
         } else {

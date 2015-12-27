@@ -34,7 +34,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-      <a class="navbar-brand" href="/"><i class="iconlogo mi-rap"></i> <span class="logo-text">RAP v0.<span style="color:#DD22DD">12</span><span style="color:#cc0000;font-size:10px;">&nbsp;&nbsp;beta</span></span></a>
+      <a class="navbar-brand" href="/"><i class="iconlogo mi-rap"></i> <span class="logo-text">RAP v0.<span style="color:#DD22DD">12.sp1</span><span style="color:#cc0000;font-size:10px;">&nbsp;&nbsp;beta</span></span></a>
     </div>
     <div class="collapse navbar-collapse"  id="global-navbar">
       <ul class="nav navbar-nav">
@@ -82,7 +82,7 @@
         </li>
         #end
       </ul>
-      #if ($curUser)
+      #if ($curUserId > 0)
       <div class="pull-right">
           <ul class="nav navbar-nav">
               <li>
@@ -99,7 +99,7 @@
                 </ul>
               </li>
               <li>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">$curUser.name <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">$curUserName <b class="caret"></b></a>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li><a href="$newUrl.home">我的主页</a></li>
                     <li><a href="$accountUrl.myAccount">个人信息</a></li>

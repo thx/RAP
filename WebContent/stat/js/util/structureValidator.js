@@ -5,6 +5,17 @@
     var TYPE_NOT_EQUAL = "TYPE_NOT_EQUAL";
 
     function StructureValidator(o1, o2, leftName, rightName) {
+        if (typeof o1 === 'string') {
+            try {
+                o1 = JSON.parse(o1);
+            } catch(ex) {}
+        }
+        if (typeof o2 === 'string') {
+            try {
+                o2 = JSON.parse(o2);
+            } catch(ex) {}
+        }
+
         if (!leftName) {
             leftName = 'obj';
         }

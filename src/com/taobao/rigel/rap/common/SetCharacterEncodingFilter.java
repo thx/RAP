@@ -25,6 +25,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -110,6 +111,9 @@ public class SetCharacterEncodingFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
+
+        HttpServletRequest http = (HttpServletRequest) request;
+        System.out.println("ACCESS_LOG|" + http.getSession().getAttribute(ContextManager.KEY_ACCOUNT) + "|" + http.getRemoteAddr() + "|" + http.getRequestURL());
 
 		// Conditionally select and set the character encoding to be used
 		if (ignore || (request.getCharacterEncoding() == null)) {

@@ -14,12 +14,12 @@ public interface ProjectMgr {
 	/**
 	 * get project list
 	 * 
-	 * @param user
+	 * @param curUserId
 	 * @param curPageNum
 	 * @param pageSize
 	 * @return
 	 */
-	List<Project> getProjectList(User user, int curPageNum, int pageSize);
+	List<Project> getProjectList(long curUserId, int curPageNum, int pageSize);
 
 	/**
 	 * add new project

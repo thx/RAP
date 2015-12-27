@@ -8,7 +8,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
 import com.google.gson.Gson;
-import com.taobao.rigel.rap.common.SystemConstant;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -373,10 +372,12 @@ public class WorkspaceAction extends ActionBase {
 		this.projectMgr = projectMgr;
 	}
 
+    /**
 	public String ping() {
 		setJson("{\"isOk\":true}");
 		return SUCCESS;
 	}
+     */
 
 	public String queryVersion() {
 		setJson(workspaceMgr.getVersion(getVersionId()).toString(
@@ -399,7 +400,7 @@ public class WorkspaceAction extends ActionBase {
 	}
 
 	public String checkIn() throws Exception {
-		User curUser = getCurUser();
+        User curUser = getAccountMgr().getUser(getCurUserId());
 		if (curUser == null) {
 			setErrMsg(LOGIN_WARN_MSG);
             logger.error("Unlogined user trying to checkin and failed.");
@@ -408,7 +409,7 @@ public class WorkspaceAction extends ActionBase {
 
 		if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
 			setErrMsg("access deny");
-            logger.error("User %s trying to checkedin project(id=$d) and denied.", getCurAccount(), getId());
+            logger.error("User %s trying to checkedin project(id=$d) and denied.", getCurUserAccount(), getId());
 			return JSON_ERROR;
 		}
 
@@ -469,7 +470,7 @@ public class WorkspaceAction extends ActionBase {
             notification.setParam1(new Integer(id).toString());
             notification.setParam2(project.getName());
             notification.setTypeId((short) 1);
-            notification.setTargetUser(getCurUser());
+            notification.setTargetUser(curUser);
             notification.setUser(user);
             if (notification.getUser().getId() != getCurUserId())
                 getAccountMgr().addNotification(notification);
@@ -479,7 +480,7 @@ public class WorkspaceAction extends ActionBase {
         notification.setParam1(new Integer(id).toString());
         notification.setParam2(project.getName());
         notification.setTypeId((short) 1);
-        notification.setTargetUser(getCurUser());
+        notification.setTargetUser(curUser);
         notification.setUser(project.getUser());
         if (notification.getUser().getId() != getCurUserId())
             getAccountMgr().addNotification(notification);
@@ -524,7 +525,7 @@ public class WorkspaceAction extends ActionBase {
 		if (isLocked(getId())) {
 			// if the project is locked, find the locker
 			User user = getLocker(getId());
-			if (!user.getAccount().equals(getCurAccount())) {
+			if (!user.getAccount().equals(getCurUserAccount())) {
 				setJson("{\"isOk\":false, \"errMsg\":\"该项目目前正被"
 						+ user.getName() + "锁定.\"}");
 			} else {
@@ -627,6 +628,7 @@ public class WorkspaceAction extends ActionBase {
     public String __init__() {
         // prevent repeated intialization of servcie
 
+        /**
         if (SystemConstant.serviceInitialized) {
             return SUCCESS;
         }
@@ -637,7 +639,9 @@ public class WorkspaceAction extends ActionBase {
         for (Project p : list) {
             projectMgr.updateDoc(p.getId());
         }
+         */
         return SUCCESS;
+
     }
 
 }

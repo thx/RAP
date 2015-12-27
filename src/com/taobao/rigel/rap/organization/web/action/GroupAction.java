@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.RapError;
 import com.taobao.rigel.rap.organization.bo.Group;
@@ -73,6 +74,7 @@ public class GroupAction extends ActionBase {
 			setErrMsg(ACCESS_DENY);
 			return JSON_ERROR;
 		}
+        User curUser = getAccountMgr().getUser(getCurUserId());
 		Gson gson = new Gson();
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<Map<String, Object>> groups = new ArrayList<Map<String, Object>>();
@@ -85,9 +87,9 @@ public class GroupAction extends ActionBase {
 					.getProjectListByGroup(groupModel.getId());
 			List<Map<String, Object>> projects = new ArrayList<Map<String, Object>>();
 			for (Project projectModel : projectModelList) {
-				if (getCurUser().isUserInRole("admin")
+				if (curUser.isUserInRole("admin")
 						|| getAccountMgr().canUserManageProject(
-								getCurUser().getId(), projectModel.getId())) {
+								curUser.getId(), projectModel.getId())) {
 					projectModel.setIsManagable(true);
 				}
 				Map<String, Object> project = new HashMap<String, Object>();
