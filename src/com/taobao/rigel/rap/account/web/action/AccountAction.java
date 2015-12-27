@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.mail.internet.AddressException;
-import javax.naming.Context;
 
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.Notification;
@@ -33,6 +32,16 @@ public class AccountAction extends ActionBase {
 	private String email;
 	private String SSO_TOKEN;
 	private String BACK_URL;
+
+    public User getCurUser() {
+        return curUser;
+    }
+
+    public void setCurUser(User curUser) {
+        this.curUser = curUser;
+    }
+
+    private User curUser;
 
     public OrganizationMgr getOrganizationMgr() {
         return organizationMgr;
@@ -284,7 +293,8 @@ public class AccountAction extends ActionBase {
                 session.put(ContextManager.KEY_ACCOUNT, user.getAccount());
                 session.put(ContextManager.KEY_USER_ID, user.getId());
                 session.put(ContextManager.KEY_NAME, user.getName());
-                session.put(ContextManager.KEY_USER, user);
+                session.put(ContextManager.KEY_EMP_ID, user.getEmpId());
+                // session.put(ContextManager.KEY_USER, user);
             } else {
                 setErrMsg("用户不存在或密码错误");
                 return ERROR;
@@ -301,9 +311,7 @@ public class AccountAction extends ActionBase {
 
 	public String doLogout() {
 		String key = ContextManager.KEY_ACCOUNT;
-		if (ContextManager.getSession().get(key) != null) {
-			ContextManager.getSession().remove(key);
-		}
+        ContextManager.getSession().clear();
 		return SUCCESS;
 	}
 
@@ -348,6 +356,7 @@ public class AccountAction extends ActionBase {
 			setRelativeReturnUrl("/account/myAccount.action");
 			return LOGIN;
 		}
+        curUser = getAccountMgr().getUser(getCurUserId());
 		return SUCCESS;
 	}
 	
@@ -362,7 +371,7 @@ public class AccountAction extends ActionBase {
 
 	public String doChangeProfile() {
 		super.getAccountMgr().changeProfile(
-				super.getAccountMgr().getUser(super.getCurAccount()).getId(),
+				super.getAccountMgr().getUser(super.getCurUserAccount()).getId(),
 				getProfileProperty(), getProfileValue());
 		return SUCCESS;
 	}

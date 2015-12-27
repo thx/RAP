@@ -79,7 +79,8 @@ public class ProjectMgrImpl implements ProjectMgr {
 	}
 
 	@Override
-	public List<Project> getProjectList(User user, int curPageNum, int pageSize) {
+	public List<Project> getProjectList(long curUserId, int curPageNum, int pageSize) {
+        User user = accountMgr.getUser(curUserId);
 		List<Project> projectList = projectDao.getProjectList(user, curPageNum,
 				pageSize);
 		for (Project p : projectList) {

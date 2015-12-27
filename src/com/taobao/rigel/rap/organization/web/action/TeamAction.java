@@ -170,7 +170,7 @@ public class TeamAction extends ActionBase {
     }
 
     public String changeAccessType() {
-        User curUser = getCurUser();
+        User curUser = getAccountMgr().getUser(getCurUserId());
         if (curUser == null) {
             setErrMsg(LOGIN_WARN_MSG);
             setIsOk(false);
@@ -193,7 +193,7 @@ public class TeamAction extends ActionBase {
     }
 
     public String deleteMember() {
-        User curUser = getCurUser();
+        User curUser = getAccountMgr().getUser(getCurUserId());
         if (curUser == null) {
             setErrMsg(LOGIN_WARN_MSG);
             setIsOk(false);
@@ -208,7 +208,7 @@ public class TeamAction extends ActionBase {
     }
 
     public String addMembers() {
-        User curUser = getCurUser();
+        User curUser = getAccountMgr().getUser(getCurUserId());
         if (curUser == null) {
             setErrMsg(LOGIN_WARN_MSG);
             setIsOk(false);
@@ -224,7 +224,7 @@ public class TeamAction extends ActionBase {
     }
 
     public String update() {
-        User curUser = getCurUser();
+        User curUser = getAccountMgr().getUser(getCurUserId());
         if (curUser == null) {
             setErrMsg(LOGIN_WARN_MSG);
             setIsOk(false);

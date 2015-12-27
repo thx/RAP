@@ -82,7 +82,7 @@
         </li>
         #end
       </ul>
-      #if ($curUser)
+      #if ($curUserId > 0)
       <div class="pull-right">
           <ul class="nav navbar-nav">
               <li>
@@ -99,13 +99,13 @@
                 </ul>
               </li>
               <li>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">$curUser.name <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">$curUserName <b class="caret"></b></a>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li><a href="$newUrl.home">我的主页</a></li>
                     <li><a href="$accountUrl.myAccount">个人信息</a></li>
                     <li><a href="$accountUrl.mySetting">个人设置</a></li>
                     <li class="divider"></li>
-                    #if($curUser.empId)
+                    #if($curUserEmpId)
                         <li><a href="https://$consts.aliLoginUrl/ssoLogout.htm?APP_NAME=rapauto&BACK_URL=$logoutUrlEncoded">退出</a></li>
                     #else
                         <li><a href="$accountUrl.doLogout">退出</a></li>

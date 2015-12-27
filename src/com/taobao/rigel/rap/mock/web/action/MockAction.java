@@ -184,7 +184,7 @@ public class MockAction extends ActionBase {
 
 	public String createData() throws UnsupportedEncodingException {
 		boolean isJSON = false;
-		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createData", pattern, getCurAccount()));
+		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createData", pattern, getCurUserAccount()));
 		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
 		String result = mockMgr.generateData(__id__, pattern, options);
@@ -210,7 +210,7 @@ public class MockAction extends ActionBase {
 
 	public String createRule() throws UnsupportedEncodingException {
 		boolean isJSON = false;
-		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createRule", pattern, getCurAccount()));
+		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createRule", pattern, getCurUserAccount()));
 		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
 		options.put("method", getMethod());
@@ -236,7 +236,7 @@ public class MockAction extends ActionBase {
 
 	public String createRuleAuto() throws UnsupportedEncodingException {
 		boolean isJSON = false;
-		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createRule", pattern, getCurAccount()));
+		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createRule", pattern, getCurUserAccount()));
 		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
 		options.put("method", getMethod());
@@ -264,7 +264,7 @@ public class MockAction extends ActionBase {
 	
 	public String createRuleByActionData() throws UnsupportedEncodingException {
 		boolean isJSON = false;
-		updateProjectListMockNum(SystemVisitorLog.mock(id, "createRuleByActionData", pattern, getCurAccount()));
+		updateProjectListMockNum(SystemVisitorLog.mock(id, "createRuleByActionData", pattern, getCurUserAccount()));
 		Map<String, Object> options = new HashMap<String, Object>();
 		String _c = get_c();
 		String result = mockMgr.generateRule(id, pattern, options);
@@ -298,7 +298,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createPluginScript() {
-		updateProjectListMockNum(SystemVisitorLog.mock(id, "createPluginScript", pattern, getCurAccount()));
+		updateProjectListMockNum(SystemVisitorLog.mock(id, "createPluginScript", pattern, getCurUserAccount()));
 		Map<String, Boolean> _circleRefProtector = new HashMap<String, Boolean>();
 		List<String> list = new ArrayList<String>();
 		Project p = projectMgr.getProject(projectId);
@@ -353,7 +353,7 @@ public class MockAction extends ActionBase {
 
 	public String createMockjsData() throws UnsupportedEncodingException {
 		boolean isJSON = false;
-        updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createMockjsData", pattern, getCurAccount()));
+        updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createMockjsData", pattern, getCurUserAccount()));
 		String _c = get_c();
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("method", getMethod());
@@ -380,7 +380,7 @@ public class MockAction extends ActionBase {
 
 	public String createMockjsDataAuto() throws UnsupportedEncodingException {
         boolean isJSON = false;
-		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createMockjsData", pattern, getCurAccount()));
+		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createMockjsData", pattern, getCurUserAccount()));
 		String _c = get_c();
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("method", getMethod());
@@ -408,7 +408,7 @@ public class MockAction extends ActionBase {
 
 	public String validateAPI() throws UnsupportedEncodingException {
         boolean isJSON = false;
-		updateProjectListMockNum(SystemVisitorLog.mock(id, "createRule", pattern, getCurAccount()));
+		updateProjectListMockNum(SystemVisitorLog.mock(id, "createRule", pattern, getCurUserAccount()));
         Map<String, Object> options = new HashMap<String, Object>();
         String _c = get_c();
         options.put("method", getMethod());

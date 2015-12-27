@@ -20,7 +20,6 @@ public class CacheUtils {
     private static Map<Long, Long> rulesFrequency = new HashMap<Long, Long>(); // frequency of rules cache
     private static Map<Long, Long> teamsFrequency = new HashMap<Long, Long>(); // frequency of teams cache
 
-
     private static long cachedSize = 0; // cached size in total
     private static long cachedRuleSize = 0; // cached size of rules cache
     private static long cachedTeamSize = 0; // cached size of teams cache
@@ -55,7 +54,7 @@ public class CacheUtils {
     public static List<Corporation> getTeamCache(long userId, int pageNum, int pageSize) {
         String key = "" +  pageNum + pageSize;
         Map<String, List<Corporation>> teamCache = cachedTeams.get(userId);
-        if (teamCache.get(key) != null) {
+        if (teamCache != null && teamCache.get(key) != null) {
             return teamCache.get(key);
         }
         return null;

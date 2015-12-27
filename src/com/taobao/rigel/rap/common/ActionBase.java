@@ -9,6 +9,8 @@ import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 
+import javax.naming.Context;
+
 public class ActionBase extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
@@ -85,7 +87,7 @@ public class ActionBase extends ActionSupport {
 		this.accountMgr = accountMgr;
 	}
 
-	public String getCurAccount() {
+	public String getCurUserAccount() {
         Object account = ContextManager.getSession()
                 .get(ContextManager.KEY_ACCOUNT).toString();
 		return account == null ? null : (String) account;
@@ -109,14 +111,25 @@ public class ActionBase extends ActionSupport {
 		}
 	}
 
-	protected long getCurUserId() {
+    public long getCurUserId() {
         Object userId = ContextManager.getSession().get(ContextManager.KEY_USER_ID);
-		return userId != null ? (Long)userId : -1;
+		return userId != null ? (Long)userId : 0;
 	}
 
+    public String getCurUserName() {
+        Object val = ContextManager.getSession().get(ContextManager.KEY_NAME);
+        return val != null ? (String)val : null;
+    }
+
+    public String getCurUserEmpId() {
+        Object val = ContextManager.getSession().get(ContextManager.KEY_EMP_ID);
+        return val != null ? (String)val : null;
+    }
+
+    /**
 	public User getCurUser() {
         return (User) ContextManager.getSession().get(ContextManager.KEY_USER);
-	}
+	}*/
 
 	private boolean isOk = true;
 

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.ActionBase;
 import com.taobao.rigel.rap.common.ContextManager;
 import com.taobao.rigel.rap.organization.bo.Corporation;
@@ -127,15 +128,16 @@ public class OrganizationAction extends ActionBase {
             plsLogin();
             return JSON_ERROR;
         }
+        User curUser = getAccountMgr().getUser(getCurUserId());
 		Gson gson = new Gson();
 		List<Map<String, Object>> projects = new ArrayList<Map<String, Object>>();
 		// long totalRecNum = projectMgr.getProjectListNum(getCurUser());
-		List<Project> projectList = projectMgr.getProjectList(getCurUser(), 1,
+		List<Project> projectList = projectMgr.getProjectList(getCurUserId(), 1,
 				Integer.MAX_VALUE);
 		for (Project p : projectList) {
-			if (getCurUser().isUserInRole("admin")
+			if (curUser.isUserInRole("admin")
 					|| getAccountMgr().canUserManageProject(
-							getCurUser().getId(), p.getId())) {
+							curUser.getId(), p.getId())) {
 				p.setIsManagable(true);
 			}
 			Map<String, Object> map = new HashMap<String, Object>();
