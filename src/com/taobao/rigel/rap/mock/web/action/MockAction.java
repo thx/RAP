@@ -183,6 +183,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createData() throws UnsupportedEncodingException {
+        System.out.println("CREATE_DATA|" + pattern + "|" + getCurUserAccount());
 		boolean isJSON = false;
 		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createData", pattern, getCurUserAccount()));
 		Map<String, Object> options = new HashMap<String, Object>();
@@ -209,6 +210,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createRule() throws UnsupportedEncodingException {
+        System.out.println("MOCK_JS|" + pattern + "|" + getCurUserAccount());
 		boolean isJSON = false;
 		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createRule", pattern, getCurUserAccount()));
 		Map<String, Object> options = new HashMap<String, Object>();
@@ -298,6 +300,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createPluginScript() {
+        System.out.println("CREATE_PLUGIN_SCRIPT|" + pattern + "|" + getCurUserAccount());
 		updateProjectListMockNum(SystemVisitorLog.mock(id, "createPluginScript", pattern, getCurUserAccount()));
 		Map<String, Boolean> _circleRefProtector = new HashMap<String, Boolean>();
 		List<String> list = new ArrayList<String>();
@@ -352,6 +355,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createMockjsData() throws UnsupportedEncodingException {
+        System.out.println("MOCK_JS_DATA|" + pattern + "|" + getCurUserAccount());
 		boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createMockjsData", pattern, getCurUserAccount()));
 		String _c = get_c();
@@ -379,6 +383,7 @@ public class MockAction extends ActionBase {
 	}
 
 	public String createMockjsDataAuto() throws UnsupportedEncodingException {
+        System.out.println("MOCK_JS_AUTO|" + pattern + "|" + getCurUserAccount());
         boolean isJSON = false;
 		updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createMockjsData", pattern, getCurUserAccount()));
 		String _c = get_c();
