@@ -88,9 +88,13 @@ public class ActionBase extends ActionSupport {
 	}
 
 	public String getCurUserAccount() {
-        Object account = ContextManager.getSession()
-                .get(ContextManager.KEY_ACCOUNT).toString();
-		return account == null ? null : (String) account;
+           Map session = ContextManager.getSession();
+              if (session != null) {
+                  Object account = session
+                             .get(ContextManager.KEY_ACCOUNT);
+          return account == null ? null : (String) account;
+           }
+        return null;
 	}
 
 	public boolean getIsLogined() {
