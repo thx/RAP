@@ -1,24 +1,21 @@
 package com.taobao.rigel.rap.common;
-import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.project.bo.Action;
 
-import java.lang.Long;
-import java.lang.String;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Bosn on 14/11/28.
  * Basic cache, need weight for string length.
  */
 public class CacheUtils {
-    private static Map<Long, String> cachedRules = new HashMap<Long, String>();
-    private static Map<Long, Map<String, List<Corporation>>> cachedTeams = new HashMap<Long, Map<String, List<Corporation>>>();
+    private static Map<Long, String> cachedRules = new ConcurrentHashMap<Long, String>();
+    private static Map<Long, Map<String, List<Corporation>>> cachedTeams = new ConcurrentHashMap<Long, Map<String, List<Corporation>>>();
 
-    private static Map<Long, Long> rulesFrequency = new HashMap<Long, Long>(); // frequency of rules cache
-    private static Map<Long, Long> teamsFrequency = new HashMap<Long, Long>(); // frequency of teams cache
+    private static Map<Long, Long> rulesFrequency = new ConcurrentHashMap<Long, Long>(); // frequency of rules cache
+    private static Map<Long, Long> teamsFrequency = new ConcurrentHashMap<Long, Long>(); // frequency of teams cache
 
     private static long cachedSize = 0; // cached size in total
     private static long cachedRuleSize = 0; // cached size of rules cache
@@ -81,7 +78,7 @@ public class CacheUtils {
         if (!cachedTeams.containsKey(userId)) {
             Map<String, List<Corporation>> teamMap = cachedTeams.get(userId);
             if (teamMap == null) {
-                teamMap = new HashMap<String, List<Corporation>>();
+                teamMap = new ConcurrentHashMap<String, List<Corporation>>();
             }
             if (!teamMap.containsKey(key)) {
                 teamMap.put(key, teamList);
