@@ -20,7 +20,7 @@
                 <td>$!utils.escapeInH($item.name)</td>
                 <td>#getRoleStr($item.roleId)</td>
                 <td>
-                    #if($item.id == $curUser.id)
+                    #if($item.id == $curUserId)
                         <span class="label label-default">自己，请善待</span>
                     #elseif($item.roleId==1)
                         <span class="label label-warning">无权修改，人家是超管耶~~~</span>

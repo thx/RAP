@@ -2,6 +2,7 @@ package com.taobao.rigel.rap.organization.service.impl;
 
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
+import com.taobao.rigel.rap.common.CacheUtils;
 import com.taobao.rigel.rap.common.RapError;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.bo.Group;
@@ -12,6 +13,7 @@ import com.taobao.rigel.rap.project.bo.Module;
 import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
+import sun.misc.Cache;
 
 import java.util.List;
 
@@ -51,6 +53,10 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
 
     public List<Corporation> getCorporationListWithPager(int pageNum, int pageSize) {
+        List<Corporation> cache = CacheUtils.getTeamCache(0L, pageNum, pageSize);
+        if(cache != null) {
+            return cache;
+        }
 
         List<Corporation> list = organizationDao.getCorporationListWithPager(pageNum, pageSize);
 
@@ -60,6 +66,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
             c.setHasAccess(true);
             c.setCreatorName(accountMgr.getUser(c.getUserId()).getName());
         }
+        CacheUtils.setTeamCache(0L, pageNum, pageSize, list);
         return list;
     }
 
@@ -70,6 +77,11 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
 
     public List<Corporation> getCorporationListWithPager(long userId, int pageNum, int pageSize) {
+        List<Corporation> cache = CacheUtils.getTeamCache(userId, pageNum, pageSize);
+        if(cache != null) {
+            return cache;
+        }
+
         User user = accountMgr.getUser(userId);
         if (user.isAdmin()) {
             return getCorporationListWithPager(pageNum, pageSize);
@@ -81,6 +93,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
             c.setHasAccess(canUserManageCorp(userId, c.getId()));
             c.setCreatorName(accountMgr.getUser(c.getUserId()).getName());
         }
+        CacheUtils.setTeamCache(userId, pageNum, pageSize, list);
         return list;
     }
 
@@ -275,6 +288,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
 
     public int addTeam(Corporation team) {
+
         int corpId = organizationDao.addCorporation(team);
         for (String account : team.getAccountList()) {
             if (account == null || account.trim().isEmpty()) continue;

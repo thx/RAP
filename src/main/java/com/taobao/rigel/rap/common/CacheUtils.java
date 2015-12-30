@@ -1,9 +1,10 @@
 package com.taobao.rigel.rap.common;
-
+import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.project.bo.Action;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Bosn on 14/11/28.
@@ -11,10 +12,15 @@ import java.util.Map;
  */
 public class CacheUtils {
     private static final String MOCK_RULE_CACHE_PREFIX = "MOCK_CACHE_PREFIX:";
-    private static Map<Long, String> cachedRules = new HashMap<Long, String>();
-    private static Map<Long, Long> rulesFrequency = new HashMap<Long, Long>(); // frequency cache
+    private static Map<Long, String> cachedRules = new ConcurrentHashMap<Long, String>();
+    private static Map<Long, Map<String, List<Corporation>>> cachedTeams = new ConcurrentHashMap<Long, Map<String, List<Corporation>>>();
+
+    private static Map<Long, Long> rulesFrequency = new ConcurrentHashMap<Long, Long>(); // frequency of rules cache
+    private static Map<Long, Long> teamsFrequency = new ConcurrentHashMap<Long, Long>(); // frequency of teams cache
+
     private static long cachedSize = 0; // cached size in total
     private static long cachedRuleSize = 0; // cached size of rules cache
+    private static long cachedTeamSize = 0; // cached size of teams cache
 
     /**
      * get cached Mock rule
@@ -46,6 +52,15 @@ public class CacheUtils {
          **/
     }
 
+    public static List<Corporation> getTeamCache(long userId, int pageNum, int pageSize) {
+        String key = "" +  pageNum + pageSize;
+        Map<String, List<Corporation>> teamCache = cachedTeams.get(userId);
+        if (teamCache != null && teamCache.get(key) != null) {
+            return teamCache.get(key);
+        }
+        return null;
+    }
+
     /**
      * set Mock rule cache
      *
@@ -62,9 +77,40 @@ public class CacheUtils {
          cachedSize++;
          };
          */
+        if (!cachedRules.containsKey(actionId)) {
+            cachedRules.put(actionId, result);
+            rulesFrequency.put(actionId, 0L);
+            cachedRuleSize++;
+            cachedSize++;
+        }
 
     }
 
+    public static void setTeamCache(long userId, int pageNum, int pageSize, List<Corporation> teamList) {
+        String key = "" +  pageNum + pageSize;
+        if (!cachedTeams.containsKey(userId)) {
+            Map<String, List<Corporation>> teamMap = cachedTeams.get(userId);
+            if (teamMap == null) {
+                teamMap = new ConcurrentHashMap<String, List<Corporation>>();
+            }
+            if (!teamMap.containsKey(key)) {
+                teamMap.put(key, teamList);
+                cachedTeams.put(userId, teamMap);
+                teamsFrequency.put(userId, 0L);
+                cachedTeamSize++;
+                cachedSize++;
+            }
+        }
+    }
+
+    public static void removeTeamCache(long userId) {
+        if (cachedTeams.containsKey(userId)) {
+            cachedTeams.remove(userId);
+            teamsFrequency.remove(userId);
+            cachedTeamSize--;
+            cachedSize--;
+        }
+    }
 
     /**
      * remove rule cache
@@ -90,4 +136,8 @@ public class CacheUtils {
         SystemConstant.getCacheServer().del(MOCK_RULE_CACHE_PREFIX + id);
         System.out.println("Cache deleted, key: " + MOCK_RULE_CACHE_PREFIX + id);
     }
+
+    public static long getCachedTeamSize() {return cachedTeamSize;}
+
+    public static long getCachedSize() {return cachedSize;}
 }

@@ -2,6 +2,7 @@ package com.taobao.rigel.rap.organization.web.action;
 
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.ActionBase;
+import com.taobao.rigel.rap.common.CacheUtils;
 import com.taobao.rigel.rap.common.StringUtils;
 import com.taobao.rigel.rap.common.SystemConstant;
 import com.taobao.rigel.rap.organization.bo.Corporation;
@@ -94,6 +95,11 @@ public class TeamAction extends ActionBase {
     }
 
     public String create() {
+        if (!isUserLogined()) {
+            plsLogin();
+            return JSON_ERROR;
+        }
+        CacheUtils.removeTeamCache(getCurUserId());
         Corporation team = new Corporation();
         team.setName(getName());
         team.setUserId(getCurUserId());
@@ -158,7 +164,7 @@ public class TeamAction extends ActionBase {
     }
 
     public String changeAccessType() {
-        User curUser = getCurUser();
+        User curUser = getAccountMgr().getUser(getCurUserId());
         if (curUser == null) {
             setErrMsg(LOGIN_WARN_MSG);
             setIsOk(false);
@@ -181,7 +187,7 @@ public class TeamAction extends ActionBase {
     }
 
     public String deleteMember() {
-        User curUser = getCurUser();
+        User curUser = getAccountMgr().getUser(getCurUserId());
         if (curUser == null) {
             setErrMsg(LOGIN_WARN_MSG);
             setIsOk(false);
@@ -196,7 +202,7 @@ public class TeamAction extends ActionBase {
     }
 
     public String addMembers() {
-        User curUser = getCurUser();
+        User curUser = getAccountMgr().getUser(getCurUserId());
         if (curUser == null) {
             setErrMsg(LOGIN_WARN_MSG);
             setIsOk(false);
@@ -212,7 +218,7 @@ public class TeamAction extends ActionBase {
     }
 
     public String update() {
-        User curUser = getCurUser();
+        User curUser = getAccountMgr().getUser(getCurUserId());
         if (curUser == null) {
             setErrMsg(LOGIN_WARN_MSG);
             setIsOk(false);
