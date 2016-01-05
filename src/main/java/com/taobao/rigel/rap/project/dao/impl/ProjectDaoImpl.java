@@ -20,8 +20,6 @@ import java.util.Map;
 
 public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 
-    @SuppressWarnings("unchecked")
-
     public List<Project> getProjectList(User user, int curPageNum, int pageSize) {
         StringBuilder sql = new StringBuilder();
         sql
@@ -62,7 +60,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
             project.setWorkspaceModeInt(1);
         }
         session.save(project);
-        project = (Project) session.load(Project.class, project.getId());
+        project = session.load(Project.class, project.getId());
         project.setProjectData(project
                 .toString(Project.TO_STRING_TYPE.TO_PARAMETER));
         return project.getId();
@@ -73,7 +71,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         Session session = currentSession();
         Object project = session.get(Project.class, id);
         if (project != null) {
-            session.delete((Project) project);
+            session.delete(project);
             return 0;
         } else {
             return -1;
@@ -93,7 +91,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         Project p = null;
         try {
             Session session = currentSession();
-            p = (Project) session.get(Project.class, id);
+            p = session.get(Project.class, id);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -116,16 +114,16 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 
 
     public Page getPage(int id) {
-        return (Page) currentSession().get(Page.class, id);
+        return currentSession().get(Page.class, id);
     }
 
 
     public Action getAction(long id) {
-        return (Action) currentSession().get(Action.class, id);
+        return currentSession().get(Action.class, id);
     }
 
     private Parameter getParameter(int id) {
-        return (Parameter) currentSession().get(Parameter.class, id);
+        return currentSession().get(Parameter.class, id);
     }
 
 
@@ -250,7 +248,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     }
 
     private void addPage(Session session, Module module, Page page) {
-        module = (Module) session.load(Module.class, module.getId());
+        module = session.load(Module.class, module.getId());
         module.addPage(page);
         session.save(page);
         for (Action action : page.getActionList()) {

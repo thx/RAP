@@ -228,9 +228,7 @@
 
 </script>
 </script>
-<
-script
-src = "./home/index.js?_r=$!timeStamp" ></script>
+<script src = "./home/index.js?_r=$!timeStamp" ></script>
 #bodyEnd
 </body>
 </html>

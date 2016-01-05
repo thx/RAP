@@ -1,6 +1,7 @@
 package com.taobao.rigel.rap.workspace.bo;
 
 import com.taobao.rigel.rap.account.bo.User;
+import com.taobao.rigel.rap.common.EntityInterface;
 import com.taobao.rigel.rap.project.bo.Project;
 
 import java.util.Date;
@@ -8,23 +9,37 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class Workspace implements java.io.Serializable {
+public class Workspace implements java.io.Serializable, EntityInterface {
 
-    private int id;
+    private long id;
     private Project project;
     private User user;
     private Date createDate;
     private Date updateDate;
-    private Set<Save> saveList;
     private String projectData;
     private String projectDataOriginal;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        return new Long(id).hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof EntityInterface))
+            return false;
+        if (o == this)
+            return true;
+        EntityInterface obj = (EntityInterface)o;
+        return obj.getId() == this.id;
     }
 
     public int getModeInt() {
@@ -67,14 +82,6 @@ public class Workspace implements java.io.Serializable {
         this.updateDate = updateDate;
     }
 
-    public Set<Save> getSaveList() {
-        return saveList;
-    }
-
-    public void setSaveList(Set<Save> saveList) {
-        this.saveList = saveList;
-    }
-
     public String getProjectData() {
         return projectData;
     }
@@ -100,17 +107,6 @@ public class Workspace implements java.io.Serializable {
             Iterator<CheckIn> iterator = checkList.iterator();
             while (iterator.hasNext()) {
                 stringBuilder.append(iterator.next().toString());
-                if (iterator.hasNext()) {
-                    stringBuilder.append(", ");
-                }
-            }
-        }
-        stringBuilder.append("],");
-        stringBuilder.append("\"saveList\":[");
-        if (getSaveList() != null) {
-            Iterator<Save> iterator = getSaveList().iterator();
-            while (iterator.hasNext()) {
-                stringBuilder.append(iterator.next());
                 if (iterator.hasNext()) {
                     stringBuilder.append(", ");
                 }

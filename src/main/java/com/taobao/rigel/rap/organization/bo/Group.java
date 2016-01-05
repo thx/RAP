@@ -1,16 +1,33 @@
 package com.taobao.rigel.rap.organization.bo;
 
-public class Group {
-    private int id;
+import com.taobao.rigel.rap.common.EntityInterface;
+
+public class Group implements  EntityInterface{
+    private long id;
     private String name;
     private int productionLineId;
     private int userId;
 
-    public int getId() {
+    @Override
+    public int hashCode() {
+        return new Long(id).hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof EntityInterface))
+            return false;
+        if (o == this)
+            return true;
+        EntityInterface obj = (EntityInterface)o;
+        return obj.getId() == this.id;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

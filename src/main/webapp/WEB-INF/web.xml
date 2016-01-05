@@ -10,7 +10,7 @@
     </context-param>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath*:applicationContext.xml</param-value>
+        <param-value>classpath*:hibernate.cfg.xml</param-value>
     </context-param>
     <filter>
         <filter-name>ssoFilter</filter-name>

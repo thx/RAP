@@ -2,6 +2,7 @@ package com.taobao.rigel.rap.project.bo;
 
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.DateUtils;
+import com.taobao.rigel.rap.common.EntityInterface;
 import com.taobao.rigel.rap.common.StringUtils;
 import com.taobao.rigel.rap.workspace.bo.CheckIn;
 import com.taobao.rigel.rap.workspace.bo.Workspace;
@@ -12,11 +13,11 @@ import org.ocpsoft.prettytime.PrettyTime;
 import java.text.ParseException;
 import java.util.*;
 
-public class Project implements java.io.Serializable {
+public class Project implements java.io.Serializable, EntityInterface {
 
     public static final int PRIVATE_ACCESS = 0;
     public static final int DEFAULT_ACCESS = 10;
-    private int id;
+    private long id;
     private long userId;
     private String name;
     private Date createDate;
@@ -38,6 +39,20 @@ public class Project implements java.io.Serializable {
     private boolean isManagable;
     private Set<CheckIn> checkInList = new HashSet<CheckIn>();
 
+    @Override
+    public int hashCode() {
+        return new Long(id).hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof EntityInterface))
+            return false;
+        if (o == this)
+            return true;
+        EntityInterface obj = (EntityInterface)o;
+        return obj.getId() == this.id;
+    }
     public Project() {
 
     }
@@ -144,11 +159,11 @@ public class Project implements java.io.Serializable {
         this.moduleList = moduleList;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

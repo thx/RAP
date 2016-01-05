@@ -1,14 +1,13 @@
 package com.taobao.rigel.rap.project.bo;
 
+import com.taobao.rigel.rap.common.EntityInterface;
 import com.taobao.rigel.rap.common.StringUtils;
 
 import java.util.*;
 
-public class Action implements java.io.Serializable {
+public class Action implements java.io.Serializable, EntityInterface {
 
     private long id;
-
-    ;
     private int disableCache;
     private String name;
     private String description;
@@ -19,6 +18,21 @@ public class Action implements java.io.Serializable {
     private String responseTemplate;
     private Set<Page> pageList = new HashSet<Page>();
     private String remarks;
+
+    @Override
+    public int hashCode() {
+        return new Long(id).hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof EntityInterface))
+            return false;
+        if (o == this)
+            return true;
+        EntityInterface obj = (EntityInterface)o;
+        return obj.getId() == this.id;
+    }
 
     public static List<Action> loadList(List<Map<String, Object>> result) {
         List<Action> list = new ArrayList<Action>();

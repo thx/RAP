@@ -40,14 +40,16 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
     public boolean changePassword(String account, String oldPassword,
                                   String newPassword) {
         Session session = currentSession();
-        User user = (User) session.load(User.class, getUserId(account));
+        boolean returnVal = true;
+        User user = session.load(User.class, getUserId(account));
         if (user == null || !user.getPassword().equals(oldPassword)) {
-            return false;
+            returnVal = false;
         } else {
             user.setPassword(newPassword);
             session.update(user);
-            return true;
         }
+
+        return returnVal;
     }
 
     /**
@@ -72,7 +74,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
     }
 
     public User getUser(long userId) {
-        User user = (User) currentSession().get(User.class, userId);
+        User user = currentSession().get(User.class, userId);
         return user;
     }
 

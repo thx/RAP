@@ -1,12 +1,13 @@
 package com.taobao.rigel.rap.project.bo;
 
+import com.taobao.rigel.rap.common.EntityInterface;
 import com.taobao.rigel.rap.common.StringUtils;
 
 import java.util.*;
 
-public class Parameter implements java.io.Serializable {
+public class Parameter implements java.io.Serializable, EntityInterface {
 
-    private int id;
+    private long id;
     private String mockData;
     private String name;
     private String identifier;
@@ -20,11 +21,26 @@ public class Parameter implements java.io.Serializable {
     private Set<Parameter> parameterList = new HashSet<Parameter>();
     private Set<Parameter> complexParamerterList = new HashSet<Parameter>();
 
-    public int getId() {
+    @Override
+    public int hashCode() {
+        return new Long(id).hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof EntityInterface))
+            return false;
+        if (o == this)
+            return true;
+        EntityInterface obj = (EntityInterface)o;
+        return obj.getId() == this.id;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
