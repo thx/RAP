@@ -11,7 +11,7 @@ public class TesterAction extends ActionBase {
     private ProjectMgr projectMgr;
     private int id;
     private Page page;
-    private int projectId;
+    private long projectId;
     private String url;
     private OrganizationMgr organizationMgr;
 
@@ -31,7 +31,7 @@ public class TesterAction extends ActionBase {
         this.organizationMgr = organizationMgr;
     }
 
-    public int getProjectId() {
+    public long getProjectId() {
         return projectId;
     }
 

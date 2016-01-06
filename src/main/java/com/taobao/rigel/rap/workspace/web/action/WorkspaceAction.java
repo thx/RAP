@@ -12,7 +12,6 @@ import com.taobao.rigel.rap.project.bo.Module;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 import com.taobao.rigel.rap.workspace.bo.CheckIn;
-import com.taobao.rigel.rap.workspace.bo.Save;
 import com.taobao.rigel.rap.workspace.bo.Workspace;
 import com.taobao.rigel.rap.workspace.service.WorkspaceMgr;
 import org.apache.velocity.Template;
@@ -48,7 +47,6 @@ public class WorkspaceAction extends ActionBase {
     private String projectDataOriginal;
     private String saveListJson;
     private int saveId = -1;
-    private Save save;
     private int versionId;
     private String deletedObjectListData;
     private String tag;
@@ -192,14 +190,6 @@ public class WorkspaceAction extends ActionBase {
 
     public void setSaveId(int saveId) {
         this.saveId = saveId;
-    }
-
-    public Save getSave() {
-        return save;
-    }
-
-    public void setSave(Save save) {
-        this.save = save;
     }
 
     public int getVersionId() {

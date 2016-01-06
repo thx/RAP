@@ -48,12 +48,12 @@ public interface AccountMgr {
      * @param teamId
      * @return
      */
-    List<User> getUserList(int teamId);
+    List<User> getUserList(long teamId);
 
     /**
      * get user by account
      *
-     * @param userId
+     * @param account
      * @return return null if the user doesn't exist, or return the reference of
      * user
      */
@@ -204,7 +204,7 @@ public interface AccountMgr {
      * @param projectId
      * @return
      */
-    boolean canUserManageProject(long userId, int projectId);
+    boolean canUserManageProject(long userId, long projectId);
 
     long getUserNum();
 

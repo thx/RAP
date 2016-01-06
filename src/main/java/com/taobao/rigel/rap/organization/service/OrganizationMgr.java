@@ -51,15 +51,17 @@ public interface OrganizationMgr {
      * get group list
      *
      * @return
+     * @param productionLineId
      */
-    List<Group> getGroupList(int productionLineId);
+    List<Group> getGroupList(long productionLineId);
 
     /**
      * get production line list
      *
      * @return
+     * @param corpId
      */
-    List<ProductionLine> getProductionLineList(int corpId);
+    List<ProductionLine> getProductionLineList(long corpId);
 
     /**
      * add group
@@ -109,7 +111,7 @@ public interface OrganizationMgr {
      * @param plid
      * @return
      */
-    ProductionLine getProductionLine(int plid);
+    ProductionLine getProductionLine(long plid);
 
     /**
      * get corporation
@@ -117,7 +119,7 @@ public interface OrganizationMgr {
      * @param id
      * @return
      */
-    Corporation getCorporation(int id);
+    Corporation getCorporation(long id);
 
 
     /**
@@ -127,7 +129,7 @@ public interface OrganizationMgr {
      * @param corpId
      * @return
      */
-    boolean canUserAccessCorp(long userId, int corpId);
+    boolean canUserAccessCorp(long userId, long corpId);
 
     /**
      * can user manage corporation
@@ -136,7 +138,7 @@ public interface OrganizationMgr {
      * @param corpId
      * @return
      */
-    boolean canUserManageCorp(long userId, int corpId);
+    boolean canUserManageCorp(long userId, long corpId);
 
     /**
      * get user list of corporation
@@ -144,7 +146,7 @@ public interface OrganizationMgr {
      * @param corpId
      * @return
      */
-    List<User> getUserLisOfCorp(int corpId);
+    List<User> getUserLisOfCorp(long corpId);
 
     /**
      * get user role in corporation
@@ -153,7 +155,7 @@ public interface OrganizationMgr {
      * @param corpId
      * @return roleId
      */
-    int getUserRoleInCorp(long userId, int corpId);
+    int getUserRoleInCorp(long userId, long corpId);
 
     /**
      * can user access project
@@ -162,7 +164,7 @@ public interface OrganizationMgr {
      * @param projectId
      * @return
      */
-    boolean canUserAccessProject(long userId, int projectId);
+    boolean canUserAccessProject(long userId, long projectId);
 
     /**
      * can user access page
@@ -171,7 +173,7 @@ public interface OrganizationMgr {
      * @param pageId
      * @return
      */
-    boolean canUserAccessPage(long userId, int pageId);
+    boolean canUserAccessPage(long userId, long pageId);
 
 
     /**
@@ -181,7 +183,7 @@ public interface OrganizationMgr {
      * @param plId
      * @return
      */
-    boolean canUserAccessProductionLine(long userId, int plId);
+    boolean canUserAccessProductionLine(long userId, long plId);
 
     /**
      * can user manage production line
@@ -190,15 +192,16 @@ public interface OrganizationMgr {
      * @param plId
      * @return
      */
-    boolean canUserManageProductionLine(long userId, int plId);
+    boolean canUserManageProductionLine(long userId, long plId);
 
     /**
      * can user access group
      *
      * @param userId
+     * @param groupId
      * @return
      */
-    boolean canUserAccessGroup(long userId, int groupId);
+    boolean canUserAccessGroup(long userId, long groupId);
 
     /**
      * can user manage grup
@@ -207,7 +210,7 @@ public interface OrganizationMgr {
      * @param groupId
      * @return
      */
-    boolean canUserManageGroup(long userId, int groupId);
+    boolean canUserManageGroup(long userId, long groupId);
 
     /**
      * add new team
@@ -226,7 +229,7 @@ public interface OrganizationMgr {
      * @param roleId
      * @return if succeed
      */
-    boolean setUserRoleInCorp(long curUserId, long userId, int corpId, int roleId);
+    boolean setUserRoleInCorp(long curUserId, long userId, long corpId, long roleId);
 
     /**
      * remove member from team
@@ -236,7 +239,7 @@ public interface OrganizationMgr {
      * @param corpId
      * @return
      */
-    boolean removeMemberFromCorp(long curUserId, long userId, int corpId);
+    boolean removeMemberFromCorp(long curUserId, long userId, long corpId);
 
     /**
      * add team members
@@ -246,7 +249,7 @@ public interface OrganizationMgr {
      * @param accountList
      * @return
      */
-    boolean addTeamMembers(long curUserId, int corpId, String accountList);
+    boolean addTeamMembers(long curUserId, long corpId, String accountList);
 
     /**
      * update corporation

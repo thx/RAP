@@ -6,7 +6,6 @@ import com.taobao.rigel.rap.project.bo.Module;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.dao.ProjectDao;
 import com.taobao.rigel.rap.workspace.bo.CheckIn;
-import com.taobao.rigel.rap.workspace.bo.Save;
 import com.taobao.rigel.rap.workspace.bo.Workspace;
 import com.taobao.rigel.rap.workspace.dao.WorkspaceDao;
 import org.hibernate.HibernateException;
@@ -16,7 +15,6 @@ import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Set;
 
 public class WorkspaceDaoImpl extends HibernateDaoSupport implements WorkspaceDao {
 
@@ -40,10 +38,10 @@ public class WorkspaceDaoImpl extends HibernateDaoSupport implements WorkspaceDa
     }
 
 
-    public Workspace getWorkspace(int projectId, long userId) throws HibernateException {
+    public Workspace getWorkspace(long projectId, long userId) throws HibernateException {
         Session session = currentSession();
         Query q = session.createQuery("from Workspace where user.id = :userId and project.id = :projectId");
-        q.setInteger("projectId", projectId);
+        q.setLong("projectId", projectId);
         q.setLong("userId", userId);
         Workspace workspace = (Workspace) q.uniqueResult();
         if (workspace == null) {
@@ -53,7 +51,7 @@ public class WorkspaceDaoImpl extends HibernateDaoSupport implements WorkspaceDa
         }
     }
 
-    private Workspace addWorkspace(int projectId, long userId) {
+    private Workspace addWorkspace(long projectId, long userId) {
         Session session = currentSession();
         Project project = (Project) session.get(Project.class, projectId);
         if (project == null) {
@@ -69,45 +67,17 @@ public class WorkspaceDaoImpl extends HibernateDaoSupport implements WorkspaceDa
         return getWorkspace(id);
     }
 
-
-    public int updateSave(Save save) {
-        save.setUpdateDate(new Date());
-        Integer id = (Integer) currentSession().save(save);
-        return id;
-    }
-
-
-    public Save getSave(int id) {
-        Session session = currentSession();
-        Save save = (Save) session.load(Save.class, id);
-        return save;
-    }
-
-
     public void updateWorkspace(Workspace workspace) {
         workspace.setUpdateDate(new Date());
         currentSession().save(workspace);
     }
 
 
-    public Workspace getWorkspace(int id) {
+    public Workspace getWorkspace(long id) {
         Session session = currentSession();
         Workspace workspace = (Workspace) session.load(Workspace.class, id);
         return workspace;
     }
-
-
-    public Set<Save> getSaveList(int workspaceId) {
-        return getWorkspace(workspaceId).getSaveList();
-    }
-
-
-    public void removeSave(int id) {
-        Session session = currentSession();
-        Save save = (Save) session.load(Save.class, id);
-        session.delete(save);
-    }
-
 
     public void addCheckIn(CheckIn checkIn) {
         currentSession().save(checkIn);
@@ -119,10 +89,10 @@ public class WorkspaceDaoImpl extends HibernateDaoSupport implements WorkspaceDa
     }
 
 
-    public CheckIn getVersion(int projectId, String version) {
+    public CheckIn getVersion(long projectId, String version) {
         Session session = currentSession();
         Query query = session.createQuery("from CheckIn obj where obj.project.id = :projectId and obj.version = :version");
-        query.setInteger("projectId", projectId);
+        query.setLong("projectId", projectId);
         query.setString("version", version);
         return (CheckIn) query.uniqueResult();
     }

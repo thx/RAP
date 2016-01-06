@@ -235,7 +235,7 @@ public class ProjectAction extends ActionBase {
                 memberAccountList.add(account);
         }
         project.setMemberAccountList(memberAccountList);
-        int projectId = projectMgr.addProject(project);
+        long projectId = projectMgr.addProject(project);
         project = projectMgr.getProject(projectId);
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("id", project.getId());

@@ -51,7 +51,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     }
 
 
-    public int addProject(Project project) {
+    public long addProject(Project project) {
         Session session = currentSession();
         project.getUser().addCreatedProject(project);
         project.setVersion("0.0.0.1"); // default version
@@ -67,7 +67,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     }
 
 
-    public int removeProject(int id) {
+    public int removeProject(long id) {
         Session session = currentSession();
         Object project = session.get(Project.class, id);
         if (project != null) {
@@ -87,7 +87,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     }
 
 
-    public Project getProject(int id) {
+    public Project getProject(long id) {
         Project p = null;
         try {
             Session session = currentSession();
@@ -99,7 +99,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     }
 
 
-    public Module getModule(int id) {
+    public Module getModule(long id) {
         Module m = null;
         try {
             Session session = currentSession();
@@ -113,7 +113,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     }
 
 
-    public Page getPage(int id) {
+    public Page getPage(long id) {
         return currentSession().get(Page.class, id);
     }
 
@@ -122,22 +122,22 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         return currentSession().get(Action.class, id);
     }
 
-    private Parameter getParameter(int id) {
+    private Parameter getParameter(long id) {
         return currentSession().get(Parameter.class, id);
     }
 
 
-    public int saveProject(Project project) {
+    public long saveProject(Project project) {
         Session session = currentSession();
         session.saveOrUpdate(project);
         return 0;
     }
 
 
-    public String updateProject(int id, String projectData,
+    public String updateProject(long id, String projectData,
                                 String deletedObjectListData, Map<Long, Long> actionIdMap) {
         Session session = currentSession();
-        // StringBuilder log = new StringBuilder();
+
         Gson gson = new Gson();
 
         Project projectClient = gson.fromJson(projectData, Project.class);
@@ -362,7 +362,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     }
 
 
-    public List<Action> getMatchedActionList(int projectId, String pattern) {
+    public List<Action> getMatchedActionList(long projectId, String pattern) {
         List<Action> list = getActionListOfProject(projectId);
         List<Action> result = new ArrayList<Action>();
         for (Action action : list) {
@@ -427,7 +427,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     }
 
     @SuppressWarnings("unchecked")
-    private List<Integer> getParameterIdList(int projectId) {
+    private List<Long> getParameterIdList(long projectId) {
         StringBuilder sql = new StringBuilder();
         sql.append(" SELECT DISTINCT p.id")
                 .append(" FROM tb_parameter p")
@@ -437,8 +437,8 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
                 .append(" JOIN tb_module m ON m.id = p2.module_id")
                 .append(" WHERE m.project_id = :projectId");
         Query query = currentSession().createSQLQuery(sql.toString());
-        query.setInteger("projectId", projectId);
-        List<Integer> list = query.list();
+        query.setLong("projectId", projectId);
+        List<Long> list = query.list();
 
         StringBuilder sql2 = new StringBuilder();
         sql2.append(" SELECT DISTINCT p.id")
@@ -449,10 +449,10 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
                 .append(" JOIN tb_module m ON m.id = p2.module_id")
                 .append(" WHERE m.project_id = :projectId");
         Query query2 = currentSession().createSQLQuery(sql2.toString());
-        query2.setInteger("projectId", projectId);
+        query2.setLong("projectId", projectId);
         list.addAll(query2.list());
         List<Parameter> paramList = new ArrayList<Parameter>();
-        for (Integer pId : list) {
+        for (long pId : list) {
             paramList.add(getParameter(pId));
         }
         for (Parameter p : paramList) {
@@ -461,7 +461,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         return list;
     }
 
-    private void recursivelyAddSubParamList(List<Integer> list, Parameter p) {
+    private void recursivelyAddSubParamList(List<Long> list, Parameter p) {
         list.add(p.getId());
         if (p.getParameterList() == null)
             return;
@@ -470,8 +470,8 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         }
     }
 
-    public int resetMockData(int projectId) {
-        List<Integer> pIdList = getParameterIdList(projectId);
+    public int resetMockData(long projectId) {
+        List<Long> pIdList = getParameterIdList(projectId);
         String sql = "UPDATE tb_parameter SET mock_data = NULL where id in ("
                 + ArrayUtils.join(pIdList, ",") + ")";
         Query query = currentSession().createSQLQuery(sql);
@@ -480,10 +480,10 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 
     @SuppressWarnings("unchecked")
 
-    public List<Project> getProjectListByGroup(int id) {
+    public List<Project> getProjectListByGroup(long id) {
         String hql = "from Project where groupId = :id";
         Query query = currentSession().createQuery(hql);
-        query.setInteger("id", id);
+        query.setLong("id", id);
         return query.list();
     }
 
@@ -496,7 +496,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     }
 
     @SuppressWarnings({"rawtypes"})
-    private List<Action> getActionListOfProject(int projectId) {
+    private List<Action> getActionListOfProject(long projectId) {
         List<Action> list = new ArrayList<Action>();
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT a.id ");
@@ -507,7 +507,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         sql.append("JOIN tb_action a ON a.id = anp.action_id ");
         sql.append("WHERE p.id = :projectId ");
         Query query = currentSession().createSQLQuery(sql.toString());
-        query.setInteger("projectId", projectId);
+        query.setLong("projectId", projectId);
 
         List result = query.list();
         List<Integer> ids = new ArrayList<Integer>();
@@ -528,7 +528,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     }
 
 
-    public Integer getProjectIdByActionId(int actionId) {
+    public Integer getProjectIdByActionId(long actionId) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT p.id FROM tb_project p ");
         sql.append("JOIN tb_module m ON m.project_id = p.id ");
@@ -536,21 +536,21 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         sql.append("JOIN tb_action_and_page anp ON anp.page_id = page.id ");
         sql.append("where action_id = :actionId");
         Query query = currentSession().createSQLQuery(sql.toString());
-        query.setInteger("actionId", actionId);
+        query.setLong("actionId", actionId);
         return (Integer) query.uniqueResult();
     }
 
 
     public void updateProjectNum(Project project) {
         String sql = "UPDATE tb_project SET mock_num = :mockNum WHERE id = :projectId";
-        currentSession().createSQLQuery(sql).setInteger("mockNum", project.getMockNum()).setInteger("projectId", project.getId()).executeUpdate();
+        currentSession().createSQLQuery(sql).setInteger("mockNum", project.getMockNum()).setLong("projectId", project.getId()).executeUpdate();
     }
 
 
-    public void updateCreatorId(int projectId, long creatorId) {
+    public void updateCreatorId(long projectId, long creatorId) {
         Query query = currentSession().createSQLQuery("UPDATE tb_project SET user_id = :userId WHERE id = :id");
         query.setLong("userId", creatorId);
-        query.setInteger("id", projectId);
+        query.setLong("id", projectId);
         query.executeUpdate();
     }
 

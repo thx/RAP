@@ -27,7 +27,7 @@ public interface ProjectDao {
      * @param project
      * @return always 0
      */
-    int addProject(Project project);
+    long addProject(Project project);
 
     /**
      * update project
@@ -37,7 +37,7 @@ public interface ProjectDao {
      * @param deletedObjectListData
      * @return
      */
-    String updateProject(int id, String projectData,
+    String updateProject(long id, String projectData,
                          String deletedObjectListData, Map<Long, Long> actionIdMap);
 
     /**
@@ -54,7 +54,7 @@ public interface ProjectDao {
      * @param id
      * @return
      */
-    int removeProject(int id);
+    int removeProject(long id);
 
     /**
      * get project
@@ -62,7 +62,7 @@ public interface ProjectDao {
      * @param id
      * @return
      */
-    Project getProject(int id);
+    Project getProject(long id);
 
     /**
      * get module
@@ -70,7 +70,7 @@ public interface ProjectDao {
      * @param id
      * @return
      */
-    Module getModule(int id);
+    Module getModule(long id);
 
     /**
      * get page
@@ -78,7 +78,7 @@ public interface ProjectDao {
      * @param id
      * @return
      */
-    Page getPage(int id);
+    Page getPage(long id);
 
 
     /**
@@ -95,7 +95,7 @@ public interface ProjectDao {
      * @param project
      * @return
      */
-    int saveProject(Project project);
+    long saveProject(Project project);
 
     /**
      * get project list number
@@ -112,7 +112,7 @@ public interface ProjectDao {
      * @param pattern
      * @return
      */
-    List<Action> getMatchedActionList(int projectId, String pattern);
+    List<Action> getMatchedActionList(long projectId, String pattern);
 
     /**
      * clear all mock data of objects in specified project
@@ -120,7 +120,7 @@ public interface ProjectDao {
      * @param projectId project id
      * @return affected rows num
      */
-    public int resetMockData(int projectId);
+    public int resetMockData(long projectId);
 
     /**
      * get project list by group
@@ -128,7 +128,7 @@ public interface ProjectDao {
      * @param id
      * @return
      */
-    List<Project> getProjectListByGroup(int id);
+    List<Project> getProjectListByGroup(long id);
 
     /**
      * search all projects (for admin use)
@@ -162,16 +162,15 @@ public interface ProjectDao {
      * @param actionId
      * @return
      */
-    Integer getProjectIdByActionId(int actionId);
+    Integer getProjectIdByActionId(long actionId);
 
     void updateProjectNum(Project project);
 
 
     /**
      * transfer a project to another user
-     *
-     * @param projectId
+     *  @param projectId
      * @param creatorId
      */
-    void updateCreatorId(int projectId, long creatorId);
+    void updateCreatorId(long projectId, long creatorId);
 }

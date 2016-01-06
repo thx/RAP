@@ -133,7 +133,7 @@ public class AccountMgrImpl implements AccountMgr {
     }
 
 
-    public List<User> getUserList(int teamId) {
+    public List<User> getUserList(long teamId) {
 
         List<Integer> userIdList = accountDao.getUserIdList(teamId);
         List<User> userList = new ArrayList<User>();
@@ -218,7 +218,7 @@ public class AccountMgrImpl implements AccountMgr {
     }
 
 
-    public boolean canUserManageProject(long userId, int projectId) {
+    public boolean canUserManageProject(long userId, long projectId) {
         User user = this.getUser(userId);
         Project project = projectMgr.getProject(projectId);
         if (user.isUserInRole("admin")) {

@@ -4,13 +4,10 @@ import com.google.gson.Gson;
 import com.taobao.rigel.rap.project.bo.*;
 import com.taobao.rigel.rap.project.dao.ProjectDao;
 import com.taobao.rigel.rap.workspace.bo.CheckIn;
-import com.taobao.rigel.rap.workspace.bo.Save;
 import com.taobao.rigel.rap.workspace.bo.Workspace;
 import com.taobao.rigel.rap.workspace.dao.WorkspaceDao;
 import com.taobao.rigel.rap.workspace.service.WorkspaceMgr;
-
 import java.util.Iterator;
-import java.util.Set;
 
 public class WorkspaceMgrImpl implements WorkspaceMgr {
 
@@ -33,43 +30,19 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
         this.projectDao = projectDao;
     }
 
-
     public Workspace getWorkspace(int projectId, long userId) {
         Workspace workspace = workspaceDao.getWorkspace(projectId, userId);
         return workspace;
     }
-
-
-    public int updateSave(Save save) {
-        return workspaceDao.updateSave(save);
-    }
-
-
-    public Save getSave(int id) {
-        return workspaceDao.getSave(id);
-    }
-
 
     public void updateWorkspace(Workspace workspace) {
         workspaceDao.updateWorkspace(workspace);
 
     }
 
-
     public Workspace getWorkspace(int id) {
         return workspaceDao.getWorkspace(id);
     }
-
-
-    public Set<Save> getSaveList(int workspaceId) {
-        return workspaceDao.getSaveList(workspaceId);
-    }
-
-
-    public void removeSave(int id) {
-        workspaceDao.removeSave(id);
-    }
-
 
     public String checkIn(String[] jsonList, long userId, int projectId) {
         //[TODO] does user has access?
@@ -599,7 +572,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
         }
     }
 
-    private Module findModule(Project p, int moduleId) {
+    private Module findModule(Project p, long moduleId) {
         for (Module i : p.getModuleList()) {
             if (i.getId() == moduleId)
                 return i;
@@ -607,7 +580,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
         return null;
     }
 
-    private Page findPage(Project p, int pageId) {
+    private Page findPage(Project p, long pageId) {
         for (Module module : p.getModuleList()) {
             for (Page page : module.getPageList()) {
                 if (page.getId() == pageId)
@@ -629,7 +602,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
         return null;
     }
 
-    private Parameter findParameter(Project p, int parameterId, boolean isRequestType) {
+    private Parameter findParameter(Project p, long parameterId, boolean isRequestType) {
         for (Module module : p.getModuleList()) {
             for (Page page : module.getPageList()) {
                 for (Action action : page.getActionList()) {
@@ -645,7 +618,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
     }
 
 
-    private String logTemplate(int objectId, String className,
+    private String logTemplate(long objectId, String className,
                                String operationName, String newValue, String oldValue, String property) {
         return operationName == "add" ?
                 "<div class='log-item'><font color='red'>" + operationName + "</font> <B>" + className + "</B> [" + objectId

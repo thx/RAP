@@ -87,7 +87,7 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public int addProject(Project project) {
+    public long addProject(Project project) {
         project.setUpdateTime(new Date());
         project.setCreateDate(new Date());
         List<User> usersInformed = new ArrayList<User>();
@@ -100,13 +100,13 @@ public class ProjectMgrImpl implements ProjectMgr {
                 }
             }
         }
-        int result = projectDao.addProject(project);
+        long result = projectDao.addProject(project);
         for (User u : usersInformed) {
             Notification o = new Notification();
             o.setTypeId((short) 2);
             o.setTargetUser(project.getUser());
             o.setUser(u);
-            o.setParam1(new Integer(result).toString());
+            o.setParam1(new Long(result).toString());
             o.setParam2(project.getName());
             accountMgr.addNotification(o);
         }
@@ -121,7 +121,7 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public int removeProject(int id) {
+    public int removeProject(long id) {
         Project p = getProject(id);
         Group g = organizationDao.getGroup(p.getGroupId());
         int result = projectDao.removeProject(id);
@@ -152,7 +152,7 @@ public class ProjectMgrImpl implements ProjectMgr {
                         o.setTypeId((short) 2);
                         o.setTargetUser(outerProject.getUser());
                         o.setUser(user);
-                        o.setParam1(new Integer(outerProject.getId()).toString());
+                        o.setParam1(new Long(outerProject.getId()).toString());
                         o.setParam2(outerProject.getName());
                         accountMgr.addNotification(o);
                     }
@@ -179,12 +179,12 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public Project getProject(int id) {
+    public Project getProject(long id) {
         return projectDao.getProject(id);
     }
 
 
-    public Project getProject(int id, String ver) {
+    public Project getProject(long id, String ver) {
         CheckIn check = workspaceDao.getVersion(id, ver);
         String projectData = check.getProjectData();
 
@@ -195,17 +195,17 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public Module getModule(int id) {
+    public Module getModule(long id) {
         return projectDao.getModule(id);
     }
 
 
-    public Page getPage(int id) {
+    public Page getPage(long id) {
         return projectDao.getPage(id);
     }
 
 
-    public String updateProject(int id, String projectData,
+    public String updateProject(long id, String projectData,
                                 String deletedObjectListData, Map<Long, Long> actionIdMap) {
         return projectDao.updateProject(id, projectData, deletedObjectListData, actionIdMap);
     }
@@ -253,7 +253,7 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public List<Action> getMatchedActionList(int projectId, String pattern) {
+    public List<Action> getMatchedActionList(long projectId, String pattern) {
         List<Action> actionList = projectDao.getMatchedActionList(projectId,
                 pattern);
         if (actionList == null || actionList.size() == 0) {
@@ -276,7 +276,7 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public List<Project> getProjectListByGroup(int id) {
+    public List<Project> getProjectListByGroup(long id) {
         return projectDao.getProjectListByGroup(id);
     }
 
@@ -304,7 +304,7 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public Action getAction(long id, String ver, int projectId) {
+    public Action getAction(long id, String ver, long projectId) {
         CheckIn check = workspaceDao.getVersion(projectId, ver);
         Gson gson = new Gson();
         Project p = gson.fromJson(check.getProjectData(), Project.class);
@@ -312,7 +312,7 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public void updateDoc(int projectId) {
+    public void updateDoc(long projectId) {
         try {
             HTTPUtils.sendGet("http://" + SystemConstant.NODE_SERVER + "/api/generateDoc?projectId=" + projectId);
         } catch (Exception e) {
@@ -366,7 +366,7 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public void updateCache(int projectId) {
+    public void updateCache(long projectId) {
         Project project = getProject(projectId);
         for (Module module : project.getModuleList()) {
             for (Page page : module.getPageList()) {
@@ -378,7 +378,7 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public Integer getProjectIdByActionId(int actionId) {
+    public Integer getProjectIdByActionId(long actionId) {
         return projectDao.getProjectIdByActionId(actionId);
     }
 

@@ -78,7 +78,6 @@
                 <value>com/taobao/rigel/rap/account/mapping/Role.hbm.xml</value>
                 <value>com/taobao/rigel/rap/account/mapping/Notification.hbm.xml</value>
                 <value>com/taobao/rigel/rap/workspace/mapping/Workspace.hbm.xml</value>
-                <value>com/taobao/rigel/rap/workspace/mapping/Save.hbm.xml</value>
                 <value>com/taobao/rigel/rap/workspace/mapping/CheckIn.hbm.xml</value>
                 <value>com/taobao/rigel/rap/organization/mapping/Corporation.hbm.xml</value>
                 <value>com/taobao/rigel/rap/organization/mapping/Group.hbm.xml</value>

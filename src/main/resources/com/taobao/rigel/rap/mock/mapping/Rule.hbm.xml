@@ -4,7 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.taobao.rigel.rap.mock.bo.Rule" table="tb_rule">
-        <id name="actionId" type="integer">
+        <id name="actionId" type="long">
             <column name="action_id"/>
         </id>
         <property name="rules">

@@ -3,7 +3,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.taobao.rigel.rap.project.bo.Project" table="tb_project">
-        <id name="id" type="integer">
+        <id name="id" type="long">
             <column name="id"/>
             <generator class="identity"/>
         </id>

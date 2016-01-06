@@ -1,10 +1,7 @@
 package com.taobao.rigel.rap.workspace.service;
 
 import com.taobao.rigel.rap.workspace.bo.CheckIn;
-import com.taobao.rigel.rap.workspace.bo.Save;
 import com.taobao.rigel.rap.workspace.bo.Workspace;
-
-import java.util.Set;
 
 public interface WorkspaceMgr {
 
@@ -16,22 +13,6 @@ public interface WorkspaceMgr {
      * @return
      */
     Workspace getWorkspace(int projectId, long userId);
-
-    /**
-     * update save
-     *
-     * @param save
-     * @return
-     */
-    int updateSave(Save save);
-
-    /**
-     * get one save
-     *
-     * @param id
-     * @return
-     */
-    Save getSave(int id);
 
     /**
      * update workspace
@@ -48,20 +29,6 @@ public interface WorkspaceMgr {
      */
     Workspace getWorkspace(int id);
 
-    /**
-     * get save list
-     *
-     * @param workspaceId
-     * @return
-     */
-    Set<Save> getSaveList(int workspaceId);
-
-    /**
-     * remove save
-     *
-     * @param id
-     */
-    void removeSave(int id);
 
     /***
      * workspace check out

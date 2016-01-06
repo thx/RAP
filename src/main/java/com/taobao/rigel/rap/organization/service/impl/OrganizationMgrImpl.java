@@ -13,7 +13,6 @@ import com.taobao.rigel.rap.project.bo.Module;
 import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
-import sun.misc.Cache;
 
 import java.util.List;
 
@@ -107,12 +106,12 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    public List<Group> getGroupList(int productionLineId) {
+    public List<Group> getGroupList(long productionLineId) {
         return organizationDao.getGroupList(productionLineId);
     }
 
 
-    public List<ProductionLine> getProductionLineList(int corpId) {
+    public List<ProductionLine> getProductionLineList(long corpId) {
         return organizationDao.getProductionLineList(corpId);
     }
 
@@ -170,17 +169,17 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    public ProductionLine getProductionLine(int plid) {
+    public ProductionLine getProductionLine(long plid) {
         return organizationDao.getProductionLine(plid);
     }
 
 
-    public Corporation getCorporation(int id) {
+    public Corporation getCorporation(long id) {
         return organizationDao.getCorporation(id);
     }
 
 
-    public boolean canUserAccessCorp(long userId, int corpId) {
+    public boolean canUserAccessCorp(long userId, long corpId) {
         Corporation c = getCorporation(corpId);
         if (c == null) return false;
         if (c.getUserId() == userId) return true;  // team owner
@@ -191,7 +190,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    public boolean canUserManageCorp(long userId, int corpId) {
+    public boolean canUserManageCorp(long userId, long corpId) {
         int roleId = organizationDao.getUserRoleInCorp(userId, corpId);
         return (roleId >= 1 && roleId <= 2 ||
                 userId == getCorporation(corpId).getUserId()) ||
@@ -200,7 +199,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    public List<User> getUserLisOfCorp(int corpId) {
+    public List<User> getUserLisOfCorp(long corpId) {
         List<User> list = organizationDao.getUserLisOfCorp(corpId);
         Corporation c = getCorporation(corpId);
         User u = accountMgr.getUser(c.getUserId());
@@ -218,12 +217,12 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    public int getUserRoleInCorp(long userId, int corpId) {
+    public int getUserRoleInCorp(long userId, long corpId) {
         return organizationDao.getUserRoleInCorp(userId, corpId);
     }
 
 
-    public boolean canUserAccessProject(long userId, int projectId) {
+    public boolean canUserAccessProject(long userId, long projectId) {
         User u = accountMgr.getUser(userId);
         Project p = projectMgr.getProject(projectId);
         int teamId = organizationDao.getTeamIdByProjectId(projectId);
@@ -234,7 +233,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    public boolean canUserAccessPage(long userId, int pageId) {
+    public boolean canUserAccessPage(long userId, long pageId) {
         Page page = projectMgr.getPage(pageId);
         if (page != null) {
             Module module = page.getModule();
@@ -249,7 +248,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    public boolean canUserAccessProductionLine(long userId, int plId) {
+    public boolean canUserAccessProductionLine(long userId, long plId) {
         ProductionLine pl = this.getProductionLine(plId);
         int corpId = pl.getCorporationId();
         Corporation team = getCorporation(corpId);
@@ -260,14 +259,14 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    public boolean canUserManageProductionLine(long userId, int plId) {
+    public boolean canUserManageProductionLine(long userId, long plId) {
         ProductionLine pl = this.getProductionLine(plId);
         int corpId = pl.getCorporationId();
         return canUserManageCorp(userId, corpId);
     }
 
 
-    public boolean canUserAccessGroup(long userId, int groupId) {
+    public boolean canUserAccessGroup(long userId, long groupId) {
         Group g = organizationDao.getGroup(groupId);
         ProductionLine pl = getProductionLine(g.getProductionLineId());
         int corpId = pl.getCorporationId();
@@ -279,7 +278,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    public boolean canUserManageGroup(long userId, int groupId) {
+    public boolean canUserManageGroup(long userId, long groupId) {
         Group g = organizationDao.getGroup(groupId);
         ProductionLine pl = getProductionLine(g.getProductionLineId());
         int corpId = pl.getCorporationId();
@@ -303,7 +302,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    public boolean setUserRoleInCorp(long curUserId, long userId, int corpId, int roleId) {
+    public boolean setUserRoleInCorp(long curUserId, long userId, long corpId, long roleId) {
         if (canUserManageUserInCorp(curUserId, userId, corpId)) {
             organizationDao.setUserRoleInCorp(userId, corpId, roleId);
             return true;
@@ -313,7 +312,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    public boolean removeMemberFromCorp(long curUserId, long userId, int corpId) {
+    public boolean removeMemberFromCorp(long curUserId, long userId, long corpId) {
         int roleId = getUserRoleInCorp(userId, corpId);
 
         // if user can't manage team, or the user to be deleted is super admin, failed
@@ -327,7 +326,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    public boolean addTeamMembers(long curUserId, int corpId, String accountList) {
+    public boolean addTeamMembers(long curUserId, long corpId, String accountList) {
         if (!canUserManageCorp(curUserId, corpId))
             return false;
 
@@ -352,7 +351,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    private boolean canUserManageUserInCorp(long curUserId, long userId, int corpId) {
+    private boolean canUserManageUserInCorp(long curUserId, long userId, long corpId) {
         User curUser = accountMgr.getUser(curUserId);
         if (curUser.isAdmin()) {
             return true;

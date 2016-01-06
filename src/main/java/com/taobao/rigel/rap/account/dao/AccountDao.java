@@ -194,6 +194,6 @@ public interface AccountDao {
      * @param teamId
      * @return
      */
-    List<Integer> getUserIdList(int teamId);
+    List<Integer> getUserIdList(long teamId);
 
 }

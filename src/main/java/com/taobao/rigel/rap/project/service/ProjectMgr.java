@@ -27,7 +27,7 @@ public interface ProjectMgr {
      * @param project
      * @return
      */
-    int addProject(Project project);
+    long addProject(Project project);
 
     /**
      * remove project
@@ -35,7 +35,7 @@ public interface ProjectMgr {
      * @param id
      * @return
      */
-    int removeProject(int id);
+    int removeProject(long id);
 
     /**
      * update project
@@ -51,9 +51,9 @@ public interface ProjectMgr {
      * @param id
      * @return
      */
-    Project getProject(int id);
+    Project getProject(long id);
 
-    Project getProject(int id, String ver);
+    Project getProject(long id, String ver);
 
     /**
      * get module by id
@@ -61,7 +61,7 @@ public interface ProjectMgr {
      * @param id
      * @return
      */
-    Module getModule(int id);
+    Module getModule(long id);
 
     /**
      * get page by id
@@ -69,7 +69,7 @@ public interface ProjectMgr {
      * @param id
      * @return
      */
-    Page getPage(int id);
+    Page getPage(long id);
 
     /**
      * update project
@@ -79,7 +79,7 @@ public interface ProjectMgr {
      * @param deletedObjectListData
      * @return
      */
-    String updateProject(int id, String projectData,
+    String updateProject(long id, String projectData,
                          String deletedObjectListData, Map<Long, Long> actionIdMap);
 
     /**
@@ -113,7 +113,7 @@ public interface ProjectMgr {
      * @param pattern
      * @return
      */
-    List<Action> getMatchedActionList(int projectId, String pattern);
+    List<Action> getMatchedActionList(long projectId, String pattern);
 
     /**
      * get project list by group id
@@ -121,7 +121,7 @@ public interface ProjectMgr {
      * @param id
      * @return
      */
-    List<Project> getProjectListByGroup(int id);
+    List<Project> getProjectListByGroup(long id);
 
     /**
      * search all projects (for admin)
@@ -148,14 +148,14 @@ public interface ProjectMgr {
      */
     Action getAction(long id);
 
-    Action getAction(long id, String ver, int projectId);
+    Action getAction(long id, String ver, long projectId);
 
     /**
      * update doc
      *
-     * @param project id
+     * @param projectId
      */
-    void updateDoc(int projectId);
+    void updateDoc(long projectId);
 
     List<Project> getProjectList();
 
@@ -180,7 +180,7 @@ public interface ProjectMgr {
      *
      * @param projectId
      */
-    void updateCache(int projectId);
+    void updateCache(long projectId);
 
     /**
      * get project id by action id
@@ -188,7 +188,7 @@ public interface ProjectMgr {
      * @param actionId
      * @return
      */
-    Integer getProjectIdByActionId(int actionId);
+    Integer getProjectIdByActionId(long actionId);
 
     void updateProjectNum(Project project);
 

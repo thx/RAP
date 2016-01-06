@@ -4,7 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.taobao.rigel.rap.workspace.bo.Workspace" table="tb_workspace">
-        <id name="id" type="integer">
+        <id name="id" type="long">
             <column name="id"/>
             <generator class="identity"/>
         </id>
@@ -22,9 +22,5 @@
         </property>
         <many-to-one name="project" column="project_id" cascade="all"/>
         <many-to-one name="user" column="user_id"/>
-        <set name="saveList" inverse="true" order-by="id asc" cascade="all">
-            <key column="workspace_id" not-null="true"/>
-            <one-to-many class="com.taobao.rigel.rap.workspace.bo.Save"/>
-        </set>
     </class>
 </hibernate-mapping>
