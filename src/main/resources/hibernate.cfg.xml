@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-
-    <bean
-            class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
         <property name="beanNames">
             <list>
                 <value>*Mgr</value>
@@ -19,6 +17,7 @@
             </list>
         </property>
     </bean>
+
     <import resource="classpath:/com/taobao/rigel/rap/common/applicationContext.xml"/>
     <import resource="classpath:/com/taobao/rigel/rap/project/applicationContext.xml"/>
     <import resource="classpath:/com/taobao/rigel/rap/workspace/applicationContext.xml"/>
@@ -27,6 +26,7 @@
     <import resource="classpath:/com/taobao/rigel/rap/organization/applicationContext.xml"/>
     <import resource="classpath:/com/taobao/rigel/rap/api/applicationContext.xml"/>
     <import resource="classpath:/com/taobao/rigel/rap/platform/applicationContext.xml"/>
+
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
@@ -34,6 +34,7 @@
             </list>
         </property>
     </bean>
+
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass">
             <value>${jdbc.driverClassName}</value>
@@ -47,26 +48,40 @@
         <property name="password">
             <value>${jdbc.password}</value>
         </property>
-        <property name="maxPoolSize">
-            <value>${jdbc.maxPoolSize}</value>
-        </property>
         <property name="minPoolSize">
-            <value>${jdbc.minPoolSize}</value>
+            <value>5</value>
+        </property>
+        <property name="maxPoolSize">
+            <value>30</value>
+        </property>
+        <property name="initialPoolSize">
+            <value>10</value>
         </property>
         <property name="idleConnectionTestPeriod">
-            <value>${jdbc.idleConnectionTestPeriod}
-            </value>
+            <value>60</value>
         </property>
         <property name="maxIdleTime">
-            <value>${jdbc.maxIdleTime}</value>
+            <value>60</value>
+        </property>
+        <property name="acquireIncrement">
+            <value>5</value>
+        </property>
+        <property name="maxStatements">
+            <value>0</value>
+        </property>
+        <property name="checkoutTimeout">
+            <value>1000</value>
+        </property>
+        <property name="acquireRetryAttempts">
+            <value>30</value>
+        </property>
+        <property name="breakAfterAcquireFailure">
+            <value>true</value>
         </property>
     </bean>
 
-    <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource">
-            <ref local="dataSource"/>
-        </property>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
         <property name="mappingResources">
             <list>
                 <value>com/taobao/rigel/rap/project/mapping/Project.hbm.xml</value>
@@ -87,8 +102,10 @@
         </property>
         <property name="hibernateProperties">
             <props>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
             </props>
         </property>
     </bean>
@@ -109,12 +126,11 @@
         <property name="transactionManager" ref="transactionManager"/>
         <property name="transactionAttributes">
             <props>
-                <!--<prop key="query*">PROPAGATION_REQUIRED,readOnly</prop>
+                <prop key="query*">PROPAGATION_REQUIRED,readOnly</prop>
                 <prop key="is*">PROPAGATION_REQUIRED,readOnly</prop>
                 <prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
                 <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
                 <prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
-                -->
                 <prop key="*">PROPAGATION_REQUIRED</prop>
             </props>
         </property>

@@ -6,7 +6,7 @@
 <struts>
     <constant name="struts.action.extension" value="action,do"></constant>
     <constant name="struts.i18n.encoding" value="UTF-8"></constant>
-    <constant name="struts.devMode" value="false"></constant>
+    <constant name="struts.devMode" value="true"></constant>
     <constant name="struts.objectFactory" value="spring"></constant>
     <package name="rap-default" extends="struts-default">
         <result-types>
