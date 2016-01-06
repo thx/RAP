@@ -2,7 +2,7 @@ package com.taobao.rigel.rap.api.web.action;
 
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.api.service.OpenAPIMgr;
-import com.taobao.rigel.rap.common.ActionBase;
+import com.taobao.rigel.rap.common.base.ActionBase;
 import com.taobao.rigel.rap.mock.service.MockMgr;
 import com.taobao.rigel.rap.project.bo.Action;
 import com.taobao.rigel.rap.project.bo.Project;

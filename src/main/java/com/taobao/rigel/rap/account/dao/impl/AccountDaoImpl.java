@@ -3,7 +3,7 @@ package com.taobao.rigel.rap.account.dao.impl;
 import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.dao.AccountDao;
-import com.taobao.rigel.rap.common.SystemSettings;
+import com.taobao.rigel.rap.common.config.SystemSettings;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.Session;

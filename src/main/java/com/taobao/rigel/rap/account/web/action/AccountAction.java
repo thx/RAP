@@ -3,7 +3,11 @@ package com.taobao.rigel.rap.account.web.action;
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.account.bo.User;
-import com.taobao.rigel.rap.common.*;
+import com.taobao.rigel.rap.common.base.ActionBase;
+import com.taobao.rigel.rap.common.service.impl.ContextManager;
+import com.taobao.rigel.rap.common.utils.Pinyin4jUtil;
+import com.taobao.rigel.rap.common.utils.StringUtils;
+import com.taobao.rigel.rap.common.utils.SystemVisitorLog;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 

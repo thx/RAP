@@ -2,8 +2,8 @@ package com.taobao.rigel.rap.organization.service.impl;
 
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
-import com.taobao.rigel.rap.common.CacheUtils;
-import com.taobao.rigel.rap.common.RapError;
+import com.taobao.rigel.rap.common.utils.CacheUtils;
+import com.taobao.rigel.rap.common.bo.RapError;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.bo.Group;
 import com.taobao.rigel.rap.organization.bo.ProductionLine;

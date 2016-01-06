@@ -1,7 +1,7 @@
 package com.taobao.rigel.rap.organization.bo;
 
-import com.taobao.rigel.rap.common.EntityInterface;
-import com.taobao.rigel.rap.common.StringUtils;
+import com.taobao.rigel.rap.common.base.EntityInterface;
+import com.taobao.rigel.rap.common.utils.StringUtils;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.taobao.rigel.rap.organization.bo;
 
-import com.taobao.rigel.rap.common.EntityInterface;
+import com.taobao.rigel.rap.common.base.EntityInterface;
 
 public class Group implements  EntityInterface{
     private long id;

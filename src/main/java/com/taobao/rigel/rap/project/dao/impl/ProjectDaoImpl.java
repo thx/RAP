@@ -2,10 +2,10 @@ package com.taobao.rigel.rap.project.dao.impl;
 
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.User;
-import com.taobao.rigel.rap.common.ArrayUtils;
-import com.taobao.rigel.rap.common.CacheUtils;
-import com.taobao.rigel.rap.common.StringUtils;
-import com.taobao.rigel.rap.common.URLUtils;
+import com.taobao.rigel.rap.common.utils.ArrayUtils;
+import com.taobao.rigel.rap.common.utils.CacheUtils;
+import com.taobao.rigel.rap.common.utils.StringUtils;
+import com.taobao.rigel.rap.common.utils.URLUtils;
 import com.taobao.rigel.rap.project.bo.*;
 import com.taobao.rigel.rap.project.dao.ProjectDao;
 import org.hibernate.ObjectNotFoundException;

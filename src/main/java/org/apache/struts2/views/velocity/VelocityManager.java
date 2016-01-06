@@ -27,6 +27,9 @@ import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.util.ValueStack;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import com.taobao.rigel.rap.common.config.SystemConstant;
+import com.taobao.rigel.rap.common.utils.DateUtils;
+import com.taobao.rigel.rap.common.utils.SystemVisitorLog;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.StrutsConstants;
@@ -177,10 +180,10 @@ public class VelocityManager {
         }
 
 
-        context.put("utils", new com.taobao.rigel.rap.common.StringUtils());
-        context.put("dateUtils", new com.taobao.rigel.rap.common.DateUtils());
-        context.put("consts", new com.taobao.rigel.rap.common.SystemConstant());
-        context.put("logger", new com.taobao.rigel.rap.common.SystemVisitorLog());
+        context.put("utils", new com.taobao.rigel.rap.common.utils.StringUtils());
+        context.put("dateUtils", new DateUtils());
+        context.put("consts", new SystemConstant());
+        context.put("logger", new SystemVisitorLog());
         context.put(STRUTS, new VelocityStrutsUtil(velocityEngine, context, stack, req, res));
 
 

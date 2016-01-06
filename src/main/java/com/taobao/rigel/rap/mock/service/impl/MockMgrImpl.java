@@ -1,7 +1,8 @@
 package com.taobao.rigel.rap.mock.service.impl;
 
 import com.google.gson.Gson;
-import com.taobao.rigel.rap.common.*;
+import com.taobao.rigel.rap.common.config.Patterns;
+import com.taobao.rigel.rap.common.utils.*;
 import com.taobao.rigel.rap.mock.bo.Rule;
 import com.taobao.rigel.rap.mock.dao.MockDao;
 import com.taobao.rigel.rap.mock.service.MockMgr;

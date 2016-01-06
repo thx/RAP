@@ -1,6 +1,6 @@
 package com.taobao.rigel.rap.account.bo;
 
-import com.taobao.rigel.rap.common.EntityInterface;
+import com.taobao.rigel.rap.common.base.EntityInterface;
 
 public class Role implements java.io.Serializable, EntityInterface {
 

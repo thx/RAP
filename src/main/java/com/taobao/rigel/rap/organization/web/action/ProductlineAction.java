@@ -1,7 +1,7 @@
 package com.taobao.rigel.rap.organization.web.action;
 
 import com.google.gson.Gson;
-import com.taobao.rigel.rap.common.ActionBase;
+import com.taobao.rigel.rap.common.base.ActionBase;
 import com.taobao.rigel.rap.organization.bo.ProductionLine;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 

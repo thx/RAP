@@ -1,6 +1,6 @@
 package com.taobao.rigel.rap.tester.web.action;
 
-import com.taobao.rigel.rap.common.ActionBase;
+import com.taobao.rigel.rap.common.base.ActionBase;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.service.ProjectMgr;

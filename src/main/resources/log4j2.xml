@@ -24,7 +24,7 @@
         </RollingFile>
     </Appenders>
     <Loggers>
-        <logger name="com.taobao.rigel.rap.common.SystemVisitorLog" level="INFO" additivity="false">
+        <logger name="com.taobao.rigel.rap.common.utils.SystemVisitorLog" level="INFO" additivity="false">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="detailLog"/>
         </logger>

@@ -1,13 +1,12 @@
 package com.taobao.rigel.rap.workspace.bo;
 
 import com.taobao.rigel.rap.account.bo.User;
-import com.taobao.rigel.rap.common.EntityInterface;
+import com.taobao.rigel.rap.common.base.EntityInterface;
 import com.taobao.rigel.rap.project.bo.Project;
 
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class Workspace implements java.io.Serializable, EntityInterface {
 

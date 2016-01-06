@@ -7,6 +7,12 @@ RAP通过GUI工具帮助WEB工程师更高效的管理接口文档，同时通�
 
 <img src="http://gtms04.alicdn.com/tps/i4/TB19tgUKVXXXXXAXXXXAhCB5VXX-1222-646.png" width="600" />
 
+### Architect
+* Hibernate5 + Spring4 + Struts2
+* MySQL
+* Redis
+* Velocity
+
 ### Why we use RAP?
 * Enterprise level application. More than 350+ corporations including Alibaba Group are using RAP to manage their important API Docs!
 * Fast and efficient technical support, continuously update. Go to issues list to find out how lively the community is!

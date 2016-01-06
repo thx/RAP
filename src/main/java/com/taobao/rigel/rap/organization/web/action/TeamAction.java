@@ -1,10 +1,10 @@
 package com.taobao.rigel.rap.organization.web.action;
 
 import com.taobao.rigel.rap.account.bo.User;
-import com.taobao.rigel.rap.common.ActionBase;
-import com.taobao.rigel.rap.common.CacheUtils;
-import com.taobao.rigel.rap.common.StringUtils;
-import com.taobao.rigel.rap.common.SystemConstant;
+import com.taobao.rigel.rap.common.base.ActionBase;
+import com.taobao.rigel.rap.common.utils.CacheUtils;
+import com.taobao.rigel.rap.common.utils.StringUtils;
+import com.taobao.rigel.rap.common.config.SystemConstant;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 

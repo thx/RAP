@@ -1,9 +1,9 @@
 package com.taobao.rigel.rap.platform.web.action;
 
 import com.google.gson.Gson;
-import com.taobao.rigel.rap.common.ActionBase;
-import com.taobao.rigel.rap.common.Item;
-import com.taobao.rigel.rap.common.SystemVisitorLog;
+import com.taobao.rigel.rap.common.base.ActionBase;
+import com.taobao.rigel.rap.common.bo.Item;
+import com.taobao.rigel.rap.common.utils.SystemVisitorLog;
 import com.taobao.rigel.rap.platform.service.DataMgr;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 import org.apache.logging.log4j.LogManager;

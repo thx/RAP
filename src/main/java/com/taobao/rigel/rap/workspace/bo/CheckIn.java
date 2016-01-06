@@ -1,9 +1,9 @@
 package com.taobao.rigel.rap.workspace.bo;
 
 import com.taobao.rigel.rap.account.bo.User;
-import com.taobao.rigel.rap.common.DateUtils;
-import com.taobao.rigel.rap.common.EntityInterface;
-import com.taobao.rigel.rap.common.StringUtils;
+import com.taobao.rigel.rap.common.utils.DateUtils;
+import com.taobao.rigel.rap.common.base.EntityInterface;
+import com.taobao.rigel.rap.common.utils.StringUtils;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.workspace.bo.Workspace.ModeType;
 
