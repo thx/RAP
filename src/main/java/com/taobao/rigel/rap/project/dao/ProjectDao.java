@@ -173,4 +173,6 @@ public interface ProjectDao {
      * @param creatorId
      */
     void updateCreatorId(long projectId, long creatorId);
+
+    Project getProjectWithData(long id);
 }

@@ -195,6 +195,10 @@ public class ProjectMgrImpl implements ProjectMgr {
         return p;
     }
 
+    public Project getProjectWithData(long id) {
+        return projectDao.getProjectWithData(id);
+    }
+
 
     public Module getModule(long id) {
         return projectDao.getModule(id);

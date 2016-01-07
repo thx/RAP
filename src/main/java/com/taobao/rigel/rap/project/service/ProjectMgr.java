@@ -56,6 +56,14 @@ public interface ProjectMgr {
     Project getProject(long id, String ver);
 
     /**
+     * with project data
+     *
+     * @param id
+     * @return
+     */
+    Project getProjectWithData(long id);
+
+    /**
      * get module by id
      *
      * @param id

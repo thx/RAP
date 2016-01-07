@@ -286,7 +286,7 @@ public class WorkspaceAction extends ActionBase {
                     + projectId);
             return LOGIN;
         }
-        Project p = projectMgr.getProject(getProjectId());
+        Project p = projectMgr.getProjectWithData(getProjectId());
         if (p == null || p.getId() <= 0) {
             setErrMsg("该项目不存在或已被删除，会不会是亲这个链接保存的太久了呢？0  .0");
             logger.error("Unexpected project id=%d", getProjectId());

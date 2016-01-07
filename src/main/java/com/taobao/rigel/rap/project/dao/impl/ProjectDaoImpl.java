@@ -8,10 +8,7 @@ import com.taobao.rigel.rap.common.utils.StringUtils;
 import com.taobao.rigel.rap.common.utils.URLUtils;
 import com.taobao.rigel.rap.project.bo.*;
 import com.taobao.rigel.rap.project.dao.ProjectDao;
-import org.hibernate.Criteria;
-import org.hibernate.ObjectNotFoundException;
-import org.hibernate.Query;
-import org.hibernate.Session;
+import org.hibernate.*;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
@@ -560,6 +557,10 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         query.setLong("userId", creatorId);
         query.setLong("id", projectId);
         query.executeUpdate();
+    }
+
+    public Project getProjectWithData(long id) {
+        return (Project) currentSession().createQuery("from Project where id = :id").setLong("id", id).uniqueResult();
     }
 
 }
