@@ -93,7 +93,7 @@ public class User implements java.io.Serializable, EntityInterface {
     public String getRoleListStr() {
         String str = "";
         for (Role r : getRoleList()) {
-            str += r.getName() + "  ";
+            str += r.getName() + ",";
         }
         return str;
     }

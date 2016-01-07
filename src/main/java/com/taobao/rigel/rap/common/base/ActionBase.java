@@ -1,6 +1,7 @@
 package com.taobao.rigel.rap.common.base;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.taobao.rigel.rap.account.bo.Role;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.service.impl.ContextManager;
@@ -8,9 +9,7 @@ import com.taobao.rigel.rap.common.bo.RapError;
 import com.taobao.rigel.rap.common.config.SystemSettings;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ActionBase extends ActionSupport {
 
@@ -119,7 +118,13 @@ public class ActionBase extends ActionSupport {
 
     public User getCurUser() {
         if (isUserLogined()) {
-            return accountMgr.getUser(getCurUserId());
+            User user = new User();
+            Map session =  ContextManager.currentSession();
+            user.setName((String)session.get(ContextManager.KEY_NAME));
+            user.setAccount((String)session.get(ContextManager.KEY_ACCOUNT));
+            user.setRoleList((Set<Role>)session.get(ContextManager.KEY_ROLE_LIST));
+            user.setId((Long)session.get(ContextManager.KEY_USER_ID));
+            return user;
         } else {
             return null;
         }

@@ -8,9 +8,12 @@ import com.taobao.rigel.rap.common.utils.StringUtils;
 import com.taobao.rigel.rap.common.utils.URLUtils;
 import com.taobao.rigel.rap.project.bo.*;
 import com.taobao.rigel.rap.project.dao.ProjectDao;
+import org.hibernate.Criteria;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
+import org.hibernate.transform.Transformers;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import java.util.ArrayList;
@@ -38,7 +41,9 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         for (Integer id : list) {
             Project p = this.getProject(id);
             if (p != null && p.getId() > 0) {
-                resultList.add(p);
+                Project project = new Project();
+                project.setId(p.getId());
+                resultList.add(project);
             }
         }
         return resultList;
@@ -88,14 +93,10 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 
 
     public Project getProject(long id) {
-        Project p = null;
-        try {
-            Session session = currentSession();
-            p = session.get(Project.class, id);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return p;
+       Query query = currentSession().createQuery("select id, name from Project where id = :id")
+               .setLong("id", id)
+               .setResultTransformer(Transformers.aliasToBean(Project.class));
+        return (Project) query.uniqueResult();
     }
 
 

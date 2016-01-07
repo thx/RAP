@@ -2,6 +2,7 @@ package com.taobao.rigel.rap.common.filter;
 
 import com.alibaba.buc.sso.client.util.SimpleUserUtil;
 import com.alibaba.platform.buc.sso.common.dto.SimpleSSOUser;
+import com.taobao.rigel.rap.account.bo.Role;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.service.impl.ContextManager;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class AuthCheckFilter implements Filter {
     AccountMgr accountMgr;
@@ -27,16 +30,11 @@ public class AuthCheckFilter implements Filter {
     }
 
 
-    public void destroy() {
-
-    }
-
+    public void destroy() {}
 
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
-
         String url = null;
-
         if (request instanceof HttpServletRequest) {
             url = ((HttpServletRequest) request).getRequestURL().toString();
         }
@@ -98,11 +96,17 @@ public class AuthCheckFilter implements Filter {
                     }
                 }
                 // proceed login
-                String account = rapUser.getAccount();
-                long userId = rapUser.getId();
-                session.setAttribute(ContextManager.KEY_ACCOUNT, account);
-                session.setAttribute(ContextManager.KEY_USER_ID, userId);
+                session.setAttribute(ContextManager.KEY_ACCOUNT, rapUser.getAccount());
+                session.setAttribute(ContextManager.KEY_USER_ID, rapUser.getId());
                 session.setAttribute(ContextManager.KEY_NAME, rapUser.getName());
+                Set<Role> roleList = new HashSet<Role>();
+                for (Role role : rapUser.getRoleList()) {
+                    Role copied = new Role();
+                    copied.setId(role.getId());
+                    copied.setName(role.getName());
+                    roleList.add(copied);
+                }
+                session.setAttribute(ContextManager.KEY_ROLE_LIST, roleList);
             }
 
         } else {

@@ -23,8 +23,6 @@ public class SessionListener implements HttpSessionListener {
         context.setAttribute(key, curCountOfOnlineuserList + 1);
     }
 
-    @SuppressWarnings({"rawtypes"})
-
     public void sessionDestroyed(HttpSessionEvent event) {
         ServletContext context = event.getSession().getServletContext();
         HttpSession session = event.getSession();

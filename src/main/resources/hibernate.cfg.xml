@@ -130,6 +130,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
                 <prop key="is*">PROPAGATION_REQUIRED,readOnly</prop>
                 <prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
                 <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+                <prop key="can*">PROPAGATION_REQUIRED,readOnly</prop>
                 <prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
                 <prop key="*">PROPAGATION_REQUIRED</prop>
             </props>

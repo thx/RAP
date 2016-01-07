@@ -2,6 +2,7 @@ package com.taobao.rigel.rap.account.web.action;
 
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.account.bo.Notification;
+import com.taobao.rigel.rap.account.bo.Role;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.base.ActionBase;
 import com.taobao.rigel.rap.common.service.impl.ContextManager;
@@ -12,10 +13,7 @@ import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 
 import javax.mail.internet.AddressException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * account action
@@ -279,6 +277,14 @@ public class AccountAction extends ActionBase {
                 session.put(ContextManager.KEY_ACCOUNT, user.getAccount());
                 session.put(ContextManager.KEY_USER_ID, user.getId());
                 session.put(ContextManager.KEY_NAME, user.getName());
+                Set<Role> roleList = new HashSet<Role>();
+                for (Role role : user.getRoleList()) {
+                    Role copied = new Role();
+                    copied.setId(role.getId());
+                    copied.setName(role.getName());
+                    roleList.add(copied);
+                }
+                session.put(ContextManager.KEY_ROLE_LIST, roleList);
             } else {
                 setErrMsg("用户不存在或密码错误");
                 return ERROR;

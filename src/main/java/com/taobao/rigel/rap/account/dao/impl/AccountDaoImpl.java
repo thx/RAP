@@ -1,6 +1,7 @@
 package com.taobao.rigel.rap.account.dao.impl;
 
 import com.taobao.rigel.rap.account.bo.Notification;
+import com.taobao.rigel.rap.account.bo.Role;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.dao.AccountDao;
 import com.taobao.rigel.rap.common.config.SystemSettings;
@@ -78,8 +79,25 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
         return user;
     }
 
+    private Set<Role> getRoleList(long userId) {
+        String sql = "SELECT r.* FROM tb_role r \n" +
+                "JOIN tb_role_and_user ru ON ru.role_id = r.id \n" +
+                "WHERE ru.user_id = :userId";
+        Query query = currentSession().createSQLQuery(sql).addEntity(Role.class);
+        query.setLong("userId", userId);
+        List<Role> list = query.list();
+        Set<Role> roleSet = new HashSet<Role>();
+        for (Role role : list) {
+            roleSet.add(role);
+        }
+        return roleSet;
+    }
+
     public User getUser(String account) {
-        return getUser(getUserId(account));
+        String sql = "SELECT * FROM tb_user WHERE account = :account";
+        User user = (User) currentSession().createSQLQuery(sql).addEntity(User.class).setString("account", account).uniqueResult();
+        user.setRoleList(getRoleList(user.getId()));
+        return user;
     }
 
     public void changeProfile(long userId, String profileProperty,
