@@ -78,10 +78,11 @@ public class ProjectMgrImpl implements ProjectMgr {
                 pageSize);
         for (Project p : projectList) {
             if (user.isUserInRole("admin")
-                    || p.getUser().getId() == user.getId()) {
+                    || p.getUserId() == user.getId()) {
                 p.setIsManagable(true);
             }
             p.setTeamId(organizationDao.getTeamIdByProjectId(p.getId()));
+            p.setUser(accountDao.getUser(p.getUserId()));
         }
         return projectList;
     }

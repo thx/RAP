@@ -60,6 +60,9 @@
         <property name="accessType">
             <column name="access_type"/>
         </property>
+        <property name="userId" insert="false" update="false">
+            <column name="user_id" />
+        </property>
         <many-to-one name="user" column="user_id"/>
         <set name="userList" order-by="user_id asc" table="tb_project_and_user">
             <key column="project_id" not-null="true"/>

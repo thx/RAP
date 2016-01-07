@@ -13,6 +13,7 @@ import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
@@ -41,9 +42,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         for (Integer id : list) {
             Project p = this.getProject(id);
             if (p != null && p.getId() > 0) {
-                Project project = new Project();
-                project.setId(p.getId());
-                resultList.add(project);
+                resultList.add(p);
             }
         }
         return resultList;
@@ -93,10 +92,18 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 
 
     public Project getProject(long id) {
-       Query query = currentSession().createQuery("select id, name from Project where id = :id")
-               .setLong("id", id)
-               .setResultTransformer(Transformers.aliasToBean(Project.class));
-        return (Project) query.uniqueResult();
+        Project project = (Project) currentSession().createCriteria(Project.class)
+                .setProjection(Projections.projectionList()
+                      .add(Projections.property("id"), "id")
+                      .add(Projections.property("name"), "name")
+                      .add(Projections.property("userId"), "userId")
+                      .add(Projections.property("updateTime"), "updateTime")
+                      .add(Projections.property("introduction"), "introduction")
+                )
+                .add(Restrictions.eq("id", id))
+                .setResultTransformer(Transformers.aliasToBean(Project.class))
+                .uniqueResult();
+        return project;
     }
 
 

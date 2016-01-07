@@ -65,13 +65,10 @@ public class Project implements java.io.Serializable, EntityInterface {
         this.teamId = teamId;
     }
 
-    ;
-
     public short getAccessType() {
         return accessType;
     }
 
-    ;
 
     public void setAccessType(short accessType) {
         this.accessType = accessType;
