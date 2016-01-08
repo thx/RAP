@@ -14,7 +14,7 @@ import java.util.*;
 public class SystemVisitorLog {
     private static final int MAX_LOG_LENGTH = 10;
     private static final int REALTIME_TIME_SPAN = 60;
-    private static final org.apache.logging.log4j.Logger logger = LogManager.getFormatterLogger(SystemVisitorLog.class.getName());
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(SystemVisitorLog.class);
     private static Map<String, Long> ipMap = new HashMap<String, Long>();
     private static Map<String, Long> userMap = new HashMap<String, Long>();
     private static List<Map<String, String>> mockMapList = new ArrayList<Map<String, String>>();
@@ -22,8 +22,8 @@ public class SystemVisitorLog {
     private static Map<Long, Integer> realtimeMap = new HashMap<Long, Integer>();
     private static int mockTotalNum = 0;
     private static Date mockTotalNumDate = new Date();
-    private static Map<Integer, Integer> cacheIdMap = new HashMap<Integer, Integer>(); // key = actionId, value = projectId
-    private static int counter = 1;
+    // private static Map<Integer, Integer> cacheIdMap = new HashMap<Integer, Integer>(); // key = actionId, value = projectId
+    // private static int counter = 1;
 
     public static List<Project> mock(int projectId, String methodName, String pattern, String account) {
         Date now = new Date();

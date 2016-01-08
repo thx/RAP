@@ -7,6 +7,8 @@ import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.service.impl.ContextManager;
 import com.taobao.rigel.rap.common.bo.RapError;
 import com.taobao.rigel.rap.common.config.SystemSettings;
+import com.taobao.rigel.rap.common.utils.CacheUtils;
+import com.taobao.rigel.rap.common.utils.CommonUtils;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 
 import java.util.*;
@@ -39,7 +41,16 @@ public class ActionBase extends ActionSupport {
     }
 
     public List<Corporation> getCorpList() {
-        return accountMgr.getCorporationListWithPager(getCurUserId(), 1, 20);
+        String [] cacheKey = new String[]{CacheUtils.KEY_CORP_LIST_TOP_ITEMS, new Integer(getCurUserId()).toString()};
+        String cache = CacheUtils.get(cacheKey);
+        List<Corporation> corpList;
+        if (cache != null) {
+            corpList = CommonUtils.gson.fromJson(cache, List.class);
+        } else {
+            corpList = accountMgr.getCorporationListWithPager(getCurUserId(), 1, 20);
+            CacheUtils.put(cacheKey, CommonUtils.gson.toJson(corpList));
+        }
+        return corpList;
     }
 
     public List<Corporation> getAllCorpList() {

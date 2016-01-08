@@ -1,6 +1,7 @@
 package com.taobao.rigel.rap.common.config;
 
 import com.alibaba.platform.buc.sso.common.dto.SimpleSSOUser;
+import com.google.gson.Gson;
 import redis.clients.jedis.Jedis;
 
 

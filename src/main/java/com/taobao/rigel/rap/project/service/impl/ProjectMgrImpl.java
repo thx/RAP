@@ -417,8 +417,8 @@ public class ProjectMgrImpl implements ProjectMgr {
         }
 
         for (int userId : ids) {
-            String[] cacheKey = new String[]{CacheUtils.KEY_PROJECTS_DO, new Integer(userId).toString()};
-            CacheUtils.clearCache(cacheKey);
+            String[] cacheKey = new String[]{CacheUtils.KEY_PROJECT_LIST, new Integer(userId).toString()};
+            CacheUtils.del(cacheKey);
         }
     }
 

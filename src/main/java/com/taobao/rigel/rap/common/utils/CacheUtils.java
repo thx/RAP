@@ -14,19 +14,14 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class CacheUtils {
     private static final String MOCK_RULE_CACHE_PREFIX = "MOCK_CACHE_PREFIX:";
-    public static final String KEY_PROJECTS_DO = "PROJECTS_DO";
     private static final int DEFAULT_CACHE_EXPIRE_SECS = 600;
-//    private static Map<Long, String> cachedRules = new ConcurrentHashMap<Long, String>();
-//    private static Map<Long, Map<String, List<Corporation>>> cachedTeams = new ConcurrentHashMap<Long, Map<String, List<Corporation>>>();
-//
-//    private static Map<Long, Long> rulesFrequency = new ConcurrentHashMap<Long, Long>(); // frequency of rules cache
-//    private static Map<Long, Long> teamsFrequency = new ConcurrentHashMap<Long, Long>(); // frequency of teams cache
-//
-//    private static long cachedSize = 0; // cached size in total
-//    private static long cachedRuleSize = 0; // cached size of rules cache
-//    private static long cachedTeamSize = 0; // cached size of teams cache
 
-    private static Jedis jedis = new Jedis("localhost");
+
+    public static final String KEY_PROJECT_LIST = "KEY_PROJECT_LIST";
+    public static final String KEY_CORP_LIST = "KEY_CORP_LIST";
+    public static final String KEY_CORP_LIST_TOP_ITEMS = "KEY_CORP_LIST_TOP_ITEMS";
+
+    public static Jedis jedis = null;
 
     public CacheUtils() {
     }
@@ -150,17 +145,22 @@ public class CacheUtils {
 
     public static long getCachedSize() {return 0;}
 
-    public static void cache(String [] keys, String value) {
+    public static void put(String [] keys, String value, int expireInSecs) {
         String cacheKey = StringUtils.join(keys, "|");
         jedis.set(cacheKey, value);
-        jedis.expire(cacheKey, DEFAULT_CACHE_EXPIRE_SECS);
+        if (expireInSecs > 0)
+            jedis.expire(cacheKey, expireInSecs);
     }
 
-    public static String cache(String []keys) {
+    public static void put(String [] keys, String value) {
+        put(keys, value, 0);
+    }
+
+    public static String get(String []keys) {
         return jedis.get(StringUtils.join(keys, "|"));
     }
 
-    public static void clearCache(String[] keys) {
+    public static void del(String[] keys) {
         String cacheKey = StringUtils.join(keys, "|");
         jedis.del(cacheKey);
     }

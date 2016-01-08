@@ -124,9 +124,9 @@ public class OrganizationAction extends ActionBase {
             return JSON_ERROR;
         }
 
-        String[] cacheKey = new String[]{CacheUtils.KEY_PROJECTS_DO, new Integer(getCurUserId()).toString()};
+        String[] cacheKey = new String[]{CacheUtils.KEY_PROJECT_LIST, new Integer(getCurUserId()).toString()};
 
-        String cacheResult = CacheUtils.cache(cacheKey);
+        String cacheResult = CacheUtils.get(cacheKey);
         if (cacheResult != null) {
             setJson(cacheResult);
         } else {
@@ -167,7 +167,7 @@ public class OrganizationAction extends ActionBase {
             json.append("	}]");
             json.append("}");
             setJson(json.toString());
-            CacheUtils.cache(cacheKey, json.toString());
+            CacheUtils.put(cacheKey, json.toString());
         }
         return SUCCESS;
     }
