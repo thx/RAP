@@ -40,21 +40,36 @@ public class ActionBase extends ActionSupport {
         this.isOpSuccess = isOpSuccess;
     }
 
-    public List<Corporation> getCorpList() {
+    public List<Map<String, Object>> getCorpList() {
         String [] cacheKey = new String[]{CacheUtils.KEY_CORP_LIST_TOP_ITEMS, new Integer(getCurUserId()).toString()};
         String cache = CacheUtils.get(cacheKey);
-        List<Corporation> corpList;
+        List<Map<String, Object>> corpList = new ArrayList<Map<String, Object>>();
         if (cache != null) {
             corpList = CommonUtils.gson.fromJson(cache, List.class);
         } else {
-            corpList = accountMgr.getCorporationListWithPager(getCurUserId(), 1, 20);
+            List<Corporation> list = accountMgr.getCorporationListWithPager(getCurUserId(), 1, 20);
+            for (Corporation c : list) {
+                corpList.add(c.toMap());
+            }
             CacheUtils.put(cacheKey, CommonUtils.gson.toJson(corpList));
         }
         return corpList;
     }
 
-    public List<Corporation> getAllCorpList() {
-        return accountMgr.getCorporationListWithPager(getCurUserId(), 1, 120);
+    public List<Map<String, Object>> getAllCorpList() {
+        String [] cacheKey = new String[]{CacheUtils.KEY_CORP_LIST, new Integer(getCurUserId()).toString()};
+        String cache = CacheUtils.get(cacheKey);
+        List<Map<String, Object>> corpList = new ArrayList<Map<String, Object>>();
+        if (cache != null) {
+            corpList = CommonUtils.gson.fromJson(cache, List.class);
+        } else {
+            List<Corporation> list = accountMgr.getCorporationListWithPager(getCurUserId(), 1, 999);
+            for (Corporation c : list) {
+                corpList.add(c.toMap());
+            }
+            CacheUtils.put(cacheKey, CommonUtils.gson.toJson(corpList));
+        }
+        return corpList;
     }
 
     public int getNum() {

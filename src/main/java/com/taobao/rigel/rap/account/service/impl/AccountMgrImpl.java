@@ -5,6 +5,7 @@ import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.dao.AccountDao;
 import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.config.PRIVATE_CONFIG;
+import com.taobao.rigel.rap.common.utils.CacheUtils;
 import com.taobao.rigel.rap.common.utils.StringUtils;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
@@ -219,25 +220,35 @@ public class AccountMgrImpl implements AccountMgr {
 
 
     public boolean canUserManageProject(int userId, int projectId) {
+        String[] cacheKey = new String[]{CacheUtils.KEY_ACCESS_USER_TO_PROJECT, new Integer(userId).toString(), new Integer(projectId).toString()};
+
+        String cache = CacheUtils.get(cacheKey);
+        if (cache != null) {
+            return Boolean.parseBoolean(cache);
+        }
+
         User user = this.getUser(userId);
+        boolean canAccess = false;
         Project project = projectMgr.getProjectSummary(projectId);
         if (user.isUserInRole("admin")) {
-            return true;
-        }
-        if (user.getCreatedProjectList() != null)
+            canAccess = true;
+        } else if (user.getCreatedProjectList() != null) {
             for (Project p : user.getCreatedProjectList()) {
                 if (p.getId() == projectId) {
-                    return true;
+                    canAccess = true;
                 }
             }
-        if (project.getUserList() != null)
+        } else if (project.getUserList() != null) {
             for (User member : project.getUserList()) {
                 if (member.getId() == user.getId()) {
-                    return true;
+                    canAccess = true;
                 }
             }
+        }
 
-        return false;
+        CacheUtils.put(cacheKey, new Boolean(canAccess).toString());
+
+        return canAccess;
     }
 
 

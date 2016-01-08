@@ -2,7 +2,9 @@ package com.taobao.rigel.rap.organization.bo;
 
 import com.taobao.rigel.rap.common.utils.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Corporation {
     public static final int PUBLIC_ACCESS = 20;
@@ -112,5 +114,16 @@ public class Corporation {
 
     public boolean isPublic() {
         return this.accessType == PUBLIC_ACCESS;
+    }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        map.put("id", getId());
+        map.put("nameStr", getNameStr());
+        map.put("accessType", getAccessType());
+        map.put("name", getName());
+
+        return map;
     }
 }

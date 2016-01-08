@@ -4,6 +4,7 @@ import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.project.bo.Action;
 import redis.clients.jedis.Jedis;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,10 +17,11 @@ public class CacheUtils {
     private static final String MOCK_RULE_CACHE_PREFIX = "MOCK_CACHE_PREFIX:";
     private static final int DEFAULT_CACHE_EXPIRE_SECS = 600;
 
-
     public static final String KEY_PROJECT_LIST = "KEY_PROJECT_LIST";
     public static final String KEY_CORP_LIST = "KEY_CORP_LIST";
     public static final String KEY_CORP_LIST_TOP_ITEMS = "KEY_CORP_LIST_TOP_ITEMS";
+
+    public static final String KEY_ACCESS_USER_TO_PROJECT = "KEY_ACCESS_USER_TO_PROJECT";
 
     public static Jedis jedis = null;
 
@@ -153,7 +155,7 @@ public class CacheUtils {
     }
 
     public static void put(String [] keys, String value) {
-        put(keys, value, 0);
+        put(keys, value, DEFAULT_CACHE_EXPIRE_SECS);
     }
 
     public static String get(String []keys) {
