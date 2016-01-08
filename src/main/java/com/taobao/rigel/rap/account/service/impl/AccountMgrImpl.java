@@ -92,7 +92,7 @@ public class AccountMgrImpl implements AccountMgr {
     }
 
 
-    public User getUser(long userId) {
+    public User getUser(int userId) {
         return accountDao.getUser(userId);
     }
 
@@ -102,19 +102,19 @@ public class AccountMgrImpl implements AccountMgr {
     }
 
 
-    public long getUserId(String account) {
+    public int getUserId(String account) {
         return accountDao.getUserId(account);
     }
 
 
-    public void changeProfile(long userId, String profileProperty,
+    public void changeProfile(int userId, String profileProperty,
                               String profileValue) {
         accountDao.changeProfile(userId, profileProperty, profileValue);
 
     }
 
 
-    public boolean updateProfile(long userId, String name, String email,
+    public boolean updateProfile(int userId, String name, String email,
                                  String password, String newPassword) {
         if (password != null && !password.isEmpty() && newPassword != null && !newPassword.isEmpty()) {
             password = StringUtils.getDoubleMD5(password);
@@ -133,7 +133,7 @@ public class AccountMgrImpl implements AccountMgr {
     }
 
 
-    public List<User> getUserList(long teamId) {
+    public List<User> getUserList(int teamId) {
 
         List<Integer> userIdList = accountDao.getUserIdList(teamId);
         List<User> userList = new ArrayList<User>();
@@ -158,7 +158,7 @@ public class AccountMgrImpl implements AccountMgr {
     }
 
 
-    public List<Corporation> getCorporationListWithPager(long userId, int pageNum, int pageSize) {
+    public List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize) {
         return organizationMgr.getCorporationListWithPager(userId, pageNum, pageSize);
     }
 
@@ -168,27 +168,27 @@ public class AccountMgrImpl implements AccountMgr {
     }
 
 
-    public Map<String, String> getUserSettings(long userId) {
+    public Map<String, String> getUserSettings(int userId) {
         return accountDao.getUserSettings(userId);
     }
 
 
-    public String getUserSetting(long userId, String key) {
+    public String getUserSetting(int userId, String key) {
         return accountDao.getUserSetting(userId, key);
     }
 
 
-    public void updateUserSetting(long userId, String key, String value) {
+    public void updateUserSetting(int userId, String key, String value) {
         accountDao.updateUserSetting(userId, key, value);
     }
 
 
-    public List<Notification> getNotificationList(long userId) {
+    public List<Notification> getNotificationList(int userId) {
         return accountDao.getNotificationList(userId);
     }
 
 
-    public void clearNotificationList(long userId) {
+    public void clearNotificationList(int userId) {
         accountDao.clearNotificationList(userId);
     }
 
@@ -203,24 +203,24 @@ public class AccountMgrImpl implements AccountMgr {
     }
 
 
-    public void readNotification(long id) {
+    public void readNotification(int id) {
         accountDao.readNotification(id);
     }
 
 
-    public void readNotificationList(long userId) {
+    public void readNotificationList(int userId) {
         accountDao.readNotificationList(userId);
     }
 
 
-    public List<Notification> getUnreadNotificationList(long curUserId) {
+    public List<Notification> getUnreadNotificationList(int curUserId) {
         return accountDao.getUnreadNotificationList(curUserId);
     }
 
 
-    public boolean canUserManageProject(long userId, long projectId) {
+    public boolean canUserManageProject(int userId, int projectId) {
         User user = this.getUser(userId);
-        Project project = projectMgr.getProject(projectId);
+        Project project = projectMgr.getProjectSummary(projectId);
         if (user.isUserInRole("admin")) {
             return true;
         }
@@ -241,7 +241,7 @@ public class AccountMgrImpl implements AccountMgr {
     }
 
 
-    public long getUserNum() {
+    public int getUserNum() {
         return accountDao.getUsertNum();
     }
 

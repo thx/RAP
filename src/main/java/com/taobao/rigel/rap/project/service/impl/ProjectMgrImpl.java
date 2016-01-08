@@ -6,6 +6,7 @@ import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.dao.AccountDao;
 import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.utils.ArrayUtils;
+import com.taobao.rigel.rap.common.utils.CacheUtils;
 import com.taobao.rigel.rap.common.utils.HTTPUtils;
 import com.taobao.rigel.rap.common.config.SystemConstant;
 import com.taobao.rigel.rap.organization.bo.Group;
@@ -88,7 +89,7 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public long addProject(Project project) {
+    public int addProject(Project project) {
         project.setUpdateTime(new Date());
         project.setCreateDate(new Date());
         List<User> usersInformed = new ArrayList<User>();
@@ -101,13 +102,13 @@ public class ProjectMgrImpl implements ProjectMgr {
                 }
             }
         }
-        long result = projectDao.addProject(project);
+        int result = projectDao.addProject(project);
         for (User u : usersInformed) {
             Notification o = new Notification();
             o.setTypeId((short) 2);
             o.setTargetUser(project.getUser());
             o.setUser(u);
-            o.setParam1(new Long(result).toString());
+            o.setParam1(new Integer(result).toString());
             o.setParam2(project.getName());
             accountMgr.addNotification(o);
         }
@@ -117,13 +118,13 @@ public class ProjectMgrImpl implements ProjectMgr {
             organizationDao.updateCountersInProductionLine(g
                     .getProductionLineId());
         }
-
+        clearCache(result);
         return result;
     }
 
 
-    public int removeProject(long id) {
-        Project p = getProject(id);
+    public int removeProject(int id) {
+        Project p = getProjectSummary(id);
         Group g = organizationDao.getGroup(p.getGroupId());
         int result = projectDao.removeProject(id);
         if (g != null) {
@@ -137,6 +138,9 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 
     public int updateProject(Project outerProject) {
+        // first clear, for existed members
+        clearCache(outerProject.getId());
+
         Project project = getProject(outerProject.getId());
         project.setName(outerProject.getName());
         project.setIntroduction(outerProject.getIntroduction());
@@ -153,7 +157,7 @@ public class ProjectMgrImpl implements ProjectMgr {
                         o.setTypeId((short) 2);
                         o.setTargetUser(outerProject.getUser());
                         o.setUser(user);
-                        o.setParam1(new Long(outerProject.getId()).toString());
+                        o.setParam1(new Integer(outerProject.getId()).toString());
                         o.setParam2(outerProject.getName());
                         accountMgr.addNotification(o);
                     }
@@ -174,18 +178,26 @@ public class ProjectMgrImpl implements ProjectMgr {
                     project.removeMember(user);
                 }
             }
+
         }
 
-        return projectDao.updateProject(project);
+        int returnVal = projectDao.updateProject(project);
+
+        // duplex clear, for added new members
+        clearCache(project.getId());
+
+        return returnVal;
     }
 
 
-    public Project getProject(long id) {
-        return projectDao.getProject(id);
+    public Project getProjectSummary(int id) {
+        Project p = projectDao.getProjectSummary(id);
+        p.setUser(accountMgr.getUser(p.getUserId()));
+        return p;
     }
 
 
-    public Project getProject(long id, String ver) {
+    public Project getProjectSummary(int id, String ver) {
         CheckIn check = workspaceDao.getVersion(id, ver);
         String projectData = check.getProjectData();
 
@@ -195,28 +207,30 @@ public class ProjectMgrImpl implements ProjectMgr {
         return p;
     }
 
-    public Project getProjectWithData(long id) {
-        return projectDao.getProjectWithData(id);
+    public Project getProject(int id) {
+        Project p = projectDao.getProject(id);
+        p.setUser(accountMgr.getUser(p.getUserId()));
+        return p;
     }
 
 
-    public Module getModule(long id) {
+    public Module getModule(int id) {
         return projectDao.getModule(id);
     }
 
 
-    public Page getPage(long id) {
-        return projectDao.getPage(id);
+    public Page getPage(int id) {
+        return (Page) projectDao.getPage(id);
     }
 
 
-    public String updateProject(long id, String projectData,
-                                String deletedObjectListData, Map<Long, Long> actionIdMap) {
+    public String updateProject(int id, String projectData,
+                                String deletedObjectListData, Map<Integer, Integer> actionIdMap) {
         return projectDao.updateProject(id, projectData, deletedObjectListData, actionIdMap);
     }
 
 
-    public long getProjectListNum(User user) {
+    public int getProjectListNum(User user) {
         if (user != null && user.isUserInRole("admin")) {
             user = null;
         }
@@ -258,11 +272,11 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public List<Action> getMatchedActionList(long projectId, String pattern) {
+    public List<Action> getMatchedActionList(int projectId, String pattern) {
         List<Action> actionList = projectDao.getMatchedActionList(projectId,
                 pattern);
         if (actionList == null || actionList.size() == 0) {
-            Project project = projectDao.getProject(projectId);
+            Project project = projectDao.getProjectSummary(projectId);
             if (project != null) {
                 String ids = project.getRelatedIds();
                 if (ids != null && !ids.isEmpty()) {
@@ -281,7 +295,7 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public List<Project> getProjectListByGroup(long id) {
+    public List<Project> getProjectListByGroup(int id) {
         return projectDao.getProjectListByGroup(id);
     }
 
@@ -291,7 +305,7 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public List<Project> search(String key, long userId) {
+    public List<Project> search(String key, int userId) {
         List<Project> list = projectDao.search(key);
         List<Project> result = new ArrayList<Project>();
 
@@ -304,12 +318,12 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public Action getAction(long id) {
+    public Action getAction(int id) {
         return projectDao.getAction(id);
     }
 
 
-    public Action getAction(long id, String ver, long projectId) {
+    public Action getAction(int id, String ver, int projectId) {
         CheckIn check = workspaceDao.getVersion(projectId, ver);
         Gson gson = new Gson();
         Project p = gson.fromJson(check.getProjectData(), Project.class);
@@ -317,7 +331,7 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public void updateDoc(long projectId) {
+    public void updateDoc(int projectId) {
         try {
             HTTPUtils.sendGet("http://" + SystemConstant.NODE_SERVER + "/api/generateDoc?projectId=" + projectId);
         } catch (Exception e) {
@@ -331,37 +345,37 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public long getProjectNum() {
+    public int getProjectNum() {
         return projectDao.getProjectListNum();
     }
 
 
-    public long getModuleNum() {
+    public int getModuleNum() {
         return projectDao.getModuleNum();
     }
 
 
-    public long getPageNum() {
+    public int getPageNum() {
         return projectDao.getPageNum();
     }
 
 
-    public long getActionNum() {
+    public int getActionNum() {
         return projectDao.getActionNum();
     }
 
 
-    public long getParametertNum() {
+    public int getParametertNum() {
         return projectDao.getParametertNum();
     }
 
 
-    public long getCheckInNum() {
+    public int getCheckInNum() {
         return projectDao.getCheckInNum();
     }
 
 
-    public long getMockNumInTotal() {
+    public int getMockNumInTotal() {
         return projectDao.getMockNumInTotal();
     }
 
@@ -371,8 +385,8 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public void updateCache(long projectId) {
-        Project project = getProject(projectId);
+    public void updateCache(int projectId) {
+        Project project = getProjectSummary(projectId);
         for (Module module : project.getModuleList()) {
             for (Page page : module.getPageList()) {
                 for (Action action : page.getActionList()) {
@@ -383,13 +397,29 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public Integer getProjectIdByActionId(long actionId) {
+    public Integer getProjectIdByActionId(int actionId) {
         return projectDao.getProjectIdByActionId(actionId);
     }
 
 
     public void updateProjectNum(Project project) {
         projectDao.updateProjectNum(project);
+    }
+
+    public void clearCache(int projectId) {
+        Project p = getProject(projectId);
+        List<Integer> ids = new ArrayList<Integer>();
+        ids.add(p.getUserId());
+
+        Set<User> members =  p.getUserList();
+        for (User member : members) {
+            ids.add(member.getId());
+        }
+
+        for (int userId : ids) {
+            String[] cacheKey = new String[]{CacheUtils.KEY_PROJECTS_DO, new Integer(userId).toString()};
+            CacheUtils.clearCache(cacheKey);
+        }
     }
 
     private void updateActionCache(Action action) {
@@ -412,4 +442,6 @@ public class ProjectMgrImpl implements ProjectMgr {
             }
         }
     }
+
+
 }

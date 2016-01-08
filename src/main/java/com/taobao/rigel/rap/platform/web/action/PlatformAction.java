@@ -17,7 +17,7 @@ import java.util.Map;
 public class PlatformAction extends ActionBase {
     private static final Logger logger = LogManager.getFormatterLogger(PlatformAction.class.getName());
     private Gson gson = new Gson();
-    private long time;
+    private int time;
     private Map<String, List<Map<String, Object>>> trends = new HashMap<String, List<Map<String, Object>>>();
     private Map<String, List<Map<String, Object>>> statistics = new HashMap<String, List<Map<String, Object>>>();
     private int tabIndex;
@@ -27,7 +27,7 @@ public class PlatformAction extends ActionBase {
     private DataMgr dataMgr;
     private String text;
 
-    public void setTime(long time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
@@ -48,10 +48,10 @@ public class PlatformAction extends ActionBase {
     }
 
     public String getRealtimeJSON() {
-        return gson.toJson(SystemVisitorLog.getRealtimeMap(null));
+        return gson.toJson(SystemVisitorLog.getRealtimeMap(0));
     }
 
-    public String getRealtimeJSONByTime(long time) {
+    public String getRealtimeJSONByTime(int time) {
         return gson.toJson(SystemVisitorLog.getRealtimeMap(time));
     }
 
@@ -105,14 +105,14 @@ public class PlatformAction extends ActionBase {
 
     public String log() {
         // statistics for RAP models
-        modelLog.add(new Item("用户数", new Long(getAccountMgr().getUserNum()).toString()));
-        modelLog.add(new Item("项目数", new Long(projectMgr.getProjectNum()).toString()));
-        modelLog.add(new Item("接口数", new Long(projectMgr.getActionNum()).toString()));
-        //modelLog.add(new Item("TAB数", new Long(projectMgr.getModuleNum()).toString()));
-        //modelLog.add(new Item("页面数", new Long(projectMgr.getPageNum()).toString()));
-        //modelLog.add(new Item("参数数", new Long(projectMgr.getParametertNum()).toString()));
-        modelLog.add(new Item("文档提交数", new Long(projectMgr.getCheckInNum()).toString()));
-        modelLog.add(new Item("MOCK服务调用次数", new Long(projectMgr.getMockNumInTotal()).toString(), "该信息自2014年10月底开始记录"));
+        modelLog.add(new Item("用户数", new Integer(getAccountMgr().getUserNum()).toString()));
+        modelLog.add(new Item("项目数", new Integer(projectMgr.getProjectNum()).toString()));
+        modelLog.add(new Item("接口数", new Integer(projectMgr.getActionNum()).toString()));
+        //modelLog.add(new Item("TAB数", new Integer(projectMgr.getModuleNum()).toString()));
+        //modelLog.add(new Item("页面数", new Integer(projectMgr.getPageNum()).toString()));
+        //modelLog.add(new Item("参数数", new Integer(projectMgr.getParametertNum()).toString()));
+        modelLog.add(new Item("文档提交数", new Integer(projectMgr.getCheckInNum()).toString()));
+        modelLog.add(new Item("MOCK服务调用次数", new Integer(projectMgr.getMockNumInTotal()).toString(), "该信息自2014年10月底开始记录"));
 
         for (Item item : modelLog) {
             modelLogMap.put(item.getKey(), item);

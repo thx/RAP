@@ -27,7 +27,7 @@ public interface ProjectMgr {
      * @param project
      * @return
      */
-    long addProject(Project project);
+    int addProject(Project project);
 
     /**
      * remove project
@@ -35,7 +35,7 @@ public interface ProjectMgr {
      * @param id
      * @return
      */
-    int removeProject(long id);
+    int removeProject(int id);
 
     /**
      * update project
@@ -51,9 +51,9 @@ public interface ProjectMgr {
      * @param id
      * @return
      */
-    Project getProject(long id);
+    Project getProjectSummary(int id);
 
-    Project getProject(long id, String ver);
+    Project getProjectSummary(int id, String ver);
 
     /**
      * with project data
@@ -61,7 +61,7 @@ public interface ProjectMgr {
      * @param id
      * @return
      */
-    Project getProjectWithData(long id);
+    Project getProject(int id);
 
     /**
      * get module by id
@@ -69,7 +69,7 @@ public interface ProjectMgr {
      * @param id
      * @return
      */
-    Module getModule(long id);
+    Module getModule(int id);
 
     /**
      * get page by id
@@ -77,7 +77,7 @@ public interface ProjectMgr {
      * @param id
      * @return
      */
-    Page getPage(long id);
+    Page getPage(int id);
 
     /**
      * update project
@@ -87,8 +87,8 @@ public interface ProjectMgr {
      * @param deletedObjectListData
      * @return
      */
-    String updateProject(long id, String projectData,
-                         String deletedObjectListData, Map<Long, Long> actionIdMap);
+    String updateProject(int id, String projectData,
+                         String deletedObjectListData, Map<Integer, Integer> actionIdMap);
 
     /**
      * get number of project list usually used for pager
@@ -96,7 +96,7 @@ public interface ProjectMgr {
      * @param user
      * @return
      */
-    long getProjectListNum(User user);
+    int getProjectListNum(User user);
 
     /**
      * set action.remarks as paramIdList eg-> action.remarks = "id,name,age";
@@ -121,7 +121,7 @@ public interface ProjectMgr {
      * @param pattern
      * @return
      */
-    List<Action> getMatchedActionList(long projectId, String pattern);
+    List<Action> getMatchedActionList(int projectId, String pattern);
 
     /**
      * get project list by group id
@@ -129,7 +129,7 @@ public interface ProjectMgr {
      * @param id
      * @return
      */
-    List<Project> getProjectListByGroup(long id);
+    List<Project> getProjectListByGroup(int id);
 
     /**
      * search all projects (for admin)
@@ -146,7 +146,7 @@ public interface ProjectMgr {
      * @param curUserId
      * @return
      */
-    List<Project> search(String key, long curUserId);
+    List<Project> search(String key, int curUserId);
 
     /**
      * get action
@@ -154,32 +154,32 @@ public interface ProjectMgr {
      * @param id
      * @return
      */
-    Action getAction(long id);
+    Action getAction(int id);
 
-    Action getAction(long id, String ver, long projectId);
+    Action getAction(int id, String ver, int projectId);
 
     /**
      * update doc
      *
      * @param projectId
      */
-    void updateDoc(long projectId);
+    void updateDoc(int projectId);
 
     List<Project> getProjectList();
 
-    long getProjectNum();
+    int getProjectNum();
 
-    long getModuleNum();
+    int getModuleNum();
 
-    long getPageNum();
+    int getPageNum();
 
-    long getActionNum();
+    int getActionNum();
 
-    long getParametertNum();
+    int getParametertNum();
 
-    long getCheckInNum();
+    int getCheckInNum();
 
-    long getMockNumInTotal();
+    int getMockNumInTotal();
 
     List<Project> selectMockNumTopNProjectList(int limit);
 
@@ -188,7 +188,7 @@ public interface ProjectMgr {
      *
      * @param projectId
      */
-    void updateCache(long projectId);
+    void updateCache(int projectId);
 
     /**
      * get project id by action id
@@ -196,8 +196,15 @@ public interface ProjectMgr {
      * @param actionId
      * @return
      */
-    Integer getProjectIdByActionId(long actionId);
+    Integer getProjectIdByActionId(int actionId);
 
     void updateProjectNum(Project project);
+
+    /**
+     * clear cache by projectId
+     *
+     * @param projectId
+     */
+    void clearCache(int projectId);
 
 }

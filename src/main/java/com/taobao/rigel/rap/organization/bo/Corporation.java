@@ -1,17 +1,16 @@
 package com.taobao.rigel.rap.organization.bo;
 
-import com.taobao.rigel.rap.common.base.EntityInterface;
 import com.taobao.rigel.rap.common.utils.StringUtils;
 
 import java.util.List;
 
-public class Corporation implements EntityInterface{
+public class Corporation {
     public static final int PUBLIC_ACCESS = 20;
     public static final int PRIVATE_ACCESS = 10;
     public final int NAME_STR_MAX_LENGTH = 20;
-    private long id;
+    private int id;
     private String logoUrl;
-    private long userId;
+    private int userId;
     private String name;
     private List<String> accountList;
     private long memberNum;
@@ -19,21 +18,6 @@ public class Corporation implements EntityInterface{
     private String desc;
     private short accessType;
     private boolean hasAccess;
-
-    @Override
-    public int hashCode() {
-        return new Long(id).hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof EntityInterface))
-            return false;
-        if (o == this)
-            return true;
-        EntityInterface obj = (EntityInterface)o;
-        return obj.getId() == this.id;
-    }
 
     public List<String> getAccountList() {
         return accountList;
@@ -63,11 +47,11 @@ public class Corporation implements EntityInterface{
         }
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -79,11 +63,11 @@ public class Corporation implements EntityInterface{
         this.logoUrl = logoUrl;
     }
 
-    public long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

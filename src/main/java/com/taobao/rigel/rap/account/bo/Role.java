@@ -1,33 +1,15 @@
 package com.taobao.rigel.rap.account.bo;
 
-import com.taobao.rigel.rap.common.base.EntityInterface;
+public class Role implements java.io.Serializable {
 
-public class Role implements java.io.Serializable, EntityInterface {
-
-    private long id;
+    private int id;
     private String name;
 
-    @Override
-    public int hashCode() {
-        return new Long(id).hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Role))
-            return false;
-        if (o == this)
-            return true;
-        Role obj = (Role)o;
-        return obj.getId() == this.id;
-    }
-
-
-    public long getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

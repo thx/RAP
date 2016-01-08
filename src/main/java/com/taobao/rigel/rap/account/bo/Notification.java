@@ -1,14 +1,13 @@
 package com.taobao.rigel.rap.account.bo;
 
-import com.taobao.rigel.rap.common.base.EntityInterface;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.Date;
 import java.util.Locale;
 
-public class Notification implements EntityInterface {
-    private long id;
-    private long userId;
+public class Notification {
+    private int id;
+    private int userId;
     private short typeId;
     private String param1;
     private String param2;
@@ -18,39 +17,24 @@ public class Notification implements EntityInterface {
     private User user;
     private User targetUser;
 
-    @Override
-    public int hashCode() {
-        return new Long(id).hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof EntityInterface))
-            return false;
-        if (o == this)
-            return true;
-        EntityInterface obj = (EntityInterface)o;
-        return obj.getId() == this.id;
-    }
-
     public String getCreateTimeStr() {
         PrettyTime p = new PrettyTime(new Locale("zh"));
         return p.format(this.createTime);
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

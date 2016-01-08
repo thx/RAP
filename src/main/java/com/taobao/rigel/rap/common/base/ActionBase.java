@@ -105,7 +105,7 @@ public class ActionBase extends ActionSupport {
         }
     }
 
-    protected long getCurUserId() {
+    protected int getCurUserId() {
         Object account = ContextManager.currentSession().get(
                 ContextManager.KEY_ACCOUNT);
         if (account == null)
@@ -123,7 +123,7 @@ public class ActionBase extends ActionSupport {
             user.setName((String)session.get(ContextManager.KEY_NAME));
             user.setAccount((String)session.get(ContextManager.KEY_ACCOUNT));
             user.setRoleList((Set<Role>)session.get(ContextManager.KEY_ROLE_LIST));
-            user.setId((Long)session.get(ContextManager.KEY_USER_ID));
+            user.setId((Integer)session.get(ContextManager.KEY_USER_ID));
             return user;
         } else {
             return null;

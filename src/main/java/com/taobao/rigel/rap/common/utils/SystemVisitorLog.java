@@ -74,10 +74,10 @@ public class SystemVisitorLog {
         return mockMapList;
     }
 
-    public static List<Map<String, Object>> getRealtimeMap(Long limitTime) {
+    public static List<Map<String, Object>> getRealtimeMap(int limitTime) {
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-        if (limitTime == null) {
-            limitTime = Long.MIN_VALUE;
+        if (limitTime == 0) {
+            limitTime = Integer.MIN_VALUE;
         }
 
         Calendar c = Calendar.getInstance();
@@ -214,7 +214,7 @@ public class SystemVisitorLog {
         List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
         for (Integer id : mockMap.keySet()) {
             if (id == null) continue;
-            Project p = projectMgr.getProject(id);
+            Project p = projectMgr.getProjectSummary(id);
             if (p == null) continue;
             String name = p.getName();
             Map<String, Object> row = new HashMap<String, Object>();

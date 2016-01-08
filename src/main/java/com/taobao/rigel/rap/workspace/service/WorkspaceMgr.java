@@ -12,7 +12,7 @@ public interface WorkspaceMgr {
      * @param userId
      * @return
      */
-    Workspace getWorkspace(int projectId, long userId);
+    Workspace getWorkspace(int projectId, int userId);
 
     /**
      * update workspace
@@ -38,7 +38,7 @@ public interface WorkspaceMgr {
      * @param projectId
      * @return
      */
-    String checkOut(String[] jsonList, long userId, int projectId);
+    String checkOut(String[] jsonList, int userId, int projectId);
 
     /***
      * workspace check in
@@ -48,7 +48,7 @@ public interface WorkspaceMgr {
      * @param projectId
      * @return
      */
-    String checkIn(String[] jsonList, long userId, int projectId);
+    String checkIn(String[] jsonList, int userId, int projectId);
 
     /**
      * add new check in log

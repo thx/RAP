@@ -20,7 +20,7 @@ public class TeamAction extends ActionBase {
     private int id;
     private String name;
     private String accountList;
-    private long teamListNum;
+    private int teamListNum;
     private List<User> userList;
     private int userId;
     private Corporation team;
@@ -118,19 +118,19 @@ public class TeamAction extends ActionBase {
             setRelativeReturnUrl("/org/team/teams.do");
             return LOGIN;
         }
-        long userId = getCurUserId();
+        int userId = getCurUserId();
         teamList = organizationMgr.getCorporationListWithPager(userId, getPageNum(), SystemConstant.DEFAULT_PAGE_SIZE);
         teamListNum = organizationMgr.getCorporationListWithPagerNum(userId);
         return SUCCESS;
     }
 
-    public long getTeamListNum() {
+    public int getTeamListNum() {
         return teamListNum;
     }
 
-    public long getTeamListPageInTotal() {
+    public int getTeamListPageInTotal() {
         double result = Math.ceil((double) teamListNum / (double) SystemConstant.DEFAULT_PAGE_SIZE);
-        return (long) result;
+        return (int) result;
     }
 
     public String manage() {

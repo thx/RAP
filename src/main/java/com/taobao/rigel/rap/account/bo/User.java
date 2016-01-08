@@ -1,14 +1,13 @@
 package com.taobao.rigel.rap.account.bo;
 
-import com.taobao.rigel.rap.common.base.EntityInterface;
 import com.taobao.rigel.rap.project.bo.Project;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class User implements java.io.Serializable, EntityInterface {
-    private long id;
+public class User implements java.io.Serializable {
+    private int id;
     private String name;
     private String account;
     private String password;
@@ -24,21 +23,6 @@ public class User implements java.io.Serializable, EntityInterface {
     private Set<Project> createdProjectList = new HashSet<Project>();
     private Set<Project> joinedProjectList = new HashSet<Project>();
     private boolean isHintEnabled;
-
-    @Override
-    public int hashCode() {
-        return new Long(id).hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof EntityInterface))
-            return false;
-        if (o == this)
-            return true;
-        EntityInterface obj = (EntityInterface)o;
-        return obj.getId() == this.id;
-    }
 
     public String getEmpId() {
         return empId;
@@ -65,11 +49,11 @@ public class User implements java.io.Serializable, EntityInterface {
         return false;
     }
 
-    public long getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

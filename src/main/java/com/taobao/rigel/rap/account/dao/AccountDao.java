@@ -31,7 +31,7 @@ public interface AccountDao {
      * @param userId
      * @return
      */
-    User getUser(long userId);
+    User getUser(int userId);
 
     /**
      * get user by account
@@ -58,7 +58,7 @@ public interface AccountDao {
      * @param account
      * @return
      */
-    long getUserId(String account);
+    int getUserId(String account);
 
     /**
      * change profile
@@ -67,7 +67,7 @@ public interface AccountDao {
      * @param profileProperty
      * @param profileValue
      */
-    void changeProfile(long userId, String profileProperty, String profileValue);
+    void changeProfile(int userId, String profileProperty, String profileValue);
 
     /**
      * update profile
@@ -79,7 +79,7 @@ public interface AccountDao {
      * @param newPassword
      * @return
      */
-    boolean updateProfile(long userId, String name, String email,
+    boolean updateProfile(int userId, String name, String email,
                           String password, String newPassword);
 
     /**
@@ -111,7 +111,7 @@ public interface AccountDao {
      * @param userId
      * @return
      */
-    Map<String, String> getUserSettings(long userId);
+    Map<String, String> getUserSettings(int userId);
 
     /**
      * get user setting by key
@@ -120,7 +120,7 @@ public interface AccountDao {
      * @param key
      * @return
      */
-    String getUserSetting(long userId, String key);
+    String getUserSetting(int userId, String key);
 
     /**
      * update user setting if setting not exists, add it.
@@ -130,7 +130,7 @@ public interface AccountDao {
      * @param value
      * @return
      */
-    void updateUserSetting(long userId, String key, String value);
+    void updateUserSetting(int userId, String key, String value);
 
     /**
      * get notifications
@@ -138,14 +138,14 @@ public interface AccountDao {
      * @param userId
      * @return
      */
-    List<Notification> getNotificationList(long userId);
+    List<Notification> getNotificationList(int userId);
 
     /**
      * remove user's notifications
      *
      * @param userId
      */
-    void clearNotificationList(long userId);
+    void clearNotificationList(int userId);
 
     /**
      * add new notification
@@ -159,14 +159,14 @@ public interface AccountDao {
      *
      * @param id
      */
-    void readNotification(long id);
+    void readNotification(int id);
 
     /**
      * read all notifications of specific user
      *
      * @param userId
      */
-    void readNotificationList(long userId);
+    void readNotificationList(int userId);
 
     /**
      * get unread notification list
@@ -174,7 +174,7 @@ public interface AccountDao {
      * @param curUserId
      * @return
      */
-    List<Notification> getUnreadNotificationList(long curUserId);
+    List<Notification> getUnreadNotificationList(int curUserId);
 
     /**
      * check if similar notification exists
@@ -184,7 +184,7 @@ public interface AccountDao {
      */
     boolean notificationExists(Notification notification);
 
-    long getUsertNum();
+    int getUsertNum();
 
     public void updateUser(User user);
 
@@ -194,6 +194,6 @@ public interface AccountDao {
      * @param teamId
      * @return
      */
-    List<Integer> getUserIdList(long teamId);
+    List<Integer> getUserIdList(int teamId);
 
 }

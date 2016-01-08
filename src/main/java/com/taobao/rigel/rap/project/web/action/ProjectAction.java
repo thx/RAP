@@ -219,9 +219,11 @@ public class ProjectAction extends ActionBase {
         if (!isUserLogined())
             return LOGIN;
         Gson gson = new Gson();
+
         Project project = new Project();
         project.setCreateDate(new Date());
         project.setUser(getCurUser());
+        project.setUserId(getCurUserId());
         project.setIntroduction(getDesc());
         project.setName(getName());
         project.setGroupId(groupId);
@@ -235,8 +237,8 @@ public class ProjectAction extends ActionBase {
                 memberAccountList.add(account);
         }
         project.setMemberAccountList(memberAccountList);
-        long projectId = projectMgr.addProject(project);
-        project = projectMgr.getProject(projectId);
+        int projectId = projectMgr.addProject(project);
+        project = projectMgr.getProjectSummary(projectId);
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("id", project.getId());
         result.put("name", project.getName());
@@ -273,7 +275,8 @@ public class ProjectAction extends ActionBase {
         Gson gson = new Gson();
         project.setMemberAccountList(memberAccountList);
         projectMgr.updateProject(project);
-        project = projectMgr.getProject(project.getId());
+
+        project = projectMgr.getProjectSummary(project.getId());
 
         if (getCurUser().isUserInRole("admin")
                 || getCurUser().getId() == project.getUser().getId()) {
@@ -288,6 +291,7 @@ public class ProjectAction extends ActionBase {
         result.put("groupId", project.getGroupId());
         result.put("isManagable", project.getIsManagable());
         setJson(new RapError(gson.toJson(result)).toString());
+
         return SUCCESS;
     }
 
@@ -299,7 +303,7 @@ public class ProjectAction extends ActionBase {
             return ERROR;
         }
 
-        Project project = projectMgr.getProject(getId());
+        Project project = projectMgr.getProjectSummary(getId());
         project.setRelatedIds(getIds());
         projectMgr.updateProject(project);
 

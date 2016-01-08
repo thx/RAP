@@ -4383,7 +4383,6 @@ function deepCopy(o) {
  *         ##workspace-module-end                       *
  *                                                      *
  ********************************************************/
-=======
 var rap = rap || {};
 
 

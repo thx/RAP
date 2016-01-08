@@ -20,14 +20,14 @@ public interface OrganizationDao {
      *
      * @return
      */
-    List<Group> getGroupList(long productionLineId);
+    List<Group> getGroupList(int productionLineId);
 
     /**
      * get production line list
      *
      * @return
      */
-    List<ProductionLine> getProductionLineList(long corpId);
+    List<ProductionLine> getProductionLineList(int corpId);
 
     /**
      * add group
@@ -48,14 +48,14 @@ public interface OrganizationDao {
      *
      * @param groupId
      */
-    void removeGroup(long groupId);
+    void removeGroup(int groupId);
 
     /**
      * remove production line
      *
      * @param productionLineId
      */
-    void removeProductionLine(long productionLineId);
+    void removeProductionLine(int productionLineId);
 
     /**
      * update group
@@ -77,7 +77,7 @@ public interface OrganizationDao {
      * @param id
      * @return
      */
-    Group getGroup(long id);
+    Group getGroup(int id);
 
     /**
      * get production line
@@ -85,7 +85,7 @@ public interface OrganizationDao {
      * @param id
      * @return
      */
-    ProductionLine getProductionLine(long id);
+    ProductionLine getProductionLine(int id);
 
     /**
      * get corporation
@@ -93,14 +93,14 @@ public interface OrganizationDao {
      * @param id
      * @return
      */
-    Corporation getCorporation(long id);
+    Corporation getCorporation(int id);
 
     /**
      * update ProductionLine.projectNum
      *
      * @param productionLineId
      */
-    void updateCountersInProductionLine(long productionLineId);
+    void updateCountersInProductionLine(int productionLineId);
 
     /**
      * get user list of corporation
@@ -108,7 +108,7 @@ public interface OrganizationDao {
      * @param corpId
      * @return
      */
-    List<User> getUserLisOfCorp(long corpId);
+    List<User> getUserLisOfCorp(int corpId);
 
 
     /**
@@ -118,7 +118,7 @@ public interface OrganizationDao {
      * @param userId
      * @param roleId
      */
-    void addUserToCorp(long corpId, long userId, long roleId);
+    void addUserToCorp(int corpId, int userId, int roleId);
 
     /**
      * check if user in corporation
@@ -127,7 +127,7 @@ public interface OrganizationDao {
      * @param corpId
      * @return
      */
-    boolean isUserInCorp(long userId, long corpId);
+    boolean isUserInCorp(int userId, int corpId);
 
     /**
      * get user role in corporation
@@ -136,7 +136,7 @@ public interface OrganizationDao {
      * @param corpId
      * @return roleId
      */
-    int getUserRoleInCorp(long userId, long corpId);
+    int getUserRoleInCorp(int userId, int corpId);
 
     /**
      * set user role in corporation
@@ -145,7 +145,7 @@ public interface OrganizationDao {
      * @param corpId
      * @param roleId
      */
-    void setUserRoleInCorp(long userId, long corpId, long roleId);
+    void setUserRoleInCorp(int userId, int corpId, int roleId);
 
     /**
      * get corporation list
@@ -159,7 +159,7 @@ public interface OrganizationDao {
      *
      * @return
      */
-    long getCorporationListWithPagerNum();
+    int getCorporationListWithPagerNum();
 
     /**
      * get corporation list of user
@@ -167,7 +167,7 @@ public interface OrganizationDao {
      * @param userId
      * @return
      */
-    List<Corporation> getCorporationListWithPager(long userId, int pageNum, int pageSize);
+    List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize);
 
     /**
      * get corporation list of user num
@@ -175,7 +175,7 @@ public interface OrganizationDao {
      * @param userId
      * @return
      */
-    long getCorporationListWithPagerNum(long userId);
+    int getCorporationListWithPagerNum(int userId);
 
     /**
      * add new corporation
@@ -190,7 +190,7 @@ public interface OrganizationDao {
      * @param corpId
      * @return
      */
-    long getMemberNumOfCorporation(long corpId);
+    int getMemberNumOfCorporation(int corpId);
 
     /**
      * delete all membership from team
@@ -200,7 +200,7 @@ public interface OrganizationDao {
      * @param userId
      * @param corpId
      */
-    void deleteMembershipFromCorp(long curUserId, long userId, long corpId);
+    void deleteMembershipFromCorp(int curUserId, int userId, int corpId);
 
     /**
      * update corporation
@@ -215,5 +215,5 @@ public interface OrganizationDao {
      * @param id
      * @return
      */
-    int getTeamIdByProjectId(long id);
+    int getTeamIdByProjectId(int id);
 }

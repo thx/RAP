@@ -4,7 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.taobao.rigel.rap.organization.bo.Corporation" table="tb_corporation">
-        <id name="id" type="long">
+        <id name="id">
             <column name="id"/>
             <generator class="identity"/>
         </id>
@@ -14,7 +14,7 @@
         <property name="logoUrl">
             <column name="logo_url"/>
         </property>
-        <property name="userId" type="long">
+        <property name="userId">
             <column name="user_id" not-null="true">
                 <comment>creator id</comment>
             </column>

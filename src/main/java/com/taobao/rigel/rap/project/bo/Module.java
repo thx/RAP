@@ -1,39 +1,23 @@
 package com.taobao.rigel.rap.project.bo;
 
-import com.taobao.rigel.rap.common.base.EntityInterface;
 import com.taobao.rigel.rap.common.utils.StringUtils;
 
 import java.util.*;
 
-public class Module implements java.io.Serializable,EntityInterface {
+public class Module implements java.io.Serializable {
 
-    private long id;
+    private int id;
     private int projectId;
     private String name;
     private String introduction;
     private Project project;
     private Set<Page> pageList = new HashSet<Page>();
 
-    @Override
-    public int hashCode() {
-        return new Long(id).hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof EntityInterface))
-            return false;
-        if (o == this)
-            return true;
-        EntityInterface obj = (EntityInterface)o;
-        return obj.getId() == this.id;
-    }
-
-    public long getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

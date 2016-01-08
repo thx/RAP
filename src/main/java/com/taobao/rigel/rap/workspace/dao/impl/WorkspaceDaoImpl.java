@@ -38,11 +38,11 @@ public class WorkspaceDaoImpl extends HibernateDaoSupport implements WorkspaceDa
     }
 
 
-    public Workspace getWorkspace(long projectId, long userId) throws HibernateException {
+    public Workspace getWorkspace(int projectId, int userId) throws HibernateException {
         Session session = currentSession();
         Query q = session.createQuery("from Workspace where user.id = :userId and project.id = :projectId");
-        q.setLong("projectId", projectId);
-        q.setLong("userId", userId);
+        q.setInteger("projectId", projectId);
+        q.setInteger("userId", userId);
         Workspace workspace = (Workspace) q.uniqueResult();
         if (workspace == null) {
             return addWorkspace(projectId, userId);
@@ -51,7 +51,7 @@ public class WorkspaceDaoImpl extends HibernateDaoSupport implements WorkspaceDa
         }
     }
 
-    private Workspace addWorkspace(long projectId, long userId) {
+    private Workspace addWorkspace(int projectId, int userId) {
         Session session = currentSession();
         Project project = (Project) session.get(Project.class, projectId);
         if (project == null) {
@@ -73,7 +73,7 @@ public class WorkspaceDaoImpl extends HibernateDaoSupport implements WorkspaceDa
     }
 
 
-    public Workspace getWorkspace(long id) {
+    public Workspace getWorkspace(int id) {
         Session session = currentSession();
         Workspace workspace = (Workspace) session.load(Workspace.class, id);
         return workspace;
@@ -89,10 +89,10 @@ public class WorkspaceDaoImpl extends HibernateDaoSupport implements WorkspaceDa
     }
 
 
-    public CheckIn getVersion(long projectId, String version) {
+    public CheckIn getVersion(int projectId, String version) {
         Session session = currentSession();
         Query query = session.createQuery("from CheckIn obj where obj.project.id = :projectId and obj.version = :version");
-        query.setLong("projectId", projectId);
+        query.setInteger("projectId", projectId);
         query.setString("version", version);
         return (CheckIn) query.uniqueResult();
     }

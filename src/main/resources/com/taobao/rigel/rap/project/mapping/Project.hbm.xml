@@ -3,7 +3,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.taobao.rigel.rap.project.bo.Project" table="tb_project">
-        <id name="id" type="long">
+        <id name="id">
             <column name="id"/>
             <generator class="identity"/>
         </id>
@@ -17,7 +17,7 @@
                 <comment>项目相关ID</comment>
             </column>
         </property>
-        <property name="groupId" type="integer">
+        <property name="groupId" type="int">
             <column name="group_id" not-null="false">
                 <comment>分组ID</comment>
             </column>
@@ -63,13 +63,14 @@
         <property name="userId" insert="false" update="false">
             <column name="user_id" />
         </property>
-        <many-to-one name="user" column="user_id"/>
+
+        <!--<many-to-one name="user" column="user_id" not-null="true"/>-->
+
         <set name="userList" order-by="user_id asc" table="tb_project_and_user">
             <key column="project_id" not-null="true"/>
             <many-to-many column="user_id"
                           class="com.taobao.rigel.rap.account.bo.User"/>
         </set>
-
         <set name="moduleList" order-by="id asc" inverse="true" cascade="delete">
             <key column="project_id" not-null="true"/>
             <one-to-many class="com.taobao.rigel.rap.project.bo.Module"/>

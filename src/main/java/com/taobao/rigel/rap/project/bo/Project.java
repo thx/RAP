@@ -2,7 +2,6 @@ package com.taobao.rigel.rap.project.bo;
 
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.utils.DateUtils;
-import com.taobao.rigel.rap.common.base.EntityInterface;
 import com.taobao.rigel.rap.common.utils.StringUtils;
 import com.taobao.rigel.rap.workspace.bo.CheckIn;
 import com.taobao.rigel.rap.workspace.bo.Workspace;
@@ -13,12 +12,12 @@ import org.ocpsoft.prettytime.PrettyTime;
 import java.text.ParseException;
 import java.util.*;
 
-public class Project implements java.io.Serializable, EntityInterface {
+public class Project implements java.io.Serializable {
 
     public static final int PRIVATE_ACCESS = 0;
     public static final int DEFAULT_ACCESS = 10;
-    private long id;
-    private long userId;
+    private int id;
+    private int userId;
     private String name;
     private Date createDate;
     private Date updateTime;
@@ -39,20 +38,6 @@ public class Project implements java.io.Serializable, EntityInterface {
     private boolean isManagable;
     private Set<CheckIn> checkInList = new HashSet<CheckIn>();
 
-    @Override
-    public int hashCode() {
-        return new Long(id).hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof EntityInterface))
-            return false;
-        if (o == this)
-            return true;
-        EntityInterface obj = (EntityInterface)o;
-        return obj.getId() == this.id;
-    }
     public Project() {
 
     }
@@ -132,11 +117,11 @@ public class Project implements java.io.Serializable, EntityInterface {
         this.user = user;
     }
 
-    public long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -156,11 +141,11 @@ public class Project implements java.io.Serializable, EntityInterface {
         this.moduleList = moduleList;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -340,7 +325,7 @@ public class Project implements java.io.Serializable, EntityInterface {
         return checkInListOrdered;
     }
 
-    public Module findModule(long moduleId) {
+    public Module findModule(int moduleId) {
         for (Module i : getModuleList()) {
             if (i.getId() == moduleId)
                 return i;
@@ -348,7 +333,7 @@ public class Project implements java.io.Serializable, EntityInterface {
         return null;
     }
 
-    public Page findPage(long pageId) {
+    public Page findPage(int pageId) {
         for (Module module : getModuleList()) {
             for (Page page : module.getPageList()) {
                 if (page.getId() == pageId)
@@ -358,7 +343,7 @@ public class Project implements java.io.Serializable, EntityInterface {
         return null;
     }
 
-    public Action findAction(long actionId) {
+    public Action findAction(int actionId) {
         for (Module module : getModuleList()) {
             for (Page page : module.getPageList()) {
                 for (Action action : page.getActionList()) {
@@ -370,7 +355,7 @@ public class Project implements java.io.Serializable, EntityInterface {
         return null;
     }
 
-    public Parameter findParameter(long parameterId, boolean isRequestType) {
+    public Parameter findParameter(int parameterId, boolean isRequestType) {
         for (Module module : getModuleList()) {
             for (Page page : module.getPageList()) {
                 for (Action action : page.getActionList()) {
@@ -386,7 +371,7 @@ public class Project implements java.io.Serializable, EntityInterface {
         return null;
     }
 
-    public Parameter findChildParameter(long parameterId) {
+    public Parameter findChildParameter(int parameterId) {
         for (Module module : getModuleList()) {
             for (Page page : module.getPageList()) {
                 for (Action action : page.getActionList()) {
@@ -418,7 +403,7 @@ public class Project implements java.io.Serializable, EntityInterface {
      * @param id
      * @return return the object found, other wise return null
      */
-    private Parameter findParameterRecursively(Parameter p, long id) {
+    private Parameter findParameterRecursively(Parameter p, int id) {
         Iterator<Parameter> iterator = p.getParameterList().iterator();
         while (iterator.hasNext()) {
             Parameter parameter = iterator.next();
@@ -433,7 +418,7 @@ public class Project implements java.io.Serializable, EntityInterface {
         return null;
     }
 
-    public void removeModule(long id, Session session) {
+    public void removeModule(int id, Session session) {
         Module module = findModule(id);
         if (module != null && moduleList != null) {
             moduleList.remove(module);
@@ -441,7 +426,7 @@ public class Project implements java.io.Serializable, EntityInterface {
         }
     }
 
-    public void removePage(long id, Session session) {
+    public void removePage(int id, Session session) {
         Page page = findPage(id);
         if (page != null && page.getModule() != null && page.getModule().getPageList() != null) {
             page.getModule().getPageList().remove(page);
@@ -449,7 +434,7 @@ public class Project implements java.io.Serializable, EntityInterface {
         }
     }
 
-    public void removeAction(long id, Session session) {
+    public void removeAction(int id, Session session) {
         Action action = findAction(id);
         if (action == null) return;
         Set<Page> pageList = action.getPageList();
@@ -461,7 +446,7 @@ public class Project implements java.io.Serializable, EntityInterface {
         }
     }
 
-    public void removeParameter(long id, Session session) {
+    public void removeParameter(int id, Session session) {
         Parameter parameter = findParameter(id, true);
 
         // if parameter == null, it maybe response parameter
@@ -533,7 +518,7 @@ public class Project implements java.io.Serializable, EntityInterface {
         return list;
     }
 
-    public boolean isUserMember(long userId) {
+    public boolean isUserMember(int userId) {
         if (getUserId() == userId) return true;
         for (User u : getUserList()) {
             if (u.getId() == userId) return true;

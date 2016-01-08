@@ -30,7 +30,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
         this.projectDao = projectDao;
     }
 
-    public Workspace getWorkspace(int projectId, long userId) {
+    public Workspace getWorkspace(int projectId, int userId) {
         Workspace workspace = workspaceDao.getWorkspace(projectId, userId);
         return workspace;
     }
@@ -44,13 +44,13 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
         return workspaceDao.getWorkspace(id);
     }
 
-    public String checkIn(String[] jsonList, long userId, int projectId) {
+    public String checkIn(String[] jsonList, int userId, int projectId) {
         //[TODO] does user has access?
         StringBuilder log = new StringBuilder();
         Project projectClient, projectOriginal, projectServer;
         Gson gson = new Gson();
         // get server workspace
-        projectServer = projectDao.getProject(projectId);
+        projectServer = projectDao.getProjectSummary(projectId);
         // parse client workspace
         projectClient = gson.fromJson(jsonList[0], Project.class);
         // parse original client workspace
@@ -164,7 +164,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
                             // [TODO] conflict!
                         } else if (aChanged && !bChanged) {
                             // update
-                            log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
+                            log.append(logTemplate(Integer.parseInt(new Integer(actionB.getId()).toString()), "action", "update",
                                     actionA.getName(), actionB.getName(), "name"));
                             actionB.setName(actionA.getName());
                         } else if (!aChanged && bChanged) {
@@ -179,7 +179,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
                             // [TODO] conflict!
                         } else if (aChanged && !bChanged) {
                             // update
-                            log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
+                            log.append(logTemplate(Integer.parseInt(new Integer(actionB.getId()).toString()), "action", "update",
                                     actionA.getDescription(), actionB.getDescription(), "description"));
                             actionB.setDescription(actionA.getDescription());
                         } else if (!aChanged && bChanged) {
@@ -194,7 +194,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
                             // [TODO] conflict!
                         } else if (aChanged && !bChanged) {
                             // update
-                            log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
+                            log.append(logTemplate(Integer.parseInt(new Integer(actionB.getId()).toString()), "action", "update",
                                     actionA.getRequestType(), actionB.getRequestType(), "requestType"));
                             actionB.setRequestType(actionA.getRequestType());
                         } else if (!aChanged && bChanged) {
@@ -209,7 +209,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
                             // [TODO] conflict!
                         } else if (aChanged && !bChanged) {
                             // update
-                            log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
+                            log.append(logTemplate(Integer.parseInt(new Integer(actionB.getId()).toString()), "action", "update",
                                     actionA.getRequestUrl(), actionB.getRequestUrl(), "requestUrl"));
                             actionB.setRequestUrl(actionA.getRequestUrl());
                         } else if (!aChanged && bChanged) {
@@ -224,7 +224,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
                             // [TODO] conflict!
                         } else if (aChanged && !bChanged) {
                             // update
-                            log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
+                            log.append(logTemplate(Integer.parseInt(new Integer(actionB.getId()).toString()), "action", "update",
                                     actionA.getResponseTemplate(), actionB.getResponseTemplate(), "responseTemplate"));
                             actionB.setResponseTemplate(actionA.getResponseTemplate());
                         } else if (!aChanged && bChanged) {
@@ -263,20 +263,20 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
 
         }
         projectDao.updateProject(projectServer);
-        projectServer = projectDao.getProject(projectId);
+        projectServer = projectDao.getProjectSummary(projectId);
         return "{\"projectData\":" + projectServer.toString() + ", \"log\":\"" + log
                 + "\", \"projectDataOriginal\":" + projectServer.toString() + "}";
     }
 
 
-    public String checkOut(String[] jsonList, long userId, int projectId) {
+    public String checkOut(String[] jsonList, int userId, int projectId) {
         //[TODO] does user has access?
 
         StringBuilder log = new StringBuilder();
         Project projectClient, projectOriginal, projectServer;
         Gson gson = new Gson();
         // get server workspace
-        projectServer = projectDao.getProject(projectId);
+        projectServer = projectDao.getProjectSummary(projectId);
         // parse client workspace
         projectClient = gson.fromJson(jsonList[0], Project.class);
         // parse original client workspace
@@ -390,7 +390,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
                             // [TODO] conflict!
                         } else if (aChanged && !bChanged) {
                             // update
-                            log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
+                            log.append(logTemplate(Integer.parseInt(new Integer(actionB.getId()).toString()), "action", "update",
                                     actionA.getName(), actionB.getName(), "name"));
                             actionB.setName(actionA.getName());
                         } else if (!aChanged && bChanged) {
@@ -405,7 +405,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
                             // [TODO] conflict!
                         } else if (aChanged && !bChanged) {
                             // update
-                            log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
+                            log.append(logTemplate(Integer.parseInt(new Integer(actionB.getId()).toString()), "action", "update",
                                     actionA.getDescription(), actionB.getDescription(), "description"));
                             actionB.setDescription(actionA.getDescription());
                         } else if (!aChanged && bChanged) {
@@ -420,7 +420,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
                             // [TODO] conflict!
                         } else if (aChanged && !bChanged) {
                             // update
-                            log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
+                            log.append(logTemplate(Integer.parseInt(new Integer(actionB.getId()).toString()), "action", "update",
                                     actionA.getRequestType(), actionB.getRequestType(), "requestType"));
                             actionB.setRequestType(actionA.getRequestType());
                         } else if (!aChanged && bChanged) {
@@ -435,7 +435,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
                             // [TODO] conflict!
                         } else if (aChanged && !bChanged) {
                             // update
-                            log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
+                            log.append(logTemplate(Integer.parseInt(new Integer(actionB.getId()).toString()), "action", "update",
                                     actionA.getRequestUrl(), actionB.getRequestUrl(), "requestUrl"));
                             actionB.setRequestUrl(actionA.getRequestUrl());
                         } else if (!aChanged && bChanged) {
@@ -450,7 +450,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
                             // [TODO] conflict!
                         } else if (aChanged && !bChanged) {
                             // update
-                            log.append(logTemplate(Integer.parseInt(new Long(actionB.getId()).toString()), "action", "update",
+                            log.append(logTemplate(Integer.parseInt(new Integer(actionB.getId()).toString()), "action", "update",
                                     actionA.getResponseTemplate(), actionB.getResponseTemplate(), "responseTemplate"));
                             actionB.setResponseTemplate(actionA.getResponseTemplate());
                         } else if (!aChanged && bChanged) {
@@ -572,7 +572,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
         }
     }
 
-    private Module findModule(Project p, long moduleId) {
+    private Module findModule(Project p, int moduleId) {
         for (Module i : p.getModuleList()) {
             if (i.getId() == moduleId)
                 return i;
@@ -580,7 +580,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
         return null;
     }
 
-    private Page findPage(Project p, long pageId) {
+    private Page findPage(Project p, int pageId) {
         for (Module module : p.getModuleList()) {
             for (Page page : module.getPageList()) {
                 if (page.getId() == pageId)
@@ -590,7 +590,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
         return null;
     }
 
-    private Action findAction(Project p, long actionId) {
+    private Action findAction(Project p, int actionId) {
         for (Module module : p.getModuleList()) {
             for (Page page : module.getPageList()) {
                 for (Action action : page.getActionList()) {
@@ -602,7 +602,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
         return null;
     }
 
-    private Parameter findParameter(Project p, long parameterId, boolean isRequestType) {
+    private Parameter findParameter(Project p, int parameterId, boolean isRequestType) {
         for (Module module : p.getModuleList()) {
             for (Page page : module.getPageList()) {
                 for (Action action : page.getActionList()) {
@@ -618,7 +618,7 @@ public class WorkspaceMgrImpl implements WorkspaceMgr {
     }
 
 
-    private String logTemplate(long objectId, String className,
+    private String logTemplate(int objectId, String className,
                                String operationName, String newValue, String oldValue, String property) {
         return operationName == "add" ?
                 "<div class='log-item'><font color='red'>" + operationName + "</font> <B>" + className + "</B> [" + objectId

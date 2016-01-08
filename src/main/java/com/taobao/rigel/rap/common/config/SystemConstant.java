@@ -17,7 +17,6 @@ public class SystemConstant {
     public static String DOMAIN_URL = "";
     public static boolean serviceInitialized = false;
     public static SimpleSSOUser user = null;
-    private static Jedis jedis = null;
     private static String domainURL = "";
 
     public static String getAliLoginUrl() {
@@ -32,13 +31,7 @@ public class SystemConstant {
         SystemConstant.domainURL = domainURL;
     }
 
-    public static Jedis getCacheServer() {
-        if (jedis == null) {
-            jedis = new Jedis("localhost");
-            System.out.println("Cache server [jedis] created.");
-        }
-        return jedis;
-    }
+
 
 
 }

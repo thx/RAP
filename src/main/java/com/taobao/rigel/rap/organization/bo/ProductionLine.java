@@ -1,35 +1,18 @@
 package com.taobao.rigel.rap.organization.bo;
 
 
-import com.taobao.rigel.rap.common.base.EntityInterface;
-
-public class ProductionLine implements EntityInterface{
-    private long id;
+public class ProductionLine {
+    private int id;
     private String name;
     private int projectNum;
     private int corporationId;
     private int userId;
 
-    @Override
-    public int hashCode() {
-        return new Long(id).hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof EntityInterface))
-            return false;
-        if (o == this)
-            return true;
-        EntityInterface obj = (EntityInterface)o;
-        return obj.getId() == this.id;
-    }
-
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

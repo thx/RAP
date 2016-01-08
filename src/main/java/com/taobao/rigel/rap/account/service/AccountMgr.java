@@ -33,7 +33,7 @@ public interface AccountMgr {
      * @return return null if the user doesn't exist, or return the reference of
      * user
      */
-    User getUser(long userId);
+    User getUser(int userId);
 
     /**
      * get all users
@@ -48,7 +48,7 @@ public interface AccountMgr {
      * @param teamId
      * @return
      */
-    List<User> getUserList(long teamId);
+    List<User> getUserList(int teamId);
 
     /**
      * get user by account
@@ -76,7 +76,7 @@ public interface AccountMgr {
      * @param account
      * @return
      */
-    long getUserId(String account);
+    int getUserId(String account);
 
     /**
      * change profile of user
@@ -85,7 +85,7 @@ public interface AccountMgr {
      * @param profileProperty profile property
      * @param profileValue    profile property value
      */
-    void changeProfile(long userId, String profileProperty, String profileValue);
+    void changeProfile(int userId, String profileProperty, String profileValue);
 
     /**
      * update profile
@@ -96,7 +96,7 @@ public interface AccountMgr {
      * @param newPassword
      * @return
      */
-    boolean updateProfile(long userId, String name, String email,
+    boolean updateProfile(int userId, String name, String email,
                           String password, String newPassword);
 
     /**
@@ -114,7 +114,7 @@ public interface AccountMgr {
      */
     List<Corporation> getCorporationList();
 
-    List<Corporation> getCorporationListWithPager(long userId, int pageNum, int pageSize);
+    List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize);
 
     /**
      * get user by name
@@ -130,7 +130,7 @@ public interface AccountMgr {
      * @param userId
      * @return
      */
-    Map<String, String> getUserSettings(long userId);
+    Map<String, String> getUserSettings(int userId);
 
     /**
      * get user setting by key
@@ -139,7 +139,7 @@ public interface AccountMgr {
      * @param key
      * @return
      */
-    String getUserSetting(long userId, String key);
+    String getUserSetting(int userId, String key);
 
     /**
      * update user setting
@@ -150,7 +150,7 @@ public interface AccountMgr {
      * @param value
      * @return
      */
-    void updateUserSetting(long userId, String key, String value);
+    void updateUserSetting(int userId, String key, String value);
 
     /**
      * get notifications
@@ -158,14 +158,14 @@ public interface AccountMgr {
      * @param userId
      * @return
      */
-    List<Notification> getNotificationList(long userId);
+    List<Notification> getNotificationList(int userId);
 
     /**
      * remove user's notifications
      *
      * @param userId
      */
-    void clearNotificationList(long userId);
+    void clearNotificationList(int userId);
 
     /**
      * add new notification
@@ -179,14 +179,14 @@ public interface AccountMgr {
      *
      * @param id
      */
-    void readNotification(long id);
+    void readNotification(int id);
 
     /**
      * read all notifications of specific user
      *
      * @param userId
      */
-    void readNotificationList(long userId);
+    void readNotificationList(int userId);
 
     /**
      * get unread notification list
@@ -194,7 +194,7 @@ public interface AccountMgr {
      * @param curUserId
      * @return
      */
-    List<Notification> getUnreadNotificationList(long curUserId);
+    List<Notification> getUnreadNotificationList(int curUserId);
 
 
     /**
@@ -204,9 +204,9 @@ public interface AccountMgr {
      * @param projectId
      * @return
      */
-    boolean canUserManageProject(long userId, long projectId);
+    boolean canUserManageProject(int userId, int projectId);
 
-    long getUserNum();
+    int getUserNum();
 
     void updateUser(User user);
 

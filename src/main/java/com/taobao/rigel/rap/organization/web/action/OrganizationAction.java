@@ -2,6 +2,7 @@ package com.taobao.rigel.rap.organization.web.action;
 
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.common.base.ActionBase;
+import com.taobao.rigel.rap.common.utils.CacheUtils;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.bo.ProductionLine;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
@@ -122,38 +123,52 @@ public class OrganizationAction extends ActionBase {
             plsLogin();
             return JSON_ERROR;
         }
-        Gson gson = new Gson();
-        List<Map<String, Object>> projects = new ArrayList<Map<String, Object>>();
-        // long totalRecNum = projectMgr.getProjectListNum(getCurUser());
-        List<Project> projectList = projectMgr.getProjectList(getCurUser(), 1,
-                Integer.MAX_VALUE);
-        for (Project p : projectList) {
-            if (getCurUser().isUserInRole("admin")
-                    || getAccountMgr().canUserManageProject(
-                    getCurUser().getId(), p.getId())) {
-                p.setIsManagable(true);
+
+        String[] cacheKey = new String[]{CacheUtils.KEY_PROJECTS_DO, new Integer(getCurUserId()).toString()};
+
+        String cacheResult = CacheUtils.cache(cacheKey);
+        if (cacheResult != null) {
+            setJson(cacheResult);
+        } else {
+
+            Gson gson = new Gson();
+
+            List<Map<String, Object>> projects = new ArrayList<Map<String, Object>>();
+
+            // int totalRecNum = projectMgr.getProjectListNum(getCurUser());
+
+            List<Project> projectList = projectMgr.getProjectList(getCurUser(), 1,
+                    Integer.MAX_VALUE);
+
+            for (Project p : projectList) {
+                if (getCurUser().isUserInRole("admin")
+                        || getAccountMgr().canUserManageProject(
+                        getCurUser().getId(), p.getId())) {
+                    p.setIsManagable(true);
+                }
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("id", p.getId());
+                map.put("name", p.getName());
+                map.put("desc", p.getIntroduction());
+                map.put("status", p.getLastUpdateStr());
+                map.put("accounts", p.getMemberAccountListStr());
+                map.put("isManagable", p.getIsManagable());
+                map.put("creator", p.getUser().getUserBaseInfo());
+                map.put("related", p.getUser().getId() != getCurUserId());
+                map.put("teamId", p.getTeamId());
+                projects.add(map);
             }
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("id", p.getId());
-            map.put("name", p.getName());
-            map.put("desc", p.getIntroduction());
-            map.put("status", p.getLastUpdateStr());
-            map.put("accounts", p.getMemberAccountListStr());
-            map.put("isManagable", p.getIsManagable());
-            map.put("creator", p.getUser().getUserBaseInfo());
-            map.put("related", p.getUser().getId() != getCurUserId());
-            map.put("teamId", p.getTeamId());
-            projects.add(map);
+            StringBuilder json = new StringBuilder();
+            json.append("{");
+            json.append("	\"groups\" : [{");
+            json.append("		\"type\" : \"user\",");
+            json.append("		\"projects\" :");
+            json.append(gson.toJson(projects));
+            json.append("	}]");
+            json.append("}");
+            setJson(json.toString());
+            CacheUtils.cache(cacheKey, json.toString());
         }
-        StringBuilder json = new StringBuilder();
-        json.append("{");
-        json.append("	\"groups\" : [{");
-        json.append("		\"type\" : \"user\",");
-        json.append("		\"projects\" :");
-        json.append(gson.toJson(projects));
-        json.append("	}]");
-        json.append("}");
-        setJson(json.toString());
         return SUCCESS;
     }
 

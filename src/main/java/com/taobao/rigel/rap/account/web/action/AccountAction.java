@@ -22,7 +22,7 @@ import java.util.*;
  */
 public class AccountAction extends ActionBase {
 
-    private long userId;
+    private int userId;
     private int roleId;
     private String account;
     private String password;
@@ -182,11 +182,11 @@ public class AccountAction extends ActionBase {
         return SUCCESS;
     }
 
-    public long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

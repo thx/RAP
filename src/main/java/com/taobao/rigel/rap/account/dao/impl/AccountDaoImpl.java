@@ -16,7 +16,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 
     public boolean validate(String account, String password) {
         try {
-            User user = currentSession()
+            User user = (User) currentSession()
                     .load(User.class, getUserId(account));
             return user != null && user.getPassword().equals(password);
         } catch (ObjectNotFoundException ex) {
@@ -24,10 +24,10 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
         }
     }
 
-    public long getUsertNum() {
+    public int getUsertNum() {
         String sql = "SELECT COUNT(*) FROM tb_user";
         Query query = currentSession().createSQLQuery(sql);
-        return Long.parseLong(query.uniqueResult().toString());
+        return Integer.parseInt(query.uniqueResult().toString());
     }
 
     public boolean addUser(User user) {
@@ -42,7 +42,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
                                   String newPassword) {
         Session session = currentSession();
         boolean returnVal = true;
-        User user = session.load(User.class, getUserId(account));
+        User user = (User) session.load(User.class, getUserId(account));
         if (user == null || !user.getPassword().equals(oldPassword)) {
             returnVal = false;
         } else {
@@ -59,7 +59,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
      * @param account
      * @return return -1 if the user doesn't exist, otherwise return id of user
      */
-    public long getUserId(String account) {
+    public int getUserId(String account) {
         Query q = currentSession()
                 .createQuery("from User where account = :account");
         q.setString("account", account);
@@ -74,17 +74,17 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
         return user;
     }
 
-    public User getUser(long userId) {
+    public User getUser(int userId) {
         User user = currentSession().get(User.class, userId);
         return user;
     }
 
-    private Set<Role> getRoleList(long userId) {
+    private Set<Role> getRoleList(int userId) {
         String sql = "SELECT r.* FROM tb_role r \n" +
                 "JOIN tb_role_and_user ru ON ru.role_id = r.id \n" +
                 "WHERE ru.user_id = :userId";
         Query query = currentSession().createSQLQuery(sql).addEntity(Role.class);
-        query.setLong("userId", userId);
+        query.setInteger("userId", userId);
         List<Role> list = query.list();
         Set<Role> roleSet = new HashSet<Role>();
         for (Role role : list) {
@@ -100,7 +100,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
         return user;
     }
 
-    public void changeProfile(long userId, String profileProperty,
+    public void changeProfile(int userId, String profileProperty,
                               String profileValue) {
         User user = (User) currentSession().load(User.class, userId);
         if (profileProperty.equals("isHintEnabled")) {
@@ -108,7 +108,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
         }
     }
 
-    public boolean updateProfile(long userId, String name, String email,
+    public boolean updateProfile(int userId, String name, String email,
                                  String password, String newPassword) {
         User user = (User) currentSession().load(User.class, userId);
         if (name != null && !name.equals(""))
@@ -133,10 +133,10 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
         currentSession().update(user);
     }
 
-    public List<Integer> getUserIdList(long teamId) {
+    public List<Integer> getUserIdList(int teamId) {
         String sql = "SELECT user_id FROM tb_corporation_and_user WHERE corporation_id = :teamId";
         Query query = currentSession().createSQLQuery(sql);
-        query.setLong("teamId", teamId);
+        query.setInteger("teamId", teamId);
         return query.list();
     }
 
@@ -154,10 +154,10 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 
     }
 
-    public Map<String, String> getUserSettings(long userId) {
+    public Map<String, String> getUserSettings(int userId) {
         String sql = "SELECT `key`, `value` FROM tb_user_settings WHERE user_id = :userId";
         Query query = currentSession().createSQLQuery(sql);
-        query.setLong("userId", userId);
+        query.setInteger("userId", userId);
         List result = query.list();
         Map<String, String> settings = new HashMap<String, String>();
 
@@ -170,10 +170,10 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
     }
 
 
-    public String getUserSetting(long userId, String key) {
+    public String getUserSetting(int userId, String key) {
         String sql = "SELECT `value` FROM tb_user_settings WHERE user_id = :userId AND `key` = :key";
         Query query = currentSession().createSQLQuery(sql);
-        query.setLong("userId", userId);
+        query.setInteger("userId", userId);
         query.setString("key", key);
         List result = query.list();
         if (result.size() > 0) {
@@ -184,7 +184,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
     }
 
 
-    public void updateUserSetting(long userId, String key, String value) {
+    public void updateUserSetting(int userId, String key, String value) {
         if (getUserSetting(userId, key) == null) {
             addUserSetting(userId, key, value);
             return;
@@ -193,38 +193,38 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
         String sql = "UPDATE tb_user_settings SET `value` = :value WHERE user_id = :userId AND `key` = :key";
         Query query = currentSession().createSQLQuery(sql);
         query.setString("value", value);
-        query.setLong("userId", userId);
+        query.setInteger("userId", userId);
         query.setString("key", key);
         query.executeUpdate();
     }
 
-    private void addUserSetting(long userId, String key, String value) {
+    private void addUserSetting(int userId, String key, String value) {
         String sql = "INSERT INTO tb_user_settings (user_id, `key`, `value`) VALUES (:userId, :key, :value)";
         Query query = currentSession().createSQLQuery(sql);
-        query.setLong("userId", userId);
+        query.setInteger("userId", userId);
         query.setString("key", key);
         query.setString("value", value);
         query.executeUpdate();
     }
 
 
-    public List<Notification> getNotificationList(long userId) {
+    public List<Notification> getNotificationList(int userId) {
         String hql = "from Notification n where n.user.id = :userId order by n.createTime desc";
-        Query query = currentSession().createQuery(hql).setLong("userId", userId);
+        Query query = currentSession().createQuery(hql).setInteger("userId", userId);
         return query.list();
     }
 
 
-    public List<Notification> getUnreadNotificationList(long userId) {
+    public List<Notification> getUnreadNotificationList(int userId) {
         String hql = "from Notification n where n.user.id = :userId and read = false order by n.createTime desc";
-        Query query = currentSession().createQuery(hql).setLong("userId", userId);
+        Query query = currentSession().createQuery(hql).setInteger("userId", userId);
         return query.list();
     }
 
 
-    public void clearNotificationList(long userId) {
+    public void clearNotificationList(int userId) {
         String hql = "delete Notification where user.id = :userId";
-        currentSession().createQuery(hql).setLong("userId", userId).executeUpdate();
+        currentSession().createQuery(hql).setInteger("userId", userId).executeUpdate();
     }
 
 
@@ -233,22 +233,22 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
     }
 
 
-    public void readNotification(long id) {
+    public void readNotification(int id) {
         String hql = "update Notification set read = 1 where id = :id";
-        currentSession().createQuery(hql).setLong("id", id).executeUpdate();
+        currentSession().createQuery(hql).setInteger("id", id).executeUpdate();
     }
 
 
-    public void readNotificationList(long userId) {
+    public void readNotificationList(int userId) {
         String hql = "update Notification set read = 1 where user.id = :userId";
-        currentSession().createQuery(hql).setLong("userId", userId).executeUpdate();
+        currentSession().createQuery(hql).setInteger("userId", userId).executeUpdate();
     }
 
     public boolean notificationExists(Notification notification) {
         String hql = "from Notification where user.id = :userId and typeId = :typeId and param1 = :param1 and read = false";
         Session session = currentSession();
         Query query = session.createQuery(hql);
-        query.setLong("userId", notification.getUser().getId())
+        query.setInteger("userId", notification.getUser().getId())
                 .setShort("typeId", notification.getTypeId())
                 .setString("param1", notification.getParam1());
         List<Notification> list = (List<Notification>) query.list();

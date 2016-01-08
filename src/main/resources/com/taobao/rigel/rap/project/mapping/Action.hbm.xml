@@ -4,7 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.taobao.rigel.rap.project.bo.Action" table="tb_action">
-        <id name="id" type="long">
+        <id name="id">
             <column name="id"/>
             <generator class="identity"/>
         </id>

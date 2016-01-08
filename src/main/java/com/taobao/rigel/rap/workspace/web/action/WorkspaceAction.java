@@ -286,7 +286,7 @@ public class WorkspaceAction extends ActionBase {
                     + projectId);
             return LOGIN;
         }
-        Project p = projectMgr.getProjectWithData(getProjectId());
+        Project p = projectMgr.getProject(getProjectId());
         if (p == null || p.getId() <= 0) {
             setErrMsg("该项目不存在或已被删除，会不会是亲这个链接保存的太久了呢？0  .0");
             logger.error("Unexpected project id=%d", getProjectId());
@@ -350,8 +350,8 @@ public class WorkspaceAction extends ActionBase {
         CheckIn check = workspaceMgr.getVersion(getVersionId());
         workspaceMgr.prepareForVersionSwitch(check);
         projectMgr.updateProject(check.getProject().getId(),
-                check.getProjectData(), "[]", new HashMap<Long, Long>());
-        Project project = projectMgr.getProject(check.getProject().getId());
+                check.getProjectData(), "[]", new HashMap<Integer, Integer>());
+        Project project = projectMgr.getProjectSummary(check.getProject().getId());
         String projectData = project
                 .toString(Project.TO_STRING_TYPE.TO_PARAMETER);
         setJson("{\"projectData\":" + projectData + ", \"isOk\":true}");
@@ -375,12 +375,12 @@ public class WorkspaceAction extends ActionBase {
         }
 
         // update project
-        Map<Long, Long> actionIdMap = new HashMap<Long, Long>();
+        Map<Integer, Integer> actionIdMap = new HashMap<Integer, Integer>();
         projectMgr.updateProject(getId(), getProjectData(),
                 getDeletedObjectListData(), actionIdMap);
 
 
-        project = projectMgr.getProject(getId());
+        project = projectMgr.getProjectSummary(getId());
 
         // generate one check-in of VSS mode submit
         CheckIn checkIn = new CheckIn();
@@ -400,7 +400,7 @@ public class WorkspaceAction extends ActionBase {
         workspaceMgr.addCheckIn(checkIn);
 
         // calculate JSON string for client
-        project = projectMgr.getProject(getId());
+        project = projectMgr.getProjectSummary(getId());
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{\"projectData\":" + checkIn.getProjectData());
         stringBuilder.append(",\"checkList\":[");
@@ -474,7 +474,7 @@ public class WorkspaceAction extends ActionBase {
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     public String lock() {
-        long curUserId = getCurUserId();
+        int curUserId = getCurUserId();
         if (curUserId <= 0) {
             setIsOk(false);
             setErrMsg(LOGIN_WARN_MSG);
@@ -511,7 +511,7 @@ public class WorkspaceAction extends ActionBase {
         }
         if (isOk) {
             setJson("{\"isOk\":true, \"projectData\":"
-                    + projectMgr.getProject(getId()).getProjectData() + "}");
+                    + projectMgr.getProjectSummary(getId()).getProjectData() + "}");
         }
         return SUCCESS;
     }
@@ -524,7 +524,7 @@ public class WorkspaceAction extends ActionBase {
                     .get(ContextManager.KEY_PROJECT_LOCK_LIST);
             if (projectLockList == null)
                 return SUCCESS;
-            long userId = super.getCurUserId();
+            int userId = super.getCurUserId();
             int projectId = (Integer) projectLockList.get(userId);
             projectLockList.remove(userId);
             logger.info("user[%d] unlock project[%d]", userId, projectId);
@@ -539,7 +539,7 @@ public class WorkspaceAction extends ActionBase {
      * @throws Exception
      */
     public String export() throws Exception {
-        project = projectMgr.getProject(projectId);
+        project = projectMgr.getProjectSummary(projectId);
         velocityEngine.init();
         VelocityContext context = new VelocityContext();
         context.put("project", project);
@@ -577,7 +577,7 @@ public class WorkspaceAction extends ActionBase {
         Map projectLockList = (Map) app
                 .get(ContextManager.KEY_PROJECT_LOCK_LIST);
         if (projectLockList != null) {
-            long userId = (Long) MapUtils.getKeyByValue(projectLockList,
+            int userId = (Integer) MapUtils.getKeyByValue(projectLockList,
                     projectId);
             User user = getAccountMgr().getUser(userId);
             return user;
