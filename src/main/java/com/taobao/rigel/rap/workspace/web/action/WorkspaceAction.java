@@ -350,7 +350,7 @@ public class WorkspaceAction extends ActionBase {
                 getDeletedObjectListData(), actionIdMap);
 
 
-        project = projectMgr.getProjectSummary(getId());
+        project = projectMgr.getProject(getId());
 
         // generate one check-in of VSS mode submit
         CheckIn checkIn = new CheckIn();

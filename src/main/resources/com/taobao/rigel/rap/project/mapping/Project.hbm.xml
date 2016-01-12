@@ -64,7 +64,7 @@
             <column name="user_id" />
         </property>
 
-        <!--<many-to-one name="user" column="user_id" not-null="true"/>-->
+        <many-to-one name="user" column="user_id" not-null="true"/>
 
         <set name="userList" order-by="user_id asc" table="tb_project_and_user">
             <key column="project_id" not-null="true"/>

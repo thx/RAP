@@ -209,7 +209,7 @@ public class ProjectMgrImpl implements ProjectMgr {
 
     public Project getProject(int id) {
         Project p = projectDao.getProject(id);
-        p.setUser(accountMgr.getUser(p.getUserId()));
+        // p.setUser(accountMgr.getUser(p.getUserId()));
         return p;
     }
 

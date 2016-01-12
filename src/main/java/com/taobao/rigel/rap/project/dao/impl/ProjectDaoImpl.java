@@ -97,10 +97,16 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
                                 .add(Projections.property("userId"), "userId")
                                 .add(Projections.property("updateTime"), "updateTime")
                                 .add(Projections.property("introduction"), "introduction")
+                                .add(Projections.property("createDate"), "createDate")
+                                .add(Projections.property("version"), "version")
+                                .add(Projections.property("groupId"), "groupId")
+                                .add(Projections.property("relatedIds"), "relatedIds")
+                                .add(Projections.property("accessType"), "accessType")
                 )
                 .add(Restrictions.eq("id", id))
                 .setResultTransformer(Transformers.aliasToBean(Project.class))
                 .uniqueResult();
+
         return project;
 
 
