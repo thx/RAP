@@ -96,12 +96,6 @@
                             <span class="glyphicon glyphicon-file"></span>&nbsp;导出Word
                         </a>
                     </li>
-                    <li>
-                        <a href="/doc/${projectId}" target="_blank">
-                            <span class="glyphicon glyphicon-new-window"></span>
-                            Online Docs
-                        </a>
-                    </li>
                     <!--
                     <li>
                         <a href="http://thx.github.io/RAP/resources/rap-shortcuts/"  target="_blank">
@@ -204,28 +198,14 @@
 
 #startFloater("versionFloater" "" 600 400)
 <div class="myfloater">
-    <div id="div-version-floater-message" class="label" style="display:none;">
-    </div>
-    <div id="div-version-floater-content">
-    </div>
+    <div id="div-version-floater-message" class="label" style="display:none;"></div>
+    <div id="div-version-floater-content"></div>
     <div class="div-floater-control">
-        <button id="btnObserveVersion" type="button" class="btn btn-primary" onclick="ws.readProjectOfVersion();"
-                title="点击后将以只读的方式查看某一版本。">
-            <span class="glyphicon glyphicon-eye-open"></span>
-            查看版本
-        </button>
+        <button id="btnObserveVersion" type="button" class="btn btn-primary" onclick="ws.readProjectOfVersion();" title="点击后将以只读的方式查看某一版本。"><span class="glyphicon glyphicon-eye-open"></span>查看版本</button>
         &nbsp;&nbsp;&nbsp;
-        <button id="btnSwitchVersion" type="button" class="btn btn-danger" onclick="ws.switchVersion();"
-                title="点击后将切换至该版本。">
-            <span class="glyphicon glyphicon-repeat"></span>
-            切换版本
-        </button>
+        <button id="btnSwitchVersion" type="button" class="btn btn-danger" onclick="ws.switchVersion();" title="点击后将切换至该版本。"><span class="glyphicon glyphicon-repeat"></span>切换版本</button>
         &nbsp;&nbsp;&nbsp;
-        <button type="button" class="btn btn-default" onclick="ws.closeVersionPanel();">
-                    <span class="glyphicon glyphicon-remove">
-                    </span>
-            取消
-        </button>
+        <button type="button" class="btn btn-default" onclick="ws.closeVersionPanel();"><span class="glyphicon glyphicon-remove"></span>取消</button>
     </div>
 </div>
 #endFloater
@@ -284,11 +264,8 @@
                     <label for="editAFloater-struct-1">数组[{}, {}]</label>
                 </td>
             </tr>
-
             <tr>
-                <td colspan="2">
-
-                </td>
+                <td colspan="2"></td>
             </tr>
         </table>
         <div class="div-floater-control">
@@ -304,7 +281,8 @@
     </div>
 </form>
 #endFloater
-    #startFloater("editPFloater" "编辑页面" 600 400)
+
+#startFloater("editPFloater" "编辑页面" 600 400)
 <form name="formEditPFloater">
     <div class="myfloater">
         <input type="hidden" id="editPFloater-id"/>
@@ -338,7 +316,8 @@
     </div>
 </form>
 #endFloater
-    #startFloater("importJSONFloater" "JSON导入" 600 350)
+
+#startFloater("importJSONFloater" "JSON导入" 600 350)
 <form name="formImportJSONFloater">
     <div id="div-importJSON-floater-message" style="display:none;" class="label"></div>
     <div class="myfloater">
@@ -364,7 +343,8 @@
     </div>
 </form>
 #endFloater
-    #startFloater("exportRAPDataFloater" "JSON导入" 600 350)
+
+#startFloater("exportRAPDataFloater" "JSON导入" 600 350)
 <form name="formImportJSONFloater">
     <div class="myfloater">
         <table class="table">
@@ -382,7 +362,8 @@
     </div>
 </form>
 #endFloater
-    #startFloater("pluginCodeFloater" "FE工具箱" 600 230)
+
+#startFloater("pluginCodeFloater" "FE工具箱" 600 230)
 <form name="formPluginCodeFloater">
     <div class="myfloater">
         <div>插件代码</div>
@@ -405,7 +386,8 @@
     </div>
 </form>
 #endFloater
-    #startFloater("actionUrlFloater" "请求链接" 600 180)
+
+#startFloater("actionUrlFloater" "请求链接" 600 180)
 <form name="formActionUrlFloater">
     <div class="myfloater">
         <div>
@@ -419,7 +401,7 @@
 </form>
 #endFloater
 
-    #startFloater("mockDataPreviewFloater" "Mock数据预览" 600 600)
+#startFloater("mockDataPreviewFloater" "Mock数据预览" 600 600)
 <div class="myfloater">
     <div>
         <h5>Mock规则
@@ -452,7 +434,7 @@
 </div>
 #endFloater
 
-    #startFloater("actionOpFloater" "文档操作" 600 230)
+#startFloater("actionOpFloater" "文档操作" 600 230)
 <div class="myfloater">
     <form role="form">
         <div class="form-group">
@@ -492,6 +474,7 @@
     </form>
 </div>
 #endFloater
+
 </body>
 <script type="text/javascript">
 

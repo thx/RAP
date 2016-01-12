@@ -1,15 +1,13 @@
 package com.taobao.rigel.rap.workspace.web.action;
 
 import com.google.gson.Gson;
-import com.sun.javaws.CacheUtil;
 import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.base.ActionBase;
+import com.taobao.rigel.rap.common.config.SystemConstant;
 import com.taobao.rigel.rap.common.service.impl.ContextManager;
 import com.taobao.rigel.rap.common.utils.CacheUtils;
-import com.taobao.rigel.rap.common.utils.CommonUtils;
 import com.taobao.rigel.rap.common.utils.MapUtils;
-import com.taobao.rigel.rap.common.config.SystemConstant;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 import com.taobao.rigel.rap.project.bo.Module;
 import com.taobao.rigel.rap.project.bo.Project;
@@ -25,14 +23,11 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
-import sun.misc.Cache;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.FutureTask;
 
 public class WorkspaceAction extends ActionBase {
 
@@ -423,26 +418,26 @@ public class WorkspaceAction extends ActionBase {
 
         // unfinished
 
-        Callable<String> taskSub = new Callable<String>() {
-
-            public String call() throws Exception {
-                try {
-                    // async update doc
-                    // projectMgr.updateDoc(id);
-                    // async update disableCache
-                    projectMgr.updateCache(id);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-
-                return null;
-            }
-        };
-
-        FutureTask<String> futureTask = new FutureTask<String>(taskSub);
-        Thread asyncThread = new Thread(futureTask);
-        asyncThread.start();
-        logger.info("Future task CHECK_IN running...");
+//        Callable<String> taskSub = new Callable<String>() {
+//
+//            public String call() throws Exception {
+//                try {
+//                    // async update doc
+//                    // projectMgr.updateDoc(id);
+//                    // async update disableCache
+//                    projectMgr.updateCache(id);
+//                } catch (Exception ex) {
+//                    ex.printStackTrace();
+//                }
+//
+//                return null;
+//            }
+//        };
+//
+//        FutureTask<String> futureTask = new FutureTask<String>(taskSub);
+//        Thread asyncThread = new Thread(futureTask);
+//        asyncThread.start();
+//        logger.info("Future task CHECK_IN running...");
 
         return SUCCESS;
     }
@@ -485,7 +480,7 @@ public class WorkspaceAction extends ActionBase {
         }
         if (isOk) {
             setJson("{\"isOk\":true, \"projectData\":"
-                    + projectMgr.getProjectSummary(getId()).getProjectData() + "}");
+                    + projectMgr.getProject(getId()).getProjectData() + "}");
         }
         return SUCCESS;
     }

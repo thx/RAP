@@ -154,7 +154,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         ObjectItem[] deletedObjectList = gson.fromJson(deletedObjectListData,
                 ObjectItem[].class);
 
-        Project projectServer = (Project) session.load(Project.class, id);
+        Project projectServer = session.load(Project.class, id);
         projectServer.setUpdateTime(new Date());
 
         // performing deleting

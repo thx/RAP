@@ -75,7 +75,7 @@ public class WorkspaceDaoImpl extends HibernateDaoSupport implements WorkspaceDa
 
     public Workspace getWorkspace(int id) {
         Session session = currentSession();
-        Workspace workspace = (Workspace) session.load(Workspace.class, id);
+        Workspace workspace = session.load(Workspace.class, id);
         return workspace;
     }
 
@@ -85,7 +85,7 @@ public class WorkspaceDaoImpl extends HibernateDaoSupport implements WorkspaceDa
 
 
     public CheckIn getVersion(int versionId) {
-        return (CheckIn) currentSession().load(CheckIn.class, versionId);
+        return currentSession().load(CheckIn.class, versionId);
     }
 
 
