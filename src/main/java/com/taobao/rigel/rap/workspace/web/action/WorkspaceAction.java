@@ -242,6 +242,7 @@ public class WorkspaceAction extends ActionBase {
                     + projectId);
             return LOGIN;
         }
+        setAccessable(getAccountMgr().canUserManageProject(getCurUserId(), getProjectId()));
         return SUCCESS;
     }
 
@@ -252,25 +253,28 @@ public class WorkspaceAction extends ActionBase {
         }
         String[] cacheKey = new String[]{CacheUtils.KEY_WORKSPACE, new Integer(getCurUserId()).toString(), new Integer(getProjectId()).toString()};
         String cache = CacheUtils.get(cacheKey);
-        cache = null;
         if (cache != null) {
             setJson(cache);
         } else {
             Project p = projectMgr.getProject(getProjectId());
+
             if (p == null || p.getId() <= 0) {
                 setErrMsg("该项目不存在或已被删除，会不会是亲这个链接保存的太久了呢？0  .0");
                 logger.error("Unexpected project id=%d", getProjectId());
                 return JSON_ERROR;
             }
+
             if (!organizationMgr.canUserAccessProject(getCurUserId(), getProjectId())) {
                 setErrMsg(ACCESS_DENY);
                 return JSON_ERROR;
             }
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("projectJson", p.toString(Project.TO_STRING_TYPE.TO_PARAMETER));
-            map.put("accessable", getAccountMgr().canUserManageProject(getCurUserId(), getProjectId()));
-            String json = CommonUtils.gson.toJson(map, Map.class);
+
+            Workspace workspace = new Workspace();
+            workspace.setProject(p);
+
+            String json = workspace.toString();
             setJson(json);
+
             CacheUtils.put(cacheKey, json);
         }
         return SUCCESS;

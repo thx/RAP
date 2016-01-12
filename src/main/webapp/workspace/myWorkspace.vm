@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>$!utils.escapeInH($workspace.project.name) - 文档编辑 </title>
+    <title>loading... </title>
     <link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
     #includeNewRapStatic
     <link type="text/css" rel="stylesheet" href="${staticRoot}/css/defcontrol.css"/>
@@ -17,7 +17,7 @@
     <div class="clearfix">
         <div id="div-w-message" class="label" style="display:none;">
         </div>
-        <div id="div-control-panel">
+        <div id="div-control-panel" style="display:none;">
             <div id="div-workspace-search">
                 <input type="text" id="inputSearch" class="form-control" placeholder="工作区搜索">
                 </input>
@@ -130,7 +130,7 @@
 
     </div>
     <div id="div-debug"></div>
-    <div id="div-add-p-mt-list-container">
+    <div id="div-add-p-mt-list-container" style="display:none">
         <div id="div-add-p" style="display: none"><a href="#" class="btn btn-info btn-xs"
                                                      onclick="ws.addP(); return false;"><i
                 class="glyphicon glyphicon-plus" style="margin-right: 5px"></i>添加页面</a></div>
@@ -139,15 +139,18 @@
 
 </div>
 <div id="div-w">
-    <div id="div-m-list"></div>
+    <div id="div-m-list">
+        <div class="alert alert-warning" style="margin:300px;">
+            <span class="glyphicon glyphicon-time"></span>
+        Loading workspace... Please wait...
+        </div>
+    </div>
     <div id="div-w-status"></div>
 </div>
 #bodyEnd
 
 
-## [todo] mode case
-    #if (1 == 1)
-        #startFloater("saveVSSFloater" "" 500 380)
+#startFloater("saveVSSFloater" "" 500 380)
     <form name="formSaveVSSFloater">
         <div id="div-saveVSS-floater-message" style="display:none;" class="label">
         </div>
@@ -197,53 +200,9 @@
             </table>
         </div>
     </form>
-    #endFloater
-    #elseif ($workspace.modeInt == 2)
-        #startFloater("checkinFloater" "Check In" 600 400)
-    <div class="myfloater">
-        <div id="div-checkin-floater-message" style="display:none;"></div>
-        <div id="div-checkin-floater-content">
-        </div>
-        <div class="div-floater-control">
-            <input type="button" value="Close" onclick="ws.closeCheckInPanel();"/>
-        </div>
-    </div>
-    #endFloater
+#endFloater
 
-        #startFloater("checkoutFloater" "Check Out" 600 400)
-    <div class="myfloater">
-        <div id="div-checkout-floater-message" style="display:none;">
-        </div>
-        <div id="div-checkout-floater-content">
-        </div>
-        <div class="div-floater-control">
-            <input type="button" value="Close" onclick="ws.closeCheckOutPanel();"/>
-        </div>
-    </div>
-    #endFloater
-        #startFloater("validateFloater" "Validating" 600 400)
-    <div class="myfloater">
-        <div class="warn">推广分析[Module]->网民分析[Page]->行业ID[Parameter] has no length validator.</div>
-    </div>
-    #endFloater
-
-        #startFloater("saveFloater" "Save/Load Workspace" 600 400)
-    <div class="myfloater">
-        <div id="div-save-floater-message" style="display:none;" class="label">
-        </div>
-        <div id="div-save-floater-content">
-        </div>
-        <div class="div-floater-control">
-            <input type="button" value="Load" onclick="ws.querySave();"/>&nbsp;&nbsp;&nbsp;
-            <input type="button" value="Save" onclick="ws.updateSave();"/>&nbsp;&nbsp;&nbsp;
-            <input type="button" value="Delete" onclick="ws.removeSave();"/>&nbsp;&nbsp;&nbsp;
-            <input type="button" value="Cancel" onclick="ws.closeSavePanel();"/>
-        </div>
-    </div>
-    #endFloater
-    #end
-
-    #startFloater("versionFloater" "" 600 400)
+#startFloater("versionFloater" "" 600 400)
 <div class="myfloater">
     <div id="div-version-floater-message" class="label" style="display:none;">
     </div>
@@ -561,7 +520,8 @@
 
     jQuery.post('$workspaceUrl.loadWorkspace', 'projectId=$!projectId', function(results) {
         data = eval('(' + results + ')');
-        data.projectData = eval('(' + data.projectJson + ')');
+
+        document.title = data.projectData.name + ' 接口文档';
 
         if (data.projectData.moduleList.length === 0) {
             data.projectData.moduleList = [{
@@ -606,6 +566,8 @@
         }
 
         ws.init(data, urlObj#if($actionId),$actionId#end, callbackHandler);
+        $('#div-control-panel').show();
+        $('#div-add-p-mt-list-container').show()
 
         function callbackHandler() {
             #if($mock == true)

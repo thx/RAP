@@ -660,6 +660,12 @@ div#tipDiv {
     font-size: 12px;
 }
 
+.loading-icon {
+    width: 16px;
+    height: 16px;
+    background: transparent url(img/loading.gif) no-repeat;
+}
+
 .picking-user .picked-user {
     background-color: #EEE;
     padding: 6px 14px 8px 6px;
