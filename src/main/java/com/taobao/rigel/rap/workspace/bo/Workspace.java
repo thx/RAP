@@ -17,6 +17,16 @@ public class Workspace implements java.io.Serializable {
     private String projectData;
     private String projectDataOriginal;
 
+    public boolean isAccessable() {
+        return accessable;
+    }
+
+    public void setAccessable(boolean accessable) {
+        this.accessable = accessable;
+    }
+
+    private boolean accessable;
+
     public int getId() {
         return id;
     }

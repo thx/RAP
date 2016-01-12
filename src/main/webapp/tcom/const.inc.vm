@@ -47,6 +47,7 @@
 })
 #set($workspaceUrl = {
     "myWorkspace":"$projectContext/workspace/myWorkspace.do",
+    "loadWorkspace":"$projectContext/workspace/loadWorkspace.do",
     "getModuleHtmlAjax":"$projectContext/workspace/getModuleHtmlAjax.do",
     "updateCurrentSave":"$projectContext/workspace/updateCurrentSave.do",
     "updateSave":"$projectContext/workspace/updateSave.do",

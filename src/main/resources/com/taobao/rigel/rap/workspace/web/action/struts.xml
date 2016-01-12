@@ -12,15 +12,11 @@
                 method="myWorkspace">
             <result name="success" type="velocity">/workspace/myWorkspace.vm</result>
         </action>
-        <!-- <action name="updateCurrentSave" class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
-                    method="updateCurrentSave"> <result name="success" type="velocity">/bcom/isOk.cb.vm</result>
-                    </action> <action name="updateSave" class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
-                    method="updateSave"> <result name="success" type="velocity">/bcom/saveWorkspace.cb.vm</result>
-                    </action> <action name="querySave" class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
-                    method="querySave"> <result name="success" type="velocity">/bcom/json.cb.vm</result>
-                    </action> <action name="removeSave" class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
-                    method="removeSave"> <result name="success" type="velocity">/bcom/saveWorkspace.cb.vm</result>
-                    </action> -->
+        <action name="loadWorkspace"
+                class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
+                method="loadWorkspace">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
         <action name="ping"
                 class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
                 method="ping">

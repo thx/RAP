@@ -1,10 +1,13 @@
 package com.taobao.rigel.rap.workspace.web.action;
 
 import com.google.gson.Gson;
+import com.sun.javaws.CacheUtil;
 import com.taobao.rigel.rap.account.bo.Notification;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.base.ActionBase;
 import com.taobao.rigel.rap.common.service.impl.ContextManager;
+import com.taobao.rigel.rap.common.utils.CacheUtils;
+import com.taobao.rigel.rap.common.utils.CommonUtils;
 import com.taobao.rigel.rap.common.utils.MapUtils;
 import com.taobao.rigel.rap.common.config.SystemConstant;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
@@ -14,12 +17,15 @@ import com.taobao.rigel.rap.project.service.ProjectMgr;
 import com.taobao.rigel.rap.workspace.bo.CheckIn;
 import com.taobao.rigel.rap.workspace.bo.Workspace;
 import com.taobao.rigel.rap.workspace.service.WorkspaceMgr;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
+import sun.misc.Cache;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -30,7 +36,7 @@ import java.util.concurrent.FutureTask;
 
 public class WorkspaceAction extends ActionBase {
 
-    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getFormatterLogger(WorkspaceAction.class.getName());
+    private static final Logger logger = LogManager.getFormatterLogger(WorkspaceAction.class);
     public Module module;
     private OrganizationMgr organizationMgr;
 
@@ -57,17 +63,6 @@ public class WorkspaceAction extends ActionBase {
     private String description;
     private boolean isLocked;
     private InputStream fileInputStream;
-    /**
-     * ` save the current workspace
-     *
-     * @return
-     */
-	/*
-	 * public String updateCurrentSave() { Workspace workspace =
-	 * workspaceMgr.getWorkspace(getId());
-	 * workspace.setProjectData(getProjectData());
-	 * workspaceMgr.updateWorkspace(workspace); return SUCCESS; }
-	 */
 
     private WorkspaceMgr workspaceMgr;
     private ProjectMgr projectMgr;
@@ -236,45 +231,6 @@ public class WorkspaceAction extends ActionBase {
         return isLocked;
     }
 
-    /**
-     * save workspace if this.saveId == -1(default), it's a new save and needs
-     * projectId and id(workspaceId). else, just need saveId only to cover the
-     * existed one. all conditions parameters: projectData
-     *
-     * @return
-     */
-    /*
-	 * public String updateSave() { int id = getSaveId(); Save save = null; if
-	 * (id == -1) { save = new Save(); save.setProjectId(getProjectId());
-	 * save.setWorkspaceId(getId()); } else { save =
-	 * workspaceMgr.getSave(getSaveId()); }
-	 * save.setProjectData(getProjectData()); id =
-	 * workspaceMgr.updateSave(save);
-	 * 
-	 * // after update the save, return saveList json string
-	 * setupSaveListJson(); return SUCCESS; }
-	 */
-
-	/*
-	 * private void setupSaveListJson() { Set<Save> saveList =
-	 * workspaceMgr.getSaveList(getId()); StringBuilder stringBuilder = new
-	 * StringBuilder(); stringBuilder.append("["); Iterator<Save> iterator =
-	 * saveList.iterator(); while (iterator.hasNext()) {
-	 * stringBuilder.append(iterator.next()); if (iterator.hasNext()) {
-	 * stringBuilder.append(","); } } stringBuilder.append("]");
-	 * setSaveListJson(stringBuilder.toString()); }
-	 */
-
-    /**
-     * delete save
-     *
-     * @return
-     */
-	/*
-	 * public String removeSave() { workspaceMgr.removeSave(getSaveId());
-	 * setupSaveListJson(); return SUCCESS; }
-	 */
-
     public void setIsLocked(boolean isLocked) {
         this.isLocked = isLocked;
     }
@@ -282,26 +238,41 @@ public class WorkspaceAction extends ActionBase {
     public String myWorkspace() {
         if (!isUserLogined()) {
             plsLogin();
-            setRelativeReturnUrl("/workspace/myWorkspace.action?projectId="
+            setRelativeReturnUrl("/workspace/myWorkspace.do?projectId="
                     + projectId);
             return LOGIN;
         }
-        Project p = projectMgr.getProject(getProjectId());
-        if (p == null || p.getId() <= 0) {
-            setErrMsg("该项目不存在或已被删除，会不会是亲这个链接保存的太久了呢？0  .0");
-            logger.error("Unexpected project id=%d", getProjectId());
-            return ERROR;
-        }
-        if (!organizationMgr.canUserAccessProject(getCurUserId(), getProjectId())) {
-            setErrMsg(ACCESS_DENY);
-            return ERROR;
-        }
+        return SUCCESS;
+    }
 
-        Workspace workspace = new Workspace();
-        workspace.setProject(p);
-        setWorkspaceJsonString(workspace.toString());
-        setWorkspace(workspace);
-        setAccessable(getAccountMgr().canUserManageProject(getCurUserId(), getProjectId()));
+    public String loadWorkspace() {
+        if (!isUserLogined()) {
+            plsLogin();
+            return JSON_ERROR;
+        }
+        String[] cacheKey = new String[]{CacheUtils.KEY_WORKSPACE, new Integer(getCurUserId()).toString(), new Integer(getProjectId()).toString()};
+        String cache = CacheUtils.get(cacheKey);
+        cache = null;
+        if (cache != null) {
+            setJson(cache);
+        } else {
+            Project p = projectMgr.getProject(getProjectId());
+            if (p == null || p.getId() <= 0) {
+                setErrMsg("该项目不存在或已被删除，会不会是亲这个链接保存的太久了呢？0  .0");
+                logger.error("Unexpected project id=%d", getProjectId());
+                return JSON_ERROR;
+            }
+            if (!organizationMgr.canUserAccessProject(getCurUserId(), getProjectId())) {
+                setErrMsg(ACCESS_DENY);
+                return JSON_ERROR;
+            }
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("projectJson", p.toString(Project.TO_STRING_TYPE.TO_PARAMETER));
+            map.put("accessable", getAccountMgr().canUserManageProject(getCurUserId(), getProjectId()));
+            String json = CommonUtils.gson.toJson(map, Map.class);
+            setJson(json);
+            CacheUtils.put(cacheKey, json);
+        }
         return SUCCESS;
     }
 
@@ -472,7 +443,6 @@ public class WorkspaceAction extends ActionBase {
         return SUCCESS;
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
     public String lock() {
         int curUserId = getCurUserId();
         if (curUserId <= 0) {
@@ -516,7 +486,6 @@ public class WorkspaceAction extends ActionBase {
         return SUCCESS;
     }
 
-    @SuppressWarnings({"rawtypes"})
     public String unlock() {
         if (isLocked(getId())) {
             Map app = ContextManager.getApplication();
@@ -562,16 +531,14 @@ public class WorkspaceAction extends ActionBase {
         return SUCCESS;
     }
 
-    @SuppressWarnings("rawtypes")
     private boolean isLocked(int projectId) {
         Map app = ContextManager.getApplication();
         Map projectLockList = (Map) app
                 .get(ContextManager.KEY_PROJECT_LOCK_LIST);
         return projectLockList != null
-                && projectLockList.containsValue(projectId) ? true : false;
+                && projectLockList.containsValue(projectId);
     }
 
-    @SuppressWarnings("rawtypes")
     private User getLocker(int projectId) {
         Map app = ContextManager.getApplication();
         Map projectLockList = (Map) app
@@ -587,7 +554,6 @@ public class WorkspaceAction extends ActionBase {
 
     public String __init__() {
         // prevent repeated intialization of servcie
-
         if (SystemConstant.serviceInitialized) {
             return SUCCESS;
         }

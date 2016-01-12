@@ -535,6 +535,7 @@
 #endFloater
 </body>
 <script type="text/javascript">
+
     var urlObj = {
                 "getModuleHtmlAjax": "$workspaceUrl.getModuleHtmlAjax",
                 "updateSave": "$workspaceUrl.updateSave",
@@ -555,64 +556,70 @@
                 "queryMockData": "$mockUrl.queryMockData"
             },
             ws = rap.workspace,
-            data = $workspaceJsonString,
+            data,
             util = rap.util;
 
-    if (data.projectData.moduleList.length === 0) {
-        data.projectData.moduleList = [{
-            "id": ws.generateId(),
-            "name": "某模块（点击编辑后双击修改）",
-            "introduction": "",
-            "pageList": [{
-                "moduleId": ws.generateId(),
-                "name": "某页面",
-                "introduction": "",
+    jQuery.post('$workspaceUrl.loadWorkspace', 'projectId=$!projectId', function(results) {
+        data = eval('(' + results + ')');
+        data.projectData = eval('(' + data.projectJson + ')');
+
+        if (data.projectData.moduleList.length === 0) {
+            data.projectData.moduleList = [{
                 "id": ws.generateId(),
-                "isIdGenerated": true,
-                "actionList": [{
-                    "pageId": ws.generateId(),
-                    "name": "某请求",
-                    "requestType": "1",
-                    "requestUrl": "",
-                    "responseTemplate": "",
-                    "description": "",
+                "name": "某模块（点击编辑后双击修改）",
+                "introduction": "",
+                "pageList": [{
+                    "moduleId": ws.generateId(),
+                    "name": "某页面",
+                    "introduction": "",
                     "id": ws.generateId(),
-                    "requestParameterList": [{
+                    "isIdGenerated": true,
+                    "actionList": [{
+                        "pageId": ws.generateId(),
+                        "name": "某请求",
+                        "requestType": "1",
+                        "requestUrl": "",
+                        "responseTemplate": "",
+                        "description": "",
                         "id": ws.generateId(),
-                        "identifier": "reqParam",
-                        "name": "某请求参数",
-                        "remark": "",
-                        "validator": "",
-                        "dataType": "number",
-                        "parameterList": []
-                    }],
-                    "responseParameterList": [{
-                        "id": ws.generateId(),
-                        "identifier": "resParam",
-                        "name": "某响应参数",
-                        "remark": "",
-                        "validator": "",
-                        "dataType": "number",
-                        "parameterList": []
+                        "requestParameterList": [{
+                            "id": ws.generateId(),
+                            "identifier": "reqParam",
+                            "name": "某请求参数",
+                            "remark": "",
+                            "validator": "",
+                            "dataType": "number",
+                            "parameterList": []
+                        }],
+                        "responseParameterList": [{
+                            "id": ws.generateId(),
+                            "identifier": "resParam",
+                            "name": "某响应参数",
+                            "remark": "",
+                            "validator": "",
+                            "dataType": "number",
+                            "parameterList": []
+                        }]
                     }]
                 }]
-            }]
-        }];
-    }
+            }];
+        }
 
-    ws.init(data, urlObj#if($actionId),$actionId#end, callbackHandler);
+        ws.init(data, urlObj#if($actionId),$actionId#end, callbackHandler);
 
-    function callbackHandler() {
-        #if($mock == true)
-            ws.toggleMockDisplay();
-        #else
-            if (window.location.toString().indexOf("mock=") == -1 && window.localStorage && window.localStorage.getItem("_isMockDisplay") === 'true') {
+        function callbackHandler() {
+            #if($mock == true)
                 ws.toggleMockDisplay();
-            }
-        #end
-    }
+            #else
+                if (window.location.toString().indexOf("mock=") == -1 && window.localStorage && window.localStorage.getItem("_isMockDisplay") === 'true') {
+                    ws.toggleMockDisplay();
+                }
+            #end
+        }
 
-    $('.btn').tooltip();
+        $('.btn').tooltip();
+    });
+
 
 </script>
 </html>

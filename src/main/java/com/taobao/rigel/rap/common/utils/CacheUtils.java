@@ -20,6 +20,7 @@ public class CacheUtils {
     public static final String KEY_PROJECT_LIST = "KEY_PROJECT_LIST";
     public static final String KEY_CORP_LIST = "KEY_CORP_LIST";
     public static final String KEY_CORP_LIST_TOP_ITEMS = "KEY_CORP_LIST_TOP_ITEMS";
+    public static final String KEY_WORKSPACE = "KEY_WORKSPACE";
 
     public static final String KEY_ACCESS_USER_TO_PROJECT = "KEY_ACCESS_USER_TO_PROJECT";
 

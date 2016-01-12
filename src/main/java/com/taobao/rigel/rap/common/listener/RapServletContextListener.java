@@ -13,7 +13,7 @@ import javax.servlet.ServletContextListener;
  * Created by Bosn Ma on 15/9/7.
  */
 public class RapServletContextListener implements ServletContextListener {
-    private static final Logger logger = LogManager.getLogger(RapServletContextListener.class);
+    private static final Logger logger = LogManager.getFormatterLogger(RapServletContextListener.class);
 
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         logger.info("RAP Server initializing...");

@@ -132,14 +132,11 @@ public class ActionBase extends ActionSupport {
     }
 
     protected int getCurUserId() {
-        Object account = ContextManager.currentSession().get(
-                ContextManager.KEY_ACCOUNT);
-        if (account == null)
-            return -1;
-        String accountStr = account.toString().trim();
-        if (accountStr == "")
-            return -1;
-        return accountMgr.getUserId(accountStr);
+        Object userIdObj = ContextManager.currentSession().get(
+                ContextManager.KEY_USER_ID);
+       if (userIdObj == null)
+           return -1;
+        return (Integer) userIdObj;
     }
 
     public User getCurUser() {
