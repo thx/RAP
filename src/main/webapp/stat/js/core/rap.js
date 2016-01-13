@@ -2660,7 +2660,6 @@ function deepCopy(o) {
                 me._mockRuleObj = mockRuleObj;
                 $('#mockRulePreviewFloater-container').val(JSON.stringify(mockRuleObj, null, 4));
                 $('#mockDataPreviewFloater-container').val(JSON.stringify(mockDataObj, null, 4));
-                showMessage(CONST.LOAD, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVED);
             } catch(e) {
                 showMessage(CONST.ERROR, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.FATAL_ERROR);
             }
