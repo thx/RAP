@@ -47,7 +47,9 @@ public class MockjsRunner {
     }
 
     public static String renderMockjsRule(String mockRule) {
+
         return new MockjsRunner().doRenderMockJsRule(mockRule);
+
     }
 
     public static void main(String[] args) {

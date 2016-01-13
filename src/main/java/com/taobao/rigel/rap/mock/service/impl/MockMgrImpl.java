@@ -2,6 +2,7 @@ package com.taobao.rigel.rap.mock.service.impl;
 
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.common.config.Patterns;
+import com.taobao.rigel.rap.common.config.SystemSettings;
 import com.taobao.rigel.rap.common.utils.*;
 import com.taobao.rigel.rap.mock.bo.Rule;
 import com.taobao.rigel.rap.mock.dao.MockDao;
@@ -11,14 +12,23 @@ import com.taobao.rigel.rap.project.bo.Parameter;
 import com.taobao.rigel.rap.project.dao.ProjectDao;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 import nl.flotsam.xeger.Xeger;
+import org.apache.logging.log4j.LogManager;
+import sun.misc.Cache;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.*;
+import java.util.concurrent.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MockMgrImpl implements MockMgr {
+
+    interface Callback {
+        void onSuccess(String result);
+    }
+
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(MockMgrImpl.class);
     private final String ERROR_PATTERN = "{\"isOk\":false,\"msg\":\"路径为空，请查看是否接口未填写URL.\"}";
     private ProjectDao projectDao;
     private ProjectMgr projectMgr;
@@ -184,19 +194,87 @@ public class MockMgrImpl implements MockMgr {
     }
 
 
-    public String generateRuleData(int projectId, String pattern,
+    public String generateRuleData(final int projectId, String pattern,
                                    Map<String, Object> options) throws UnsupportedEncodingException {
-        String result = generateRule(projectId, pattern, options);
-        result = MockjsRunner.renderMockjsRule(result);
-        result = StringUtils.chineseToUnicode(result);
-        return result;
+        final String mockRule = generateRule(projectId, pattern, options);
+        String returnValue = null;
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<String> task = executor.submit(new Callable<String>() {
+                public String call() throws Exception {
+                    return  MockjsRunner.renderMockjsRule(mockRule);
+                }
+            });
+
+            int timeout = SystemSettings.MOCK_SERVICE_TIMEOUT;
+            while (true) {
+                if (task.isDone()) {
+                    returnValue = task.get();
+                    break;
+                } else if (timeout <= 0){
+                    task.cancel(true);
+                    logger.warn("Interrupted mock rule by pattern:" + pattern + ", projectId:" + projectId);
+                    break;
+                }
+
+                Thread.sleep(100);
+                timeout -= 100;
+            }
+
+
+        } catch (InterruptedException ex) {
+
+        } catch (ExecutionException e) {
+        } finally {
+            executor.shutdownNow();
+        }
+
+        if (returnValue == null) {
+            return "{\"isOk\":false, \"errMsg\":\"运行超时," + SystemSettings.MOCK_SERVICE_TIMEOUT + "毫秒都跑不完,服务器HOLD不住啊,亲的自定义函数是不是写的太夸张了啊...\"}";
+        } else {
+            return StringUtils.chineseToUnicode(returnValue);
+        }
     }
 
     public String generateRuleData(int actionId) throws UnsupportedEncodingException {
-        String result = generateRule(actionId, null, null);
-        result = MockjsRunner.renderMockjsRule(result);
-        result = StringUtils.chineseToUnicode(result);
-        return result;
+        final String mockRule = generateRule(actionId, null, null);
+        String returnValue = null;
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<String> task = executor.submit(new Callable<String>() {
+              public String call() throws Exception {
+                  return  MockjsRunner.renderMockjsRule(mockRule);
+              }
+            });
+
+            int timeout = SystemSettings.MOCK_SERVICE_TIMEOUT;
+            while (true) {
+                if (task.isDone()) {
+                    returnValue = task.get();
+                    break;
+                } else if (timeout <= 0){
+                    task.cancel(true);
+                    logger.warn("Interrupted mock rule by actionId:" + actionId);
+                    break;
+                }
+
+                Thread.sleep(100);
+                timeout -= 100;
+            }
+
+        } catch (InterruptedException ex) {
+
+        } catch (ExecutionException e) {
+        } finally {
+            executor.shutdownNow();
+        }
+
+
+       if (returnValue == null) {
+            return "{\"isOk\":false, \"errMsg\":\"运行超时,3秒都跑不完,服务器HOLD不住啊,亲的自定义函数是不是写的太夸张了啊...\"}";
+       } else {
+           return StringUtils.chineseToUnicode(returnValue);
+       }
     }
 
 
@@ -260,7 +338,7 @@ public class MockMgrImpl implements MockMgr {
             }
 
             if (action.getDisableCache() == 0 && loadRule == false) {
-                String ruleCache = CacheUtils.getRuleCache(action, originalPattern);
+                String ruleCache = CacheUtils.getRuleCache(action, originalPattern, false);
                 if (ruleCache != null) {
                     return ruleCache;
                 }
@@ -269,13 +347,13 @@ public class MockMgrImpl implements MockMgr {
         }
 
         if (loadRule) {
-            rule = mockDao.getRule((int) action.getId());
+            rule = mockDao.getRule(action.getId());
         }
         String result = getMockRuleFromActionAndRule(rule, action);
 
 
         if (!loadRule) {
-            CacheUtils.setRuleCache(action.getId(), result);
+            CacheUtils.setRuleCache(action.getId(), result, false);
         }
         return result;
     }

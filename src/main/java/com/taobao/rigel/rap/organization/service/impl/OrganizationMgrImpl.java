@@ -52,10 +52,6 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
 
     public List<Corporation> getCorporationListWithPager(int pageNum, int pageSize) {
-        List<Corporation> cache = CacheUtils.getTeamCache(0L, pageNum, pageSize);
-        if(cache != null) {
-            return cache;
-        }
 
         List<Corporation> list = organizationDao.getCorporationListWithPager(pageNum, pageSize);
 
@@ -65,7 +61,6 @@ public class OrganizationMgrImpl implements OrganizationMgr {
             c.setHasAccess(true);
             c.setCreatorName(accountMgr.getUser(c.getUserId()).getName());
         }
-        CacheUtils.setTeamCache(0L, pageNum, pageSize, list);
         return list;
     }
 
@@ -76,11 +71,6 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
 
     public List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize) {
-        List<Corporation> cache = CacheUtils.getTeamCache(userId, pageNum, pageSize);
-        if(cache != null) {
-            return cache;
-        }
-
         User user = accountMgr.getUser(userId);
         if (user.isAdmin()) {
             return getCorporationListWithPager(pageNum, pageSize);
@@ -92,7 +82,6 @@ public class OrganizationMgrImpl implements OrganizationMgr {
             c.setHasAccess(canUserManageCorp(userId, c.getId()));
             c.setCreatorName(accountMgr.getUser(c.getUserId()).getName());
         }
-        CacheUtils.setTeamCache(userId, pageNum, pageSize, list);
         return list;
     }
 

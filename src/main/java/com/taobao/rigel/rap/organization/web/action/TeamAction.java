@@ -99,7 +99,6 @@ public class TeamAction extends ActionBase {
             plsLogin();
             return JSON_ERROR;
         }
-        CacheUtils.removeTeamCache(getCurUserId());
         Corporation team = new Corporation();
         team.setName(getName());
         team.setUserId(getCurUserId());
