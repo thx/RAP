@@ -1,6 +1,7 @@
 package com.taobao.rigel.rap.project.bo;
 
 import com.taobao.rigel.rap.account.bo.User;
+import com.taobao.rigel.rap.common.utils.ArrayUtils;
 import com.taobao.rigel.rap.common.utils.DateUtils;
 import com.taobao.rigel.rap.common.utils.StringUtils;
 import com.taobao.rigel.rap.workspace.bo.CheckIn;
@@ -80,7 +81,17 @@ public class Project implements java.io.Serializable {
     }
 
     public void setRelatedIds(String relatedIds) {
-        this.relatedIds = relatedIds;
+        String[] ids = relatedIds.split(",");
+        List<Integer> idsArr = new ArrayList<Integer>();
+        for (String id : ids) {
+            try {
+                int integerId = Integer.parseInt(id);
+                idsArr.add(integerId);
+            } catch(Exception ex) {
+
+            }
+        }
+        this.relatedIds =  ArrayUtils.join(idsArr, ",");
     }
 
     public int getWorkspaceModeInt() {

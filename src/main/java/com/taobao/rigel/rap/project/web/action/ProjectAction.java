@@ -307,6 +307,7 @@ public class ProjectAction extends ActionBase {
         project.setRelatedIds(getIds());
         projectMgr.updateProject(project);
 
+
         return SUCCESS;
     }
 

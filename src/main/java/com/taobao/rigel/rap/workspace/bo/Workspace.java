@@ -94,6 +94,7 @@ public class Workspace implements java.io.Serializable {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{\"projectData\":" + getProject().getProjectData() + ",");
+        stringBuilder.append("\"relatedIds\":\"" + getProject().getRelatedIds() + "\",");
         stringBuilder.append("\"checkList\":[");
         List<CheckIn> checkList = getProject().getCheckInListOrdered();
         if (checkList != null) {

@@ -373,8 +373,7 @@
         </div>
         <div>项目路由</div>
         <div>
-            <input id="divRelatedIds" style="width:550px;margin:8px 0;" type="text"
-                   value="$!workspace.project.relatedIds" placeholder="例:24,32,56  项目ID逗号隔开">
+            <input id="divRelatedIds" style="width:550px;margin:8px 0;" type="text" placeholder="例:24,32,56  项目ID逗号隔开">
         </div>
         <div class="div-floater-control">
             <input type="button" class="btn btn-default" onclick="ws.closePluginCodeFloater(1);" value="保存"/>
@@ -479,32 +478,33 @@
 <script type="text/javascript">
 
     var urlObj = {
-                "getModuleHtmlAjax": "$workspaceUrl.getModuleHtmlAjax",
-                "updateSave": "$workspaceUrl.updateSave",
-                "updateCurrentSave": "$workspaceUrl.updateCurrentSave",
-                "querySave": "$workspaceUrl.querySave",
-                "removeSave": "$workspaceUrl.removeSave",
-                "checkIn": "$workspaceUrl.checkIn",
-                "checkOut": "$workspaceUrl.checkOut",
-                "imageRoot": "$staticRoot/img/",
-                "lock": "$workspaceUrl.lock",
-                "unlock": "$workspaceUrl.unlock",
-                "ping": "$workspaceUrl.ping",
-                "queryVersion": "$workspaceUrl.queryVersion",
-                "switchVersion": "$workspaceUrl.switchVersion",
-                "pageTester": "$testerUrl.pageTester",
-                "updateReleatedIds": "$projectUrl.updateReleatedIds",
-                "myWorkspace": "$workspaceUrl.myWorkspace",
-                "queryMockData": "$mockUrl.queryMockData"
-            },
-            ws = rap.workspace,
-            data,
-            util = rap.util;
+            "getModuleHtmlAjax": "$workspaceUrl.getModuleHtmlAjax",
+            "updateSave": "$workspaceUrl.updateSave",
+            "updateCurrentSave": "$workspaceUrl.updateCurrentSave",
+            "querySave": "$workspaceUrl.querySave",
+            "removeSave": "$workspaceUrl.removeSave",
+            "checkIn": "$workspaceUrl.checkIn",
+            "checkOut": "$workspaceUrl.checkOut",
+            "imageRoot": "$staticRoot/img/",
+            "lock": "$workspaceUrl.lock",
+            "unlock": "$workspaceUrl.unlock",
+            "ping": "$workspaceUrl.ping",
+            "queryVersion": "$workspaceUrl.queryVersion",
+            "switchVersion": "$workspaceUrl.switchVersion",
+            "pageTester": "$testerUrl.pageTester",
+            "updateReleatedIds": "$projectUrl.updateReleatedIds",
+            "myWorkspace": "$workspaceUrl.myWorkspace",
+            "queryMockData": "$mockUrl.queryMockData"
+        },
+        ws = rap.workspace,
+        data,
+        util = rap.util;
 
     jQuery.post('$workspaceUrl.loadWorkspace', 'projectId=$!projectId', function(results) {
         data = eval('(' + results + ')');
 
         document.title = data.projectData.name + ' 接口文档';
+        $("#divRelatedIds").val(data.relatedIds);
 
         if (data.projectData.moduleList.length === 0) {
             data.projectData.moduleList = [{

@@ -93,6 +93,7 @@ public class ProjectMgrImpl implements ProjectMgr {
         project.setUpdateTime(new Date());
         project.setCreateDate(new Date());
         List<User> usersInformed = new ArrayList<User>();
+
         for (String account : project.getMemberAccountList()) {
             User user = accountDao.getUser(account);
             if (user != null) {
@@ -102,6 +103,7 @@ public class ProjectMgrImpl implements ProjectMgr {
                 }
             }
         }
+
         int result = projectDao.addProject(project);
         for (User u : usersInformed) {
             Notification o = new Notification();
@@ -118,7 +120,7 @@ public class ProjectMgrImpl implements ProjectMgr {
             organizationDao.updateCountersInProductionLine(g
                     .getProductionLineId());
         }
-        clearCache(result);
+        clearProjectInfoCache(result);
         return result;
     }
 
@@ -139,12 +141,13 @@ public class ProjectMgrImpl implements ProjectMgr {
 
     public int updateProject(Project outerProject) {
         // first clear, for existed members
-        clearCache(outerProject.getId());
+        clearProjectInfoCache(outerProject.getId());
 
         Project project = getProject(outerProject.getId());
         project.setName(outerProject.getName());
         project.setIntroduction(outerProject.getIntroduction());
         project.setUpdateTime(new Date());
+        project.setRelatedIds(outerProject.getRelatedIds());
 
         if (outerProject.getMemberAccountList() != null) {
             // adding new ones
@@ -184,7 +187,8 @@ public class ProjectMgrImpl implements ProjectMgr {
         int returnVal = projectDao.updateProject(project);
 
         // duplex clear, for added new members
-        clearCache(project.getId());
+        clearProjectInfoCache(project.getId());
+        clearProjectDocCache(project.getId());
 
         return returnVal;
     }
@@ -226,6 +230,7 @@ public class ProjectMgrImpl implements ProjectMgr {
 
     public String updateProject(int id, String projectData,
                                 String deletedObjectListData, Map<Integer, Integer> actionIdMap) {
+        clearProjectDocCache(id);
         return projectDao.updateProject(id, projectData, deletedObjectListData, actionIdMap);
     }
 
@@ -406,7 +411,7 @@ public class ProjectMgrImpl implements ProjectMgr {
         projectDao.updateProjectNum(project);
     }
 
-    public void clearCache(int projectId) {
+    public void clearProjectInfoCache(int projectId) {
         Project p = getProject(projectId);
         List<Integer> ids = new ArrayList<Integer>();
         ids.add(p.getUserId());
@@ -420,6 +425,11 @@ public class ProjectMgrImpl implements ProjectMgr {
             String[] cacheKey = new String[]{CacheUtils.KEY_PROJECT_LIST, new Integer(userId).toString()};
             CacheUtils.del(cacheKey);
         }
+    }
+
+    public void clearProjectDocCache(int projectId) {
+        String[] cacheKey = new String[]{CacheUtils.KEY_WORKSPACE, new Integer(projectId).toString()};
+        CacheUtils.del(cacheKey);
     }
 
     private void updateActionCache(Action action) {

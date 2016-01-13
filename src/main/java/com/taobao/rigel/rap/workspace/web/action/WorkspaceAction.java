@@ -246,7 +246,7 @@ public class WorkspaceAction extends ActionBase {
             plsLogin();
             return JSON_ERROR;
         }
-        String[] cacheKey = new String[]{CacheUtils.KEY_WORKSPACE, new Integer(getCurUserId()).toString(), new Integer(getProjectId()).toString()};
+        String[] cacheKey = new String[]{CacheUtils.KEY_WORKSPACE, new Integer(getProjectId()).toString()};
         String cache = CacheUtils.get(cacheKey);
         if (cache != null) {
             setJson(cache);
@@ -370,7 +370,7 @@ public class WorkspaceAction extends ActionBase {
         workspaceMgr.addCheckIn(checkIn);
 
         // calculate JSON string for client
-        project = projectMgr.getProjectSummary(getId());
+        project = projectMgr.getProject(getId());
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{\"projectData\":" + checkIn.getProjectData());
         stringBuilder.append(",\"checkList\":[");

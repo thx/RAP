@@ -201,10 +201,19 @@ public interface ProjectMgr {
     void updateProjectNum(Project project);
 
     /**
-     * clear cache by projectId
+     * clear project model cache(without project data) by projectId
+     * influence projects list
      *
      * @param projectId
      */
-    void clearCache(int projectId);
+    void clearProjectInfoCache(int projectId);
+
+    /**
+     * clear project data cache
+     * influence workspace
+     *
+     * @param projectId
+     */
+    void clearProjectDocCache(int projectId);
 
 }
