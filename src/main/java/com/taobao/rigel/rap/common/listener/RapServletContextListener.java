@@ -17,9 +17,6 @@ public class RapServletContextListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         logger.info("RAP Server initializing...");
-
-        CacheUtils.connectRedis();
-
         logger.info("RAP Server ready.");
     }
 

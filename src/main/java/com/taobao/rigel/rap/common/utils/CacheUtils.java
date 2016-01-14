@@ -4,6 +4,8 @@ import com.taobao.rigel.rap.project.bo.Action;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 import sun.misc.Cache;
 
@@ -27,9 +29,11 @@ public class CacheUtils {
     public static final String KEY_ACCESS_USER_TO_PROJECT = "KEY_ACCESS_USER_TO_PROJECT";
     public static final String KEY_NOTIFICATION = "KEY_NOTIFICATION";
 
-    public static Jedis jedis = null;
-
     public CacheUtils() {}
+
+    private static Jedis getJedis() {
+        return JedisFactory.getInstance().getJedisPool().getResource();
+    }
 
     /**
      * get cached Mock rule
@@ -66,56 +70,28 @@ public class CacheUtils {
 
 
     public static void removeCacheByActionId(long id) {
-        jedis.del(KEY_MOCK_RULE + id);
-        System.out.println("Cache deleted, key: " + KEY_MOCK_RULE + id);
+        getJedis().del(KEY_MOCK_RULE + id);
     }
 
     public static void put(String [] keys, String value, int expireInSecs) {
-        try {
-            String cacheKey = StringUtils.join(keys, "|");
-            jedis.set(cacheKey, value);
-            if (expireInSecs > 0)
-                jedis.expire(cacheKey, expireInSecs);
-        } catch (Exception ex) {
-            logger.error(ex.getMessage());
-            connectRedis();
-        }
+        Jedis jedis = getJedis();
+        String cacheKey = StringUtils.join(keys, "|");
+        jedis.set(cacheKey, value);
+        if (expireInSecs > 0)
+            jedis.expire(cacheKey, expireInSecs);
     }
 
     public static void put(String [] keys, String value) {
-        try {
-            put(keys, value, DEFAULT_CACHE_EXPIRE_SECS);
-        } catch (Exception ex) {
-            logger.error(ex.getMessage());
-            connectRedis();
-        }
+        put(keys, value, DEFAULT_CACHE_EXPIRE_SECS);
+
     }
 
     public static String get(String []keys) {
-        return jedis.get(StringUtils.join(keys, "|"));
+        return getJedis().get(StringUtils.join(keys, "|"));
     }
 
     public static void del(String[] keys) {
         String cacheKey = StringUtils.join(keys, "|");
-        jedis.del(cacheKey);
-    }
-
-    public static void connectRedis() {
-        if (jedis != null) {
-            logger.info("Shutdown Redis for reconnecting...");
-            jedis.close();
-            jedis.shutdown();
-        }
-        // initializing redis server
-        logger.info("Initializing Redis Cache Server...");
-        try {
-            CacheUtils.jedis = new Jedis("localhost");
-            CacheUtils.jedis.flushAll();
-            logger.info("Redis Cache Server ready.");
-        } catch (JedisConnectionException ex) {
-            logger.error("Cannot connect Redis Cache Server, please check your Redis Server status. Error: " + ex.getMessage());
-            throw ex;
-        }
-        logger.info("Redis server connected.");
+        getJedis().del(cacheKey);
     }
 }
