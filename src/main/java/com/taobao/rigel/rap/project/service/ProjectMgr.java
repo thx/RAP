@@ -53,7 +53,7 @@ public interface ProjectMgr {
      */
     Project getProjectSummary(int id);
 
-    Project getProjectSummary(int id, String ver);
+    Project getProject(int id, String ver);
 
     /**
      * with project data

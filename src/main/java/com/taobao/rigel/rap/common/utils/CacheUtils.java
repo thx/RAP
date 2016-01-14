@@ -1,7 +1,11 @@
 package com.taobao.rigel.rap.common.utils;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.project.bo.Action;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.exceptions.JedisConnectionException;
+import sun.misc.Cache;
 
 import java.util.List;
 
@@ -11,6 +15,7 @@ import java.util.List;
  */
 public class CacheUtils {
     private static final int DEFAULT_CACHE_EXPIRE_SECS = 600;
+    private static final Logger logger = LogManager.getLogger(CacheUtils.class);
 
     public static final String KEY_MOCK_RULE = "KEY_MOCK_RULE:";
     public static final String KEY_MOCK_DATA = "KEY_MOCK_DATA";
@@ -66,14 +71,24 @@ public class CacheUtils {
     }
 
     public static void put(String [] keys, String value, int expireInSecs) {
-        String cacheKey = StringUtils.join(keys, "|");
-        jedis.set(cacheKey, value);
-        if (expireInSecs > 0)
-            jedis.expire(cacheKey, expireInSecs);
+        try {
+            String cacheKey = StringUtils.join(keys, "|");
+            jedis.set(cacheKey, value);
+            if (expireInSecs > 0)
+                jedis.expire(cacheKey, expireInSecs);
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+            connectRedis();
+        }
     }
 
     public static void put(String [] keys, String value) {
-        put(keys, value, DEFAULT_CACHE_EXPIRE_SECS);
+        try {
+            put(keys, value, DEFAULT_CACHE_EXPIRE_SECS);
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+            connectRedis();
+        }
     }
 
     public static String get(String []keys) {
@@ -83,5 +98,24 @@ public class CacheUtils {
     public static void del(String[] keys) {
         String cacheKey = StringUtils.join(keys, "|");
         jedis.del(cacheKey);
+    }
+
+    public static void connectRedis() {
+        if (jedis != null) {
+            logger.info("Shutdown Redis for reconnecting...");
+            jedis.close();
+            jedis.shutdown();
+        }
+        // initializing redis server
+        logger.info("Initializing Redis Cache Server...");
+        try {
+            CacheUtils.jedis = new Jedis("localhost");
+            CacheUtils.jedis.flushAll();
+            logger.info("Redis Cache Server ready.");
+        } catch (JedisConnectionException ex) {
+            logger.error("Cannot connect Redis Cache Server, please check your Redis Server status. Error: " + ex.getMessage());
+            throw ex;
+        }
+        logger.info("Redis server connected.");
     }
 }

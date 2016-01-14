@@ -148,6 +148,8 @@ public class ActionBase extends ActionSupport {
             user.setAccount((String)session.get(ContextManager.KEY_ACCOUNT));
             user.setRoleList((Set<Role>)session.get(ContextManager.KEY_ROLE_LIST));
             user.setId((Integer)session.get(ContextManager.KEY_USER_ID));
+            String empId = (String) session.get(ContextManager.KEY_EMP_ID);
+            user.setEmpId(empId);
             return user;
         } else {
             return null;

@@ -298,7 +298,7 @@ public class MockAction extends ActionBase {
         updateProjectListMockNum(SystemVisitorLog.mock(id, "createPluginScript", pattern, getCurAccount()));
         Map<String, Boolean> _circleRefProtector = new HashMap<String, Boolean>();
         List<String> list = new ArrayList<String>();
-        Project p = projectMgr.getProjectSummary(projectId);
+        Project p = projectMgr.getProject(projectId);
 
         loadWhiteList(p, list, _circleRefProtector);
         urlList = list;
@@ -308,7 +308,7 @@ public class MockAction extends ActionBase {
     public String getWhiteList() {
         Map<String, Boolean> _circleRefProtector = new HashMap<String, Boolean>();
         List<String> list = new ArrayList<String>();
-        Project p = projectMgr.getProjectSummary(projectId);
+        Project p = projectMgr.getProject(projectId);
 
         loadWhiteList(p, list, _circleRefProtector);
         urlList = list;
@@ -341,7 +341,7 @@ public class MockAction extends ActionBase {
             String[] relatedIdsArr = relatedIds.split(",");
             for (String relatedId : relatedIdsArr) {
                 int rId = Integer.parseInt(relatedId);
-                Project rP = projectMgr.getProjectSummary(rId);
+                Project rP = projectMgr.getProject(rId);
                 if (rP != null && rP.getId() > 0)
                     loadWhiteList(rP, list, map);
             }
@@ -432,7 +432,7 @@ public class MockAction extends ActionBase {
 
     private void updateProjectListMockNum(List<Project> list) {
         for (Project p : list) {
-            Project project = projectMgr.getProjectSummary(p.getId());
+            Project project = projectMgr.getProject(p.getId());
             if (project == null) continue;
             project.setMockNum(p.getMockNum() + project.getMockNum());
             projectMgr.updateProjectNum(project);

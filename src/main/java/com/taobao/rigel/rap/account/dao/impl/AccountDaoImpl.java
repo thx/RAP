@@ -94,10 +94,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
     }
 
     public User getUser(String account) {
-        String sql = "SELECT * FROM tb_user WHERE account = :account";
-        User user = (User) currentSession().createSQLQuery(sql).addEntity(User.class).setString("account", account).uniqueResult();
-        user.setRoleList(getRoleList(user.getId()));
-        return user;
+        return getUser(getUserId(account));
     }
 
     public void changeProfile(int userId, String profileProperty,

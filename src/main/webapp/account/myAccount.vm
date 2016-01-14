@@ -16,7 +16,7 @@
             <label class="col-sm-2 control-label">账号</label>
 
             <div class="col-sm-10">
-                <p id="pAccount" class="form-control-static">$!utils.escapeInH($curUser.account)</p>
+                <p id="pAccount" class="form-control-static">$!utils.escapeInH($user.account)</p>
             </div>
         </div>
         <div class="form-group row">
@@ -26,9 +26,9 @@
                 <p class="form-control-static">
                     #if($isEditMode)
                         <input name="name" minLen="2" maxLen="10" message="名字有效长度2-10" class="form-control"
-                               value="$!utils.escapeInH($curUser.name)" type="text"/>
+                               value="$!utils.escapeInH($user.name)" type="text"/>
                     #else
-                        $!utils.escapeInH($curUser.name)
+                        $!utils.escapeInH($user.name)
                     #end
                 </p>
             </div>
@@ -41,9 +41,9 @@
                     #if($isEditMode)
                         <input name="email" minLen="1" message="Email地址无效"
                                pattern="[a-zA-Z0-9_+.-]+\@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}" class="form-control"
-                               value="$!utils.escapeInH($curUser.email)" type="text"/>
+                               value="$!utils.escapeInH($user.email)" type="text"/>
                     #else
-                        $!utils.escapeInH($curUser.email)
+                        $!utils.escapeInH($user.email)
                     #end
                 </p>
             </div>
@@ -84,7 +84,7 @@
 
             <div class="col-sm-10">
                 <p class="form-control-static">
-                    $!utils.escapeInH($curUser.createDateStr)
+                    $!utils.escapeInH($user.createDateStr)
                 </p>
             </div>
         </div>

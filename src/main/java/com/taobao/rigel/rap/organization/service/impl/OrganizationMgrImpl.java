@@ -181,7 +181,8 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
     public boolean canUserManageCorp(int userId, int corpId) {
         int roleId = organizationDao.getUserRoleInCorp(userId, corpId);
-        return (roleId >= 1 && roleId <= 2 ||
+        Corporation corp = getCorporation(corpId);
+        return corp.getAccessType() == Corporation.PUBLIC_ACCESS || (roleId >= 1 && roleId <= 2 ||
                 userId == getCorporation(corpId).getUserId()) ||
                 accountMgr.getUser(userId).isAdmin();
 
@@ -213,7 +214,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
     public boolean canUserAccessProject(int userId, int projectId) {
         User u = accountMgr.getUser(userId);
-        Project p = projectMgr.getProjectSummary(projectId);
+        Project p = projectMgr.getProject(projectId);
         int teamId = organizationDao.getTeamIdByProjectId(projectId);
         Corporation c = organizationDao.getCorporation(teamId);
 

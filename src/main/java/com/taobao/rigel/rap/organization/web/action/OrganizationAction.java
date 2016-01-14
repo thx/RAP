@@ -1,6 +1,7 @@
 package com.taobao.rigel.rap.organization.web.action;
 
 import com.google.gson.Gson;
+import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.base.ActionBase;
 import com.taobao.rigel.rap.common.utils.CacheUtils;
 import com.taobao.rigel.rap.organization.bo.Corporation;
@@ -136,14 +137,15 @@ public class OrganizationAction extends ActionBase {
             List<Map<String, Object>> projects = new ArrayList<Map<String, Object>>();
 
             // int totalRecNum = projectMgr.getProjectListNum(getCurUser());
-
-            List<Project> projectList = projectMgr.getProjectList(getCurUser(), 1,
+            User curUser = getAccountMgr().getUser(getCurUserId());
+            List<Project> projectList = projectMgr.getProjectList(curUser, 1,
                     Integer.MAX_VALUE);
 
+
             for (Project p : projectList) {
-                if (getCurUser().isUserInRole("admin")
+                if (curUser.isUserInRole("admin")
                         || getAccountMgr().canUserManageProject(
-                        getCurUser().getId(), p.getId())) {
+                        curUser.getId(), p.getId())) {
                     p.setIsManagable(true);
                 }
                 Map<String, Object> map = new HashMap<String, Object>();

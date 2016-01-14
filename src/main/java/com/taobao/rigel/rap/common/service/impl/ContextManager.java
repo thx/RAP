@@ -12,6 +12,7 @@ public class ContextManager {
     // public static final String KEY_CORP_NAME = "KEY_CORP_NAME";
     public static final String KEY_NAME = "KEY_NAME";
     public static final String KEY_ROLE_LIST = "KEY_ROLE_LIST";
+    public static final String KEY_EMP_ID = "KEY_EMP_ID";
 
     @SuppressWarnings("rawtypes")
     public static Map currentSession() {

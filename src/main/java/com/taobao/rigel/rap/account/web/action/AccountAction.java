@@ -39,6 +39,16 @@ public class AccountAction extends ActionBase {
     private String profileValue;
     private boolean isEditMode = false;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    private User user;
+
     public OrganizationMgr getOrganizationMgr() {
         return organizationMgr;
     }
@@ -360,6 +370,7 @@ public class AccountAction extends ActionBase {
             setRelativeReturnUrl("/account/myAccount.action");
             return LOGIN;
         }
+        user = getAccountMgr().getUser(getCurUserId());
         return SUCCESS;
     }
 

@@ -1,18 +1,8 @@
-/**
- * RAP plugin for browsers
- * Functions: 1). IO mock data, 2). IO format check, 3). route manage
- * Supports: 1). jQuery, 2). KISSY
- *
- * @createDate Mar. 10th 2014
- * @updateDate Apr. 14th 2015
- */
+
 (function (window, undefined) {
     var node = null;
     var blackList = [];
-    var whiteList = [#foreach($url in $urlList)#if ($velocityCount > 1),#end
-    "$url"#end
-    ]
-    ;
+    var whiteList = [#foreach($url in $urlList)#if ($velocityCount > 1),#end"$url"#end];
 
     var ROOT = "$!consts.DOMAIN_URL";
     var LOST = "LOST";
@@ -30,14 +20,10 @@
         mode = +modeStr;
     }
     var modeList = [0, 1, 2, 3];
-    var projectId = $
-    !projectId;
-    var seajsEnabled = $
-    !seajs;
-    var enable = $
-    !enable;
-    var disableLog = $
-    !disableLog;
+    var projectId = $!projectId;
+    var seajsEnabled = $!seajs;
+    var enable = $!enable;
+    var disableLog = $!disableLog;
 
     console.log('Current RAP work mode:', mode, "(0-disabled, 1-intercept all requests, 2-black list, 3-white list)");
 

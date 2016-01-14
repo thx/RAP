@@ -18,18 +18,7 @@ public class RapServletContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         logger.info("RAP Server initializing...");
 
-        // initializing redis server
-        logger.info("Initializing Redis Cache Server...");
-
-        try {
-            CacheUtils.jedis = new Jedis("localhost");
-
-            CacheUtils.jedis.flushAll();
-           logger.info("Redis Cache Server ready.");
-        } catch (JedisConnectionException ex) {
-            logger.error("Cannot connect Redis Cache Server, please check your Redis Server status. Error: " + ex.getMessage());
-            throw ex;
-        }
+        CacheUtils.connectRedis();
 
         logger.info("RAP Server ready.");
     }

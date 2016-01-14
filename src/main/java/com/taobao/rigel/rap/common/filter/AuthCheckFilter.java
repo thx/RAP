@@ -99,6 +99,7 @@ public class AuthCheckFilter implements Filter {
                 session.setAttribute(ContextManager.KEY_ACCOUNT, rapUser.getAccount());
                 session.setAttribute(ContextManager.KEY_USER_ID, rapUser.getId());
                 session.setAttribute(ContextManager.KEY_NAME, rapUser.getName());
+                session.setAttribute(ContextManager.KEY_EMP_ID, rapUser.getEmpId());
                 Set<Role> roleList = new HashSet<Role>();
                 for (Role role : rapUser.getRoleList()) {
                     Role copied = new Role();

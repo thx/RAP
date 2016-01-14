@@ -1,5 +1,4 @@
 !function () {
-    // console handler
     if (typeof window.console === 'undefined') {
         window.console = {};
     }

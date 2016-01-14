@@ -238,7 +238,7 @@ public class ProjectAction extends ActionBase {
         }
         project.setMemberAccountList(memberAccountList);
         int projectId = projectMgr.addProject(project);
-        project = projectMgr.getProjectSummary(projectId);
+        project = projectMgr.getProject(projectId);
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("id", project.getId());
         result.put("name", project.getName());
@@ -276,7 +276,7 @@ public class ProjectAction extends ActionBase {
         project.setMemberAccountList(memberAccountList);
         projectMgr.updateProject(project);
 
-        project = projectMgr.getProjectSummary(project.getId());
+        project = projectMgr.getProject(project.getId());
 
         if (getCurUser().isUserInRole("admin")
                 || getCurUser().getId() == project.getUser().getId()) {

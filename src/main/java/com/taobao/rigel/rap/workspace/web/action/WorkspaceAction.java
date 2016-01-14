@@ -321,7 +321,7 @@ public class WorkspaceAction extends ActionBase {
         workspaceMgr.prepareForVersionSwitch(check);
         projectMgr.updateProject(check.getProject().getId(),
                 check.getProjectData(), "[]", new HashMap<Integer, Integer>());
-        Project project = projectMgr.getProjectSummary(check.getProject().getId());
+        Project project = projectMgr.getProject(check.getProject().getId());
         String projectData = project
                 .toString(Project.TO_STRING_TYPE.TO_PARAMETER);
         setJson("{\"projectData\":" + projectData + ", \"isOk\":true}");
@@ -507,7 +507,7 @@ public class WorkspaceAction extends ActionBase {
      * @throws Exception
      */
     public String export() throws Exception {
-        project = projectMgr.getProjectSummary(projectId);
+        project = projectMgr.getProject(projectId);
         velocityEngine.init();
         VelocityContext context = new VelocityContext();
         context.put("project", project);

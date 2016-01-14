@@ -33,9 +33,9 @@ public class OpenAPIMgrImpl implements OpenAPIMgr {
     public Object getModel(int projectId, String ver) throws Exception {
         Project project;
         if (ver != null && !ver.isEmpty()) {
-            project = projectMgr.getProjectSummary(projectId, ver);
+            project = projectMgr.getProject(projectId, ver);
         } else {
-            project = projectMgr.getProjectSummary(projectId);
+            project = projectMgr.getProject(projectId);
         }
         if (project == null || project.getId() == 0) {
             throw new Exception("Illegal project id");

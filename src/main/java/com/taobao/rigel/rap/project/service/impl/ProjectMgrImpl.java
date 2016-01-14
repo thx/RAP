@@ -75,6 +75,7 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 
     public List<Project> getProjectList(User user, int curPageNum, int pageSize) {
+        
         List<Project> projectList = projectDao.getProjectList(user, curPageNum,
                 pageSize);
         for (Project p : projectList) {
@@ -128,7 +129,7 @@ public class ProjectMgrImpl implements ProjectMgr {
     public int removeProject(int id) {
         clearProjectDocCache(id);
         clearProjectInfoCache(id);
-        Project p = getProjectSummary(id);
+        Project p = getProject(id);
         Group g = organizationDao.getGroup(p.getGroupId());
         int result = projectDao.removeProject(id);
         if (g != null) {
@@ -204,7 +205,7 @@ public class ProjectMgrImpl implements ProjectMgr {
     }
 
 
-    public Project getProjectSummary(int id, String ver) {
+    public Project getProject(int id, String ver) {
         CheckIn check = workspaceDao.getVersion(id, ver);
         String projectData = check.getProjectData();
 
@@ -216,7 +217,6 @@ public class ProjectMgrImpl implements ProjectMgr {
 
     public Project getProject(int id) {
         Project p = projectDao.getProject(id);
-        // p.setUser(accountMgr.getUser(p.getUserId()));
         return p;
     }
 
@@ -394,7 +394,7 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 
     public void updateCache(int projectId) {
-        Project project = getProjectSummary(projectId);
+        Project project = getProject(projectId);
         for (Module module : project.getModuleList()) {
             for (Page page : module.getPageList()) {
                 for (Action action : page.getActionList()) {

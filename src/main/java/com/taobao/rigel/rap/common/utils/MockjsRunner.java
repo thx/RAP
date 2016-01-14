@@ -1,13 +1,14 @@
 package com.taobao.rigel.rap.common.utils;
 
 import com.taobao.rigel.rap.common.config.SystemConstant;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class MockjsRunner {
 
@@ -16,44 +17,32 @@ public class MockjsRunner {
     private static String jsCode;
     private Context ct;
     private Scriptable scope;
+    private static final Logger logger = LogManager.getLogger(MockjsRunner.class);
 
     public MockjsRunner() {
         this.ct = Context.enter();
         this.scope = ct.initStandardObjects();
+        this.ct.setOptimizationLevel(-1);
         this.initMockjs(ct, scope);
     }
 
     public static String getMockjsCode() {
-        String filePath = MockjsRunner.MOCKJS_PATH;
         try {
-            FileInputStream fis = new FileInputStream(filePath);
-            StringBuffer content = new StringBuffer();
-            DataInputStream in = new DataInputStream(fis);
-            BufferedReader d = new BufferedReader(new InputStreamReader(in,
-                    "UTF-8"));
-            String line = null;
-            while ((line = d.readLine()) != null)
-                content.append(line + "\n");
-            d.close();
-            in.close();
-            fis.close();
-            return content.toString();
-
+            byte[] encoded = Files.readAllBytes(Paths.get(MOCKJS_PATH));
+            String result =  new String(encoded, StandardCharsets.UTF_8);
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
-            return "ERROR";
+            return "\"ERROR\"";
         } finally {
         }
     }
 
     public static String renderMockjsRule(String mockRule) {
-
         return new MockjsRunner().doRenderMockJsRule(mockRule);
-
     }
 
     public static void main(String[] args) {
-        System.out.println(MockjsRunner.renderMockjsRule("{'id|1-20': '1', 'b': '@IMG'}"));
     }
 
     public Context getContext() {
@@ -66,7 +55,7 @@ public class MockjsRunner {
 
     private void initMockjs(Context ct, Scriptable scope) {
         if (jsCode == null) {
-            jsCode = MockjsRunner.getMockjsCode();
+            jsCode = getMockjsCode();
         }
         try {
             ct.evaluateString(scope, jsCode, null, 1, null);
@@ -88,6 +77,7 @@ public class MockjsRunner {
                     .append("result = JSON.stringify(obj.__root__ ? obj.__root__ : obj, null, 4);")
                     .append("} catch(ex) {result.errMsg = ex.message;result.isOk=false;result = JSON.stringify(result);}")
                     .append("result;");
+
             Object result = ct.evaluateString(scope, code.toString(), null, 1,
                     null);
             returnVal = result.toString();

@@ -39,6 +39,11 @@
             <version>4.2.4.RELEASE</version>
         </dependency>
         <dependency>
+            <groupId>dk.brics.automaton</groupId>
+            <artifactId>automaton</artifactId>
+            <version>1.11-8</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
             <version>1.7</version>
