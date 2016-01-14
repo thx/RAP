@@ -126,6 +126,8 @@ public class ProjectMgrImpl implements ProjectMgr {
 
 
     public int removeProject(int id) {
+        clearProjectDocCache(id);
+        clearProjectInfoCache(id);
         Project p = getProjectSummary(id);
         Group g = organizationDao.getGroup(p.getGroupId());
         int result = projectDao.removeProject(id);
@@ -196,7 +198,8 @@ public class ProjectMgrImpl implements ProjectMgr {
 
     public Project getProjectSummary(int id) {
         Project p = projectDao.getProjectSummary(id);
-        p.setUser(accountMgr.getUser(p.getUserId()));
+        if (p != null)
+            p.setUser(accountMgr.getUser(p.getUserId()));
         return p;
     }
 

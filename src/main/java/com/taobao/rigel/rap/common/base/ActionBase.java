@@ -1,5 +1,6 @@
 package com.taobao.rigel.rap.common.base;
 
+import com.google.gson.reflect.TypeToken;
 import com.opensymphony.xwork2.ActionSupport;
 import com.taobao.rigel.rap.account.bo.Role;
 import com.taobao.rigel.rap.account.bo.User;
@@ -45,7 +46,7 @@ public class ActionBase extends ActionSupport {
         String cache = CacheUtils.get(cacheKey);
         List<Map<String, Object>> corpList = new ArrayList<Map<String, Object>>();
         if (cache != null) {
-            corpList = CommonUtils.gson.fromJson(cache, List.class);
+            corpList = CommonUtils.gson.fromJson(cache, new TypeToken<ArrayList<Corporation>>(){}.getType());
         } else {
             List<Corporation> list = accountMgr.getCorporationListWithPager(getCurUserId(), 1, 20);
             for (Corporation c : list) {
@@ -61,7 +62,7 @@ public class ActionBase extends ActionSupport {
         String cache = CacheUtils.get(cacheKey);
         List<Map<String, Object>> corpList = new ArrayList<Map<String, Object>>();
         if (cache != null) {
-            corpList = CommonUtils.gson.fromJson(cache, List.class);
+            corpList = CommonUtils.gson.fromJson(cache,  new TypeToken<ArrayList<Corporation>>(){}.getType());
         } else {
             List<Corporation> list = accountMgr.getCorporationListWithPager(getCurUserId(), 1, 999);
             for (Corporation c : list) {

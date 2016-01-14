@@ -6,11 +6,13 @@ import com.taobao.rigel.rap.account.bo.Role;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.base.ActionBase;
 import com.taobao.rigel.rap.common.service.impl.ContextManager;
+import com.taobao.rigel.rap.common.utils.CacheUtils;
 import com.taobao.rigel.rap.common.utils.Pinyin4jUtil;
 import com.taobao.rigel.rap.common.utils.StringUtils;
 import com.taobao.rigel.rap.common.utils.SystemVisitorLog;
 import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
+import sun.misc.Cache;
 
 import javax.mail.internet.AddressException;
 import java.util.*;
@@ -91,34 +93,44 @@ public class AccountAction extends ActionBase {
             plsLogin();
             return LOGIN;
         }
-        List<Notification> list = getAccountMgr().getUnreadNotificationList(getCurUserId());
-        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-        for (Notification o : list) {
-            Map<String, Object> m = new HashMap<String, Object>();
-            m.put("id", o.getId());
-            m.put("param1", o.getParam1());
-            m.put("param2", o.getParam2());
-            m.put("param3", o.getParam3());
 
-            Map<String, Object> user = new HashMap<String, Object>();
-            user.put("name", o.getUser().getName());
-            user.put("id", o.getUser().getId());
-            m.put("user", user);
+        String[] cacheKey = new String[]{CacheUtils.KEY_NOTIFICATION, new Integer(getCurUserId()).toString()};
 
-            Map<String, Object> targetUser = new HashMap<String, Object>();
-            targetUser.put("name", o.getTargetUser().getName());
-            targetUser.put("id", o.getTargetUser().getId());
+        String cache = CacheUtils.get(cacheKey);
+        if (cache != null) {
+            setJson(cache);
+        } else {
 
-            m.put("targetUser", targetUser);
+            List<Notification> list = getAccountMgr().getUnreadNotificationList(getCurUserId());
+            List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+            for (Notification o : list) {
+                Map<String, Object> m = new HashMap<String, Object>();
+                m.put("id", o.getId());
+                m.put("param1", o.getParam1());
+                m.put("param2", o.getParam2());
+                m.put("param3", o.getParam3());
 
-            m.put("createTime", o.getCreateTime().getTime());
-            m.put("createTimeStr", o.getCreateTimeStr());
-            m.put("typeId", o.getTypeId());
-            result.add(m);
+                Map<String, Object> user = new HashMap<String, Object>();
+                user.put("name", o.getUser().getName());
+                user.put("id", o.getUser().getId());
+                m.put("user", user);
+
+                Map<String, Object> targetUser = new HashMap<String, Object>();
+                targetUser.put("name", o.getTargetUser().getName());
+                targetUser.put("id", o.getTargetUser().getId());
+
+                m.put("targetUser", targetUser);
+
+                m.put("createTime", o.getCreateTime().getTime());
+                m.put("createTimeStr", o.getCreateTimeStr());
+                m.put("typeId", o.getTypeId());
+                result.add(m);
+            }
+            Gson gson = new Gson();
+            String json = gson.toJson(result);
+            setJson(json);
+            CacheUtils.put(cacheKey, json, 60 * 10);
         }
-        Gson gson = new Gson();
-        String json = gson.toJson(result);
-        setJson(json);
         return SUCCESS;
     }
 

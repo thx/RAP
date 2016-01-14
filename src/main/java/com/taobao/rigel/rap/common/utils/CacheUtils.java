@@ -20,6 +20,7 @@ public class CacheUtils {
     public static final String KEY_WORKSPACE = "KEY_WORKSPACE";
 
     public static final String KEY_ACCESS_USER_TO_PROJECT = "KEY_ACCESS_USER_TO_PROJECT";
+    public static final String KEY_NOTIFICATION = "KEY_NOTIFICATION";
 
     public static Jedis jedis = null;
 
