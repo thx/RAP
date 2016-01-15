@@ -79,7 +79,7 @@
                     #end
 
                     <li><a href="$platformUrl.doc" target="_blank">文档</a></li>
-                    <li><a href="$platformUrl.test">测试</a></li>
+                    <li style="display:none;"><a href="$platformUrl.test">测试</a></li>
                     <li><a href="$platformUrl.log">数据</a></li>
                     <li><a href="$platformUrl.study" target="_blank">教程
                         <!-- <span style="color:yellow;"> (new)</span> -->
@@ -162,11 +162,10 @@
                                                         style="margin-left: 10px;">取消
                                                 </button>
                                             </div>
-                                            <!--<button type="button" onclick="window.location.href = '$accountUrl.register'" class="btn">注册</button>-->
                                         </form>
                                     </li>
-                                    <li class="divider"></li>
-                                    <li>
+                                    <li style="display:none;" class="divider"></li>
+                                    <li style="display:none;">
                                         <div class="navbar-form">
                                             <a href="https://$consts.aliLoginUrl/ssoLogin.htm?APP_NAME=rapauto&BACK_URL=$homeUrlEncoded&CANCEL_CERT=true&CLIENT_VERSION=0.3.9&CONTEXT_PATH=%2F">
                                                 <span class="btn btn-warning other-login-btn sso-login">用阿里域账号登录</span>
@@ -175,7 +174,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li style="display:none;">
+                            <li>
                                 <a href="javascript:void(0);" class="dropdown-toggle" id="register-trigger">注册</a>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
