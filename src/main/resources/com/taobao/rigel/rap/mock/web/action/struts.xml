@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!--suppress ALL -->
+<struts>
+
+    <package name="mock" extends="rap-default" namespace="/mock">
+
+        <action name="modify" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+                method="modify">
+            <result name="success" type="velocity">/bcom/isOkWithNum.cb.vm
+            </result>
+        </action>
+
+        <action name="reset" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+                method="reset">
+            <result name="success" type="velocity">/bcom/isOkWithNum.cb.vm
+            </result>
+        </action>
+
+        <action name="createData" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+                method="createData">
+            <result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="json" type="rapVelocityResult">
+                <param name="contentType">application/json</param>
+                <param name="location">/bcom/contentWithoutEscape.cb.vm</param>
+            </result>
+        </action>
+
+        <action name="createRule" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+                method="createRule">
+            <result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="json" type="rapVelocityResult">
+                <param name="contentType">application/json</param>
+                <param name="location">/bcom/contentWithoutEscape.cb.vm</param>
+            </result>
+        </action>
+
+        <action name="createRuleAuto" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+                method="createRuleAuto">
+            <result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="json" type="rapVelocityResult">
+                <param name="contentType">application/json</param>
+                <param name="location">/bcom/contentWithoutEscape.cb.vm</param>
+            </result>
+        </action>
+
+        <action name="createRuleByActionData" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+                method="createRuleByActionData">
+            <result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="json" type="rapVelocityResult">
+                <param name="contentType">application/json</param>
+                <param name="location">/bcom/contentWithoutEscape.cb.vm</param>
+            </result>
+        </action>
+
+        <action name="createMockjsData" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+                method="createMockjsData">
+            <result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="json" type="rapVelocityResult">
+                <param name="contentType">application/json</param>
+                <param name="location">/bcom/contentWithoutEscape.cb.vm</param>
+            </result>
+        </action>
+
+        <action name="createMockjsDataAuto" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+                method="createMockjsDataAuto">
+            <result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="json" type="rapVelocityResult">
+                <param name="contentType">application/json</param>
+                <param name="location">/bcom/contentWithoutEscape.cb.vm</param>
+            </result>
+        </action>
+
+        <action name="validateAPI" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+                method="validateAPI">
+            <result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="json" type="rapVelocityResult">
+                <param name="contentType">application/json</param>
+                <param name="location">/bcom/contentWithoutEscape.cb.vm</param>
+            </result>
+        </action>
+
+        <action name="createPluginScript" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+                method="createPluginScript">
+            <result name="success" type="rapVelocityResult">
+                <param name="contentType">text/javascript</param>
+                <param name="location">/mock/createPluginScript.vm</param>
+            </result>
+        </action>
+
+        <action name="getWhiteList" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+                method="getWhiteList">
+            <result name="success" type="velocity">/bcom/json.cb.vm
+            </result>
+        </action>
+
+        <action name="requestOnServer" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+                method="requestOnServer">
+            <result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+        </action>
+
+        <action name="queryMockData" class="com.taobao.rigel.rap.mock.web.action.MockAction"
+                method="queryMockData">
+            <result name="error" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="success" type="velocity">/bcom/contentWithoutEscape.cb.vm
+            </result>
+            <result name="json" type="rapVelocityResult">
+                <param name="contentType">application/json</param>
+                <param name="location">/bcom/contentWithoutEscape.cb.vm</param>
+            </result>
+        </action>
+    </package>
+</struts>

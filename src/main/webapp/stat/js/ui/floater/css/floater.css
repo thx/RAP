@@ -1,0 +1,93 @@
+.floaterd {
+    padding-top: 3px;
+}
+
+.floaterd-top {
+    background: #3B5C55
+}
+
+.floaterd-bottom {
+    display: none
+}
+
+.floater {
+    position: absolute !important;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .2);
+    outline: none;
+    border: none;
+}
+
+.ec-form.floater {
+    padding-top: 52px;
+}
+
+.floater-title {
+    cursor: move;
+    border-radius: 6px 6px 0 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 52px;
+    padding: 4px 10px 0 18px;
+    font-size: 18px;
+    color: #333;
+    min-height: 16.42857143px;
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+    font-weight: bold;
+    position: absolute
+}
+
+.floater-close {
+    position: absolute;
+    right: 18px;
+    top: 14px;
+    font-size: 1px;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .2;
+    cursor: pointer;
+}
+
+.floater-close:after {
+    content: '×';
+}
+
+.floater-close:hover {
+    opacity: .4;
+}
+
+.floater-content {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: 0 0 6px 6px;
+    outline: none;
+}
+
+.floater-inner {
+    overflow-y: auto;
+    overflow-x: hidden
+}
+
+.floater-corner {
+    background: #fff
+}
+
+.div-floater-control {
+    padding: 15px 20px 2px;
+    margin-top: 20px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+    margin-left: -19px;
+    margin-right: -19px;
+}

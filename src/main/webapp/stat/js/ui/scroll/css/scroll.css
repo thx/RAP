@@ -1,0 +1,141 @@
+.ec-vscroll {
+    background: #F0F0F0;
+    width: auto;
+    padding: 15px 0px 15px 0px;
+    font-size: 0px
+}
+
+.ec-hscroll {
+    background: #F0F0F0;
+    height: auto;
+    padding: 0px 15px 0px 15px;
+    font-size: 0px
+}
+
+.ec-hscroll-block {
+    background: url(img/hscroll.jpg) -2px -30px repeat-x
+}
+
+.ec-vscroll-block {
+    background: url(img/scroll.jpg) 0px 0px repeat-y
+}
+
+.ec-hscroll-block-over {
+    background: url(img/hscroll.jpg) -0px -45px repeat-x
+}
+
+.ec-hscroll-block-press {
+    background: url(img/hscroll.jpg) -0px -60px repeat-x
+}
+
+.ec-vscroll-block-over {
+    background: url(img/scroll.jpg) -15px 0px repeat-y
+}
+
+.ec-vscroll-block-press {
+    background: url(img/scroll.jpg) -30px 0px repeat-y
+}
+
+.ec-vscroll-prev {
+    background: url(img/scroll.jpg) -45px -40px no-repeat;
+}
+
+.ec-vscroll-prev-over {
+    background: url(img/scroll.jpg) -75px -40px no-repeat;
+}
+
+.ec-vscroll-prev-press {
+    background: url(img/scroll.jpg) -60px -40px no-repeat;
+}
+
+.ec-vscroll-next {
+    background: url(img/scroll.jpg) -45px -55px no-repeat;
+}
+
+.ec-vscroll-next-over {
+    background: url(img/scroll.jpg) -75px -55px no-repeat;
+}
+
+.ec-vscroll-next-press {
+    background: url(img/scroll.jpg) -60px -55px no-repeat;
+}
+
+.ec-hscroll-prev {
+    background: url(img/scroll.jpg) -45px -85px no-repeat;
+}
+
+.ec-hscroll-prev-over {
+    background: url(img/scroll.jpg) -75px -85px no-repeat;
+}
+
+.ec-hscroll-prev-press {
+    background: url(img/scroll.jpg) -60px -85px no-repeat;
+}
+
+.ec-hscroll-next {
+    background: url(img/scroll.jpg) -45px -70px no-repeat;
+}
+
+.ec-hscroll-next-over {
+    background: url(img/scroll.jpg) -75px -70px no-repeat;
+}
+
+.ec-hscroll-next-press {
+    background: url(img/scroll.jpg) -60px -70px no-repeat;
+}
+
+.vsblockdtr {
+    padding: 2px 0px
+}
+
+.vsblockdtr-top {
+    background: url(img/scroll.jpg) -45px 0px no-repeat
+}
+
+.vsblockdtr-bottom {
+    background: url(img/scroll.jpg) -45px -18px no-repeat
+}
+
+.vsblockdtr-over .vsblockdtr-top {
+    background: url(img/scroll.jpg) -45px -20px no-repeat
+}
+
+.vsblockdtr-over .vsblockdtr-bottom {
+    background: url(img/scroll.jpg) -45px -38px no-repeat
+}
+
+.vsblockdtr-press .vsblockdtr-top {
+    background: url(img/scroll.jpg) -60px 0px no-repeat
+}
+
+.vsblockdtr-press .vsblockdtr-bottom {
+    background: url(img/scroll.jpg) -60px -38px no-repeat
+}
+
+.hsblockdtr {
+    padding: 0px 2px
+}
+
+.hsblockdtr-left {
+    background: url(img/hscroll.jpg) -60px 0px no-repeat
+}
+
+.hsblockdtr-right {
+    background: url(img/hscroll.jpg) -18px 0px no-repeat
+}
+
+.hsblockdtr-over .hsblockdtr-left {
+    background: url(img/hscroll.jpg) -40px -0px no-repeat
+}
+
+.hsblockdtr-over .hsblockdtr-right {
+    background: url(img/hscroll.jpg) -38px -0px no-repeat
+}
+
+.hsblockdtr-press .hsblockdtr-left {
+    background: url(img/hscroll.jpg) -40px -15px no-repeat
+}
+
+.hsblockdtr-press .hsblockdtr-right {
+    background: url(img/hscroll.jpg) -38px -15px no-repeat
+}

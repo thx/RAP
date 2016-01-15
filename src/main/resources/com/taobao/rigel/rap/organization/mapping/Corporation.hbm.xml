@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.taobao.rigel.rap.organization.bo.Corporation" table="tb_corporation">
+        <id name="id">
+            <column name="id"/>
+            <generator class="identity"/>
+        </id>
+        <property name="name">
+            <column name="name"/>
+        </property>
+        <property name="logoUrl">
+            <column name="logo_url"/>
+        </property>
+        <property name="userId">
+            <column name="user_id" not-null="true">
+                <comment>creator id</comment>
+            </column>
+        </property>
+        <property name="desc">
+            <column name="desc"/>
+        </property>
+        <property name="accessType" type="short">
+            <column name="access_type" not-null="true">
+                <comment>access type</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

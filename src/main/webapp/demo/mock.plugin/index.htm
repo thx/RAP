@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>RAP Example</title>
+<script src="http://code.jquery.com/jquery-1.11.0.js"></script>
+<!-- 引入RAP开始 -->
+<script src="http://localhost:8001/rap.plugin.js?projectId=43&disableLog=true"></script>
+<!-- 引入RAP结束 -->
+</head>
+<body>
+<pre id="container"></pre>
+<script>
+    /**
+     KISSY.use([ 'node', 'ajax' ], {
+            success : function(S, Node, IO) {
+                IO({
+                    url : '/jsonImport',
+                    dataType : 'json',
+                    type : 'get',
+                    success : function(data) {
+                        Node.one('#container').html(JSON.stringify(data, null, 4));
+                    }
+                });
+            }
+        });
+     */
+
+    /**
+     $.get("/abc").done(function(res) {
+            $('#container').html(JSON.stringify(res, null, 4));
+        });
+     */
+
+
+    $.ajax({
+        url: 'x',
+        success: function (json) {
+            //debugger;
+            console.log(json);
+        },
+        failure: function () {
+            //debugger;
+        },
+        error: function () {
+            console.log('error');
+            console.dir(arguments);
+            //debugger;
+        }
+    });
+
+    /**
+     $.ajax('abc', {
+            data:{id:1},
+            success:function(json){
+                console.log(json);
+                $('#container').html(JSON.stringify(json, null, 4));
+            }
+        });
+     */
+</script>
+</body>
+</html>

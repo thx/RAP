@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+    #parse('/tcom/template.rap.vm')
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>注册新的RAP账户 </title>
+    #includeNewRapStatic
+</head>
+<body>
+#bodyNewStart
+<div style="width:600px;">
+    <form name="formMain" action="$accountUrl.doRegister" class="form-horizontal" method="post"
+          onsubmit="return formOnSubmit(this);">
+        <div class="form-group row">
+            <label class="col-sm-2 control-label">账号</label>
+
+            <div class="col-sm-10">
+                <input name="account" minLen="2" maxLen="20" message="请输入账号,长度2~20" class="form-control"
+                       value="$!utils.escapeInH($account)" type="text"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 control-label">名字</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    <input name="name" minLen="2" maxLen="10" message="名字有效长度2-10" class="form-control"
+                           value="$!utils.escapeInH($name)" type="text"/>
+                </p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 control-label">Email</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    <input name="email" minLen="1" message="Email地址无效"
+                           pattern="[a-zA-Z0-9_+.-]+\@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}" class="form-control"
+                           value="$!utils.escapeInH($email)" type="text"/>
+                </p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 control-label">密码</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    <input id="password" name="password" class="form-control" type="password" placeholder="请输入密码"/>
+                </p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 control-label">确认密码</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    <input id="confirmPassword" name="confirmPassword" class="form-control" type="password"
+                           placeholder="请再次输入密码"/>
+                </p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 control-label"></label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    <span class="alert alert-danger" id="errMsg"  #if($errMsg && $errMsg != "")#else
+                          style="display:none;"#end>$!utils.escapeInH($errMsg)</span>
+                </p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 control-label"></label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    <input type="submit" value="注册" class="btn btn-primary"/>
+                </p>
+            </div>
+        </div>
+    </form>
+</div>
+#bodyEnd
+<script type="text/javascript">
+    function formOnSubmit(form) {
+        if ($('#password').val() != $("#confirmPassword").val()) {
+            $('#errMsg').html('两次密码输入不一致');
+            $('#errMsg').show();
+            return false;
+        }
+        return rap.util.validator.validForm(form);
+    }
+</script>
+</body>
+</html>

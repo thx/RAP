@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toolbox>
+    <tool>
+        <key>utils</key>
+        <scope>application</scope>
+        <class>com.taobao.rigel.rap.common.utils.StringUtils</class>
+    </tool>
+    <tool>
+        <key>dateUtils</key>
+        <scope>application</scope>
+        <class>com.taobao.rigel.rap.common.utils.DateUtils</class>
+    </tool>
+    <tool>
+        <key>consts</key>
+        <scope>application</scope>
+        <class>com.taobao.rigel.rap.common.config.SystemConstant</class>
+    </tool>
+    <tool>
+        <key>logger</key>
+        <scope>application</scope>
+        <class>com.taobao.rigel.rap.common.utils.SystemVisitorLog</class>
+    </tool>
+</toolbox>

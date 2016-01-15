@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.taobao.rigel.rap.project.bo.Module" table="tb_module">
+        <id name="id">
+            <column name="id"/>
+            <generator class="identity"/>
+        </id>
+        <property name="name" type="string">
+            <column name="name" not-null="true"/>
+        </property>
+        <property name="introduction" type="string">
+            <column name="introduction"/>
+        </property>
+        <many-to-one name="project" column="project_id"/>
+        <set name="pageList" order-by="id asc" inverse="true" cascade="delete">
+            <key column="module_id" not-null="true"/>
+            <one-to-many class="com.taobao.rigel.rap.project.bo.Page"/>
+        </set>
+    </class>
+</hibernate-mapping>

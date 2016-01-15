@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="account" extends="rap-default" namespace="/account">
+        <action name="test"
+                class="com.taobao.rigel.rap.account.web.action.AccountAction" method="test">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="login"
+                class="com.taobao.rigel.rap.account.web.action.AccountAction" method="login">
+            <result name="success" type="velocity">/account/login.vm</result>
+        </action>
+        <action name="logData"
+                class="com.taobao.rigel.rap.account.web.action.AccountAction" method="logData">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="doLogin"
+                class="com.taobao.rigel.rap.account.web.action.AccountAction" method="doLogin">
+            <result name="success" type="redirectAction">
+                <param name="actionName">index</param>
+                <param name="namespace">/org</param>
+            </result>
+            <result name="error" type="velocity">/account/login.vm</result>
+        </action>
+        <action name="doLogout"
+                class="com.taobao.rigel.rap.account.web.action.AccountAction" method="doLogout">
+            <result name="success" type="velocity">/platform/home.vm</result>
+        </action>
+        <action name="register" class="com.taobao.rigel.rap.account.web.action.AccountAction"
+                method="register">
+            <result name="success" type="velocity">/account/register.vm</result>
+        </action>
+        <action name="doRegister"
+                class="com.taobao.rigel.rap.account.web.action.AccountAction" method="doRegister">
+            <result name="success" type="velocity">/platform/home.vm</result>
+            <result name="error" type="velocity">/account/register.vm</result>
+        </action>
+        <action name="myAccount"
+                class="com.taobao.rigel.rap.account.web.action.AccountAction" method="myAccount">
+            <result name="success" type="velocity">/account/myAccount.vm</result>
+            <result name="error" type="velocity">/account/login.vm</result>
+        </action>
+        <action name="mySetting"
+                class="com.taobao.rigel.rap.account.web.action.AccountAction" method="mySetting">
+            <result name="success" type="velocity">/account/mySetting.vm</result>
+            <result name="error" type="velocity">/account/login.vm</result>
+        </action>
+
+        <action name="updateProfile" class="com.taobao.rigel.rap.account.web.action.AccountAction"
+                method="updateProfile">
+            <result name="success" type="velocity">/account/myAccount.vm</result>
+        </action>
+        <action name="doUpdateProfile" class="com.taobao.rigel.rap.account.web.action.AccountAction"
+                method="doUpdateProfile">
+            <result name="success" type="velocity">/account/myAccount.vm</result>
+        </action>
+        <action name="doChangeProfile"
+                class="com.taobao.rigel.rap.account.web.action.AccountAction" method="doChangeProfile">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="all"
+                class="com.taobao.rigel.rap.account.web.action.AccountAction" method="all">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="getUnreadNotificationList"
+                class="com.taobao.rigel.rap.account.web.action.AccountAction" method="getUnreadNotificationList">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="getNotificationList"
+                class="com.taobao.rigel.rap.account.web.action.AccountAction" method="getNotificationList">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="readAllNotification"
+                class="com.taobao.rigel.rap.account.web.action.AccountAction" method="readAllNotification">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+    </package>
+    <package name="root" extends="rap-default" namespace="/root">
+        <action name="sendBucSSOToken"
+                class="com.taobao.rigel.rap.account.web.action.AccountAction" method="sendBucSSOToken">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+    </package>
+</struts>

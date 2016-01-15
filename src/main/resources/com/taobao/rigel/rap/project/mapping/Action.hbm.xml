@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.taobao.rigel.rap.project.bo.Action" table="tb_action">
+        <id name="id">
+            <column name="id"/>
+            <generator class="identity"/>
+        </id>
+        <property name="name">
+            <column name="name"/>
+        </property>
+        <property name="description">
+            <column name="description"/>
+        </property>
+        <property name="requestType">
+            <column name="request_Type"/>
+        </property>
+        <property name="disableCache">
+            <column name="disable_cache"/>
+        </property>
+        <property name="requestUrl">
+            <column name="request_url"/>
+        </property>
+        <property name="responseTemplate">
+            <column name="response_template"/>
+        </property>
+        <set name="pageList" order-by="page_id asc" inverse="true"
+             table="tb_action_and_page">
+            <key column="action_id" not-null="true"/>
+            <many-to-many column="page_id"
+                          class="com.taobao.rigel.rap.project.bo.Page"/>
+        </set>
+        <set name="requestParameterList" inverse="true" cascade="delete"
+             table="tb_request_parameter_list_mapping">
+            <key column="action_id" not-null="true"/>
+            <many-to-many column="parameter_id"
+                          class="com.taobao.rigel.rap.project.bo.Parameter"/>
+        </set>
+        <set name="responseParameterList" inverse="true" cascade="delete"
+             table="tb_response_parameter_list_mapping">
+            <key column="action_id" not-null="true"/>
+            <many-to-many column="parameter_id"
+                          class="com.taobao.rigel.rap.project.bo.Parameter"/>
+        </set>
+    </class>
+</hibernate-mapping>

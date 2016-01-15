@@ -1,0 +1,267 @@
+.clearfix {
+    *zoom: 1;
+}
+
+#txtRootPath {
+    vertical-align: initial;
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+label {
+    margin-bottom: 0;
+}
+
+label .field {
+    margin-bottom: 0;
+}
+
+.div-a .head {
+    text-align: center;
+}
+
+.div-a .dataType {
+    text-align: center;
+}
+
+.tr-p {
+    height: 25px;
+}
+
+.td-p {
+    border: Gray 1px solid;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+.table-a {
+    border: Gray 1px solid;
+    border-collapse: collapse;
+    margin: 12px 8px 8px 8px;
+}
+
+.div-a {
+    margin: 12px;
+}
+
+.div-a .head {
+    text-align: center;
+}
+
+.div-a .head-name {
+    width: 120px
+}
+
+.div-a .head-validator {
+    width: 80px;
+}
+
+.div-a .head-type {
+    width: 60px;
+}
+
+.div-a .head-remark {
+    width: 200px;
+}
+
+.div-a .head-identifier {
+    width: 140px;
+}
+
+.div-a .name {
+
+}
+
+.nav {
+    margin-bottom: 0px;
+}
+
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover {
+    background-color: #F2F2F2;
+}
+
+.tester-form {
+    border: 1px solid #ddd;
+    margin-top: -1px;
+    border-radius: 0 0 3px 3px;
+}
+
+.block {
+    margin: 12px 0;
+    padding: 8px;
+    border: 1px dashed #DFDFDF;
+}
+
+.p8 {
+    padding: 8px;
+}
+
+.tab-pane .name {
+    min-width: 120px;
+    display: inline-block;
+    text-align: right;
+    color: #666;
+    padding-right: 4px;
+}
+
+.tab-pane .remark {
+    color: #AAA;
+    display: inline-block;
+    margin-left: 3px;
+    cursor: pointer;
+}
+
+.tab-pane .remark .detail {
+    display: none;
+    position: absolute;
+    min-width: 100px;
+    margin-top: -25px;
+    margin-left: 30px;
+    border: 1px solid #CCC;
+    background-color: #FFF;
+    padding: 4px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+
+.tab-pane .remark .detail:after {
+    position: absolute;
+    top: 10px;
+    left: -4px;
+    background-color: #FFF;
+    content: '';
+    width: 6px;
+    height: 6px;
+    display: inline-block;
+    -webkit-transform: rotateZ(-45deg);
+    -moz-transform: rotateZ(-45deg);
+    transform: rotateZ(-45deg);
+    border-top: 1px solid #CCC;
+    border-left: 1px solid #CCC;
+}
+
+.tab-pane .remark:hover .detail {
+    display: block;
+}
+
+.identifier {
+    color: Red;
+}
+
+.url {
+    color: Silver;
+}
+
+.div-a .validator {
+    color: Red;
+    text-align: center;
+}
+
+.div-a .real {
+    color: Red;
+    text-align: center;
+}
+
+.div-a .remark {
+    color: Blue;
+}
+
+.div-a .identifier {
+    color: Red;
+}
+
+input, textarea {
+    border: 1px solid #CCCCCC;
+}
+
+.bottom {
+    height: 20px;
+}
+
+#header, #footer {
+    display: none;
+}
+
+#divResBoard {
+}
+
+#divResBoardJson {
+    width: 100%;
+    min-height: 400px;
+    overflow-y: auto;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+#divResBoardLog {
+    width: 50%;
+    height: 100px;
+    overflow-y: auto;
+    word-wrap: break-word;
+    word-break: break-all;
+    position: fixed;
+    bottom: 0;
+    border: 1px solid rgb(230, 230, 230);
+    right: 0;
+    padding: 20px 10px 10px;
+    background-color: #F2F2F2;
+    border-top-width: 2px;
+}
+
+#divResBoardLog .triggers {
+    position: absolute;
+    right: 2px;
+    top: 0px;
+    z-index: 1000;
+    background-color: #F2F2F2;
+}
+
+.trigger {
+    border: 2px solid #DDD;
+    text-align: center;
+    color: #CCC;
+    cursor: pointer;
+    background-color: #FFF;
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    font-size: 22px;
+    line-height: 26px;
+    float: left;
+    margin-left: 10px;
+    margin-top: 4px;
+}
+
+#show-trigger {
+    display: none;
+    position: fixed;
+    bottom: 90px;
+    right: 10px;
+    display: none;
+}
+
+#divActionList {
+}
+
+#page {
+    padding: 12px 20px 0;
+}
+
+#divRootSetting {
+    position: fixed;
+    top: 70px;
+    right: 10px;
+    background-color: #FFF;
+    height: 30px;
+    padding: 4px;
+    border-radius: 4px;
+}

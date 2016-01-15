@@ -1,0 +1,61 @@
+#macro (includeEditorStatic)
+<link href="$staticRoot/js/ui/editor/css/editor.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="$staticRoot/js/ui/dialog/js/Dialog.js"></script>
+<script type="text/javascript" src="$staticRoot/js/ui/editor/js/editor.js"></script>
+<script type="text/javascript" src="$staticRoot/js/ui/editor/js/editorPlugin.js"></script>
+#end
+
+#macro (createEditor $suffix $textareaName $editorWidth $editorHeight $selfInit)
+    #set($editorAreaWidth = $editorWidth - 10)
+<div id="$!{suffix}EditorContainer" style="position:relative;">
+    <!-- 工具栏 -->
+    <div id="$!{suffix}EditorTools" class="editor-tools" style="width:$!{editorWidth}px;">
+        <div id="$!{suffix}EditorToolbar" class="editor-toolbar"></div>
+    </div>
+    <div id="$!{suffix}EditorHolder"></div>
+    <textarea id="$!{suffix}EditorCode" name="$!{textareaName}" style="display:none;"></textarea>
+
+    <div id="$!{suffix}Shade" style="display:none;"></div>
+    <script type="text/javascript">
+        function $!{suffix}EditorInit() {
+            baidu.dom.ready(function () {
+                //初始化工具栏
+                    $!{suffix}Tools = new EditorTools("$!{suffix}EditorToolbar");
+
+                //初始化编辑器
+                    $!{suffix}Editor = baidu.editor.create("$!{suffix}EditorCode", {
+                    width:$!{editorAreaWidth},
+                    height:$!{editorHeight}});
+                    $!{suffix}Editor.tools = $!{suffix}Tools;
+
+                baidu.G("$!{suffix}EditorHolder").innerHTML = $!{suffix}Editor.render();
+
+                    $!{suffix}EditorKey = baidu.BaseClass.guid();
+                    $!{suffix}Editor.addEventListener("onreadystatechange", function (e) {
+                    var me = e.currentTarget;
+                    if (me.readyState == 4) {
+                        setTimeout(function () {
+                            editorInit(me);
+                            me.tools.buttonEnable();
+                        }, 200);
+                        me.removeEventListener("onreadystatechange", $!{suffix}EditorKey);
+                        if (baidu.ie) {
+                            me.document.attachEvent("onmousedown", function (e) {
+                                List.hideAll();
+                            });
+                        }
+                        else {
+                            me.document.addEventListener("mousedown", function (e) {
+                                List.hideAll();
+                            }, false);
+                        }
+                    }
+                }, $!{suffix}EditorKey);
+            });
+        }
+            #if(!$selfInit)
+                $!{suffix}EditorInit();
+            #end
+    </script>
+</div>
+#end

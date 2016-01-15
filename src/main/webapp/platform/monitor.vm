@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RAP</title>
+</head>
+<body>Hello World!</body>
+<body>
+<script>
+    var logsData = $json;
+</script>
+<script src="monitor.js" type="text/javascript"></script>
+</body>
+</html>

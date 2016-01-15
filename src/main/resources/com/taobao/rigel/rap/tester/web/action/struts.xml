@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <package name="tester" extends="rap-default" namespace="/tester">
+        <action name="pageTester"
+                class="com.taobao.rigel.rap.tester.web.action.TesterAction" method="pageTester">
+            <result name="success" type="velocity">/tester/pageTester.vm</result>
+        </action>
+        <action name="___init___"
+                class="com.taobao.rigel.rap.tester.web.action.TesterAction" method="___init___">
+            <result name="success" type="velocity">/bcom/isOk.cb.vm</result>
+        </action>
+        <action name="test"
+                class="com.taobao.rigel.rap.tester.web.action.TesterAction" method="test">
+            <result name="success" type="velocity">/bcom/content.cb.vm</result>
+        </action>
+    </package>
+
+</struts>

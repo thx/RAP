@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.taobao.rigel.rap.organization.bo.ProductionLine" table="tb_production_line">
+        <id name="id">
+            <column name="id"/>
+            <generator class="identity"/>
+        </id>
+        <property name="name">
+            <column name="name"/>
+        </property>
+        <property name="projectNum">
+            <column name="project_num"/>
+        </property>
+        <property name="corporationId">
+            <column name="corporation_id"/>
+        </property>
+        <property name="userId">
+            <column name="user_id"/>
+        </property>
+    </class>
+</hibernate-mapping>

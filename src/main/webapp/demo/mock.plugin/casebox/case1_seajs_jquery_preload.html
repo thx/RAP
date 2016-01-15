@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="http://style.aliunicorn.com/js/6v/atom/atom-sc.js"></script>
+    <script type="text/javascript" src="/rap.plugin.js?projectId=306&mode=3"></script>
+</head>
+<body>
+<div class="row row-990 wrapper">
+    <div id="newFastFeedback" class="fastfeedback-content"></div>
+    <p>
+        RAP plugin case1: seajs jquery preload issue.
+    </p>
+
+    <p>LOG:</p>
+    <pre id="preResult"></pre>
+</div>
+
+<script>
+    // 这里的代码封装到一个脚本中，紧接着RAP插件执行。
+
+    !function () {
+        var oldSeajsUse = seajs.use;
+        var initialized = false;
+        seajs.use = function () {
+            var handler = arguments[arguments.length - 1];
+            arguments[arguments.length - 1] = function () {
+                if (!initialized) {
+                    wrapJQueryForRAP(arguments[0]);
+                    initialized = true;
+                }
+                handler.apply(this, arguments);
+            };
+            oldSeajsUse.apply(seajs, arguments);
+        }
+    }();
+
+</script>
+<script>
+    function log() {
+        var ele = document.getElementById('preResult');
+        ele.innerHTML += [].join.call(arguments, ': ') + "\n";
+    }
+
+
+    seajs.use('$', function ($) {
+
+        $.ajax({
+            dataType: 'jsonp',
+            url: 'http://cn.message.alibaba.com/msgsend/productInfo.htm',
+            data: {sourceID: '1907157359'},
+            success: function (result) {
+                console.info(result);
+                log('result:', JSON.stringify(result, null, 4));
+            }
+        });
+    });
+</script>
+</body>
+</html>

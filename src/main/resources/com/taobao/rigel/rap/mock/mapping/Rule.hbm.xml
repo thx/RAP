@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.taobao.rigel.rap.mock.bo.Rule" table="tb_rule">
+        <id name="actionId">
+            <column name="action_id"/>
+        </id>
+        <property name="rules">
+            <column name="rules"/>
+        </property>
+        <property name="updateTime" type="date">
+            <column name="update_time" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

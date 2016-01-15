@@ -1,0 +1,388 @@
+﻿html {
+    _background-image: url(about:blank);
+    _background-attachment: fixed
+}
+
+body {
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+    font-size: 12px;
+    line-height: 150%;
+    text-align: left;
+    font-family: Arial, '宋体', Verdana, sans-serif
+}
+
+img {
+    border: 0
+}
+
+p, h5, form, ul, li {
+    margin: 0;
+    list-style: none;
+}
+
+a {
+    color: #0100FE
+}
+
+h4 {
+    height: 19px;
+    margin: 0;
+    padding: 14px 18px 0 18px;
+    font-size: 19px;
+    font-family: '宋体';
+    font-weight: bold;
+}
+
+html {
+    _overflow-y: scroll;
+}
+
+/* 页面导航条 */
+.nav {
+    height: 30px;
+    background: #A2C0B8 repeat;
+    color: #FFF
+}
+
+.nav p {
+    margin-left: 20px;
+    padding-top: 5px;
+}
+
+/* 页面尺寸 */
+.wrapper {
+    min-width: 760px;
+    margin: 10px
+}
+
+.wrapper h4 {
+    padding-left: 0;
+}
+
+* html .wrapper {
+    width: expression((documentElement.clientWidth < 760) ? "760px" : "auto" );
+}
+
+/* 基础块 */
+.area-w {
+    height: 1px;;
+    margin: 0 2px;
+    background: #CBD7D5;
+    overflow: hidden;
+}
+
+.area-v {
+    height: 1px;
+    margin: 0 1px;
+    border-left: 1px solid #CBD7D5;
+    border-right: 1px solid #CBD7D5;
+    background: #fff;
+    overflow: hidden;
+}
+
+.area {
+    padding: 6px 12px;
+    border-left: 1px solid #CBD7D5;
+    border-right: 1px solid #CBD7D5;
+    background: #E6F2EE;
+    zoom: 1
+}
+
+.area-s {
+    padding: 6px 12px;
+    background: #fff;
+    border: 1px solid #A2C0B8;
+}
+
+/* 基础功能块 */
+.area h5 {
+    border-bottom: 1px solid #a2c0b8;
+    color: #000;
+    font-size: 12px;
+}
+
+.area h5 b {
+    display: block;
+    padding: 2px 0 4px 0;
+}
+
+h5.icon-search b, h5.icon-table b, h5.icon-setting b {
+    padding-left: 20px;
+    background: url(img/icon.gif) no-repeat 0 -145px;
+}
+
+h5.icon-table b {
+    background-position: 0 -170px;
+}
+
+h5.icon-setting b {
+    background-position: 0 -248px;
+}
+
+/* 信息块 */
+.mess .area-w {
+    background: #F6DFCD;
+}
+
+.mess .area-v {
+    border-left: 1px solid #F6DFCD;
+    border-right: 1px solid #F6DFCD;
+    background: #fff;
+}
+
+.mess .area {
+    border-left: 1px solid #F6DFCD;
+    border-right: 1px solid #F6DFCD;
+    background: #FEFBF6;
+}
+
+/* tag控制 */
+.tag-zone {
+    padding-top: 32px;
+    position: relative;
+}
+
+.tag-head {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-left: 4px;
+}
+
+.tag-head-tag {
+    float: left;
+    height: 34px;
+    margin-right: 4px;
+    overflow: hidden;
+    width: 130px;
+}
+
+.tag-head-tag .area-w {
+    background: #9ab4b1
+}
+
+.tag-head-tag .area-v {
+    border-color: #9ab4b1;
+    background: #D2DEDE
+}
+
+.tag-head-tag p {
+    height: 24px;
+    padding-top: 6px;
+    border-left: 1px solid #9ab4b1;
+    border-right: 1px solid #9ab4b1;
+    background-color: #C5D3D3;
+    font-size: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: center;
+    color: #678386;
+    font-weight: bold;
+}
+
+.tag-head .current p {
+    height: 25px;
+    border-left: 1px solid #CBD7D5;
+    border-right: 1px solid #CBD7D5;
+    background: #fff url(img/global_bg.gif) repeat-x right -58px;
+    font-weight: bold;
+    color: #000;
+    cursor: default
+}
+
+.tag-head-tag p a {
+    color: #4B4B4B;
+    text-decoration: none;
+}
+
+.current .area-w {
+    background: #CBD7D5
+}
+
+.current .area-v {
+    border-color: #CBD7D5
+}
+
+.tag-cont {
+    padding: 15px;
+    border-left: 1px solid #CBD7D5;
+    border-right: 1px solid #CBD7D5;
+    background: #FFF;
+    zoom: 1
+}
+
+.tag-v {
+    height: 1px;
+    margin: 0 1px;
+    border-left: 1px solid #CBD7D5;
+    border-right: 1px solid #CBD7D5;
+    overflow: hidden;
+}
+
+.tag-tab {
+    border-bottom: 1px solid #CBD7D5;
+}
+
+.tag-tab .tag-head .current p {
+    height: 24px;
+}
+
+.tag-tab .tag-head-tag {
+    width: 100px;
+}
+
+.tag-b p {
+    background-position: 8px -297px;
+}
+
+.tag-c p {
+    background-position: 8px -324px;
+}
+
+/* 表单项样式 */
+input, select {
+    font-size: 12px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+select {
+    height: 21px;
+    color: #7f7f7f;
+}
+
+input.btn-s {
+    color: #369;
+    width: 58px;
+    height: 24px;
+    padding: 3px;
+    background: url(img/btn-bg.png);
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 0
+}
+
+input.invalid, textarea.invalid {
+    color: red;
+    padding: 2px;
+    border: 1px solid red;
+}
+
+.preview-btn, .save-btn, .ok-btn, .cancle-btn, .edit-btn, .add-btn, .new-add-btn, .clean-btn, .all-clean-btn, .reedit-btn {
+    border: 0;
+    cursor: pointer;
+    width: 58px;
+    height: 24px;
+    background: url(img/btn.gif) no-repeat;
+    font-size: 0;
+}
+
+.save-btn {
+    background-position: 0 -24px
+}
+
+.ok-btn {
+    background-position: 0 -48px
+}
+
+.cancle-btn {
+    background-position: 0 -72px
+}
+
+.edit-btn {
+    background-position: 0 -96px
+}
+
+.add-btn {
+    background-position: 0 -120px
+}
+
+.new-add-btn {
+    background-position: 0 -144px
+}
+
+.clean-btn {
+    background-position: 0 -168px
+}
+
+.all-clean-btn {
+    width: 82px;
+    background-position: 0 -192px;
+}
+
+.reedit-btn {
+    background-position: 0 -216px
+}
+
+/* 全局其它 */
+.clear {
+    clear: both;
+    height: 0;
+    width: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.air {
+    margin-top: 10px
+}
+
+.floor {
+    margin-bottom: 10px
+}
+
+/* 操作样式 */
+.es-prev, .es-next {
+    border: 0;
+    cursor: pointer;
+    width: 101px;
+    height: 30px;
+    background: url(img/step.png) no-repeat;
+    font-size: 0;
+}
+
+.es-next {
+    background-position: 0 -30px
+}
+
+.add-link, .edit-link, .del-link {
+    margin-right: 5px;
+    background: url(img/op-icon.gif) no-repeat;
+    cursor: pointer;
+    padding-left: 18px;
+    text-decoration: none;
+    color: #0100FE;
+}
+
+.add-link {
+    background-position: 0 -31px
+}
+
+.edit-link {
+    background-position: 0 -256px;
+    padding-top: 1px
+}
+
+.del-link {
+    background-position: 0 -94px
+}
+
+/* 信息提示 */
+.tip-r {
+    color: red;
+    padding-left: 5px
+}
+
+.tip-g {
+    color: green;
+    padding-left: 5px
+}
+
+.error-msg {
+    background: url(img/error.gif) 0 3px no-repeat;
+    padding-left: 18px;
+    color: #f00;
+}

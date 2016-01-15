@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+    <bean id="workspaceMgr"
+          class="com.taobao.rigel.rap.workspace.service.impl.WorkspaceMgrImpl">
+        <property name="workspaceDao" ref="workspaceDao"/>
+        <property name="projectDao" ref="projectDao"/>
+    </bean>
+    <bean id="workspaceDao" class="com.taobao.rigel.rap.workspace.dao.impl.WorkspaceDaoImpl"
+          parent="baseDao">
+        <property name="accountDao" ref="accountDao"/>
+        <property name="projectDao" ref="projectDao"/>
+    </bean>
+    <bean id="accountDao" class="com.taobao.rigel.rap.account.dao.impl.AccountDaoImpl"
+          parent="baseDao"/>
+    <bean id="projectDao" class="com.taobao.rigel.rap.project.dao.impl.ProjectDaoImpl"
+          parent="baseDao"/>
+    <bean id="velocityEngine"
+          class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <value>
+                resource.loader=class
+                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </value>
+        </property>
+    </bean>
+
+    <!-- <bean id="emailUtil" class="comd.BLAH.EmailUtilsImpl">
+        <property name="velocityEngine" ref="velocityEngine" />
+    </bean> -->
+</beans>

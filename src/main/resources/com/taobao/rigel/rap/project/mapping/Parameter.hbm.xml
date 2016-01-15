@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.taobao.rigel.rap.project.bo.Parameter" table="tb_parameter">
+        <id name="id">
+            <column name="id"/>
+            <generator class="identity"/>
+        </id>
+        <property name="name">
+            <column name="name"/>
+        </property>
+        <property name="identifier">
+            <column name="identifier"/>
+        </property>
+        <property name="remark">
+            <column name="remark"/>
+        </property>
+        <property name="dataType">
+            <column name="data_Type"/>
+        </property>
+        <property name="mockData">
+            <column name="mock_data"/>
+        </property>
+        <set name="parameterList" inverse="true" table="tb_complex_parameter_list_mapping" cascade="delete">
+            <key column="complex_parameter_id" not-null="true"/>
+            <many-to-many column="parameter_id" class="com.taobao.rigel.rap.project.bo.Parameter"/>
+        </set>
+        <set name="actionRequestList" order-by="action_id asc" table="tb_request_parameter_list_mapping">
+            <key column="parameter_id" not-null="true"/>
+            <many-to-many column="action_id" class="com.taobao.rigel.rap.project.bo.Action"/>
+        </set>
+        <set name="actionResponseList" order-by="action_id asc" table="tb_response_parameter_list_mapping">
+            <key column="parameter_id" not-null="true"/>
+            <many-to-many column="action_id" class="com.taobao.rigel.rap.project.bo.Action"/>
+        </set>
+        <set name="complexParameterList" order-by="complex_parameter_id asc" table="tb_complex_parameter_list_mapping">
+            <key column="parameter_id" not-null="true"/>
+            <many-to-many column="complex_parameter_id" class="com.taobao.rigel.rap.project.bo.Parameter"/>
+        </set>
+    </class>
+</hibernate-mapping>

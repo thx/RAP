@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+<urlrewrite use-query-string="true">
+    <rule>
+        <note>
+            mock service
+        </note>
+        <from>^/mock/(\d*?)/(.*)$</from>
+        <to>/mock/createData.action?__id__=$1&amp;pattern=/${escape:utf8:$2}</to>
+        <set type="response-header" name="Access-Control-Allow-Origin">*</set>
+        <set type="response-header" name="Access-Control-Allow-Headers">Origin, X-Requested-With, Content-Type, Accept
+        </set>
+    </rule>
+    <rule>
+        <note>
+            mockjs service
+        </note>
+        <from>^/mockjs/(\d*?)/(.*)$</from>
+        <to>/mock/createRule.action?__id__=$1&amp;pattern=/${escape:utf8:$2}</to>
+        <set type="response-header" name="Access-Control-Allow-Origin">*</set>
+        <set type="response-header" name="Access-Control-Allow-Headers">Origin, X-Requested-With, Content-Type, Accept
+        </set>
+    </rule>
+    <rule>
+        <note>
+            mockjs auto service, use mock rules set by Open API
+        </note>
+        <from>^/mockjsauto/(\d*?)/(.*)$</from>
+        <to>/mock/createRuleAuto.action?__id__=$1&amp;pattern=/${escape:utf8:$2}</to>
+        <set type="response-header" name="Access-Control-Allow-Origin">*</set>
+        <set type="response-header" name="Access-Control-Allow-Headers">Origin, X-Requested-With, Content-Type, Accept
+        </set>
+    </rule>
+    <rule>
+        <note>
+            mockjs result service
+        </note>
+        <from>^/mockjsdata/(\d*?)/(.*)$</from>
+        <to>/mock/createMockjsData.action?__id__=$1&amp;pattern=/${escape:utf8:$2}</to>
+        <set type="response-header" name="Access-Control-Allow-Origin">*</set>
+        <set type="response-header" name="Access-Control-Allow-Headers">Origin, X-Requested-With, Content-Type, Accept
+        </set>
+    </rule>
+    <rule>
+        <note>
+            mockjs result service
+        </note>
+        <from>^/mockjsdataauto/(\d*?)/(.*)$</from>
+        <to>/mock/createMockjsDataAuto.action?__id__=$1&amp;pattern=/${escape:utf8:$2}</to>
+        <set type="response-header" name="Access-Control-Allow-Origin">*</set>
+        <set type="response-header" name="Access-Control-Allow-Headers">Origin, X-Requested-With, Content-Type, Accept
+        </set>
+    </rule>
+    <rule>
+        <note>
+            validation API
+        </note>
+        <from>^/validate/(\d*?)/(.*)$</from>
+        <to>/mock/validateAPI.action?__id__=$1&amp;pattern=/${escape:utf8:$2}</to>
+        <set type="response-header" name="Access-Control-Allow-Origin">*</set>
+        <set type="response-header" name="Access-Control-Allow-Headers">Origin, X-Requested-With, Content-Type, Accept
+        </set>
+    </rule>
+    <rule>
+        <note>
+            mockjs plugin generator
+        </note>
+        <from>^/rap.plugin.js(.*)$</from>
+        <to type="redirect">/mock/createPluginScript.action$1</to>
+    </rule>
+    <rule>
+        <note>
+            node doc service
+        </note>
+        <from>^/doc/(\d*)$</from>
+        <to type="proxy">http://localhost:7429/doc/$1.html</to>
+    </rule>
+</urlrewrite>

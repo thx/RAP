@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+    #parse('/tcom/template.rap.vm')
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>RAP - $!utils.escapeInH($page.name)控制台</title>
+    <link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
+
+    #includeNewRapStatic
+    <link type="text/css" rel="stylesheet" href="${staticRoot}/css/pageTester.css?_r=$!timeStamp"/>
+    <script src="http://a.tbcdn.cn/??s/yui/3.6.0/build/yui/yui-min.js"></script>
+    <script src="${staticRoot}/js/util/jsformat.js"></script>
+    <script src="${staticRoot}/js/util/structureValidator.js"></script>
+    <script src="${staticRoot}/js/util/mock-min.js"></script>
+</head>
+<body>
+#bodyNewStart
+<div class="container">
+    <h3>
+        <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;
+        $!utils.escapeInH($page.name) 页面控制台
+    </h3>
+
+    <div id="divRootSetting">
+        <label style="color:#666;display: inline; margin-right: 5px;" for="txtRootPath">
+            请求根路径
+        </label>
+        <input class="form-control" id="txtRootPath" type="text" style="width:300px;" value=""/>
+    </div>
+    <div id="divActionList" class="demo tabs">
+        <ul class="nav nav-tabs" role="tablist">
+            #foreach($action in $page.actionList)
+                <li#if($velocityCount==1) class="active"#end>
+                    <a href="#action${action.id}" role="tab" data-toggle="tab">$utils.escapeInH($action.name)</a>
+                </li>
+            #end
+        </ul>
+        <div class="tab-content">
+            #foreach($action in $page.actionList)
+                <div class="tab-pane fade#if($velocityCount==1) in active#end" id="action$action.id">
+                    <form name="form$!velocityCount" class="form" method="post"
+                          path="$!utils.escapeInH($action.requestUrl)" onsubmit="return false;">
+                        <input type="hidden" name="paramIdList" class="paramIdList"
+                               value="$!utils.escapeInH($action.remarks)"/>
+
+                        <div class="p8">
+                            <div style="margin-top:5px;">请求标识: <span style="color:#990000;">$action.id</span></div>
+                            <div style="margin-top:5px;">请求地址: $!utils.escapeInH($action.requestUrl)</div>
+                        </div>
+                        <div class="clearfix">
+                            #foreach($para in $action.requestParameterList)
+                                <div>
+                                    <span class="name">$!utils.escapeInH($para.identifier)</span><input type="text"
+                                                                                                        style="width:100px"
+                                                                                                        class="field"
+                                                                                                        name="$!utils.escapeInH($para.identifier)"/></span>
+                                        <span class="remark">
+                                            <span style="font-size: 12px;">说明</span>
+                                            <div class="detail">
+                                                <div>- 变量名：$!utils.escapeInH($para.name)</div>
+                                                <div>- 备注：$!utils.escapeInH($para.remark)</div>
+                                            </div>
+                                        </span>
+                                </div>
+                            #end
+                        </div>
+                        <div class="p8 tools">
+                            <input type="button" class="btn btn-primary btn-run" value="请求"/>
+                        </div>
+                    </form>
+                </div>
+            #end
+        </div>
+    </div>
+    <div class="block" id="divResBoard">
+        <div id="divResBoardJson">ready</div>
+        <div id="divResBoardLog">
+            <div class="triggers clearfix">
+                <div class="trigger" id="expand-trigger">&#8592;</div>
+                <div class="trigger" id="up-trigger">&#8593;</div>
+                <div class="trigger" id="down-trigger">&#8595;</div>
+                <div class="trigger" id="close-trigger">&#8594;</div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="trigger" id="show-trigger">&#8592;</div>
+    <script>
+        var RAP_ROOT = '$consts.DOMAIN_URL$!projectContext/mockjs/$!projectId';
+        document.getElementById("txtRootPath").value = RAP_ROOT;
+        var PROJECT_ID = $!projectId;
+    </script>
+    <script src="./pageTester.js"></script>
+</div>
+#bodyEnd
+<foot>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_5879641'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D5879641%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</foot>
+</body>
+</html>

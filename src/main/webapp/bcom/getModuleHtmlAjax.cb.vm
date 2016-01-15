@@ -1,0 +1,20 @@
+<div class="tree-m">
+    <div class="more" ecui="type:tree;id:moduleTree$module.id">
+        <label>$module.name</label>
+        #foreach ($page in $module.pageList)
+            <div class="more">
+                <label>$page.name</label>
+                #foreach ($action in $page.actionList)
+                    <div id="div-a-tree-node-$action.id"><a href="#"
+                                                            onclick="ws.switchA($action.id, $module.id); return false;"
+                                                            ondblclick="ws.editA($action.id, $module.id); return false;">$action.name</a>&nbsp;&nbsp;<a
+                            href="#" onclick="ws.removeA($action.id); return false;">[X]</a></div>
+                #end
+                <div class="div-a-add" onclick="ws.addA($module.id);">add</div>
+            </div>
+        #end
+    </div>
+</div>
+<div class="seperator"></div>
+<div class="div-a" id="div-a-$module.id">
+</div>

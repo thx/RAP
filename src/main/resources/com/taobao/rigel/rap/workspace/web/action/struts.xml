@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <package name="workspace" extends="rap-default" namespace="/workspace">
+
+        <action name="myWorkspace"
+                class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
+                method="myWorkspace">
+            <result name="success" type="velocity">/workspace/myWorkspace.vm</result>
+        </action>
+        <action name="loadWorkspace"
+                class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
+                method="loadWorkspace">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="ping"
+                class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
+                method="ping">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="__init__"
+                class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
+                method="__init__">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+
+        <action name="queryVersion"
+                class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
+                method="queryVersion">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="switchVersion"
+                class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
+                method="switchVersion">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+
+        <action name="lock"
+                class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
+                method="lock">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="unlock"
+                class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
+                method="unlock">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+
+        <action name="checkIn"
+                class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
+                method="checkIn">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="export"
+                class="com.taobao.rigel.rap.workspace.web.action.WorkspaceAction"
+                method="export">
+            <result name="success" type="stream">
+                <param name="contentDisposition">attachment;filename=export.html</param>
+                <param name="contentType">text/html</param>
+                <param name="inputName">fileInputStream</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+    </package>
+
+</struts>
