@@ -1,15 +1,9 @@
 package com.taobao.rigel.rap.common.utils;
-import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.project.bo.Action;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.exceptions.JedisConnectionException;
-import sun.misc.Cache;
-
-import java.util.List;
 
 /**
  * Created by Bosn on 14/11/28.
@@ -29,10 +23,19 @@ public class CacheUtils {
     public static final String KEY_ACCESS_USER_TO_PROJECT = "KEY_ACCESS_USER_TO_PROJECT";
     public static final String KEY_NOTIFICATION = "KEY_NOTIFICATION";
 
+    private static JedisPool jedisPool;
+    private static Jedis jedis;
+
     public CacheUtils() {}
 
     private static Jedis getJedis() {
-        return JedisFactory.getInstance().getJedisPool().getResource();
+        jedisPool = JedisFactory.getInstance().getJedisPool();
+        jedis = jedisPool.getResource();
+        return jedis;
+    }
+
+    private static void returnJedis() {
+        jedisPool.returnResourceObject(jedis);
     }
 
     /**
@@ -68,9 +71,16 @@ public class CacheUtils {
         put(cacheKey, result);
     }
 
+    public static void removeCacheByActionId(int id) {
+        String[] cacheKey1 = new String[]{KEY_MOCK_RULE, new Integer(id).toString()};
+        String[] cacheKey2 = new String[]{KEY_MOCK_DATA, new Integer(id).toString()};
 
-    public static void removeCacheByActionId(long id) {
-        getJedis().del(KEY_MOCK_RULE + id);
+        getJedis();
+
+        jedis.del(cacheKey1);
+        jedis.del(cacheKey2);
+
+        returnJedis();
     }
 
     public static void put(String [] keys, String value, int expireInSecs) {
@@ -79,19 +89,23 @@ public class CacheUtils {
         jedis.set(cacheKey, value);
         if (expireInSecs > 0)
             jedis.expire(cacheKey, expireInSecs);
+        returnJedis();
     }
 
     public static void put(String [] keys, String value) {
         put(keys, value, DEFAULT_CACHE_EXPIRE_SECS);
-
     }
 
     public static String get(String []keys) {
-        return getJedis().get(StringUtils.join(keys, "|"));
+
+        String cache =  getJedis().get(StringUtils.join(keys, "|"));
+        returnJedis();
+        return cache;
     }
 
     public static void del(String[] keys) {
         String cacheKey = StringUtils.join(keys, "|");
         getJedis().del(cacheKey);
+        returnJedis();
     }
 }
