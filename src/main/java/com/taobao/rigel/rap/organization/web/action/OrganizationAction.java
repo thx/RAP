@@ -23,7 +23,6 @@ public class OrganizationAction extends ActionBase {
     private Corporation corporation;
     private ProductionLine productline;
     private Corporation team;
-
     public Corporation getCorporation() {
         return corporation;
     }
@@ -125,7 +124,9 @@ public class OrganizationAction extends ActionBase {
             return JSON_ERROR;
         }
 
-        String[] cacheKey = new String[]{CacheUtils.KEY_PROJECT_LIST, new Integer(getCurUserId()).toString()};
+        int curUserId =  getCurUserId();
+
+        String[] cacheKey = new String[]{CacheUtils.KEY_PROJECT_LIST, new Integer(curUserId).toString()};
 
         String cacheResult = CacheUtils.get(cacheKey);
         if (cacheResult != null) {
@@ -137,7 +138,7 @@ public class OrganizationAction extends ActionBase {
             List<Map<String, Object>> projects = new ArrayList<Map<String, Object>>();
 
             // int totalRecNum = projectMgr.getProjectListNum(getCurUser());
-            User curUser = getAccountMgr().getUser(getCurUserId());
+            User curUser = getAccountMgr().getUser(curUserId);
             List<Project> projectList = projectMgr.getProjectList(curUser, 1,
                     Integer.MAX_VALUE);
 
@@ -156,7 +157,7 @@ public class OrganizationAction extends ActionBase {
                 map.put("accounts", p.getMemberAccountListStr());
                 map.put("isManagable", p.getIsManagable());
                 map.put("creator", p.getUser().getUserBaseInfo());
-                map.put("related", p.getUser().getId() != getCurUserId());
+                map.put("related", p.getUser().getId() != curUserId);
                 map.put("teamId", p.getTeamId());
                 projects.add(map);
             }

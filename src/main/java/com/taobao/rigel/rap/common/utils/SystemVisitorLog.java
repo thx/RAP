@@ -15,7 +15,7 @@ import java.util.*;
 public class SystemVisitorLog {
     private static final int MAX_LOG_LENGTH = 10;
     private static final int REALTIME_TIME_SPAN = 60;
-    private static final Logger logger = LogManager.getLogger(SystemVisitorLog.class);
+    private static final Logger logger = LogManager.getFormatterLogger(SystemVisitorLog.class);
     private static Map<String, Long> ipMap = new HashMap<String, Long>();
     private static Map<String, Long> userMap = new HashMap<String, Long>();
     private static List<Map<String, String>> mockMapList = new ArrayList<Map<String, String>>();
