@@ -77,8 +77,8 @@ public class CacheUtils {
 
         getJedis();
 
-        jedis.del(cacheKey1);
-        jedis.del(cacheKey2);
+        jedis.del(StringUtils.join(cacheKey1, "|"));
+        jedis.del(StringUtils.join(cacheKey2, "|"));
 
         returnJedis();
     }

@@ -415,29 +415,7 @@ public class WorkspaceAction extends ActionBase {
         notification.setUser(project.getUser());
         if (notification.getUser().getId() != getCurUserId())
             getAccountMgr().addNotification(notification);
-
-        // unfinished
-
-//        Callable<String> taskSub = new Callable<String>() {
-//
-//            public String call() throws Exception {
-//                try {
-//                    // async update doc
-//                    // projectMgr.updateDoc(id);
-//                    // async update disableCache
-//                    projectMgr.updateCache(id);
-//                } catch (Exception ex) {
-//                    ex.printStackTrace();
-//                }
-//
-//                return null;
-//            }
-//        };
-//
-//        FutureTask<String> futureTask = new FutureTask<String>(taskSub);
-//        Thread asyncThread = new Thread(futureTask);
-//        asyncThread.start();
-//        logger.info("Future task CHECK_IN running...");
+        projectMgr.updateCache(id);
 
         return SUCCESS;
     }
