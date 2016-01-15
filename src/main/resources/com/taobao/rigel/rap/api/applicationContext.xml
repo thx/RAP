@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+    <bean id="openAPIMgr" class="com.taobao.rigel.rap.api.service.impl.OpenAPIMgrImpl">
+        <property name="projectMgr" ref="projectMgr"/>
+        <property name="mockDao" ref="mockDao"/>
+    </bean>
+</beans>

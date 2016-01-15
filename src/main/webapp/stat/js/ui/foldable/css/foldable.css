@@ -1,0 +1,52 @@
+/*.ec-foldable {border:solid 1px #000}*/
+.ec-foldable-title {
+    padding: 2px 0 4px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #DFF4CD;
+    color: #356502;
+    font-size: 14px;
+}
+
+/*.ec-foldable-title-over {background-color:#EEE}*/
+/*.ec-foldable-title-press {background-color:#CCC}*/
+.ec-foldable-handler {
+    float: right;
+    margin: 3px 3px 0 0
+}
+
+.ec-foldable-title-fold .ec-foldable-handler, .ec-foldable-title-unfold .ec-foldable-handler {
+    width: 16px;
+    height: 16px
+}
+
+.ec-foldable-title-fold .ec-foldable-handler {
+    background: url("img/remove.gif") no-repeat scroll 0 0 transparent;
+}
+
+.ec-foldable-title-unfold .ec-foldable-handler {
+    background: url("img/add.gif") no-repeat scroll 0 0 transparent;
+}
+
+.icon-a .ec-foldable-title, .icon-b .ec-foldable-title, .icon-c .ec-foldable-title, .icon-d .ec-foldable-title, .icon-e .ec-foldable-title {
+    background: url("img/icon.gif") no-repeat scroll 0 -145px transparent;
+}
+
+.icon-b .ec-foldable-title {
+    background-position: 0 -170px;
+}
+
+.icon-c .ec-foldable-title {
+    background-position: 0 -195px;
+}
+
+.icon-d .ec-foldable-title {
+    background-position: 0 -248px;
+}
+
+.icon-e .ec-foldable-title {
+    background-position: 0 -273px;
+}
+
+.ec-foldable-content {
+    margin: 5px
+}

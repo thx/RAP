@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+    #parse('/tcom/template.rap.vm')
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>RAP自动化测试套件 </title>
+    <link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
+    #includeNewRapStatic
+    <link href="../stat/qunit/qunit.css" rel="stylesheet"/>
+</head>
+<body>
+#bodyNewStart
+<div id="container">
+    <h1 id="qunit-header">RAP自动化测试套件<span
+            style="font-size:14px; margin-left:10px;">（如果测试不通过，请保留现场，并告知 @思竹 or @霍雍，多谢~）</span></h1>
+
+    <h2 id="qunit-banner"></h2>
+
+    <div id="qunit-testrunner-toolbar"></div>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+</div>
+<script src="../stat/qunit/qunit.js?_r=$!timeStamp"></script>
+<script src="../stat/qunit/async.js?_r=$!timeStamp"></script>
+
+<script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed.js"></script>
+<script src="http://seajs.org/dist/sea-debug.js"></script>
+<script>
+    jQuery.oldAjax = jQuery.ajax;
+</script>
+<script src="/rap.plugin.js?projectId=114"></script>
+<script src="${staticRoot}/js/util/structureValidator.js"></script>
+<script>
+    jQuery.rapAjax = jQuery.ajax;
+    jQuery.ajax = jQuery.oldAjax;
+</script>
+<script src="../unit-tests/prepare.js?_r=$!timeStamp"></script>
+<script src="../unit-tests/index.js?_r=$!timeStamp"></script>
+#bodyEnd
+</body>
+</html>

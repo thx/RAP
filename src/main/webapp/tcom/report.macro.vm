@@ -1,0 +1,244 @@
+#parse('/tcom/mod.macro.vm')
+
+#**
+ * @desc : 报表组件
+ * @param {String} id 标识, 相应的textarea和checkbox的id为textarea-{id}， checkbox-{id}
+ * @param {String} checkboxName
+ * @param {String} editorName
+ * @param {String} title 标题
+ * @param {String} type 图表类型
+ * @param {String} data flash报表数据
+ * @param {String} content 富文本编辑器内容
+ * @param {bool} isEnabled 是否启用
+ *#
+#set($editorNO = 0)
+#macro (reportCom $id $checkboxName $editorName $title $type $data $content $isEnabled)
+    #if ($isEnabled)
+        #set( $isDisabled = false )
+    #else
+        #set( $isDisabled = true )
+    #end
+
+    #if ($type == "")
+        #set( $hasFlash = false)
+    #else
+        #set( $hasFlash = true)
+    #end
+
+    #if (!$flag)
+        #set( $flag = true )
+        #initReportCom()
+    #end
+
+<input id="${id}OldValue" type="hidden"/>
+<input id="${id}CheckedOldValue" value="$!isEnabled" type="hidden"/>
+<h4 id="title-$id" #if($isDisabled)style="color:gray"#end><input type="checkbox" id="checkbox-$id"
+                                                                 onclick="_checkboxChanged(this, '$id', $hasFlash)"
+                                                                 name="$!checkboxName"
+                                                                 #if($isEnabled)checked="checked"#end/>$!title</h4>
+    #if ($hasFlash)
+    <div id="div-$id" style="width:650px;height:200px;"></div>
+    <script type="text/javascript">
+        baidu.swf.create({
+            'id': "${id}Flash",
+            'width': "100%",
+            'height': "100%",
+            'ver': "9.0.0",
+            'errorMessage': "Please download the newest flash player.",
+            'url': "${staticRoot}/flash/charts.swf",
+            'bgColor': "#FFFFFF",
+            'wmode': "opaque",
+            'allowscriptaccess': "always",
+            'vars': {
+                data: "$!utils.escapeInJ($data)",
+                callback: "onFinishedEventHandler",
+                onloadCallback: "onloadEventHandler",
+                containerId: "div-$id",
+                type: "$!type",
+                gray: "$!isDisabled"
+            }
+        }, "div-$id");
+        _flashIds.push("$id");
+    </script>
+    #end
+<div id="${id}Err" class="tip-r" style="width:645px;text-align:right">&nbsp;</div>
+    #createEditor("$id" "$editorName" 650 215 true)
+<script type="text/javascript">
+    _editorPrefixs.push("$id");
+    baidu.dom.ready(function () {
+        setTimeout(function () {
+            window["${id}EditorInit"]();
+            setTimeout(function () {
+                    ${id}Editor.setContent("$!utils.escapeInJ($content)");
+                // for preventing editor's filter, waiting for 200 ms.
+                setTimeout(function () {
+                    baidu.g("${id}OldValue").value = ${id}Editor.getContent();
+                    #if($isDisabled)
+                        esEditor.disableEditor("${id}");
+                    #else
+                        esEditor.enableEditor("${id}");
+                    #end
+                }, 200);
+            }, 200);
+        }, 400 * $editorNO);
+    });
+</script>
+    #set($editorNO = $editorNO + 1)
+#end
+
+#macro (initReportCom)
+#includeEditorStatic
+<script type="text/javascript">
+    var _flashIds = [];
+    var _editorPrefixs = [];
+    var _successfulCaptureNum = -1;
+    var _onFinished;
+    var isDefault = #if($isDefault)$isDefault#elseif($nAnalyze.isDefault)$nAnalyze.isDefault#elseif($dAnalyze.isDefault)$dAnalyze.isDefault #else false#end;
+    var _isDelayFinished = false && isDefault;
+    baidu.dom.ready(function () {
+        setTimeout(function () {
+            _isDelayFinished = true;
+        }, 1000);
+    });
+
+    /**
+     * @desc: checkbox onclick event handler
+     * @param[obj]: sender(checkbox object)
+     * @param[id]: report id
+     * @param[hasFlash]: bool, return whether a flash contained
+     **/
+    function _checkboxChanged(obj, id, hasFlash) {
+        if (obj.checked) {
+            if (hasFlash) {
+                baidu.swf.getMovie(id + "Flash").setGray(false);
+            }
+            esEditor.enableEditor(id);
+            baidu.setStyle("title-" + id, "color", "black");
+        } else {
+            if (hasFlash) {
+                baidu.swf.getMovie(id + "Flash").setGray(true);
+            }
+            esEditor.disableEditor(id);
+            baidu.setStyle("title-" + id, "color", "gray");
+        }
+    }
+
+    /**
+     * @desc: save flash, capture all flash images
+     * @param[onFinished]: event fired on finished
+     **/
+    function saveFlash(onFinished) {
+        _onFinished = onFinished;
+        _successfulCaptureNum = 0;
+        for (var i = 0; i < _flashIds.length; i++) {
+            setTimeout("baidu.swf.getMovie('" + _flashIds[i] + "Flash').capture()", i);
+        }
+    }
+
+    /**
+     * @desc: callback of flash capture action
+     * @param[isSuccess]: true-capture succesfully, false-capture failed
+     **/
+    function onFinishedEventHandler(isSuccess) {
+        if (_successfulCaptureNum == -1) {
+            return;
+        }
+        if (isSuccess) {
+            if (_flashIds.length <= ++_successfulCaptureNum) {
+                _onFinished(true);
+                _onFinished = null;
+                _successfulCaptureNum = -1;
+            }
+        } else {
+            _onFinished(false);
+            _onFinished = null;
+            _successfulCaptureNum = -1;
+        }
+    }
+
+    /**
+     * @desc: flash capture callback, containerId must be at format "div-****", flash
+     *        format must be "****Flash". (* caution!)
+     * @param[height]: if exceed the default height, use this height, or this p will be 0
+     * @param[containerId]: container Id
+     **/
+    function onloadEventHandler(containerId, height) {
+        if ((!containerId) || containerId.length <= 4) return;
+        baidu.setStyle(containerId, "height", height);
+        baidu.setStyle(containerId, "zoom", "1");
+        var id = "";
+        id = containerId.substring(4, containerId.length);
+        baidu.swf.getMovie(id + "Flash").height = height;
+    }
+
+    /**
+     * @desc: used when using form post, push content into hidden field
+     **/
+    function submitEditors() {
+        for (var i = 0; i < _editorPrefixs.length; i++) {
+            var content = eval(_editorPrefixs[i] + "Editor.getContent();");
+            baidu.g(_editorPrefixs[i] + "EditorCode").value = content;
+        }
+    }
+
+    /**
+     * @desc: return true if checkbox's changed or
+     *        any content of editor changed.
+     **/
+    function isAnyContentChanged() {
+        for (var i = 0; i < _editorPrefixs.length; i++) {
+            // check switcher
+            var oldChecked = baidu.g(_editorPrefixs[i] + "CheckedOldValue").value == "true" ? true : false;
+            var newChecked = baidu.g("checkbox-" + _editorPrefixs[i]).checked;
+            if (oldChecked != newChecked) {
+                return _isDelayFinished && true;
+            }
+
+            // check content
+            // do not validate the editors disabled
+            if (!baidu.g("checkbox-" + _editorPrefixs[i]).checked) {
+                continue;
+            }
+            var newContent = eval(_editorPrefixs[i] + "Editor.getContent();");
+            var oldContent = baidu.g(_editorPrefixs[i] + "OldValue").value
+            if (newContent != oldContent) {
+                return _isDelayFinished && true;
+            }
+        }
+        return false || isDefault;
+    }
+
+    /**
+     * @desc: update all content, used after save
+     *        button clicked
+     **/
+    function updateAllContents() {
+        for (var i = 0; i < _editorPrefixs.length; i++) {
+            var newContent = eval(_editorPrefixs[i] + "Editor.getContent();");
+            var newChecked = baidu.g("checkbox-" + _editorPrefixs[i]).checked
+            baidu.g(_editorPrefixs[i] + "OldValue").value = newContent;
+            baidu.g(_editorPrefixs[i] + "CheckedOldValue").value = newChecked;
+        }
+        if (window.isDefault) isDefault = false;
+    }
+</script>
+#end
+
+
+#macro(reportComsAjax $data)
+    #foreach ($i in $data)
+    <div class="air">
+        <h4 id="title$velocityCount" class="title"><input type="checkbox" id="checkbox$velocityCount"
+                                                          onclick="_checkboxChanged(this, $velocityCount)"
+                                                          disabled="disabled" name="$i.checkboxName"/>$i.title <span
+                id="time$velocityCount" class="time"></span></h4>
+
+        <div id="div$velocityCount" class="loading"></div>
+        <div id="content$velocityCount" class="content">
+            <div class="tip-r editerr" id="${i.editorName}Err">&nbsp;</div>#createEditor(
+            "$i.editorName" "$i.editorName" 650 215 true)</div>
+        <input id="oldValue$velocityCount" type="hidden"/>
+        <input id="checkedOldValue$velocityCount" type="hidden"/>
+    </div>
+    #end
+#end

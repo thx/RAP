@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!--suppress ALL -->
+<struts>
+
+    <package name="api" extends="rap-default" namespace="/api">
+        <action name="queryModel"
+                class="com.taobao.rigel.rap.api.web.action.OpenAPIAction" method="queryModel">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="querySchema"
+                class="com.taobao.rigel.rap.api.web.action.OpenAPIAction" method="querySchema">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="queryRAPModel"
+                class="com.taobao.rigel.rap.api.web.action.OpenAPIAction" method="queryRAPModel">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="modifyMockRules"
+                class="com.taobao.rigel.rap.api.web.action.OpenAPIAction" method="modifyMockRules">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+        <action name="resetMockRules"
+                class="com.taobao.rigel.rap.api.web.action.OpenAPIAction" method="resetMockRules">
+            <result name="success" type="velocity">/bcom/json.cb.vm</result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,388 @@
+﻿.tangram_editor_container {
+    padding: 5px;
+    border: 1px solid #D3D3D3;
+    background: #fff
+}
+
+/* 工具栏 */
+.editor-tools {
+    height: 30px;
+    background: #fff url(img/editor-icon.gif) repeat-x;
+    border: 1px solid #ddd;
+    border-bottom: 1px solid #7b8982;
+    position: relative
+}
+
+.editor-tools div, .editor-tools td {
+    font-size: 12px
+}
+
+.editor-toolbar {
+    height: 23px;
+    padding: 4px;
+    border-bottom: 1px solid #d5d5d5;
+    position: relative
+}
+
+.editor-toolbar div, .editor-toolbar p, .editor-toolbar span {
+    position: relative;
+    display: inline-block;
+    cursor: default;
+    vertical-align: middle
+}
+
+* html .editor-toolbar div, * html .editor-toolbar p, * html .editor-toolbar span {
+    display: inline
+}
+
+*:first-child + html .editor-toolbar div, *:first-child + html .editor-toolbar p, *:first-child + html .editor-toolbar span {
+    display: inline
+}
+
+.editor-toolbar .btn_hover {
+    padding: 0
+}
+
+.editor-toolbar .btn_hover div {
+    border-top: 1px solid #729bd1;
+    border-bottom: 1px solid #729bd1;
+    background: #fff;
+}
+
+.editor-toolbar .btn_hover p {
+    border-left: 1px solid #729bd1;
+    border-right: 1px solid #729bd1;
+    padding: 1px 2px
+}
+
+.editor-toolbar .btn_disabled {
+    padding: 0
+}
+
+.editor-toolbar .btn_disabled div {
+    color: #C8C8C8;
+    padding: 0 1px;
+    border-color: #ddd
+}
+
+.editor-toolbar .btn_disabled p {
+    border-color: #ddd;
+    padding: 2px
+}
+
+.editor-toolbar .btn_active {
+    padding: 0
+}
+
+.editor-toolbar .btn_active div {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background: #DDE1EB
+}
+
+.editor-toolbar .btn_active p {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd
+}
+
+.editor-toolbar .btn_highlight {
+    padding: 0
+}
+
+.editor-toolbar .btn_highlight div {
+    border-top: 1px solid #729bd1;
+    border-bottom: 1px solid #729bd1;
+    background: #dde1eb
+}
+
+.editor-toolbar .btn_highlight p {
+    border-left: 1px solid #729bd1;
+    border-right: 1px solid #729bd1;
+    padding: 1px 2px
+}
+
+.editor-toolbar div {
+    margin: 0 3px;
+    *margin-right: 4px;
+    padding: 0 1px;
+}
+
+.editor-toolbar div div {
+    margin: 0;
+    padding: 0
+}
+
+.editor-toolbar div div p {
+    margin: 0 -1px;
+    padding: 2px;
+    *padding: 3px 2px 3px;
+    vertical-align: top;
+    *left: -1px;
+}
+
+.editor-toolbar div .btn_undo {
+    width: 17px;
+    height: 17px;
+    background: url(img/editor-icon.gif) no-repeat center -35px
+}
+
+.editor-toolbar div .btn_redo {
+    width: 17px;
+    height: 17px;
+    background: url(img/editor-icon.gif) no-repeat center -56px
+}
+
+.editor-toolbar div .btn_bold {
+    width: 17px;
+    height: 17px;
+    background: url(img/editor-icon.gif) no-repeat center -78px
+}
+
+.editor-toolbar div .btn_italic {
+    width: 17px;
+    height: 17px;
+    background: url(img/editor-icon.gif) no-repeat center -100px
+}
+
+.editor-toolbar div .btn_underline {
+    width: 17px;
+    height: 17px;
+    background: url(img/editor-icon.gif) no-repeat center -119px
+}
+
+.editor-toolbar div .btn_justifyleft {
+    width: 17px;
+    height: 17px;
+    background: url(img/editor-icon.gif) no-repeat center -162px
+}
+
+.editor-toolbar div .btn_justifycenter {
+    width: 17px;
+    height: 17px;
+    background: url(img/editor-icon.gif) no-repeat center -183px
+}
+
+.editor-toolbar div .btn_justifyright {
+    width: 17px;
+    height: 17px;
+    background: url(img/editor-icon.gif) no-repeat center -204px
+}
+
+.editor-toolbar div .btn_image {
+    width: 17px;
+    height: 17px;
+    background: url(img/editor-icon.gif) no-repeat center -224px
+}
+
+.editor-toolbar div .btn_bar {
+    width: 1px;
+    height: 17px;
+    background: #D0D0D0
+}
+
+.editor-toolbar .btn_disabled .btn_undo {
+    background-position: center -245px
+}
+
+.editor-toolbar .btn_disabled .btn_redo {
+    background-position: center -265px
+}
+
+.editor-toolbar .btn_disabled .btn_bold {
+    background-position: center -288px
+}
+
+.editor-toolbar .btn_disabled .btn_italic {
+    background-position: center -309px
+}
+
+.editor-toolbar .btn_disabled .btn_underline {
+    background-position: center -330px
+}
+
+.editor-toolbar .btn_disabled .btn_justifyleft {
+    background-position: center -372px
+}
+
+.editor-toolbar .btn_disabled .btn_justifycenter {
+    background-position: center -394px
+}
+
+.editor-toolbar .btn_disabled .btn_justifyright {
+    background-position: center -415px
+}
+
+.editor-toolbar .btn_disabled .btn_image {
+    background-position: center -434px
+}
+
+/* 选择框 */
+.editor-toolbar-list {
+    position: absolute;
+    border: 1px solid #333333;
+    border-top-color: #999999;
+    border-left-color: #999999 /*required*/
+}
+
+.editor-toolbar-list {
+    position: absolute;
+    border: 1px solid #333333;
+    _margin-left: -10px;
+    border-top-color: #999999;
+    border-left-color: #999999
+}
+
+/*ie6下需复设置*/
+.editor-toolbar-list-item {
+    padding: 2px 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: default;
+    font-size: 12px;
+    vertical-align: middle;
+    background-color: #FFFFFF; /*required*/
+}
+
+.editor-toolbar-list-item {
+    padding: 2px 5px;
+}
+
+/*ie6下需复设置*/
+.editor-toolbar-list-item-selected {
+    background-color: #DDDDDD;
+}
+
+.editor-toolbar-list-item span {
+    display: inline-block;
+}
+
+.editor-toolbar-list-item-hover {
+    background-color: #3366FF;
+    color: #FFFFFF;
+}
+
+.editor-toolbar-fontname-list {
+}
+
+.editor-toolbar-forecolor-list {
+}
+
+.editor-toolbar-fontsize-list {
+}
+
+.editor-toolbar-fontname-item {
+    width: 100px
+}
+
+.editor-toolbar-forecolor-item {
+    width: 80px
+}
+
+.editor-toolbar-fontsize-item {
+    width: 65px
+}
+
+/* 字体按钮 */
+.editor-toolbar .editor-toolbar-select-fontfamily {
+    padding: 0;
+    text-align: center;
+}
+
+.editor-toolbar .editor-toolbar-select-fontfamily div {
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    background: #fff;
+    padding: 0
+}
+
+.editor-toolbar .editor-toolbar-select-fontfamily p {
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    padding: 1px 2px
+}
+
+.editor-toolbar .editor-toolbar-select-fontfamily div.editor-toolbar-select-caption {
+    width: 50px;
+    overflow: hidden;
+    vertical-align: middle;
+    white-space: nowrap;
+    border: none;
+    margin-right: 3px
+}
+
+.editor-toolbar .editor-toolbar-select-fontfamily div.editor-toolbar-select-dropdown {
+    width: 7px;
+    vertical-align: middle;
+    background: transparent url(img/editor-icon.gif) no-repeat center -488px;
+    border: none
+}
+
+/* 字号按钮 */
+.editor-toolbar .editor-toolbar-select-fontsize {
+    padding: 0;
+    text-align: center;
+}
+
+.editor-toolbar .editor-toolbar-select-fontsize div {
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    background: #fff;
+    padding: 0
+}
+
+.editor-toolbar .editor-toolbar-select-fontsize p {
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    padding: 1px 2px
+}
+
+.editor-toolbar .editor-toolbar-select-fontsize div.editor-toolbar-select-caption {
+    width: 50px;
+    overflow: hidden;
+    vertical-align: middle;
+    white-space: nowrap;
+    border: none;
+    margin-right: 3px
+}
+
+.editor-toolbar .editor-toolbar-select-fontsize div.editor-toolbar-select-dropdown {
+    width: 7px;
+    vertical-align: middle;
+    background: transparent url(img/editor-icon.gif) no-repeat center -488px;
+    border: none
+}
+
+/* 字体颜色按钮 */
+.editor-toolbar .editor-toolbar-select-forecolor {
+    padding: 0;
+    text-align: center;
+}
+
+.editor-toolbar .editor-toolbar-select-forecolor div {
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    background: #fff;
+    padding: 0
+}
+
+.editor-toolbar .editor-toolbar-select-forecolor p {
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    padding: 1px 2px
+}
+
+.editor-toolbar .editor-toolbar-select-forecolor div.editor-toolbar-select-caption {
+    width: 50px;
+    overflow: hidden;
+    vertical-align: middle;
+    white-space: nowrap;
+    border: none;
+    margin-right: 3px
+}
+
+.editor-toolbar .editor-toolbar-select-forecolor div.editor-toolbar-select-dropdown {
+    width: 7px;
+    vertical-align: middle;
+    background: transparent url(img/editor-icon.gif) no-repeat center -488px;
+    border: none
+}

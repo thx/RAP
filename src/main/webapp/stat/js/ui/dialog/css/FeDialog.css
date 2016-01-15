@@ -1,0 +1,213 @@
+/*====== FeDialog.css == meizz == 2008-01-24 ======*/
+
+.FeDialog {
+    top: 20px;
+    left: 20px;
+}
+
+.FeDialogContent {
+    min-height: 40px;
+    min-width: 150px;
+    background-color: #FFFFFF;
+    cursor: default;
+    text-align: left;
+    vertical-align: top;
+}
+
+.FeDialog_wrapper {
+    background-color: #EDEdED;
+    border: solid 1px #97C0D6;
+}
+
+.FeDialog_container {
+    padding: 4px;
+}
+
+.FeDialog .FeDialogCaption {
+    height: 22px;
+    vertical-align: top;
+    text-align: left;
+    cursor: default;
+}
+
+.FeDialog .FeDialogCaptionText {
+    height: 20px;
+    line-height: 18px;
+    color: #fff;
+    overflow: hidden;
+    cursor: default;
+    margin-right: 5px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.FeDialog .FeDialogControlBar .close_ img {
+    width: 18px;
+    height: 17px;
+    background: url(img/btclose.gif) no-repeat left top;
+}
+
+.FeDialog .FeDialogControlBar {
+    float: right;
+    cursor: default;
+    line-height: normal;
+}
+
+.FeDialog .FeDialogControlBar img {
+    border: none;
+}
+
+.FeDialog .FeDialogStatusBar {
+    line-height: 20px;
+    font-size: 12px;
+    color: #000000;
+    cursor: default;
+}
+
+.FeDialog .FeDialogButtonBar {
+    text-align: center;
+    padding: 6px 0px 2px;
+}
+
+.FeDialog .FeDialogButtonBar input {
+    width: 60px;
+    height: 21px;
+    padding-top: 2px;
+    background: url(img/button.gif) no-repeat;
+    font-size: 12px;
+    border: none
+}
+
+/*--== normal ==--*/
+.FeDialog_wrapper tr.top_ td, .FeDialog_wrapper tr.bottom_ td {
+    font-size: 1px;
+    line-height: 1px;
+    height: 0px;
+    overflow: hidden;
+}
+
+.FeDialog_wrapper tr.middle_ td.left_, .FeDialog_wrapper tr.middle_ td.right_ {
+    font-size: 1px;
+}
+
+/*--== normal focused ==--*/
+.focused_ .FeDialog_wrapper {
+    background-color: #709cd2;
+    border: solid 1px #97C0D6;
+}
+
+.focused_ .FeDialogCaptionText {
+    color: #fff;
+}
+
+.focused_ .FeDialogControlBar .close_ img {
+    background-position: left 0px;
+}
+
+.focused_ .FeDialogControlBar .close_:hover img {
+    background-position: left 0px;
+}
+
+.focused_ .FeDialogButtonBar input.accept_ {
+    background-position: left -42px;
+}
+
+.focused_ .FeDialogButtonBar input.cancel_ {
+    background-position: left -21px;
+}
+
+/*--== png background-image ==--*/
+.png_ .FeDialog_wrapper {
+    border: none;
+    background-color: transparent;
+}
+
+.png_ .FeDialog_container {
+    background-color: #709cd2;
+}
+
+.png_ .FeDialog_wrapper tr.middle_ .horizontal_ {
+    background: transparent url(img/horizontal.png) repeat-y left;
+    width: 6px;
+    overflow: hidden;
+}
+
+.png_ .FeDialog_wrapper tr.top_ .vertical_,
+.png_ .FeDialog_wrapper tr.bottom_ .vertical_ {
+    background: transparent url(img/vertical.png) repeat-x left top;
+    font-size: 1px;
+    line-height: 1px;
+    height: 6px;
+    overflow: hidden;
+}
+
+.png_ .FeDialog_wrapper tr.top_ .corner_,
+.png_ .FeDialog_wrapper tr.bottom_ .corner_ {
+    background: transparent url(img/corner.png) no-repeat left top;
+    font-size: 1px;
+    line-height: 1px;
+    width: 6px;
+    height: 6px;
+    overflow: hidden;
+}
+
+.png_ .FeDialog_wrapper tr.top_ td.right_ {
+    background-position: right top;
+}
+
+.png_ .FeDialog_wrapper tr.middle_ td.right_ {
+    background-position: -95px top;
+}
+
+.png_ .FeDialog_wrapper tr.bottom_ td.left_ {
+    background-position: left bottom;
+}
+
+.png_ .FeDialog_wrapper tr.bottom_ td.center_ {
+    background-position: left -95px;
+}
+
+.png_ .FeDialog_wrapper tr.bottom_ td.right_ {
+    background-position: right bottom;
+}
+
+/*--== png focused ==--*/
+.focused_ .png_ .FeDialog_wrapper {
+    background-color: transparent;
+}
+
+.focused_ .png_ .FeDialog_container {
+    background-color: #709cd2;
+}
+
+.focused_ .png_ .FeDialog_wrapper tr.top_ td.left_ {
+    background-position: left -100px;
+}
+
+.focused_ .png_ .FeDialog_wrapper tr.top_ td.center_ {
+    background-position: right -100px;
+}
+
+.focused_ .png_ .FeDialog_wrapper tr.top_ td.right_ {
+    background-position: right -100px;
+}
+
+.focused_ .png_ .FeDialog_wrapper tr.middle_ td.left_ {
+    background-position: -100px top;
+}
+
+.focused_ .png_ .FeDialog_wrapper tr.middle_ td.right_ {
+    background-position: right top;
+}
+
+.focused_ .png_ .FeDialog_wrapper tr.bottom_ td.left_ {
+    background-position: left bottom;
+}
+
+.focused_ .png_ .FeDialog_wrapper tr.bottom_ td.center_ {
+    background-position: left bottom;
+}
+
+.focused_ .png_ .FeDialog_wrapper tr.bottom_ td.right_ {
+    background-position: right bottom;
+}

@@ -1,0 +1,150 @@
+.popupdtr {
+    padding-top: 9px;
+    padding-bottom: 9px
+}
+
+.popupdtr-top {
+    background: url(img/popup_tb.jpg) top left no-repeat;
+    overflow: hidden;
+    font-size: 0px
+}
+
+.popupdtr-bottom {
+    background: url(img/popup_tb.jpg) 0px -9px no-repeat;
+    font-size: 0px
+}
+
+.ec-popup {
+    padding-right: 13px;
+    border-width: auto;
+    border: none;
+    background: url(img/popup_bg.jpg) top left repeat-y;
+    width: 267px;
+    overflow-y: auto;
+    overflow-x: hidden
+}
+
+.ec-popup .ec-item {
+    padding: auto;
+    height: 22px;
+    margin-left: 3px;
+    margin-right: 3px;
+    padding-left: 32px;
+    line-height: 22px;
+    cursor: default;
+    border-width: auto;
+    border: none
+}
+
+.ec-popup-item {
+    padding: auto;
+    height: 22px;
+    margin-left: 3px;
+    margin-right: 3px;
+    padding-left: 32px;
+    line-height: 22px;
+    cursor: default;
+    background: none;
+    border-bottom: none
+}
+
+.ec-popup-item-over {
+    background: url(img/popup_over.jpg) top left no-repeat
+}
+
+.ec-popup-item-complex {
+    background: url(img/popup_more.jpg) 245px 7px no-repeat
+}
+
+.ec-popup-item-complex-over {
+    background: url(img/popup_more_over.jpg) left top no-repeat
+}
+
+.ec-scpopup {
+    padding-right: 13px;
+    border-width: auto;
+    border: none;
+    background: url(img/popup_bg.jpg) top left repeat-y;
+    width: 267px
+}
+
+.ec-scpopup-layout {
+    width: 260px;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden
+}
+
+.ec-scpopup .ec-item {
+    padding: auto;
+    height: 22px;
+    margin-left: 3px;
+    margin-right: 3px;
+    padding-left: 10px;
+    line-height: 22px;
+    cursor: default;
+    border-width: auto;
+    border: none
+}
+
+.ec-scpopup-item {
+    padding: auto;
+    height: 22px;
+    margin-left: 3px;
+    margin-right: 3px;
+    padding-left: 10px;
+    line-height: 22px;
+    cursor: default;
+    background: none;
+    border-bottom: none
+}
+
+.ec-scpopup-item-over {
+    background: url(img/popup_over.jpg) top left no-repeat
+}
+
+.ec-scpopup-item-complex {
+    background: url(img/popup_more.jpg) 244px 7px no-repeat
+}
+
+.ec-scpopup-item-complex-over {
+    background: url(img/popup_more_over.jpg) left top no-repeat
+}
+
+.ec-scpopup-layout-overheight .ec-scpopup-item-complex {
+    background: url(img/popup_more.jpg) 227px 7px no-repeat
+}
+
+.ec-scpopup-layout-overheight .ec-scpopup-item-complex-over {
+    background: url(img/popup_more_over_oh.jpg) left top no-repeat
+}
+
+.ec-scpopup-layout-overheight .ec-scpopup-item-over {
+    background: url(img/popup_over_oh.jpg) top left no-repeat
+}
+
+.ec-ecombox {
+    top: 5px;
+    width: 120px;
+    height: 17px;
+    border: 1px solid #CCC;
+    background: #FFF
+}
+
+.ec-ecombox-button {
+    top: 0px;
+    right: 0px;
+    width: 17px;
+    height: 17px;
+    background: url(img/select.jpg) 0px 0px no-repeat
+}
+
+.ec-ecombox-over .ec-ecombox-button {
+    background: url(img/select.jpg) -17px 0px no-repeat
+}
+
+.ec-ecombox-press .ec-ecombox-button {
+    background: url(img/select.jpg) -34px 0px no-repeat
+}
+
+

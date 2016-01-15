@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+    #parse('/tcom/template.rap.vm')
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
+    <title>Manage Account </title>
+    #includeNewRapStatic
+</head>
+<body>
+#bodyNewStart
+<div style="width:600px;">
+    <form name="formUpdateProfile" action="$accountUrl.doUpdateProfile" class="form-horizontal" method="post"
+          onsubmit="return formOnSubmit(this);">
+        <div class="form-group row">
+            <label class="col-sm-2 control-label">账号</label>
+
+            <div class="col-sm-10">
+                <p id="pAccount" class="form-control-static">$!utils.escapeInH($user.account)</p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 control-label">名字</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    #if($isEditMode)
+                        <input name="name" minLen="2" maxLen="10" message="名字有效长度2-10" class="form-control"
+                               value="$!utils.escapeInH($user.name)" type="text"/>
+                    #else
+                        $!utils.escapeInH($user.name)
+                    #end
+                </p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 control-label">Email</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    #if($isEditMode)
+                        <input name="email" minLen="1" message="Email地址无效"
+                               pattern="[a-zA-Z0-9_+.-]+\@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}" class="form-control"
+                               value="$!utils.escapeInH($user.email)" type="text"/>
+                    #else
+                        $!utils.escapeInH($user.email)
+                    #end
+                </p>
+            </div>
+        </div>
+        #if($isEditMode)
+            <div class="form-group row">
+                <label class="col-sm-2 control-label">旧密码</label>
+
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        <input id="oldPassword" name="password" class="form-control" type="password"
+                               placeholder="请输入旧密码"/><font color="silver">* 若无需修改请忽略</font>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 control-label">新密码</label>
+
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        <input id="newPassword" name="newPassword" class="form-control" type="password"
+                               placeholder="请输入新密码"/>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 control-label">确认密码</label>
+
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        <input id="confirmNewPassword" class="form-control" type="password" placeholder="请再次输入新密码"/>
+                    </p>
+                </div>
+            </div>
+        #end
+        <div class="form-group row">
+            <label class="col-sm-2 control-label">注册时间</label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    $!utils.escapeInH($user.createDateStr)
+                </p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 control-label"></label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    #if($opSuccess)
+                        <span class="alert alert-success">操作成功</span>
+                    #else
+                        <span class="alert alert-danger" id="errMsg"  #if($errMsg && $errMsg != "")#else
+                              style="display:none;"#end>$!utils.escapeInH($errMsg)</span>
+                    #end
+                </p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 control-label"></label>
+
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    #if($isEditMode)
+                        <input type="submit" value="更新资料" class="btn btn-primary"/>
+                        <input type="button" value="取消" class="btn btn-default"
+                               onclick="window.location.href='$accountUrl.myAccount'"/>
+                    #else
+                        <input type="button" value="修改资料" class="btn btn-default"
+                               onclick="window.location.href='$accountUrl.updateProfile'"/>
+                    #end
+                </p>
+            </div>
+        </div>
+    </form>
+</div>
+#bodyEnd
+<script type="text/javascript">
+    function formOnSubmit(form) {
+        if ($('#newPassword').val() != $("#confirmNewPassword").val()) {
+            $('#errMsg').html('两次密码输入不一致');
+            $('#errMsg').show();
+            return false;
+        }
+        return rap.util.validator.validForm(form);
+    }
+</script>
+</body>
+</html>

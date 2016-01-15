@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+    <bean id="organizationMgr" class="com.taobao.rigel.rap.organization.service.impl.OrganizationMgrImpl">
+        <property name="organizationDao" ref="organizationDao"/>
+        <property name="projectMgr" ref="projectMgr"/>
+        <property name="accountMgr" ref="accountMgr"/>
+    </bean>
+    <bean id="organizationDao" class="com.taobao.rigel.rap.organization.dao.impl.OrganizationDaoImpl" parent="baseDao">
+        <property name="accountDao" ref="accountDao"/>
+        <property name="projectDao" ref="projectDao"/>
+    </bean>
+</beans>

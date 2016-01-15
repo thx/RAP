@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.taobao.rigel.rap.account.bo">
+    <class name="Role" table="tb_role">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name"/>
+    </class>
+</hibernate-mapping>

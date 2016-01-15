@@ -1,0 +1,91 @@
+#***
+ * 该文件主要用于定义前端页面常量、请求action地址等
+ * 建议前端定义的常量以f(f-front)开头。如：$fFoobar
+ *#
+##----------------------前端定义的常量-------------------------------
+## 引号
+#set($dQuote = '"')
+#set($sQuote = "'")
+## 精确到秒
+#set($timeFormat = 'yyyy-MM-dd HH:mm:ss')
+## 精确到天
+#set($dateFormat = 'yyyy-MM-dd')
+## 时间戳
+#set($timeStamp = '20151111.v0.13.0')
+##----------------------页面请求action地址-------------------------------
+## 配置工程的上下文路径
+#set($projectContext = "$!link.getContextPath()")
+##set($projectContext = "$!link.getContextPath()/rap")
+## 配置静态资源请求的路径
+#set($staticRoot = "$!projectContext/stat")
+#set($newUrl = {
+    "home":"$projectContext/org/index.do"
+})
+#set($accountUrl = {
+    "login":"$projectContext/account/login.do",
+    "doLogin":"$projectContext/account/doLogin.do",
+    "doLogout":"$projectContext/account/doLogout.do",
+    "register":"$projectContext/account/register.do",
+    "doRegister":"$projectContext/account/doRegister.do",
+    "myAccount":"$projectContext/account/myAccount.do",
+    "mySetting":"$projectContext/account/mySetting.do",
+    "updateProfile":"$projectContext/account/updateProfile.do",
+    "doUpdateProfile":"$projectContext/account/doUpdateProfile.do",
+    "doChangeProfile":"$projectContext/account/doChangeProfile.do",
+    "myHome":"$projectContext/org/index.do",
+    "logData":"$projectContext/account/logData.do"
+})
+#set($projectUrl = {
+    "myProjectList":"$projectContext/project/myProjectList.do",
+    "removeProject":"$projectContext/project/removeProject.do",
+    "addProject":"$projectContext/project/addProject.do",
+    "myProject":"$projectContext/project/myProject.do",
+    "projectDetailAjax":"$projectContext/project/projectDetailAjax.do",
+    "addOrUpdateProject":"$projectContext/project/addOrUpdateProject.do",
+    "allProductlineList":"$projectContext/org/productline.do",
+    "updateReleatedIds":"$projectContext/project/updateReleatedIds.do"
+})
+#set($workspaceUrl = {
+    "myWorkspace":"$projectContext/workspace/myWorkspace.do",
+    "loadWorkspace":"$projectContext/workspace/loadWorkspace.do",
+    "getModuleHtmlAjax":"$projectContext/workspace/getModuleHtmlAjax.do",
+    "updateCurrentSave":"$projectContext/workspace/updateCurrentSave.do",
+    "updateSave":"$projectContext/workspace/updateSave.do",
+    "querySave":"$projectContext/workspace/querySave.do",
+    "removeSave":"$projectContext/workspace/removeSave.do",
+    "checkIn":"$projectContext/workspace/checkIn.do",
+    "checkOut":"$projectContext/workspace/checkOut.do",
+    "ping":"$projectContext/workspace/ping.do",
+    "queryVersion":"$projectContext/workspace/queryVersion.do",
+    "switchVersion":"$projectContext/workspace/switchVersion.do",
+    "lock":"$projectContext/workspace/lock.do",
+    "unlock":"$projectContext/workspace/unlock.do",
+    "export":"$projectContext/workspace/export.do"
+})
+#set($platformUrl = {
+    "home":"$projectContext/platform/home.do",
+    "document":"$projectContext/platform/document.do",
+    "about":"$projectContext/platform/about.do",
+    "status":"$projectContext/platform/status.do",
+    "help":"$!projectContext/platform/help.do",
+    "test":"$!projectContext/platform/test.do",
+    "doc":"https://github.com/thx/RAP/wiki/home_cn",
+    "study":"http://thx.github.io/RAP/study.html",
+    "log":"$!projectContext/platform/log.do",
+    "realtimeUpdate":"$!projectContext/platform/realtimeUpdate.do"
+})
+#set($testerUrl = {
+    "pageTester":"$projectContext/tester/pageTester.do"
+})
+#set($teamUrl = {
+    "teams" : "$projectContext/org/team/teams.do",
+    "manage":"$projectContext/org/team/manage.do"
+})
+
+#set($productlineUrl = {
+    "productline":"$projectContext/org/productline.do"
+})
+
+#set($mockUrl = {
+    "queryMockData":"$projectContext/mock/queryMockData.do"
+})

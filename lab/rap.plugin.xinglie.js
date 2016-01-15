@@ -1,5 +1,5 @@
 /*! rap.plugin May.30th 2014 by 行列 */
-(function() {
+(function () {
     var node = null;
     var blackList = [];
     var whiteList = ["/api/dspfilter/zonesizes", "/api/dspfilter/distypes", "/api/dspfilter/screens", "/api/dspfilter/sitetypes", "/api/dspfilter/pagelist", "/api/dspfilter/urls", "/api/dspsettle/account/balance", "/api/dspsettle/account/list", "/api/log", "/api/dspsettle/account/anotice"];
@@ -23,10 +23,14 @@
     // console handler
     if (typeof window.console === 'undefined') {
         window.console = {
-            log: function() {},
-            warn: function() {},
-            info: function() {},
-            dir: function() {}
+            log: function () {
+            },
+            warn: function () {
+            },
+            info: function () {
+            },
+            dir: function () {
+            }
         };
     }
 
@@ -59,77 +63,77 @@
     }
 
     /*function wrapJQuery(jQuery) {
-        if (jQuery._rap_wrapped) {
-            return;
-        }
-        jQuery._rap_wrapped = true;
+     if (jQuery._rap_wrapped) {
+     return;
+     }
+     jQuery._rap_wrapped = true;
 
-        var ajax = jQuery.ajax;
-        jQuery.ajax = function() {
-            var oOptions = arguments[0];
-            var url = oOptions.url;
-            if (route(url) && projectId) {
-                rapUrlConverterJQuery(oOptions);
-                var oldSuccess1 = oOptions.success;
-                oldSuccess1 && (oOptions.success = function(data) {
-                    if (PREFIX == '/mockjs/') {
-                        data = Mock.mock(data);
-                        console.log('请求' + url + '返回的Mock数据:');
-                        console.dir(data);
+     var ajax = jQuery.ajax;
+     jQuery.ajax = function() {
+     var oOptions = arguments[0];
+     var url = oOptions.url;
+     if (route(url) && projectId) {
+     rapUrlConverterJQuery(oOptions);
+     var oldSuccess1 = oOptions.success;
+     oldSuccess1 && (oOptions.success = function(data) {
+     if (PREFIX == '/mockjs/') {
+     data = Mock.mock(data);
+     console.log('请求' + url + '返回的Mock数据:');
+     console.dir(data);
 
-                    }
-                    oldSuccess1.apply(this, arguments);
-                });
+     }
+     oldSuccess1.apply(this, arguments);
+     });
 
-                var oldComplete = oOptions.complete;
-                oldComplete && (oOptions.complete = function(data) {
-                    if (PREFIX == '/mockjs/') {
-                        data = Mock.mock(data);
-                        console.log('请求' + url + '返回的Mock数据:');
-                        console.dir(data);
+     var oldComplete = oOptions.complete;
+     oldComplete && (oOptions.complete = function(data) {
+     if (PREFIX == '/mockjs/') {
+     data = Mock.mock(data);
+     console.log('请求' + url + '返回的Mock数据:');
+     console.dir(data);
 
-                    }
-                    oldComplete.apply(this, arguments);
-                });
-            } else if (isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
-                var checkerOptions = {
-                    url: oOptions.url
-                };
-                rapUrlConverterJQuery(checkerOptions);
-                checkerOptions.RAP_NOT_TRACK = true;
-                checkerOptions.success = checkerHandler;
-                // real data checking
-                var oldSuccess2 = oOptions.success;
-                oOptions.success = function() {
-                    var realData = arguments[0];
-                    checkerOptions.context = {
-                        data: realData,
-                        url: oOptions.url
-                    };
-                    // perform real data check
-                    ajax.apply(jQuery, [checkerOptions]);
-                    oldSuccess2.apply(this, arguments);
-                };
-            }
-            ajax.apply(this, arguments);
-        };
-    }
+     }
+     oldComplete.apply(this, arguments);
+     });
+     } else if (isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
+     var checkerOptions = {
+     url: oOptions.url
+     };
+     rapUrlConverterJQuery(checkerOptions);
+     checkerOptions.RAP_NOT_TRACK = true;
+     checkerOptions.success = checkerHandler;
+     // real data checking
+     var oldSuccess2 = oOptions.success;
+     oOptions.success = function() {
+     var realData = arguments[0];
+     checkerOptions.context = {
+     data: realData,
+     url: oOptions.url
+     };
+     // perform real data check
+     ajax.apply(jQuery, [checkerOptions]);
+     oldSuccess2.apply(this, arguments);
+     };
+     }
+     ajax.apply(this, arguments);
+     };
+     }
 
-    window.wrapJQueryForRAP = wrapJQuery;*/
+     window.wrapJQueryForRAP = wrapJQuery;*/
     // ************************************************************************************************
     var guid = +new Date();
-    var JSONP = function(url, callback) {
+    var JSONP = function (url, callback) {
         var me = this;
         var script = document.createElement('script');
         var key = 'jsonp' + guid++;
         var success;
-        window[key] = function(data) {
+        window[key] = function (data) {
             callback(data);
             delete window[key];
             success = true;
         };
-        script.onload = script.onreadystatechange = script.onerror = function() {
-            setTimeout(function() {
+        script.onload = script.onreadystatechange = script.onerror = function () {
+            setTimeout(function () {
                 script.parentNode.removeChild(script);
                 if (!success) {
                     callback('script error');
@@ -140,10 +144,10 @@
         script.src = url + '&_c=' + key;
         document.body.appendChild(script);
     };
-    var isFunction = function(f) {
+    var isFunction = function (f) {
         return Object.prototype.toString.call(f) == '[object Function]';
     };
-    var parseURLParamsArray = function(url) {
+    var parseURLParamsArray = function (url) {
         var q = url ? url.indexOf("?") : -1;
         if (q == -1) return [];
 
@@ -156,7 +160,7 @@
         return parseURLEncodedTextArray(search);
     };
 
-    var parseURLEncodedTextArray = function(text) {
+    var parseURLEncodedTextArray = function (text) {
         var maxValueLength = 25000;
 
         var params = [];
@@ -185,7 +189,7 @@
             }
         }
 
-        params.sort(function(a, b) {
+        params.sort(function (a, b) {
             return a.name <= b.name ? -1 : 1;
         });
 
@@ -196,7 +200,7 @@
     // ************************************************************************************************
     // XMLHttpRequestWrapper
 
-    var XMLHttpRequestWrapper = function(activeXObject) {
+    var XMLHttpRequestWrapper = function (activeXObject) {
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
         // XMLHttpRequestWrapper internal variables
 
@@ -225,7 +229,7 @@
             setRequestHeader: 1
         };
 
-        var updateSelfProperties = function() {
+        var updateSelfProperties = function () {
             if (supportsXHRIterator) {
                 for (var propName in xhrRequest) {
                     if (propName in updateSelfPropertiesIgnore) continue;
@@ -261,7 +265,7 @@
             upload: 1
         };
 
-        var updateXHRProperties = function() {
+        var updateXHRProperties = function () {
             for (var propName in self) {
                 if (propName in updateXHRPropertiesIgnore) continue;
 
@@ -278,7 +282,7 @@
         };
 
 
-        var handleStateChange = function() {
+        var handleStateChange = function () {
             //Firebug.Console.log(["onreadystatechange", xhrRequest.readyState, xhrRequest.readyState == 4 && xhrRequest.status]);
 
             self.readyState = xhrRequest.readyState;
@@ -286,7 +290,8 @@
             if (xhrRequest.readyState == 4) {
                 updateSelfProperties();
 
-                xhrRequest.onreadystatechange = function() {};
+                xhrRequest.onreadystatechange = function () {
+                };
             }
 
             //Firebug.Console.log(spy.url + ": " + xhrRequest.readyState);
@@ -299,12 +304,13 @@
 
         this.readyState = 0;
 
-        this.onreadystatechange = function() {};
+        this.onreadystatechange = function () {
+        };
 
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
         // XMLHttpRequestWrapper public methods
 
-        this.open = function(method, url, async, user, password) {
+        this.open = function (method, url, async, user, password) {
             //Firebug.Console.log("xhrRequest open");
 
             updateSelfProperties();
@@ -321,7 +327,8 @@
                 // xhrRequest.open.apply may not be available in IE
                 if (supportsApply) xhrRequest.open.apply(xhrRequest, arguments);
                 else xhrRequest.open(method, url, async, user, password);
-            } catch (e) {}
+            } catch (e) {
+            }
 
             xhrRequest.onreadystatechange = handleStateChange;
 
@@ -329,10 +336,10 @@
 
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-        this.send = function(data) {
+        this.send = function (data) {
             if (this.$useJSONP) {
                 var me = this;
-                JSONP(me.$url, function(data) {
+                JSONP(me.$url, function (data) {
                     console.log(data);
                     if (data !== 'script error') {
                         data = JSON.stringify(Mock.mock(data));
@@ -362,7 +369,7 @@
 
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-        this.setRequestHeader = function(header, value) {
+        this.setRequestHeader = function (header, value) {
             if (this.$useJSONP) return;
             return xhrRequest.setRequestHeader(header, value);
         };
@@ -370,7 +377,7 @@
 
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-        this.abort = function() {
+        this.abort = function () {
             if (this.$useJSONP) return;
             xhrRequest.abort();
             updateSelfProperties();
@@ -378,13 +385,13 @@
 
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-        this.getResponseHeader = function(header) {
+        this.getResponseHeader = function (header) {
             return xhrRequest.getResponseHeader(header);
         };
 
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-        this.getAllResponseHeaders = function() {
+        this.getAllResponseHeaders = function () {
             return xhrRequest.getAllResponseHeaders();
         };
 
@@ -407,14 +414,14 @@
 
                 if (isFunction(propValue)) {
                     if (typeof self[propName] == "undefined") {
-                        this[propName] = (function(name, xhr) {
+                        this[propName] = (function (name, xhr) {
 
                             return supportsApply ?
-                            // if the browser supports apply
+                                // if the browser supports apply
 
-                            function() {
-                                return xhr[name].apply(xhr, arguments);
-                            } : function(a, b, c, d, e) {
+                                function () {
+                                    return xhr[name].apply(xhr, arguments);
+                                } : function (a, b, c, d, e) {
                                 return xhr[name](a, b, c, d, e);
                             };
 
@@ -445,7 +452,7 @@
 
         var xhrObjects = " MSXML2.XMLHTTP.5.0 MSXML2.XMLHTTP.4.0 MSXML2.XMLHTTP.3.0 MSXML2.XMLHTTP Microsoft.XMLHTTP ";
 
-        window.ActiveXObject = function(name) {
+        window.ActiveXObject = function (name) {
             var error = null;
 
             try {
@@ -466,7 +473,7 @@
     // Register the XMLHttpRequestWrapper for non-IE6 browsers
     if (!isIE6) {
         var _XMLHttpRequest = XMLHttpRequest;
-        window.XMLHttpRequest = function() {
+        window.XMLHttpRequest = function () {
             return new XMLHttpRequestWrapper();
         };
     }
@@ -478,135 +485,135 @@
          * jQuery override
          */
         /*if (window.jQuery) {
-            wrapJQuery(window.jQuery);
-        }*/
+         wrapJQuery(window.jQuery);
+         }*/
 
 
         /**
          * kissy override
          */
         /*if (window.KISSY) {
-            KISSY.oldUse = KISSY.use;
-            KISSY.oldAdd = KISSY.add;
+         KISSY.oldUse = KISSY.use;
+         KISSY.oldAdd = KISSY.add;
 
-            KISSY.add('rap_io', function(S, IO) {
-                var oldIO = IO;
-                var key;
-                var fn = KISSY.io = KISSY.IO = KISSY.ajax = function(options) {
-                    var oOptions, url;
-                    if (arguments[0]) {
-                        oOptions = arguments[0];
-                        url = oOptions.url;
-                        if (route(url) && !oOptions.RAP_NOT_TRACK) {
-                            rapUrlConverterKissy(oOptions);
-                            var oldSuccess1 = oOptions.success;
-                            oldSuccess1 && (oOptions.success = function(data) {
-                                if (PREFIX == '/mockjs/') {
-                                    data = Mock.mock(data);
-                                    console.log('请求' + url + '返回的Mock数据:');
-                                    console.dir(data);
-                                }
-                                oldSuccess1.apply(this, arguments);
-                            });
-                            var oldComplete = oOptions.complete;
-                            oldComplete && (oOptions.complete = function(data) {
-                                if (PREFIX == '/mockjs/') {
-                                    data = Mock.mock(data);
-                                    console.log('请求' + url + '返回的Mock数据:');
-                                    console.dir(data);
+         KISSY.add('rap_io', function(S, IO) {
+         var oldIO = IO;
+         var key;
+         var fn = KISSY.io = KISSY.IO = KISSY.ajax = function(options) {
+         var oOptions, url;
+         if (arguments[0]) {
+         oOptions = arguments[0];
+         url = oOptions.url;
+         if (route(url) && !oOptions.RAP_NOT_TRACK) {
+         rapUrlConverterKissy(oOptions);
+         var oldSuccess1 = oOptions.success;
+         oldSuccess1 && (oOptions.success = function(data) {
+         if (PREFIX == '/mockjs/') {
+         data = Mock.mock(data);
+         console.log('请求' + url + '返回的Mock数据:');
+         console.dir(data);
+         }
+         oldSuccess1.apply(this, arguments);
+         });
+         var oldComplete = oOptions.complete;
+         oldComplete && (oOptions.complete = function(data) {
+         if (PREFIX == '/mockjs/') {
+         data = Mock.mock(data);
+         console.log('请求' + url + '返回的Mock数据:');
+         console.dir(data);
 
-                                }
-                                oldComplete.apply(this, arguments);
-                            });
-                        } else if (isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
-                            var checkerOptions = {
-                                url: oOptions.url
-                            };
-                            rapUrlConverterKissy(checkerOptions);
-                            checkerOptions.RAP_NOT_TRACK = true;
-                            checkerOptions.success = checkerHandler;
-                            // real data checking
-                            var oldSuccess2 = oOptions.success;
-                            oOptions.success = function() {
-                                var realData = arguments[0];
-                                checkerOptions.context = {
-                                    data: realData,
-                                    url: oOptions.url
-                                };
-                                // perform real data check
-                                IO(checkerOptions);
-                                oldSuccess2.apply(this, arguments);
-                            };
+         }
+         oldComplete.apply(this, arguments);
+         });
+         } else if (isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
+         var checkerOptions = {
+         url: oOptions.url
+         };
+         rapUrlConverterKissy(checkerOptions);
+         checkerOptions.RAP_NOT_TRACK = true;
+         checkerOptions.success = checkerHandler;
+         // real data checking
+         var oldSuccess2 = oOptions.success;
+         oOptions.success = function() {
+         var realData = arguments[0];
+         checkerOptions.context = {
+         data: realData,
+         url: oOptions.url
+         };
+         // perform real data check
+         IO(checkerOptions);
+         oldSuccess2.apply(this, arguments);
+         };
 
-                        }
-                    }
-                    IO.apply(this, arguments);
-                };
+         }
+         }
+         IO.apply(this, arguments);
+         };
 
-                for (key in oldIO) {
-                    if (oldIO.hasOwnProperty(key)) {
-                        fn[key] = oldIO[key];
-                    }
-                }
+         for (key in oldIO) {
+         if (oldIO.hasOwnProperty(key)) {
+         fn[key] = oldIO[key];
+         }
+         }
 
-                return fn;
-            }, {
-                requires: ['ajax']
-            });
+         return fn;
+         }, {
+         requires: ['ajax']
+         });
 
 
-            KISSY.use = function(modules, callback) {
-                var args = arguments;
-                if (modules instanceof Array || typeof modules === 'string') {
-                    args[0] = replace(modules);
-                }
-                KISSY.oldUse.apply(this, args);
-            };
+         KISSY.use = function(modules, callback) {
+         var args = arguments;
+         if (modules instanceof Array || typeof modules === 'string') {
+         args[0] = replace(modules);
+         }
+         KISSY.oldUse.apply(this, args);
+         };
 
-            KISSY.add = function(name, fn, options) {
-                if (options && options.requires) {
+         KISSY.add = function(name, fn, options) {
+         if (options && options.requires) {
 
-                    for (var i = 0, l = options.requires.length; i < l; i++) {
-                        var current = options.requires[i].toLowerCase();
+         for (var i = 0, l = options.requires.length; i < l; i++) {
+         var current = options.requires[i].toLowerCase();
 
-                        if (current == 'io' || current == 'ajax') {
-                            options.requires[i] = 'rap_io';
-                        }
-                    }
-                }
+         if (current == 'io' || current == 'ajax') {
+         options.requires[i] = 'rap_io';
+         }
+         }
+         }
 
-                KISSY.oldAdd.apply(this, arguments);
-            };
+         KISSY.oldAdd.apply(this, arguments);
+         };
 
-            if (KISSY.IO || KISSY.io || KISSY.ajax) {
-                KISSY.use('rap_io', function() {});
-            }
+         if (KISSY.IO || KISSY.io || KISSY.ajax) {
+         KISSY.use('rap_io', function() {});
+         }
 
-        }*/
+         }*/
     }
 
     /*if (window.define && window.define.cmd) {
-        var data = seajs.config().data;
-        data.alias = data.alias || {};
-        var path = 'http://' + ROOT + '/stat/js/util/jquery-rapped.js';
-        data.alias.jquery = data.alias.jQuery = data.alias.jq = data.alias.jQ = data.alias.$ = path;
-    }
+     var data = seajs.config().data;
+     data.alias = data.alias || {};
+     var path = 'http://' + ROOT + '/stat/js/util/jquery-rapped.js';
+     data.alias.jquery = data.alias.jQuery = data.alias.jq = data.alias.jQ = data.alias.$ = path;
+     }
 
-    function replace(modules) {
-        var splited = modules;
-        if (KISSY.isString(modules)) {
-            splited = modules.split(',');
-        }
-        var index = -1;
-        for (var i = 0, l = splited.length; i < l; i++) {
-            var name = KISSY.trim(splited[i]).toLowerCase();
-            if (name === 'ajax' || name === 'io') {
-                splited[i] = 'rap_io';
-            }
-        }
-        return splited.join(',');
-    }
-*/
+     function replace(modules) {
+     var splited = modules;
+     if (KISSY.isString(modules)) {
+     splited = modules.split(',');
+     }
+     var index = -1;
+     for (var i = 0, l = splited.length; i < l; i++) {
+     var name = KISSY.trim(splited[i]).toLowerCase();
+     if (name === 'ajax' || name === 'io') {
+     splited[i] = 'rap_io';
+     }
+     }
+     return splited.join(',');
+     }
+     */
 
     function checkerHandler(mockData) {
         if (PREFIX == '/mockjs/') {
@@ -791,7 +798,7 @@
     }
 
     window.RAP = {
-        initList: function(list) {
+        initList: function (list) {
             var PARAM_REG = /\/:[^\/]*/g;
             var i, n = list.length,
                 item;
@@ -810,26 +817,26 @@
             }
             return list;
         },
-        setBlackList: function(arr) {
+        setBlackList: function (arr) {
             if (arr && arr instanceof Array) {
                 blackList = this.initList(arr);
             }
         },
-        setWhiteList: function(arr) {
+        setWhiteList: function (arr) {
             if (arr && arr instanceof Array) {
                 whiteList = this.initList(arr);
             }
         },
-        getBlackList: function() {
+        getBlackList: function () {
             return blackList;
         },
-        getWhiteList: function() {
+        getWhiteList: function () {
             return whiteList;
         },
-        getMode: function() {
+        getMode: function () {
             return mode;
         },
-        setMode: function(m) {
+        setMode: function (m) {
             m = +m;
             if (m in modeList) {
                 mode = m;
@@ -838,22 +845,22 @@
                 console.warn('Illegal mode id. Please check.');
             }
         },
-        setHost: function(h) {
+        setHost: function (h) {
             ROOT = h;
         },
-        getHost: function() {
+        getHost: function () {
             return ROOT;
         },
-        setPrefix: function(p) {
+        setPrefix: function (p) {
             PREFIX = p;
         },
-        getPrefix: function(p) {
+        getPrefix: function (p) {
             return PREFIX;
         },
-        setProjectId: function(id) {
+        setProjectId: function (id) {
             projectId = id;
         },
-        getProjectId: function() {
+        getProjectId: function () {
             return projectId;
         }
     };

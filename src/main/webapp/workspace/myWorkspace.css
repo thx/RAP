@@ -1,0 +1,787 @@
+body {
+    margin: 0;
+    padding: 0;
+    color: #666;
+}
+
+.add-link, .edit-link, .del-link, .test-link {
+    margin-top: 5px;
+    display: inline-block;
+    margin-left: 5px;
+    cursor: pointer;
+    text-decoration: none !important;
+    color: #999 !important;
+}
+
+.ec-tree .add-link,
+.ec-tree .edit-link,
+.ec-tree .del-link,
+.ec-tree .test-link {
+    margin-top: 2px;
+}
+
+.add-link:hover, .edit-link:hover, .del-link:hover, .test-link:hover {
+    color: #666 !important;
+}
+
+.add-link {
+    background-position: 0 -31px;
+}
+
+.air {
+    margin-top: 5px
+}
+
+.ec-tab-button {
+    float: left;
+    height: 20px;
+    line-height: 20px;
+    font-weight: bold;
+    width: 100px;
+    cursor: pointer
+}
+
+.ec-tab-button-selected {
+    text-decoration: underline
+}
+
+.ec-tab-buttons {
+    height: 20px;
+    margin-bottom: 10px;
+    line-height: 20px
+}
+
+.fcborder {
+    position: absolute;
+    border: 1px dashed #F00
+}
+
+.button {
+
+}
+
+.btn {
+    width: auto
+}
+
+#eventPanel {
+    position: relative
+}
+
+#eventTitle {
+    height: 25px;
+    line-height: 25px;
+    margin-bottom: 5px
+}
+
+#eventList {
+    position: absolute;
+    right: 3px;
+    top: 0px;
+    line-height: 20px;
+    height: 25px
+}
+
+#eventList .ec-select {
+    margin-right: 30px
+}
+
+#eventArea textarea {
+    height: 100px;
+    width: 99%;
+    font-size: 12px
+}
+
+.eventSlab {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    padding-top: 0px;
+    margin-left: -150px;
+    margin-top: -200px;
+    width: 400px;
+    height: 300px;
+    background: #FFF;
+    border: 1px solid #000;
+    text-align: center
+}
+
+.eventSlab ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    width: 400px
+}
+
+.eventSlab li {
+    float: left;
+    line-height: 20px;
+    color: #aaa;
+    width: 100px;
+    height: 20px;
+    text-align: center
+}
+
+.eventSlab-main-vscroll {
+    display: none
+}
+
+.eventSlab-main-hscroll {
+    display: none
+}
+
+.eventSlab-close {
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    right: 3px;
+    top: 3px;
+    background: #F00
+}
+
+.eventSlab-title {
+    height: 30px;
+    line-height: 30px;
+    top: 0px;
+    left: 0px;
+    width: 400px
+}
+
+.eventSlab-main {
+    margin-top: 30px
+}
+
+#cssArea .tool {
+    float: right;
+    margin-right: 10px
+}
+
+#cssData .title {
+    margin-top: 10px;
+    margin-bottom: 3px
+}
+
+#cssData .input {
+    width: 500px
+}
+
+.stateTable {
+    margin: 0;
+    line-height: 15px;
+    border: 1px solid #99BBE8;
+    width: 98%
+}
+
+.stateTable th {
+    border-bottom: 1px solid #99BBE8;
+    text-align: left;
+    color: #365F91
+}
+
+.stateTable .cr {
+    background: #FAFBFC
+}
+
+.read-only #div-w {
+
+}
+
+#div-fixed-panel {
+    width: 1170px;
+    margin: 70px 0 0 0;
+    background: #FFF;
+    z-index: 1;
+    top: 50px;
+}
+
+.m {
+    display: none;
+    width: 1156px;
+    background-color: #F2F2F2;
+    border: 1px solid #DDD;
+    border-radius: 0 0 12px 12px;
+    overflow-y: auto;
+}
+
+.tree-m {
+    width: 240px;
+    overflow-y: auto;
+    overflow-x: auto;
+    float: left;
+    margin-top: 8px;
+
+}
+
+.tree-m .cur a {
+    color: #CC0000;
+}
+
+.seperator {
+    height: 400px;
+    left: 250px;
+    float: left;
+}
+
+.myfloater {
+    padding: 20px;
+    width: 600px;
+}
+
+.warn {
+    color: Red;
+}
+
+.div-a {
+    width: 895px;
+    overflow-x: hidden;
+    float: left;
+}
+
+.div-a h2 {
+    width: 648px;
+    margin: 24px 0 0 18px;
+    font-size: 20px;
+}
+
+.div-a .head {
+    background-color: Gray;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.div-a .head-op {
+    width: 45px;
+}
+
+.div-a .head-name {
+    width: 180px
+}
+
+.div-a .head-validator {
+
+}
+
+.div-a .head-type {
+    width: 110px;
+}
+
+.div-a .head-remark {
+
+}
+
+.div-a .head-identifier {
+    width: 180px;
+}
+
+.div-a .head-expander {
+    width: 0;
+}
+
+.div-a .op {
+    background-color: #E6E6E6;
+    border-left: none;
+}
+
+.div-a .identifier {
+    border-left: none;
+}
+
+.div-a .validator {
+    color: Red;
+    text-align: center;
+}
+
+.div-a .remark {
+    color: Blue;
+}
+
+.div-a .identifier {
+    color: Red;
+}
+
+.div-a .dataType {
+    text-align: center;
+    font-weight: bold;
+}
+
+.div-a .expander {
+    width: 1px;
+    border: none;
+    border-top: 1px white solid;
+}
+
+.div-a .js-code-area {
+    width: 638px;
+    max-height: 200px;
+    overflow-y: auto;
+    background: #FFF;
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px dashed #DFDFDF;
+}
+
+.div-a-add {
+
+}
+
+.span-p-control {
+    background-color: Green;
+    float: right;
+}
+
+#div-mt-list {
+    border-bottom: 1px solid #DDD;
+    width: 1157px;
+    text-align: left;
+    margin-top: 13px;
+}
+
+#div-mt-list .tab {
+    padding: 8px 8px 2px 8px;
+    font-size: 16px;
+    color: #999;
+    border-width: 1px 1px 0 1px;
+    border-style: solid;
+    border-color: #DDD;
+    margin-right: 8px;
+    float: right;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 4px 4px 0 0;
+}
+
+#div-mt-list .cur {
+    background-color: #F2F2F2;
+    margin-bottom: -1px;
+    border-bottom: 1px solid #F2F2F2;
+}
+
+#div-mt-list .first {
+    border-right: 1px #DDD solid;
+}
+
+#div-add-m {
+    float: right;
+    margin-top: 8px;
+}
+
+#div-remove-m {
+    position: absolute;
+    right: 0;
+    top: 5px;
+    z-index: 10;
+}
+
+#div-add-p {
+
+}
+
+#div-w {
+    position: relative;
+    margin-top: -1px;
+}
+
+#div-w-message {
+    font-size: 14px;
+    float: left;
+    margin-top: 5px;
+}
+
+#div-debug {
+    display: none;
+}
+
+#div-empty-hint {
+
+}
+
+#div-control-panel {
+    float: right;
+    margin-right: 13px;
+}
+
+#div-control-panel .button {
+    float: right;
+    margin-left: 8px;
+}
+
+#div-control-panel .btn {
+    outline: none;
+}
+
+#div-return {
+    z-index: 5;
+    float: left;
+}
+
+#div-save-panel {
+
+}
+
+#div-save-panel .item {
+    margin: 8px;
+}
+
+#div-save-floater-content {
+
+}
+
+#div-save-floater-message, #div-checkin-floater-message, #div-checkout-floater-message, #div-version-floater-message, #div-saveVSS-floater-message {
+    position: absolute;
+    top: 40px;
+    left: 28px;
+    z-index: 99999;
+}
+
+#div-floater-control {
+    position: absolute;
+    top: 430px;
+    right: 33px;
+    width: 600px;
+    text-align: right;
+}
+
+#div-checkin-floater-content, #div-checkout-floater-content {
+    margin: 8px;
+    border: Gray 1px dashed;
+    width: 550px;
+    height: 250px;
+    overflow-y: scroll;
+}
+
+#floaterEditAFloater {
+
+}
+
+#floaterEditAFloater .title {
+    width: 80px;
+    font-weight: bold;
+}
+
+#floaterEditAFloater .radio-list label {
+    float: left;
+    margin: 0 10px 0 4px;
+    cursor: pointer;
+}
+
+#floaterEditAFloater .radio-list input {
+    float: left;
+}
+
+#floaterEditAFloater .input input {
+    width: 450px;
+}
+
+#div-saveVSS-floater-message {
+
+}
+
+#div-saveVSS-floater-content {
+    position: absolute;
+    left: -15px;
+    top: 61px;
+}
+
+#div-saveVSS-floater-content .title {
+    width: 80px;
+    font-weight: bold;
+}
+
+#div-saveVSS-floater-content .radio-list label {
+    float: left;
+    margin: 0 10px 0 4px;
+    cursor: pointer;
+}
+
+#div-saveVSS-floater-content .radio-list input {
+    float: left;
+}
+
+#div-saveVSS-floater-content .table {
+    width: 562px;
+    margin: 5px 25px;
+}
+
+.tr-param {
+    height: 25px;
+    background-color: #b8def5;
+}
+
+.tr-param td {
+    word-break: break-all;
+}
+
+#div-control-panel .btn {
+    margin-left: 5px;
+}
+
+.td-param {
+    border: white 1px solid;
+    border-collapse: collapse;
+    height: 28px;
+    padding-left: 5px;
+}
+
+.table-a {
+    border: white 1px solid;
+    border-collapse: collapse;
+    margin: 12px 8px 8px 18px;
+    width: 100%;
+}
+
+.div-add-p-link {
+    margin-left: 8px;
+}
+
+.log-item {
+    margin: 8px;
+}
+
+.param-level-0 {
+    background-color: #b8def5;
+}
+
+.param-level-1 {
+    background-color: #eddff3;
+}
+
+.param-level-2 {
+    background-color: #d0ebf2;
+}
+
+.param-level-3 {
+    background-color: #e8f1df;
+}
+
+.param-level-4 {
+    background-color: #f1e0df;
+}
+
+.param-level-5 {
+    background-color: #f1ebdf;
+}
+
+.param-level-6 {
+    background-color: #e5e4f2;
+}
+
+.param-level-7 {
+    backbround-color: #e5e4f2;
+}
+
+.td-param .edit-input, .tab input {
+    background: none;
+    margin: 0;
+    font-style: italic;
+}
+
+.tab input {
+    height: 22px;
+    font-size: 12px;
+}
+
+.item {
+    margin: 4px;
+    font-size: 12px;
+}
+
+.item b {
+    display: inline-block;
+    width: 60px;
+}
+
+.select-dataType {
+    background-color: #E6E6E6;
+    border: none;
+    width: 100px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.action-info {
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+.head {
+    text-align: center;
+    background-color: Silver;
+    color: white;
+}
+
+.head .version-op {
+    width: 35px;
+}
+
+.head .version {
+    width: 80px;
+}
+
+.head .operator {
+    width: 100px;
+}
+
+.head .operation-time {
+    width: 120px;
+}
+
+.head .version-desc {
+
+}
+
+.table-row {
+    text-align: center;
+}
+
+.table-row td {
+    border: 1px dashed silver;
+    border-collapse: collapse;
+    padding: 4px;
+    margin: 0;
+}
+
+.table-row .version-desc {
+    text-align: left;
+}
+
+.table-row .version {
+    color: Orange;
+}
+
+#div-version-panel {
+    width: 550px;
+    height: 350px;
+    overflow-y: scroll;
+    overflow-x: none;
+    margin-bottom: 12px;
+}
+
+.table-version {
+    margin-top: 8px;
+    width: 520px;
+    border: 1px dashed silver;
+    border-collapse: collapse;
+}
+
+#div-version-floater-content {
+
+}
+
+#div-version-floater-message {
+
+}
+
+.div-op-container {
+    position: relative;
+}
+
+.ec-tree > .edit-link, .ec-tree > .del-link {
+    visibility: hidden;
+}
+
+.ec-tree:hover > .edit-link, .ec-tree:hover > .del-link {
+    visibility: visible;
+}
+
+.div-op-container .del-link {
+    margin-left: 2px;
+}
+
+.div-op-container .del-link i {
+    color: #d9534f;
+}
+
+.div-op-container .add-link i {
+    color: #5cb85c;
+}
+
+.div-op-container .del-link, .div-op-container .add-link {
+    margin-top: 0;
+}
+
+.div-add-param-link {
+    margin-left: 12px;
+}
+
+/*
+    rewrite bootstrap
+*/
+.container .label {
+    line-height: 20px;
+}
+
+#div-workspace-search {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    float: left;
+}
+
+#div-workspace-search .glyphicon-search {
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    color: #999;
+}
+
+#dropdown-workspace-search .dropdown-menu {
+    min-width: 300px;
+    max-width: 687px;
+}
+
+#dropdown-workspace-search .dropdown-menu li a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#pluginCodeInput {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.table-version {
+    margin: 0 auto;
+}
+
+.myfloater textarea, .myfloater input[type=text], .myfloater input[type=password] {
+    border: 1px solid #DDD;
+    border-radius: 2px;
+    padding: 5px;
+    outline: none;
+}
+
+.myfloater textarea {
+    margin-top: 2px;
+    resize: none;
+}
+
+#floaterEditAFloater input[type=text], #floaterEditAFloater input[type=password] {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+#floaterEditAFloater .radio-list {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.glyphicon-remove {
+    color:#d9534f
+}

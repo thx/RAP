@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+    #parse('/tcom/template.rap.vm')
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" href="${staticRoot}/img/favicon.ico">
+    <title>Manage Account</title> #includeNewRapStatic
+</head>
+<body>
+<style>
+    .ml10 {
+        margin-left: 10px;
+    }
+
+    .mt30 {
+        margin-top: 30px;
+    }
+
+    .settings {
+        width: 580px;
+        margin: 0 auto;
+        margin-top: 30px;
+    }
+
+    .settings .nav-tabs {
+        margin-top: 20px;
+    }
+
+    .settings .nav-tabs li:first-child {
+        margin-left: 30px;
+    }
+
+    .settings .tab-content .tab-pane {
+        padding: 30px 20px 0 20px;
+        min-height: 300px;
+    }
+</style>
+#bodyNewStart
+<!-- Nav tabs -->
+<div class="settings">
+    <div class="alert alert-success">不要鸡冻，这个功能还木有做完，霍雍和思竹吃饭饭去了</div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">消息提醒设置</a>
+        </li>
+        <li><a href="#profile" data-toggle="tab">邮件接收设置</a></li>
+        <li class='hide'><a href="#settings" data-toggle="tab">其他</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="home">
+            <form class="form-horizontal" role="form" style="margin: 0 auto;">
+                <div class="form-group ">
+                    <label class="control-label col-sm-3" for="inputSuccess3">消息提醒效果预览</label>
+
+                    <div class="col-sm-9">
+                        <img src="${staticRoot}/img/preview-notify.png" width="360"/>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label class="control-label col-sm-3" for="inputSuccess3">是否接收消息提醒</label>
+
+                    <div class="col-sm-9">
+                        <div class="radio">
+                            <label> <input type="radio" name="optionsRadios"
+                                           id="optionsRadios1" value="option1" checked> 接收 </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="optionsRadios"
+                                           id="optionsRadios2" value="option2"> 不接收 </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="inputSuccess3">消息提醒类型设置</label>
+
+                    <div class="col-sm-9">
+                        <div class="checkbox">
+                            <label> <input type="checkbox" name="optionsRadios"
+                                           id="optionsRadios1" value="option1" checked>
+                                “我创建的项目” 的变更通知 </label>
+                        </div>
+                        <div class="checkbox">
+                            <label> <input type="checkbox" name="optionsRadios"
+                                           id="optionsRadios2" value="option2"> “我参与的项目” 的变更通知 </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mt30">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="submit" class="btn btn-success">保 存</button>
+                        <button type="reset" class="btn btn-default ml10">重 置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane fade" id="profile">
+            <form class="form-horizontal" role="form" style="margin: 0 auto;">
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-3 control-label">您的专属邮件昵称</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" style="width:44%;" id="inputEmail3" placeholder="默认是花名"
+                               title=" - 不设置，将根据您的花名发送邮件
+ - 设置了，将根据您设置的名称发送邮件">
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <label class="control-label col-sm-3" for="inputSuccess3">是否接收邮件提醒</label>
+
+                    <div class="col-sm-9">
+                        <div class="radio">
+                            <label> <input type="radio" name="optionsRadios"
+                                           id="optionsRadios1" value="option1" checked> 接收 </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="optionsRadios"
+                                           id="optionsRadios2" value="option2"> 不接收 </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="inputSuccess3">邮件提醒内容设置</label>
+
+                    <div class="col-sm-9">
+                        <div class="checkbox">
+                            <label> <input type="checkbox" name="optionsRadios"
+                                           id="optionsRadios1" value="option1" checked>
+                                “我创建的项目” 的变更通知 </label>
+                        </div>
+                        <div class="checkbox">
+                            <label> <input type="checkbox" name="optionsRadios"
+                                           id="optionsRadios2" value="option2"> “我参与的项目” 的变更通知 </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mt30">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="submit" class="btn btn-success">保 存</button>
+                        <button type="reset" class="btn btn-default ml10">重 置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane fade hide" id="settings">更多功能，敬请期待~</div>
+    </div>
+</div>
+#bodyEnd
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    #parse('/tcom/template.rap.vm')
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>我勒个去！出错了 T.T </title>
+    #includeNewRapStatic
+</head>
+<body>
+#bodyNewStart
+<div id="error">
+    <div class="title">
+        <h2>RAP出错啦！</h2>
+    </div>
+    <div class="alert alert-danger" role="alert">
+        #if($errMsg)$errMsg
+        #else
+            当你不幸走入该页面时，说明系统出现了不可处理的错误，或您进行了比较BT的操作导致系统不能处理，相关信息我们已经记录，并且会尽快解决，当然，也欢迎您联系平台的维护人员，谢谢哟。 T.T
+        #end
+    </div>
+    <div id="image-error"></div>
+    #if($exception.message || $exceptionStack)
+        <div class="title"><h2>technical details</h2></div>
+        <div class="message content">#if($exception.message)$exception.message#else Unknown Exception #end</div>
+        <div class="detail">#if($exceptionStack)$exceptionStack#else NO DETAIL#end</div>
+    #end
+</div>
+#bodyEnd
+</body>
+</html>

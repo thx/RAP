@@ -1,0 +1,654 @@
+#set($imgRoot = "${staticRoot}/js/
+ui /table/ css
+
+/
+img")
+#set($tbCss = {
+    "default":{
+    "hs_img":    "$imgRoot/
+    hscroll.gif",
+    "s_img":    "$imgRoot/
+    scroll.gif",
+    "cr_img":    "$imgRoot/
+    cr.gif",
+    "t_img":    "$imgRoot/         ",
+    "th_font":    "#326700",
+    "th_bg":    "#DCEFD1",
+    "bdr_dk":    "#9CD167",
+    "bdr_lt":    "#CCE9B9",
+    "r_ev":        "#F2F8EE",
+    "r_od":        "#FFF",
+    "r_ev_dk":    "#DDE9D0",
+    "r_od_dk":    "#EAF1E2",
+    "hl_bg":    "#FFFCE2"
+},
+    "blue":{
+    "hs_img":    "$imgRoot/
+    hscroll_blue.gif",
+    "s_img":    "$imgRoot/
+    scroll_blue.gif",
+    "cr_img":    "$imgRoot/
+    cr.gif",
+    "t_img":    "$imgRoot/              ",
+    "th_font":    "#2C7AAA",
+    "th_bg":    "#C2E2F6",
+    "bdr_dk":    "#2C7AAA",
+    "bdr_lt":    "#AEDCF9",
+    "r_ev":        "#F1F9FF",
+    "r_od":        "#FFF",
+    "r_ev_dk":    "#E4F2FA",
+    "r_od_dk":    "#F1F9FF",
+    "hl_bg":    "#FFFCE2"
+},
+    "blueGray":{
+    "hs_img":    "$imgRoot/
+    hscroll_bluegray.gif",
+    "s_img":    "$imgRoot/
+    scroll_bluegray.gif",
+    "cr_img":    "$imgRoot/
+    cr.gif",
+    "t_img":    "$imgRoot/                  ",
+    "th_font":    "#346665",
+    "th_bg":    "#D9E5E1",
+    "bdr_dk":    "#BCBCBC",
+    "bdr_lt":    "#DDD",
+    "r_ev":        "#FFF",
+    "r_od":        "#FFF",
+    "r_ev_dk":    "#FFF",
+    "r_od_dk":    "#FFF",
+    "hl_bg":    "#FFFCE2",
+    "th_bold":    true,
+    "td_bdr_btm":    true,
+    "scr_bdr": "#4099C5"
+}
+})
+
+#if(!$tbSkin)
+    #set($cssMap = $tbCss.get("blueGray"))
+#else
+    #set($cssMap = $tbCss.get($tbSkin))
+#end
+
+
+
+    /*
+     * XXXXXXXXXXXXXX
+     *	$tbSkin
+ * XXXXXXXXXXXXXX
+ */
+    /* FOR OPERA */
+div{border: 0;}
+
+.ec-ecom-table .ec-vscroll {
+    background:$cssMap.r_ev;
+    width: 15px;
+    padding: 15px 0px 15px 0px;
+    font-size: 1px
+}
+
+.ec-ecom-table .ec-hscroll {
+    background:$cssMap.r_ev;
+    height: 15px;
+    padding: 0px 15px 0px 15px;
+    font-size: 1px
+}
+
+.ec-ecom-table .ec-hscroll-block {
+    background: url("$cssMap.hs_img") -2px -30px repeat-x;
+    border: 1px solid $cssMap.scr_bdr;
+    border-width: 0 1px
+}
+
+.ec-ecom-table .ec-vscroll-block {
+    background: url("$cssMap.s_img") 0px 0px repeat-y;
+    border: 1px solid $cssMap.scr_bdr;
+    border-width: 1px 0
+}
+
+.ec-ecom-table .ec-hscroll-block-over {
+    background: url("$cssMap.hs_img") -0px -45px repeat-x
+}
+
+.ec-ecom-table .ec-hscroll-block-press {
+    background: url("$cssMap.hs_img") -0px -60px repeat-x
+}
+
+.ec-ecom-table .ec-vscroll-block-over {
+    background: url("$cssMap.s_img") -15px 0px repeat-y
+}
+
+.ec-ecom-table .ec-vscroll-block-press {
+    background: url("$cssMap.s_img") -30px 0px repeat-y
+}
+
+.ec-ecom-table .ec-vscroll-prev {
+    background: url("$cssMap.s_img") -45px -40px no-repeat;
+}
+
+.ec-ecom-table .ec-vscroll-prev-over {
+    background: url("$cssMap.s_img") -75px -40px no-repeat;
+}
+
+.ec-ecom-table .ec-vscroll-prev-press {
+    background: url("$cssMap.s_img") -60px -40px no-repeat;
+}
+
+.ec-ecom-table .ec-vscroll-next {
+    background: url("$cssMap.s_img") -45px -55px no-repeat;
+}
+
+.ec-ecom-table .ec-vscroll-next-over {
+    background: url("$cssMap.s_img") -75px -55px no-repeat;
+}
+
+.ec-ecom-table .ec-vscroll-next-press {
+    background: url("$cssMap.s_img") -60px -55px no-repeat;
+}
+
+.ec-ecom-table .ec-hscroll-prev {
+    background: url("$cssMap.s_img") -45px -85px no-repeat;
+}
+
+.ec-ecom-table .ec-hscroll-prev-over {
+    background: url("$cssMap.s_img") -75px -85px no-repeat;
+}
+
+.ec-ecom-table .ec-hscroll-prev-press {
+    background: url("$cssMap.s_img") -60px -85px no-repeat;
+}
+
+.ec-ecom-table .ec-hscroll-next {
+    background: url("$cssMap.s_img") -45px -70px no-repeat;
+}
+
+.ec-ecom-table .ec-hscroll-next-over {
+    background: url("$cssMap.s_img") -75px -70px no-repeat;
+}
+
+.ec-ecom-table .ec-hscroll-next-press {
+    background: url("$cssMap.s_img") -60px -70px no-repeat;
+}
+
+.ec-ecom-table .vsblockdtr {
+    padding: 2px 0px
+}
+
+.ec-ecom-table .vsblockdtr-top {
+    background: url("$cssMap.s_img") -45px 0px no-repeat
+}
+
+.ec-ecom-table .vsblockdtr-bottom {
+    background: url("$cssMap.s_img") -45px -18px no-repeat
+}
+
+.ec-ecom-table .vsblockdtr-over .vsblockdtr-top {
+    background: url("$cssMap.s_img") -45px -20px no-repeat
+}
+
+.ec-ecom-table .vsblockdtr-over .vsblockdtr-bottom {
+    background: url("$cssMap.s_img") -45px -38px no-repeat
+}
+
+.ec-ecom-table .vsblockdtr-press .vsblockdtr-top {
+    background: url("$cssMap.s_img") -60px 0px no-repeat
+}
+
+.ec-ecom-table .vsblockdtr-press .vsblockdtr-bottom {
+    background: url("$cssMap.s_img") -60px -38px no-repeat
+}
+
+.ec-ecom-table .ec-panel-disabled .vsblockdtr div {
+    display: none
+}
+
+.ec-ecom-table .hsblockdtr {
+    padding: 0px 2px
+}
+
+.ec-ecom-table .hsblockdtr-left {
+    background: url("$cssMap.hs_img") -60px 0px no-repeat
+}
+
+.ec-ecom-table .hsblockdtr-right {
+    background: url("$cssMap.hs_img") -18px 0px no-repeat
+}
+
+.ec-ecom-table .hsblockdtr-over .hsblockdtr-left {
+    background: url("$cssMap.hs_img") -40px -0px no-repeat
+}
+
+.ec-ecom-table .hsblockdtr-over .hsblockdtr-right {
+    background: url("$cssMap.hs_img") -38px -0px no-repeat
+}
+
+.ec-ecom-table .hsblockdtr-press .hsblockdtr-left {
+    background: url("$cssMap.hs_img") -40px -15px no-repeat
+}
+
+.ec-ecom-table .hsblockdtr-press .hsblockdtr-right {
+    background: url("$cssMap.hs_img") -38px -15px no-repeat
+}
+
+.ec-ecom-table .ec-panel-disabled .hsblockdtr div {
+    display: none
+}
+
+.ec-ecom-table {
+    border: 1px solid $cssMap.bdr_dk;
+    padding-top: 23px;
+    background-color:$cssMap.th_bg}
+
+.ec-ecom-table .checkbox {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.ec-ecom-table .checkbox-item {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.ec-ecom-table table {
+    border-collapse: collapse;
+    border-spacing: 0px
+}
+
+.ec-ecom-table-layout {
+    background: #FFF;
+    color: #333
+}
+
+.ec-ecom-table-head,
+.ec-print-table th {
+font-weight :#if($cssMap.th_bold)bold#{else}normal#end;
+    color:$cssMap.th_font;
+    padding: 6px 5px;
+    padding-right: 12px;
+    line-height: 15px;
+    border: 0;
+    border-left: 1px solid $cssMap.bdr_lt;
+    border-bottom: 1px solid $cssMap.bdr_dk;
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: normal;
+    word-break: keep-all
+}
+
+.ec-ecom-table-item,
+.ec-print-table td {
+    line-height: 15px;
+    border: 0;
+    padding: 5px 5px;
+    padding-right: 12px;
+    border-left: 1px solid $cssMap.bdr_lt;
+        #if($cssMap.td_bdr_btm)border-bottom: 1px solid $cssMap.bdr_lt;#end
+    word-break: break-all;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: hidden
+}
+
+.ec-ecom-table-row .od td {
+    background-color:$cssMap.r_od;
+}
+
+.ec-ecom-table-row .ev td {
+    background-color:$cssMap.r_ev;
+}
+
+.ec-ecom-table-row .od td.dk {
+    background-color:$cssMap.r_od_dk;
+}
+
+.ec-ecom-table-row .ev td.dk {
+    background-color:$cssMap.r_ev_dk;
+}
+
+.ec-ecom-table-row-over .ev .ec-ecom-table-item, .ec-ecom-table-row-over .ev td.dk,
+.ec-ecom-table-row-over .od .ec-ecom-table-item, .ec-ecom-table-row-over .od td.dk,
+.ec-ecom-table-row-focus .ev .ec-ecom-table-item, .ec-ecom-table-row-focus .ev td.dk,
+.ec-ecom-table-row-focus .od .ec-ecom-table-item, .ec-ecom-table-row-focus .od td.dk,
+.ec-ecom-table-row-focus .ec-ecom-table-item,
+.ec-ecom-table-row-over .ec-ecom-table-item {
+    background-color:$cssMap.hl_bg}
+
+.ec-ecom-table-row .first,
+.ec-ecom-table-area .first {
+    border-left: 0 none;
+}
+
+/*排序*/
+.ec-ecom-table-area .sort,
+.ec-ecom-table-area .sort-over,
+.ec-ecom-table-area .sort-focus {
+    text-align: left;
+    cursor: pointer;
+    background: url("$cssMap.t_img") no-repeat 93% -33px;
+}
+
+.ec-ecom-table-area .sort-over {
+    background-color: #F6FFB8;
+}
+
+.ec-ecom-table-area .sort-up,
+.ec-ecom-table-area .sort-down {
+    cursor: pointer;
+    /*text-align:right;*/
+    background: #F6FFB8 url("$cssMap.t_img") no-repeat 93% -33px;
+}
+
+.ec-ecom-table-area .sort-up {
+    background-position: 93% -63px;
+}
+
+.ec-ecom-table-area .sort-down {
+    background-position: 93% -93px;
+}
+
+.ec-ecom-table-row .op {
+    text-align: center;
+    border: 0 none;
+    border-left: 1px solid $cssMap.bdr_dk}
+
+/*复选框*/
+.ec-checkbox {
+    background: url("$cssMap.cr_img") 0px 0px no-repeat;
+    width: 17px;
+    height: 15px
+}
+
+.ec-checkbox-disabled {
+    background: url("$cssMap.cr_img") -68px 0px no-repeat;
+}
+
+.ec-checkbox-over {
+    background: url("$cssMap.cr_img") -17px 0px no-repeat;
+}
+
+.ec-checkbox-checked {
+    background: url("$cssMap.cr_img") -34px 0px no-repeat
+}
+
+.ec-checkbox-checked-over {
+    background: url("$cssMap.cr_img") -51px 0px no-repeat
+}
+
+.ec-checkbox-part {
+    background: url("$cssMap.cr_img") -102px 0px no-repeat
+}
+
+/*展开按钮(上)*/
+.ec-col-toggler, .ec-col-toggler-o {
+    width: 17px;
+    height: 20px;
+    position: absolute;
+    top: 2px;
+    right: 0;
+    background:$cssMap.th_bg url("$cssMap.t_img") no-repeat 0px 0px;
+    cursor: pointer;
+}
+
+.ec-col-toggler-o {
+    background-position: -22px 0px
+}
+
+/*展开按钮(下)*/
+.ec-v-toggler {
+    width: 15px;
+    background:$cssMap.r_ev_dk;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    _right: -1px;
+    cursor: pointer;
+    border-left: 1px solid $cssMap.bdr_dk;
+    /*border-right:1px solid $cssMap.bdr_dk;*/
+}
+
+.ec-v-toggler div {
+    width: 9px;
+    height: 10px;
+    overflow: hidden;
+    background: url("$cssMap.t_img") no-repeat -8px -22px;
+    position: absolute;
+    right: 3px;
+    bottom: 50%;
+    _padding-top: 50%;
+    cursor: pointer;
+}
+
+.ec-v-toggler-over {
+    background-color:$cssMap.r_od_dk}
+
+/*验证*/
+.valid-error .ev td.ec-ecom-table-item,
+.valid-error .od td.ec-ecom-table-item {
+    background-color: pink;
+}
+
+/*
+ *分页
+ *囧, 有同名的list宏,需转义
+ */
+.list-page a,
+.list-page b {
+    margin: 0;
+    text-indent: 0;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    height: 20px;
+    line-height: 20px;
+    background: url("$cssMap.t_img") repeat-x 0 -150px;
+    border: 1px solid $cssMap.bdr_dk;
+    padding: 0 3px;
+    text-decoration: none;
+    color:$cssMap.th_font;
+}
+
+.list-page a:hover {
+    background-position: 0 -176px;
+}
+
+.list-page .page-n {
+    /*width:20px;*/
+    text-align: center;
+    /*padding:0;*/
+    padding: 0 5px;
+}
+
+.list-page b {
+    background-image: none;
+    color: #666;
+    background-color: #EEE;
+    font-weight: normal;
+}
+
+.list-page b.page-n {
+    background-image: none;
+    background-color: #FFF;
+    color: #000;
+    font-weight: bold;
+}
+
+.list-page {
+    color:$cssMap.th_font;
+    margin-top: 10px
+}
+
+.list-page em {
+    font-style: normal;
+    color: #000;
+    padding: 0 3px;
+}
+
+.target-page {
+    width: 25px;
+}
+
+/*弹出菜单*/
+.ec-popup {
+    background-color:$cssMap.th_bg;
+    border: 1px solid $cssMap.bdr_dk;
+    border-width: 1px 1px 0 1px;
+    width: 70px;
+}
+
+.ec-popup-item {
+    background-color:$cssMap.th_bg;
+    width: 70px;
+    height: 25px;
+    line-height: 25px;
+    border-bottom: 1px solid $cssMap.bdr_dk;
+    padding-left: 24px;
+    cursor: pointer;
+    vertical-align: bottom;
+    position: relative;
+}
+
+.ec-popup-item-over {
+    background-color:$cssMap.hl_bg;
+}
+
+.ec-popup-item .ec-checkbox {
+    /*float:left;*/
+    /*margin:4px 4px 0 4px;*/
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border: 0 none;
+    /*text-indent: 14px;*/
+}
+
+.cb-ctnr {
+    background:$cssMap.th_bg url("$cssMap.t_img") 0 -200px;
+    height: 14px;
+    margin: 0;
+    border: 0 none;
+    width: 15px;
+    position: absolute;
+    top: 7px;
+    cursor: pointer;
+}
+
+/*
+ * 提示信息显示
+ */
+.tb-msg {
+    visibility: hidden;
+    display: none;
+    margin: 0 0 4px 0;
+}
+
+.tb-msg .tb-msg-txt {
+    background:$cssMap.hl_bg;
+    color: #D2691E;
+    font-weight: bold;
+    padding: 0 4px;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    height: 20px;
+    line-height: 20px;
+}
+
+.tb-msg .clo-btn {
+    font-weight: normal;
+    margin: 0 0 0 14px;
+    cursor: pointer;
+}
+
+/*
+ *	打印
+ */
+@media screen {
+    .ec-print-table {
+        border: 1px solid $cssMap.bdr_dk;
+        border-width: 1px;
+        border-collapse: collapse;
+        background-color:$cssMap.th_bg
+    }
+
+    .ec-print-table th,
+    .ec-print-table td {
+        border: 1px solid $cssMap.bdr_dk;
+        border-width: 0 0 1px 1px;
+    }
+
+    .ec-print-table td {
+        background-color: #FFF;
+    }
+}
+
+@media print {
+    body {
+        font-family: "微软雅黑", "黑体";
+        font-size: 10px;
+    }
+
+    .strik-info {
+        color: #000;
+    }
+
+    .noprint, .nav {
+        display: none;
+    }
+
+    .area-v, .area-w {
+        display: none;
+    }
+
+    .area {
+        border: 1px solid #ddd;
+        margin-top: 6px;
+        background: #fff;
+    }
+
+    .mess-query .area-inner {
+        background: none;
+        border: 0;
+    }
+
+    .mess-query .area {
+        border: 0;
+    }
+
+    .area h5 {
+        border: 0;
+    }
+
+    .area h5 b {
+        background: none;
+        border: 0;
+        color: #000;
+    }
+
+    .old td {
+        background: #ddd;
+    }
+
+    .ec-print-table {
+        border: 1px solid #666;
+        border-width: 1px 0 1px 1px;
+        border-collapse: collapse
+    }
+
+    .ec-print-table th {
+        padding: 2px;
+        text-align: center;
+        border-right: 1px solid #666;
+        border-color: #666
+    }
+
+    .ec-print-table td {
+        padding: 2px 6px;
+        border: 1px solid #666;
+        border-width: 1px 1px 0 0;
+        border-color: #666
+    }
+
+    * {
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+}

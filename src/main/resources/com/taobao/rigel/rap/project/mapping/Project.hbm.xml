@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.taobao.rigel.rap.project.bo.Project" table="tb_project">
+        <id name="id">
+            <column name="id"/>
+            <generator class="identity"/>
+        </id>
+        <property name="name" type="string">
+            <column name="name" not-null="true">
+                <comment>项目名称</comment>
+            </column>
+        </property>
+        <property name="relatedIds" type="string">
+            <column name="related_ids" not-null="true">
+                <comment>项目相关ID</comment>
+            </column>
+        </property>
+        <property name="groupId" type="int">
+            <column name="group_id" not-null="false">
+                <comment>分组ID</comment>
+            </column>
+        </property>
+        <property name="mockNum" type="integer">
+            <column name="mock_num" not-null="true">
+                <comment>MOCK调用次数</comment>
+            </column>
+        </property>
+        <property name="version" type="string">
+            <column name="version" not-null="true">
+                <comment>当前版本</comment>
+            </column>
+        </property>
+        <property name="createDate" type="date">
+            <column name="create_date" not-null="true">
+                <comment>创建时间</comment>
+            </column>
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="update_time" not-null="true">
+                <comment>更新时间</comment>
+            </column>
+        </property>
+        <property name="introduction" type="string">
+            <column name="introduction" not-null="false">
+                <comment>项目简介</comment>
+            </column>
+        </property>
+        <property name="workspaceModeInt" type="int">
+            <column name="workspace_mode" not-null="true">
+                <comment>共享模式</comment>
+            </column>
+        </property>
+        <property name="projectData" type="string">
+            <column name="project_data">
+                <comment>项目数据(json)，用于VSS同步模式</comment>
+            </column>
+        </property>
+        <property name="accessType">
+            <column name="access_type"/>
+        </property>
+        <property name="userId" insert="false" update="false">
+            <column name="user_id" />
+        </property>
+
+        <many-to-one name="user" column="user_id" not-null="true"/>
+
+        <set name="userList" order-by="user_id asc" table="tb_project_and_user">
+            <key column="project_id" not-null="true"/>
+            <many-to-many column="user_id"
+                          class="com.taobao.rigel.rap.account.bo.User"/>
+        </set>
+        <set name="moduleList" order-by="id asc" inverse="true" cascade="delete">
+            <key column="project_id" not-null="true"/>
+            <one-to-many class="com.taobao.rigel.rap.project.bo.Module"/>
+        </set>
+
+        <set name="workspaceList" inverse="true" cascade="delete">
+            <key column="project_id" not-null="true"/>
+            <one-to-many class="com.taobao.rigel.rap.workspace.bo.Workspace"/>
+        </set>
+
+        <set name="checkInList" inverse="true" cascade="delete">
+            <key column="project_id" not-null="true"/>
+            <one-to-many class="com.taobao.rigel.rap.workspace.bo.CheckIn"/>
+        </set>
+    </class>
+</hibernate-mapping>

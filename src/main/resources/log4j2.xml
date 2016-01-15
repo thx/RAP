@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <RollingFile name="DetailLog"
+                     fileName="logs/rap-detail.log"
+                     filePattern="logs/rap.detail.%d{yyyy_MM_dd}.PART_%i.log">
+            <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="1000"/>
+        </RollingFile>
+        <RollingFile name="ErrorLog"
+                     fileName="logs/rap-error.log"
+                     filePattern="logs/rap.error.%d{yyyy_MM_dd}.PART_%i.log">
+            <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100 KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="errorLogger" level="error">
+            <AppenderRef ref="ErrorLog"/>
+        </Logger>
+        <Logger name="detailLogger" level="warn">
+            <AppenderRef ref="DetailLog"/>
+        </Logger>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

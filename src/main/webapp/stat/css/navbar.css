@@ -1,0 +1,147 @@
+.navbar {
+    position: fixed;
+    _position: absolute;
+    top: 0px;
+    left: 0px;
+    _bottom: auto;
+    _top: expression(eval(document.documentElement.scrollTop));
+    height: 25px;
+    width: 100%;
+    overflow: hidden;
+    border-top: 1px solid #CFCFCF;
+    background-color: #CCC;
+    font-size: 13px;
+    z-index: 1000
+}
+
+.navmask {
+    display: none;
+    _display: block;
+    position: fixed;
+    _position: absolute;
+    top: 0px;
+    left: 0px;
+    _bottom: auto;
+    _top: expression(eval(document.documentElement.scrollTop));
+    height: 26px;
+    width: 100%;
+    z-index: 999
+}
+
+.navbarblock {
+    height: 26px
+}
+
+.navbar .item {
+    float: left;
+    height: 25px;
+    position: relative;
+    background: url(img/nav_bg.jpg) repeat-x;
+    padding-left: 5px;
+    padding-right: 23px;
+    line-height: 25px;
+    font-weight: bold
+}
+
+.navbar a {
+    color: #AEAEAE;
+    text-decoration: none
+}
+
+.navbar .prev {
+    position: absolute;
+    height: 25px;
+    width: 24px;
+    left: -24px;
+    top: 0px;
+    background: url(img/nav_side.jpg) -72px 0px no-repeat;
+    display: none;
+    margin: 0px;
+    cursor: default
+}
+
+.navbar .next {
+    position: absolute;
+    height: 25px;
+    width: 24px;
+    right: -1px;
+    top: 0px;
+    background: url(img/nav_side.jpg) 0 0 no-repeat;
+    margin: 0px;
+    cursor: default
+}
+
+.navbar .last {
+    position: absolute;
+    height: 25px;
+    width: 24px;
+    right: -12px;
+    top: 0px;
+    background: url(img/nav_side.jpg) -96px 0px no-repeat
+}
+
+.navbar .current {
+    background-image: none;
+    background-color: #FFF;
+    z-index: 100
+}
+
+.navbar .current a {
+    color: #000
+}
+
+.navbar .current .prev {
+    display: block
+}
+
+.navbar .current .next {
+    background-position: 0px -25px
+}
+
+.navbar .current .last {
+    background-position: -96px -25px
+}
+
+.navbar .parent .next {
+    display: none
+}
+
+.navbar .child {
+    font-weight: normal;
+    padding-left: 5px;
+    padding-right: 23px
+}
+
+.navbar .child .prev {
+    background: url(img/nav_side.jpg) -48px -25px
+}
+
+.navbar .child a {
+    margin-right: 5px;
+    font-size: 12px
+}
+
+.navbar .current .parent .next {
+    display: block
+}
+
+.navbar .current .child {
+    background: url(img/nav_bg.jpg) 0px -25px repeat-x
+}
+
+.navbar .current .child .next {
+    background-position: -24px 0px
+}
+
+.navbar .current .child a {
+    color: #CDD5D7
+}
+
+.navbar .current a.cur {
+    color: #FFF;
+    font-weight: bold;
+}
+
+.navbar .nop {
+    padding: 0px;
+}

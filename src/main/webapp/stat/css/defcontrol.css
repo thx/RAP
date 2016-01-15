@@ -1,0 +1,610 @@
+.ec-vscroll {
+    background: #F0F0F0;
+    width: 15px;
+    padding: 15px 0px 15px 0px;
+    font-size: 1px
+}
+
+.ec-hscroll {
+    background: #F0F0F0;
+    height: 15px;
+    padding: 0px 15px 0px 15px;
+    font-size: 1px
+}
+
+.ec-hscroll-block {
+    background: url(img/hscroll.jpg) -2px -30px repeat-x
+}
+
+.ec-vscroll-block {
+    background: url(img/scroll.jpg) 0px 0px repeat-y
+}
+
+.ec-hscroll-block-over {
+    background: url(img/hscroll.jpg) -0px -45px repeat-x
+}
+
+.ec-hscroll-block-press {
+    background: url(img/hscroll.jpg) -0px -60px repeat-x
+}
+
+.ec-vscroll-block-over {
+    background: url(img/scroll.jpg) -15px 0px repeat-y
+}
+
+.ec-vscroll-block-press {
+    background: url(img/scroll.jpg) -30px 0px repeat-y
+}
+
+.ec-vscroll-prev {
+    background: url(img/scroll.jpg) -45px -40px no-repeat;
+}
+
+.ec-vscroll-prev-over {
+    background: url(img/scroll.jpg) -75px -40px no-repeat;
+}
+
+.ec-vscroll-prev-press {
+    background: url(img/scroll.jpg) -60px -40px no-repeat;
+}
+
+.ec-vscroll-next {
+    background: url(img/scroll.jpg) -45px -55px no-repeat;
+}
+
+.ec-vscroll-next-over {
+    background: url(img/scroll.jpg) -75px -55px no-repeat;
+}
+
+.ec-vscroll-next-press {
+    background: url(img/scroll.jpg) -60px -55px no-repeat;
+}
+
+.ec-hscroll-prev {
+    background: url(img/scroll.jpg) -45px -85px no-repeat;
+}
+
+.ec-hscroll-prev-over {
+    background: url(img/scroll.jpg) -75px -85px no-repeat;
+}
+
+.ec-hscroll-prev-press {
+    background: url(img/scroll.jpg) -60px -85px no-repeat;
+}
+
+.ec-hscroll-next {
+    background: url(img/scroll.jpg) -45px -70px no-repeat;
+}
+
+.ec-hscroll-next-over {
+    background: url(img/scroll.jpg) -75px -70px no-repeat;
+}
+
+.ec-hscroll-next-press {
+    background: url(img/scroll.jpg) -60px -70px no-repeat;
+}
+
+.ec-panel-corner {
+    background: #F0F0F0;
+    font-size: 1px
+}
+
+.ec-panel-layout {
+    border: 1px solid #CCC;
+    line-height: 20px;
+    padding: 3px;
+}
+
+/*.ec-item {border:1px solid #FFF;background:#FFF}*/
+
+.ec-edit {
+    border: 1px solid black;
+    width: 120px;
+    height: 18px
+}
+
+.ec-text, .ec-select {
+    width: 120px;
+    height: 17px;
+    border: 1px solid #CCC;
+    background: #FFF
+}
+
+/*.ec-select {display:inline-block;_display:inline;zoom:1}*/
+.ec-select-options {
+    border: 1px solid #CCC;
+    border: 1px solid #CCC;
+}
+
+.ec-select-options-layout {
+    background: #FFF
+}
+
+.ec-select-button {
+    background: url(img/select.jpg) 0px 0px no-repeat
+}
+
+.ec-select-over .ec-select-button {
+    background: url(img/select.jpg) -17px 0px no-repeat
+}
+
+.ec-select-press .ec-select-button {
+    background: url(img/select.jpg) -34px 0px no-repeat
+}
+
+.ec-select-item {
+    height: 15px;
+    cursor: default;
+    line-height: 15px;
+    line-height: 16px \9;
+}
+
+.ec-select-text {
+    cursor: default;
+    height: 15px;
+    line-height: 15px;
+    padding-left: 2px;
+    _padding-top: 1px;
+    line-height: 16px \9;
+}
+
+/*.ec-select-focus .ec-select-text {background:#7D9FFF;color:#FFF;border:1px dotted #333}*/
+.ec-select-item-over {
+    background: #7D9FFF;
+    color: #FFF;
+}
+
+.ec-checkbox {
+    background: url(img/cr.jpg) 0px 0px no-repeat;
+    width: 17px;
+    height: 17px
+}
+
+.ec-checkbox-display {
+    background: url(img/cr.jpg) -34px 0px no-repeat;
+}
+
+.ec-checkbox-over {
+    background: url(img/cr.jpg) -17px 0px no-repeat;
+}
+
+.ec-checkbox-checked {
+    background: url(img/cr.jpg) -34px 0px no-repeat
+}
+
+.ec-checkbox-checked-over {
+    background: url(img/cr.jpg) -51px 0px no-repeat
+}
+
+.ec-checkbox-part {
+    background: url(img/cr.jpg) -102px 0px no-repeat
+}
+
+.ec-radio {
+    background: url(img/cr.jpg) 0px -17px no-repeat;
+    width: 17px;
+    height: 17px
+}
+
+.ec-radio-disabled {
+    background: url(img/cr.jpg) -68px -17px no-repeat
+}
+
+.ec-radio-over {
+    background: url(img/cr.jpg) -17px -17px no-repeat
+}
+
+.ec-radio-checked {
+    background: url(img/cr.jpg) -34px -17px no-repeat
+}
+
+.ec-radio-checked-over {
+    background: url(img/cr.jpg) -51px -17px no-repeat
+}
+
+.customer-checkbox {
+    background: url(img/cr_r.jpg) 0px 0px no-repeat;
+    width: 17px;
+    height: 17px
+}
+
+.customer-checkbox-display {
+    background: url(img/cr_r.jpg) -34px 0px no-repeat;
+}
+
+.customer-checkbox-over {
+    background: url(img/cr_r.jpg) -17px 0px no-repeat;
+}
+
+.customer-checkbox-checked {
+    background: url(img/cr_r.jpg) -34px 0px no-repeat
+}
+
+.customer-checkbox-checked-over {
+    background: url(img/cr_r.jpg) -51px 0px no-repeat
+}
+
+.customer-checkbox-part {
+    background: url(img/cr_r.jpg) -102px 0px no-repeat
+}
+
+.customer-radio {
+    background: url(img/cr_o.jpg) 0px -17px no-repeat;
+    width: 17px;
+    height: 17px
+}
+
+.customer-radiodisabled {
+    background: url(img/cr_or.jpg) -68px -17px no-repeat
+}
+
+.customer-radio-over {
+    background: url(img/cr_o.jpg) -17px -17px no-repeat
+}
+
+.customer-radio-checked {
+    background: url(img/cr_o.jpg) -34px -17px no-repeat
+}
+
+.customer-radio-checked-over {
+    background: url(img/cr_o.jpg) -51px -17px no-repeat
+}
+
+.ec-tree {
+    padding-left: 18px;
+    line-height: 16px;
+    margin-bottom: 5px;
+    cursor: default;
+}
+
+.more {
+    background: url(img/elbow-minus-nl.png) no-repeat left center;
+    cursor: pointer;
+}
+
+.more-fold {
+    background: url(img/elbow-end-plus-nl.png) no-repeat left center;
+    cursor: pointer;
+}
+
+.ec-tree-items {
+    padding-left: 15px;
+    line-height: 15px;
+}
+
+.ec-tree-empty {
+    background: none;
+    color: #000
+}
+
+.ec-tree-fold .ec-tree-items {
+    display: none
+}
+
+.ec-tree-over {
+    color: Red;
+}
+
+.vsblockdtr {
+    padding: 2px 0px
+}
+
+.vsblockdtr-top {
+    background: url(img/scroll.jpg) -45px 0px no-repeat
+}
+
+.vsblockdtr-bottom {
+    background: url(img/scroll.jpg) -45px -18px no-repeat
+}
+
+.vsblockdtr-over .vsblockdtr-top {
+    background: url(img/scroll.jpg) -45px -20px no-repeat
+}
+
+.vsblockdtr-over .vsblockdtr-bottom {
+    background: url(img/scroll.jpg) -45px -38px no-repeat
+}
+
+.vsblockdtr-press .vsblockdtr-top {
+    background: url(img/scroll.jpg) -60px 0px no-repeat
+}
+
+.vsblockdtr-press .vsblockdtr-bottom {
+    background: url(img/scroll.jpg) -60px -38px no-repeat
+}
+
+.ec-panel-disabled .vsblockdtr div {
+    display: none
+}
+
+.hsblockdtr {
+    padding: 0px 2px
+}
+
+.hsblockdtr-left {
+    background: url(img/hscroll.jpg) -60px 0px no-repeat
+}
+
+.hsblockdtr-right {
+    background: url(img/hscroll.jpg) -18px 0px no-repeat
+}
+
+.hsblockdtr-over .hsblockdtr-left {
+    background: url(img/hscroll.jpg) -40px -0px no-repeat
+}
+
+.hsblockdtr-over .hsblockdtr-right {
+    background: url(img/hscroll.jpg) -38px -0px no-repeat
+}
+
+.hsblockdtr-press .hsblockdtr-left {
+    background: url(img/hscroll.jpg) -40px -15px no-repeat
+}
+
+.hsblockdtr-press .hsblockdtr-right {
+    background: url(img/hscroll.jpg) -38px -15px no-repeat
+}
+
+.ec-panel-disabled .hsblockdtr div {
+    display: none
+}
+
+.caldtr {
+    padding: 20px 8px 10px 10px
+}
+
+.caldtr-widget0 {
+    background: url(img/cal/cal_angle.jpg) top left no-repeat
+}
+
+.caldtr-widget1 {
+    background: url(img/cal/cal_tb.jpg) top left repeat-x
+}
+
+.caldtr-widget2 {
+    background: url(img/cal/cal_angle.jpg) -10px 0px no-repeat
+}
+
+.caldtr-widget3 {
+    background: url(img/cal/cal_lr.jpg) top left
+}
+
+.caldtr-widget5 {
+    background: url(img/cal/cal_lr.jpg) -10px 0px
+}
+
+.caldtr-widget6 {
+    background: url(img/cal/cal_angle.jpg) 0px -20px no-repeat
+}
+
+.caldtr-widget7 {
+    background: url(img/cal/cal_tb.jpg) 0px -20px repeat-x
+}
+
+.caldtr-widget8 {
+    background: url(img/cal/cal_angle.jpg) -10px -20px no-repeat
+}
+
+.ec-calendar {
+    width: 265px;
+    text-align: center;
+    background: url(img/cal/cal_bg.jpg) repeat-x
+}
+
+.ec-calendar-weekname {
+    height: 20px;
+    line-height: 20px;
+    color: #808080;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1px;
+    margin-bottom: 2x;
+}
+
+.ec-calendar-date {
+    height: 170px
+}
+
+.ec-calendar-date-item {
+    cursor: default;
+    line-height: 28px
+}
+
+.ec-calendar-date-item-over {
+    color: #FF6400
+}
+
+.ec-calendar-date-item-focus {
+    background: #FF6400;
+    color: #FFF;
+    font-weight: bold
+}
+
+.ec-calendar-date-item-disabled {
+    color: #C0C0C0
+}
+
+.formdtr {
+    padding: 18px 23px 23px 18px
+}
+
+.formdtr-widget0 {
+    background: url(img/form/form_angle.jpg) top left no-repeat
+}
+
+.formdtr-widget1 {
+    background: url(img/form/form_tb.jpg) top left repeat-x
+}
+
+.formdtr-widget2 {
+    background: url(img/form/form_angle.jpg) -18px 0px no-repeat
+}
+
+.formdtr-widget3 {
+    background: url(img/form/form_lr.jpg) top left
+}
+
+.formdtr-widget5 {
+    background: url(img/form/form_lr.jpg) -18px 0px
+}
+
+.formdtr-widget6 {
+    background: url(img/form/form_angle.jpg) 0px -18px no-repeat
+}
+
+.formdtr-widget7 {
+    background: url(img/form/form_tb.jpg) 0px -18px repeat-x
+}
+
+.formdtr-widget8 {
+    background: url(img/form/form_angle.jpg) -18px -18px no-repeat
+}
+
+.ec-form {
+    width: 200px;
+    height: 150px;
+    background: white;
+    padding-top: 20px
+}
+
+.ec-form-title {
+    background: url(img/form/form_title.jpg) repeat-x;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 20px;
+    cursor: default
+}
+
+.ec-form-main {
+    padding: 3px;
+}
+
+.ec-form-close {
+    position: absolute;
+    width: 49px;
+    height: 20px;
+    right: 0px;
+    top: -7px;
+    font-size: 1px;
+    border: 0px;
+    background: url(img/form/form_bt.jpg) left top no-repeat
+}
+
+.ec-table {
+    border: 1px solid #DDD;
+    height: 160px;
+    padding-top: 23px
+}
+
+.ec-table table {
+    border-collapse: separate;
+    border-spacing: 0px
+}
+
+.ec-table-layout {
+    background: #FFF;
+    color: #333
+}
+
+.ec-table-head {
+    padding-left: 5px;
+    background: url(img/table/title_bg.jpg) left top repeat-x;
+    line-height: 21px;
+    border-right: 1px solid #DDD;
+    border-left: 1px solid #EEE
+}
+
+.ec-table-head-over {
+    background-position: 0px -23px;
+    border-right: 1px solid #AACCF6
+}
+
+.ec-table-item {
+    white-space: normal;
+    line-height: 18px;
+    padding-left: 5px
+}
+
+.ec-table-row {
+    border-bottom: 1px solid #DDD;
+    border-top: 1px solid #FFF
+}
+
+.ec-table-row-over {
+    background: url(img/table/item_bg.jpg) left top repeat-x
+}
+
+.ec-table-row-focus {
+    background: #DFE8F6;
+    border: 1px dashed #A3BAE9;
+    font-weight: bold;
+    color: #000
+}
+
+.ec-table-row-over .ec-table-item {
+    font-weight: bold;
+    color: #000
+}
+
+.ec-listbox {
+    width: 100px;
+    height: 160px;
+    border: 1px solid #828790
+}
+
+.ec-listbox-item {
+    padding-left: 2px;
+    line-height: 20px;
+    background: #FFF;
+    cursor: default
+}
+
+.ec-listbox-item-selected {
+    background: #3399FF;
+    color: #FFF
+}
+
+.select-box {
+    border: 1px solid #333
+}
+
+.popupdtr {
+    padding-top: 9px;
+    padding-bottom: 9px
+}
+
+.popupdtr-top {
+    background: url(img/popup/popup_tb.jpg) top left no-repeat;
+    overflow: hidden
+}
+
+.popupdtr-bottom {
+    background: url(img/popup/popup_tb.jpg) 0px -9px no-repeat
+}
+
+.ec-popup {
+    background: url(img/popup/popup_bg.jpg) top left repeat-y;
+    width: 267px
+}
+
+.ec-popup .ec-item {
+    height: 22px;
+    margin-left: 3px;
+    margin-right: 3px;
+    padding-left: 32px;
+    line-height: 22px;
+    cursor: default
+}
+
+.ec-popup-item-over {
+    background: url(img/popup/popup_over.jpg) top left no-repeat
+}
+
+.ec-popup-item-complex {
+    background: url(img/popup/popup_more.jpg) 245px 7px no-repeat
+}
+
+.ec-popup-item-complex-over {
+    background: url(img/popup/popup_more_over.jpg) left top no-repeat
+}
