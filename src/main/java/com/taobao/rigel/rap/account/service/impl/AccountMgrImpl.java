@@ -229,7 +229,7 @@ public class AccountMgrImpl implements AccountMgr {
 
         User user = this.getUser(userId);
         boolean canAccess = false;
-        Project project = projectMgr.getProjectSummary(projectId);
+        Project project = projectMgr.getProject(projectId);
         if (user.isUserInRole("admin")) {
             canAccess = true;
         } else if (user.getCreatedProjectList() != null) {
@@ -238,7 +238,8 @@ public class AccountMgrImpl implements AccountMgr {
                     canAccess = true;
                 }
             }
-        } else if (project.getUserList() != null) {
+        }
+        if (project.getUserList() != null) {
             for (User member : project.getUserList()) {
                 if (member.getId() == user.getId()) {
                     canAccess = true;

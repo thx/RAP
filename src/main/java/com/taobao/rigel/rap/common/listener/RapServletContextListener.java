@@ -17,6 +17,10 @@ public class RapServletContextListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         logger.info("RAP Server initializing...");
+
+        logger.info("Initializing Jedis Server...");
+        CacheUtils.init();
+
         logger.info("RAP Server ready.");
     }
 

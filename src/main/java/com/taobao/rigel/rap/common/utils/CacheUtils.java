@@ -108,4 +108,10 @@ public class CacheUtils {
         getJedis().del(cacheKey);
         returnJedis();
     }
+
+    public static void init() {
+        getJedis();
+        jedis.flushAll();
+        returnJedis();
+    }
 }

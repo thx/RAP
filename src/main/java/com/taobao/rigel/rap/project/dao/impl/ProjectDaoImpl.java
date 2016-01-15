@@ -569,7 +569,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
     }
 
     public Project getProject(int id) {
-        return (Project) currentSession().get(Project.class, id);
+        return currentSession().get(Project.class, id);
     }
 
 }
