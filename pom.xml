@@ -161,14 +161,14 @@
             <artifactId>buc.sso.common</artifactId>
             <version>0.4.4</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/buc.sso.common-0.4.4.jar</systemPath>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/buc.sso.common-0.3.9.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>buc.sso.client</artifactId>
-            <version>0.4.4</version>
+            <version>0.3.9</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/buc.sso.client-0.4.4.jar</systemPath>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/buc.sso.client-0.3.9.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
