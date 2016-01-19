@@ -17,6 +17,7 @@ import com.taobao.rigel.rap.project.dao.ProjectDao;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 import com.taobao.rigel.rap.workspace.bo.CheckIn;
 import com.taobao.rigel.rap.workspace.dao.WorkspaceDao;
+import sun.misc.Cache;
 
 import java.util.*;
 
@@ -427,6 +428,9 @@ public class ProjectMgrImpl implements ProjectMgr {
         for (int userId : ids) {
             String[] cacheKey = new String[]{CacheUtils.KEY_PROJECT_LIST, new Integer(userId).toString()};
             CacheUtils.del(cacheKey);
+
+            String[] cacheKey2 = new String[]{CacheUtils.KEY_ACCESS_USER_TO_PROJECT, new Integer(userId).toString(), new Integer(projectId).toString()};
+            CacheUtils.del(cacheKey2);
         }
     }
 
