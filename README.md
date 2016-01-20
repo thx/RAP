@@ -27,7 +27,7 @@ RAP通过GUI工具帮助WEB工程师更高效的管理接口文档，同时通�
 * 免费、开源，一切尽在掌握中！
 
 ### 如何使用RAP
-1. 直接访问由作者维护的[rapapi.net](http://rapapi.net/)
+1. 直接访问由作者维护的[rap.taobao.org](http://rap.taobao.org/)
 2. 自己部署一个RAP服务器，参考最新Release部分
 
 ### 快速上手 quick guide
