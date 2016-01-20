@@ -1,5 +1,8 @@
 # <img src="http://gtms04.alicdn.com/tps/i4/TB18fUNKVXXXXXpXpXX96liOVXX-690-234.png" height=40 />
 
+### 赞助商
+* 感谢[阿里云](http://www.aliyun.com)赞助服务器
+
 ### What is RAP?
 RAP can help WEB engineers manage API document efficiently by supplying a GUI edit tool, it can generate mock data, validate real request by analyzing API structure, make API doc as a strong dependency with the development workflow. With structured API data, RAP can do more while we can do less.
 
