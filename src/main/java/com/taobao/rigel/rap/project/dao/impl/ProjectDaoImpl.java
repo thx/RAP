@@ -37,7 +37,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         List<Integer> list = query.list();
         List<Project> resultList = new ArrayList<Project>();
         for (Integer id : list) {
-            Project p = this.getProject(id);
+            Project p = getProjectSummary(id);
             if (p != null && p.getId() > 0) {
                 resultList.add(p);
             }

@@ -144,18 +144,14 @@ public class OrganizationAction extends ActionBase {
 
 
             for (Project p : projectList) {
-                if (curUser.isUserInRole("admin")
-                        || getAccountMgr().canUserManageProject(
-                        curUser.getId(), p.getId())) {
-                    p.setIsManagable(true);
-                }
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("id", p.getId());
                 map.put("name", p.getName());
                 map.put("desc", p.getIntroduction());
                 map.put("status", p.getLastUpdateStr());
                 map.put("accounts", p.getMemberAccountListStr());
-                map.put("isManagable", p.getIsManagable());
+                map.put("isManagable", p.isManagable());
+                map.put("isDeletable", p.isDeletable());
                 map.put("creator", p.getUser().getUserBaseInfo());
                 map.put("related", p.getUser().getId() != curUserId);
                 map.put("teamId", p.getTeamId());

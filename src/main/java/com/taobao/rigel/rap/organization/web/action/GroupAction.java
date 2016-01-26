@@ -83,7 +83,7 @@ public class GroupAction extends ActionBase {
             List<Map<String, Object>> projects = new ArrayList<Map<String, Object>>();
             for (Project projectModel : projectModelList) {
                 if (getCurUser().isUserInRole("admin")
-                        || getAccountMgr().canUserManageProject(
+                        || organizationMgr.canUserManageProject(
                         getCurUser().getId(), projectModel.getId())) {
                     projectModel.setIsManagable(true);
                 }
@@ -93,7 +93,7 @@ public class GroupAction extends ActionBase {
                 project.put("desc", projectModel.getIntroduction());
                 project.put("status", projectModel.getLastUpdateStr());
                 project.put("accounts", projectModel.getMemberAccountListStr());
-                project.put("isManagable", projectModel.getIsManagable());
+                project.put("isManagable", projectModel.isManagable());
                 project.put("creator", projectModel.getUser().getUserBaseInfo());
                 project.put("teamId", projectModel.getTeamId());
                 projects.add(project);

@@ -238,4 +238,17 @@ public class TeamAction extends ActionBase {
 
         return SUCCESS;
     }
+
+    public String search() {
+        User curUser = getAccountMgr().getUser(getCurUserId());
+        if (curUser == null) {
+            setErrMsg(LOGIN_WARN_MSG);
+            setIsOk(false);
+            logger.error("Unlogined user trying to checkin and failed.");
+            return JSON_ERROR;
+        }
+
+
+        return SUCCESS;
+    }
 }

@@ -74,22 +74,18 @@ public class ProjectMgrImpl implements ProjectMgr {
         this.accountDao = accountDao;
     }
 
-
     public List<Project> getProjectList(User user, int curPageNum, int pageSize) {
         
         List<Project> projectList = projectDao.getProjectList(user, curPageNum,
                 pageSize);
         for (Project p : projectList) {
-            if (user.isUserInRole("admin")
-                    || p.getUserId() == user.getId()) {
-                p.setIsManagable(true);
-            }
+            p.setIsManagable(organizationMgr.canUserManageProject(user.getId(), p.getId()));
+            p.setIsDeletable(organizationMgr.canUserDeleteProject(user.getId(), p.getId()));
             p.setTeamId(organizationDao.getTeamIdByProjectId(p.getId()));
             p.setUser(accountDao.getUser(p.getUserId()));
         }
         return projectList;
     }
-
 
     public int addProject(Project project) {
         project.setUpdateTime(new Date());

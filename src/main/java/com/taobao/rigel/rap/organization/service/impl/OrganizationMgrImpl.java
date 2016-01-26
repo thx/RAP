@@ -178,6 +178,41 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         return organizationDao.isUserInCorp(userId, corpId);
     }
 
+    public boolean canUserManageProject(int userId, int projectId) {
+        String[] cacheKey = new String[]{CacheUtils.KEY_ACCESS_USER_TO_PROJECT, new Integer(userId).toString(), new Integer(projectId).toString()};
+
+        String cache = CacheUtils.get(cacheKey);
+        if (cache != null) {
+            return Boolean.parseBoolean(cache);
+        }
+
+        User user = accountMgr.getUser(userId);
+        boolean canAccess = false;
+        Project project = projectMgr.getProjectSummary(projectId);
+        if (user.isUserInRole("admin")) {
+            canAccess = true;
+        } else if (project.getUserId() == userId) {
+            canAccess = true;
+        } else if (project.getUserList() != null) {
+            for (User member : project.getUserList()) {
+                if (member.getId() == user.getId()) {
+                    canAccess = true;
+                    break;
+                }
+            }
+        }
+
+        CacheUtils.put(cacheKey, new Boolean(canAccess).toString());
+
+        return canAccess;
+    }
+
+    public boolean canUserDeleteProject(int userId, int projectId) {
+        User user = accountMgr.getUser(userId);
+        Project project = projectMgr.getProjectSummary(projectId);
+        return user.isAdmin() || project.getUserId() == user.getId();
+    }
+
 
     public boolean canUserManageCorp(int userId, int corpId) {
         int roleId = organizationDao.getUserRoleInCorp(userId, corpId);

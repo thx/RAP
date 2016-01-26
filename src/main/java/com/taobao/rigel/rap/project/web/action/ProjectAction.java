@@ -6,6 +6,7 @@ import com.taobao.rigel.rap.auto.generate.bo.VelocityTemplateGenerator;
 import com.taobao.rigel.rap.auto.generate.contract.Generator;
 import com.taobao.rigel.rap.common.base.ActionBase;
 import com.taobao.rigel.rap.common.bo.RapError;
+import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
@@ -40,6 +41,16 @@ public class ProjectAction extends ActionBase {
     private String projectData;
     private String result;
     private InputStream outputStream;
+
+    public OrganizationMgr getOrganizationMgr() {
+        return organizationMgr;
+    }
+
+    public void setOrganizationMgr(OrganizationMgr organizationMgr) {
+        this.organizationMgr = organizationMgr;
+    }
+
+    private OrganizationMgr organizationMgr;
 
     public String getIds() {
         if (ids == null || ids.isEmpty()) {
@@ -207,7 +218,7 @@ public class ProjectAction extends ActionBase {
     public String delete() {
         if (!isUserLogined())
             return LOGIN;
-        if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
+        if (!organizationMgr.canUserManageProject(getCurUserId(), getId())) {
             setErrMsg("您没有管理该项目的权限");
             return ERROR;
         }
@@ -254,7 +265,7 @@ public class ProjectAction extends ActionBase {
     public String update() {
         if (!isUserLogined())
             return LOGIN;
-        if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
+        if (!organizationMgr.canUserManageProject(getCurUserId(), getId())) {
             setErrMsg("您没有管理该项目的权限");
             return ERROR;
         }
@@ -289,7 +300,7 @@ public class ProjectAction extends ActionBase {
         result.put("desc", project.getIntroduction());
         result.put("accounts", project.getMemberAccountListStr());
         result.put("groupId", project.getGroupId());
-        result.put("isManagable", project.getIsManagable());
+        result.put("isManagable", project.isManagable());
         setJson(new RapError(gson.toJson(result)).toString());
 
         return SUCCESS;
@@ -298,7 +309,7 @@ public class ProjectAction extends ActionBase {
     public String updateReleatedIds() {
         if (!isUserLogined())
             return LOGIN;
-        if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
+        if (!organizationMgr.canUserManageProject(getCurUserId(), getId())) {
             setErrMsg("您没有管理该项目的权限");
             return ERROR;
         }

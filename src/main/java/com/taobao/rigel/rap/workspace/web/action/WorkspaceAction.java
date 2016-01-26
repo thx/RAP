@@ -237,7 +237,7 @@ public class WorkspaceAction extends ActionBase {
                     + projectId);
             return LOGIN;
         }
-        setAccessable(getAccountMgr().canUserManageProject(getCurUserId(), getProjectId()));
+        setAccessable(organizationMgr.canUserManageProject(getCurUserId(), getProjectId()));
         return SUCCESS;
     }
 
@@ -338,7 +338,7 @@ public class WorkspaceAction extends ActionBase {
             return JSON_ERROR;
         }
 
-        if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
+        if (!organizationMgr.canUserManageProject(getCurUserId(), getId())) {
             setErrMsg("access deny");
             logger.error("User %s trying to checkedin project(id=$d) and denied.", getCurAccount(), getId());
             return JSON_ERROR;

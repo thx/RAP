@@ -131,6 +131,26 @@ public interface OrganizationMgr {
      */
     boolean canUserAccessCorp(int userId, int corpId);
 
+
+    /**
+     * user access validation
+     *
+     * @param userId
+     * @param projectId
+     * @return
+     */
+    boolean canUserManageProject(int userId, int projectId);
+
+
+    /**
+     * can user delete project
+     *
+     * @param userId
+     * @param projectId
+     * @return
+     */
+    boolean canUserDeleteProject(int userId, int projectId);
+
     /**
      * can user manage corporation
      *
@@ -257,4 +277,5 @@ public interface OrganizationMgr {
      * @param c
      */
     void updateCorporation(Corporation c);
+
 }
