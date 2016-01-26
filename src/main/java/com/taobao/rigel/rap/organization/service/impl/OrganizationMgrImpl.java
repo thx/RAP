@@ -193,17 +193,19 @@ public class OrganizationMgrImpl implements OrganizationMgr {
             canAccess = true;
         } else if (project.getUserId() == userId) {
             canAccess = true;
-        } else if (project.getUserList() != null) {
-            for (User member : project.getUserList()) {
-                if (member.getId() == user.getId()) {
-                    canAccess = true;
-                    break;
+        } else {
+            List<Integer> memberIdList = projectMgr.getMemberIdsOfProject(projectId);
+            if (memberIdList != null) {
+                for (int memberId : memberIdList) {
+                    if (memberId == user.getId()) {
+                        canAccess = true;
+                        break;
+                    }
                 }
             }
         }
 
         CacheUtils.put(cacheKey, new Boolean(canAccess).toString());
-
         return canAccess;
     }
 
@@ -213,7 +215,6 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         return user.isAdmin() || project.getUserId() == user.getId();
     }
 
-
     public boolean canUserManageCorp(int userId, int corpId) {
         int roleId = organizationDao.getUserRoleInCorp(userId, corpId);
         Corporation corp = getCorporation(corpId);
@@ -222,7 +223,6 @@ public class OrganizationMgrImpl implements OrganizationMgr {
                 accountMgr.getUser(userId).isAdmin();
 
     }
-
 
     public List<User> getUserLisOfCorp(int corpId) {
         List<User> list = organizationDao.getUserLisOfCorp(corpId);

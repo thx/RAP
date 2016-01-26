@@ -572,4 +572,10 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         return currentSession().get(Project.class, id);
     }
 
+    public List<Integer> getMemberIdsOfProject(int projectId) {
+        Query query = currentSession().createSQLQuery("SELECT user_id FROM tb_project_and_user WHERE project_id = :projectId");
+        query.setInteger("projectId", projectId);
+        return query.list();
+    }
+
 }

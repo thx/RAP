@@ -175,4 +175,12 @@ public interface ProjectDao {
     void updateCreatorId(int projectId, int creatorId);
 
     Project getProject(int id);
+
+    /**
+     * get member id list of specified project
+     *
+     * @param projectId
+     * @return
+     */
+    List<Integer> getMemberIdsOfProject(int projectId);
 }

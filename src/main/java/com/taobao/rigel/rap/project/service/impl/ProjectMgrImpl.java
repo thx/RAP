@@ -19,6 +19,7 @@ import com.taobao.rigel.rap.workspace.bo.CheckIn;
 import com.taobao.rigel.rap.workspace.dao.WorkspaceDao;
 import sun.misc.Cache;
 
+import javax.management.Query;
 import java.util.*;
 
 public class ProjectMgrImpl implements ProjectMgr {
@@ -83,6 +84,13 @@ public class ProjectMgrImpl implements ProjectMgr {
             p.setIsDeletable(organizationMgr.canUserDeleteProject(user.getId(), p.getId()));
             p.setTeamId(organizationDao.getTeamIdByProjectId(p.getId()));
             p.setUser(accountDao.getUser(p.getUserId()));
+
+            List<Integer> memberIdList = getMemberIdsOfProject(p.getId());
+            Set<User> memberList = new HashSet<User>();
+            for (int memberId : memberIdList) {
+                memberList.add(accountMgr.getUser(memberId));
+            }
+            p.setUserList(memberList);
         }
         return projectList;
     }
@@ -433,6 +441,10 @@ public class ProjectMgrImpl implements ProjectMgr {
     public void clearProjectDocCache(int projectId) {
         String[] cacheKey = new String[]{CacheUtils.KEY_WORKSPACE, new Integer(projectId).toString()};
         CacheUtils.del(cacheKey);
+    }
+
+    public List<Integer> getMemberIdsOfProject(int projectId) {
+        return projectDao.getMemberIdsOfProject(projectId);
     }
 
     private void updateActionCache(Action action) {

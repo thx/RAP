@@ -43,7 +43,7 @@
 				{{#isManagable}}<i class="glyphicon glyphicon-pencil" data-id="{{id}}"></i>{{/isManagable}}
 				<i class="glyphicon glyphicon-export" data-id="{{id}}" title="复制RAP插件地址"></i>
 				<i class="glyphicon glyphicon-eye-open" data-id="{{id}}"></i>
-				{{#isManagable}}<i class="glyphicon glyphicon-trash" data-id="{{id}}"></i>{{/isManagable}}
+				{{#isDeletable}}<i class="glyphicon glyphicon-trash" data-id="{{id}}"></i>{{/isDeletable}}
 			</div>
 			<input type="hidden" class="accounts-hidden" value="{{accounts}}"/>
         </div>
