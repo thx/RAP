@@ -244,8 +244,10 @@ public class ProjectAction extends ActionBase {
         for (String item : list) {
             String account = item.contains("(") ? item.substring(0,
                     item.indexOf("(")).trim() : item.trim();
-            if (!account.equals(""))
+            if (!account.equals("")) {
                 memberAccountList.add(account);
+                organizationMgr.addTeamMembers(getCurUserId(), organizationMgr.getTeamIdByProjectId(project.getId()), account);
+            }
         }
         project.setMemberAccountList(memberAccountList);
         int projectId = projectMgr.addProject(project);
@@ -269,6 +271,7 @@ public class ProjectAction extends ActionBase {
             setErrMsg("您没有管理该项目的权限");
             return ERROR;
         }
+
         Project project = new Project();
         project.setId(getId());
         project.setIntroduction(getDesc());
@@ -280,8 +283,10 @@ public class ProjectAction extends ActionBase {
         for (String item : list) {
             String account = item.contains("(") ? item.substring(0,
                     item.indexOf("(")).trim() : item.trim();
-            if (!account.equals(""))
+            if (!account.equals("")) {
                 memberAccountList.add(account);
+                organizationMgr.addTeamMembers(getCurUserId(), organizationMgr.getTeamIdByProjectId(project.getId()), account);
+            }
         }
         Gson gson = new Gson();
         project.setMemberAccountList(memberAccountList);

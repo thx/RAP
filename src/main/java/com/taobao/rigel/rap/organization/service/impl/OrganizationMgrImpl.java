@@ -1,5 +1,6 @@
 package com.taobao.rigel.rap.organization.service.impl;
 
+import com.sun.javaws.CacheUtil;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.utils.CacheUtils;
@@ -14,6 +15,7 @@ import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrganizationMgrImpl implements OrganizationMgr {
@@ -218,7 +220,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     public boolean canUserManageCorp(int userId, int corpId) {
         int roleId = organizationDao.getUserRoleInCorp(userId, corpId);
         Corporation corp = getCorporation(corpId);
-        return corp.getAccessType() == Corporation.PUBLIC_ACCESS || (roleId >= 1 && roleId <= 2 ||
+        return (roleId >= 1 && roleId <= 2 ||
                 userId == getCorporation(corpId).getUserId()) ||
                 accountMgr.getUser(userId).isAdmin();
 
@@ -317,12 +319,19 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         for (String account : team.getAccountList()) {
             if (account == null || account.trim().isEmpty()) continue;
             User u = accountMgr.getUser(account);
+
+            String [] cacheKey = new String[]{CacheUtils.KEY_CORP_LIST_TOP_ITEMS, new Integer(u.getId()).toString()};
+            CacheUtils.del(cacheKey);
+
             if (u.getId() == team.getUserId()) {
                 // if the user is creator, there's no need to add again
                 continue;
             }
             organizationDao.addUserToCorp(corpId, u.getId(), 3); // 3, normal member
         }
+
+        String [] cacheKey = new String[]{CacheUtils.KEY_CORP_LIST_TOP_ITEMS, new Integer(team.getUserId()).toString()};
+        CacheUtils.del(cacheKey);
         return corpId;
     }
 
@@ -364,6 +373,8 @@ public class OrganizationMgrImpl implements OrganizationMgr {
                         && u.getId() != c.getUserId()) {
                     organizationDao.addUserToCorp(corpId, u.getId(), 3);
                 }
+                String [] cacheKey = new String[]{CacheUtils.KEY_CORP_LIST_TOP_ITEMS, new Integer(u.getId()).toString()};
+                CacheUtils.del(cacheKey);
             }
         }
 
@@ -372,7 +383,24 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
 
     public void updateCorporation(Corporation c) {
+        // clear cache
+
+        List<Integer> userIdList = new ArrayList<Integer>();
+        userIdList.add(c.getUserId());
+        List<User> userList = getUserLisOfCorp(c.getId());
+        for (User u : userList) {
+            userIdList.add(u.getId());
+        }
+
+        for (Integer userId : userIdList) {
+            String [] cacheKey = new String[]{CacheUtils.KEY_CORP_LIST_TOP_ITEMS, userId.toString()};
+            CacheUtils.del(cacheKey);
+        }
         organizationDao.updateCorporation(c);
+    }
+
+    public int getTeamIdByProjectId(int id) {
+        return organizationDao.getTeamIdByProjectId(id);
     }
 
 

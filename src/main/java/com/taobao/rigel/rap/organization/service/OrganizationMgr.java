@@ -285,4 +285,13 @@ public interface OrganizationMgr {
      */
     void updateCorporation(Corporation c);
 
+
+    /**
+     * get team id by project id
+     *
+     * @param id
+     * @return
+     */
+    int getTeamIdByProjectId(int id);
+
 }
