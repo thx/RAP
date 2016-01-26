@@ -51,9 +51,9 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    public List<Corporation> getCorporationListWithPager(int pageNum, int pageSize) {
+    public List<Corporation> getCorporationListWithPager(int pageNum, int pageSize, String keyword) {
 
-        List<Corporation> list = organizationDao.getCorporationListWithPager(pageNum, pageSize);
+        List<Corporation> list = organizationDao.getCorporationListWithPager(pageNum, pageSize, keyword);
 
         for (Corporation c : list) {
             int memberNum = organizationDao.getMemberNumOfCorporation(c.getId());
@@ -65,17 +65,17 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    public int getCorporationListWithPagerNum() {
-        return organizationDao.getCorporationListWithPagerNum();
+    public int getCorporationListWithPagerNum(String keyword) {
+        return organizationDao.getCorporationListWithPagerNum(keyword);
     }
 
 
-    public List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize) {
+    public List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize, String keyword) {
         User user = accountMgr.getUser(userId);
         if (user.isAdmin()) {
-            return getCorporationListWithPager(pageNum, pageSize);
+            return getCorporationListWithPager(pageNum, pageSize, keyword);
         }
-        List<Corporation> list = organizationDao.getCorporationListWithPager(userId, pageNum, pageSize);
+        List<Corporation> list = organizationDao.getCorporationListWithPager(userId, pageNum, pageSize, keyword);
         for (Corporation c : list) {
             int memberNum = organizationDao.getMemberNumOfCorporation(c.getId());
             c.setMemberNum(memberNum + 1); // +1 project creator
@@ -86,12 +86,12 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     }
 
 
-    public int getCorporationListWithPagerNum(int userId) {
+    public int getCorporationListWithPagerNum(int userId, String keyword) {
         User user = accountMgr.getUser(userId);
         if (user.isAdmin()) {
-            return getCorporationListWithPagerNum();
+            return getCorporationListWithPagerNum(keyword);
         }
-        return organizationDao.getCorporationListWithPagerNum(userId);
+        return organizationDao.getCorporationListWithPagerNum(userId, keyword);
     }
 
 

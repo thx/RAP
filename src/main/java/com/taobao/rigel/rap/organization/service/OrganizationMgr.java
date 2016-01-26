@@ -17,35 +17,42 @@ public interface OrganizationMgr {
     List<Corporation> getCorporationList();
 
     /**
-     * get corporation list
+     * get corporation list with pager and search
      *
+     * @param pageNum
+     * @param pageSize
+     * @param keyword
      * @return
      */
-    List<Corporation> getCorporationListWithPager(int pageNum, int pageSize);
-
+    List<Corporation> getCorporationListWithPager(int pageNum, int pageSize, String keyword);
 
     /**
-     * get corporation list
+     * get corporation list num
      *
+     * @param keyword
      * @return
      */
-    int getCorporationListWithPagerNum();
+    int getCorporationListWithPagerNum(String keyword);
 
     /**
-     * get corporation list of user
+     * get corporation list of user with pager and search
      *
      * @param userId
+     * @param pageNum
+     * @param pageSize
+     * @param keyword
      * @return
      */
-    List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize);
+    List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize, String keyword);
 
     /**
-     * get corporation list of user num
+     * get corporation list num
      *
      * @param userId
+     * @param keyword
      * @return
      */
-    int getCorporationListWithPagerNum(int userId);
+    int getCorporationListWithPagerNum(int userId, String keyword);
 
     /**
      * get group list

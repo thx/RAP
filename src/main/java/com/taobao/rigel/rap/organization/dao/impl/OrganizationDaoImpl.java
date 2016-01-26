@@ -187,7 +187,7 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     }
 
 
-    public List<Corporation> getCorporationListWithPager(int pageNum, int pageSize) {
+    public List<Corporation> getCorporationListWithPager(int pageNum, int pageSize, String keyword) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT c.id ")
                 .append("FROM tb_corporation c ")
@@ -207,7 +207,7 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     }
 
 
-    public int getCorporationListWithPagerNum() {
+    public int getCorporationListWithPagerNum(String keyword) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT COUNT(*) ")
                 .append("FROM tb_corporation c ");
@@ -218,17 +218,18 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     }
 
 
-    public List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize) {
+    public List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize, String keyword) {
+        boolean isSearch = keyword != null && !keyword.trim().isEmpty();
         StringBuilder sql = new StringBuilder();
         sql
                 .append("SELECT DISTINCT cid FROM ( ")
                 .append("   SELECT c.id AS cid ")
                 .append("       FROM tb_corporation c ")
                 .append("       JOIN tb_corporation_and_user u ON u.corporation_id = c.id ")
-                .append("       WHERE u.user_id = :userId ")
+                .append("       WHERE u.user_id = :userId " + (isSearch ? "AND c.name LIKE CONCAT('%', :keyword, '%') " : ""))
                 .append("   UNION ")
                 .append("   SELECT id AS cid FROM tb_corporation ")
-                .append("   WHERE user_id = :userId or access_type = 20")
+                .append("   WHERE (user_id = :userId or access_type = 20) " + (isSearch ? "AND name LIKE CONCAT('%', :keyword, '%') " : ""))
                 .append(") AS TEMP ")
                 .append("ORDER BY cid DESC ")
                 .append("LIMIT :startIndex, :pageSize ");
@@ -237,6 +238,9 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
         query.setInteger("userId", userId);
         query.setInteger("startIndex", (pageNum - 1) * pageSize);
         query.setInteger("pageSize", pageSize);
+        if (isSearch) {
+            query.setString("keyword", keyword);
+        }
 
         List<Integer> list = query.list();
         List<Corporation> resultList = new ArrayList<Corporation>();
@@ -248,21 +252,25 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     }
 
 
-    public int getCorporationListWithPagerNum(int userId) {
+    public int getCorporationListWithPagerNum(int userId, String keyword) {
+        boolean isSearch = keyword != null && !keyword.trim().isEmpty();
         StringBuilder sql = new StringBuilder();
         sql
                 .append("SELECT COUNT(DISTINCT cid) FROM ( ")
                 .append("   SELECT c.id AS cid ")
                 .append("       FROM tb_corporation c ")
                 .append("       JOIN tb_corporation_and_user u ON u.corporation_id = c.id ")
-                .append("       WHERE u.user_id = :userId ")
+                .append("       WHERE u.user_id = :userId " + (isSearch ? "AND c.name LIKE CONCAT('%', :keyword, '%') " : ""))
                 .append("   UNION ")
                 .append("   SELECT id AS cid FROM tb_corporation ")
-                .append("   WHERE user_id = :userId or access_type = 20")
+                .append("   WHERE (user_id = :userId or access_type = 20) " + (isSearch ? "AND name LIKE CONCAT('%', :keyword, '%') " : ""))
                 .append(") AS TEMP ");
 
         Query query = currentSession().createSQLQuery(sql.toString());
         query.setInteger("userId", userId);
+        if (isSearch) {
+            query.setString("keyword", keyword);
+        }
         return Integer.parseInt(query.uniqueResult().toString());
     }
 

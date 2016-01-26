@@ -178,7 +178,7 @@ public class OrganizationAction extends ActionBase {
         }
 
         Gson gson = new Gson();
-        setJson(gson.toJson(organizationMgr.getCorporationListWithPager(getCurUserId(), 1, 1000)));
+        setJson(gson.toJson(organizationMgr.getCorporationListWithPager(getCurUserId(), 1, 1000, null)));
         return SUCCESS;
     }
 

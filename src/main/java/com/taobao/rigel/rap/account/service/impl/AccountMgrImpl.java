@@ -157,7 +157,7 @@ public class AccountMgrImpl implements AccountMgr {
 
 
     public List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize) {
-        return organizationMgr.getCorporationListWithPager(userId, pageNum, pageSize);
+        return organizationMgr.getCorporationListWithPager(userId, pageNum, pageSize, null);
     }
 
 

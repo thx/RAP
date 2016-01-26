@@ -148,34 +148,42 @@ public interface OrganizationDao {
     void setUserRoleInCorp(int userId, int corpId, int roleId);
 
     /**
-     * get corporation list
      *
+     *
+     * @param pageNum
+     * @param pageSize
+     * @param keyword
      * @return
      */
-    List<Corporation> getCorporationListWithPager(int pageNum, int pageSize);
+    List<Corporation> getCorporationListWithPager(int pageNum, int pageSize, String keyword);
 
     /**
-     * get corporation list
      *
+     *
+     * @param keyword
      * @return
      */
-    int getCorporationListWithPagerNum();
+    int getCorporationListWithPagerNum(String keyword);
 
     /**
-     * get corporation list of user
+     *
      *
      * @param userId
+     * @param pageNum
+     * @param pageSize
+     * @param keyword
      * @return
      */
-    List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize);
+    List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize, String keyword);
 
     /**
-     * get corporation list of user num
+     *
      *
      * @param userId
+     * @param keyword
      * @return
      */
-    int getCorporationListWithPagerNum(int userId);
+    int getCorporationListWithPagerNum(int userId, String keyword);
 
     /**
      * add new corporation
