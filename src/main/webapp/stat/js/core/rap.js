@@ -1358,7 +1358,8 @@ function deepCopy(o) {
             "VSS_PANEL_MESSAGE"      : "div-saveVSS-floater-message",
             "WORKSPACE_MESSAGE"      : "div-w-message",
             "EDIT_INPUT"             : "txtMTName" ,
-            "IMPORT_JSON_MESSAGE"    : "div-importJSON-floater-message"
+            "IMPORT_JSON_MESSAGE"    : "div-importJSON-floater-message",
+            "RECOVER_WORKSPACE_MESSAGE" : "div-recoverWorkspace-floater-message"
         },
         PREFIX = {
             "SAVE" : "radio-save-"
@@ -2315,11 +2316,31 @@ function deepCopy(o) {
         this._doesImportToRequest = !!doesImportToRequest;
      };
 
+     ws.doRecoverWorkspace = function() {
+        try {
+            var backupData = $('#recoverWorkspaceFloater-text').val();
+            var data = eval('(' + backupData + ')');
+            data = eval('(' + data.modelJSON + ')');
+            if (!data || !data.moduleList) {
+                throw new Error("找不到moduleList属性，错误的备份文本。你在逗我？");
+            }
+            p.getData().moduleList = data.moduleList;
+            ecui.get('recoverWorkspaceFloater').hide();
+            ws.quickSave('通过备份导入，恢复了数据');
+        } catch (ex) {
+            showMessage(CONST.ERROR, ELEMENT_ID.RECOVER_WORKSPACE_MESSAGE, '导入失败，输入有误。技术错误信息：' + ex.message);
+        }
+     };
+
     /**
      * cancel save in VSS mode
      */
     ws.cancelSaveVSS = function() {
         ecui.get("saveVSSFloater").hide();
+    };
+
+    ws.isEditMode = function() {
+        return _isEditMode;
     };
 
     /**
@@ -2381,10 +2402,10 @@ function deepCopy(o) {
         }
     };
 
-    ws.quickSave = function() {
+    ws.quickSave = function(commitMsg) {
         var q = "id=" + p.getId() + "&projectData=" + util.escaper.escapeInU(getProjectDataJson()) +
             "&deletedObjectListData=" + util.escaper.escapeInU(b.json.stringify(_deletedObjectList)) +
-            "&versionPosition=4&description=quick save";
+            "&versionPosition=4&description=" + (commitMsg ? commitMsg : "quick save");
             showMessage(CONST.LOADING, ELEMENT_ID.WORKSPACE_MESSAGE, MESSAGE.SAVING);
             if (!processing(ELEMENT_ID.WORKSPACE_MESSAGE)) return;
             b.ajax.post(URL.checkIn, q, function(xhr, response) {

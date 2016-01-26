@@ -11,7 +11,7 @@
 ## 精确到天
 #set($dateFormat = 'yyyy-MM-dd')
 ## 时间戳
-#set($timeStamp = '20151111.v0.13.1')
+#set($timeStamp = '20151111.v0.14.0')
 ##----------------------页面请求action地址-------------------------------
 ## 配置工程的上下文路径
 #set($projectContext = "$!link.getContextPath()")
@@ -88,4 +88,8 @@
 
 #set($mockUrl = {
     "queryMockData":"$projectContext/mock/queryMockData.do"
+})
+
+#set($openAPI = {
+    "queryRAPModel" : "$projectContext/api/queryRAPModel.do"
 })
