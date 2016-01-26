@@ -88,7 +88,7 @@
             <div class="btn-group">
                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                     <span class="glyphicon glyphicon-th-large"></span>
-                    更多功能 <span class="caret"></span>
+                    更多功能 <span style="color:#CC0000;">new</span> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
                     <li>
