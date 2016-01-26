@@ -398,6 +398,7 @@ public class AccountAction extends ActionBase {
             setRelativeReturnUrl("/account/updateProfile.do");
             return LOGIN;
         }
+        user = getAccountMgr().getUser(getCurUserId());
 
         setIsEditMode(true);
         return SUCCESS;
