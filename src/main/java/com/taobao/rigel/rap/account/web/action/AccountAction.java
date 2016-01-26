@@ -357,7 +357,10 @@ public class AccountAction extends ActionBase {
             return ERROR;
         }
 
-        if (super.getAccountMgr().addUser(user)) {
+        if (getAccountMgr().getUserId(user.getAccount()) > 0) {
+            setErrMsg("该用户名" + user.getAccount() + "已经存在咯~~~");
+            return ERROR;
+        } else if (super.getAccountMgr().addUser(user)) {
             return doLogin();
         } else {
             return ERROR;

@@ -72,9 +72,6 @@ public class AccountMgrImpl implements AccountMgr {
         String ps = user.getPassword();
         if (ps == null)
             return false;
-        if (this.getUserId(user.getAccount()) > 0) {
-            return false;
-        }
 
         // DOUBLE MD5 encryption
         ps = StringUtils.getDoubleMD5(ps);

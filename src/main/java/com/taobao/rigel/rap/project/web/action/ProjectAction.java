@@ -218,8 +218,8 @@ public class ProjectAction extends ActionBase {
     public String delete() {
         if (!isUserLogined())
             return LOGIN;
-        if (!organizationMgr.canUserManageProject(getCurUserId(), getId())) {
-            setErrMsg("您没有管理该项目的权限");
+        if (!organizationMgr.canUserDeleteProject(getCurUserId(), getId())) {
+            setErrMsg("您没有删除该项目的权限");
             return ERROR;
         }
         projectMgr.removeProject(getId());
