@@ -8,6 +8,10 @@
 <body>
 #bodyNewStart
 <div style="max-height:450px; overflow-y:auto;">
+    <ol class="breadcrumb">
+        <li><a href="$teamUrl.teams">主页</a></li>
+        <li><a href="$productlineUrl.productline?id=$team.id">$utils.escapeInH($team.name)</a></li>
+    </ol>
     <table class="table table-hover">
         <thead>
         <th>名字</th>

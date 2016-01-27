@@ -294,4 +294,12 @@ public interface OrganizationMgr {
      */
     int getTeamIdByProjectId(int id);
 
+    /**
+     * get group
+     *
+     * @param id
+     * @return
+     */
+    Group getGroup(int id);
+
 }

@@ -402,4 +402,8 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     public int getTeamIdByProjectId(int id) {
         return organizationDao.getTeamIdByProjectId(id);
     }
+
+    public Group getGroup(int id) {
+        return organizationDao.getGroup(id);
+    }
 }

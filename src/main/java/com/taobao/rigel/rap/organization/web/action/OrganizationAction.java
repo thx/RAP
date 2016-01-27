@@ -18,26 +18,6 @@ import java.util.Map;
 public class OrganizationAction extends ActionBase {
     private OrganizationMgr organizationMgr;
     private ProjectMgr projectMgr;
-    private int plid;
-    private int id;
-    private Corporation corporation;
-    private ProductionLine productline;
-    private Corporation team;
-    public Corporation getCorporation() {
-        return corporation;
-    }
-
-    public void setCorporation(Corporation corporation) {
-        this.corporation = corporation;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getPlid() {
         return plid;
@@ -47,7 +27,25 @@ public class OrganizationAction extends ActionBase {
         this.plid = plid;
     }
 
-    public ProductionLine getProductLine() {
+    private int plid;
+    private int id;
+    private ProductionLine productline;
+
+    public void setTeam(Corporation team) {
+        this.team = team;
+    }
+
+    private Corporation team;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public ProductionLine getProductline() {
         return productline;
     }
 
@@ -97,8 +95,7 @@ public class OrganizationAction extends ActionBase {
         }
 
         productline = organizationMgr.getProductionLine(plid);
-        int corpId = productline.getCorporationId();
-        team = organizationMgr.getCorporation(corpId);
+        team = organizationMgr.getCorporation(productline.getCorporationId());
         return SUCCESS;
     }
 
@@ -114,7 +111,7 @@ public class OrganizationAction extends ActionBase {
             return ERROR;
         }
 
-        setCorporation(organizationMgr.getCorporation(id));
+        setTeam(organizationMgr.getCorporation(id));
         return SUCCESS;
     }
 

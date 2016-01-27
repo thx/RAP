@@ -535,6 +535,17 @@ this.localDataId.value = ecui.get('$!ecId').save(this);
 <iframe class="navmask" frameborder="0"></iframe>
 <div class="navbarblock"></div>
 #end
+
+
+#macro(breadcrumb $styles)
+<ol class="breadcrumb" style="$styles">
+    <li><a href="$teamUrl.teams">全部团队</a></li>
+    #if($team)<li><a href="$productlineUrl.productline?id=$team.id">$utils.escapeInH($team.name)</a></li>#end
+    #if($productline)<li><a href="$groupUrl.group?plid=$productline.id">$!utils.escapeInH($productline.name)</a></li>#end
+    #if($group)<li class="active">$!utils.escapeInH($group.name)</li>#end
+</ol>
+#end
+
 #**
  * @desc : includeNewRapStatic 新版统一引入静态资源
  *#

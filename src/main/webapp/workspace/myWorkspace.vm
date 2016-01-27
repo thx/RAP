@@ -13,6 +13,8 @@
 </head>
 <body class="workspace #if(!$accessable)read-only#end">
 #bodyNewStart
+
+#breadcrumb("position:relative;top:60px;background-color:#FFF;")
 <div id="div-fixed-panel">
     <div class="clearfix">
         <div id="div-w-message" class="label" style="display:none;">

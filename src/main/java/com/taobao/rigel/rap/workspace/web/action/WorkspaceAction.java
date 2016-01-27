@@ -8,6 +8,9 @@ import com.taobao.rigel.rap.common.config.SystemConstant;
 import com.taobao.rigel.rap.common.service.impl.ContextManager;
 import com.taobao.rigel.rap.common.utils.CacheUtils;
 import com.taobao.rigel.rap.common.utils.MapUtils;
+import com.taobao.rigel.rap.organization.bo.Corporation;
+import com.taobao.rigel.rap.organization.bo.Group;
+import com.taobao.rigel.rap.organization.bo.ProductionLine;
 import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 import com.taobao.rigel.rap.project.bo.Module;
 import com.taobao.rigel.rap.project.bo.Project;
@@ -51,6 +54,36 @@ public class WorkspaceAction extends ActionBase {
     private int versionId;
     private String deletedObjectListData;
     private String tag;
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    private Group group;
+
+    public Corporation getTeam() {
+        return team;
+    }
+
+    public void setTeam(Corporation team) {
+        this.team = team;
+    }
+
+    private Corporation team;
+
+    public ProductionLine getProductline() {
+        return productline;
+    }
+
+    public void setProductline(ProductionLine productline) {
+        this.productline = productline;
+    }
+
+    private ProductionLine productline;
     /**
      * from 1 to 4, version position
      */
@@ -238,6 +271,11 @@ public class WorkspaceAction extends ActionBase {
             return LOGIN;
         }
         setAccessable(organizationMgr.canUserManageProject(getCurUserId(), getProjectId()));
+
+        Project p = projectMgr.getProjectSummary(getProjectId());
+        group = organizationMgr.getGroup(p.getGroupId());
+        productline = organizationMgr.getProductionLine(group.getProductionLineId());
+        team = organizationMgr.getCorporation(productline.getCorporationId());
         return SUCCESS;
     }
 
