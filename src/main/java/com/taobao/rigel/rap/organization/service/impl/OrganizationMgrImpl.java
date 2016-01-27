@@ -1,5 +1,6 @@
 package com.taobao.rigel.rap.organization.service.impl;
 
+import com.sun.javaws.CacheUtil;
 import com.taobao.rigel.rap.account.bo.Role;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
@@ -338,8 +339,10 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
 
     public boolean setUserRoleInCorp(int curUserId, int userId, int corpId, int roleId) {
-        if (canUserManageUserInCorp(curUserId, userId, corpId)) {
+        if (canUserManageCorp(curUserId, corpId)) {
             organizationDao.setUserRoleInCorp(userId, corpId, roleId);
+            String[] cacheKey = new String[]{CacheUtils.KEY_PROJECT_LIST, new Integer(userId).toString()};
+            CacheUtils.del(cacheKey);
             return true;
         } else {
             return false;
@@ -348,15 +351,11 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
 
     public boolean removeMemberFromCorp(int curUserId, int userId, int corpId) {
-        int roleId = getUserRoleInCorp(userId, corpId);
-
         // if user can't manage team,  failed
         if (!canUserManageCorp(curUserId, corpId)) {
             return false;
         }
-
         organizationDao.deleteMembershipFromCorp(curUserId, userId, corpId);
-
         return true;
     }
 
@@ -403,18 +402,4 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     public int getTeamIdByProjectId(int id) {
         return organizationDao.getTeamIdByProjectId(id);
     }
-
-
-    private boolean canUserManageUserInCorp(int curUserId, int userId, int corpId) {
-        User curUser = accountMgr.getUser(curUserId);
-        if (curUser.isAdmin()) {
-            return true;
-        }
-        int roleId = getUserRoleInCorp(curUserId, corpId);
-        if (Role.isAdmin(roleId)) {
-            return true;
-        }
-        return false;
-    }
-
 }
