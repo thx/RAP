@@ -2610,7 +2610,7 @@ function deepCopy(o) {
             //}
         }
         if (empty) {
-            $('#actionOpFloater-page').append($("<option/>").attr("value", -1).text('木有可移动的页面'));
+            $('#actionOpFloater-page').append($("<option/>").attr("value", "").text('木有可移动的页面'));
         }
     };
 
@@ -2623,7 +2623,7 @@ function deepCopy(o) {
             var targetMID = +$('#actionOpFloater-tab').val();   // target module id
             var targetPID = +$('#actionOpFloater-page').val();  // target page id
             var opType = getSelectedValue('actionOpFloater-op');
-            if (targetMID && targetMID > 0 && targetPID && targetPID > 0) {
+            if (targetMID && targetPID) {
                 actionOperate(targetMID, targetPID, opType);
             } else {
                 alert('请选择目标位置哦~');
