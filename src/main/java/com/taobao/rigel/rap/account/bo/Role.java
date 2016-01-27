@@ -21,4 +21,14 @@ public class Role implements java.io.Serializable {
         this.name = name;
     }
 
+    public static final int SUPER_ADMIN = 1;
+
+    public static final int ADMIN = 2;
+
+    public static final int USER = 3;
+
+    public static boolean isAdmin(int roleId) {
+        return roleId == ADMIN || roleId == SUPER_ADMIN;
+    }
+
 }

@@ -1,6 +1,6 @@
 package com.taobao.rigel.rap.organization.service.impl;
 
-import com.sun.javaws.CacheUtil;
+import com.taobao.rigel.rap.account.bo.Role;
 import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.account.service.AccountMgr;
 import com.taobao.rigel.rap.common.utils.CacheUtils;
@@ -214,13 +214,14 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     public boolean canUserDeleteProject(int userId, int projectId) {
         User user = accountMgr.getUser(userId);
         Project project = projectMgr.getProjectSummary(projectId);
-        return user.isAdmin() || project.getUserId() == user.getId();
+        int corpId = getTeamIdByProjectId(projectId);
+        int roleId = organizationDao.getUserRoleInCorp(userId, corpId);
+        return user.isAdmin() || project.getUserId() == user.getId() ||  Role.isAdmin(roleId);
     }
 
     public boolean canUserManageCorp(int userId, int corpId) {
         int roleId = organizationDao.getUserRoleInCorp(userId, corpId);
-        Corporation corp = getCorporation(corpId);
-        return (roleId >= 1 && roleId <= 2 ||
+        return (Role.isAdmin(roleId) ||
                 userId == getCorporation(corpId).getUserId()) ||
                 accountMgr.getUser(userId).isAdmin();
 
@@ -234,9 +235,9 @@ public class OrganizationMgrImpl implements OrganizationMgr {
         for (User user : list) {
             int roleId = getUserRoleInCorp(user.getId(), corpId);
             if (user.isAdmin()) {
-                roleId = 1; // user is the RAP platform admin
+                roleId = Role.SUPER_ADMIN; // user is the RAP platform admin
             } else if (user.getId() == c.getUserId()) {
-                roleId = 1; // user is the author
+                roleId = Role.SUPER_ADMIN; // user is the author
             }
             user.setRoleId(roleId);
         }
@@ -349,8 +350,8 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     public boolean removeMemberFromCorp(int curUserId, int userId, int corpId) {
         int roleId = getUserRoleInCorp(userId, corpId);
 
-        // if user can't manage team, or the user to be deleted is super admin, failed
-        if (!canUserManageCorp(curUserId, corpId) || roleId == 1) {
+        // if user can't manage team,  failed
+        if (!canUserManageCorp(curUserId, corpId)) {
             return false;
         }
 
@@ -410,7 +411,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
             return true;
         }
         int roleId = getUserRoleInCorp(curUserId, corpId);
-        if (roleId >= 1 || roleId <= 2) {
+        if (Role.isAdmin(roleId)) {
             return true;
         }
         return false;
