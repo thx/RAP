@@ -5,6 +5,8 @@ import org.apache.logging.log4j.Logger;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import java.io.IOException;
+
 /**
  * Created by Bosn on 14/11/28.
  * Basic cache, need weight for string length.
@@ -29,7 +31,12 @@ public class CacheUtils {
     public CacheUtils() {}
 
     private static Jedis getJedis() {
-        jedisPool = JedisFactory.getInstance().getJedisPool();
+        try {
+            jedisPool = JedisFactory.getInstance().getJedisPool();
+        } catch (IOException e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
+        }
         jedis = jedisPool.getResource();
         return jedis;
     }
