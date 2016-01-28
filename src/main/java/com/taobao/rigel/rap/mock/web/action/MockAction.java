@@ -3,6 +3,7 @@ package com.taobao.rigel.rap.mock.web.action;
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.common.base.ActionBase;
 import com.taobao.rigel.rap.common.utils.HTTPUtils;
+import com.taobao.rigel.rap.common.utils.StringUtils;
 import com.taobao.rigel.rap.common.utils.SystemVisitorLog;
 import com.taobao.rigel.rap.mock.service.MockMgr;
 import com.taobao.rigel.rap.project.bo.Action;
@@ -127,7 +128,7 @@ public class MockAction extends ActionBase {
     }
 
     public String get_c() {
-        return _c;
+        return StringUtils.escapeInHJ(_c);
     }
 
     public void set_c(String _c) {
@@ -135,7 +136,7 @@ public class MockAction extends ActionBase {
     }
 
     public String getCallback() {
-        return callback;
+        return StringUtils.escapeInHJ(callback);
     }
 
     public void setCallback(String callback) {
@@ -180,6 +181,7 @@ public class MockAction extends ActionBase {
     }
 
     public String createData() throws UnsupportedEncodingException {
+        String callback = getCallback();
         boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createData", pattern, getCurAccount()));
         Map<String, Object> options = new HashMap<String, Object>();
@@ -206,6 +208,7 @@ public class MockAction extends ActionBase {
     }
 
     public String createRule() throws UnsupportedEncodingException {
+        String callback = getCallback();
         boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createRule", pattern, getCurAccount()));
         Map<String, Object> options = new HashMap<String, Object>();
@@ -232,6 +235,7 @@ public class MockAction extends ActionBase {
     }
 
     public String createRuleAuto() throws UnsupportedEncodingException {
+        String callback = getCallback();
         boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createRule", pattern, getCurAccount()));
         Map<String, Object> options = new HashMap<String, Object>();
@@ -260,6 +264,7 @@ public class MockAction extends ActionBase {
     }
 
     public String createRuleByActionData() throws UnsupportedEncodingException {
+        String callback = getCallback();
         boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(id, "createRuleByActionData", pattern, getCurAccount()));
         Map<String, Object> options = new HashMap<String, Object>();
@@ -349,6 +354,7 @@ public class MockAction extends ActionBase {
     }
 
     public String createMockjsData() throws UnsupportedEncodingException {
+        String callback = getCallback();
         boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createMockjsData", pattern, getCurAccount()));
         String _c = get_c();
@@ -376,6 +382,7 @@ public class MockAction extends ActionBase {
     }
 
     public String createMockjsDataAuto() throws UnsupportedEncodingException {
+        String callback = getCallback();
         boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createMockjsData", pattern, getCurAccount()));
         String _c = get_c();
@@ -404,6 +411,7 @@ public class MockAction extends ActionBase {
     }
 
     public String validateAPI() throws UnsupportedEncodingException {
+        String callback = getCallback();
         boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(id, "createRule", pattern, getCurAccount()));
         Map<String, Object> options = new HashMap<String, Object>();

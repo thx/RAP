@@ -13,11 +13,7 @@
 #bodyNewStart
 <div class="page">
     <div class="groups-con content">
-        <ol class="breadcrumb">
-            <li><a href="$teamUrl.teams">主页</a></li>
-            <li><a href="$productlineUrl.productline?id=$team.id">$utils.escapeInH($team.name)</a></li>
-            <li class="active">$!utils.escapeInH($productLine.name)</li>
-        </ol>
+        #breadcrumb
         <div>
             <span class="btn btn-primary create-group"><i class="glyphicon glyphicon-plus"></i> 创建分组</span>
         </div>

@@ -130,7 +130,7 @@ public class OpenAPIAction extends ActionBase {
     public String queryRAPModel() throws UnsupportedEncodingException {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         Gson g = new Gson();
-        Project p = projectMgr.getProjectSummary(projectId);
+        Project p = projectMgr.getProject(projectId);
         List<Action> aList = p.getAllAction();
         Map<Integer, Object> mockDataMap = new HashMap<Integer, Object>();
 

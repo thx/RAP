@@ -19,7 +19,16 @@ public class GroupAction extends ActionBase {
     private ProjectMgr projectMgr;
     private int id;
     private String name;
-    private int productLineId;
+
+    public int getProductlineId() {
+        return productlineId;
+    }
+
+    public void setProductlineId(int productlineId) {
+        this.productlineId = productlineId;
+    }
+
+    private int productlineId;
 
     public int getId() {
         return id;
@@ -45,14 +54,6 @@ public class GroupAction extends ActionBase {
         this.projectMgr = projectMgr;
     }
 
-    public int getProductLineId() {
-        return productLineId;
-    }
-
-    public void setProductLineId(int productLineId) {
-        this.productLineId = productLineId;
-    }
-
     public OrganizationMgr getOrganizationMgr() {
         return organizationMgr;
     }
@@ -66,14 +67,14 @@ public class GroupAction extends ActionBase {
             plsLogin();
             return JSON_ERROR;
         }
-        if (!organizationMgr.canUserAccessProductionLine(getCurUserId(), productLineId)) {
+        if (!organizationMgr.canUserAccessProductionLine(getCurUserId(), productlineId)) {
             setErrMsg(ACCESS_DENY);
             return JSON_ERROR;
         }
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
         List<Map<String, Object>> groups = new ArrayList<Map<String, Object>>();
-        List<Group> groupModels = organizationMgr.getGroupList(productLineId);
+        List<Group> groupModels = organizationMgr.getGroupList(productlineId);
         for (Group groupModel : groupModels) {
             Map<String, Object> group = new HashMap<String, Object>();
             group.put("id", groupModel.getId());
@@ -83,7 +84,7 @@ public class GroupAction extends ActionBase {
             List<Map<String, Object>> projects = new ArrayList<Map<String, Object>>();
             for (Project projectModel : projectModelList) {
                 if (getCurUser().isUserInRole("admin")
-                        || getAccountMgr().canUserManageProject(
+                        || organizationMgr.canUserManageProject(
                         getCurUser().getId(), projectModel.getId())) {
                     projectModel.setIsManagable(true);
                 }
@@ -93,7 +94,7 @@ public class GroupAction extends ActionBase {
                 project.put("desc", projectModel.getIntroduction());
                 project.put("status", projectModel.getLastUpdateStr());
                 project.put("accounts", projectModel.getMemberAccountListStr());
-                project.put("isManagable", projectModel.getIsManagable());
+                project.put("isManagable", projectModel.isManagable());
                 project.put("creator", projectModel.getUser().getUserBaseInfo());
                 project.put("teamId", projectModel.getTeamId());
                 projects.add(project);
@@ -113,14 +114,14 @@ public class GroupAction extends ActionBase {
             plsLogin();
             return JSON_ERROR;
         }
-        if (!organizationMgr.canUserAccessProductionLine(getCurUserId(), productLineId)) {
+        if (!organizationMgr.canUserAccessProductionLine(getCurUserId(), productlineId)) {
             setErrMsg(ACCESS_DENY);
             return JSON_ERROR;
         }
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
         List<Map<String, Object>> groups = new ArrayList<Map<String, Object>>();
-        List<Group> groupModels = organizationMgr.getGroupList(productLineId);
+        List<Group> groupModels = organizationMgr.getGroupList(productlineId);
         for (Group groupModel : groupModels) {
             Map<String, Object> group = new HashMap<String, Object>();
             group.put("id", groupModel.getId());
@@ -139,7 +140,7 @@ public class GroupAction extends ActionBase {
             plsLogin();
             return JSON_ERROR;
         }
-        if (!organizationMgr.canUserManageProductionLine(getCurUserId(), productLineId)) {
+        if (!organizationMgr.canUserManageProductionLine(getCurUserId(), productlineId)) {
             setErrMsg(ACCESS_DENY);
             return JSON_ERROR;
         }
@@ -147,7 +148,7 @@ public class GroupAction extends ActionBase {
         Group group = new Group();
         group.setName(name);
         group.setUserId((int) getCurUserId());
-        group.setProductionLineId(productLineId);
+        group.setProductionLineId(productlineId);
         int id = organizationMgr.addGroup(group);
         Map<String, Object> g = new HashMap<String, Object>();
         g.put("id", id);

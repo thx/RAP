@@ -17,35 +17,42 @@ public interface OrganizationMgr {
     List<Corporation> getCorporationList();
 
     /**
-     * get corporation list
+     * get corporation list with pager and search
      *
+     * @param pageNum
+     * @param pageSize
+     * @param keyword
      * @return
      */
-    List<Corporation> getCorporationListWithPager(int pageNum, int pageSize);
-
+    List<Corporation> getCorporationListWithPager(int pageNum, int pageSize, String keyword);
 
     /**
-     * get corporation list
+     * get corporation list num
      *
+     * @param keyword
      * @return
      */
-    int getCorporationListWithPagerNum();
+    int getCorporationListWithPagerNum(String keyword);
 
     /**
-     * get corporation list of user
+     * get corporation list of user with pager and search
      *
      * @param userId
+     * @param pageNum
+     * @param pageSize
+     * @param keyword
      * @return
      */
-    List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize);
+    List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize, String keyword);
 
     /**
-     * get corporation list of user num
+     * get corporation list num
      *
      * @param userId
+     * @param keyword
      * @return
      */
-    int getCorporationListWithPagerNum(int userId);
+    int getCorporationListWithPagerNum(int userId, String keyword);
 
     /**
      * get group list
@@ -130,6 +137,26 @@ public interface OrganizationMgr {
      * @return
      */
     boolean canUserAccessCorp(int userId, int corpId);
+
+
+    /**
+     * user access validation
+     *
+     * @param userId
+     * @param projectId
+     * @return
+     */
+    boolean canUserManageProject(int userId, int projectId);
+
+
+    /**
+     * can user delete project
+     *
+     * @param userId
+     * @param projectId
+     * @return
+     */
+    boolean canUserDeleteProject(int userId, int projectId);
 
     /**
      * can user manage corporation
@@ -257,4 +284,46 @@ public interface OrganizationMgr {
      * @param c
      */
     void updateCorporation(Corporation c);
+
+
+    /**
+     * get team id by project id
+     *
+     * @param id
+     * @return
+     */
+    int getTeamIdByProjectId(int id);
+
+    /**
+     * get group
+     *
+     * @param id
+     * @return
+     */
+    Group getGroup(int id);
+
+    /**
+     * get number of member in specific corporation
+     *
+     * @param corpId
+     * @return
+     */
+    int getMemberNumOfCorporation(int corpId);
+
+    /**
+     * get project num of corporation
+     *
+     * @param corpId
+     * @return
+     */
+    int getProjectNumOfCorporation(int corpId);
+
+    /**
+     * get action num of corporation
+     *
+     * @param corpId
+     * @return
+     */
+    int getActionNumOfCorporation(int corpId);
+
 }

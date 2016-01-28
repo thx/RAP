@@ -127,4 +127,32 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 
         return result;
     }
+
+    public List<Map<String, Object>> getTop10ActionNumByTeam(int teamId) {
+        String sql = "SELECT\n" +
+                "  p.name AS name,\n" +
+                "  COUNT(a.id) AS actionNum\n" +
+                "FROM tb_production_line pl\n" +
+                "  JOIN tb_group g ON g.production_line_id = pl.id\n" +
+                "  JOIN tb_project p ON p.group_id = g.id\n" +
+                "  JOIN tb_module m ON m.project_id = p.id\n" +
+                "  JOIN tb_page p2 ON p2.module_id = m.id\n" +
+                "  JOIN tb_action_and_page ap ON ap.page_id = p2.id\n" +
+                "  JOIN tb_action a ON a.id = ap.action_id\n" +
+                "WHERE pl.corporation_id = :corpId\n" +
+                "GROUP BY p.id\n" +
+                "ORDER BY COUNT(a.id) DESC\n" +
+                "LIMIT 0, 50";
+        Query query = currentSession().createSQLQuery(sql);
+        query.setInteger("corpId", teamId);
+        List<Object[]> list = query.list();
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+        for (Object[] row : list) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("name", row[0].toString());
+            map.put("num", row[1].toString());
+            result.add(map);
+        }
+        return result;
+    }
 }

@@ -150,6 +150,8 @@ public class AccountAction extends ActionBase {
             return LOGIN;
         }
         getAccountMgr().readNotificationList(getCurUserId());
+        String[] cacheKey = new String[]{CacheUtils.KEY_NOTIFICATION, new Integer(getCurUserId()).toString()};
+        CacheUtils.del(cacheKey);
         return SUCCESS;
     }
 
@@ -357,7 +359,10 @@ public class AccountAction extends ActionBase {
             return ERROR;
         }
 
-        if (super.getAccountMgr().addUser(user)) {
+        if (getAccountMgr().getUserId(user.getAccount()) > 0) {
+            setErrMsg("该用户名" + user.getAccount() + "已经存在咯~~~");
+            return ERROR;
+        } else if (super.getAccountMgr().addUser(user)) {
             return doLogin();
         } else {
             return ERROR;
@@ -398,6 +403,7 @@ public class AccountAction extends ActionBase {
             setRelativeReturnUrl("/account/updateProfile.do");
             return LOGIN;
         }
+        user = getAccountMgr().getUser(getCurUserId());
 
         setIsEditMode(true);
         return SUCCESS;

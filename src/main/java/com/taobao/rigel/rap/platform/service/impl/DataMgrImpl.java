@@ -67,4 +67,8 @@ public class DataMgrImpl implements DataMgr {
         return results;
     }
 
+    public List<Map<String, Object>> getTop10ActionNumByTeam(int teamId) {
+        return dataDao.getTop10ActionNumByTeam(teamId);
+    }
+
 }

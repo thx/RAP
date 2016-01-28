@@ -216,4 +216,12 @@ public interface ProjectMgr {
      */
     void clearProjectDocCache(int projectId);
 
+    /**
+     * get member user id list of specifid project
+     *
+     * @param projectId
+     * @return
+     */
+    List<Integer> getMemberIdsOfProject(int projectId);
+
 }

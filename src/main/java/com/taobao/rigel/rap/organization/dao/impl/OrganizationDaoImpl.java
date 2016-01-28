@@ -187,16 +187,19 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     }
 
 
-    public List<Corporation> getCorporationListWithPager(int pageNum, int pageSize) {
+    public List<Corporation> getCorporationListWithPager(int pageNum, int pageSize, String keyword) {
+        boolean isSearch = keyword != null && !keyword.trim().isEmpty();
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT c.id ")
-                .append("FROM tb_corporation c ")
+                .append("FROM tb_corporation c "+(isSearch ? " WHERE name LIKE CONCAT('%', :keyword, '%')" : ""))
                 .append("LIMIT :startIndex, :pageSize ");
 
         Query query = currentSession().createSQLQuery(sql.toString());
         query.setInteger("startIndex", (pageNum - 1) * pageSize);
         query.setInteger("pageSize", pageSize);
-
+        if (isSearch) {
+            query.setString("keyword", keyword);
+        }
         List<Integer> list = (List<Integer>) query.list();
         List<Corporation> resultList = new ArrayList<Corporation>();
         for (Integer id : list) {
@@ -207,36 +210,43 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     }
 
 
-    public int getCorporationListWithPagerNum() {
+    public int getCorporationListWithPagerNum(String keyword) {
+        boolean isSearch = keyword != null && !keyword.trim().isEmpty();
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT COUNT(*) ")
-                .append("FROM tb_corporation c ");
+                .append("FROM tb_corporation c " +(isSearch ? " WHERE name LIKE CONCAT('%', :keyword, '%')" : ""));
 
         Query query = currentSession().createSQLQuery(sql.toString());
+        if (isSearch) {
+            query.setString("keyword", keyword);
+        }
 
         return Integer.parseInt(query.uniqueResult().toString());
     }
 
 
-    public List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize) {
+    public List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize, String keyword) {
+        boolean isSearch = keyword != null && !keyword.trim().isEmpty();
         StringBuilder sql = new StringBuilder();
         sql
                 .append("SELECT DISTINCT cid FROM ( ")
                 .append("   SELECT c.id AS cid ")
                 .append("       FROM tb_corporation c ")
                 .append("       JOIN tb_corporation_and_user u ON u.corporation_id = c.id ")
-                .append("       WHERE u.user_id = :userId ")
+                .append("       WHERE u.user_id = :userId " + (isSearch ? "AND c.name LIKE CONCAT('%', :keyword, '%') " : ""))
                 .append("   UNION ")
                 .append("   SELECT id AS cid FROM tb_corporation ")
-                .append("   WHERE user_id = :userId or access_type = 20")
+                .append("   WHERE (user_id = :userId or access_type = 20) " + (isSearch ? "AND name LIKE CONCAT('%', :keyword, '%') " : ""))
                 .append(") AS TEMP ")
-                .append("ORDER BY cid DESC ")
                 .append("LIMIT :startIndex, :pageSize ");
 
         Query query = currentSession().createSQLQuery(sql.toString());
         query.setInteger("userId", userId);
         query.setInteger("startIndex", (pageNum - 1) * pageSize);
         query.setInteger("pageSize", pageSize);
+        if (isSearch) {
+            query.setString("keyword", keyword);
+        }
 
         List<Integer> list = query.list();
         List<Corporation> resultList = new ArrayList<Corporation>();
@@ -248,21 +258,25 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     }
 
 
-    public int getCorporationListWithPagerNum(int userId) {
+    public int getCorporationListWithPagerNum(int userId, String keyword) {
+        boolean isSearch = keyword != null && !keyword.trim().isEmpty();
         StringBuilder sql = new StringBuilder();
         sql
                 .append("SELECT COUNT(DISTINCT cid) FROM ( ")
                 .append("   SELECT c.id AS cid ")
                 .append("       FROM tb_corporation c ")
                 .append("       JOIN tb_corporation_and_user u ON u.corporation_id = c.id ")
-                .append("       WHERE u.user_id = :userId ")
+                .append("       WHERE u.user_id = :userId " + (isSearch ? "AND c.name LIKE CONCAT('%', :keyword, '%') " : ""))
                 .append("   UNION ")
                 .append("   SELECT id AS cid FROM tb_corporation ")
-                .append("   WHERE user_id = :userId or access_type = 20")
+                .append("   WHERE (user_id = :userId or access_type = 20) " + (isSearch ? "AND name LIKE CONCAT('%', :keyword, '%') " : ""))
                 .append(") AS TEMP ");
 
         Query query = currentSession().createSQLQuery(sql.toString());
         query.setInteger("userId", userId);
+        if (isSearch) {
+            query.setString("keyword", keyword);
+        }
         return Integer.parseInt(query.uniqueResult().toString());
     }
 
@@ -284,6 +298,34 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
     public int getMemberNumOfCorporation(int corpId) {
         String sql = "SELECT COUNT(DISTINCT cu.user_id) FROM tb_corporation c JOIN tb_corporation_and_user cu ON cu.corporation_id = c.id WHERE c.id = :corpId";
 
+        Query query = currentSession().createSQLQuery(sql);
+        query.setInteger("corpId", corpId);
+
+        return Integer.parseInt(query.uniqueResult().toString());
+    }
+
+    public int getProjectNumOfCorporation(int corpId) {
+        String sql = "SELECT COUNT(p.id) \n" +
+                "FROM tb_project p \n" +
+                "JOIN tb_group g ON g.id = p.group_id \n" +
+                "JOIN tb_production_line pl ON p.id = g.production_line_id\n" +
+                "WHERE pl.corporation_id = :corpId";
+        Query query = currentSession().createSQLQuery(sql);
+        query.setInteger("corpId", corpId);
+
+        return Integer.parseInt(query.uniqueResult().toString());
+    }
+
+    public int getActionNumOfCorporation(int corpId) {
+        String sql = "SELECT COUNT(a.id) \n" +
+                "FROM tb_action a\n" +
+                "JOIN tb_action_and_page ap ON ap.action_id = a.id\n" +
+                "JOIN tb_page p ON p.id = ap.page_id\n" +
+                "JOIN tb_module m ON m.id = p.module_id\n" +
+                "JOIN tb_project pr ON pr.id = m.project_id\n" +
+                "JOIN tb_group g ON g.id = pr.group_id \n" +
+                "JOIN tb_production_line pl ON pl.id = g.production_line_id\n" +
+                "WHERE pl.corporation_id = :corpId";
         Query query = currentSession().createSQLQuery(sql);
         query.setInteger("corpId", corpId);
 

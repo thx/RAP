@@ -72,9 +72,6 @@ public class AccountMgrImpl implements AccountMgr {
         String ps = user.getPassword();
         if (ps == null)
             return false;
-        if (this.getUserId(user.getAccount()) > 0) {
-            return false;
-        }
 
         // DOUBLE MD5 encryption
         ps = StringUtils.getDoubleMD5(ps);
@@ -160,7 +157,7 @@ public class AccountMgrImpl implements AccountMgr {
 
 
     public List<Corporation> getCorporationListWithPager(int userId, int pageNum, int pageSize) {
-        return organizationMgr.getCorporationListWithPager(userId, pageNum, pageSize);
+        return organizationMgr.getCorporationListWithPager(userId, pageNum, pageSize, null);
     }
 
 
@@ -216,40 +213,6 @@ public class AccountMgrImpl implements AccountMgr {
 
     public List<Notification> getUnreadNotificationList(int curUserId) {
         return accountDao.getUnreadNotificationList(curUserId);
-    }
-
-
-    public boolean canUserManageProject(int userId, int projectId) {
-        String[] cacheKey = new String[]{CacheUtils.KEY_ACCESS_USER_TO_PROJECT, new Integer(userId).toString(), new Integer(projectId).toString()};
-
-        String cache = CacheUtils.get(cacheKey);
-        if (cache != null) {
-            return Boolean.parseBoolean(cache);
-        }
-
-        User user = this.getUser(userId);
-        boolean canAccess = false;
-        Project project = projectMgr.getProject(projectId);
-        if (user.isUserInRole("admin")) {
-            canAccess = true;
-        } else if (user.getCreatedProjectList() != null) {
-            for (Project p : user.getCreatedProjectList()) {
-                if (p.getId() == projectId) {
-                    canAccess = true;
-                }
-            }
-        }
-        if (project.getUserList() != null) {
-            for (User member : project.getUserList()) {
-                if (member.getId() == user.getId()) {
-                    canAccess = true;
-                }
-            }
-        }
-
-        CacheUtils.put(cacheKey, new Boolean(canAccess).toString());
-
-        return canAccess;
     }
 
 

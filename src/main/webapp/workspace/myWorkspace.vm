@@ -13,6 +13,8 @@
 </head>
 <body class="workspace #if(!$accessable)read-only#end">
 #bodyNewStart
+
+#breadcrumb("position:relative;top:60px;background-color:#FFF;")
 <div id="div-fixed-panel">
     <div class="clearfix">
         <div id="div-w-message" class="label" style="display:none;">
@@ -88,7 +90,7 @@
             <div class="btn-group">
                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                     <span class="glyphicon glyphicon-th-large"></span>
-                    更多功能 <span class="caret"></span>
+                    更多功能 <span style="color:#CC0000;">new</span> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
                     <li>
@@ -116,6 +118,16 @@
                                 border="0"
                                 src="http://amos.alicdn.com/realonline.aw?v=2&uid=%E9%9C%8D%E9%9B%8D&site=cntaobao&s=2&charset=utf-8"
                                 alt="RAP支持"/>在线客服</a>
+                    </li>
+                    <li>
+                        <a href="$openAPI.queryRAPModel?projectId=$projectId" target="_blank" title="用于备份(导出),将JSON数据另存为,在导入时粘贴即可还原此时的文档.">
+                            <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;导出备份
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="if (!ws.isEditMode()) {ws.switchToEditMode();}ecFloater.show('recoverWorkspaceFloater'); return false;" title="将导出的备份文本粘贴,即可当做一次提交并还原到备份时的状态.">
+                            <span class="glyphicon glyphicon-floppy-open"></span>&nbsp;导入备份
+                        </a>
                     </li>
 
                 </ul>
@@ -336,6 +348,33 @@
                 导入
             </button>
             <button type="button" class="btn btn-default" onclick="ws.cancelImportJSON();">
+                <span class="glyphicon glyphicon-remove"></span>
+                取消
+            </button>
+        </div>
+    </div>
+</form>
+#endFloater
+
+#startFloater("recoverWorkspaceFloater" "导入备份数据" 600 350)
+<form name="formRecoverWorkspace">
+    <div id="div-recoverWorkspace-floater-message" style="display:none;" class="label"></div>
+    <div class="myfloater">
+        <table class="table">
+            <tr>
+                <td>
+                    <textarea placeholder="请输入备份JSON" id="recoverWorkspaceFloater-text"
+                              style="width: 510px; height: 200px; font-size: 12px; line-height: 1.5;" cols="20"
+                              rows="20"></textarea>
+                </td>
+            </tr>
+        </table>
+        <div class="div-floater-control">
+            <button type="button" class="btn btn-primary" onclick="ws.doRecoverWorkspace();">
+                <span class="glyphicon glyphicon-ok"></span>
+                导入
+            </button>
+            <button type="button" class="btn btn-default" onclick="ecui.get('recoverWorkspaceFloater').hide();">
                 <span class="glyphicon glyphicon-remove"></span>
                 取消
             </button>

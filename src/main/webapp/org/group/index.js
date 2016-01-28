@@ -79,7 +79,7 @@ $(function () {
                         }
                         var modal = $(this);
                         $.post($.route('org.group.create'), {
-                            productLineId: plId,
+                            productlineId: plId,
                             name: inputer.val().trim()
                         }, function (data) {
                             var html = $.render(tmpl, data);
@@ -297,7 +297,7 @@ $(function () {
 
     function render() {
         $.get($.route('org.group.all'), {
-            productLineId: plId
+            productlineId: plId
         }, function (groups) {
             var tmpl = $('#group-tmpl').text();
 

@@ -6,6 +6,7 @@ import com.taobao.rigel.rap.auto.generate.bo.VelocityTemplateGenerator;
 import com.taobao.rigel.rap.auto.generate.contract.Generator;
 import com.taobao.rigel.rap.common.base.ActionBase;
 import com.taobao.rigel.rap.common.bo.RapError;
+import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 import com.taobao.rigel.rap.project.bo.Page;
 import com.taobao.rigel.rap.project.bo.Project;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
@@ -40,6 +41,16 @@ public class ProjectAction extends ActionBase {
     private String projectData;
     private String result;
     private InputStream outputStream;
+
+    public OrganizationMgr getOrganizationMgr() {
+        return organizationMgr;
+    }
+
+    public void setOrganizationMgr(OrganizationMgr organizationMgr) {
+        this.organizationMgr = organizationMgr;
+    }
+
+    private OrganizationMgr organizationMgr;
 
     public String getIds() {
         if (ids == null || ids.isEmpty()) {
@@ -207,8 +218,8 @@ public class ProjectAction extends ActionBase {
     public String delete() {
         if (!isUserLogined())
             return LOGIN;
-        if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
-            setErrMsg("您没有管理该项目的权限");
+        if (!organizationMgr.canUserDeleteProject(getCurUserId(), getId())) {
+            setErrMsg("您没有删除该项目的权限");
             return ERROR;
         }
         projectMgr.removeProject(getId());
@@ -233,8 +244,10 @@ public class ProjectAction extends ActionBase {
         for (String item : list) {
             String account = item.contains("(") ? item.substring(0,
                     item.indexOf("(")).trim() : item.trim();
-            if (!account.equals(""))
+            if (!account.equals("")) {
                 memberAccountList.add(account);
+                organizationMgr.addTeamMembers(getCurUserId(), organizationMgr.getTeamIdByProjectId(project.getId()), account);
+            }
         }
         project.setMemberAccountList(memberAccountList);
         int projectId = projectMgr.addProject(project);
@@ -254,10 +267,11 @@ public class ProjectAction extends ActionBase {
     public String update() {
         if (!isUserLogined())
             return LOGIN;
-        if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
+        if (!organizationMgr.canUserManageProject(getCurUserId(), getId())) {
             setErrMsg("您没有管理该项目的权限");
             return ERROR;
         }
+
         Project project = new Project();
         project.setId(getId());
         project.setIntroduction(getDesc());
@@ -269,8 +283,10 @@ public class ProjectAction extends ActionBase {
         for (String item : list) {
             String account = item.contains("(") ? item.substring(0,
                     item.indexOf("(")).trim() : item.trim();
-            if (!account.equals(""))
+            if (!account.equals("")) {
                 memberAccountList.add(account);
+                organizationMgr.addTeamMembers(getCurUserId(), organizationMgr.getTeamIdByProjectId(project.getId()), account);
+            }
         }
         Gson gson = new Gson();
         project.setMemberAccountList(memberAccountList);
@@ -289,7 +305,7 @@ public class ProjectAction extends ActionBase {
         result.put("desc", project.getIntroduction());
         result.put("accounts", project.getMemberAccountListStr());
         result.put("groupId", project.getGroupId());
-        result.put("isManagable", project.getIsManagable());
+        result.put("isManagable", project.isManagable());
         setJson(new RapError(gson.toJson(result)).toString());
 
         return SUCCESS;
@@ -298,7 +314,7 @@ public class ProjectAction extends ActionBase {
     public String updateReleatedIds() {
         if (!isUserLogined())
             return LOGIN;
-        if (!getAccountMgr().canUserManageProject(getCurUserId(), getId())) {
+        if (!organizationMgr.canUserManageProject(getCurUserId(), getId())) {
             setErrMsg("您没有管理该项目的权限");
             return ERROR;
         }

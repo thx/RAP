@@ -13,10 +13,7 @@
 
 <div class="page">
     <div class="productlines content">
-        <ol class="breadcrumb">
-            <li><a href="$teamUrl.teams">主页</a></li>
-            <li class="active">$!utils.escapeInH($corporation.name)</li>
-        </ol>
+        #breadcrumb
         <div>
             <table class="table">
                 <thead>

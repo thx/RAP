@@ -17,4 +17,6 @@ public interface DataMgr {
     List<Map<String, Object>> getActionNumByTeam();
 
     List<Map<String, Object>> getMockNumByProject();
+
+    List<Map<String, Object>> getTop10ActionNumByTeam(int teamId);
 }

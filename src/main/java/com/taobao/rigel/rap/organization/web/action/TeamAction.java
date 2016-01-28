@@ -30,6 +30,16 @@ public class TeamAction extends ActionBase {
     private OrganizationMgr organizationMgr;
     private String desc;
 
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
+    private String keyword;
+
     public Corporation getTeam() {
         return team;
     }
@@ -118,8 +128,8 @@ public class TeamAction extends ActionBase {
             return LOGIN;
         }
         int userId = getCurUserId();
-        teamList = organizationMgr.getCorporationListWithPager(userId, getPageNum(), SystemConstant.DEFAULT_PAGE_SIZE);
-        teamListNum = organizationMgr.getCorporationListWithPagerNum(userId);
+        teamList = organizationMgr.getCorporationListWithPager(userId, getPageNum(), SystemConstant.DEFAULT_PAGE_SIZE, keyword);
+        teamListNum = organizationMgr.getCorporationListWithPagerNum(userId, keyword);
         return SUCCESS;
     }
 
@@ -235,6 +245,19 @@ public class TeamAction extends ActionBase {
         c.setDesc(getDesc());
         c.setAccessType(getAccessType());
         organizationMgr.updateCorporation(c);
+
+        return SUCCESS;
+    }
+
+    public String search() {
+        User curUser = getAccountMgr().getUser(getCurUserId());
+        if (curUser == null) {
+            setErrMsg(LOGIN_WARN_MSG);
+            setIsOk(false);
+            logger.error("Unlogined user trying to checkin and failed.");
+            return JSON_ERROR;
+        }
+
 
         return SUCCESS;
     }

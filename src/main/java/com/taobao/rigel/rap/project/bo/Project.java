@@ -36,8 +36,27 @@ public class Project implements java.io.Serializable {
     private List<String> memberAccountList;
     private Set<Workspace> workspaceList = new HashSet<Workspace>();
     private String version;
-    private boolean isManagable;
     private Set<CheckIn> checkInList = new HashSet<CheckIn>();
+
+    public boolean isDeletable() {
+        return isDeletable;
+    }
+
+    public void setIsDeletable(boolean isDeletable) {
+        this.isDeletable = isDeletable;
+    }
+
+    private boolean isDeletable;
+
+    public void setIsManagable(boolean isManagable) {
+        this.isManagable = isManagable;
+    }
+
+    private boolean isManagable;
+
+    public boolean isManagable() {
+        return isManagable;
+    }
 
     public Project() {
 
@@ -267,15 +286,6 @@ public class Project implements java.io.Serializable {
         setIntroduction(project.getIntroduction());
         setName(project.getName());
     }
-
-    public boolean getIsManagable() {
-        return isManagable;
-    }
-
-    public void setIsManagable(boolean isManagable) {
-        this.isManagable = isManagable;
-    }
-
     public String getCreateDateStr() {
         return getCreateDate() == null ? "" : DateUtils.DATE_FORMAT.format(getCreateDate());
     }
@@ -536,6 +546,7 @@ public class Project implements java.io.Serializable {
         }
         return false;
     }
+
 
     public enum TO_STRING_TYPE {TO_MODULE, TO_PAGE, TO_ACTION, TO_PARAMETER}
 

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>RAP Dashboard for Team</title>
+    #parse('/tcom/template.rap.vm')
+    #includeNewRapStatic
+    <link rel="shortcut icon" href="/stat/img/favicon.ico">
+    <script type="text/javascript" src="${staticRoot}/highcharts/js/highcharts.js"></script>
+    <script type="text/javascript" src="${staticRoot}/js/util/dateFormat.min.js"></script>
+    <script type="text/javascript" src="teamLog.js"></script>
+    <style type="text/css">
+        .tab-pane {
+            height: 350px;
+        }
+
+        #debug .content {
+            width: 1140px;
+            word-break: break-all;
+        }
+
+        .data-tab {
+            font-size: 30px;
+            color: #888;
+            margin-top: 120px;
+            padding: 14px;
+            text-align: center;
+        }
+        #actionNumTop10 {
+            height: 320px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+#bodyNewStart
+<div class="container">
+    <h2>
+        <span class="glyphicon glyphicon-dashboard"></span>
+        RAP Dashboard for Team
+    </h2>
+    <div class="row">
+        <div class="col-md-6">
+            <h3><span class="glyphicon glyphicon-user"></span>&nbsp;使用数据</h3>
+
+            <div class="data-tab">
+                该团队中目前已有<span class="label label-primary">$modelLogMap.user.value</span>&nbsp;位工程师<br/>
+                <span class="label label-primary">$modelLogMap.project.value</span>&nbsp;个业务项目在使用RAP。<br/>
+                在这里定义了
+                <span class="label label-primary">$modelLogMap.action.value</span>&nbsp;个接口!
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3><span class="glyphicon glyphicon-th"></span>&nbsp;全量统计</h3>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#actionNumTop10" role="tab" data-toggle="tab">接口数量TOP100</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="actionNumTop10">
+                    <table class="table table-hover" style="width:300px;">
+                        <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>IP</td>
+                            <td>Count</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            #foreach($item in $statistics.top10ActionNumByTeam)
+                            <tr>
+                                <td>$velocityCount</td>
+                                <td>$item.name</td>
+                                <td>$item.num</td>
+                            </tr>
+                            #end
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#bodyEnd
+<script>
+    $('.tip').tooltip();
+</script>
+</body>
+</html>

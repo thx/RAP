@@ -7,57 +7,90 @@
 </head>
 <body>
 #bodyNewStart
-<table class="table table-hover">
-    <thead>
-    <th>团队名称</th>
-    <th width="120px">创建人</th>
-    <th width="80px">人数</th>
-    <th width="200px">操作</th>
-    </thead>
-    <tbody>
-        #foreach($item in $teamList)
-        <tr>
-            <td><a href="$productlineUrl.productline?id=$item.id">#if($item.accessType==20)<span
-                    class="glyphicon glyphicon-exclamation-sign"
-                    title="公开团队,所有RAP用户均可访问,请注意数据安全."></span>&nbsp;&nbsp;#end $!utils.escapeInH($item.name)</a></td>
-            <td>$!utils.escapeInH($item.creatorName)</td>
-            <td>$item.memberNum</td>
-            <td>
-                <button onclick="window.location.href = '$productlineUrl.productline?id=$item.id';"
-                        class="btn btn-default btn-sm"><span class="glyphicon glyphicon-triangle-top"></span>进入
-                </button>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                #if($item.hasAccess)
-                    <button onclick="window.location.href = '$teamUrl.manage?id=$item.id';"
-                            class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-user"></span>管理
-                    </button>
-                #end
-            </td>
-        </tr>
-        #end
-    </tbody>
-</table>
-<nav>
-    <ul class="pagination pagination-sm">
-        <li  #if($pageNum==1)
-                class="disabled" onclick="return false;"
-        #end><a href="$teamUrl.teams?pageNum=1" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-        #foreach($curPageNum in [1..$teamListPageInTotal])
-            #if($pageNum==$curPageNum)
-                <li class="active"><a href="#">$curPageNum <span class="sr-only">(current)</span></a></li>
-            #else
-                <li><a href="$teamUrl.teams?pageNum=$!curPageNum">$curPageNum</a></li>
-            #end
 
-        #end
-        <li #if($pageNum==$teamListPageInTotal)
-                class="disabled" onclick="return false;"
-        #end><a href="$teamUrl.teams?pageNum=$!teamListPageInTotal" aria-label="Next"><span aria-hidden="true">»</span></a>
-        </li>
-    </ul>
-</nav>
+<div id="container">
+    <div class="clear" style="margin:22px 0;">
+        <div class="input-group" style="width:300px;float:right">
+            <input type="text" id="inputSearch" class="form-control" value="$!utils.escapeInHJ($keyword)" placeholder="按团队名称检索">
+             <span class="input-group-btn">
+                <button class="btn btn-default" id="btnSearch" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+              </span>
+        </div>
+    </div>
+    <table class="table table-hover">
+        <thead>
+        <th>团队名称</th>
+        <th width="120px">创建人</th>
+        <th width="80px">人数</th>
+        <th width="200px">操作</th>
+        </thead>
+        <tbody>
+            #foreach($item in $teamList)
+            <tr>
+                <td><a href="$productlineUrl.productline?id=$item.id">#if($item.accessType==20)<span
+                        class="glyphicon glyphicon-exclamation-sign"
+                        title="公开团队,所有RAP用户均可访问,请注意数据安全."></span>&nbsp;&nbsp;#end $!utils.escapeInH($item.name)</a></td>
+                <td>$!utils.escapeInH($item.creatorName)</td>
+                <td>$item.memberNum</td>
+                <td>
+                    <button onclick="window.location.href = '$productlineUrl.productline?id=$item.id';"
+                            class="btn btn-default btn-xs"><span class="glyphicon glyphicon-triangle-top"></span>进入
+                    </button>
+                    &nbsp;&nbsp;
+                    <button onclick="window.location.href = '$platformUrl.teamLog?id=$item.id';"
+                            class="btn btn-default btn-xs"><span class="glyphicon glyphicon-dashboard"></span>统计
+                    </button>
+                    &nbsp;&nbsp;
+                    #if($item.hasAccess)
+                        <button onclick="window.location.href = '$teamUrl.manage?id=$item.id';"
+                                class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-user"></span>管理
+                        </button>
+                    #end
+                </td>
+            </tr>
+            #end
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pagination pagination-sm">
+            <li  #if($pageNum==1)
+                    class="disabled" onclick="return false;"
+            #end><a href="$teamUrl.teams?pageNum=1" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+            #foreach($curPageNum in [1..$teamListPageInTotal])
+                #if($pageNum==$curPageNum)
+                    <li class="active"><a href="#">$curPageNum <span class="sr-only">(current)</span></a></li>
+                #else
+                    <li><a href="$teamUrl.teams?pageNum=$!curPageNum">$curPageNum</a></li>
+                #end
+
+            #end
+            <li #if($pageNum==$teamListPageInTotal)
+                    class="disabled" onclick="return false;"
+            #end><a href="$teamUrl.teams?pageNum=$!teamListPageInTotal" aria-label="Next"><span aria-hidden="true">»</span></a>
+            </li>
+        </ul>
+    </nav>
+</div>
 <script>
     $('.glyphicon').tooltip();
+    setTimeout(function() {
+        $('#inputSearch').focus();
+    }, 500);
+
+    $("#btnSearch").click(function() {
+        search();
+    })
+
+    $('#inputSearch').keypress(function(e) {
+        if (e.keyCode === 13) {
+            search();
+        }
+    });
+
+    function search() {
+        var keyword = $.trim($('#inputSearch').val());
+        window.location.href = '$teamUrl.teams?keyword=' + encodeURIComponent(keyword);
+    }
 </script>
 #bodyEnd
 </body>

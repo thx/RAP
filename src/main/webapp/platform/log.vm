@@ -19,15 +19,6 @@
             height: 250px;
         }
 
-        #debug {
-            display: none;
-        }
-
-        #debug .content {
-            width: 1140px;
-            word-break: break-all;
-        }
-
         .data-tab {
             font-size: 30px;
             color: #888;
@@ -41,14 +32,6 @@
 #bodyNewStart
 <div class="container">
     <h2><span class="glyphicon glyphicon-dashboard"></span>&nbsp;RAP Dashboard</h2>
-
-    <div id="debug" class="row">
-        <div class="col-md-12">
-            <h3>DEBUG INFO</h3>
-
-            <div class="content">$realtimeJSON</div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-12">
             <h3><span class="glyphicon glyphicon-time"></span>&nbsp;实时数据</h3>
@@ -76,14 +59,12 @@
             <h3><span class="glyphicon glyphicon-user"></span>&nbsp;使用数据</h3>
 
             <div class="data-tab">
-                目前已有<span class="label label-primary">$modelLogMap.get("用户数").getValue()</span>&nbsp;位工程师<br/>
-                <span class="label label-primary">$modelLogMap.get("项目数").getValue()</span>&nbsp;个业务项目在使用RAP。<br/>
+                目前已有<span class="label label-primary">$modelLogMap.user.value</span>&nbsp;位工程师<br/>
+                <span class="label label-primary">$modelLogMap.project.value</span>&nbsp;个业务项目在使用RAP。<br/>
                 在这里定义了
-                <span class="label label-primary">$modelLogMap.get(
-                    "接口数").getValue()</span>&nbsp;个接口<br/>RAP已为小伙伴们伪造了<br/>
+                <span class="label label-primary">$modelLogMap.action.value</span>&nbsp;个接口<br/>RAP已为小伙伴们伪造了<br/>
                 <span class="label label-danger label-sx" id="mockDataInDashboard"
-                      data-start="$modelLogMap.get("MOCK服务调用次数").getValue()">$modelLogMap.get(
-                    "MOCK服务调用次数").getValue()</span>&nbsp;次MOCK数据！
+                      data-start="$modelLogMap.mockNum.value">$modelLogMap.mockNum.value</span>&nbsp;次MOCK数据！
             </div>
         </div>
     </div>

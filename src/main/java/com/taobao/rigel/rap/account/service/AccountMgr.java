@@ -196,16 +196,6 @@ public interface AccountMgr {
      */
     List<Notification> getUnreadNotificationList(int curUserId);
 
-
-    /**
-     * user access validation
-     *
-     * @param userId
-     * @param projectId
-     * @return
-     */
-    boolean canUserManageProject(int userId, int projectId);
-
     int getUserNum();
 
     void updateUser(User user);

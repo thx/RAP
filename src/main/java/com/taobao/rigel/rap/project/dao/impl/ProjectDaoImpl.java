@@ -37,7 +37,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         List<Integer> list = query.list();
         List<Project> resultList = new ArrayList<Project>();
         for (Integer id : list) {
-            Project p = this.getProject(id);
+            Project p = getProjectSummary(id);
             if (p != null && p.getId() > 0) {
                 resultList.add(p);
             }
@@ -570,6 +570,12 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
 
     public Project getProject(int id) {
         return currentSession().get(Project.class, id);
+    }
+
+    public List<Integer> getMemberIdsOfProject(int projectId) {
+        Query query = currentSession().createSQLQuery("SELECT user_id FROM tb_project_and_user WHERE project_id = :projectId");
+        query.setInteger("projectId", projectId);
+        return query.list();
     }
 
 }
