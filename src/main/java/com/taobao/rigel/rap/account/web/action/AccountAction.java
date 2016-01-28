@@ -150,6 +150,8 @@ public class AccountAction extends ActionBase {
             return LOGIN;
         }
         getAccountMgr().readNotificationList(getCurUserId());
+        String[] cacheKey = new String[]{CacheUtils.KEY_NOTIFICATION, new Integer(getCurUserId()).toString()};
+        CacheUtils.del(cacheKey);
         return SUCCESS;
     }
 
