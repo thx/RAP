@@ -26,6 +26,10 @@
             padding: 14px;
             text-align: center;
         }
+        #actionNumTop10 {
+            height: 320px;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body>
@@ -50,7 +54,7 @@
             <h3><span class="glyphicon glyphicon-th"></span>&nbsp;全量统计</h3>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#actionNumTop10" role="tab" data-toggle="tab">接口数量TOP10</a></li>
+                <li class="active"><a href="#actionNumTop10" role="tab" data-toggle="tab">接口数量TOP100</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">

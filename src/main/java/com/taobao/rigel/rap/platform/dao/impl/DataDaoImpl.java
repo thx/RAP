@@ -141,7 +141,8 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
                 "  JOIN tb_action a ON a.id = ap.action_id\n" +
                 "WHERE pl.corporation_id = :corpId\n" +
                 "GROUP BY p.id\n" +
-                "ORDER BY COUNT(a.id) DESC";
+                "ORDER BY COUNT(a.id) DESC\n" +
+                "LIMIT 0, 50";
         Query query = currentSession().createSQLQuery(sql);
         query.setInteger("corpId", teamId);
         List<Object[]> list = query.list();
