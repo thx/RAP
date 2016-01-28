@@ -1,5 +1,4 @@
-# <img src="http://gtms04.alicdn.com/tps/i4/TB18fUNKVXXXXXpXpXX96liOVXX-690-234.png" height=40 />
-
+# RAP ![](https://api.travis-ci.org/thx/RAP.svg)
 ### 赞助商
 * 感谢[阿里云](http://www.aliyun.com)赞助服务器
 
