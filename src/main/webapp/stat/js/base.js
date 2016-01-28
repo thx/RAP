@@ -3427,7 +3427,7 @@ $(function () {
 		<div>- 不会写Mockjs？我们为您准备了 <a href="http://mockjs.com" target="_blank">文档</a> 和 <a href="/workspace/myWorkspace.action?projectId=79&mock=true&actionId=828" target="_blank">示例</a></div>\
 		<div>- 遇到RAP的bug了？欢迎到 <a href="https://github.com/thx/RAP/issues/new" target="_blank">这里</a> 提交issue</div>\
 		<div>- 想看看RAP官网文档？请点击 <a href="http://thx.github.io/RAP" target="_blank">这里</a></div>\
-		<div>- 其他问题，请直接联系 <a href="mailto:huoyong.msb@taobao.com">@霍雍</a> 或 <a href="mailto:zhifu.wzf@taobao.com">@思竹</a></div>';
+		<div>- 其他问题，请直接添加阿里旺旺群 582755829 </div>';
 
     $(html).appendTo('body');
     if (window.localStorage.getItem('rap-anim-showed')) {
