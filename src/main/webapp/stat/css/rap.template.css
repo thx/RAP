@@ -749,3 +749,20 @@ div#tipDiv {
     right: 2px;
     bottom: 0;
 }
+
+#rap-logo-text {
+    color: #FF0052; /* Fallback Color */
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: helvetica;
+    text-align:center;
+    font-size: 30px;
+    letter-spacing: 0;
+}
+@media  screen and (-webkit-min-device-pixel-ratio:0) {
+    #rap-logo-text {
+        background: -webkit-gradient(linear,left top,left bottom,from(#FF0052),to(#802F7B));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
