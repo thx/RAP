@@ -1,14 +1,20 @@
 package com.taobao.rigel.rap.platform.web.action;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.taobao.rigel.rap.common.base.ActionBase;
 import com.taobao.rigel.rap.common.bo.Item;
+import com.taobao.rigel.rap.common.config.SystemConstant;
+import com.taobao.rigel.rap.common.utils.CacheUtils;
+import com.taobao.rigel.rap.common.utils.CommonUtils;
 import com.taobao.rigel.rap.common.utils.SystemVisitorLog;
+import com.taobao.rigel.rap.organization.bo.Corporation;
 import com.taobao.rigel.rap.platform.service.DataMgr;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,12 +24,12 @@ public class PlatformAction extends ActionBase {
     private static final Logger logger = LogManager.getFormatterLogger(PlatformAction.class.getName());
     private Gson gson = new Gson();
     private int time;
-    private Map<String, List<Map<String, Object>>> trends = new HashMap<String, List<Map<String, Object>>>();
-    private Map<String, List<Map<String, Object>>> statistics = new HashMap<String, List<Map<String, Object>>>();
+    private Map<String, List<Map<String, Object>>> trends;
+    private Map<String, List<Map<String, Object>>> statistics;
     private int tabIndex;
     private ProjectMgr projectMgr;
-    private List<Item> modelLog = new ArrayList<Item>();
-    private Map<String, Item> modelLogMap = new HashMap<String, Item>();
+    private List<Item> modelLog;
+    private Map<String, Item> modelLogMap;
     private DataMgr dataMgr;
     private String text;
 
@@ -104,31 +110,56 @@ public class PlatformAction extends ActionBase {
     }
 
     public String log() {
-        // statistics for RAP models
-        modelLog.add(new Item("用户数", new Integer(getAccountMgr().getUserNum()).toString()));
-        modelLog.add(new Item("项目数", new Integer(projectMgr.getProjectNum()).toString()));
-        modelLog.add(new Item("接口数", new Integer(projectMgr.getActionNum()).toString()));
-        //modelLog.add(new Item("TAB数", new Integer(projectMgr.getModuleNum()).toString()));
-        //modelLog.add(new Item("页面数", new Integer(projectMgr.getPageNum()).toString()));
-        //modelLog.add(new Item("参数数", new Integer(projectMgr.getParametertNum()).toString()));
-        modelLog.add(new Item("文档提交数", new Integer(projectMgr.getCheckInNum()).toString()));
-        modelLog.add(new Item("MOCK服务调用次数", new Integer(projectMgr.getMockNumInTotal()).toString(), "该信息自2014年10月底开始记录"));
+        String[] cacheKey = {CacheUtils.KEY_STATISTICS};
+        String cache = CacheUtils.get(cacheKey);
 
-        for (Item item : modelLog) {
-            modelLogMap.put(item.getKey(), item);
+        if (cache != null) {
+            Map<String, Object> mapCache = CommonUtils.gson.fromJson(cache, new TypeToken<Map<String, Object>>() {
+            }.getType());
+            modelLogMap = (Map<String, Item>) mapCache.get("modelLogMap");
+            trends = (Map<String, List<Map<String, Object>>>) mapCache.get("trends");
+            statistics = (Map<String, List<Map<String, Object>>>) mapCache.get("statistics");
+            modelLog = (List<Item>) mapCache.get("modelLog");
+        } else {
+            modelLog = new ArrayList<Item>();
+            modelLogMap = new HashMap<String, Item>();
+            trends = new HashMap<String, List<Map<String, Object>>>();
+            statistics = new HashMap<String, List<Map<String, Object>>>();
+
+            // statistics for RAP models
+            modelLog.add(new Item("user", new Integer(getAccountMgr().getUserNum()).toString()));
+            modelLog.add(new Item("project", new Integer(projectMgr.getProjectNum()).toString()));
+            modelLog.add(new Item("action", new Integer(projectMgr.getActionNum()).toString()));
+
+            //modelLog.add(new Item("TAB数", new Integer(projectMgr.getModuleNum()).toString()));
+            //modelLog.add(new Item("页面数", new Integer(projectMgr.getPageNum()).toString()));
+            //odelLog.add(new Item("参数数", new Integer(projectMgr.getParametertNum()).toString()));
+
+            modelLog.add(new Item("checkIn", new Integer(projectMgr.getCheckInNum()).toString()));
+            modelLog.add(new Item("mockNum", new Integer(projectMgr.getMockNumInTotal()).toString()));
+
+            for (Item item : modelLog) {
+                modelLogMap.put(item.getKey(), item);
+            }
+
+            // trends data
+            trends.put("user", dataMgr.getUserTrendByMonth());
+            trends.put("project", dataMgr.getProjectTrendByMonth());
+            trends.put("checkIn", dataMgr.getCheckInTrendByMonth());
+
+
+            // statistics data
+            statistics.put("actionNumByTeam", dataMgr.getActionNumByTeam());
+            statistics.put("mockNumByProject", dataMgr.getMockNumByProject());
+            statistics.put("mockNumByProjectToday", SystemVisitorLog.getMockNumByProjectToday(projectMgr));
+
+            Map<String, Object> mapCache = new HashMap<String, Object>();
+            mapCache.put("modelLogMap", modelLogMap);
+            mapCache.put("trends", trends);
+            mapCache.put("statistics", statistics);
+            mapCache.put("modelLog", modelLog);
+            CacheUtils.put(cacheKey, CommonUtils.gson.toJson(mapCache));
         }
-
-        // trends data
-        trends.put("user", dataMgr.getUserTrendByMonth());
-        trends.put("project", dataMgr.getProjectTrendByMonth());
-        trends.put("checkIn", dataMgr.getCheckInTrendByMonth());
-
-
-        // statistics data
-        statistics.put("actionNumByTeam", dataMgr.getActionNumByTeam());
-        statistics.put("mockNumByProject", dataMgr.getMockNumByProject());
-        statistics.put("mockNumByProjectToday", SystemVisitorLog.getMockNumByProjectToday(projectMgr));
-
         return SUCCESS;
     }
 
