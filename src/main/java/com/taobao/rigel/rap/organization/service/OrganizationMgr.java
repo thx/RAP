@@ -302,4 +302,28 @@ public interface OrganizationMgr {
      */
     Group getGroup(int id);
 
+    /**
+     * get number of member in specific corporation
+     *
+     * @param corpId
+     * @return
+     */
+    int getMemberNumOfCorporation(int corpId);
+
+    /**
+     * get project num of corporation
+     *
+     * @param corpId
+     * @return
+     */
+    int getProjectNumOfCorporation(int corpId);
+
+    /**
+     * get action num of corporation
+     *
+     * @param corpId
+     * @return
+     */
+    int getActionNumOfCorporation(int corpId);
+
 }

@@ -16,4 +16,6 @@ public interface DataDao {
 
     List<Map<String, Object>> getActionNumByTeam();
 
+    List<Map<String, Object>> getTop10ActionNumByTeam(int teamId);
+
 }

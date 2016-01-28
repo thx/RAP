@@ -406,4 +406,16 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     public Group getGroup(int id) {
         return organizationDao.getGroup(id);
     }
+
+    public int getMemberNumOfCorporation(int corpId) {
+        return organizationDao.getMemberNumOfCorporation(corpId);
+    }
+
+    public int getProjectNumOfCorporation(int corpId) {
+        return organizationDao.getProjectNumOfCorporation(corpId);
+    }
+
+    public int getActionNumOfCorporation(int corpId) {
+        return organizationDao.getActionNumOfCorporation(corpId);
+    }
 }

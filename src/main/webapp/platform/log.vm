@@ -19,15 +19,6 @@
             height: 250px;
         }
 
-        #debug {
-            display: none;
-        }
-
-        #debug .content {
-            width: 1140px;
-            word-break: break-all;
-        }
-
         .data-tab {
             font-size: 30px;
             color: #888;
@@ -41,14 +32,6 @@
 #bodyNewStart
 <div class="container">
     <h2><span class="glyphicon glyphicon-dashboard"></span>&nbsp;RAP Dashboard</h2>
-
-    <div id="debug" class="row">
-        <div class="col-md-12">
-            <h3>DEBUG INFO</h3>
-
-            <div class="content">$realtimeJSON</div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-12">
             <h3><span class="glyphicon glyphicon-time"></span>&nbsp;实时数据</h3>

@@ -72,7 +72,8 @@
     "doc":"https://github.com/thx/RAP/wiki/home_cn",
     "study":"http://thx.github.io/RAP/study.html",
     "log":"$!projectContext/platform/log.do",
-    "realtimeUpdate":"$!projectContext/platform/realtimeUpdate.do"
+    "realtimeUpdate":"$!projectContext/platform/realtimeUpdate.do",
+    "teamLog":"$!projectContext/platform/teamLog.do"
 })
 #set($testerUrl = {
     "pageTester":"$projectContext/tester/pageTester.do"

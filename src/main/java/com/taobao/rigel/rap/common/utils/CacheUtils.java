@@ -25,6 +25,7 @@ public class CacheUtils {
     public static final String KEY_ACCESS_USER_TO_PROJECT = "KEY_ACCESS_USER_TO_PROJECT";
     public static final String KEY_NOTIFICATION = "KEY_NOTIFICATION";
     public static final String KEY_STATISTICS = "KEY_STATISTICS";
+    public static final String KEY_STATISTICS_OF_TEAM = "KEY_STATISTICS_OF_TEAM";
 
     private static JedisPool jedisPool;
     private static Jedis jedis;

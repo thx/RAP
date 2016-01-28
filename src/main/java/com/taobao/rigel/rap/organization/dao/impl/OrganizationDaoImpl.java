@@ -304,6 +304,34 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
         return Integer.parseInt(query.uniqueResult().toString());
     }
 
+    public int getProjectNumOfCorporation(int corpId) {
+        String sql = "SELECT COUNT(p.id) \n" +
+                "FROM tb_project p \n" +
+                "JOIN tb_group g ON g.id = p.group_id \n" +
+                "JOIN tb_production_line pl ON p.id = g.production_line_id\n" +
+                "WHERE pl.corporation_id = :corpId";
+        Query query = currentSession().createSQLQuery(sql);
+        query.setInteger("corpId", corpId);
+
+        return Integer.parseInt(query.uniqueResult().toString());
+    }
+
+    public int getActionNumOfCorporation(int corpId) {
+        String sql = "SELECT COUNT(a.id) \n" +
+                "FROM tb_action a\n" +
+                "JOIN tb_action_and_page ap ON ap.action_id = a.id\n" +
+                "JOIN tb_page p ON p.id = ap.page_id\n" +
+                "JOIN tb_module m ON m.id = p.module_id\n" +
+                "JOIN tb_project pr ON pr.id = m.project_id\n" +
+                "JOIN tb_group g ON g.id = pr.group_id \n" +
+                "JOIN tb_production_line pl ON pl.id = g.production_line_id\n" +
+                "WHERE pl.corporation_id = :corpId";
+        Query query = currentSession().createSQLQuery(sql);
+        query.setInteger("corpId", corpId);
+
+        return Integer.parseInt(query.uniqueResult().toString());
+    }
+
     private List<Integer> getProjectIdsFromCorporation(int userId, int corpId) {
         StringBuilder builder = new StringBuilder();
         builder.append("SELECT DISTINCT p.id AS projectId ")

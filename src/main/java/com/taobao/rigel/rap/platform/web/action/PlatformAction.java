@@ -2,6 +2,7 @@ package com.taobao.rigel.rap.platform.web.action;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.taobao.rigel.rap.account.bo.User;
 import com.taobao.rigel.rap.common.base.ActionBase;
 import com.taobao.rigel.rap.common.bo.Item;
 import com.taobao.rigel.rap.common.config.SystemConstant;
@@ -9,6 +10,7 @@ import com.taobao.rigel.rap.common.utils.CacheUtils;
 import com.taobao.rigel.rap.common.utils.CommonUtils;
 import com.taobao.rigel.rap.common.utils.SystemVisitorLog;
 import com.taobao.rigel.rap.organization.bo.Corporation;
+import com.taobao.rigel.rap.organization.service.OrganizationMgr;
 import com.taobao.rigel.rap.platform.service.DataMgr;
 import com.taobao.rigel.rap.project.service.ProjectMgr;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PlatformAction extends ActionBase {
-    private static final Logger logger = LogManager.getFormatterLogger(PlatformAction.class.getName());
+    // private static final Logger logger = LogManager.getFormatterLogger(PlatformAction.class);
     private Gson gson = new Gson();
     private int time;
     private Map<String, List<Map<String, Object>>> trends;
@@ -32,6 +34,26 @@ public class PlatformAction extends ActionBase {
     private Map<String, Item> modelLogMap;
     private DataMgr dataMgr;
     private String text;
+
+    public OrganizationMgr getOrganizationMgr() {
+        return organizationMgr;
+    }
+
+    public void setOrganizationMgr(OrganizationMgr organizationMgr) {
+        this.organizationMgr = organizationMgr;
+    }
+
+    private OrganizationMgr organizationMgr;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
 
     public void setTime(int time) {
         this.time = time;
@@ -109,7 +131,72 @@ public class PlatformAction extends ActionBase {
         return SUCCESS;
     }
 
+    public String teamLog() {
+        if (!isUserLogined()) {
+            plsLogin();
+            setRelativeReturnUrl("/platform/teamLog.do?id=" + id);
+            return LOGIN;
+        }
+        if (!organizationMgr.canUserAccessCorp(getCurUserId(), id)) {
+            setErrMsg(ACCESS_DENY);
+            return ERROR;
+        }
+        Corporation team = organizationMgr.getCorporation(id);
+        if (team == null) {
+            setErrMsg("错误的team id,请检查页面参数是否复制不完整.");
+            return ERROR;
+        }
+
+        String[] cacheKey = {CacheUtils.KEY_STATISTICS_OF_TEAM, new Integer(getId()).toString()};
+        String cache = CacheUtils.get(cacheKey);
+
+        if (cache != null) {
+            Map<String, Object> mapCache = CommonUtils.gson.fromJson(cache, new TypeToken<Map<String, Object>>() {
+            }.getType());
+            modelLogMap = (Map<String, Item>) mapCache.get("modelLogMap");
+            trends = (Map<String, List<Map<String, Object>>>) mapCache.get("trends");
+            statistics = (Map<String, List<Map<String, Object>>>) mapCache.get("statistics");
+            modelLog = (List<Item>) mapCache.get("modelLog");
+        } else {
+            modelLog = new ArrayList<Item>();
+            modelLogMap = new HashMap<String, Item>();
+            trends = new HashMap<String, List<Map<String, Object>>>();
+            statistics = new HashMap<String, List<Map<String, Object>>>();
+
+            // statistics for RAP models
+            modelLog.add(new Item("user", "" + organizationMgr.getMemberNumOfCorporation(id)));
+            modelLog.add(new Item("project", "" + organizationMgr.getProjectNumOfCorporation(id)));
+            modelLog.add(new Item("action", "" + organizationMgr.getActionNumOfCorporation(id)));
+
+            for (Item item : modelLog) {
+                modelLogMap.put(item.getKey(), item);
+            }
+
+            // trends data
+            trends.put("user", dataMgr.getUserTrendByMonth());
+            trends.put("project", dataMgr.getProjectTrendByMonth());
+            trends.put("checkIn", dataMgr.getCheckInTrendByMonth());
+
+
+            // statistics data
+            statistics.put("top10ActionNumByTeam", dataMgr.getTop10ActionNumByTeam(id));
+
+            Map<String, Object> mapCache = new HashMap<String, Object>();
+            mapCache.put("modelLogMap", modelLogMap);
+            mapCache.put("trends", trends);
+            mapCache.put("statistics", statistics);
+            mapCache.put("modelLog", modelLog);
+            CacheUtils.put(cacheKey, CommonUtils.gson.toJson(mapCache));
+        }
+        return SUCCESS;
+    }
+
     public String log() {
+        if (!isUserLogined()) {
+            plsLogin();
+            setRelativeReturnUrl("/platform/log.do");
+            return LOGIN;
+        }
         String[] cacheKey = {CacheUtils.KEY_STATISTICS};
         String cache = CacheUtils.get(cacheKey);
 

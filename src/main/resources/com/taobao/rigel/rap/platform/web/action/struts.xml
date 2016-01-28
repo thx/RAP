@@ -13,6 +13,9 @@
         <action name="log" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="log">
             <result name="success" type="velocity">/platform/log.vm</result>
         </action>
+        <action name="teamLog" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="teamLog">
+            <result name="success" type="velocity">/platform/teamLog.vm</result>
+        </action>
         <action name="monitor" class="com.taobao.rigel.rap.platform.web.action.PlatformAction" method="monitor">
             <result name="success" type="velocity">/platform/monitor.vm</result>
         </action>

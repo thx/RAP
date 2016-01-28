@@ -201,6 +201,22 @@ public interface OrganizationDao {
     int getMemberNumOfCorporation(int corpId);
 
     /**
+     * get project num of corporation
+     *
+     * @param corpId
+     * @return
+     */
+    int getProjectNumOfCorporation(int corpId);
+
+    /**
+     * get action num of corporation
+     *
+     * @param corpId
+     * @return
+     */
+    int getActionNumOfCorporation(int corpId);
+
+    /**
      * delete all membership from team
      *
      * @param curUserId the user now operating, used for transfer project
