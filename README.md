@@ -66,7 +66,9 @@ RAP通过GUI工具帮助WEB工程师更高效的管理接口文档，同时通�
     
 ## Contributors List 贡献者
 
-`@nunnly`, `@xinglie`
+`belerweb`, `xinglie`, `nunnly`, `x03570227`, `jokefaker`, etc.
+
+[Contributors Details](https://github.com/thx/RAP/graphs/contributors)
 
 ## 赞助商
 * 感谢[阿里云](http://www.aliyun.com)赞助服务器
@@ -74,3 +76,16 @@ RAP通过GUI工具帮助WEB工程师更高效的管理接口文档，同时通�
 ## 其它链接
 * THX开源工具集: [http://thx.github.io/](http://thx.github.io/)
 * 作者微博：[@Bosn](http://weibo.com/bosn)
+
+## RAP的客户
+* 阿里巴巴集团
+* 蚂蚁金服
+* 苏州白鸽云信息技术有限公司
+* 厦门优优汇联信息科技有限公司
+* 杭州匠人网络科技有限公司
+* 深圳润民科技有限公司
+* 南京爱动信息技术有限公司
+* 智能云科信息科技有限公司
+
+
+您也在使用RAP?请 [在这里](https://github.com/thx/RAP/issues/272) 更新您的公司.
