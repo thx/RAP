@@ -66,7 +66,9 @@ RAP通过GUI工具帮助WEB工程师更高效的管理接口文档，同时通�
     
 ## Contributors List 贡献者
 
-`@nunnly`, `@xinglie`
+`belerweb`, `xinglie`, `nunnly`, `x03570227`, `jokefaker`, etc.
+
+[Contributors Details](https://github.com/thx/RAP/graphs/contributors)
 
 ## 赞助商
 * 感谢[阿里云](http://www.aliyun.com)赞助服务器
