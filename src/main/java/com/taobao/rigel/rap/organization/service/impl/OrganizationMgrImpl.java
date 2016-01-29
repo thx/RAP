@@ -190,10 +190,14 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
         User user = accountMgr.getUser(userId);
         boolean canAccess = false;
+        int corpId = organizationDao.getTeamIdByProjectId(projectId);
+        int roleId = organizationDao.getUserRoleInCorp(userId, corpId);
         Project project = projectMgr.getProjectSummary(projectId);
         if (user.isUserInRole("admin")) {
             canAccess = true;
         } else if (project.getUserId() == userId) {
+            canAccess = true;
+        } else if (Role.isAdmin(roleId)) {
             canAccess = true;
         } else {
             List<Integer> memberIdList = projectMgr.getMemberIdsOfProject(projectId);
