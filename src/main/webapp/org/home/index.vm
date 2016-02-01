@@ -98,7 +98,7 @@
 	  {{/users}}
 	  <input class="form-control accounts-inputer" placeholder="添加项目成员"/>
 	  <span class="user-loading">项目成员列表加载中，请稍候~ </span>
-	  <span class="glyphicon glyphicon-question-sign tip" title="如果该用户没有登录/注册过RAP，系统中就没有TA的信息。请TA先登录一下RAP吧。匹配时请可以输入TA的花名或帐号(域帐号)">找不到TA?</span>
+	  <span class="glyphicon glyphicon-question-sign tip" title="公开团队RAP系统所有用户都可以搜到,如果是一般的私有团队,必须是团队成员才可以加入到项目成员里.如果找不到,请叫团队的管理员,先将该用户添加为团队成员.">找不到TA?</span>
       <div class="accounts-con"></div>
 	</div>
   </div>
