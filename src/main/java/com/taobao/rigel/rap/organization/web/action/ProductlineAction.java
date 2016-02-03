@@ -82,7 +82,7 @@ public class ProductlineAction extends ActionBase {
             plsLogin();
             return JSON_ERROR;
         }
-        if (!organizationMgr.canUserManageCorp(getCurUserId(), corpId)) {
+        if (!organizationMgr.canUserManageProductionLineList(getCurUserId(), corpId)) {
             setErrMsg(ACCESS_DENY);
             return JSON_ERROR;
         }

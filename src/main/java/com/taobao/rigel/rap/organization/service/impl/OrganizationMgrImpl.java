@@ -294,7 +294,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
     public boolean canUserManageProductionLine(int userId, int plId) {
         ProductionLine pl = this.getProductionLine(plId);
         int corpId = pl.getCorporationId();
-        return canUserManageCorp(userId, corpId);
+        return canUserManageProductionLineList(userId, corpId);
     }
 
 
@@ -420,5 +420,13 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
     public int getActionNumOfCorporation(int corpId) {
         return organizationDao.getActionNumOfCorporation(corpId);
+    }
+
+    public boolean canUserManageProductionLineList(int userId, int corpId) {
+        if (canUserManageCorp(userId, corpId)) {
+            return true;
+        }
+        Corporation c = getCorporation(corpId);
+        return c.getAccessType() == Corporation.PUBLIC_ACCESS;
     }
 }

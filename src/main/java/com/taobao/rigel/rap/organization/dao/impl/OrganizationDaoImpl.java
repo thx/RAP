@@ -385,7 +385,12 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
 
         Query query = currentSession().createSQLQuery(sql.toString());
         query.setInteger("id", id);
-        return (Integer) query.uniqueResult();
+        Object resultObj = query.uniqueResult();
+        if (resultObj == null) {
+            return 0;
+        } else {
+            return (Integer) resultObj;
+        }
     }
 
 

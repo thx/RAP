@@ -246,12 +246,16 @@ public class ProjectAction extends ActionBase {
                     item.indexOf("(")).trim() : item.trim();
             if (!account.equals("")) {
                 memberAccountList.add(account);
-                organizationMgr.addTeamMembers(getCurUserId(), organizationMgr.getTeamIdByProjectId(project.getId()), account);
             }
         }
         project.setMemberAccountList(memberAccountList);
         int projectId = projectMgr.addProject(project);
         project = projectMgr.getProject(projectId);
+
+        for (String account : memberAccountList) {
+            organizationMgr.addTeamMembers(getCurUserId(), organizationMgr.getTeamIdByProjectId(project.getId()), account);
+        }
+
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("id", project.getId());
         result.put("name", project.getName());
