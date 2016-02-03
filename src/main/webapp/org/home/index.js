@@ -72,7 +72,7 @@ $(function () {
                     }
                     var text = $(this).find('[value=' + plId + ']').text();
                     fillSelectAsync('org.home.grouplist', {
-                        productLineId: plId
+                        productlineId: plId
                     }, $('#option-list-tmpl').text(), '.project-target .group', function () {
                         showCreateGroupBtn(plId, text);
                     });
@@ -321,7 +321,7 @@ $(function () {
                 }
                 var modal = $(this);
                 $.post($.route('org.group.create'), {
-                    productLineId: PL_ID,
+                    productlineId: PL_ID,
                     name: inputer.val().trim()
                 }, function (data) {
                     var groups = data.groups;

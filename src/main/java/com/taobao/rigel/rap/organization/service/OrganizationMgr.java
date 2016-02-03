@@ -326,4 +326,12 @@ public interface OrganizationMgr {
      */
     int getActionNumOfCorporation(int corpId);
 
+    /**
+     * as titles
+     *
+     * @param curUserId
+     * @param plId
+     * @return
+     */
+    boolean canUserManageProductionLineList(int curUserId, int plId);
 }

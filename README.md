@@ -7,11 +7,6 @@ RAP通过GUI工具帮助WEB工程师更高效的管理接口文档，同时通�
 
 <img src="http://gtms04.alicdn.com/tps/i4/TB19tgUKVXXXXXAXXXXAhCB5VXX-1222-646.png" width="600" />
 
-### Architect
-* Hibernate5 + Spring4 + Struts2
-* MySQL
-* Redis
-* Velocity
 
 ### Why we use RAP?
 * Enterprise level application. More than 350+ corporations including Alibaba Group are using RAP to manage their important API Docs!
@@ -43,6 +38,12 @@ RAP通过GUI工具帮助WEB工程师更高效的管理接口文档，同时通�
 * 我想快速上手RAP使用方法 => [视频教程](http://thx.github.io/RAP/study.html)
 * 我要反馈问题 => [Issues](http://github.com/thx/RAP/issues)
 
+### Architect
+* Framework: Hibernate5 + Spring4 + Struts2
+* Store: MySQL5 + Redis3
+* Front End: Velocity + jQuery + qUnit
+* Deploy: Tomcat + Docker
+* CI: Travis
 
 ## 订阅RAP更新?
 
@@ -51,7 +52,7 @@ RAP通过GUI工具帮助WEB工程师更高效的管理接口文档，同时通�
  
 ## About
 
-    @version     v0.14.0 (in development)
+    @version     v0.14.1
     @author      @bosn @wangjeaf
     @director    @limu @xinglie
     @update      Oct. 13th 2015
