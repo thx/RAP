@@ -111,7 +111,7 @@
     <div class="form-group">
         <label for="" class="col-sm-2 control-label">
             项目名称
-            <span style="color:red">
+            <span style="color:#CC0000;">
                 &#42;
             </span>
         </label>
@@ -134,6 +134,9 @@
     <div class="form-group">
         <label for="" class="col-sm-2 control-label">
             项目归属
+             <span style="color:#CC0000;">
+                &#42;
+            </span>
         </label>
         <div class="col-sm-10 project-target" style="position:relative">
             <div class="clearfix">
