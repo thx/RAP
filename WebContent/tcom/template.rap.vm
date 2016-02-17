@@ -1,0 +1,337 @@
+#parse('/tcom/utils.macro.vm')
+#set($domainUrl = "http://" + $consts.DOMAIN_URL)
+#set($homeUrlEncoded = $utils.escapeInU($domainUrl))
+#set($logoutUrl = $domainUrl + $accountUrl.doLogout)
+#set($logoutUrlEncoded = $utils.escapeInU($logoutUrl))
+## master page start
+#macro (bodyNewStart $hide)
+
+    <script>
+        function getUsers(callback, teamId) {
+            if ($.local('users')) {
+                callback($.local('users'));
+                return;
+            }
+            var params = {};
+            if (teamId) {
+                params.id = teamId;
+            }
+            $.get($.route('org.account.all'), params, function(data) {
+                users = data.users;
+                $.local('users', users);
+                callback(users);
+            }, "JSON");
+        }
+    </script>
+
+#if(!$hide)
+<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#global-navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      <a class="navbar-brand" href="/"><i class="iconlogo mi-rap"></i> <span class="logo-text">RAP v0.<span style="color:#DD22DD">12.sp1</span><span style="color:#cc0000;font-size:10px;">&nbsp;&nbsp;beta</span></span></a>
+    </div>
+    <div class="collapse navbar-collapse"  id="global-navbar">
+      <ul class="nav navbar-nav">
+        #if($isLogined)
+        <li><a href="$newUrl.home">主页</a></li>
+        <li class="dropdown">
+            #set($_corpList = $corpList)
+            #if($_corpList.size() > 0)
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">团队 <b class="caret"></b></a>
+            #else
+               <a href="#" class="_createTeamBtn"><span class="glyphicon glyphicon-plus"></span>创建团队</a>
+            #end
+          <ul class="dropdown-menu teams">
+            #foreach($corp in $_corpList)
+             <li><a href="$projectUrl.allProductlineList?id=$corp.id">#if($corp.accessType==20)<span class="glyphicon glyphicon-exclamation-sign" title="公开团队,所有RAP用户均可访问,请注意数据安全."></span>&nbsp;&nbsp;#end$!utils.escapeInH($corp.nameStr)</a></li>
+            #end
+              <div style="clear:both;"></div>
+              <li style="text-align:center;"><button onclick="window.location.href = '$teamUrl.teams';" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span>全部团队</button></li>
+              <li style="text-align:center;"><button class="btn btn-primary btn-sm _createTeamBtn"><span class="glyphicon glyphicon-plus"></span>创建团队</button></li>
+          </ul>
+        </li>
+        <!-- <li><a href="$projectUrl.myProjectList">我的项目</a></li>
+        <li><a href="$projectUrl.allProductlineList">产品线管理</a></li> -->
+        #else
+        <li><a href="$platformUrl.home">主页</a></li>
+        #end
+
+        <li><a href="$platformUrl.doc" target="_blank">文档</a></li>
+        <!--<li><a href="$platformUrl.test">测试</a></li>   外网不可见 -->
+        <li><a href="$platformUrl.log">数据</a></li>
+        <li><a href="$platformUrl.study" target="_blank">教程
+           <!-- <span style="color:yellow;"> (new)</span> -->
+        </a></li>
+
+        #if($isLogined)
+        <li>
+            <div class="search-project-con">
+            <span class="glyphicon glyphicon-search"></span>
+            <input type="text" class="project-search-inputer form-control" placeholder="搜索项目名称"/>
+            <div class="project-autocomplete-con">
+                <ul class="list-unstyled">
+                </ul>
+            </div>
+        </div>
+        </li>
+        #end
+      </ul>
+      #if ($curUserId > 0)
+      <div class="pull-right">
+          <ul class="nav navbar-nav">
+              <li>
+                <a href="#" class="dropdown-toggle messages-trigger">消息<span class="label label-success">4</span></a>
+                <ul class="dropdown-menu dropdown-menu-right messages-dropdown">
+                    <li>
+                        <div class="messages-container">
+                            <div class="msgs"></div>
+                            <div class="btns">
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">$curUserName <b class="caret"></b></a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="$newUrl.home">我的主页</a></li>
+                    <li><a href="$accountUrl.myAccount">个人信息</a></li>
+                    <li><a href="$accountUrl.mySetting">个人设置</a></li>
+                    <li class="divider"></li>
+                    <li><a href="$accountUrl.doLogout">退出</a></li>
+                </ul>
+              </li>
+          </ul>
+      </div>
+      #elseif(!$loginCtlHidden)
+<div class="pull-right">
+  <ul class="nav navbar-nav">
+    <li>
+      <a href="javascript:void(0);" class="dropdown-toggle" id="login-trigger">登录</a>
+      <ul class="dropdown-menu dropdown-menu-right">
+          <li>
+              <form name="formMain" class="navbar-form login-form" action="$accountUrl.doLogin" method="post">
+                  <input class="span2 form-control" style="width:200px" type="text" placeholder="用户名" required name="account">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" required placeholder="密码" name="password">
+                  <!-- <div style="margin-top: 10px; display: none;">
+                    <div class="checkbox remember-me">
+                        <label>
+                          <input type="checkbox" name="remember"> 下次自动登录
+                        </label>
+                      </div>http://rap.xintuzaojiu.com/org/index.do
+                  </div> -->
+                  <div style="margin-top: 10px;">
+                    <button type="submit" class="btn btn-primary" id="login-btn">登录</button>
+                    <button type="button" class="btn btn-default" id="cancel-login-btn" style="margin-left: 10px;">取消</button>
+                  </div>
+                  <!--<button type="button" onclick="window.location.href = '$accountUrl.register'" class="btn">注册</button>-->
+              </form>
+          </li>
+        </ul>
+    </li>
+    <li>
+        <a href="javascript:void(0);" class="dropdown-toggle" id="register-trigger">注册</a>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li>
+              <form name="formMain" class="navbar-form register-form" action="$accountUrl.doRegister" method="post">
+                  <input class="span2 form-control" style="width:200px" type="text" placeholder="中文名" required name="name">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="email" placeholder="邮箱" required name="email">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="text" placeholder="登录用户名" required name="account">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="密码" required name="password" id="register-password">
+                  <input class="span2 form-control" style="width:200px;margin-top:10px;" type="password" placeholder="密码确认" required name="passwordConfirm" id="register-password-confirm">
+                  <div style="margin-top: 10px;">
+                    <button type="submit" class="btn btn-primary" id="register-btn">注册</button>
+                    <button type="button" class="btn btn-default" id="cancel-register-btn" style="margin-left: 10px;">取消</button>
+                  </div>
+              </form>
+          </li>
+    </ul>
+    </li>
+  </ul>
+</div>
+      #end
+    </div><!-- /.nav-collapse -->
+  </div><!-- /.container -->
+</div><!-- /.navbar -->
+#end
+<div class="container">
+#end
+## master page end
+#macro (bodyEnd)
+    <hr>
+    <footer>
+        <p><span id="_logOnline">-</span> 人在使用RAP, 今日Mock服务被调用 <span id="_logMockNumToday">-</span> 次&nbsp;&nbsp;旺旺群支持:582755829 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_5879641'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D5879641%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></p>
+    </footer>
+    <script>
+        function _logData() {
+            if (window.localStorage) {
+                if (window.localStorage.getItem('stopLogData')) {
+                    return;
+                }
+            }
+            jQuery.ajax({
+                url     : '$accountUrl.logData',
+                success : function(data){
+                    data = JSON.parse(data);
+                    $('#_logOnline').html(data.online);
+                    $('#_logMockNumToday').html(data.mockNumToday);
+                    var ele = $('#mockDataInDashboard');
+                    if (ele.length) {
+                        var startMockNum = +ele.attr('data-start');
+                        ele.html(startMockNum + (+data.mockNumToday));
+                    }
+                    // setTimeout(_logData, 2000);
+                }
+            });
+        }
+        _logData();
+    </script>
+</div>
+
+<!-- templates -->
+<script type="text/tmpl" id="_create-team-tmpl">
+<form id="_formCreateTeam">
+    <div class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">
+                团队名称
+                <span style="color:red">
+                    *
+                </span>
+            </label>
+            <div class="col-sm-10">
+                <input type="text" id="_createTeamName" required class="form-control" style="width:432px;" placeholder="请在此编辑团队名称"
+                value="{{name}}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">
+                权限
+            </label>
+            <div class="col-sm-10">
+                <input type="radio" value="1" id="_createTeamType1" checked="checked" name="_createTeamType"
+                />
+                <label for="_createTeamType1">
+                    仅团队成员可见
+                </label>
+                <input type="radio" value="2" id="_createTeamType2" name="_createTeamType"
+                />
+                <label for="_createTeamType2">
+                    全员可见
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">
+                团队描述
+            </label>
+            <div class="col-sm-10">
+                <textarea class="form-control desc" id="_createTeamDesc" style="width:432px;resize:vertical;" placeholder="请在此编辑团队描述">{{desc}}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">
+                团队成员
+            </label>
+            <div class="col-sm-10 picking-user"  style="position:relative">
+                {{#users}}
+                <span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">
+                    {{account}} ({{name}})
+                    <i class="unpick-btn">
+                        &times;
+                    </i>
+                </span>
+                {{/users}}
+                <input class="form-control accounts-inputer" placeholder="添加项目成员" id="_createTeamMemberList" />
+                <span class="user-loading">
+                    项目成员列表加载中，请稍候~
+                </span>
+                <span class="glyphicon glyphicon-question-sign tip" title="如果该用户没有登录/注册过RAP，系统中就没有TA的信息。请TA先登录一下RAP吧。匹配时请可以输入TA的花名或帐号(域帐号)">
+                    找不到TA?
+                </span>
+                <div class="accounts-con">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</script>
+<script type="text/tmpl" id="user-auto-list">
+	<ul class="autocompleter">
+		{{#users}}
+			<li data-account="{{account}}" data-name="{{name}}" {{^block}}title="{{account}} ({{name}})"{{/block}}{{#block}} data-block="true"{{/block}}>
+				{{#block}}没有更多匹配数据{{/block}}
+				{{^block}}{{account}} ({{name}}){{/block}}
+			</li>
+		{{/users}}
+	</ul>
+</script>
+<script type="text/tmpl" id="user-item-tmpl">
+    <span class="picked-user" data-name="{{name}}" data-account="{{account}}" title="{{account}} ({{name}})">{{account}} ({{name}})<i class="unpick-btn">&times;</i></span>
+</script>
+<script>
+    function _bindCreateTeamDialogAutoCompleteEvents() {
+        var that = this;
+
+        $.confirm({
+            content: $.render($('#_create-team-tmpl').text(), {}),
+            title: '创建团队',
+            confirmText: '确认创建',
+            cancelCallback: function() {
+
+            },
+            showCallback: function() {
+                var that = this;
+                $(this).find('input[type=text]').focus();
+                $(this).find('.picking-user').delegate('.unpick-btn', 'click', function() {
+                    $(this).parent('.picked-user').remove();
+                });
+                $('.tip').tooltip();
+                getUsers(function(users) {
+                    $('.user-loading').hide();
+                    $(that).find('.accounts-inputer').keyup(function() {
+                        $.autocomplete(that, users);
+                    }).focus(function() {
+                        $.autocomplete(that, users);
+                    });
+                });
+            },
+            confirmClicked: function() {
+                var modal = $(this);
+                var name = $('#_createTeamName').val();
+                var desc = $('#_createTeamDesc').val();
+                var isPrivate = $('#_createTeamType1')[0].checked;
+                var pickedUserList = [];
+                $('.picked-user').each(function(index, ele) {
+                    pickedUserList.push($(ele).data('account'));
+                });
+                $.post($.route('org.team.create'), {
+                    name : name,
+                    desc : desc,
+                    accessType : isPrivate ? 10 : 20,
+                    accountList : pickedUserList.join(',')
+                }, function(data) {
+                    modal.modal('hide');
+                    window.location.href = "$productlineUrl.productline" + "?id=" + data.id
+                }, "JSON");
+            }
+        });
+
+
+    }
+
+    function _bindTemplateEvents() {
+        $('body').delegate('._createTeamBtn', 'click', _bindCreateTeamDialogAutoCompleteEvents);
+        $('.glyphicon').tooltip();
+    }
+
+    _bindTemplateEvents();
+</script>
+#end
