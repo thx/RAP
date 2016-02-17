@@ -595,7 +595,8 @@
             #if($mock == true)
                 ws.toggleMockDisplay();
             #else
-                if (window.location.toString().indexOf("mock=") == -1 && window.localStorage && window.localStorage.getItem("_isMockDisplay") === 'true') {
+                var isMockDisplay = window.localStorage ? localStorage.getItem("_isMockDisplay") : null;
+                if (location.toString().indexOf("mock=") == -1 && isMockDisplay != 'false') {
                     ws.toggleMockDisplay();
                 }
             #end
