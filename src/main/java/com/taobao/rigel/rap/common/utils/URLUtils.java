@@ -80,9 +80,9 @@ public class URLUtils {
             return "";
         }
         if (url.contains("https://")) {
-            url = url.substring(url.indexOf("/", 7));
-        } else if (url.contains("http://")) {
             url = url.substring(url.indexOf("/", 8));
+        } else if (url.contains("http://")) {
+            url = url.substring(url.indexOf("/", 7));
         }
         if (url.contains("?")) {
             url = url.substring(0, url.indexOf("?"));
