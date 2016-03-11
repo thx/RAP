@@ -15,6 +15,13 @@ public class HTTPUtils {
 
     // HTTP GET request
     public static String sendGet(String url) throws Exception {
+        if (!url.startsWith("http://")) {
+            url = "http://" + url;
+        }
+
+        url = url.replaceAll("<", "");
+        url = url.replaceAll(">", "");
+
         String USER_AGENT = "Mozilla/5.0";
 
         URL obj = new URL(url);
