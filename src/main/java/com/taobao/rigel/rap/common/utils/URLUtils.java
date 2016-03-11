@@ -103,19 +103,7 @@ public class URLUtils {
     }
 
     public static String removeRealParamsInUrl(String url) {
-        url = url.replaceAll("/[0-9]+[^\\$/]", "/:number");
-        String lastPart = url.substring(url.lastIndexOf("/") + 1);
-        if (lastPart != null) {
-            try {
-                Integer num = Integer.parseInt(lastPart);
-                if (num != null) {
-                    url = url.substring(0, url.lastIndexOf("/")) + "/:number";
-                }
-            } catch (Exception ex) {
-
-            }
-        }
-
+        url = url.replaceAll("/\\d+(\\/|$)", "/:number$1");
         String result = url;
         if (!result.startsWith("/")) {
             result = "/" + result;
