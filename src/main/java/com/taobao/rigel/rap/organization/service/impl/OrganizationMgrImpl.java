@@ -337,6 +337,7 @@ public class OrganizationMgrImpl implements OrganizationMgr {
 
         String [] cacheKey = new String[]{CacheUtils.KEY_CORP_LIST_TOP_ITEMS, new Integer(team.getUserId()).toString()};
         CacheUtils.del(cacheKey);
+
         return corpId;
     }
 
