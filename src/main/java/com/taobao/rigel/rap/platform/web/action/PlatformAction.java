@@ -25,7 +25,7 @@ import java.util.Map;
 public class PlatformAction extends ActionBase {
     // private static final Logger logger = LogManager.getFormatterLogger(PlatformAction.class);
     private Gson gson = new Gson();
-    private int time;
+    private String time;
     private Map<String, List<Map<String, Object>>> trends;
     private Map<String, List<Map<String, Object>>> statistics;
     private int tabIndex;
@@ -55,7 +55,7 @@ public class PlatformAction extends ActionBase {
 
     private int id;
 
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -76,10 +76,10 @@ public class PlatformAction extends ActionBase {
     }
 
     public String getRealtimeJSON() {
-        return gson.toJson(SystemVisitorLog.getRealtimeMap(0));
+        return gson.toJson(SystemVisitorLog.getRealtimeMap("0"));
     }
 
-    public String getRealtimeJSONByTime(int time) {
+    public String getRealtimeJSONByTime(String time) {
         return gson.toJson(SystemVisitorLog.getRealtimeMap(time));
     }
 
