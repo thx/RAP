@@ -418,7 +418,7 @@ public class MockAction extends ActionBase {
         String _c = get_c();
         options.put("method", getMethod());
 
-        String result = mockMgr.validateAPI(id, pattern, options, getJson());
+        String result = mockMgr.validateAPI(get__id__(), pattern, options, getJson());
         if (options.get("callback") != null) {
             _c = (String) options.get("callback");
             callback = (String) options.get("callback");
