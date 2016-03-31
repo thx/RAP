@@ -118,6 +118,8 @@ public class TeamAction extends ActionBase {
         team.setLogoUrl("");
         int id = organizationMgr.addTeam(team);
         setJson("{\"id\":" + id + "}");
+        String [] cacheKey = new String[]{CacheUtils.KEY_CORP_LIST, new Integer(getCurUserId()).toString()};
+        CacheUtils.del(cacheKey);
         return SUCCESS;
     }
 

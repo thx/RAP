@@ -75,7 +75,8 @@ public class SystemVisitorLog {
         return mockMapList;
     }
 
-    public static List<Map<String, Object>> getRealtimeMap(int limitTime) {
+    public static List<Map<String, Object>> getRealtimeMap(String p) {
+        long limitTime = Long.parseLong(p);
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         if (limitTime == 0) {
             limitTime = Integer.MIN_VALUE;

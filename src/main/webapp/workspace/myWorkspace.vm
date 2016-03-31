@@ -442,13 +442,18 @@
 #startFloater("mockDataPreviewFloater" "Mock数据预览" 600 600)
 <div class="myfloater">
     <div>
+        <h5>Mock API</h5>
+        <ul>
+            <li>Mock规则：<a href="#" target="_blank" id="mockRulePreviewFloater-mockRule"></a></li>
+            <li>Mock数据：<a href="#" target="_blank" id="mockRulePreviewFloater-mockData"></a></li>
+        </ul>
         <h5>Mock规则
             <button style="margin-left:5px;" class="btn btn-default btn-xs"
                     onclick="ws.copyToClipboard('mockRulePreviewFloater-container'); return false;">
                 <i class="glyphicon glyphicon-copy"></i>复制
             </button>
         </h5>
-        <textarea style="width:100%;height:200px;overflow-y:auto;" id="mockRulePreviewFloater-container"></textarea>
+        <textarea style="width:100%;height:150px;overflow-y:auto;" id="mockRulePreviewFloater-container"></textarea>
     </div>
     <div>
         <h5>Mock数据
@@ -464,7 +469,7 @@
                data-placement="bottom"
                title="如果您的MOCK规则可能产生变动的数据,例如数组变量名为arr|1-10,表示随机生成1~10组数据,您可通过该按钮刷新随机的数据.我有木有很贴心?有木有~~有木有~~"></i>
         </h5>
-        <textarea style="width:100%;height:200px;overflow-y:auto;" id="mockDataPreviewFloater-container"></textarea>
+        <textarea style="width:100%;height:150px;overflow-y:auto;" id="mockDataPreviewFloater-container"></textarea>
     </div>
     <div class="div-floater-control">
         <input type="button" class="btn btn-default" onclick="ecui.get('mockDataPreviewFloater').hide();" value="关闭"/>
@@ -533,7 +538,8 @@
             "pageTester": "$testerUrl.pageTester",
             "updateReleatedIds": "$projectUrl.updateReleatedIds",
             "myWorkspace": "$workspaceUrl.myWorkspace",
-            "queryMockData": "$mockUrl.queryMockData"
+            "queryMockData": "$mockUrl.queryMockData",
+            "base" : "$consts.DOMAIN_URL$!projectContext"
         },
         ws = rap.workspace,
         data,
