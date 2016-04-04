@@ -17,6 +17,7 @@ public class Action implements java.io.Serializable {
     private String responseTemplate;
     private Set<Page> pageList = new HashSet<Page>();
     private String remarks;
+    private String returnType = "0";
 
     public static List<Action> loadList(List<Map<String, Object>> result) {
         List<Action> list = new ArrayList<Action>();
@@ -27,6 +28,7 @@ public class Action implements java.io.Serializable {
             obj.setName((String) row.get("name"));
             obj.setRemarks((String) row.get("remarks"));
             obj.setRequestType((String) row.get("request_type"));
+            obj.setReturnType((String) row.get("return_type"));
             obj.setRequestUrl((String) row.get("request_url"));
             list.add(obj);
         }
@@ -158,8 +160,19 @@ public class Action implements java.io.Serializable {
         setDescription(action.getDescription());
         setName(action.getName());
         setRequestType(action.getRequestType());
+        setReturnType(action.getReturnType());
         setRequestUrl(action.getRequestUrl());
         setResponseTemplate(action.getResponseTemplate());
+    }
+
+    public String getReturnType() {
+        return returnType;
+    }
+
+    public void setReturnType(String returnType) {
+        if (returnType == null || returnType == "")
+            return;
+        this.returnType = returnType;
     }
 
     public String toString() {
@@ -171,6 +184,7 @@ public class Action implements java.io.Serializable {
         stringBuilder.append("\"description\":\""
                 + StringUtils.escapeInJ(getDescription()) + "\",");
         stringBuilder.append("\"requestType\":\"" + getRequestType() + "\",");
+        stringBuilder.append("\"returnType\":\"" + getReturnType() + "\",");
         stringBuilder.append("\"requestUrl\":\""
                 + StringUtils.escapeInJ(getRequestUrl()) + "\",");
         stringBuilder.append("\"responseTemplate\":\""

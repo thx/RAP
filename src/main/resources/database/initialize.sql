@@ -251,7 +251,10 @@ CREATE TABLE tb_action
 
   /* response block */
   response_template TEXT                   NULL
-  COMMENT '响应模板地址, 暂时弃用。 response template address, temply deprecated.'
+  COMMENT '响应模板地址, 暂时弃用。 response template address, temply deprecated.',
+  return_type        INT                   NOT NULL
+  COMMENT '返回值是否进行编码，0 不编码，1 base64 编码'
+    DEFAULT 0
 
 )
   ENGINE = InnoDB

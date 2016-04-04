@@ -36,6 +36,8 @@ public class MockMgrImpl implements MockMgr {
     private int uid = 10000;
     private Map<String, List<String>> requestParams;
     private boolean isMockJsData = false;
+    //每次获取action，则赋值，以便在外部获取action的属性
+    private Action actionInfo;
     /**
      * random seed
      */
@@ -138,6 +140,7 @@ public class MockMgrImpl implements MockMgr {
             return "{\"isOk\":false, \"errMsg\":\"no matched action\"}";
 
         Action action = actionPick(aList, originalPattern, options);
+        this.setActionInfo(action);
 
         String desc = action.getDescription();
         Set<Parameter> pList = action.getResponseParameterList();
@@ -333,6 +336,7 @@ public class MockMgrImpl implements MockMgr {
             }
 
             action = actionPick(aList, originalPattern, options);
+            this.setActionInfo(action);
             if (action == null) {
                 return "{\"isOk\":false, \"errMsg\":\"no matched action\"}";
             }
@@ -1098,4 +1102,11 @@ public class MockMgrImpl implements MockMgr {
         return projectDao.resetMockData(projectId);
     }
 
+    public Action getActionInfo() {
+        return actionInfo;
+    }
+
+    public void setActionInfo(Action actionInfo) {
+        this.actionInfo = actionInfo;
+    }
 }
