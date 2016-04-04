@@ -277,6 +277,15 @@
                 </td>
             </tr>
             <tr>
+                <td class="title">返回值编码</td>
+                <td class="radio-list clearfix">
+                    <input type="radio" id="editAFloater-returnType-1" name="editAFloater-returnType" value="0"/>
+                    <label for="editAFloater-returnType-1">不编码</label>
+                    <input type="radio" id="editAFloater-returnType-2" name="editAFloater-returnType" value="1"/>
+                    <label for="editAFloater-returnType-2">Base64</label>
+                </td>
+            </tr>
+            <tr>
                 <td colspan="2"></td>
             </tr>
         </table>
@@ -569,6 +578,8 @@
                         "requestUrl": "",
                         "responseTemplate": "",
                         "description": "",
+                        //返回Base64
+                        "returnType": "",
                         "id": ws.generateId(),
                         "requestParameterList": [{
                             "id": ws.generateId(),

@@ -2,6 +2,7 @@ package com.taobao.rigel.rap.mock.web.action;
 
 import com.google.gson.Gson;
 import com.taobao.rigel.rap.common.base.ActionBase;
+import com.taobao.rigel.rap.common.utils.Base64Utils;
 import com.taobao.rigel.rap.common.utils.HTTPUtils;
 import com.taobao.rigel.rap.common.utils.StringUtils;
 import com.taobao.rigel.rap.common.utils.SystemVisitorLog;
@@ -181,25 +182,12 @@ public class MockAction extends ActionBase {
     }
 
     public String createData() throws UnsupportedEncodingException {
-        String callback = getCallback();
-        boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createData", pattern, getCurAccount()));
         Map<String, Object> options = new HashMap<String, Object>();
-        String _c = get_c();
         String result = mockMgr.generateData(__id__, pattern, options);
-        if (options.get("callback") != null) {
-            _c = (String) options.get("callback");
-            callback = (String) options.get("callback");
-        }
 
-        if (callback != null && !callback.isEmpty()) {
-            setContent(callback + "(" + result + ")");
-        } else if (_c != null && !_c.isEmpty()) {
-            setContent(_c + "(" + result + ")");
-        } else {
-            isJSON = true;
-            setContent(result);
-        }
+        boolean isJSON = getResultTypeAndSetReturn(options, result);
+
         if (isJSON) {
             return "json";
         } else {
@@ -208,25 +196,12 @@ public class MockAction extends ActionBase {
     }
 
     public String createRule() throws UnsupportedEncodingException {
-        String callback = getCallback();
-        boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createRule", pattern, getCurAccount()));
         Map<String, Object> options = new HashMap<String, Object>();
-        String _c = get_c();
         options.put("method", getMethod());
         String result = mockMgr.generateRule(__id__, pattern, options);
-        if (options.get("callback") != null) {
-            _c = (String) options.get("callback");
-            callback = (String) options.get("callback");
-        }
-        if (callback != null && !callback.isEmpty()) {
-            setContent(callback + "(" + result + ")");
-        } else if (_c != null && !_c.isEmpty()) {
-            setContent(_c + "(" + result + ")");
-        } else {
-            isJSON = true;
-            setContent(result);
-        }
+
+        boolean isJSON = getResultTypeAndSetReturn(options, result);
         if (isJSON) {
             return "json";
         } else {
@@ -235,27 +210,14 @@ public class MockAction extends ActionBase {
     }
 
     public String createRuleAuto() throws UnsupportedEncodingException {
-        String callback = getCallback();
-        boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createRule", pattern, getCurAccount()));
         Map<String, Object> options = new HashMap<String, Object>();
-        String _c = get_c();
         options.put("method", getMethod());
         options.put("loadRule", true); // load rules set by Open API (tb_rule)
 
         String result = mockMgr.generateRule(__id__, pattern, options);
-        if (options.get("callback") != null) {
-            _c = (String) options.get("callback");
-            callback = (String) options.get("callback");
-        }
-        if (callback != null && !callback.isEmpty()) {
-            setContent(callback + "(" + result + ")");
-        } else if (_c != null && !_c.isEmpty()) {
-            setContent(_c + "(" + result + ")");
-        } else {
-            isJSON = true;
-            setContent(result);
-        }
+
+        boolean isJSON = getResultTypeAndSetReturn(options, result);
         if (isJSON) {
             return "json";
         } else {
@@ -264,24 +226,11 @@ public class MockAction extends ActionBase {
     }
 
     public String createRuleByActionData() throws UnsupportedEncodingException {
-        String callback = getCallback();
-        boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(id, "createRuleByActionData", pattern, getCurAccount()));
         Map<String, Object> options = new HashMap<String, Object>();
-        String _c = get_c();
         String result = mockMgr.generateRule(id, pattern, options);
-        if (options.get("callback") != null) {
-            _c = (String) options.get("callback");
-            callback = (String) options.get("callback");
-        }
-        if (callback != null && !callback.isEmpty()) {
-            setContent(callback + "(" + result + ")");
-        } else if (_c != null && !_c.isEmpty()) {
-            setContent(_c + "(" + result + ")");
-        } else {
-            isJSON = true;
-            setContent(result);
-        }
+
+        boolean isJSON = getResultTypeAndSetReturn(options, result);
         if (isJSON) {
             return "json";
         } else {
@@ -354,25 +303,12 @@ public class MockAction extends ActionBase {
     }
 
     public String createMockjsData() throws UnsupportedEncodingException {
-        String callback = getCallback();
-        boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createMockjsData", pattern, getCurAccount()));
-        String _c = get_c();
         Map<String, Object> options = new HashMap<String, Object>();
         options.put("method", getMethod());
         String result = mockMgr.generateRuleData(__id__, pattern, options);
-        if (options.get("callback") != null) {
-            _c = (String) options.get("callback");
-            callback = (String) options.get("callback");
-        }
-        if (callback != null && !callback.isEmpty()) {
-            setContent(callback + "(" + result + ")");
-        } else if (_c != null && !_c.isEmpty()) {
-            setContent(_c + "(" + result + ")");
-        } else {
-            isJSON = true;
-            setContent(result);
-        }
+
+        boolean isJSON = getResultTypeAndSetReturn(options, result);
 
         if (isJSON) {
             return "json";
@@ -382,26 +318,13 @@ public class MockAction extends ActionBase {
     }
 
     public String createMockjsDataAuto() throws UnsupportedEncodingException {
-        String callback = getCallback();
-        boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createMockjsData", pattern, getCurAccount()));
-        String _c = get_c();
         Map<String, Object> options = new HashMap<String, Object>();
         options.put("method", getMethod());
         options.put("loadRule", true);
         String result = mockMgr.generateRuleData(__id__, pattern, options);
-        if (options.get("callback") != null) {
-            _c = (String) options.get("callback");
-            callback = (String) options.get("callback");
-        }
-        if (callback != null && !callback.isEmpty()) {
-            setContent(callback + "(" + result + ")");
-        } else if (_c != null && !_c.isEmpty()) {
-            setContent(_c + "(" + result + ")");
-        } else {
-            isJSON = true;
-            setContent(result);
-        }
+
+        boolean isJSON = getResultTypeAndSetReturn(options, result);
 
         if (isJSON) {
             return "json";
@@ -411,26 +334,13 @@ public class MockAction extends ActionBase {
     }
 
     public String validateAPI() throws UnsupportedEncodingException {
-        String callback = getCallback();
-        boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(id, "createRule", pattern, getCurAccount()));
         Map<String, Object> options = new HashMap<String, Object>();
-        String _c = get_c();
         options.put("method", getMethod());
 
         String result = mockMgr.validateAPI(id, pattern, options, getJson());
-        if (options.get("callback") != null) {
-            _c = (String) options.get("callback");
-            callback = (String) options.get("callback");
-        }
-        if (callback != null && !callback.isEmpty()) {
-            setContent(callback + "(" + result + ")");
-        } else if (_c != null && !_c.isEmpty()) {
-            setContent(_c + "(" + result + ")");
-        } else {
-            isJSON = true;
-            setContent(result);
-        }
+        boolean isJSON = getResultTypeAndSetReturn(options, result);
+
         if (isJSON) {
             return "json";
         } else {
@@ -476,5 +386,37 @@ public class MockAction extends ActionBase {
         setContent(mockMgr.getMockRuleFromActionAndRule(null, action));
 
         return SUCCESS;
+    }
+
+    /**
+     * 获取返回值类型，并设置返回值
+     */
+    private boolean getResultTypeAndSetReturn(Map<String, Object> options, String result) {
+        boolean isJSON = false;
+        String callback = getCallback();
+        String _c = get_c();
+
+        if (options.get("callback") != null) {
+            _c = (String) options.get("callback");
+            callback = (String) options.get("callback");
+        }
+
+        if (callback != null && !callback.isEmpty()) {
+            result = callback + "(" + result + ")";
+        } else if (_c != null && !_c.isEmpty()) {
+            result = _c + "(" + result + ")";
+        } else {
+            isJSON = true;
+        }
+
+        //返回值是否需要进行base64
+        Action action = mockMgr.getActionInfo();
+        String returnType = action.getReturnType();
+        if(1 == Integer.parseInt(returnType)){
+            result = Base64Utils.encode(result);
+        }
+
+        setContent(result);
+        return isJSON;
     }
 }

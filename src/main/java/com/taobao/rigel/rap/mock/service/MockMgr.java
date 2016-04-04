@@ -92,4 +92,6 @@ public interface MockMgr {
      * @return
      */
     String getMockRuleFromActionAndRule(Rule rule, Action action);
+
+    Action getActionInfo();
 }

@@ -643,6 +643,8 @@ function deepCopy(o) {
             action.requestUrl = obj.requestUrl;
             action.responseTemplate = obj.responseTemplate;
             action.description = obj.description;
+            //返回值编码
+            action.returnType = obj.returnType;
         }
     };
 
@@ -2149,6 +2151,8 @@ function deepCopy(o) {
         setSelectedValue("editAFloater-type", action.requestType);
         var struct = getActionStruct(action);
         setSelectedValue("editAFloater-struct", struct);
+        //base64 add by andyfeng 2016-04-01
+        setSelectedValue("editAFloater-returnType", action.returnType);
         // hide action struct in description textarea
         var desc = action.description;
         var code = '@type=array_map;';
@@ -2210,6 +2214,9 @@ function deepCopy(o) {
         action.description = b.g("editAFloater-description").value;
         var struct = getSelectedValue("editAFloater-struct");
         setActionStruct(action, struct);
+        //返回值编码 @2016-04-01
+        var returnType = getSelectedValue("editAFloater-returnType");
+        action.returnType = returnType;
 
         // update model
         p.updateAction(action);
@@ -2233,8 +2240,12 @@ function deepCopy(o) {
         action.requestUrl = b.g("editAFloater-requestUrl").value;
         action.responseTemplate = b.g("editAFloater-responseTemplate").value;
         action.description = b.g("editAFloater-description").value;
+
         var struct = getSelectedValue("editAFloater-struct");
         setActionStruct(action, struct);
+        //返回值编码 @2016-04-01
+        var returnType = getSelectedValue("editAFloater-returnType");
+        action.returnType = returnType;
 
 
         // update model
@@ -2357,7 +2368,7 @@ function deepCopy(o) {
                 if (obj.isOk) {
                     storeViewState();
                     if (obj.projectData.moduleList.length === 0) {
-                        obj.projectData.moduleList = [{"id":ws.generateId(),"name":"某模块（点击编辑后双击修改）","introduction":"","pageList":[{"moduleId":ws.generateId(),"name":"某页面","introduction":"","id":ws.generateId(),"isIdGenerated":true,"actionList":[{"pageId":ws.generateId(),"name":"某请求","requestType":"1","requestUrl":"","responseTemplate":"","description":"","id":ws.generateId(),"requestParameterList":[{"id":ws.generateId(),"identifier":"reqParam","name":"某请求参数","remark":"","validator":"","dataType":"number","parameterList":[]}],"responseParameterList":[{"id":ws.generateId(),"identifier":"resParam","name":"某响应参数","remark":"","validator":"","dataType":"number","parameterList":[]}]}]}]}];
+                        obj.projectData.moduleList = [{"id":ws.generateId(),"name":"某模块（点击编辑后双击修改）","introduction":"","pageList":[{"moduleId":ws.generateId(),"name":"某页面","introduction":"","id":ws.generateId(),"isIdGenerated":true,"actionList":[{"pageId":ws.generateId(),"name":"某请求","requestType":"1","requestUrl":"","responseTemplate":"","description":"","returnType":"","id":ws.generateId(),"requestParameterList":[{"id":ws.generateId(),"identifier":"reqParam","name":"某请求参数","remark":"","validator":"","dataType":"number","parameterList":[]}],"responseParameterList":[{"id":ws.generateId(),"identifier":"resParam","name":"某响应参数","remark":"","validator":"","dataType":"number","parameterList":[]}]}]}]}];
                     }
                     if (_draftData) {
                         obj = JSON.parse(_draftData);
@@ -3452,6 +3463,7 @@ function deepCopy(o) {
         b.g("editAFloater-pageId").value = "";
         initRadioList("editAFloater-type");
         initRadioList("editAFloater-struct");
+        initRadioList("editAFloater-returnType");
     }
 
     /**
@@ -4061,7 +4073,17 @@ function deepCopy(o) {
             if (a.description) {
                 body += "<div class='item'><b>接口描述 </b>" + processTextarea(a.description) + "</div>";
             }
-
+            //返回值编码 andyfeng 2016-04-01
+            var returnInfo = '';
+            switch(a.returnType){
+                case "1":
+                    returnInfo = "Base64";
+                    break;
+                default :
+                    returnInfo = '不编码';
+                    break;
+            }
+            body += "<div class='item'><b>返回值编码 </b>" + returnInfo + "</div>";
 
             if (!body) {
                 body += "no info";

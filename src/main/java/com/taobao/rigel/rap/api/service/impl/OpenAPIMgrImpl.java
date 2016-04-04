@@ -72,6 +72,7 @@ public class OpenAPIMgrImpl implements OpenAPIMgr {
                     action.put("name", a.getName());
                     action.put("desc", a.getDescription());
                     action.put("reqType", a.getRequestType());
+                    action.put("retType", a.getReturnType());
                     action.put("reqUrl", a.getRequestUrl());
                     interfaceList.add(action);
                 }
