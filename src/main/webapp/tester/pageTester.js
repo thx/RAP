@@ -273,13 +273,40 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
     });
     log('tester ready.');
 
-
     function urlProcess(url) {
         url = url.replace(/[{}]/g, "");
         url = url.replace(/\/:[^\/]*/g, "/100");
+
+        // remove repeated parameters
+        if (url && url.indexOf("?") > -1) {
+            var baseUrl = url.substring(0, url.indexOf("?"));
+            var paramString = url.substring(url.indexOf("?") + 1);
+            var paramArray = paramString.split("&");
+            var paramObj = {};
+            var i, key, value, item;
+            for (i = 0; i < paramArray.length; i++) {
+                item = paramArray[i];
+                key = item.split("=")[0];
+                value = item.split("=")[1];
+                if (key && value) {
+                    paramObj[key] = value;
+                }
+            }
+            paramArray = [];
+            for (key in paramObj) {
+                if (paramObj.hasOwnProperty(key)) {
+                    paramArray.push(key + "=" + paramObj[key]);
+                }
+            }
+            url = baseUrl + "?" + paramArray.join("&");
+        }
+
+
         if (url.indexOf('reg:') !== -1) {
             log(color('控制台暂时不支持正则RESTful API(也就是包含reg:的URL)', RED));
         }
+
         return url;
     }
+
 });
