@@ -158,7 +158,7 @@
                                                 </div>http://rap.xintuzaojiu.com/org/index.do
                                             </div> -->
                                             <div style="margin-top: 10px;">
-                                                <button type="submit" class="btn btn-primary" id="login-btn">登陆</button>
+                                                <button type="submit" class="btn btn-primary" id="login-btn">登录</button>
                                                 <button type="button" class="btn btn-default" id="cancel-login-btn"
                                                         style="margin-left: 10px;">取消
                                                 </button>

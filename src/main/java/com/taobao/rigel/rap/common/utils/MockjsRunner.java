@@ -12,8 +12,7 @@ import java.nio.file.Paths;
 
 public class MockjsRunner {
 
-    private static String MOCKJS_PATH = SystemConstant.ROOT +
-            FileUtils.concatFilePath(new String[]{"stat", "js", "util", "mock-min.js"});
+    private static String MOCKJS_PATH = FileUtils.concatFilePath(new String[]{SystemConstant.ROOT, "stat", "js", "util", "mock-min.js"});
     private static String jsCode;
     private Context ct;
     private Scriptable scope;
@@ -74,7 +73,7 @@ public class MockjsRunner {
                     .append("try {")
                             // .append("var obj = Mock.mock(JSON.parse(\"" + StringUtils.escapeInJ(mockRule.replaceAll("\\'", "'")) + "\"));")
                     .append("var obj = Mock.mock(" + mockRule + ");")
-                    .append("result = JSON.stringify(obj.__root__ ? obj.__root__ : obj, null, 4);")
+                    .append("result = JSON.stringify(obj.__root__ != undefined ? obj.__root__ : obj, null, 4);")
                     .append("} catch(ex) {result.errMsg = ex.message;result.isOk=false;result = JSON.stringify(result);}")
                     .append("result;");
 

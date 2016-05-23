@@ -67,7 +67,7 @@
                 oldSuccess1 && (oOptions.success = function (data) {
                     if (PREFIX == '/mockjs/') {
                         data = Mock.mock(data);
-                        if (data.__root__) {
+                        if (data.__root__ != undefined) {
                             data = data.__root__;
                         }
                         if (!disableLog) {
@@ -80,10 +80,11 @@
                 });
 
                 var oldComplete = oOptions.complete;
-                oldComplete && (oOptions.complete = function (data) {
+                oldComplete && (oOptions.complete = function (xhr, status) {
+                    /* 
                     if (PREFIX == '/mockjs/') {
                         data = Mock.mock(data);
-                        if (data.__root__) {
+                        if (data.__root__ != undefined) {
                             data = data.__root__;
                         }
                         if (!disableLog) {
@@ -92,6 +93,7 @@
                         }
 
                     }
+                    */
                     oldComplete.apply(this, arguments);
                 });
             } else if (isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
@@ -122,7 +124,7 @@
                         args[0] = function (data) {
                             if (PREFIX == '/mockjs/') {
                                 data = Mock.mock(data);
-                                if (data.__root__) {
+                                if (data.__root__ != undefined) {
                                     data = data.__root__;
                                 }
                                 if (!disableLog) {
@@ -174,7 +176,7 @@
                             oldSuccess1 && (oOptions.success = function (data) {
                                 if (PREFIX == '/mockjs/') {
                                     data = Mock.mock(data);
-                                    if (data.__root__) {
+                                    if (data.__root__ != undefined) {
                                         data = data.__root__;
                                     }
                                     if (!disableLog) {
@@ -188,7 +190,7 @@
                             oldComplete && (oOptions.complete = function (data) {
                                 if (PREFIX == '/mockjs/') {
                                     data = Mock.mock(data);
-                                    if (data.__root__) {
+                                    if (data.__root__ != undefined) {
                                         data = data.__root__;
                                     }
                                     if (!disableLog) {
@@ -316,7 +318,7 @@
     function checkerHandler(mockData) {
         if (PREFIX == '/mockjs/') {
             mockData = Mock.mock(mockData);
-            if (mockData.__root__) {
+            if (mockData.__root__ != undefined) {
                 mockData = mockData.__root__;
             }
         }
@@ -456,7 +458,8 @@
             url = url.substring(url.indexOf('/', 8) + 1);
         }
         if (url.charAt(0) != '/') {
-            url = '/' + url;
+            //移除相对路径开头的..
+            url = '/' + url.replace(/^\.\.\//,"");
         }
         return url;
     }

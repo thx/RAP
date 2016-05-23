@@ -34,6 +34,7 @@ public class MockAction extends ActionBase {
     private String callback;
     private boolean enable = true;
     private String _c;
+    private String _format;
     private ProjectMgr projectMgr;
     private List<String> urlList;
     private boolean seajs;
@@ -143,6 +144,14 @@ public class MockAction extends ActionBase {
         this.callback = callback;
     }
 
+    public String get_format() {
+        return StringUtils.escapeInHJ(_format);
+    }
+
+    public void set_format(String _format) {
+        this._format = _format;
+    }
+
     public MockMgr getMockMgr() {
         return mockMgr;
     }
@@ -172,7 +181,7 @@ public class MockAction extends ActionBase {
     }
 
     /**
-     * force callback or _c to be the last parameter
+     * force callback ,_c or _format to be the last parameter
      *
      * @param pattern
      */
@@ -186,6 +195,7 @@ public class MockAction extends ActionBase {
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createData", pattern, getCurAccount()));
         Map<String, Object> options = new HashMap<String, Object>();
         String _c = get_c();
+        String _format =get_format();
         String result = mockMgr.generateData(__id__, pattern, options);
         if (options.get("callback") != null) {
             _c = (String) options.get("callback");
@@ -196,6 +206,8 @@ public class MockAction extends ActionBase {
             setContent(callback + "(" + result + ")");
         } else if (_c != null && !_c.isEmpty()) {
             setContent(_c + "(" + result + ")");
+        } else if(_format!=null && !_format.isEmpty()){
+            setContent(String.format(_format, result));
         } else {
             isJSON = true;
             setContent(result);
@@ -213,6 +225,7 @@ public class MockAction extends ActionBase {
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createRule", pattern, getCurAccount()));
         Map<String, Object> options = new HashMap<String, Object>();
         String _c = get_c();
+        String _format = get_format();
         options.put("method", getMethod());
         String result = mockMgr.generateRule(__id__, pattern, options);
         if (options.get("callback") != null) {
@@ -223,6 +236,8 @@ public class MockAction extends ActionBase {
             setContent(callback + "(" + result + ")");
         } else if (_c != null && !_c.isEmpty()) {
             setContent(_c + "(" + result + ")");
+        } else if(_format!=null && !_format.isEmpty()){
+            setContent(String.format(_format, result));
         } else {
             isJSON = true;
             setContent(result);
@@ -240,6 +255,7 @@ public class MockAction extends ActionBase {
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createRule", pattern, getCurAccount()));
         Map<String, Object> options = new HashMap<String, Object>();
         String _c = get_c();
+        String _format = get_format();
         options.put("method", getMethod());
         options.put("loadRule", true); // load rules set by Open API (tb_rule)
 
@@ -252,6 +268,8 @@ public class MockAction extends ActionBase {
             setContent(callback + "(" + result + ")");
         } else if (_c != null && !_c.isEmpty()) {
             setContent(_c + "(" + result + ")");
+        } else if(_format!=null && !_format.isEmpty()){
+            setContent(String.format(_format, result));
         } else {
             isJSON = true;
             setContent(result);
@@ -269,6 +287,7 @@ public class MockAction extends ActionBase {
         updateProjectListMockNum(SystemVisitorLog.mock(id, "createRuleByActionData", pattern, getCurAccount()));
         Map<String, Object> options = new HashMap<String, Object>();
         String _c = get_c();
+        String _format = get_format();
         String result = mockMgr.generateRule(id, pattern, options);
         if (options.get("callback") != null) {
             _c = (String) options.get("callback");
@@ -278,6 +297,8 @@ public class MockAction extends ActionBase {
             setContent(callback + "(" + result + ")");
         } else if (_c != null && !_c.isEmpty()) {
             setContent(_c + "(" + result + ")");
+        } else if(_format!=null && !_format.isEmpty()){
+            setContent(String.format(_format, result));
         } else {
             isJSON = true;
             setContent(result);
@@ -358,6 +379,7 @@ public class MockAction extends ActionBase {
         boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createMockjsData", pattern, getCurAccount()));
         String _c = get_c();
+        String _format = get_format();
         Map<String, Object> options = new HashMap<String, Object>();
         options.put("method", getMethod());
         String result = mockMgr.generateRuleData(__id__, pattern, options);
@@ -369,6 +391,8 @@ public class MockAction extends ActionBase {
             setContent(callback + "(" + result + ")");
         } else if (_c != null && !_c.isEmpty()) {
             setContent(_c + "(" + result + ")");
+        } else if(_format!=null && !_format.isEmpty()){
+            setContent(String.format(_format, result));
         } else {
             isJSON = true;
             setContent(result);
@@ -386,6 +410,7 @@ public class MockAction extends ActionBase {
         boolean isJSON = false;
         updateProjectListMockNum(SystemVisitorLog.mock(__id__, "createMockjsData", pattern, getCurAccount()));
         String _c = get_c();
+        String _format = get_format();
         Map<String, Object> options = new HashMap<String, Object>();
         options.put("method", getMethod());
         options.put("loadRule", true);
@@ -398,6 +423,8 @@ public class MockAction extends ActionBase {
             setContent(callback + "(" + result + ")");
         } else if (_c != null && !_c.isEmpty()) {
             setContent(_c + "(" + result + ")");
+        } else if(_format!=null && !_format.isEmpty()){
+            setContent(String.format(_format, result));
         } else {
             isJSON = true;
             setContent(result);
