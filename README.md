@@ -1,7 +1,7 @@
 # RAP ![](https://api.travis-ci.org/thx/RAP.svg)
 
 ### What is RAP?
-RAP can help WEB engineers manage API document efficiently by supplying a GUI edit tool, it can generate mock data, validate real request by analyzing API structure, make API doc as a strong dependency with the development workflow. With structured API data, RAP can do more while we can do less.
+RAP is a web tool that allows web applcation developers to rapidly create and manage web APIs that are used in typical REST-API based web applications. With RAP, you can can generate mock data and validate API format, make API doc as a strong dependency with the development workflow. With structured API data, RAP can do more while we can do less.
 
 RAP通过GUI工具帮助WEB工程师更高效的管理接口文档，同时通过分析接口结构自动生成Mock数据、校验真实接口的正确性，使接口文档成为开发流程中的强依赖。有了结构化的API数据，RAP可以做的更多，而我们可以避免更多重复劳动。
 
