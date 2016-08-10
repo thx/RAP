@@ -9,7 +9,7 @@ import java.util.Arrays;
  * Created by mashengbo on 15/7/21.
  */
 public class FileUtils {
-    public static String JS_UTIL_DIR_PATH = SystemConstant.ROOT +
+    public static String JS_UTIL_DIR_PATH = SystemConstant.ROOT + File.separator +
             FileUtils.concatFilePath(new String[]{"stat", "js", "util", ""});
 
     /**
