@@ -63,6 +63,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
         Query q = currentSession()
                 .createQuery("from User where account = :account");
         q.setString("account", account);
+        q.setMaxResults(1); // 墨智 #443 获取用户 ID 时，忽略重复的。事实上，用户 ID 不应该重复，但是极端情况下，可能同时插入两条一样的数据。
         User user = (User) q.uniqueResult();
         return user == null ? -1 : user.getId();
     }
