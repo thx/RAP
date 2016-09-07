@@ -436,6 +436,7 @@ public class AccountAction extends ActionBase {
             setIsEditMode(true);
             setErrMsg("旧密码输入错误");
         } else {
+            user = getAccountMgr().getUser(getCurUserId()); // #592
             setIsOpSuccess(true);
         }
 
