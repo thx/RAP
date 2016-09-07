@@ -52,7 +52,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
             <value>5</value>
         </property>
         <property name="maxPoolSize">
-            <value>30</value>
+            <value>100</value>
         </property>
         <property name="initialPoolSize">
             <value>10</value>
