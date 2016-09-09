@@ -36,7 +36,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/"><i class="iconlogo mi-rap"></i> <span class="logo-text"><span id="rap-logo-text">RAP</span> v0.<span
-                        style="">14.<span style="color:#CC0000;">2</span></span><span
+                        style="">14.<span style="color:#CC0000;">3</span></span><span
                         style="color:#cc0000;font-size:10px;">&nbsp;&nbsp;beta</span></span></a>
             </div>
             <div class="collapse navbar-collapse" id="global-navbar">
@@ -157,7 +157,7 @@
                                                 </div>http://rap.xintuzaojiu.com/org/index.do
                                             </div> -->
                                             <div style="margin-top: 10px;">
-                                                <button type="submit" class="btn btn-primary" id="login-btn">登陆</button>
+                                                <button type="submit" class="btn btn-primary" id="login-btn">登录</button>
                                                 <button type="button" class="btn btn-default" id="cancel-login-btn"
                                                         style="margin-left: 10px;">取消
                                                 </button>
