@@ -59,7 +59,7 @@ RAP通过GUI工具帮助WEB工程师更高效的管理接口文档，同时通�
 ## About
 
     @version     v0.14.3
-    @author      @nuysoft @zhangmeng712
+    @author      @nuysoft @zhangmeng712 @bosn @wangjeaf
     @director    @limu @xinglie
     @update      Sep. 8th 2016
     @dependency  MockJS(@nuysoft)
