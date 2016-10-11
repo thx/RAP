@@ -25,7 +25,7 @@
         <label style="color:#666;display: inline; margin-right: 5px;" for="txtRootPath">
             请求根路径
         </label>
-        <input class="form-control" id="txtRootPath" type="text" style="width:300px;" value=""/>
+        <input class="form-control" id="txtRootPath" type="text" style="width:300px;" value="" disabled/>
     </div>
     <div id="divActionList" class="demo tabs">
         <ul class="nav nav-tabs" role="tablist">
