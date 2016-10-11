@@ -13,7 +13,6 @@
             org.springframework.web.util.Log4jConfigListener
         </listener-class>
     </listener>
-    
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath*:hibernate.cfg.xml</param-value>

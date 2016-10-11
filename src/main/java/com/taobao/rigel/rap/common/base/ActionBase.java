@@ -48,7 +48,7 @@ public class ActionBase extends ActionSupport {
         if (cache != null) {
             corpList = CommonUtils.gson.fromJson(cache, new TypeToken<ArrayList<Corporation>>(){}.getType());
         } else {
-            List<Corporation> list = accountMgr.getCorporationListWithPager(getCurUserId(), 1, 40);
+            List<Corporation> list = accountMgr.getCorporationListWithPager(getCurUserId(), 1, 20);
             for (Corporation c : list) {
                 corpList.add(c.toMap());
             }

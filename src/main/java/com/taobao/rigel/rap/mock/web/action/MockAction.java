@@ -418,7 +418,7 @@ public class MockAction extends ActionBase {
         String _c = get_c();
         options.put("method", getMethod());
 
-        String result = mockMgr.validateAPI(id, pattern, options, getJson());
+        String result = mockMgr.validateAPI(get__id__(), pattern, options, getJson());
         if (options.get("callback") != null) {
             _c = (String) options.get("callback");
             callback = (String) options.get("callback");
@@ -456,18 +456,21 @@ public class MockAction extends ActionBase {
     }
 
     public String requestOnServer() {
-        try {
-            setContent(HTTPUtils.sendGet(url));
-        } catch (Exception e) {
-            setContent(e.getMessage());
-        }
-
-        String contentLowerCase = this.content.toLowerCase();
-        if (contentLowerCase.contains("<!doctype") || contentLowerCase.contains("<html") || contentLowerCase.contains("<head") || contentLowerCase.contains("<body")) {
-            content = "请求不合法,因安全原因,暂时不支持对HTML页面的模拟. Illegal request, for security reason, temply deny all HTML responses.";
-        }
-
+        setContent("因安全原因,暂时停止该接口.");
         return SUCCESS;
+
+//        try {
+//            setContent(HTTPUtils.sendGet(url));
+//        } catch (Exception e) {
+//            setContent(e.getMessage());
+//        }
+//
+//        String contentLowerCase = this.content.toLowerCase();
+//        if (contentLowerCase.contains("<!doctype") || contentLowerCase.contains("<html") || contentLowerCase.contains("<head") || contentLowerCase.contains("<body")) {
+//            content = "请求不合法,因安全原因,暂时不支持对HTML页面的模拟. Illegal request, for security reason, temply deny all HTML responses.";
+//        }
+//
+//        return SUCCESS;
     }
 
     public String queryMockData() {

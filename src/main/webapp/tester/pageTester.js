@@ -67,82 +67,19 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
             log('request starting, url: ' + color(wrapHref(url), LIGHT_GRAY));
             Y.timeLog.time = new Date().getTime();
             try {
-                Y.io('/mock/requestOnServer.do?url=' + encodeURIComponent(url), {
+                Y.jsonp(rapUrl, {
                     on: {
-                        success: function () {
-                            var args = [];
-                            try {
-                                args = [eval('(' + arguments[1].responseText + ')')];
-                            } catch (ex) {
-                                log(color('error occurred!', RED) + color(', detail:' + ex.message, LIGHT_GRAY));
-                            }
-                            var realData = testResHandler.apply(this, args);
-                            if (!realData) {
-                                realData = {};
-                            }
-                            if (RAP_ROOT != baseUrlOrigin) {
-                                Y.jsonp(rapUrl, {
-                                    on: {
-                                        success: function (response) {
-                                            function validatorResultLog(item, isReverse) {
-                                                var LOST = "LOST";
-                                                var EMPTY_ARRAY = "EMPTY_ARRAY";
-                                                var TYPE_NOT_EQUAL = "TYPE_NOT_EQUAL";
-                                                var eventName;
-                                                if (item.type === LOST) {
-                                                    eventName = isReverse ? '未在接口文档中未定义。' : '缺失';
-                                                } else if (item.type === EMPTY_ARRAY) {
-                                                    eventName = '数组为空，无法判断其内部的结构。';
-                                                    return; // 暂时忽略此种情况
-                                                } else if (item.type === TYPE_NOT_EQUAL) {
-                                                    eventName = '数据类型与接口文档中的定义不符';
-                                                }
-
-                                                log('参数 ' + color(item.namespace + "." + item.property, RED) + ' ' + eventName, ERROR);
-
-                                            }
-
-                                            var jsonString = Y.JSON.stringify(response);
-                                            var path = Y.one('#txtRootPath').get('value');
-                                            var obj = eval("(" + jsonString + ")");
-
-                                            if (path.indexOf('mockjs') != -1) {
-                                                obj = Mock.mock(obj);
-                                            }
-
-                                            var validator = new StructureValidator(realData, obj);
-                                            var result = validator.getResult();
-                                            var realDataResult = result.left;
-                                            var rapDataResult = result.right;
-                                            var i;
-
-                                            for (i = 0; i < realDataResult.length; i++) {
-                                                validatorResultLog(realDataResult[i]);
-                                            }
-                                            for (i = 0; i < rapDataResult.length; i++) {
-                                                validatorResultLog(rapDataResult[i], true);
-                                            }
-                                        },
-                                        timeout: function () {
-                                            log(color('timeout', RED) + '... so long time to response!');
-                                        },
-                                        failure: function (e) {
-                                            console.log(color('error occurred!', RED) + color(', detail:' + e.errors[0].error, LIGHT_GRAY));
-                                        }
-                                    },
-                                    timeout: 10000
-                                });
-                            }
+                        success: function (response) {
+                            testResHandler.apply(this, [response])
                         },
                         timeout: function () {
                             log(color('timeout', RED) + '... so long time to response!');
                         },
                         failure: function (e) {
-                            log(color('error occurred!', RED) + color(', detail:' + e.errors[0].error, LIGHT_GRAY));
+                            console.log(color('error occurred!', RED) + color(', detail:' + e.errors[0].error, LIGHT_GRAY));
                         }
                     },
-                    timeout: 10000,
-                    args: [form]
+                    timeout: 10000
                 });
             } catch (ex) {
                 alert(ex);
@@ -273,13 +210,40 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
     });
     log('tester ready.');
 
-
     function urlProcess(url) {
         url = url.replace(/[{}]/g, "");
         url = url.replace(/\/:[^\/]*/g, "/100");
+
+        // remove repeated parameters
+        if (url && url.indexOf("?") > -1) {
+            var baseUrl = url.substring(0, url.indexOf("?"));
+            var paramString = url.substring(url.indexOf("?") + 1);
+            var paramArray = paramString.split("&");
+            var paramObj = {};
+            var i, key, value, item;
+            for (i = 0; i < paramArray.length; i++) {
+                item = paramArray[i];
+                key = item.split("=")[0];
+                value = item.split("=")[1];
+                if (key && value) {
+                    paramObj[key] = value;
+                }
+            }
+            paramArray = [];
+            for (key in paramObj) {
+                if (paramObj.hasOwnProperty(key)) {
+                    paramArray.push(key + "=" + paramObj[key]);
+                }
+            }
+            url = baseUrl + "?" + paramArray.join("&");
+        }
+
+
         if (url.indexOf('reg:') !== -1) {
             log(color('控制台暂时不支持正则RESTful API(也就是包含reg:的URL)', RED));
         }
+
         return url;
     }
+
 });
