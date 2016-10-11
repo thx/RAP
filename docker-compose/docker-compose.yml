@@ -1,0 +1,20 @@
+redis:
+  image: redis:3.2.4-alpine
+  expose:
+    - "6379"
+mysql:
+  image: mysql:5.6.33
+  expose:
+    - "3306"
+  environment:
+    - MYSQL_ROOT_PASSWORD=root
+  volumes:
+    - /var/lib/mysql/data:/var/lib/mysql
+    - /var/lib/mysql/init:/docker-entrypoint-initdb.d
+rap:
+  image: rap:0.14.1
+  ports:
+    - "8088:8080"
+  links:
+    - mysql
+    - redis
