@@ -12,7 +12,7 @@ mysql:
     - /var/lib/mysql/data:/var/lib/mysql
     - /var/lib/mysql/init:/docker-entrypoint-initdb.d
 rap:
-  image: rap:0.14.1
+  image: huangfushun/rap:0.14.1
   ports:
     - "8088:8080"
   links:
