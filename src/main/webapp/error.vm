@@ -23,14 +23,14 @@
         <div class="title"><h2>technical details</h2></div>
         <div class="message content">
             #if($exception.message)
-                $!utils.escapeInJH($exception.message)
+                $!utils.escapeInH($exception.message)
             #else 
                 Unknown Exception 
             #end
         </div>
         <div class="detail">
             #if($exceptionStack)
-                $!utils.escapeInJH($exceptionStack)
+                $!utils.escapeInH($exceptionStack)
             #else 
                 NO DETAIL
             #end
