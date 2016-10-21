@@ -40,7 +40,7 @@
                 <p class="form-control-static">
                     #if($isEditMode)
                         <input name="email" minLen="1" message="Email地址无效"
-                               pattern="[a-zA-Z0-9_+.-]+\@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}" class="form-control"
+                               pattern="[a-zA-Z0-9_+.-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}" class="form-control"
                                value="$!utils.escapeInH($user.email)" type="text"/>
                     #else
                         $!utils.escapeInH($user.email)

@@ -35,7 +35,7 @@
             <div class="col-sm-10">
                 <p class="form-control-static">
                     <input name="email" minLen="1" message="Email地址无效"
-                           pattern="[a-zA-Z0-9_+.-]+\@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}" class="form-control"
+                           pattern="[a-zA-Z0-9_+.-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}" class="form-control"
                            value="$!utils.escapeInH($email)" type="text"/>
                 </p>
             </div>
