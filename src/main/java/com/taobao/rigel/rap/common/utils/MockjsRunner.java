@@ -74,7 +74,7 @@ public class MockjsRunner {
                     .append("try {")
                             // .append("var obj = Mock.mock(JSON.parse(\"" + StringUtils.escapeInJ(mockRule.replaceAll("\\'", "'")) + "\"));")
                     .append("var obj = Mock.mock(" + mockRule + ");")
-                    .append("result = JSON.stringify(obj.__root__ ? obj.__root__ : obj, null, 4);")
+                    .append("result = JSON.stringify(obj.__root__ != undefined ? obj.__root__ : obj, null, 4);")
                     .append("} catch(ex) {result.errMsg = ex.message;result.isOk=false;result = JSON.stringify(result);}")
                     .append("result;");
 

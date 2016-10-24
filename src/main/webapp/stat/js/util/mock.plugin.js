@@ -67,7 +67,7 @@
                 oldSuccess1 && (oOptions.success = function (data) {
                     if (PREFIX == '/mockjs/') {
                         data = Mock.mock(data);
-                        if (data.__root__) {
+                        if (data.__root__ != undefined) {
                             data = data.__root__;
                         }
                         if (!disableLog) {
@@ -80,18 +80,17 @@
                 });
 
                 var oldComplete = oOptions.complete;
-                oldComplete && (oOptions.complete = function (data) {
-                    if (PREFIX == '/mockjs/') {
-                        data = Mock.mock(data);
-                        if (data.__root__) {
-                            data = data.__root__;
-                        }
-                        if (!disableLog) {
-                            console.log('请求' + url + '返回的Mock数据:');
-                            console.dir(data);
-                        }
-
-                    }
+                oldComplete && (oOptions.complete = function () {
+                    // if (PREFIX == '/mockjs/') {
+                    //     data = Mock.mock(data);
+                    //     if (data.__root__) {
+                    //         data = data.__root__;
+                    //     }
+                    //     if (!disableLog) {
+                    //         console.log('请求' + url + '返回的Mock数据:');
+                    //         console.dir(data);
+                    //     }
+                    // }
                     oldComplete.apply(this, arguments);
                 });
             } else if (isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
@@ -122,7 +121,7 @@
                         args[0] = function (data) {
                             if (PREFIX == '/mockjs/') {
                                 data = Mock.mock(data);
-                                if (data.__root__) {
+                                if (data.__root__ != undefined) {
                                     data = data.__root__;
                                 }
                                 if (!disableLog) {
@@ -174,7 +173,7 @@
                             oldSuccess1 && (oOptions.success = function (data) {
                                 if (PREFIX == '/mockjs/') {
                                     data = Mock.mock(data);
-                                    if (data.__root__) {
+                                    if (data.__root__ != undefined) {
                                         data = data.__root__;
                                     }
                                     if (!disableLog) {
@@ -185,18 +184,17 @@
                                 oldSuccess1.apply(this, arguments);
                             });
                             var oldComplete = oOptions.complete;
-                            oldComplete && (oOptions.complete = function (data) {
-                                if (PREFIX == '/mockjs/') {
-                                    data = Mock.mock(data);
-                                    if (data.__root__) {
-                                        data = data.__root__;
-                                    }
-                                    if (!disableLog) {
-                                        console.log('请求' + url + '返回的Mock数据:');
-                                        console.dir(data);
-                                    }
-
-                                }
+                            oldComplete && (oOptions.complete = function () {
+                                // if (PREFIX == '/mockjs/') {
+                                //     data = Mock.mock(data);
+                                //     if (data.__root__) {
+                                //         data = data.__root__;
+                                //     }
+                                //     if (!disableLog) {
+                                //         console.log('请求' + url + '返回的Mock数据:');
+                                //         console.dir(data);
+                                //     }
+                                // }
                                 oldComplete.apply(this, arguments);
                             });
                         } else if (isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
@@ -316,7 +314,7 @@
     function checkerHandler(mockData) {
         if (PREFIX == '/mockjs/') {
             mockData = Mock.mock(mockData);
-            if (mockData.__root__) {
+            if (mockData.__root__ != undefined) {
                 mockData = mockData.__root__;
             }
         }

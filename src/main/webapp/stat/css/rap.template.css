@@ -73,6 +73,22 @@ body {
     border-top-right-radius: 4px;
 }
 
+.dropdown-menu.teams .teams-list {
+    position: relative;
+    display: block;
+    border: none;
+    box-shadow: none;
+    max-height: 400px;
+    overflow: scroll;
+}
+
+.dropdown-menu.teams .teams-toolbar {
+    position: relative;
+    display: block;
+    border: none;
+    box-shadow: none;
+}
+
 .dropdown-menu.teams li {
     float: left;
     width: 200px;
@@ -168,25 +184,25 @@ div#tipDiv {
 
 /**
 .navbar-inverse .navbar-brand {
-	font-size: 22px;
-	color: white;
+    font-size: 22px;
+    color: white;
 }
 
 */
 
 /* .navbar-inverse {
-	background-color: #af235d;
-	background-image: none;
-	color: white;
-	border-bottom: none;
+    background-color: #af235d;
+    background-image: none;
+    color: white;
+    border-bottom: none;
 }
 
 .navbar-inverse .navbar-nav > li > a {
-	color: #FFF;
+    color: #FFF;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover {
-	background-color: #d80066;
+    background-color: #d80066;
 } */
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-brand:hover {
     font-size: 22px;
@@ -196,7 +212,7 @@ div#tipDiv {
 }
 
 /* .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-	background-color: #d80066;
+    background-color: #d80066;
 } */
 .navbar-nav {
     margin-left: 40px;

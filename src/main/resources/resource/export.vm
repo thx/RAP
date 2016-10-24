@@ -22,95 +22,84 @@
             font-weight: bold;
             text-align: center;
             border: 1px solid #FFF;
+            padding: 5px;
         }
 
         .param-table td {
             border-collapse: collapse;
             border: 1px solid #FFF;
             font-size: 12px;
+            padding: 5px;
         }
 
         .param-table .th-name {
-            width: 140px;
+            min-width: 140px;
         }
 
         .param-table .th-identifier {
-            width: 140px;
+            min-width: 140px;
         }
 
         .param-table .th-type {
-            width: 100px;
+            min-width: 100px;
         }
 
         .param-table .th-remark {
-            width: 200px;
+            min-width: 200px;
         }
 
-        .param-table .td-name {
-        }
+        .param-table .td-name {}
 
-        .param-table .td-identifier {
-        }
+        .param-table .td-identifier {}
 
-        .param-table .td-type {
-            color: #990000;
-        }
+        .param-table .td-type   { color: #990000; }
 
-        .param-table .td-remark {
-            color: #666;
-        }
+        .param-table .td-remark { color: #666; }
 
-        .param-table .tr-level-1 {
-            background: #E6E6E6;
-        }
+        .param-table .tr-level-1 { background: #F5F5F5; }
+        .param-table .tr-level-1 .td-identifier { padding-left: 5px; }
 
-        .param-table .tr-level-2 {
-            background: silver;
-        }
+        .param-table .tr-level-2 { background: #E6E6E6; }
+        .param-table .tr-level-2 .td-identifier { padding-left: 15px; }
 
-        .param-table .tr-level-3 {
-            background: gray;
-        }
+        .param-table .tr-level-3 { background: #CCCCCC; }
+        .param-table .tr-level-3 .td-identifier { padding-left: 25px; }
 
-        .param-table .tr-level-4 {
-            background: silver;
-        }
+        .param-table .tr-level-4 { background: #E6E6E6; }
+        .param-table .tr-level-4 .td-identifier { padding-left: 35px; }
 
-        .param-table .tr-level-5 {
-            background: gray;
-        }
+        .param-table .tr-level-5 { background: #CCCCCC; }
+        .param-table .tr-level-5 .td-identifier { padding-left: 45px; }
 
-        .param-table .tr-level-6 {
-            background: silver;
-        }
+        .param-table .tr-level-6 { background: #E6E6E6; }
+        .param-table .tr-level-6 .td-identifier { padding-left: 55px; }
 
-        .param-table .tr-level-7 {
-            background: gray;
-        }
+        .param-table .tr-level-7 { background: #CCCCCC; }
+        .param-table .tr-level-7 .td-identifier { padding-left: 65px; }
 
-        .param-table .tr-level-8 {
-            background: silver;
-        }
+        .param-table .tr-level-8 { background: #E6E6E6; }
+        .param-table .tr-level-8 .td-identifier { padding-left: 75px; }
 
-        .param-table .tr-level-9 {
-            background: gray;
-        }
+        .param-table .tr-level-9 { background: #CCCCCC; }
+        .param-table .tr-level-9 .td-identifier { padding-left: 85px; }
 
-        .param-table .tr-level-10 {
-            background: silver;
-        }
+        .param-table .tr-level-10 { background: #E6E6E6; }
+        .param-table .tr-level-10 .td-identifier { padding-left: 95px; }
 
         .param-table .tr-level-11 {
-            background: gray;
+            background: #CCCCCC;
         }
+        .param-table .tr-level-11 .td-identifier { padding-left: 105px; }
 
         .param-table .tr-level-12 {
-            background: silver;
+            background: #E6E6E6;
         }
+        .param-table .tr-level-12 .td-identifier { padding-left: 115px; }
 
         .param-table .tr-level-13 {
-            background: gray;
+            background: #CCCCCC;
         }
+        .param-table .tr-level-13 .td-identifier { padding-left: 125px; }
     </style>
 </head>
 <body>
@@ -128,14 +117,18 @@
                         <div class="action">
                             <h3>$moduleNo.$pageNo.$actionNo&nbsp;$action.name</h3>
 
-                            <h3>Description</h3>
-
-                            <div>$action.description</div>
                             <h3>URL</h3>
-
                             <div>$action.requestUrl</div>
+
+                            <h3>Method</h3>
+                            <div>$action.getMethod()</div>
+
+                            <h3>Description</h3>
+                            <div>$action.description</div>
+
                             <h3>Request Param List</h3>
                             $action.requestParameterListHTML
+
                             <h3>Response Param List</h3>
                             $action.responseParameterListHTML
                         </div>

@@ -73,6 +73,7 @@ public class ProjectDaoImpl extends HibernateDaoSupport implements ProjectDao {
         Object project = session.get(Project.class, id);
         if (project != null) {
             session.delete(project);
+            session.flush();
             return 0;
         } else {
             return -1;

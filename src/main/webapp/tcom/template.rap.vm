@@ -35,9 +35,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/"><i class="iconlogo mi-rap"></i> <span class="logo-text"><span id="rap-logo-text">RAP</span> v0.<span
-                        style="">14.<span style="color:#CC0000;">5</span></span><span
-                        style="color:#cc0000;font-size:10px;">&nbsp;&nbsp;beta</span></span></a>
+                <a class="navbar-brand" href="/">
+                    <i class="iconlogo mi-rap"></i>
+                    <span class="logo-text">
+                        <span id="rap-logo-text">RAP</span> 
+                        <span>v0.14.6</span>
+                        <span style="color:#cc0000; font-size:10px;">&nbsp;&nbsp;beta</span></span>
+                </a>
             </div>
             <div class="collapse navbar-collapse" id="global-navbar">
                 <ul class="nav navbar-nav">
@@ -51,26 +55,30 @@
                                 <a href="#" class="_createTeamBtn"><span
                                         class="glyphicon glyphicon-plus"></span>创建团队</a>
                             #end
-                            <ul class="dropdown-menu teams">
-                                #foreach($corp in $_corpList)
-                                    <li><a href="$projectUrl.allProductlineList?id=$corp.id">#if($corp.accessType==20)
-                                        <span class="glyphicon glyphicon-exclamation-sign"
-                                              title="公开团队,所有RAP用户均可访问,请注意数据安全."></span>&nbsp;&nbsp;#end$!utils.escapeInH($corp.nameStr)
-                                    </a></li>
-                                #end
-                                <div style="clear:both;"></div>
-                                <li style="text-align:center;">
-                                    <button onclick="window.location.href = '$teamUrl.teams';"
-                                            class="btn btn-default btn-sm"><span
-                                            class="glyphicon glyphicon-th-list"></span>全部团队
-                                    </button>
-                                </li>
-                                <li style="text-align:center;">
-                                    <button class="btn btn-primary btn-sm _createTeamBtn"><span
-                                            class="glyphicon glyphicon-plus"></span>创建团队
-                                    </button>
-                                </li>
-                            </ul>
+                            <div class="dropdown-menu teams">
+                                <ul class="dropdown-menu teams-list">
+                                    #foreach($corp in $_corpList)
+                                        <li><a href="$projectUrl.allProductlineList?id=$corp.id">#if($corp.accessType==20)
+                                            <span class="glyphicon glyphicon-exclamation-sign"
+                                                  title="公开团队,所有RAP用户均可访问,请注意数据安全." data-container="body"></span>&nbsp;&nbsp;#end$!utils.escapeInH($corp.nameStr)
+                                        </a></li>
+                                    #end
+                                    <div style="clear:both;"></div>
+                                </ul>
+                                <ul class="dropdown-menu teams-toolbar">
+                                    <li style="text-align:center;">
+                                        <button onclick="window.location.href = '$teamUrl.teams';"
+                                                class="btn btn-default btn-sm"><span
+                                                class="glyphicon glyphicon-th-list"></span>全部团队
+                                        </button>
+                                    </li>
+                                    <li style="text-align:center;">
+                                        <button class="btn btn-primary btn-sm _createTeamBtn"><span
+                                                class="glyphicon glyphicon-plus"></span>创建团队
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                         <!-- <li><a href="$projectUrl.myProjectList">我的项目</a></li>
                          <li><a href="$projectUrl.allProductlineList">产品线管理</a></li> -->
@@ -328,14 +336,14 @@
 
 </script>
 <script type="text/tmpl" id="user-auto-list">
-	<ul class="autocompleter">
-		{{#users}}
-			<li data-account="{{account}}" data-name="{{name}}" {{^block}}title="{{account}} ({{name}})"{{/block}}{{#block}} data-block="true"{{/block}}>
-				{{#block}}没有更多匹配数据{{/block}}
-				{{^block}}{{account}} ({{name}}){{/block}}
-			</li>
-		{{/users}}
-	</ul>
+    <ul class="autocompleter">
+        {{#users}}
+            <li data-account="{{account}}" data-name="{{name}}" {{^block}}title="{{account}} ({{name}})"{{/block}}{{#block}} data-block="true"{{/block}}>
+                {{#block}}没有更多匹配数据{{/block}}
+                {{^block}}{{account}} ({{name}}){{/block}}
+            </li>
+        {{/users}}
+    </ul>
 
 </script>
 <script type="text/tmpl" id="user-item-tmpl">
@@ -403,5 +411,11 @@
     }, 2000);
 
     _bindTemplateEvents();
+</script>
+<script>
+    function responsiveTeamList() {
+        // TODO
+    }
+    responsiveTeamList()
 </script>
 #end
