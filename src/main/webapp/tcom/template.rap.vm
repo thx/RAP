@@ -60,7 +60,7 @@
                                     #foreach($corp in $_corpList)
                                         <li><a href="$projectUrl.allProductlineList?id=$corp.id">#if($corp.accessType==20)
                                             <span class="glyphicon glyphicon-exclamation-sign"
-                                                  title="公开团队,所有RAP用户均可访问,请注意数据安全."></span>&nbsp;&nbsp;#end$!utils.escapeInH($corp.nameStr)
+                                                  title="公开团队,所有RAP用户均可访问,请注意数据安全." data-container="body"></span>&nbsp;&nbsp;#end$!utils.escapeInH($corp.nameStr)
                                         </a></li>
                                     #end
                                     <div style="clear:both;"></div>
