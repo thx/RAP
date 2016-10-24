@@ -55,26 +55,30 @@
                                 <a href="#" class="_createTeamBtn"><span
                                         class="glyphicon glyphicon-plus"></span>创建团队</a>
                             #end
-                            <ul class="dropdown-menu teams">
-                                #foreach($corp in $_corpList)
-                                    <li><a href="$projectUrl.allProductlineList?id=$corp.id">#if($corp.accessType==20)
-                                        <span class="glyphicon glyphicon-exclamation-sign"
-                                              title="公开团队,所有RAP用户均可访问,请注意数据安全."></span>&nbsp;&nbsp;#end$!utils.escapeInH($corp.nameStr)
-                                    </a></li>
-                                #end
-                                <div style="clear:both;"></div>
-                                <li style="text-align:center;">
-                                    <button onclick="window.location.href = '$teamUrl.teams';"
-                                            class="btn btn-default btn-sm"><span
-                                            class="glyphicon glyphicon-th-list"></span>全部团队
-                                    </button>
-                                </li>
-                                <li style="text-align:center;">
-                                    <button class="btn btn-primary btn-sm _createTeamBtn"><span
-                                            class="glyphicon glyphicon-plus"></span>创建团队
-                                    </button>
-                                </li>
-                            </ul>
+                            <div class="dropdown-menu teams">
+                                <ul class="dropdown-menu teams-list">
+                                    #foreach($corp in $_corpList)
+                                        <li><a href="$projectUrl.allProductlineList?id=$corp.id">#if($corp.accessType==20)
+                                            <span class="glyphicon glyphicon-exclamation-sign"
+                                                  title="公开团队,所有RAP用户均可访问,请注意数据安全."></span>&nbsp;&nbsp;#end$!utils.escapeInH($corp.nameStr)
+                                        </a></li>
+                                    #end
+                                    <div style="clear:both;"></div>
+                                </ul>
+                                <ul class="dropdown-menu teams-toolbar">
+                                    <li style="text-align:center;">
+                                        <button onclick="window.location.href = '$teamUrl.teams';"
+                                                class="btn btn-default btn-sm"><span
+                                                class="glyphicon glyphicon-th-list"></span>全部团队
+                                        </button>
+                                    </li>
+                                    <li style="text-align:center;">
+                                        <button class="btn btn-primary btn-sm _createTeamBtn"><span
+                                                class="glyphicon glyphicon-plus"></span>创建团队
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                         <!-- <li><a href="$projectUrl.myProjectList">我的项目</a></li>
                          <li><a href="$projectUrl.allProductlineList">产品线管理</a></li> -->
@@ -403,5 +407,11 @@
     }
 
     _bindTemplateEvents();
+</script>
+<script>
+    function responsiveTeamList() {
+        // TODO
+    }
+    responsiveTeamList()
 </script>
 #end
