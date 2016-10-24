@@ -35,9 +35,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/"><i class="iconlogo mi-rap"></i> <span class="logo-text"><span id="rap-logo-text">RAP</span> v0.<span
-                        style="">14.<span style="color:#CC0000;">5</span></span><span
-                        style="color:#cc0000;font-size:10px;">&nbsp;&nbsp;beta</span></span></a>
+                <a class="navbar-brand" href="/">
+                    <i class="iconlogo mi-rap"></i>
+                    <span class="logo-text">
+                        <span id="rap-logo-text">RAP</span> 
+                        <span>v0.14.6</span>
+                        <span style="color:#cc0000; font-size:10px;">&nbsp;&nbsp;beta</span></span>
+                </a>
             </div>
             <div class="collapse navbar-collapse" id="global-navbar">
                 <ul class="nav navbar-nav">
@@ -328,14 +332,14 @@
 
 </script>
 <script type="text/tmpl" id="user-auto-list">
-	<ul class="autocompleter">
-		{{#users}}
-			<li data-account="{{account}}" data-name="{{name}}" {{^block}}title="{{account}} ({{name}})"{{/block}}{{#block}} data-block="true"{{/block}}>
-				{{#block}}没有更多匹配数据{{/block}}
-				{{^block}}{{account}} ({{name}}){{/block}}
-			</li>
-		{{/users}}
-	</ul>
+    <ul class="autocompleter">
+        {{#users}}
+            <li data-account="{{account}}" data-name="{{name}}" {{^block}}title="{{account}} ({{name}})"{{/block}}{{#block}} data-block="true"{{/block}}>
+                {{#block}}没有更多匹配数据{{/block}}
+                {{^block}}{{account}} ({{name}}){{/block}}
+            </li>
+        {{/users}}
+    </ul>
 
 </script>
 <script type="text/tmpl" id="user-item-tmpl">
