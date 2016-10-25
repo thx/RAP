@@ -54,9 +54,22 @@
 
             } else if (typeof arguments[0] === 'string' &&
                 typeof arguments[1] === undefined) {
+                // process ajax(url)
                 oOptions = arguments[0] = {
                     url: arguments[0]
                 };
+            }
+
+            function doit(data) {
+                data = Mock.mock(data);
+                if (data.__root__ != undefined) {
+                    data = data.__root__;
+                }
+                if (!disableLog) {
+                    console.log('请求' + url + '返回的Mock数据:');
+                    console.dir(data);
+                }
+                return data
             }
 
             var url = oOptions.url;
@@ -66,32 +79,9 @@
                 var oldSuccess1 = oOptions.success;
                 oldSuccess1 && (oOptions.success = function (data) {
                     if (PREFIX == '/mockjs/') {
-                        data = Mock.mock(data);
-                        if (data.__root__ != undefined) {
-                            data = data.__root__;
-                        }
-                        if (!disableLog) {
-                            console.log('请求' + url + '返回的Mock数据:');
-                            console.dir(data);
-                        }
-
+                        data = doit(data)
                     }
                     oldSuccess1.apply(this, arguments);
-                });
-
-                var oldComplete = oOptions.complete;
-                oldComplete && (oOptions.complete = function () {
-                    // if (PREFIX == '/mockjs/') {
-                    //     data = Mock.mock(data);
-                    //     if (data.__root__) {
-                    //         data = data.__root__;
-                    //     }
-                    //     if (!disableLog) {
-                    //         console.log('请求' + url + '返回的Mock数据:');
-                    //         console.dir(data);
-                    //     }
-                    // }
-                    oldComplete.apply(this, arguments);
                 });
             } else if (isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
                 var checkerOptions = {url: oOptions.url};
@@ -114,29 +104,36 @@
             var rv = ajax.apply(this, arguments);
             if (routePassed) {
                 var oldDone = rv.done;
-                oldDone && (rv.done = function (data) {
+                oldDone && (rv.done = function () {
                     var oldCb = arguments[0];
                     var args = arguments;
                     if (oldCb) {
                         args[0] = function (data) {
                             if (PREFIX == '/mockjs/') {
-                                data = Mock.mock(data);
-                                if (data.__root__ != undefined) {
-                                    data = data.__root__;
-                                }
-                                if (!disableLog) {
-                                    console.log('请求' + url + '返回的Mock数据:');
-                                    console.dir(data);
-                                }
+                                data = doit(data)
                             }
                             oldCb.apply(this, arguments);
                         };
                     }
                     oldDone.apply(this, args);
+                    return rv;
+                });
+                var oldThen = rv.then;
+                oldThen && (rv.then = function () {
+                    var oldCb = arguments[0];
+                    var args = arguments;
+                    if (oldCb) {
+                        args[0] = function (data) {
+                            if (PREFIX == '/mockjs/') {
+                                data = doit(data)
+                            }
+                            oldCb.apply(this, arguments);
+                        };
+                    }
+                    oldThen.apply(this, args);
+                    return rv;
                 });
             }
-
-
             return rv;
         };
     }
@@ -150,7 +147,6 @@
         if (window.jQuery) {
             wrapJQuery(window.jQuery);
         }
-
 
         /**
          * kissy override
@@ -183,20 +179,6 @@
                                 }
                                 oldSuccess1.apply(this, arguments);
                             });
-                            var oldComplete = oOptions.complete;
-                            oldComplete && (oOptions.complete = function () {
-                                // if (PREFIX == '/mockjs/') {
-                                //     data = Mock.mock(data);
-                                //     if (data.__root__) {
-                                //         data = data.__root__;
-                                //     }
-                                //     if (!disableLog) {
-                                //         console.log('请求' + url + '返回的Mock数据:');
-                                //         console.dir(data);
-                                //     }
-                                // }
-                                oldComplete.apply(this, arguments);
-                            });
                         } else if (isInWhiteList(url) && !oOptions.RAP_NOT_TRACK) {
                             var checkerOptions = {url: oOptions.url};
                             rapUrlConverterKissy(checkerOptions);
@@ -214,7 +196,6 @@
                                 IO(checkerOptions);
                                 oldSuccess2.apply(this, arguments);
                             };
-
                         }
                     }
                     IO.apply(this, arguments);
@@ -256,10 +237,8 @@
             };
 
             if (KISSY.IO || KISSY.io || KISSY.ajax) {
-                KISSY.use('rap_io', function () {
-                });
+                KISSY.use('rap_io', function () {});
             }
-
         }
     }
 

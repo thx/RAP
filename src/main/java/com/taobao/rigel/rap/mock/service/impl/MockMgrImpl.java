@@ -30,6 +30,7 @@ public class MockMgrImpl implements MockMgr {
 
     private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(MockMgrImpl.class);
     private final String ERROR_PATTERN = "{\"isOk\":false,\"msg\":\"路径为空，请查看是否接口未填写URL.\"}";
+    private final String ERROR_SEARCH = "{\"isOk\":false,\"msg\":\"请求参数不合法。\"}"; // 请查看是否含有 script、img、iframe 等标签
     private ProjectDao projectDao;
     private ProjectMgr projectMgr;
     private MockDao mockDao;
@@ -105,6 +106,25 @@ public class MockMgrImpl implements MockMgr {
         }
         if (path.isEmpty()) {
             return false;
+        }
+
+        return true;
+    }
+
+    private boolean isSearchLegal(String pattern) throws UnsupportedEncodingException {
+        if (pattern == null || pattern.isEmpty()) {
+            return true;
+        }
+
+        String search = pattern;
+        if (search.contains("?")) {
+            search = search.substring(search.indexOf("?"));
+            search = URLDecoder.decode(search, "UTF-8");
+            if(search.toLowerCase().indexOf("<img") != -1) return false;
+            if(search.toLowerCase().indexOf("<script") != -1) return false;
+            if(search.toLowerCase().indexOf("</script>") != -1) return false;
+            if(search.toLowerCase().indexOf("<iframe") != -1) return false;
+            if(search.toLowerCase().indexOf("</iframe>") != -1) return false;
         }
 
         return true;
@@ -302,6 +322,9 @@ public class MockMgrImpl implements MockMgr {
                                Map<String, Object> options) throws UnsupportedEncodingException {
         if (!isPatternLegal(pattern)) {
             return ERROR_PATTERN;
+        }
+        if (!isSearchLegal(pattern)) {
+            return ERROR_SEARCH;
         }
         String originalPattern = pattern;
         boolean loadRule = false;
