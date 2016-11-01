@@ -124,17 +124,17 @@
 
     <!-- Example row of columns -->
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-md-4">
             <h2>轻松编辑与分享</h2>
 
             <p>可视化编辑，完善的版本控制，各种格式的导入导出。让前后端约定接口的工作变得十分简单 </p>
         </div>
-        <div class="col-lg-4">
+        <div class="col-md-4">
             <h2>Mock服务</h2>
 
-            <p>RAP会自动根据接口文档生成MOCK接口，这些接口会自动生成模拟数据，支持复杂的生成逻辑。</p>
+            <p>RAP会自动根据接口文档生成Mock接口，这些接口会自动生成模拟数据，支持复杂的生成逻辑。</p>
         </div>
-        <div class="col-lg-4">
+        <div class="col-md-4">
             <h2>实力的保障</h2>
 
             <p>覆盖阿里几乎所有部门，有200+公司正在使用RAP，历经4年积累大量经验，可适应各种复杂的业务场景。</p>
