@@ -234,8 +234,16 @@
 #end
 ## master page end
 #macro (bodyEnd)
-    <footer style="margin-top:8px;">
-        <p><span id="_logOnline">-</span> 人在使用RAP, 今日Mock服务被调用 <span id="_logMockNumToday">-</span> 次&nbsp;&nbsp;旺旺群支持:582755829&nbsp;&nbsp;感谢<a href="https://www.aliyun.com/" target="_blank">阿里云</a>赞助
+    <footer style="margin-top: 40px; text-align: center;">
+        <p>
+            <span id="_logOnline">-</span>
+            <span>人在使用 RAP，今日 Mock 服务被调用</span>
+            <span id="_logMockNumToday">-</span>
+            <span>次</span>
+            <span style="margin-left: 10px;">旺旺群支持：582755829</span>
+            <span style="margin-left: 10px;">
+                感谢<a href="https://www.aliyun.com/" target="_blank">阿里云</a>赞助
+            </span>
             <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
             document.write(unescape("%3Cspan id='cnzz_stat_icon_5879641'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D5879641%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
         </p>
