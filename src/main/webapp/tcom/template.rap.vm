@@ -24,8 +24,16 @@
     }
 </script>
 
+    <div>
+        <a href="http://click.aliyun.com/m/7223/" target="_blank">
+            <div style="text-align: center; background-color: #020539;">
+                <img src="https://img.alicdn.com/tps/TB1S2XHOXXXXXayXFXXXXXXXXXX-760-50.jpg">
+            </div>
+        </a>
+    </div>
+
     #if(!$hide)
-    <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="navbar navbar-inverse" role="navigation"><!-- navbar-fixed-top -->
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -247,11 +255,6 @@
             <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
             document.write(unescape("%3Cspan id='cnzz_stat_icon_5879641'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D5879641%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
         </p>
-        <div style="text-align: center;">
-            <a href="http://click.aliyun.com/m/7223/" target="_blank">
-                <img src="https://img.alicdn.com/tps/TB1m7hhOXXXXXbUapXXXXXXXXXX-340-180.jpg">
-            </a>
-        </div>
     </footer>
     <script>
         function _logData() {
