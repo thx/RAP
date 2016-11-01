@@ -6,7 +6,7 @@
 
     <groupId>groupId</groupId>
     <artifactId>RAP</artifactId>
-    <version>0.14.7-SNAPSHOT</version>
+    <version>0.14.9-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <dependencies>
