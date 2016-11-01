@@ -33,7 +33,7 @@
     </div>
 
     #if(!$hide)
-    <div class="navbar navbar-inverse" role="navigation"><!-- navbar-fixed-top -->
+    <div class="navbar navbar-inverse" role="navigation" style="border-radius: 0;"><!-- navbar-fixed-top -->
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
