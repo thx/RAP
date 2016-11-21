@@ -6,7 +6,7 @@
 
     <groupId>groupId</groupId>
     <artifactId>RAP</artifactId>
-    <version>0.14.11-SNAPSHOT</version>
+    <version>0.14.12-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <dependencies>
@@ -25,7 +25,7 @@
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-core</artifactId>
-            <version>2.3.24.1</version>
+            <version>2.3.30</version>
             <exclusions>
                 <exclusion>
                     <artifactId>javassist</artifactId>
@@ -77,7 +77,7 @@
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-spring-plugin</artifactId>
-            <version>2.3.24.1</version>
+            <version>2.3.30</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -180,6 +180,14 @@
             <groupId>antlr</groupId>
             <artifactId>antlr</artifactId>
             <version>2.7.7</version>
+        </dependency>
+        <!-- kaptcha -->
+        <dependency>
+            <groupId>com.google.code.kaptcha</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>2.3</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/kaptcha-2.3.jar</systemPath>
         </dependency>
     </dependencies>
     <build>
