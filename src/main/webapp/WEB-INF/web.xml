@@ -151,6 +151,56 @@
         </listener-class>
     </listener>
 
+    <!-- Kaptcha -->
+    <servlet>
+        <servlet-name>Kaptcha</servlet-name>
+        <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+        <init-param>
+            <param-name>kaptcha.image.width</param-name>
+            <param-value>200</param-value>
+        </init-param>
+        <init-param>
+            <param-name>kaptcha.image.height</param-name>
+            <param-value>50</param-value>
+        </init-param>
+        <init-param>
+            <param-name>kaptcha.textproducer.font.size</param-name>
+            <param-value>40</param-value>
+        </init-param>
+        <init-param>
+            <param-name>kaptcha.textproducer.char.length</param-name>
+            <param-value>4</param-value>
+        </init-param>
+        <init-param>
+            <param-name>kaptcha.border</param-name>
+            <param-value>no</param-value>
+        </init-param>
+        <init-param>
+            <param-name>kaptcha.textproducer.font.color</param-name>
+            <param-value>black</param-value>
+        </init-param>
+        <init-param>
+            <param-name>kaptcha.textproducer.char.space</param-name>
+            <param-value>10</param-value>
+        </init-param>
+        <init-param>
+            <param-name>kaptcha.obscurificator.impl</param-name>
+            <param-value>com.google.code.kaptcha.impl.ShadowGimpy</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Kaptcha</servlet-name>
+        <url-pattern>/Kaptcha.jpg</url-pattern>
+    </servlet-mapping>
+    <filter>  
+        <filter-name>KaptchaAction</filter-name>  
+        <filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>  
+    </filter>  
+    <filter-mapping>  
+        <filter-name>KaptchaAction</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping>
+
     <session-config>
         <session-timeout>60</session-timeout>
     </session-config>

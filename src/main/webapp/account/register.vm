@@ -59,6 +59,13 @@
                 </p>
             </div>
         </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">验证码</label>
+            <div class="col-sm-10">
+                <input name="kaptcha" class="form-control" type="text" value="" placeholder="请输入验证码"/>
+                <img src="/Kaptcha.jpg" onclick="this.src='/Kaptcha.jpg?' + Math.random()" style="margin-top: 5px;">
+            </div>
+        </div>
         <div class="form-group row">
             <label class="col-sm-2 control-label"></label>
 
