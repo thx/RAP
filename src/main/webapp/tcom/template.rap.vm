@@ -47,7 +47,7 @@
                     <i class="iconlogo mi-rap"></i>
                     <span class="logo-text">
                         <span id="rap-logo-text">RAP</span> 
-                        <span>v0.14.11</span>
+                        <span>v0.14.12</span>
                         <span style="color:#cc0000; font-size:10px;">&nbsp;&nbsp;beta</span></span>
                 </a>
             </div>
@@ -173,6 +173,8 @@
                                                   </label>
                                                 </div>http://rap.xintuzaojiu.com/org/index.do
                                             </div> -->
+                                            <input name="kaptcha" class="form-control" type="text" value="" placeholder="请输入验证码" style="width:200px;margin-top:10px;">
+                                            <img src="/Kaptcha.jpg" onclick="this.src='/Kaptcha.jpg?' + Math.random()" style="margin-top: 5px;">
                                             <div style="margin-top: 10px;">
                                                 <button type="submit" class="btn btn-primary" id="login-btn">登录</button>
                                                 <button type="button" class="btn btn-default" id="cancel-login-btn"
@@ -209,6 +211,8 @@
                                             <input class="span2 form-control" style="width:200px;margin-top:10px;"
                                                    type="password" placeholder="密码确认" required name="passwordConfirm"
                                                    id="register-password-confirm">
+                                            <input name="kaptcha" class="form-control" type="text" value="" placeholder="请输入验证码" style="width:200px;margin-top:10px;">
+                                            <img src="/Kaptcha.jpg" onclick="this.src='/Kaptcha.jpg?' + Math.random()" style="margin-top: 5px;">
 
                                             <div style="margin-top: 10px;">
                                                 <button type="submit" class="btn btn-primary" id="register-btn">注册

@@ -28,6 +28,11 @@
             <label for="passwordInput">密码</label>
             <input name="password" class="form-control" type="password" value="" placeholder="请输入密码"/>
         </div>
+        <div class="form-group">
+            <label for="kaptcha">验证码</label>
+            <input name="kaptcha" class="form-control" type="text" value="" placeholder="请输入验证码"/>
+            <img src="/Kaptcha.jpg" onclick="this.src='/Kaptcha.jpg?' + Math.random()" style="margin-top: 5px;">
+        </div>
         #if ($errMsg && $errMsg != "")
             <div class="form-group">
                 <div class="alert alert-danger">

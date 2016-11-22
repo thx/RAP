@@ -39,6 +39,8 @@ public class AccountAction extends ActionBase {
     private String profileValue;
     private boolean isEditMode = false;
 
+    public String kaptcha;
+
     public User getUser() {
         return user;
     }
@@ -286,6 +288,14 @@ public class AccountAction extends ActionBase {
         this.isEditMode = isEditMode;
     }
 
+    public String getKaptcha() {
+        return this.kaptcha;
+    }
+
+    public void setKaptcha(String kaptcha) {
+        this.kaptcha = kaptcha.trim();
+    }
+
     public String login() {
         // if logged in, log out automatically
         doLogout();
@@ -294,8 +304,15 @@ public class AccountAction extends ActionBase {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     public String doLogin() {
+        // 增加验证码
+        Map<String,Object> session = ContextManager.currentSession();
+        String kaptchaExpected = (String)session.get(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+        if(getKaptcha() == null || !getKaptcha().equals(kaptchaExpected)) {
+            setErrMsg("验证码错误");
+            return ERROR;
+        }
+
         if (super.getAccountMgr().validate(getAccount(), getPassword())) {
-            Map session = ContextManager.currentSession();
             User user = getAccountMgr().getUser(getAccount());
             if (user != null && user.getId() > 0) {
                 session.put(ContextManager.KEY_ACCOUNT, user.getAccount());
