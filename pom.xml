@@ -8,7 +8,11 @@
     <artifactId>RAP</artifactId>
     <version>0.14.12-SNAPSHOT</version>
     <packaging>war</packaging>
-
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
     <dependencies>
         <dependency>
             <groupId>redis.clients</groupId>
