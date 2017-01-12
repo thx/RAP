@@ -283,7 +283,7 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
 
     public int addCorporation(Corporation c) {
         Session session = currentSession();
-        Query query = session.createSQLQuery("INSERT INTO tb_corporation (`name`, logo_url, user_id, access_type, `desc`) VALUES (:name, :logoUrl, :userId, :accessType, :desc)");
+        Query query = session.createSQLQuery("INSERT INTO tb_corporation (`name`, logo_url, user_id, access_type, `description`) VALUES (:name, :logoUrl, :userId, :accessType, :desc)");
         query.setString("name", c.getName());
         query.setString("logoUrl", c.getLogoUrl());
         query.setInteger("userId", c.getUserId());
@@ -364,7 +364,7 @@ public class OrganizationDaoImpl extends HibernateDaoSupport implements
 
 
     public void updateCorporation(Corporation c) {
-        Query query = currentSession().createSQLQuery("UPDATE tb_corporation SET `name`=:name, `desc`=:desc, access_type=:accessType WHERE id=:id");
+        Query query = currentSession().createSQLQuery("UPDATE tb_corporation SET `name`=:name, `description`=:desc, access_type=:accessType WHERE id=:id");
         query.setString("name", c.getName());
         query.setString("desc", c.getDesc());
         query.setShort("accessType", c.getAccessType());

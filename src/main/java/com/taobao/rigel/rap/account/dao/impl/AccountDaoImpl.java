@@ -153,7 +153,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
     }
 
     public Map<String, String> getUserSettings(int userId) {
-        String sql = "SELECT `key`, `value` FROM tb_user_settings WHERE user_id = :userId";
+        String sql = "SELECT `setting` as `key`, `value` FROM tb_user_settings WHERE user_id = :userId";
         Query query = currentSession().createSQLQuery(sql);
         query.setInteger("userId", userId);
         List result = query.list();
@@ -169,7 +169,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
 
 
     public String getUserSetting(int userId, String key) {
-        String sql = "SELECT `value` FROM tb_user_settings WHERE user_id = :userId AND `key` = :key";
+        String sql = "SELECT `value` FROM tb_user_settings WHERE user_id = :userId AND `setting` = :key";
         Query query = currentSession().createSQLQuery(sql);
         query.setInteger("userId", userId);
         query.setString("key", key);
@@ -188,7 +188,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
             return;
         }
 
-        String sql = "UPDATE tb_user_settings SET `value` = :value WHERE user_id = :userId AND `key` = :key";
+        String sql = "UPDATE tb_user_settings SET `value` = :value WHERE user_id = :userId AND `setting` = :key";
         Query query = currentSession().createSQLQuery(sql);
         query.setString("value", value);
         query.setInteger("userId", userId);
@@ -197,7 +197,7 @@ public class AccountDaoImpl extends HibernateDaoSupport implements AccountDao {
     }
 
     private void addUserSetting(int userId, String key, String value) {
-        String sql = "INSERT INTO tb_user_settings (user_id, `key`, `value`) VALUES (:userId, :key, :value)";
+        String sql = "INSERT INTO tb_user_settings (user_id, `setting`, `value`) VALUES (:userId, :key, :value)";
         Query query = currentSession().createSQLQuery(sql);
         query.setInteger("userId", userId);
         query.setString("key", key);

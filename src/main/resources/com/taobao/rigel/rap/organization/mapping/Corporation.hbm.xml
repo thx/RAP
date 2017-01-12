@@ -20,7 +20,7 @@
             </column>
         </property>
         <property name="desc">
-            <column name="desc"/>
+            <column name="description"/>
         </property>
         <property name="accessType" type="short">
             <column name="access_type" not-null="true">
