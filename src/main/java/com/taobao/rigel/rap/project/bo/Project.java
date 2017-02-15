@@ -261,6 +261,7 @@ public class Project implements java.io.Serializable {
         stringBuilder.append("{\"createDateStr\":\"" + getCreateDateStr() + "\",");
         stringBuilder.append("\"user\":" + getUser() + ",");
         stringBuilder.append("\"id\":" + getId() + ",");
+        stringBuilder.append("\"relatedIds\":\"" + getRelatedIds() + "\",");
         stringBuilder.append("\"version\":\"" + getVersion() + "\",");
         stringBuilder.append("\"introduction\":\"" + StringUtils.escapeInJ(getIntroduction()) + "\",");
         stringBuilder.append("\"name\":\"" + StringUtils.escapeInJ(getName()) + "\",");
