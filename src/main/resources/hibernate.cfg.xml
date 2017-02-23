@@ -107,6 +107,9 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
                 <prop key="hibernate.show_sql">false</prop>
                 <prop key="hibernate.format_sql">false</prop>
                 <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+                <prop key="hibernate.cache.use_second_level_cache">true</prop>
+                <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+                <prop key="hibernate.cache.use_query_cache">true</prop>
             </props>
         </property>
     </bean>

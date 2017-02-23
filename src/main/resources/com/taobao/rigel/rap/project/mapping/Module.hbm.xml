@@ -4,6 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.taobao.rigel.rap.project.bo.Module" table="tb_module">
+        <cache usage="read-write"></cache>
         <id name="id">
             <column name="id"/>
             <generator class="identity"/>
@@ -16,6 +17,7 @@
         </property>
         <many-to-one name="project" column="project_id"/>
         <set name="pageList" order-by="id asc" inverse="true" cascade="delete">
+            <cache usage="read-write"></cache>
             <key column="module_id" not-null="true"/>
             <one-to-many class="com.taobao.rigel.rap.project.bo.Page"/>
         </set>
