@@ -4,7 +4,7 @@
  *                                                      *
  ********************************************************/
 var rap = rap || {};
-
+var projectOriData = null;
 // for compability... .bull shit
 baidu.ajax.post = function(url, q, func) {
     $.ajax({
@@ -1428,7 +1428,7 @@ function deepCopy(o) {
                 "moduleId"   : null,
                 "pageId"     : null,
                 "actionId"   : null,
-                "parameterId": null 
+                "parameterId": null
             };
 
             _debugCounter = 1;
@@ -2364,6 +2364,7 @@ function deepCopy(o) {
                     }
                     p.init(obj.projectData);
                     _data.projectDataOriginal = b.object.clone(obj.projectData);
+                    projectOriData = _data.projectDataOriginal;
                     setButtonsViewState(CONST.EDIT);
                     _isEditMode = true;
                     initModules();
@@ -2698,7 +2699,7 @@ function deepCopy(o) {
         b.ajax.post(URL.queryMockData, postData, function(xhr, response) {
             try {
                 // var obj = eval("(" + response + ")");
-                var mockRuleObj = eval('(' + response + ')'); 
+                var mockRuleObj = eval('(' + response + ')');
                 var mockDataObj  = Mock.mock(mockRuleObj);
                 me._mockRuleObj = mockRuleObj;
                 $('#mockRulePreviewFloater-container').val(JSON.stringify(mockRuleObj, null, 4));
@@ -2981,8 +2982,126 @@ function deepCopy(o) {
      * get projectData json string
      */
     function getProjectDataJson() {
-        return b.json.stringify(p.getData());
+        return b.json.stringify(getDiffProjectData());
     }
+
+    function getDiffProjectData() {
+        var diffProject = sortProjectData(p.getData());
+        projectOriData = sortProjectData(projectOriData);
+        var newModuleList = diffProject.moduleList;
+        diffProject.moduleList  = new Array();
+        if(b.json.stringify(newModuleList) === b.json.stringify(projectOriData.moduleList)){
+            console.log(diffProject);
+            console.log(projectOriData);
+            return diffProject;
+        }
+        for( var i = 0;i< newModuleList.length ; i++){
+            var tmpModule = newModuleList[i];
+            var moduleOri = getOriModule(projectOriData,tmpModule.id);
+            if(moduleOri != null && b.json.stringify(moduleOri) === b.json.stringify(tmpModule)){
+                continue;
+            }
+            if(moduleOri === null){
+                diffProject.moduleList.push(tmpModule);
+                continue;
+            }
+            var tmpPageList = tmpModule.pageList;
+            tmpModule.pageList = new Array();
+            for(var j = 0;j< tmpPageList.length ;j++){
+                var tmpPage = tmpPageList[j];
+                var pageOri = getOriPage(moduleOri,tmpPage.id);
+                if(pageOri != null && b.json.stringify(pageOri) === b.json.stringify(tmpPage)){
+                    continue;
+                }
+                if(pageOri === null){
+                    tmpModule.pageList.push(tmpPage);
+                    continue;
+                }
+                var tmpActionList = tmpPage.actionList;
+                tmpPage.actionList = new Array();
+                for(var k = 0;k<tmpActionList.length ;k++){
+                    var tmpAction = tmpActionList[k];
+                    var actionOri = getOriAction(pageOri,tmpAction.id);
+                    if(actionOri != null &&  b.json.stringify(actionOri) === b.json.stringify(tmpAction)){
+                        continue;
+                    }
+                    tmpPage.actionList.push(tmpAction);
+                }
+                tmpModule.pageList.push(tmpPage);
+            }
+            diffProject.moduleList.push(tmpModule);
+        }
+        return diffProject;
+    }
+
+    //对projectData 中的list按照id 排序
+    function sortProjectData(projectData){
+        projectData.moduleList.sort(function(a,b){
+            return a.id - b.id;
+        });
+        for (var i = 0;i < projectData.moduleList.length;i++){
+            projectData.moduleList[i].pageList.sort(function (a,b) {
+                return a.id - b.id;
+            });
+            for (var j = 0;j < projectData.moduleList[i].pageList.length;j++){
+                projectData.moduleList[i].pageList[j].actionList.sort(function (a,b) {
+                    return a.id - b.id;
+                });
+                for (var k = 0;k < projectData.moduleList[i].pageList[j].actionList.length;k++){
+                    projectData.moduleList[i].pageList[j].actionList[k].requestParameterList = sortParameterList(projectData.moduleList[i].pageList[j].actionList[k].requestParameterList);
+                    projectData.moduleList[i].pageList[j].actionList[k].responseParameterList = sortParameterList(projectData.moduleList[i].pageList[j].actionList[k].responseParameterList);
+                }
+            }
+        }
+        return projectData;
+    }
+
+    function sortParameterList(parameterList) {
+        parameterList.sort(function (a,b) {
+            return a.id - b.id;
+        });
+        for(var i = 0 ;i< parameterList.length;i++){
+            if(parameterList[i].parameterList != null && parameterList[i].parameterList.length != 0){
+                parameterList[i].parameterList = sortParameterList(parameterList[i].parameterList);
+            }
+        }
+        return parameterList;
+    }
+
+    function getOriModule(project,id) {
+        var list = project.moduleList,
+            n = list.length;
+        for (var i = 0; i < n; i++) {
+            if (list[i].id == id) {
+                return list[i];
+            }
+        }
+        return null;
+    }
+
+    function getOriPage(module,id) {
+        var pageList = module.pageList,
+            pageListNum = pageList.length;
+        for (var j = 0; j < pageListNum; j++) {
+            if (pageList[j].id == id) {
+                return pageList[j];
+            }
+        }
+        return null;
+    }
+
+    function getOriAction(page,id){
+        var actionList = page.actionList,
+            actionListCount = actionList.length;
+        for (var k = 0; k < actionListCount; k++) {
+            var action = actionList[k];
+            if (action.id == id) {
+                return action;
+            }
+        }
+        return null;
+    }
+
 
     /**
      * get div id
@@ -3176,7 +3295,7 @@ function deepCopy(o) {
             str2 = "";
 
         list.sort(modelSorterByName);
-        
+
         // clear old content
         div1.innerHTML = "";
         div2.innerHTML = "";
@@ -3685,7 +3804,7 @@ function deepCopy(o) {
             Object.keys(f).forEach(function(key) {
                 oldKey = key;
                 oldItem = f[key];
-                if (f[key] && f[key] instanceof Array && f[key].length > 1 
+                if (f[key] && f[key] instanceof Array && f[key].length > 1
                     && f[key][0] instanceof Object && f[key][0] !== null
                     && !(f[key][0] instanceof Array)) {
                     key = key + '|' + f[key].length;
@@ -4039,9 +4158,9 @@ function deepCopy(o) {
          * get action info html
          */
         function getAInfoHtml(a) {
-            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id 
-                + ") &nbsp;&nbsp;&nbsp;&nbsp;<button class=\"btn btn-danger btn-xs\" onclick=\"ws.showMockData(" 
-                + a.id + ");\">Mock数据</button></span> </h2><div class='action-info' href='#' onclick='ws.editA(" 
+            var head = "<h2 style='margin-top:20px;'>接口详情 <span style='font-size: 14px; color: #999;'>(id: " + a.id
+                + ") &nbsp;&nbsp;&nbsp;&nbsp;<button class=\"btn btn-danger btn-xs\" onclick=\"ws.showMockData("
+                + a.id + ");\">Mock数据</button></span> </h2><div class='action-info' href='#' onclick='ws.editA("
                 + a.id + "); return false;'>",
                 body = "",
                 foot = "</div>";
