@@ -406,6 +406,7 @@ public class WorkspaceAction extends ActionBase {
         project.setVersion(checkIn.getVersion());
         checkIn.setWorkspaceMode(Workspace.ModeType.VSS);
         workspaceMgr.addCheckIn(checkIn);
+        project.getCheckInList().add(checkIn);
 
         // calculate JSON string for client
         project = projectMgr.getProject(getId());
