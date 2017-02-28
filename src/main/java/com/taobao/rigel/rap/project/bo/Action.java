@@ -229,30 +229,52 @@ public class Action implements java.io.Serializable {
         html
                 .append("<table class=\"param-table\">")
                 .append("<thead>")
-                .append("<th class=\"th-name\">Name</th>")
-                .append("<th class=\"th-identifier\">Identifier</th>")
-                .append("<th class=\"th-type\">Type</th>")
-                .append("<th class=\"th-remark\">Remark</th>")
+                .append("<th class=\"th-name\">参数名</th>")
+                .append("<th class=\"th-type\">类型</th>")
+                .append("<th class=\"th-identifier\">说明</th>")
                 .append("</thead>");
         getParameterListHTMLSub(html, list, (short) 1);
-        html.append("</table>");
         return html.toString();
     }
 
     private void getParameterListHTMLSub(StringBuilder html, Set<Parameter> list, short level) {
+        Set<Parameter> objectParameters = new HashSet<Parameter>();
         for (Parameter p : list) {
             html
-                    .append("<tr class=\"tr-level-" + level + "\">")
-                    .append("<td class=\"td-name\">" + levelMark(level) + StringUtils.escapeInH(p.getName()) + "</td>")
-                    .append("<td class=\"td-identifier\">" + StringUtils.escapeInH(p.getIdentifier()) + "</td>")
+                    .append("<tr class=\"tr-level-\">")
+                    .append("<td class=\"td-identifier\">" +getIdentifier(StringUtils.escapeInH(p.getIdentifier())) + "</td>")
                     .append("<td class=\"td-type\">" + StringUtils.escapeInH(p.getDataType()) + "</td>")
-                    .append("<td class=\"td-remark\">" + StringUtils.escapeInH(p.getRemark()) + "</td>")
+                    .append("<td class=\"td-name\">" + StringUtils.escapeInH(p.getName()) + "</td>")
                     .append("</tr>");
-            if (p.getParameterList() != null || p.getParameterList().size() > 0) {
-                getParameterListHTMLSub(html, p.getParameterList(), (short) (level + 1));
+            if (p.getParameterList() != null && p.getParameterList().size() > 0) {
+                objectParameters.add(p);
+//                getParameterListHTMLSub(html, p.getParameterList(), (short) (level + 1));
             }
         }
+        html.append("</table>");
+        if (objectParameters != null&&objectParameters.size()>0) {
+            creatChildParameterListHTML(html,objectParameters,(short) (level + 1));
+        }
+    }
 
+    private String getIdentifier(String identifier){
+        if (identifier.contains("|")){
+            identifier = identifier.split("\\|")[0];
+        }
+        return identifier;
+    }
+
+    private void creatChildParameterListHTML(StringBuilder html, Set<Parameter> list, short level){
+        for (Parameter parameter : list) {
+            html    .append("&nbsp;&nbsp;&nbsp;"+getIdentifier(StringUtils.escapeInH(parameter.getIdentifier()))+"</br>")
+                    .append("<table class=\"param-table\">")
+                    .append("<thead>")
+                    .append("<th class=\"th-name\">参数名</th>")
+                    .append("<th class=\"th-type\">类型</th>")
+                    .append("<th class=\"th-identifier\">说明</th>")
+                    .append("</thead>");
+            getParameterListHTMLSub(html, parameter.getParameterList(), level);
+        }
     }
 
     /**

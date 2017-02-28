@@ -24,14 +24,6 @@
     }
 </script>
 
-    <div>
-        <a href="http://click.aliyun.com/m/7690/" target="_blank">
-            <div style="text-align: center; background-color: #020539;">
-                <img src="https://img.alicdn.com/tps/TB11hX1OpXXXXcLaXXXXXXXXXXX-760-50.jpg">
-            </div>
-        </a>
-    </div>
-
     #if(!$hide)
     <div class="navbar navbar-inverse" role="navigation" style="border-radius: 0;"><!-- navbar-fixed-top -->
         <div class="container">
@@ -173,8 +165,8 @@
                                                   </label>
                                                 </div>http://rap.xintuzaojiu.com/org/index.do
                                             </div> -->
-                                            <input name="kaptcha" class="form-control" type="text" value="" placeholder="请输入验证码" style="width:200px;margin-top:10px;">
-                                            <img src="/Kaptcha.jpg" onclick="this.src='/Kaptcha.jpg?' + Math.random()" style="margin-top: 5px;">
+                                            #*<input name="kaptcha" class="form-control" type="text" value="" placeholder="请输入验证码" style="width:200px;margin-top:10px;">
+                                            <img src="/Kaptcha.jpg" onclick="this.src='/Kaptcha.jpg?' + Math.random()" style="margin-top: 5px;">*#
                                             <div style="margin-top: 10px;">
                                                 <button type="submit" class="btn btn-primary" id="login-btn">登录</button>
                                                 <button type="button" class="btn btn-default" id="cancel-login-btn"

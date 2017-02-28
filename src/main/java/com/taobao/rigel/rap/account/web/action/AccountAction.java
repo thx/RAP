@@ -307,10 +307,10 @@ public class AccountAction extends ActionBase {
         // 增加验证码
         Map<String,Object> session = ContextManager.currentSession();
         String kaptchaExpected = (String)session.get(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
-        if(getKaptcha() == null || !getKaptcha().equals(kaptchaExpected)) {
-            setErrMsg("验证码错误");
-            return ERROR;
-        }
+//        if(getKaptcha() == null || !getKaptcha().equals(kaptchaExpected)) {
+//            setErrMsg("验证码错误");
+//            return ERROR;
+//        }
 
         if (super.getAccountMgr().validate(getAccount(), getPassword())) {
             User user = getAccountMgr().getUser(getAccount());
