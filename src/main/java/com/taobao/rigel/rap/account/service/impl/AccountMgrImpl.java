@@ -198,6 +198,8 @@ public class AccountMgrImpl implements AccountMgr {
         if (!accountDao.notificationExists(notification)) {
             accountDao.addNotification(notification);
         }
+        String[] cacheKey = new String[]{CacheUtils.KEY_NOTIFICATION, new Integer(notification.getUser().getId()).toString()};
+        CacheUtils.del(cacheKey);
     }
 
 
