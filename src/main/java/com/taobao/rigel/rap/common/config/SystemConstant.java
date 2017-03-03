@@ -3,12 +3,14 @@ package com.taobao.rigel.rap.common.config;
 import com.alibaba.platform.buc.sso.common.dto.SimpleSSOUser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.InitializingBean;
 
 import java.io.IOException;
 import java.util.Properties;
 
 
-public class SystemConstant {
+public class SystemConstant implements FactoryBean<Properties>, InitializingBean {
     private static final Logger logger = LogManager.getFormatterLogger(SystemConstant.class);
     public static final int DEFAULT_PAGE_SIZE = 12;
     public static final int ACCOUNT_LENGTH_MIN = 6;
@@ -61,4 +63,19 @@ public class SystemConstant {
     }
 
 
+    public Properties getObject() throws Exception {
+        return this.config;
+    }
+
+    public Class<?> getObjectType() {
+        return Properties.class;
+    }
+
+    public boolean isSingleton() {
+        return true;
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        loadConfig();
+    }
 }
