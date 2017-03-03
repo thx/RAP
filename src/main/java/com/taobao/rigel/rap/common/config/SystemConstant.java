@@ -44,6 +44,8 @@ public class SystemConstant {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             try {
                 config.load(loader.getResourceAsStream("config.properties"));
+                // 让VM参数设置可以覆盖
+                config.putAll(System.getProperties());
             } catch (IOException e) {
                 e.printStackTrace();
                 logger.error(e.getMessage());
