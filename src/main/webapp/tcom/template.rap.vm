@@ -24,6 +24,14 @@
     }
 </script>
 
+    <div>
+        <a href="http://click.aliyun.com/m/7690/" target="_blank">
+            <div style="text-align: center; background-color: #020539;">
+                <img src="https://img.alicdn.com/tps/TB11hX1OpXXXXcLaXXXXXXXXXXX-760-50.jpg">
+            </div>
+        </a>
+    </div>
+
     #if(!$hide)
     <div class="navbar navbar-inverse" role="navigation" style="border-radius: 0;"><!-- navbar-fixed-top -->
         <div class="container">
