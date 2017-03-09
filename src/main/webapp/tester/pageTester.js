@@ -64,6 +64,10 @@ YUI().use('handlebars', 'node', 'event', 'jsonp', 'jsonp-url', 'json-stringify',
 
             url = baseUrl + (baseUrl.indexOf('?') === -1 ? '?' : '&') + qArr.join('&');
             url = urlProcess(url);
+
+            rapUrl = rapUrl + (rapUrl.indexOf('?') === -1 ? '?' : '&') + qArr.join('&');
+            rapUrl = urlProcess(rapUrl);
+
             log('request starting, url: ' + color(wrapHref(url), LIGHT_GRAY));
             Y.timeLog.time = new Date().getTime();
             try {
