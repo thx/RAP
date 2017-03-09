@@ -198,7 +198,7 @@
                             };
                         }
                     }
-                    IO.apply(this, arguments);
+                    return IO.apply(this, arguments);
                 };
 
                 for (key in oldIO) {
