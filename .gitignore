@@ -6,3 +6,13 @@ build
 *.iml
 .DS_Store
 bak
+
+.settings
+.project
+.classpath
+target
+bin
+build
+
+*.class
+*.log
