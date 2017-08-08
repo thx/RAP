@@ -28,7 +28,6 @@ public class CacheUtils {
     public static final String KEY_STATISTICS_OF_TEAM = "KEY_STATISTICS_OF_TEAM";
 
     private static JedisPool jedisPool;
-    private static Jedis jedis;
 
     public CacheUtils() {}
 
@@ -39,12 +38,14 @@ public class CacheUtils {
             e.printStackTrace();
             logger.error(e.getMessage());
         }
-        jedis = jedisPool.getResource();
+        Jedis jedis = jedisPool.getResource();
         return jedis;
     }
 
-    private static void returnJedis() {
-        jedisPool.returnResourceObject(jedis);
+    private static void returnJedis(Jedis jedis) {
+
+//        jedisPool.returnResourceObject(jedis);
+        jedis.close();
     }
 
     /**
@@ -84,12 +85,12 @@ public class CacheUtils {
         String[] cacheKey1 = new String[]{KEY_MOCK_RULE, new Integer(id).toString()};
         String[] cacheKey2 = new String[]{KEY_MOCK_DATA, new Integer(id).toString()};
 
-        getJedis();
+        Jedis jedis = getJedis();
 
         jedis.del(StringUtils.join(cacheKey1, "|"));
         jedis.del(StringUtils.join(cacheKey2, "|"));
 
-        returnJedis();
+        returnJedis(jedis);
     }
 
     public static void put(String [] keys, String value, int expireInSecs) {
@@ -98,7 +99,7 @@ public class CacheUtils {
         jedis.set(cacheKey, value);
         if (expireInSecs > 0)
             jedis.expire(cacheKey, expireInSecs);
-        returnJedis();
+        returnJedis(jedis);
     }
 
     public static void put(String [] keys, String value) {
@@ -106,21 +107,22 @@ public class CacheUtils {
     }
 
     public static String get(String []keys) {
-
-        String cache =  getJedis().get(StringUtils.join(keys, "|"));
-        returnJedis();
+        Jedis jedis = getJedis();
+        String cache =  jedis.get(StringUtils.join(keys, "|"));
+        returnJedis(jedis);
         return cache;
     }
 
     public static void del(String[] keys) {
         String cacheKey = StringUtils.join(keys, "|");
-        getJedis().del(cacheKey);
-        returnJedis();
+        Jedis jedis = getJedis();
+        jedis.del(cacheKey);
+        returnJedis(jedis);
     }
 
     public static void init() {
-        getJedis();
+        Jedis jedis = getJedis();
         jedis.flushAll();
-        returnJedis();
+        returnJedis(jedis);
     }
 }
