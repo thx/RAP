@@ -1,0 +1,34 @@
+version: "3"
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+  db:
+    image: mysql:latest
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 880622
+  dbinit:
+    image: mysql:latest
+    entrypoint: /bin/bash
+    volumes:
+      - .:/host
+    command: -c "sleep 4; mysql -u root --password=880622 -h mysql < /host/init.sql; exit 0"
+    depends_on:
+      - db
+    links:
+      - db:mysql
+  app:
+    build: .
+    links:
+      - redis:redis
+      - db:mysql
+      - dbinit
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "80:80"
