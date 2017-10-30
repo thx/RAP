@@ -1,1 +1,0 @@
-echo "entrypoint.sh executed."
