@@ -9,8 +9,8 @@
     <script type="text/javascript" src="${staticRoot}/highcharts/js/highcharts.js"></script>
     <script type="text/javascript" src="${staticRoot}/js/util/dateFormat.min.js"></script>
     <script type="text/javascript" src="teamLog.js"></script>
-    <style type="text/css">
-        .tab-pane {
+    <style type="text/css">{
+        .tab-pane
             height: 350px;
         }
 
