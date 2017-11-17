@@ -41,7 +41,7 @@ public class WorkspaceAction extends ActionBase {
     private boolean accessable;
     private boolean mock;
     private int actionId;
-    private int id;
+    private Integer id;
     private String workspaceJsonString;
     private Workspace workspace;
     private VelocityEngine velocityEngine;
@@ -127,11 +127,11 @@ public class WorkspaceAction extends ActionBase {
         this.mock = mock;
     }
 
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
