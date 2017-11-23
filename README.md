@@ -2,7 +2,10 @@
 
 ### RAP2已发布
 
-[RAP2](https://github.com/thx/rap2)已正式发布，我们将逐步减少至停止对RAP项目的更新，请移步至RAP2获取最新的RAP版本，谢谢。 2017/11/21
+RAP2已正式发布，我们将逐步减少至停止对RAP项目的更新，请移步至RAP2获取最新的RAP版本，谢谢。 2017/11/21
+
+* [rap2-delos (rap2后端)](https://github.com/thx/rap2-delos)
+* [rap2-dolores (rap2前端)](https://github.com/thx/rap2-dolores)
 
 ### What is RAP?
 
