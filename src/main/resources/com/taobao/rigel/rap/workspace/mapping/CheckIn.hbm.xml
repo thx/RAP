@@ -4,6 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.taobao.rigel.rap.workspace.bo.CheckIn" table="tb_check_in">
+        <cache usage="read-write"></cache>
         <id name="id">
             <column name="id"/>
             <generator class="identity"/>

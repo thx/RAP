@@ -3,6 +3,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.taobao.rigel.rap.project.bo.Project" table="tb_project">
+        <cache usage="read-write"></cache>
         <id name="id">
             <column name="id"/>
             <generator class="identity"/>
@@ -67,21 +68,25 @@
         <many-to-one name="user" column="user_id" not-null="true"/>
 
         <set name="userList" order-by="user_id asc" table="tb_project_and_user">
+            <cache usage="read-write"></cache>
             <key column="project_id" not-null="true"/>
             <many-to-many column="user_id"
                           class="com.taobao.rigel.rap.account.bo.User"/>
         </set>
         <set name="moduleList" order-by="id asc" inverse="true" cascade="delete">
+            <cache usage="read-write"></cache>
             <key column="project_id" not-null="true"/>
             <one-to-many class="com.taobao.rigel.rap.project.bo.Module"/>
         </set>
 
         <set name="workspaceList" inverse="true" cascade="delete">
+            <cache usage="read-write"></cache>
             <key column="project_id" not-null="true"/>
             <one-to-many class="com.taobao.rigel.rap.workspace.bo.Workspace"/>
         </set>
 
         <set name="checkInList" inverse="true" cascade="delete">
+            <cache usage="read-write"></cache>
             <key column="project_id" not-null="true"/>
             <one-to-many class="com.taobao.rigel.rap.workspace.bo.CheckIn"/>
         </set>

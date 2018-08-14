@@ -14,7 +14,7 @@ import com.taobao.rigel.rap.project.service.ProjectMgr;
 import nl.flotsam.xeger.Xeger;
 import org.apache.logging.log4j.LogManager;
 import sun.misc.Cache;
-
+import org.codehaus.jackson.map.util.LRUMap;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.*;
@@ -27,7 +27,7 @@ public class MockMgrImpl implements MockMgr {
     interface Callback {
         void onSuccess(String result);
     }
-
+    private static LRUMap<String,String> ruleDataMapCache = new LRUMap<String, String>(1000,1000);
     private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(MockMgrImpl.class);
     private final String ERROR_PATTERN = "{\"isOk\":false,\"msg\":\"路径为空，请查看是否接口未填写URL.\"}";
     private final String ERROR_SEARCH = "{\"isOk\":false,\"msg\":\"请求参数不合法。\"}"; // 请查看是否含有 script、img、iframe 等标签
@@ -217,6 +217,10 @@ public class MockMgrImpl implements MockMgr {
     public String generateRuleData(final int projectId, String pattern,
                                    Map<String, Object> options) throws UnsupportedEncodingException {
         final String mockRule = generateRule(projectId, pattern, options);
+        String md5Rule = StringUtils.getMD5(mockRule);
+        if(ruleDataMapCache.containsKey(md5Rule)){
+            return ruleDataMapCache.get(md5Rule);
+        }
         String returnValue = null;
         ExecutorService executor = Executors.newSingleThreadExecutor();
         try {
@@ -237,8 +241,8 @@ public class MockMgrImpl implements MockMgr {
                     break;
                 }
 
-                Thread.sleep(100);
-                timeout -= 100;
+                Thread.sleep(10);
+                timeout -= 10;
             }
 
 
@@ -252,7 +256,9 @@ public class MockMgrImpl implements MockMgr {
         if (returnValue == null) {
             return "{\"isOk\":false, \"errMsg\":\"运行超时," + SystemSettings.MOCK_SERVICE_TIMEOUT + "毫秒都跑不完,服务器HOLD不住啊,亲的自定义函数是不是写的太夸张了啊...\"}";
         } else {
-            return StringUtils.chineseToUnicode(returnValue);
+            String ret = StringUtils.chineseToUnicode(returnValue);
+            ruleDataMapCache.put(md5Rule,ret);
+            return ret;
         }
     }
 
