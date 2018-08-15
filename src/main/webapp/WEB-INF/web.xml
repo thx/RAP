@@ -194,7 +194,7 @@
     </servlet-mapping>
     <filter>  
         <filter-name>KaptchaAction</filter-name>  
-        <filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>  
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
     </filter>  
     <filter-mapping>  
         <filter-name>KaptchaAction</filter-name>  
