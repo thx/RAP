@@ -1,5 +1,10 @@
 # RAP ![](https://api.travis-ci.org/thx/RAP.svg)
 
+### 该项目已暂停维护，请移步至RAP2
+### This project is deprecated, please move to RAP2
+* [rap2 repo](https://github.com/thx/rap2-delos)
+* [rap2 official](http://rap2.taobao.org)
+
 ### What is RAP?
 
 RAP is a web tool that allows web applcation developers to rapidly define and document web APIs that are used in typical RESTful-API based web applications. RAP can also be used to generate API mock data and run API services to enable front-end developers in writing and testing their front-end code that makes consumpiont of the predefined web API loaded with mock data, hence reducing the dependency from the backend development work. Meanwhile, backend developers can implement their backend code according to the defintion of API on their own pace to meet the quality and timeline requirements. With RAP, you can really do more with less.
