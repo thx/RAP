@@ -35,50 +35,53 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         </property>
     </bean>
 
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="driverClass">
-            <value>${jdbc.driverClassName}</value>
-        </property>
-        <property name="jdbcUrl">
-            <value>${jdbc.url}</value>
-        </property>
-        <property name="user">
-            <value>${jdbc.username}</value>
-        </property>
-        <property name="password">
-            <value>${jdbc.password}</value>
-        </property>
-        <property name="minPoolSize">
-            <value>5</value>
-        </property>
-        <property name="maxPoolSize">
-            <value>100</value>
-        </property>
-        <property name="initialPoolSize">
-            <value>10</value>
-        </property>
-        <property name="idleConnectionTestPeriod">
-            <value>60</value>
-        </property>
-        <property name="maxIdleTime">
-            <value>60</value>
-        </property>
-        <property name="acquireIncrement">
-            <value>5</value>
-        </property>
-        <property name="maxStatements">
-            <value>0</value>
-        </property>
-        <property name="checkoutTimeout">
-            <value>1000</value>
-        </property>
-        <property name="acquireRetryAttempts">
-            <value>30</value>
-        </property>
-        <property name="breakAfterAcquireFailure">
-            <value>true</value>
-        </property>
+
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="1" />
+        <property name="minIdle" value="1" />
+        <property name="maxActive" value="10" />
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="10000" />
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+
+        <property name="testWhileIdle" value="true" />
+
+        <!-- 这里建议配置为TRUE，防止取到的连接不可用 -->
+        <property name="testOnBorrow" value="true" />
+        <property name="testOnReturn" value="false" />
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="true" />
+        <property name="maxPoolPreparedStatementPerConnectionSize"
+                  value="20" />
+
+        <!-- 这里配置提交方式，默认就是TRUE，可以不用配置 -->
+
+        <property name="defaultAutoCommit" value="true" />
+
+        <!-- 验证连接有效与否的SQL，不同的数据配置不同 -->
+        <property name="validationQuery" value="select 1 " />
+
+
+
     </bean>
+
+
+
+
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
