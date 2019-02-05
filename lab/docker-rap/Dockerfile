@@ -8,7 +8,7 @@ LABEL desc="RAP docker image official"
 
 
 # Copy to images tomcat path
-ADD ROOT.zip $CATALINA_HOME/webapps/
+ADD ROOT.war $CATALINA_HOME/webapps/
 
 RUN /bin/bash -c 'rm -rf $CATALINA_HOME/webapps/ROOT'
 RUN /bin/bash -c 'ls $CATALINA_HOME/webapps/'
