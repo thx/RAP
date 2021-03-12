@@ -1,5 +1,7 @@
 # RAP ![](https://api.travis-ci.org/thx/RAP.svg)
 
+> 阿里妈妈 THX 团队新项目 GoGoCode：https://github.com/thx/gogocode 给批量修改项目代码减轻痛苦！
+
 ### 该项目已暂停维护，请移步至RAP2
 ### This project is deprecated, please move to RAP2
 * [rap2 repo](https://github.com/thx/rap2-delos)
